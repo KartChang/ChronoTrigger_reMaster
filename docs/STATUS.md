@@ -1,12 +1,21 @@
-# Cathedral rescue 0.6 — recovered publication candidate
+# Cathedral rescue 0.6 — published source / CI12 checkpoint
 
 **DEVELOPMENT CANDIDATE — FULL GAME IN PROGRESS; NOT 90-POINT ACCEPTED.**
+
+## Exact current checkpoint
+
+Published gameplay source: **2eec00c4a9e74c7873724217bd14f5087c42acf0**.
+Published source tree: **5f93fb2d04bfdfbef3511b0473ef7927d31ded24**; exactly matches the locally verified full tree. main moved by non-force fast-forward from 4a558dd448e8b794f498f9505059101a26889a90. Recovery and publication are complete; browser acceptance is not.
+
+Matching game **CI12 / 35243837438**, job **105278814517**, push event, one exact-SHA run. Last observed **in_progress**: npm ci and npm run check completed success; Playwright Chromium installation running; all seven browser journeys pending. No new v0.6 browser pass, final art acceptance or Pages deployment yet. This documentation-only checkpoint is not a second gameplay candidate and must not cause a duplicate dispatch.
+
+Current blocker is validation, not connector write access. Source now persists in GitHub; do not reconstruct it again from ZIP. Inspect this exact run on continuation. Do not wait indefinitely or infer completion from build success.
 
 ## Current work and authority
 
 Repository KartChang/ChronoTrigger_reMaster, main. This turn recovered the previously unpublished v0.6 source, not a newly invented second cathedral chapter. At start main was 4a558dd448e8b794f498f9505059101a26889a90 (tree 21f72a1f63165879ab01139cbc9a08c85f234b1b). Latest validated gameplay source remained a9b013c55e10f51aae6ffd268f93f7ee4c3848f0, CI11 / 35232983328. Latest observed Pages #3 / 35234477003 completed success, serving that 0.5.1 source. Do not claim v0.6 live before its matching game CI and separate deployment succeed.
 
-The previous write blockage is historical: current GitHub connector create_tree/create_blob actions succeeded without bypass. Objects are assembled into one complete source commit before non-force moving main. This file belongs to that source candidate; a subsequent documentation-only checkpoint records its exact SHA/run. Do not treat old failed-write wording in the uploaded ZIP as current authority.
+The previous write blockage is historical: current GitHub connector writes succeeded without bypass. All objects were verified as one complete source tree before the successful non-force main update. The source commit and exact CI are recorded above. Do not treat old failed-write wording in the uploaded ZIP as current authority.
 
 ## Recovery and actual fixes
 

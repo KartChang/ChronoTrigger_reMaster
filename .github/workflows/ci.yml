@@ -30,6 +30,8 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r tests/requirements.txt
       - run: python -m playwright install --with-deps chromium
+      - name: Test fresh home, overworld, first meeting and v6 saves
+        run: python tests/prologue_browser.py
       - name: Test original file and HTTP browser journeys
         run: python tests/browser_smoke.py
       - name: Test fair exploration, co-op battle and versioned saves

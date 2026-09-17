@@ -65,3 +65,14 @@ body[data-mode="explore"] .guest-panel{top:auto;bottom:60px;background:#17274bc9
 body[data-mode="explore"] .guest-panel small{display:none}
 body[data-mode="battle"] .actions:has([data-action="tonic"]:not([hidden])){display:grid;grid-template-columns:repeat(4,1fr)}
 @media(max-width:650px){.guest-panel{left:10px;top:145px;max-width:210px;font-size:10px}.guest-panel strong{font-size:13px}body[data-mode="explore"] .guest-panel{bottom:75px}body[data-mode="battle"] .actions button{padding:6px 3px;font-size:11px}}
+
+/* Battle feedback follows actual panel height, not a fixed two-row estimate. */
+body[data-adventure="true"][data-mode="battle"] .message {bottom:var(--party-clearance,240px);z-index:21;max-width:calc(100vw - 24px);max-height:calc(100vh - var(--party-clearance,240px) - 105px);overflow:auto;}
+#map-fade{position:fixed;inset:0;background:#12131b;z-index:22;pointer-events:none;}
+#dialog-choices{display:flex;gap:14px;justify-content:flex-end;}
+#dialog-choices[hidden]{display:none;}
+#dialog-choices button:focus-visible{outline:3px solid #e8c879;outline-offset:3px;}
+body[data-map-kind="overworld"] #party .player,body[data-map-kind="interior"] #party .player{display:none;}
+body[data-map-kind="overworld"] #party,body[data-map-kind="interior"] #party{display:flex;justify-content:center;}
+.start-screen .intro-actions{margin-top:12px;}
+@media(max-height:650px){.start-screen .intro h1{font-size:38px;margin:10px 0;}.start-screen .intro p,.start-screen .controls-note{font-size:12px;}.start-screen .intro-actions{margin-top:8px;}.start-screen .intro-index{display:none;}}

@@ -11,6 +11,7 @@ OUT=ROOT/'test-results'/'rescue'
 OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'test-results'/'kingdom'/'kingdom-save-v4.json'
 checks, errors, waits, requests=[], [], [], []
+feedback_geometry=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4181','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):checks.append(name);print('PASS',name,flush=True)
@@ -159,6 +160,15 @@ try:
             assert now['players'][0]['hp']>old['players'][0]['hp']
             assert now['players'][0]['mp']==old['players'][0]['mp']
             assert now['players'][0]['atb']<1
+            page.wait_for_function("document.querySelector('#message').textContent.includes('使用回復藥')")
+            for width,height in [(1200,800),(650,900)]:
+                page.set_viewport_size({'width':width,'height':height})
+                measured=page.wait_for_function("""()=>{const m=document.querySelector('#message').getBoundingClientRect(),p=document.querySelector('#party').getBoundingClientRect();
+                    return m.height>0&&m.bottom<=p.top-8&&m.top>=0&&m.left>=0&&m.right<=innerWidth?{message:m.toJSON(),party:p.toJSON(),width:innerWidth,height:innerHeight}:false;
+                }""",timeout=10000).json_value()
+                feedback_geometry.append(measured)
+            page.set_viewport_size({'width':1200,'height':800})
+            passed('actual recovery message clears content-sized battle panels at desktop and narrow portrait widths')
             page.screenshot(path=str(OUT/'07-yakra-battle.png'))
             passed('Yakra is an actual HP-based encounter; a real tonic input consumes stock and ATB, not MP')
             fight(page)
@@ -198,7 +208,7 @@ try:
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4181/','data:','blob:'))],requests
             passed('party walks back through the kingdom and time gate; v5 reload retains the completed rescue in 1000 AD')
-            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
+            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'feedbackGeometry':feedback_geometry,'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:

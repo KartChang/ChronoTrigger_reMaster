@@ -1,3 +1,5 @@
+import {newPrologue,prologueMap,prologueWalkable,prologueSave,restorePrologue,MARLE_MEETING,DROPPED_PENDANT,WORLD_HOME,WORLD_FAIR} from './prologue-data';
+import type {Prologue,PrologueMap} from './prologue-data';
 import {newRescue,rescueMap,rescueWalkable,nearestRescue,RESCUE_NAMES,guestIdentity,GUEST_HP,GUEST_MP} from './rescue-data';
 import type {Rescue,RescueMap,RescueStage} from './rescue-data';
 import {newFollowPlan,followVector} from './navigation';
@@ -18,7 +20,7 @@ export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra
 export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
-  followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
+  prologue:Prologue; followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
   ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom; rescue:Rescue;
 };
@@ -37,14 +39,18 @@ export const OBSTACLES = [
 ];
 export function createState(chapter: Chapter = 'lab'): State {
   const actor = (x: number): Actor => ({ x, z: -5, hp: MAX_HP, mp: MAX_MP, atb: 0, facing: 0, walking: false });
-  return { followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
+  const prologue=newPrologue(chapter==='bedroom');
+  const initial=[actor(-1),actor(1)] as [Actor,Actor];
+  if(chapter==='bedroom')initial.forEach(p=>Object.assign(p,{x:1.5,z:1.4,facing:0}));
+  return { prologue,followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: initial,
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
-    targets: [null,null], combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom(), rescue:newRescue() };
+    targets: [null,null], combo: [false, false], log: [chapter==='bedroom'?'母親：克羅諾，起床了！':chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom(), rescue:newRescue() };
 }
-export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase));
-export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing';
+export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||((s.prologue.stage==='legacy'||s.prologue.stage==='companions')&&(s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase))));
+export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing'||s.prologue.stage==='waking'||(s.prologue.stage==='collision'&&s.prologue.elapsed<.6)||!!s.prologue.transition;
 export const distance = (a: Vec, b: Vec): number => Math.hypot(a.x - b.x, a.z - b.z);
 export function walkable(x: number, z: number, chapter: Chapter = 'lab'): boolean {
+  if(prologueMap(chapter))return prologueWalkable(x,z,chapter);
   if(rescueMap(chapter))return rescueWalkable(x,z,chapter);
   if(kingdomMap(chapter))return kingdomWalkable(x,z,chapter);
   if(chapter==='fair')return fairWalkable(x,z);
@@ -61,9 +67,9 @@ function move(s: State, slot: Slot, vector: Vec, dt: number): void {
   if (len < 0.05) return;
   const nx = vector.x / Math.max(1, len), nz = vector.z / Math.max(1, len);
   const allowed = (x: number, z: number) => walkable(x, z, s.chapter) && (!s.joined || !activeSlot(s,1) || distance({x,z},peer) <= MAX_SEPARATION);
-  const x = p.x + nx * SPEED * dt;
+  const x = p.x + nx * (s.chapter==='overworld1000'?2.4:SPEED) * dt;
   if (allowed(x,p.z)) { p.walking ||= Math.abs(x-p.x)>0.0001; p.x=x; }
-  const z = p.z + nz * SPEED * dt;
+  const z = p.z + nz * (s.chapter==='overworld1000'?2.4:SPEED) * dt;
   if (allowed(p.x,z)) { p.walking ||= Math.abs(z-p.z)>0.0001; p.z=z; }
   p.facing = Math.abs(nx)>Math.abs(nz) ? (nx>0?1:3) : (nz>0?2:0);
 }
@@ -75,7 +81,7 @@ export function setCoop(s: State, joined: boolean): boolean {
   return true;
 }
 export function beginBattle(s: State): boolean {
-  if (s.mode !== 'explore'||cutsceneActive(s)) return false;
+  if (s.mode !== 'explore'||cutsceneActive(s)||prologueMap(s.chapter)||(s.chapter==='fair'&&!['legacy','fair','companions'].includes(s.prologue.stage))) return false;
   if(rescueMap(s.chapter))return beginRescueBattle(s);
   if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
@@ -136,6 +142,7 @@ function tryCombo(s: State): void {
 export function step(s: State, input: Input, delta: number): void {
   if (!Number.isFinite(delta) || delta<=0) return;
   const dt=Math.min(delta,0.05);s.ticks++;
+  if(stepPrologue(s,dt))return;
   if(s.kingdom.phase==='erasing'){s.kingdom.elapsed+=dt;if(s.kingdom.elapsed>=2.2){s.kingdom.phase='missing';s.kingdom.elapsed=0;log(s,'瑪兒的身影消失了。先回大廳看看。');}return;}
   if(cutsceneActive(s)){stepOpening(s,dt);return;}
   if (s.mode==='explore') {
@@ -146,6 +153,7 @@ export function step(s: State, input: Input, delta: number): void {
       move(s,1,followVector(s.followPlan,b,a,s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter)),dt);
     }
     stepGuest(s,dt);
+    prologueTriggers(s);
     if(s.chapter==='passage'&&!s.rescue.guardsWon&&s.players[0].z>.2)beginRescueBattle(s);
     if(s.chapter==='forest'&&!s.kingdom.forestWon&&s.players[0].z>.2)beginBattle(s);
     if(s.chapter==='canyon'&&!s.opening.canyonWon&&s.players[0].z<5.5)beginBattle(s);
@@ -194,7 +202,7 @@ export function travel(s: State): boolean {
   log(s,s.era==='present'?'回到青翠的現在。':s.flags.repaired?'晶核持續運轉，未來仍有光。':'抵達未來：未修復的晶核已經熄滅。');return true;
 }
 export type SaveData = {version:1|2|3|4|5;rescue?:RescueSave;kingdom?:Omit<Kingdom,'elapsed'>;opening?:{phase:Opening['phase'];canyonWon:boolean};chapter?:Chapter;fair?:FairFlags;era:Era;joined:boolean;flags:Flags;players:{x:number;z:number;hp:number;mp:number}[]};
-export function serialize(s: State): string {
+function serializeLegacy(s: State): string {
   if(s.mode!=='explore'||cutsceneActive(s))throw new Error('請先結束戰鬥或演出再存檔。');
   if(s.rescue.stage!=='none')return JSON.stringify({...rescueSaveBase(s),version:5,rescue:saveRescue(s)} satisfies SaveData);
   if(s.kingdom.phase!=='none')return JSON.stringify({version:4,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},kingdom:{phase:s.kingdom.phase,heardYear:s.kingdom.heardYear,forestWon:s.kingdom.forestWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
@@ -206,6 +214,7 @@ export function deserialize(raw: string): State {
   const v:unknown=JSON.parse(raw);
   if(!v||typeof v!=='object')throw new Error('存檔格式錯誤。');
   const o=v as Record<string,unknown>;
+  if(o.version===6)return restoreV6(o);
   if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4&&o.version!==5)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
   if(!Array.isArray(o.players)||o.players.length!==2||!o.flags||typeof o.flags!=='object')throw new Error('存檔資料不完整。');
   const f=o.flags as Record<string,unknown>;
@@ -253,6 +262,8 @@ export function deserialize(raw: string): State {
 /** Only called through exploration interaction; no renderer owns chapter progression. */
 export function interactFair(s: State, slot: Slot): {title:string;text:string}|null {
   if(s.chapter!=='fair'||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
+  if(!['legacy','companions'].includes(s.prologue.stage))return interactPrologue(s,slot);
+  if(s.prologue.stage==='companions'&&s.opening.phase==='none'&&s.kingdom.phase==='none'&&distance(s.players[slot],{x:0,z:-7.7})<1.5){startPrologueTravel(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);return null;}
   if(s.rescue.stage==='returned')return {title:'千年祭 · 回到 1000 年',text:'鐘聲仍在廣場迴響。克羅諾、露卡與瑪兒平安回來。\n王城審判是下一個尚未製作的章節；可以在此保存救援進度。'};
   const opening=interactOpening(s,slot);if(opening)return opening;
   if(s.opening.phase!=='none')return {title:'露卡',text:'先找回瑪兒留下的項鍊。裝置在北方左側。'};
@@ -282,13 +293,13 @@ export function interactFair(s: State, slot: Slot): {title:string;text:string}|n
       return {title:'短距離傳送成功',text:'光線散去，你已站在另一側的平台。\n瑪兒興奮地望向露卡。回到露卡身旁，繼續展示。'};
     }
     case 'candy':return {title:'糖果攤',text:'彩色糖果排滿木盤。\n瑪兒停下腳步，仔細挑選著。今天的廣場比平常熱鬧多了。'};
-    case 'save':return {title:'試玩存檔點',text:'可用右側「存檔」保存本章，或匯出備份。\n千年祭存檔為 v2；舊村落 v1 存檔仍可讀取。'};
+    case 'save':return {title:'試玩存檔點',text:'可用右側「存檔」保存本章，或匯出備份。\n存檔依實際進度保存；舊版本仍可讀取。'};
   }
 }
 
 /** Begin only at the actual stage, after the normal demonstration. The scripted sequence temporarily owns movement; it does not imply a P2 vote. */
 export function beginOpening(s:State,slot:Slot):boolean{
-  if(s.chapter!=='fair'||s.mode!=='explore'||s.opening.phase!=='none'||!s.fair.luccaMet||!s.fair.telepodTested||slot!==0)return false;
+  if(s.chapter!=='fair'||!['legacy','companions'].includes(s.prologue.stage)||s.mode!=='explore'||s.opening.phase!=='none'||!s.fair.luccaMet||!s.fair.telepodTested||slot!==0)return false;
   if(distance(s.players[0],{x:0,z:7.2})>2.05||distance(s.players[1],{x:-2.4,z:9})>6)return false;
   s.opening.phase='approach';s.opening.elapsed=0;s.combo=[false,false];
   s.players.forEach(p=>p.walking=false);return true;
@@ -543,4 +554,94 @@ function restoreRescue(s:State,raw:unknown):void{
  const x=p.x as number,z=p.z as number,hp=p.hp as number,mp=p.mp as number;
  if(hp<1||hp>GUEST_HP||mp<0||mp>GUEST_MP||!walkable(x,z,s.chapter))throw new Error('第三名隊員位置或能力超出範圍。');
  Object.assign(r.guest,{x,z,hp,mp});s.rescue=r;
+}
+
+
+/** Additive opening: the old fair/checkpoint state never acquires invented trial choices. */
+export function serialize(s:State):string{
+ if(s.prologue.stage==='legacy')return serializeLegacy(s);
+ if(s.mode!=='explore'||cutsceneActive(s)||s.prologue.choice)throw new Error('請先完成演出或選擇再存檔。');
+ const base=prologueMap(s.chapter)?{era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))}:JSON.parse(serializeLegacy(s));
+ return JSON.stringify({...base,version:6,chapter:s.chapter,prologue:prologueSave(s.prologue)});
+}
+function restoreV6(o:Record<string,unknown>):State{
+ if(typeof o.chapter!=='string'||typeof o.joined!=='boolean')throw new Error('開場存檔地圖或雙人設定錯誤。');
+ const p=restorePrologue(o.prologue),chapter=o.chapter;
+ let s:State;
+ if(prologueMap(chapter)){
+  if(!['home','companions'].includes(p.stage)||o.era!=='present'||typeof o.joined!=='boolean'||o.opening!==undefined||o.kingdom!==undefined||o.rescue!==undefined)throw new Error('家中或大地圖存檔不一致。');
+  s=createState(chapter);s.joined=o.joined;
+  for(const key of ['flags','fair'] as const){const f=o[key];if(!f||typeof f!=='object'||Array.isArray(f))throw new Error('開場資料缺漏。');for(const k of Object.keys(s[key])){const v=(f as Record<string,unknown>)[k];if(typeof v!=='boolean')throw new Error('開場旗標錯誤。');if(v&&(key==='flags'||(p.stage!=='companions'&&['luccaMet','telepodTested'].includes(k))))throw new Error('開場存檔含有未經歷事件。');(s[key] as Record<string,boolean>)[k]=v;}}
+  if(s.fair.telepodTested&&!s.fair.luccaMet)throw new Error('傳送前置事件錯誤。');
+  if(!Array.isArray(o.players)||o.players.length!==2)throw new Error('開場角色錯誤。');
+  o.players.forEach((v:unknown,i:number)=>{if(!v||typeof v!=='object'||Array.isArray(v))throw new Error('開場角色錯誤。');const a=v as Record<string,number>;if(['x','z','hp','mp'].some(k=>typeof a[k]!=='number'||!Number.isFinite(a[k]))||!walkable(a.x!,a.z!,chapter)||a.hp!<1||a.hp!>MAX_HP||a.mp!<0||a.mp!>MAX_MP)throw new Error('開場角色位置或能力錯誤。');Object.assign(s.players[i]!,{x:a.x,z:a.z,hp:a.hp,mp:a.mp});});
+ }else{
+  const version=o.rescue?5:o.kingdom?4:o.opening?3:2;
+  if(chapter==='lab'||(p.stage!=='companions'&&(chapter!=='fair'||version!==2))||p.stage==='home')throw new Error('初遇與章節不一致。');
+  s=deserialize(JSON.stringify({...o,version,joined:false}));s.joined=o.joined;
+  if(p.stage!=='companions'&&(s.fair.luccaMet||s.fair.telepodTested))throw new Error('初遇前不得已有祭典進度。');
+ }
+ s.prologue=p;
+ if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>MAX_SEPARATION+.01)throw new Error('雙人距離超出範圍。');
+ s.log=['已讀取存檔；初遇選擇保留。'];return s;
+}
+function startPrologueTravel(s:State,to:PrologueMap|'fair',x:number,z:number):void{
+ if(!partyTogether(s)){log(s,'一起靠近入口，再前往下一個地方。');return;}
+ s.prologue.transition={to,x,z,elapsed:0,entered:false};s.followPlan=newFollowPlan();s.players.forEach(p=>p.walking=false);
+}
+function stepPrologue(s:State,dt:number):boolean{
+ const q=s.prologue,t=q.transition;
+ if(t){t.elapsed+=dt;if(t.elapsed>=.22&&!t.entered){s.chapter=t.to;s.players.forEach((p,i)=>Object.assign(p,{x:t.x+(i? .8:0),z:t.z,walking:false,facing:t.to==='home'?0:2}));t.entered=true;if(t.to==='fair'&&q.stage==='home')q.stage='fair';s.followPlan=newFollowPlan();}if(t.elapsed>=.48)q.transition=null;return true;}
+ if(q.stage==='collision'&&q.elapsed<.6){q.elapsed=Math.min(.6,q.elapsed+dt);return true;}
+ if(q.stage==='waking'){q.elapsed+=dt;if(q.elapsed>=2.6){q.stage='home';q.elapsed=0;log(s,'母親：千年祭已經開始了，露卡不是邀你去看她的發明嗎？');}return true;}
+ return !!q.choice;
+}
+function prologueTriggers(s:State):void{
+ if(s.prologue.stage==='legacy'||cutsceneActive(s))return;
+ const p=s.players[0];
+ if(s.chapter==='bedroom'&&distance(p,{x:0,z:-4.1})<.65)startPrologueTravel(s,'home',4.5,2.2);
+ else if(s.chapter==='home'&&distance(p,{x:4.7,z:3.8})<.65)startPrologueTravel(s,'bedroom',0,-2.5);
+ else if(s.chapter==='fair'&&s.prologue.stage==='fair'&&distance(p,MARLE_MEETING)<.85){s.prologue.stage='collision';s.prologue.elapsed=0;p.walking=false;log(s,'砰！女孩跌坐在鐘台前，項鍊掉到了另一邊。');}
+}
+export type PrologueDialog={title:string;text:string;choice?:'return'|'company'};
+export function interactPrologue(s:State,slot:Slot):PrologueDialog|null{
+ if(slot!==0||s.mode!=='explore'||cutsceneActive(s)||s.prologue.choice||s.prologue.stage==='legacy')return null;
+ const p=s.players[0],q=s.prologue,near=(x:number,z:number,r=1.6)=>distance(p,{x,z})<r;
+ if(s.chapter==='bedroom'){
+  if(near(3.6,1.6,2.6)){s.players.forEach(p=>{p.hp=MAX_HP;p.mp=MAX_MP;});return {title:'克羅諾的房間',text:'在熟悉的床鋪休息，體力恢復了。窗外傳來千年祭的鐘聲。'};}
+  return {title:'克羅諾的房間',text:'南方的樓梯通往一樓。'};
+ }
+ if(s.chapter==='home'){
+  if(near(0,-4.2)){startPrologueTravel(s,'overworld1000',WORLD_HOME.x,WORLD_HOME.z-1.7);return null;}
+  if(near(0,2)){q.motherTalked=true;return {title:'母親',text:'露卡在廣場準備了新的發明。去看看吧，玩得開心一點。'};}
+  return {title:'克羅諾的家',text:'南方是家門，東北角的樓梯通往房間。'};
+ }
+ if(s.chapter==='overworld1000'){
+  if(near(WORLD_HOME.x,WORLD_HOME.z,1.25)){startPrologueTravel(s,'home',0,-2.5);return null;}
+  if(near(WORLD_FAIR.x,WORLD_FAIR.z,1.25)){startPrologueTravel(s,'fair',0,-6.8);return null;}
+  return null;
+ }
+ if(s.chapter!=='fair'||q.stage==='companions')return null;
+ if(near(0,-7.7,1.5)){if(q.stage==='fair'){q.stage='home';startPrologueTravel(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);}else return {title:'鐘台前的女孩',text:'項鍊的主人還在等著。先把事情處理好吧。'};return null;}
+ if(q.stage==='fair'){
+  const point=nearestFair(p.x,p.z);
+  if(point?.id==='gato'){beginBattle(s);return {title:'岡薩雷斯',text:'機器人邀請你挑戰。此時克羅諾獨自應戰；戰鬥仍採 ATB。'};}
+  if(point?.id==='bell'){s.fair.bellHeard=true;return {title:'莉妮之鐘',text:'鐘聲迴盪在祭典上方。鐘台前有個匆忙的女孩。'};}
+  if(point?.id==='candy')return {title:'糖果攤',text:'木盤上擺著各色糖果。'};
+  return {title:'千年祭',text:'逛逛祭典，或到鐘台前看看。'};
+ }
+ const marle=distance(p,MARLE_MEETING),pendant=distance(p,DROPPED_PENDANT);
+ if(!q.pendantPicked&&pendant<1.25&&pendant<marle){q.pendantPicked=true;if(q.first==='unknown')q.first='pendant';log(s,'拾起了女孩掉落的項鍊。');return {title:'掉落的項鍊',text:'地上閃亮的項鍊被你拾起。女孩仍在鐘台前。'};}
+ if(marle<1.65){q.checkedMarle=true;if(q.first==='unknown')q.first='marle';if(!q.pendantPicked)return {title:'女孩',text:'好痛……你沒事吧？咦，我的項鍊不見了！'};
+  q.choice=q.pendantReturned?'company':'return';return q.choice==='return'?{title:'女孩',text:'那是我的項鍊，可以還給我嗎？',choice:'return'}:{title:'瑪兒',text:'謝謝你！我叫瑪兒。可以陪我逛逛祭典嗎？',choice:'company'};
+ }
+ return null;
+}
+export function choosePrologue(s:State,yes:boolean):PrologueDialog|null{
+ const q=s.prologue;if(s.mode!=='explore'||cutsceneActive(s)||s.chapter!=='fair'||q.stage!=='collision'||!q.choice)return null;
+ const choice=q.choice;q.choice=null;
+ if(!yes)return {title:'女孩',text:choice==='return'?'這條項鍊對我很重要，請再想一想。':'那我先在這裡等一下。'};
+ if(choice==='return'){if(!q.pendantPicked||!q.checkedMarle)return null;q.pendantReturned=true;return {title:'女孩',text:'太好了！這是我很珍惜的東西，謝謝你。'};}
+ if(!q.pendantReturned)return null;q.stage='companions';Object.assign(s.players[1],{x:MARLE_MEETING.x,z:MARLE_MEETING.z,walking:false,facing:0});s.followPlan=newFollowPlan();log(s,'瑪兒加入同行。露卡的展示在廣場北方。');
+ return {title:'瑪兒',text:'走吧！去看看露卡的發明。'};
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-17",
+  "reviewedAt": "2026-09-18",
   "purpose": "Original-image visual calibration for hand-authored HD-2D assets; not extracted source sprites or verified battle data.",
   "originalImageBytesBundled": false,
   "romReadOrExtracted": false,
@@ -125,6 +125,53 @@
         "src/rescue-art.ts"
       ],
       "notClaimed": "Combat clips are hand-authored four-frame prototype poses, not extracted original frames."
+    },
+    {
+      "id": "snes-manual-map-field-opening",
+      "url": "https://www.world-of-nintendo.com/manuals/super_nes/chrono_trigger.shtml",
+      "observed": "SNES U/SNS-ACTE-USA manual transcription, pp16–17 and 64–69 read in web tools on 2026-09-18.",
+      "cues": [
+        "distinct miniature Map and Field",
+        "show destination name, confirm entry",
+        "mother wakes Crono, fair meeting before telepod"
+      ],
+      "appliedTo": [
+        "src/prologue-data.ts",
+        "src/prologue-render.ts",
+        "src/core.ts"
+      ],
+      "notClaimed": "A transcription is not original event code, exact layout coordinates or trial-condition verification."
+    },
+    {
+      "id": "snes-bedroom-reference",
+      "url": "https://pbs.twimg.com/media/Ez1TVFhVUAMJq6W.png",
+      "attribution": "Original game image: Square; shared comparison: CRT Pixels",
+      "observed": "Image viewed through web image query on 2026-09-18",
+      "cues": [
+        "wooden floor and warm furnishings",
+        "bright curtained north window",
+        "bed on right, books and desk at rear"
+      ],
+      "appliedTo": [
+        "src/prologue-render.ts",
+        "src/prologue-art.ts"
+      ],
+      "notClaimed": "Hand-authored mesh/texture reconstruction, not copied image bytes or pixel-exact dimensions."
+    },
+    {
+      "id": "annotated-1000-map",
+      "url": "https://i0.wp.com/www.kaoticsilence.com/chronotrigger/map1000AD.jpg",
+      "observed": "Annotated world-map image viewed through web image query on 2026-09-18",
+      "cues": [
+        "miniature settlements",
+        "land/sea separation",
+        "overworld scale distinct from interiors"
+      ],
+      "appliedTo": [
+        "src/prologue-art.ts",
+        "src/prologue-render.ts"
+      ],
+      "notClaimed": "Regional map is incomplete and labels are external annotations, not original gameplay HUD."
     }
   ],
   "exclusions": [

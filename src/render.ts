@@ -1,3 +1,5 @@
+import {buildPrologue} from './prologue-render';
+import {prologueMap} from './prologue-data';
 import {buildRescue} from './rescue-render';
 import {rescueMap} from './rescue-data';
 import {drawFrog,drawYakra,drawNaga} from './rescue-art';
@@ -43,6 +45,8 @@ export class World {
   private flag=false;
   private time=0;
   private labRoot:TransformNode;
+  private prologueWorld:ReturnType<typeof buildPrologue>;
+  private prologueKind='field';
   private fairWorld:ReturnType<typeof buildFair>;
   private rescueWorld:ReturnType<typeof buildRescue>;
   private guest:Sprite;
@@ -61,7 +65,7 @@ export class World {
   private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
   private targetMarkers:Mesh[]=[];
   private drawFrames=0;
-  inspect(){return {guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -122,6 +126,7 @@ export class World {
     for(const mesh of this.scene.meshes)if(!mesh.parent)mesh.parent=this.labRoot;
     this.repairs.parent=this.labRoot;
     for(const light of this.scene.lights)if(light instanceof PointLight)light.parent=this.labRoot;
+    this.prologueWorld=buildPrologue(this.scene,this.shadow);
     this.fairWorld=buildFair(this.scene,this.shadow);
     this.canyonWorld=buildCanyon(this.scene,this.shadow);
     this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);
@@ -241,7 +246,8 @@ export class World {
   }
   resize():void {
     this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const adventure=this.chapter!==null&&this.chapter!=='lab';const half=Math.max(adventure?6.2:8.2,(adventure?8:14)/ratio);
-    this.camera.orthoLeft=-half*ratio;this.camera.orthoRight=half*ratio;this.camera.orthoTop=half;this.camera.orthoBottom=-half;
+    const viewHalf=this.chapter==='overworld1000'?Math.max(9,12/ratio):this.chapter==='bedroom'||this.chapter==='home'?Math.max(5.5,7/ratio):half;
+    this.camera.orthoLeft=-viewHalf*ratio;this.camera.orthoRight=viewHalf*ratio;this.camera.orthoTop=viewHalf;this.camera.orthoBottom=-viewHalf;
   }
   draw(s:State,delta:number,animate:boolean):void {
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
@@ -253,6 +259,7 @@ export class World {
       for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
       this.era=null;
     }
+    this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':prologueMap(s.chapter)?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
     this.kingdomWorld.draw(s);this.rescueWorld.draw(s);
     while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e,s);}
@@ -266,6 +273,8 @@ export class World {
     }
     s.players.forEach((p,i)=>{
       let pose=this.posePlayers[i]!.sample(this.time,p.walking);
+      if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)pose={pose:'down',frame:0};
+      if(s.prologue.stage==='collision'&&s.prologue.elapsed<.6)pose={pose:'hurt',frame:Math.min(3,Math.floor(s.prologue.elapsed*6))};
       if(p.hp<=0)pose={pose:'down',frame:3};
       else if(s.mode==='victory'&&pose.pose==='idle')pose={pose:'victory',frame:Math.floor(this.time*4)%4};
       const previous=this.poseViews[i]!;
@@ -281,7 +290,7 @@ export class World {
       const l=this.lunges[i]!;l.time+=dt;const push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
       sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1));
       this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));
-      const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;sprite.mesh.scaling.set(vanish,vanish,1);
+      const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;const scale=s.chapter==='overworld1000'?.40:1;sprite.mesh.scaling.set(vanish*scale,vanish*scale,scale);if(s.chapter==='overworld1000')sprite.mesh.position.y=.43;if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)sprite.mesh.position.set(3.6,1.35,1.6);
       this.markers[i]!.position.set(p.x,.21,p.z);this.labels[i]!.position.set(p.x,2.1,p.z);
     });
     this.foes.forEach((f,i)=>{
@@ -301,10 +310,10 @@ export class World {
     if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
     this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
-    const tx=adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=midZ*(adventure?.72:.16)+1;
+    const fixed=prologueMap(s.chapter);const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
     this.camera.position.set(tx,23,tz-26);this.camera.setTarget(new Vector3(tx,0,tz));
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
-    this.particles.forEach((p,i)=>{p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
+    this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
     this.scene.render();this.drawFrames++;

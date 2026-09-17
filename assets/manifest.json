@@ -164,6 +164,30 @@
       "gap": "Three authored rooms, organ, stained glass and enemies; actual engine screenshots not yet accepted, original maze topology omitted",
       "evidence": [],
       "romExtracted": false
+    },
+    {
+      "id": "home-and-room",
+      "required": true,
+      "stage": "review",
+      "source": "src/prologue-render.ts",
+      "gap": "Await exact browser views and original-fidelity review; not final or full overworld topology.",
+      "evidence": [
+        "docs/ORIGINAL_FIDELITY.md",
+        "docs/PROLOGUE_T02.md"
+      ],
+      "romExtracted": false
+    },
+    {
+      "id": "regional-1000-overworld",
+      "required": true,
+      "stage": "review",
+      "source": "src/prologue-art.ts",
+      "gap": "Await exact browser views and original-fidelity review; not final or full overworld topology.",
+      "evidence": [
+        "docs/ORIGINAL_FIDELITY.md",
+        "docs/PROLOGUE_T02.md"
+      ],
+      "romExtracted": false
     }
   ]
 }

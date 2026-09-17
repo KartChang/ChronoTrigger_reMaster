@@ -4,7 +4,10 @@ const out=await build({entryPoints:['src/main.ts'],bundle:true,write:false,forma
 let template=await readFile('index.html','utf8');
 const css=await readFile('src/style.css','utf8');
 const js=out.outputFiles[0].text.replaceAll('</script','<\\/script');
-template=template.replace('/*__STYLES__*/',css).replace('/*__GAME__*/',js);
+// A replacement callback preserves literal $&, $$ and related sequences in bundled engine code.
+template=template.replace('/*__STYLES__*/',()=>css).replace('/*__GAME__*/',()=>js);
+if(template.includes('/*__GAME__*/')||template.includes('/*__STYLES__*/'))throw new Error('Unresolved HTML build marker.');
+if(template.slice(template.indexOf('<script>')+8,template.lastIndexOf('</script>'))!==js)throw new Error('Bundled script changed during HTML insertion.');
 await mkdir('dist',{recursive:true});
 await writeFile('dist/THIRD_PARTY_LICENSE.txt',await readFile('node_modules/@babylonjs/core/license.md'));
 await writeFile('dist/THIRD_PARTY_NOTICES.md',await readFile('docs/THIRD_PARTY.md'));

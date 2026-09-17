@@ -3,7 +3,7 @@
 - @babylonjs/core 8.0.0 — Apache-2.0, https://github.com/BabylonJS/Babylon.js . Rendering engine. Copyright the Babylon.js contributors.
 - TypeScript 5.8.3 — Apache-2.0, https://github.com/microsoft/TypeScript . Build-time compiler.
 - esbuild 0.25.0 — MIT, https://github.com/evanw/esbuild . Build-time bundler.
-- Playwright Python 1.51.1 — Apache-2.0, https://github.com/microsoft/playwright-python . Test-only browser automation.
+- Playwright Python 1.51.0 — Apache-2.0, https://github.com/microsoft/playwright-python . Test-only browser automation.
 
 The distributable must include the Babylon.js Apache license text alongside index.html. Existing legal comments are retained by the bundler. See npm packages for complete notices and licenses.
 

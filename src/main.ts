@@ -1,4 +1,6 @@
-import {createState,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
+import {nearestFair} from './fair-data';
+import type {Chapter} from './fair-data';
+import {createState,interactFair,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
@@ -6,7 +8,7 @@ import {World} from './render';
 import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
-let state=createState(),started=false,manualPause=false,dialogOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
+let state=createState('fair'),started=false,manualPause=false,dialogOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
 let soundEnabled=false,audio:AudioContext|undefined;
 const controls=new Controls(command);
 const halted=()=>!started||manualPause||dialogOpen||document.hidden;
@@ -19,11 +21,19 @@ function tone(frequency=440):void{
 function showDialog(title:string,text:string):void{dialogOpen=true;controls.clear();$('dialog-title').textContent=title;$('dialog-text').textContent=text;$('dialog').hidden=false;$('dialog-close').focus();}
 function closeDialog():void{dialogOpen=false;$('dialog').hidden=true;controls.clear();last=performance.now();accumulator=0;}
 function togglePause():void{if(!started)return;manualPause=!manualPause;controls.clear();$('pause-screen').hidden=!manualPause;last=performance.now();accumulator=0;}
-function start(coop:boolean):void{started=true;state.joined=coop;$('start-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;announce(coop?'雙人已啟動：P1 WASD，P2 方向鍵。':'WASD 移動；靠近物件按 E。也可直接點「練習戰鬥」。');updateHud();}
+function start(coop:boolean,chapter:Chapter='lab'):void{state=createState(chapter);started=true;state.joined=coop;$('start-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;announce(coop?'雙人已啟動：P1 WASD，P2 方向鍵。':(chapter==='fair'?'WASD 移動；靠近鐘台、攤位或露卡按 E。':'WASD 移動；靠近物件按 E。也可直接點「練習戰鬥」。'));updateHud();}
 function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
   const p=state.players[slot];const options:[number,'crystal'|'gate'|'save'][]=[[distance(p,{x:-5,z:-1}),'crystal'],[distance(p,{x:0,z:9}),'gate'],[distance(p,{x:-8,z:-5}),'save']];options.sort((a,b)=>a[0]-b[0]);return options[0]![0]<2.05?options[0]![1]:null;
 }
 function interact(slot:Slot):void{
+  if(state.chapter==='fair'){
+    if(state.mode!=='explore'){announce('請使用戰鬥指令。');return;}
+    const point=nearestFair(state.players[slot].x,state.players[slot].z);
+    if(point?.id==='save'){void saveGame();return;}
+    const result=interactFair(state,slot);
+    if(result){tone(point?.id==='bell'?660:440);showDialog(result.title,result.text);updateHud();}
+    return;
+  }
   if(state.mode!=='explore'){announce('戰鬥中請使用攻擊、技能或合技。');return;}
   switch(nearest(slot)){
     case 'crystal':{
@@ -46,18 +56,19 @@ function command(slot:Slot,cmd:Command):void{
   if(cmd==='interact'){interact(slot);return;}
   const accepted=cmd==='combo'?requestCombo(state,slot):action(state,slot,cmd);
   if(accepted)tone(cmd==='combo'?660:cmd==='skill'?520:330);
-  else announce(state.mode==='battle'?'需要存活、ATB 全滿，並有足夠 MP。技能 3 MP，合技每人 4 MP。':'探索模式不會揮砍；靠近敵人或選「練習戰鬥」進入 ATB。');
+  else announce(state.mode==='battle'?'需要存活、ATB 全滿，並有足夠 MP。技能 3 MP，合技每人 4 MP。':(state.chapter==='fair'?'探索時請靠近岡薩雷斯按 E，開始 ATB 挑戰。':'探索模式不會揮砍；靠近敵人或選「練習戰鬥」進入 ATB。'));
   updateHud();
 }
-async function saveGame():Promise<void>{try{const raw=serialize(state);await storage.save(raw);announce('本機存檔完成。建議另行匯出 JSON 備份。');}catch(e){announce('存檔未完成：'+asError(e)+' 可改用「匯出」。');}}
-async function loadGame():Promise<void>{if(state.mode!=='explore'){announce('請先結束戰鬥。');return;}try{const raw=await storage.load();if(raw===null){announce('尚無本機存檔。');return;}state=deserialize(raw);controls.clear();updateHud();announce('讀檔完成。');}catch(e){announce('讀檔未完成：'+asError(e));}}
+async function saveGame():Promise<void>{try{const raw=serialize(state);await storage.save(raw,state.chapter);announce('本機存檔完成。建議另行匯出 JSON 備份。');}catch(e){announce('存檔未完成：'+asError(e)+' 可改用「匯出」。');}}
+async function loadGame():Promise<void>{if(state.mode!=='explore'){announce('請先結束戰鬥。');return;}try{const raw=await storage.load(state.chapter);if(raw===null){announce('尚無本機存檔。');return;}state=deserialize(raw);controls.clear();updateHud();announce('讀檔完成。');}catch(e){announce('讀檔未完成：'+asError(e));}}
 $('start').onclick=()=>start(false);$('start-coop').onclick=()=>start(true);
+$('start-fair').onclick=()=>start(false,'fair');$('start-fair-coop').onclick=()=>start(true,'fair');
 $('pause').onclick=togglePause;$('resume').onclick=togglePause;$('dialog-close').onclick=closeDialog;
 $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'interact');
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
-$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
+$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');state=deserialize(await file.text());controls.clear();updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
 $('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
@@ -78,12 +89,29 @@ function updateHud():void{
   $('battle-banner').hidden=state.mode!=='battle';$('enemy-hp').textContent=state.enemies.map((e,i)=>`敵 ${i+1} · HP ${e.hp}/90`).join('　');
   const hint=state.mode==='explore'?nearest(0):null;$('interact-hint').hidden=!hint||!started||dialogOpen;$('interact-hint').textContent=hint==='crystal'?'E · 檢查晶核':hint==='gate'?'E · 穿越時門':'E · 保存進度';
   const end=state.mode==='victory'||state.mode==='defeat';$('result').hidden=!end;$('result-title').textContent=state.mode==='victory'?'試煉完成':'這次，先回去休息';$('result-text').textContent=state.mode==='victory'?'雙人合作與 ATB 原型已完成這場試煉。\n返回村落會補滿 HP／MP，接著可以探索北方時門。':'兩名角色都倒下了。\n返回村落會補滿 HP／MP，再嘗試使用技能或合技。';
+  const fair=state.chapter==='fair';
+  $('trial').hidden=fair;
+  $('p0-name').textContent=fair?'克羅諾 · 試作':'旅人';$('p1-name').textContent=fair?'瑪兒 · 試作':'守望者';
+  $('continue').textContent=fair?'返回廣場／補給':'返回村落／補給';
+  $('scene-note').textContent=fair?'千年祭廣場試作 · 自製素材／重排配置／暫定數值':'自製測試素材 · 非原作地圖／角色／劇情';
+  if(fair){
+    $('era').textContent='1000 AD · MILLENNIAL FAIR';$('location').textContent='千年祭 · 鐘之廣場';
+    $('objective').textContent=!state.fair.bellHeard?'逛逛廣場，靠近左側鐘台按 E。':!state.fair.luccaMet?'可向西挑戰機器人，或往北找露卡。':!state.fair.telepodTested?'露卡已準備好。靠近左側傳送圓盤按 E。':'廣場展示完成。完整時門事件與後續章節尚未製作。';
+    const goals:[string,boolean,string][]=[['q-repair',state.fair.bellHeard,'鐘台'],['q-battle',state.fair.gatoWon,'機器人'],['q-future',state.fair.telepodTested,'傳送實驗']];
+    for(const[id,yes,text]of goals)$(id).textContent=(yes?'✓ ':'○ ')+text;
+    $('enemy-hp').textContent=state.enemies.length?`岡薩雷斯 · HP ${state.enemies[0]!.hp}/120 · 試作數值`:'';
+    const point=state.mode==='explore'?nearestFair(state.players[0].x,state.players[0].z):undefined;
+    $('interact-hint').hidden=!point||!started||dialogOpen;$('interact-hint').textContent=point?'E · '+point.label:'';
+    $('result-title').textContent=state.mode==='victory'?'機器人挑戰完成':'先休息，再來挑戰';
+    $('result-text').textContent='返回廣場後恢復 HP／MP。可以繼續找露卡，或保存試玩進度。';
+  }
   const message=state.log[state.log.length-1]??'';if(started&&message!==previousLog){previousLog=message;announce(message);}
 }
 try{
   const world=new World($<HTMLCanvasElement>('world'));
   world.draw(state,0,false);
-  $<HTMLButtonElement>('start').disabled=false;$<HTMLButtonElement>('start-coop').disabled=false;$('start').textContent='開始冒險';
+  $<HTMLButtonElement>('start').disabled=false;$<HTMLButtonElement>('start-coop').disabled=false;$('start').textContent='技術村落 · 單人';
+  $<HTMLButtonElement>('start-fair').disabled=false;$<HTMLButtonElement>('start-fair-coop').disabled=false;updateHud();
   let frame=0;
   world.start(()=>{
     const now=performance.now(),dt=Math.min((now-last)/1000,.1);last=now;

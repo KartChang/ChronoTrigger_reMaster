@@ -1,3 +1,4 @@
+import {buildFair} from './fair-render';
 import {
   Engine, Scene, Vector3, Color3, Color4, FreeCamera, Camera, HemisphericLight,
   DirectionalLight, PointLight, MeshBuilder, Mesh, StandardMaterial, DynamicTexture,
@@ -31,6 +32,9 @@ export class World {
   private era:Era|null=null;
   private flag=false;
   private time=0;
+  private labRoot:TransformNode;
+  private fairWorld:ReturnType<typeof buildFair>;
+  private chapter:State['chapter']|null=null;
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -38,12 +42,13 @@ export class World {
     this.scene=new Scene(this.engine);
     this.scene.clearColor=Color4.FromHexString('#15292fff');
     this.scene.fogMode=Scene.FOGMODE_EXP2;this.scene.fogDensity=0.010;this.scene.fogColor=color('#a7b2aa');
-    this.scene.ambientColor=color('#dce3c2');
+    this.scene.ambientColor=Color3.Black();
+    this.labRoot=new TransformNode('technical-village',this.scene);
     this.camera=new FreeCamera('shared-camera',new Vector3(0,23,-25),this.scene);
     this.camera.mode=Camera.ORTHOGRAPHIC_CAMERA;this.camera.setTarget(new Vector3(0,0,1));
     this.camera.minZ=.1;this.camera.maxZ=150;
     const ambient=new HemisphericLight('sky',new Vector3(0,1,0),this.scene);ambient.intensity=.75;ambient.groundColor=color('#697969');
-    this.sun=new DirectionalLight('evening-sun',new Vector3(-.45,-1,.55),this.scene);this.sun.position=new Vector3(12,24,-13);this.sun.intensity=1.65;this.sun.diffuse=color('#ffe6bd');
+    this.sun=new DirectionalLight('evening-sun',new Vector3(-.45,-1,.55),this.scene);this.sun.position=new Vector3(12,24,-13);this.sun.intensity=1.0;this.sun.diffuse=color('#ffe6bd');
     this.shadow=new ShadowGenerator(1024,this.sun);this.shadow.usePercentageCloserFiltering=true;this.shadow.bias=.004;this.shadow.normalBias=.015;
     this.grass=this.mat('grass','#729270');this.stone=this.mat('stone','#c0b68f');this.leaf=this.mat('leaf','#426c58');
     this.roof=this.mat('roof','#555f64');this.water=this.mat('water','#488e94');this.water.specularColor=color('#648b8e');this.water.emissiveColor=color('#123b43');
@@ -87,7 +92,13 @@ export class World {
     this.repairs=new TransformNode('future-regrowth',this.scene);
     for(let i=0;i<8;i++){const blossom=this.box('renewal',-5+Math.cos(i)*1.1,.30,-1+Math.sin(i)*1.1,.18,.22,.18,this.mat('renewal','#f1c799'));blossom.parent=this.repairs;}
     this.repairs.setEnabled(false);
-    const glow=new GlowLayer('subtle-light',this.scene,{blurKernelSize:24});glow.intensity=.4;
+    for(const mesh of this.scene.meshes)if(!mesh.parent)mesh.parent=this.labRoot;
+    this.repairs.parent=this.labRoot;
+    for(const light of this.scene.lights)if(light instanceof PointLight)light.parent=this.labRoot;
+    this.fairWorld=buildFair(this.scene,this.shadow);
+    const glow=new GlowLayer('subtle-light',this.scene,{blurKernelSize:16});glow.intensity=.22;
+    // Pixel actors and labels must not bloom into unreadable white silhouettes.
+    glow.addIncludedOnlyMesh(this.portal);glow.addIncludedOnlyMesh(this.crystal);glow.addIncludedOnlyMesh(saveCrystal);
     for(let i=0;i<2;i++){
       this.heroes.push(this.sprite('player-'+i,1.36,1.85));
       const ring=MeshBuilder.CreateTorus('ownership-'+i,{diameter:.85,thickness:.035,tessellation:32},this.scene);ring.material=this.mat('p'+i,i===0?'#dfb87e':'#80c9c0');this.markers.push(ring);
@@ -143,11 +154,11 @@ export class World {
     const mesh=MeshBuilder.CreatePlane(name,{width:w,height:h},this.scene);mesh.material=m;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;
     return {mesh,texture:t,material:m,last:''};
   }
-  private drawHero(sprite:Sprite,slot:number,facing:number,frame:number):void {
-    const key=`${facing}:${frame}`;if(sprite.last===key)return;sprite.last=key;
+  private drawHero(sprite:Sprite,slot:number,facing:number,frame:number,fair:boolean):void {
+    const key=`${fair}:${facing}:${frame}`;if(sprite.last===key)return;sprite.last=key;
     const c=sprite.texture.getContext();c.clearRect(0,0,24,32);
     const rect=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
-    const hair=slot===0?'#835746':'#ceb779',coat=slot===0?'#52758b':'#619d8d';
+    const hair=slot===0?(fair?'#b6423d':'#835746'):'#d6b568',coat=slot===0?'#52758b':(fair?'#c6cebd':'#619d8d');
     const step=frame?1:0;
     rect(8,25+step,3,5-step,'#3a4546');rect(14,25-step,3,5,'#3a4546');
     rect(7,16,11,10,'#334b59');rect(8,16,9,8,coat);rect(6,18,2,7,coat);rect(18,18,2,7,coat);
@@ -158,6 +169,8 @@ export class World {
     else if(facing===1){rect(17,11,2,2,'#24333a');rect(18,13,2,2,'#edcaa2');}
     else if(facing===3){rect(8,11,2,2,'#24333a');rect(6,13,2,2,'#edcaa2');}
     else {rect(10,11,2,2,'#24333a');rect(15,11,2,2,'#24333a');rect(12,15,3,1,'#a87966');}
+    if(fair&&slot===0){rect(7,3,3,5,hair);rect(12,1,3,5,hair);rect(16,3,4,5,hair);rect(8,8,10,2,'#d7d6aa');rect(8,16,11,2,'#cfa04d');}
+    if(fair&&slot===1){rect(16,2,4,8,hair);rect(18,7,3,9,hair);rect(17,6,4,2,'#91a6ba');}
     sprite.texture.update();
   }
   private drawEnemy(sprite:Sprite):void {
@@ -180,6 +193,13 @@ export class World {
   }
   draw(s:State,delta:number,animate:boolean):void {
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
+    const fair=s.chapter==='fair';
+    if(this.chapter!==s.chapter){
+      this.chapter=s.chapter;this.labRoot.setEnabled(!fair);this.fairWorld.root.setEnabled(fair);
+      for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!fair);
+      this.era=null;
+    }
+    if(fair)this.fairWorld.draw(s,this.time);
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
       this.grass.diffuseColor=color(future?'#8e9991':'#729270');this.leaf.diffuseColor=color(future?(s.flags.repaired?'#779a87':'#636f78'):'#426c58');
@@ -189,12 +209,12 @@ export class World {
       this.repairs.setEnabled(future&&s.flags.repaired);
     }
     s.players.forEach((p,i)=>{
-      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*7)%2:0);
+      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*7)%2:0,fair);
       sprite.mesh.position.set(p.x,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z);sprite.mesh.setEnabled(p.hp>0);
       this.markers[i]!.position.set(p.x,.21,p.z);this.labels[i]!.position.set(p.x,2.1,p.z);
     });
     this.foes.forEach((f,i)=>{
-      const enemy=s.enemies[i];const visible=s.mode==='battle'?!!enemy&&enemy.hp>0:s.mode==='explore'&&!s.flags.won;
+      const enemy=s.enemies[i];const visible=!fair&&(s.mode==='battle'?!!enemy&&enemy.hp>0:s.mode==='explore'&&!s.flags.won);
       f.mesh.setEnabled(visible);f.mesh.position.set(enemy?.x??(i===0?-2:2),.75+Math.sin(this.time*2+i)*.08,enemy?.z??4.5);
     });
     const midX=(s.players[0].x+s.players[1].x)/2,midZ=(s.players[0].z+s.players[1].z)/2;

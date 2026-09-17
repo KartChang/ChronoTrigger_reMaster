@@ -1,63 +1,51 @@
 # 專案地圖
 
-## 範圍
+私人 repository：KartChang/ChronoTrigger_reMaster；目前在 main 開發。HD-2D、瀏覽器優先、同機雙人、保留 ATB。不是 GauAI／IoT Colony，也不是 .NET 後台。
 
-Repository：`KartChang/ChronoTrigger_reMaster`，私人；目前在 `main` 開發。
-目標：Chrono Trigger HD-2D 重製。當前產物：原創佔位場景的系統原型，不是完整重製或忠實章節。
-使用者優先：盡快試玩、雙人操作。現行選擇：瀏覽器、同機合作、保留 ATB；即時 ARPG、網路多人與原生上架未定案。
+## 執行與檔案
 
-## 已存在技術與入口
-
-瀏覽器遊戲：TypeScript；3D 呈現：Babylon.js；建置：esbuild；本機進度：IndexedDB；樣式：CSS／HTML。沒有後端 API 或業務資料庫。
-
-固定相依版本見 `package.json` 與 `package-lock.json`。Node.js 22+ 用於建置／測試，不是玩家執行遊戲所需的後端。Python 只執行 Playwright 驗收腳本，不是遊戲語言。
+TypeScript + Babylon.js + esbuild，沒有後端。Node.js 22+ 只供建置；Python 只執行 Playwright 驗收。固定版本依 package.json／lockfile，不為此批次換引擎或升級套件。
 
 | 路徑 | 職責 |
 |---|---|
-| `index.html` | UI 模板；不是已打包遊戲 |
-| `src/main.ts` | 啟動、UI 指令、固定步長、暫停與模組整合 |
-| `src/core.ts` | 探索移動／碰撞、簡化 ATB、合技、時代旗標、存檔 schema |
-| `src/input.ts` | 鍵盤、觸控與標準 Gamepad API 的玩家輸入 |
-| `src/render.ts` | Babylon 3D 世界、程序式像素角色、動畫與呈現 |
-| `src/save.ts` | IndexedDB 存取 |
-| `src/style.css` | 遊戲介面與響應式排版 |
-| `scripts/build.mjs` | 將程式與資源打包為 `dist/index.html` |
-| `scripts/check-assets.mjs` | 常見 ROM／SPC 副檔名檢查；不是著作權完整稽核 |
-| `tests/core.test.mjs` | 規則與存檔的單元驗證 |
-| `tests/browser_smoke.py` | 真實 Chromium：啟動、輸入、戰鬥、存檔、穿越與排版 |
-| `.github/workflows/ci.yml` | GitHub-hosted 建置、單元與 browser journey、artifact |
+| index.html / src/style.css | 開始選單、HUD、雙人操作與響應式介面 |
+| src/main.ts | UI 指令、固定步長、暫停、章節入口與存檔整合 |
+| src/core.ts | 移動／碰撞、ATB、合技、章節事件與存檔白名單驗證 |
+| src/fair-data.ts | 千年祭攤位 footprint、碰撞、互動座標及事件旗標型別 |
+| src/fair-render.ts | 千年祭手製場景、鐘台、攤位、角色代理與傳送平台 |
+| src/render.ts | 共用 Babylon 場景、舊村落／千年祭顯示切換、玩家像素與 HUD 特效 |
+| src/input.ts | 鍵盤、觸控與標準 Gamepad API 的玩家所有權 |
+| src/save.ts | IndexedDB；舊村落 slot1，千年祭 fair-slot1 |
+| scripts/build.mjs | 單一 dist/index.html；build-meta 記錄 0.2.0 與 CI source SHA |
+| scripts/test.mjs | 編譯純規則後跑 original core + fair tests |
+| tests/core.test.mjs | 原有 32 項核心回歸測試 |
+| tests/fair.test.mjs | 新場景、雙人事件、存檔、完整步行路線測試 |
+| tests/browser_smoke.py | 原有 13 項 file/HTTP 瀏覽器檢查 |
+| tests/fair_browser.py | 真實按鍵：鐘台、機器人合技、露卡、傳送、存檔／匯入 |
+| .github/workflows/ci.yml | 兩段 browser journeys、private artifacts 與 exact source archive |
 
-## 主要流程
+流程：Controls → main → core → render/HUD。規則不依賴 DOM 或 Babylon。固定步長 1/60 秒、單幀 delta 上限 0.1 秒；背景／對話／手動暫停不推進。低 FPS 與牆鐘時間不同，測試使用有限模擬 tick 預算與有限牆鐘保險上限，不改遊戲數值。
 
-玩家裝置 → Controls → main 指令／固定 step → core 狀態 → World 與 HUD。
-存檔：core serialize → save IndexedDB；讀檔／匯入：core deserialize 驗證 → main 替換狀態。
+## 章節與存檔
 
-主迴圈固定步長 1/60 秒；單幀累計 delta 上限 0.1 秒。低 FPS 下模擬時間可能慢於牆鐘時間，不能把軟體 GPU 跑 20 秒當成模擬必然走了 20 秒。真機效能仍需獨立驗證。
+`lab` 保留原創技術村落：兩隻敵人、晶核與現在／未來測試。`fair` 是從兩人已同行開始的千年祭場景試作，含鐘台、可選機器人戰鬥、露卡與短距離傳送。後續時門事件尚未完成。fair 攤位的畫面與碰撞共用資料，其餘地圖 authoring 尚未完全统一。
 
-目前只有兩名佔位角色、一張村落地圖的現在／未來變體、兩隻敵人的練習戰鬥、一次晶核修復事件、一個存檔槽與匯入／匯出。數值是原型值。
+lab 匯出 v1；fair 匯出 v2，包含 chapter 和 fair flags。讀檔仍接受舊 v1，不強制改版。不同章節使用不同 IndexedDB key，匯入資料先驗證再替換遊戲狀態。測試 hook 僅唯讀 snapshot／paused。
 
-## 指令
+## 指令與交付
 
 ```sh
 npm ci
 npm run check
 npm run preview
-```
-
-`check` 執行資產副檔名檢查、單元測試、TypeScript 檢查與建置。`preview` 預設啟動本機 4173；`dev` 先 build 再 serve，目前不是 HMR。
-
-```sh
 python -m pip install -r tests/requirements.txt
 python -m playwright install chromium
 python tests/browser_smoke.py
+python tests/fair_browser.py
 ```
 
-browser harness 會自行啟動 4175。`?test=1` 提供唯讀狀態快照與暫停觀察。simulation waits 使用 tick 預算與 90 秒牆鐘保險上限，失敗記錄到 `test-results/wait-evidence.json`，不更改遊戲時間。
+preview 預設 4173；lab harness 自啟 4175，fair harness 自啟 4176。dev 是 build + serve，目前非 HMR。package 的版本標籤未隨場景 build revision 改動；build-meta 與画面版本是 0.2。
 
-## 交付與限制
+CI 全部成功才產生 chrono-hd2d-playable；chrono-hd2d-browser-evidence 包含報告／截圖與完整 tracked source tar.gz。沒有公開網站、安裝式 PWA 或原生安裝包。硬體／實體手把／手機效能尚需實測。
 
-CI 成功才產生 `chrono-hd2d-playable` artifact，內含 standalone HTML、build metadata 與第三方授權文件；證據在 `chrono-hd2d-browser-evidence`。這不是公開網站網址。
-
-目前不含原作完整地圖、角色／音樂、故事章節、三人隊伍、背包裝備、完整尋路、網路多人或原生 App。局部 follow steering 與場景／碰撞共同資料化尚待改善。
-
-使用說明看 `README.md`；唯一現行進度看 `docs/STATUS.md`；AI 規則看 `AGENTS.md`。不要把本文件當 CI 即時結果。
+AI 規則看 AGENTS.md；唯一動態進度看 docs/STATUS.md；試玩看 README.md；本輪場景假設與限制看 docs/FAIR_SLICE.md。

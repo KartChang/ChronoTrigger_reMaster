@@ -1,61 +1,52 @@
-# Prototype 0.1 — current handoff
+# Prototype 0.2 — fair slice / current handoff
 
-## Authoritative scope
+## Scope and governance
 
-- User selected HD-2D, fastest-to-play priority and requested optional two-player cooperation.
-- Repository: KartChang/ChronoTrigger_reMaster; private, current development on main. Not GauAI or IoT Colony: do not import their governance, standing authorizations or TODO history.
-- Browser-first TypeScript + Babylon.js + esbuild; local cooperation; ATB preserved. A full real-time ARPG conversion has not been approved.
-- Original ROM supplied in conversation was not read, extracted, committed or bundled. Runtime does not require it.
-- No public hosting, Pages, visibility change, paid service or native installer.
+KartChang/ChronoTrigger_reMaster, private, development on main. User selected HD-2D, fastest-to-play priority and two-player control. Current implementation: browser TypeScript + Babylon.js, local shared-screen cooperation, ATB. Real-time ARPG conversion, network play, public hosting and native distribution are not approved changes. Do not import GauAI or IoT Colony workflows.
 
-## Implemented before this rules review
+ROM and uploaded reference archives have not been read for extraction, committed or bundled. The game has no ROM or server dependency. No public deployment or visibility change.
 
-Original placeholder HD-2D village; two independent local control slots; shared camera; basic collision/following; simplified ATB; skills and atomic two-party combo; victory/defeat recovery; temporal flag demo; IndexedDB plus import/export; single-file build; unit and browser CI.
+## Accepted baseline — CI #5
 
-These are prototype systems, not a faithful original chapter or final art.
+Source `f46cd72abf23757f76d48ea2b54efc06f69b3561`; docs checkpoint `b1af7a6707e160ba7872e21143ae6b747ed53744`.
+Run `35205557064`, completed **success** on 2026-09-17. Core tests 32/32, strict TypeScript/build and 13 Chromium checkpoints passed. Report contains no runtime errors. This closes the inherited ATB wall-clock timeout root; do not rerun historical CI #4.
 
-## Verified inherited checkpoint
+- Playable artifact `10489832940`, chrono-hd2d-playable, SHA-256 `fddf1f8bb53c327224ccf7caf375981378d766b83b2cfb9203ceaeb4afcfc05d`.
+- Evidence artifact `10490261174`, SHA-256 `8272b9b7742ede2bc4c7ef930e3d3d40d14300e8e317d6cc790ba23e7181cc4b`.
+- Actual screenshots inspected. Village is an original placeholder, not Chrono Trigger scenery. Actor bloom/readability needs improvement. Software GPU FPS is not real hardware performance certification.
+- Accepted 0.1 standalone package has been delivered to the user. It does not contain the new fair slice.
 
-- Source: `dbe7517a39a6b165cc80681351f7617f0dc1a0bc`.
-- CI: Playable prototype CI #4, run `35203279913`, job `105142892804`, completed **failure**.
-- Core tests 32/32, strict TypeScript, asset extension check and standalone build passed. HTML approximately 5.09 MiB.
-- Six real Chromium checkpoints passed: file:// WebGL launch; independent keyboard slots; pause; gamepad disconnect ownership; held Start edge; IndexedDB save/load.
-- First failure: `tests/browser_smoke.py` waiting 20 wall-clock seconds for both ATB gauges to fill. No console errors in browser-report.json.
-- Evidence artifact `10488792571`, chrono-hd2d-browser-evidence. It contains title/exploration screenshots and the failed report. It is not the successful playable artifact.
-- Screenshot shows about 1 FPS on software GPU. Production caps each frame delta at 0.1s; ATB fills in about 2.38 simulated seconds. Likely wall-time budget mismatch; old report lacks tick snapshots to prove the full failure state.
+## New source batch — prototype 0.2
 
-## This batch: rules adaptation and bounded simulation waits
+**FAIR SLICE IMPLEMENTED — NEW BROWSER ACCEPTANCE PENDING.**
 
-- Added game-specific `AGENTS.md`, thin `CLAUDE.md`, actual `CODEBASE.md` and `docs/AI_RULES_REVIEW.md` instead of copying the full 336-file SME template.
-- Modified only the browser harness, not gameplay source, packages or CI workflow.
-- Read-only waits now distinguish simulated tick budgets from a finite 90-second wall-clock guard. ATB budget 180 ticks; axis movement uses path distance at the existing 4 units/sec plus margin. North-to-gate joint movement has 240 ticks.
-- Unexpected pause, mode, lost co-op ownership, reset or exceeded simulation budget fail with diagnostics. No teleport, fast-forward, skipped assertion or relaxed MP/damage checks.
-- Local verification: Python compile/AST passed; 13 synthetic predicate assertions passed; all 22 existing browser assertions unchanged.
-- Local browser not run in this batch. Do not claim a new E2E pass before checking the CI run for this source commit. The previous temporary environment reported managed-browser/WebGL restrictions; no policy workaround was attempted.
+- Added an authored Millennial Fair blockout, bell arch, striped stalls, Gato robot, Lucca and two telepod platforms. Map layout is compressed/rearranged, not an extracted or exact original map. Pixel character proxies and scene geometry are hand-authored code, not ROM assets.
+- New title-screen solo/co-op fair entries; preserved original lab entries and regression tests.
+- Walk-up bell/candy/Lucca dialogue, optional Gato challenge, conditional short-range telepod. The scene starts after Crono/Marle have met. Pendant accident, time gate, 600 AD and full opening chapter are NOT implemented.
+- Reused ATB and atomic two-player combo. Gato is one opponent with prototype HP 120; all combat numbers and the generic combo remain prototype values.
+- Fair stalls share rendering and collision data. Other scenery and companion steering are still simplified; no full navigation mesh or A*.
+- Fair save v2 validates chapter, era, event prerequisites and coordinates; lab v1 still loads unchanged. Separate IndexedDB keys prevent cross-chapter overwrite. JSON import/export remains available.
+- Reduced excess ambient lighting and limited glow to selected light objects; actual visual acceptance awaits the new screenshots.
+- CI preserves exact tracked source in the evidence artifact, then runs the unchanged lab browser journey and new fair journey. No downloaded fonts, ROM or user archives are included.
 
-## Current acceptance state
+## Validation performed for this batch
 
-**PROTOTYPE IMPLEMENTED — BROWSER ACCEPTANCE PENDING.**
+- Local core tests **53/53 passed**: all 32 original tests byte-preserved, plus 21 fair tests including a full walking route under six-tick observation intervals.
+- Exact repository strict tsconfig restored; TypeScript/build passed. Standalone HTML about 5.11 MiB.
+- Python syntax compilation of fair browser harness passed. New browser journey is not counted as passed yet.
+- Existing pinned dependencies retained. Local network package install was unavailable; recovered the existing authorized bootstrap artifact instead. No dependency/lockfile changes.
+- Local managed Chromium did not establish a successful navigation/render. No policy bypass attempted; GitHub-hosted Chromium is the browser acceptance environment.
 
-Current source candidate: `f46cd72abf23757f76d48ea2b54efc06f69b3561`.
-Matching CI: Playable prototype CI #5, run `35205557064`, push event on main; last observed **in_progress**, conclusion null.
-Run: https://github.com/KartChang/ChronoTrigger_reMaster/actions/runs/35205557064
+## Next action
 
-This checkpoint update is documentation-only; it does not replace the candidate or start another validation. Resume by checking this run and its artifacts. If queued/in_progress, report the checkpoint and stop waiting rather than polling indefinitely. Do not retry inherited CI #4 or treat it as the current root.
+After publishing this source batch, query the exact push SHA's Playable prototype CI. Save the exact run in this file as a documentation-only checkpoint. If queued/in_progress, report that checkpoint rather than polling indefinitely. Do not claim the new fair playable artifact exists until both browser journeys succeed.
 
-## Not complete / limits
+On failure: read the first failed step and its report/screenshots; keep gameplay assertions and fix the actual root. On success: inspect fair screenshots, deliver the 0.2 artifact and preserve exact artifact IDs/digests. The source tar.gz inside evidence provides the complete checkout for future sessions.
 
-Not a playable original chapter or final HD-2D art. No original characters, scene reconstruction, original story/script/audio extraction, complete ATB compatibility, real-time combat, networking, installer, physical-device or physical-gamepad certification.
+After acceptance: improve scene proportions/readability and movement animations, then implement the missing opening-event chain and a connected next map. Add target selection, proper companion pathfinding, original-rule/source verification and inventory/progression in coherent playable increments. Do not stop at a generic village or call this short blockout a complete remake.
 
-Follower uses local steering, not A*, and can stick behind scenery. Collision world and visual decoration are not unified authoring data. Target selection is nearest-alive, not a selection menu. Numbers are prototype values, not original ROM values. Future is an environment variant, not a second chapter. No inventory/progression or third party member. Single save slot plus export. Touch covers P1, not two people on one touchscreen. Software CI FPS is not a hardware benchmark, and 1 FPS screenshots are not performance acceptance.
+## Remaining limitations
 
-## Next work, in order
+No full original story, original music, verified original numerical rules, original asset extraction, final art, equipment/inventory, third party member, online multiplayer, native apps or physical mobile/gamepad certification. Two-player control is local; shared touch input is P1-only. UI viewport tests do not certify physical devices. Runtime step caps still make simulation slower at extremely low rendered FPS; CI is not performance acceptance.
 
-1. Read exact matching CI browser report, including wait-evidence.json. Fix first actual failure; do not keep enlarging limits without state evidence. On success, inspect screenshots and retrieve the playable artifact for user testing.
-2. Define explicit reference/version/provenance and create a small faithful scene/art slice; do not call this placeholder village a Chrono Trigger chapter.
-3. Preserve ATB co-op until the user explicitly chooses any ARPG conversion. Extend input ownership design before adding third-character control.
-4. Improve companion pathfinding, target selection, combat animations and interaction feedback; unify map collision/visual authoring data.
-5. Add data-driven events, dialogue, maps and a coherent short chapter, with save/reload checkpoints.
-6. Validate real desktop browser/gamepad performance, then real iOS/Android touch layouts. Decide packaging only after the playable core is stable.
-
-Dynamic progress lives here; stable code map in CODEBASE.md. Persist source/evidence/checkpoints in GitHub; /mnt/data is temporary. Avoid simultaneous candidates and long CI polling.
+Dynamic progress only here; stable map in CODEBASE.md. Changes to material scope require user confirmation; ordinary reversible implementation within this scope can continue directly. Never rely on /mnt/data as permanent project memory.

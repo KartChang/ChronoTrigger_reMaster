@@ -1,50 +1,47 @@
-# Kingdom 0.4 — authoritative handoff
+# Kingdom 0.4.1 — quality hardening handoff
 
-## Current batch
+## Current status
 
-**KINGDOM 0.4 IMPLEMENTED — EXACT CI BROWSER ACCEPTANCE PENDING.**
+**DEVELOPMENT CANDIDATE — NOT 90-POINT ACCEPTED.**
 
-Published source: **4e9a3c8750c192e731ac7b9421c37f66f0bb9b93**.
-Source tree: **03ea9440edbee54ebe92a97e7e3bc366a58c561e**. Locally staged git tree exactly matches the connector-created tree for all 18 changed paths and retained source. Non-force fast-forward from c7cbc76366a131b42df49280e065c67ef6b15f4b.
+Parent HEAD: c862cdc690e2603b9710d5946ac6993b7f3ad8bb. Active repository KartChang/ChronoTrigger_reMaster, main. Browser TypeScript/Babylon/esbuild, ATB, local co-op. No visibility changes, public hosting, paid services, ROM access/extraction or distribution in this batch. GitHub metadata currently reports public; never assume private.
 
-Matching CI #8 / run **35216792204**, push event, **in_progress** at last query. Only one exact-SHA run was returned. Do not claim new browser acceptance until this run completes successfully. This documentation-only handoff is not another gameplay candidate.
+## Latest observed browser authority
 
-Starting accepted source was 4cf5842252b1ea5a44ae38be017ee3593a774567. This batch continues the opening; it does not redo it.
+CI8 / 35216792204, source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93: **completed failure**. 109 units/build/typecheck passed; only the standalone-launch checkpoint passed before first lab movement failed. Kingdom browser steps were skipped, not accepted.
 
-Repository KartChang/ChronoTrigger_reMaster, main active. Browser TypeScript/Babylon/esbuild, HD-2D, ATB, local co-op, fast playable delivery. Current GitHub run metadata reports public; no visibility change, deployment, Pages, paid services or ROM distribution performed. Do not import other-project governance.
+Downloaded evidence artifact 10495481982, SHA256 c4d6d8511f39b399bd71a32e3af3542177c41fa2b1f2d9f2d85914bd01a7c3c1. First terminal: P1 movement stopped at x=-0.6, ticks=79, not paused; simulated tick budget exceeded. Source is in artifact source-4e9a3c8750c192e731ac7b9421c37f66f0bb9b93.tar.gz.
 
-## Accepted prior checkpoint
+Input root: lastPhase was updated after the first new-scene simulation frame and Controls.clear removed a legitimately held key. Not a slow-render timeout issue. Current fix rebases input boundary synchronously on replacement/dialogue; simulated changes clear once and discard remaining old-input substeps. No existing browser assertion/time budget removed or weakened.
 
-CI #7 / run 35213238793: completed SUCCESS, exact source 4cf5842252b1ea5a44ae38be017ee3593a774567. Evidence 10493917525, SHA256 851d9b30196f6ccf18643c5b22ef9d9b0b2639c8edea5db2be26bf1cf686303f; playable 10493942481, SHA256 3f582b00a78454684ab5183124223d7a5e13bb23ae1e9945f9c649ba9e92885c.
+CI7 artifact 10493917525 was read only for the latest accepted visual baseline, not rerun. Actually inspected opening/01-classic-fair.png and opening/05-canyon-battle.png: visuals remain simplified and far below the concept poster. No unseen 0.4 kingdom scene is called visually accepted.
 
-Downloaded evidence source archive for local development; no git/network credentials used. Reports passed: 13 lab, 8 fair, 7 opening checks, no reported browser errors. New opening fair/canyon screenshots actually inspected: better scene-visible blue dialogue and pixel silhouettes, still very simplified ground/architecture and not final art. Do not rerun CI7 as a separate historical verification.
+## This batch
 
-## New work
+- InputBoundary fix with seven unit regressions (including old-failure reproduction).
+- Three heroes now alternate left/right walking strides in a four-frame cycle.
+- Export same runtime authoring functions into 8 PNG sheets / 53 frame records with metadata, pivots, durations, hashes and missing-clip annotations; these remain prototype assets, not final art.
+- Asset register: 15 required whole-remake asset groups, all currently missing/prototype, none promoted to approved.
+- Evidence-bound whole-remake scorecard baseline 30/100. Runtime digest marks it stale after modifications; do not silently inflate it.
+- Release gate needs >=90, each category >=80%, current evidence, no critical blocker, five passed gates and approved required assets. Dev CI may produce candidates without claiming release approval.
+- Added separate art-review CI artifact. No new dependency; old four browser journeys and inherited 109 tests unchanged.
 
-Four lazily constructed scenes: Truce town, Guardia Forest, castle hall and queen chamber. Town resident/year, exterior inn rest, separate forest encounter/victory, guard admission, physical room transition, Marle NPC disappearance, explicit Lucca join, restored P2 control and backtracking to cathedral direction. Cathedral interior remains absent.
+## Local validation
 
-v4 saves with phase/era/map/flag/actor validation; v1-v3 retained. Shared adventure slot unchanged. Basic attack lunge and slash/spin visual effects added without changing damage/MP/ATB numbers. No original ROM/music/assets read or extracted.
+133/133 units passed (109 inherited + 7 input-boundary + 7 asset-export + 10 quality-gate tests); TypeScript, asset-extension guard and standalone build passed (~5.15 MiB). All 8 exported PNGs independently decoded/verified with Pillow. Four-frame cycle has three unique poses, not four. Existing tests' byte-for-byte preservation checked against source archive.
 
-## Local evidence
+npm network failed EAI_AGAIN; restored existing pinned toolchain artifact 10487690665 from bootstrap run 35199851415, SHA256 18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90, without executing install lifecycle scripts or altering package versions.
 
-- 109/109 units passed (79 inherited unchanged + 30 new kingdom).
-- Strict TypeScript, asset-extension guard, standalone build passed (~5.15 MiB).
-- New kingdom_browser.py syntax check passed; old three browser scripts unchanged.
-- New browser test uses the real same-run opening v3 export, then real keys/buttons/import/save/reload. No fabricated start state.
-- Local default Playwright executable absent; normally launched /usr/bin/chromium rejects file:// with ERR_BLOCKED_BY_ADMINISTRATOR. Not a local browser pass. No policy workaround.
-- Details and fidelity limits: docs/KINGDOM_SLICE.md. Local command evidence: docs/evidence/kingdom-local-checks.json.
+`npm run release:check` intentionally exits 1 (30/100, missing gates/assets, stale review). This is a successfully tested denial, not a passing product release.
 
-## Delivered local candidate
+Ordinary installed Chromium could launch but file navigation returned ERR_BLOCKED_BY_ADMINISTRATOR. No policy bypass attempted; local browser acceptance remains unverified. New browser acceptance must use the exact matching CI after this source is committed. Do not dispatch duplicates or wait indefinitely.
 
-Filename: chrono-hd2d-kingdom-v0.4-candidate.zip, 1,218,565 bytes.
-ZIP SHA256: 77b16050aeebf5f6dec391260f647cca3e142a95fae73683d08f86b3d7fc979e.
-HTML SHA256: 267f09edfe7e4e91777fd7cd8b942a0d984872d720439447cbd93eaccb8ed823.
-Build metadata records the exact published source SHA and version 0.4.0. Package contains standalone HTML, third-party notices/license, validation status, checksums and Chinese route/control/save-import instructions. ZIP integrity checked. It is a candidate, not a successful CI artifact. Container copy is temporary; rebuild from exact source if unavailable.
+## Next exact actions
 
-## Next exact action
+1. Check the single matching run for this source commit. If in progress, preserve exact SHA/run and report rather than prolonged polling. If failed, inspect first terminal state and fix it, keeping all assertions.
+2. Once browser passes, inspect fair, canyon and kingdom exploration/battle screenshots and input motion. Preserve new evidence; do not raise the old assessment merely because source changed.
+3. Improve one coherent fair exploration / forest battle art kit before expanding more low-fidelity chapters: character attack/cast/hurt/down/victory; richer terrain/buildings; target selection/skill timing; audio production. No concept poster as runtime evidence.
+4. Continue cathedral/Frog/queen rescue, full original opening, inventory/equipment/progression and remaining story after core quality issues are addressed. Keep whole-game gaps open; no denominator shrink to make a small demo appear 90% complete.
+5. Actual device/gamepad and frame-time/loading/memory checks; confirm reference/version and asset-use boundaries. Mobile/native/networked scope remains separate.
 
-Read CI #8 / 35216792204 for source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93. Do not dispatch a duplicate run or use this docs-only commit as a source candidate. Never mark new browser or artwork accepted from unit tests alone. If queued/in_progress, preserve checkpoint and report rather than polling indefinitely. On failure inspect the first actual failing step and lastObserved; do not weaken existing assertions or keep guessing at waits.
-
-After success: inspect kingdom screenshots and artifacts; fix any visual/navigation issue revealed. Then continue cathedral/Frog/queen-rescue story with party ownership rules, followed by inventory/progression and proper authored technique/audio pipeline. The currently playable route ends at the forest's westward cathedral marker, not inside a completed dungeon.
-
-This is the only dynamic status file. Source and exact CI evidence live in GitHub; temporary container paths are not permanent state.
+Stable contracts: docs/QUALITY_AND_ASSETS.md, assets/manifest.json, quality/scorecard.json, AGENTS.md. Live progress only here. Source/evidence persist in GitHub; /mnt/data is temporary. No newly claimed 90-point acceptance.

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-17",
+  "scope": "whole-remake",
+  "reviewedSourceSha": "4e9a3c8750c192e731ac7b9421c37f66f0bb9b93",
+  "runtimeDigest": "cbe436bcaeae01fa7c22da6f36d412bad5bcd73280d1705c00ce3d6ea72179c6",
+  "assessment": "Provisional developer readiness assessment, not percentage of completed game or player score. Visual baseline is CI7; current runtime and failure evidence are CI8. Do not describe unobserved 0.4 gameplay as visually reviewed.",
+  "dimensions": [
+    {
+      "id": "visual",
+      "weight": 25,
+      "score": 8,
+      "reason": "先前通過的實機截圖仍有大片重複草地、方塊建築、人物細節不足；0.4 王國截圖未取得。",
+      "evidence": [
+        "CI7 artifact 10493917525: opening/01-classic-fair.png and opening/05-canyon-battle.png",
+        "CI8: 01-title.png"
+      ]
+    },
+    {
+      "id": "battle",
+      "weight": 20,
+      "score": 7,
+      "reason": "有簡化 ATB／合技；原作技能／命中範圍／數值／三人隊伍與完整動作未還原。",
+      "evidence": [
+        "src/core.ts at 4e9a3c8",
+        "src/render.ts at 4e9a3c8"
+      ]
+    },
+    {
+      "id": "story",
+      "weight": 20,
+      "score": 5,
+      "reason": "只重建前段壓縮路線，修道院／救援及後續時代缺失；家中醒來、初遇未補。",
+      "evidence": [
+        "docs/KINGDOM_SLICE.md at 4e9a3c8",
+        "src/core.ts at 4e9a3c8"
+      ]
+    },
+    {
+      "id": "audio",
+      "weight": 10,
+      "score": 0,
+      "reason": "只有簡單 oscillator 提示音，無關卡音樂與原作音效演出。",
+      "evidence": [
+        "src/main.ts at 4e9a3c8"
+      ]
+    },
+    {
+      "id": "controls",
+      "weight": 10,
+      "score": 4,
+      "reason": "同機雙人已有，但 CI8 揭露開始後吞掉長按；實體手把未驗證。",
+      "evidence": [
+        "CI8 artifact 10495481982: browser-report.json",
+        "src/main.ts at 4e9a3c8"
+      ]
+    },
+    {
+      "id": "reliability",
+      "weight": 10,
+      "score": 6,
+      "reason": "109 單元／型別／建置通過，v1-v4 保存驗證存在；0.4 E2E 尚未走完。",
+      "evidence": [
+        "CI8 run 35216792204",
+        "tests/core.test.mjs, fair.test.mjs, opening.test.mjs, kingdom.test.mjs"
+      ]
+    },
+    {
+      "id": "performance",
+      "weight": 5,
+      "score": 0,
+      "reason": "未取得指定硬體的幀時間／記憶體／載入驗證；軟體 GPU 不可替代。",
+      "evidence": []
+    }
+  ],
+  "gates": {
+    "browser": {
+      "status": "fail",
+      "evidence": [
+        "35216792204/browser-report.json"
+      ]
+    },
+    "visual": {
+      "status": "fail",
+      "evidence": [
+        "10493917525/opening/01-classic-fair.png",
+        "10493917525/opening/05-canyon-battle.png"
+      ]
+    },
+    "hardware": {
+      "status": "unverified",
+      "evidence": []
+    },
+    "content": {
+      "status": "fail",
+      "evidence": [
+        "docs/KINGDOM_SLICE.md"
+      ]
+    },
+    "rights": {
+      "status": "unverified",
+      "evidence": []
+    }
+  },
+  "blockers": [
+    "Q01 initial input is cleared after the first frame",
+    "Q02 0.4 complete browser journey missing",
+    "Q03 placeholder character/scene/animation assets below target",
+    "Q04 full storyline and gameplay content not implemented",
+    "Q05 authored music and sound pipeline missing",
+    "Q06 target-device performance unverified",
+    "Q07 original reference/version and asset-use clearance unresolved"
+  ]
+}

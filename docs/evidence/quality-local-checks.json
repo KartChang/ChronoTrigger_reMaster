@@ -1,0 +1,40 @@
+{
+  "inheritedSource": "4e9a3c8750c192e731ac7b9421c37f66f0bb9b93",
+  "unitTests": {
+    "passed": 133,
+    "failed": 0,
+    "inherited": 109,
+    "added": 24
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "assetExport": {
+    "pngs": 8,
+    "frameRecords": 53,
+    "pixelParity": "passed",
+    "independentPillowVerification": "passed",
+    "stage": "prototype"
+  },
+  "releaseGate": {
+    "expectedExit": 1,
+    "observedExit": 1,
+    "reason": "30/100, missing evidence/assets, runtime review stale"
+  },
+  "unchangedVerified": [
+    "src/core.ts",
+    "tests/core.test.mjs",
+    "tests/fair.test.mjs",
+    "tests/opening.test.mjs",
+    "tests/kingdom.test.mjs",
+    "tests/browser_smoke.py",
+    "tests/fair_browser.py",
+    "tests/opening_browser.py",
+    "tests/kingdom_browser.py"
+  ],
+  "localBrowser": {
+    "attempt": "ordinary installed Chromium; no browser policy modifications",
+    "status": "blocked",
+    "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///mnt/data/chrono-work/dist/index.html?test=1\nCall log:\n  - navigating to \"file:///mnt/data/chrono-work/dist/index.html?test=1\", waiting until \"load\"\n"
+  },
+  "newCIBrowser": "not-yet-run"
+}

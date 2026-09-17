@@ -5,11 +5,11 @@ export function drawAdventureHero(c:Ink,slot:number,facing:number,frame:number):
   const r=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
   const outline='#352b39',skin='#f2c391',shade='#b97960',hair=slot===0?'#b93626':'#c39531',light=slot===0?'#f27537':'#ffe185';
   const blue=slot===0?'#297b95':'#f3eed5',deep=slot===0?'#23465c':'#94b4b1';
-  const stride=frame?1:0;
+  const stride=frame===1?1:frame===3?-1:0,leftLift=Number(stride<0),rightLift=Number(stride>0);
   // Separate boots, trousers, scarf and arms remain readable at native resolution.
-  r(7-stride,25,5,6,outline);r(13+stride,25,5,6-stride,outline);
-  r(8-stride,24,3,4,'#b18352');r(14+stride,24,3,4-stride,'#d2b174');
-  r(7-stride,29,5,2,'#63463b');r(13+stride,28-stride,5,2,'#8f6040');
+  r(7-stride,25,5,6-leftLift,outline);r(13+stride,25,5,6-rightLift,outline);
+  r(8-stride,24,3,4-leftLift,'#b18352');r(14+stride,24,3,4-rightLift,'#d2b174');
+  r(7-stride,29-leftLift,5,2,'#63463b');r(13+stride,28-rightLift,5,2,'#8f6040');
   r(6,17,13,9,outline);r(7,17,11,7,blue);r(8,19,3,5,deep);r(12,18,5,3,slot===0?'#5598a1':'#ffffe7');
   r(7,24,11,2,'#a47748');r(11,24,2,2,'#e6c87d');
   r(4,18+stride,3,6,outline);r(5,19+stride,2,4,blue);r(5,23+stride,2,3,skin);
@@ -53,8 +53,8 @@ export function drawTree(c:Ink):void{
 /** Authored Lucca silhouette: round glasses, violet hair, cap and tunic. */
 export function drawLucca(c:Ink,facing=0,frame=0):void{
  c.clearRect(0,0,24,32);const r=(x:number,y:number,w:number,h:number,color:string)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
- const o='#302b40',hair='#67466f',skin='#e8b68a',boot='#644633',step=frame?1:0;
- r(7-step,25,5,6,o);r(13+step,25,5,6-step,o);r(8-step,26,3,4,boot);r(14+step,25,3,5-step,boot);
+ const o='#302b40',hair='#67466f',skin='#e8b68a',boot='#644633',step=frame===1?1:frame===3?-1:0,leftLift=Number(step<0),rightLift=Number(step>0);
+ r(7-step,25,5,6-leftLift,o);r(13+step,25,5,6-rightLift,o);r(8-step,26,3,4-leftLift,boot);r(14+step,25,3,5-rightLift,boot);
  r(6,16,13,11,o);r(7,17,11,8,'#c47c3f');r(8,18,8,2,'#eabb72');r(7,24,11,2,'#677b66');
  r(4,18+step,3,7,o);r(5,19+step,2,4,'#b58357');r(5,24+step,2,2,skin);r(18,18-step,3,7,o);r(18,19-step,2,4,'#b58357');r(18,24-step,2,2,skin);
  r(6,6,14,11,o);r(7,8,12,9,hair);r(8,9,10,7,skin);r(5,9,3,11,hair);r(18,10,3,9,hair);

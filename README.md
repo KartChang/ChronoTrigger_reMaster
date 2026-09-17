@@ -1,4 +1,4 @@
-# ChronoTrigger reMaster — HD-2D 王國篇 0.4
+# ChronoTrigger reMaster — HD-2D 王國篇 0.4.1 品質修正候選
 
 **千年祭 → 600 年山道 → 托魯斯 → 加爾迪亞森林／王城 → 露卡加入的開發試作，不是完整重製版或最終美術。**
 
@@ -51,3 +51,11 @@ Node.js 22+ 用於建置；preview 預設 http://127.0.0.1:4173。其他指令�
 未讀取或擷取 ROM；原聲帶、原作擷取素材、使用者附件與密鑰不提交、不打包。未做公開遊戲部署。2026-09-17 GitHub 實查 repository 為 public，本批未改可見性。原作內容的公開發行授權尚未確認。
 
 第三方程式授權：docs/THIRD_PARTY.md；來源與限制：docs/OPENING_SLICE.md、docs/KINGDOM_SLICE.md。
+
+## 品質與可編輯素材
+
+目前不屬 90 分驗收版本。最新已檢視基準暫評 30/100；程式修改後需要重新取得相符證據，不能因測試通過自動升分。CI 的 playable artifact 是開發試玩包，不是完整產品發布。
+
+`npm run assets:export` 產生 `dist/art` 的 8 張原型 PNG 圖集、53 個 frame records 與 JSON；與遊戲共用像素繪製函式，並非 ROM 素材或完成的高品質素材包。CI 另保留 `chrono-hd2d-art-review-kit`。
+
+`npm run check:quality` 產生評估報告但不阻擋開發；`npm run release:check` 會阻擋未達標發布。各圖集缺少哪些動作與全部素材缺口，見 `assets/manifest.json`、`quality/scorecard.json`、`docs/QUALITY_AND_ASSETS.md`。

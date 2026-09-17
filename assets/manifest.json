@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "scope": "whole-remake",
+  "policy": "Prototype exports are review/editing assets, not approved originals. ROM and extracted originals must not enter source or artifacts. Public repo status does not establish asset rights.",
+  "items": [
+    {
+      "id": "crono",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/pixel-art.ts",
+      "gap": "combat poses and visual approval",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "marle",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/pixel-art.ts",
+      "gap": "combat poses and visual approval",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "lucca",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/pixel-art.ts",
+      "gap": "combat poses and visual approval",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "other-party",
+      "required": true,
+      "stage": "missing",
+      "source": null,
+      "gap": "Frog and other party members / ownership",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "npcs",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/pixel-art.ts",
+      "gap": "individual silhouettes, dialogue poses",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "enemies",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/pixel-art.ts",
+      "gap": "full roster / directional attack-hit-down poses",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "fair-kit",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/fair-render.ts",
+      "gap": "faithful layout, stalls, bell, texture scale",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "terrain-kit",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/canyon-render.ts",
+      "gap": "organic slopes, ground patterns, path/occlusion",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "kingdom-kit",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/kingdom-render.ts",
+      "gap": "town/castle architecture / authored modules",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "remaining-worlds",
+      "required": true,
+      "stage": "missing",
+      "source": null,
+      "gap": "remaining eras and locations",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "combat-fx",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/render.ts",
+      "gap": "authored timelines and original-technique reference",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "ui-portraits-icons",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/adventure.css",
+      "gap": "portraits, inventory, equipment and status UI",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "music",
+      "required": true,
+      "stage": "missing",
+      "source": null,
+      "gap": "rights-cleared soundtrack or authored arrangements and loops",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "sound-effects",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/main.ts",
+      "gap": "proper attacks, footsteps, environment and transitions",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "map-events",
+      "required": true,
+      "stage": "prototype",
+      "source": "src/core.ts",
+      "gap": "versioned authoring assets and complete event routes",
+      "evidence": [],
+      "romExtracted": false
+    }
+  ]
+}

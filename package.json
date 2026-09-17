@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && node scripts/build.mjs",
@@ -11,8 +13,16 @@
     "check:assets": "node scripts/check-assets.mjs",
     "dev": "npm run build && node scripts/serve.mjs",
     "preview": "node scripts/serve.mjs",
-    "check": "npm run check:assets && npm run test && npm run build"
+    "check": "npm run check:assets && npm run test && npm run check:quality && npm run build",
+    "assets:export": "node scripts/asset-export.mjs",
+    "check:quality": "node scripts/quality.mjs",
+    "release:check": "node scripts/quality.mjs --release"
   },
-  "dependencies": { "@babylonjs/core": "8.0.0" },
-  "devDependencies": { "esbuild": "0.25.0", "typescript": "5.8.3" }
+  "dependencies": {
+    "@babylonjs/core": "8.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0",
+    "typescript": "5.8.3"
+  }
 }

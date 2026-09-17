@@ -50,3 +50,9 @@ ROM／原聲帶／原作擷取素材／使用者附件／密鑰不提交、不�
 一次相關修改整批提交；不 force push、不刪使用者內容、不任意改可見性。先確認目前 HEAD，只修當前失敗，不重跑全部歷史。CI 尚 queued／in_progress 時，保存 exact checkpoint 並回報，不輪詢到對話中斷。
 
 `docs/STATUS.md` 是唯一動態進度／下一步文件；`CODEBASE.md` 僅在結構改變時更新。不要同一進度抄進六份 tracker。暫存容器不是永久記憶，真正 source 與接續點要在 repo。
+
+## 7. 90 分門檻與素材品質（使用者新增要求）
+
+每次先看 exact CI／實際畫面並記錄缺口，未達 90 不稱完成。`quality/scorecard.json` 綁定受評 source 與 runtime digest；`assets/manifest.json` 記素材狀態。評分是開發驗收判斷，不是玩家評分；未知不計通過。整體 >=90、每項 >=80%、無 critical blocker、五項 gate 與必需素材皆有通過證據，才可過 `npm run release:check`。不改分母、刪缺口或提高自評硬湊 90。
+
+概念生成图不是實際截圖或原作設定資料。素材輸出先做可重用的小套件；原型 PNG／程序式圖形／測試資料可以推進，但不可標 approved。現有素材 export 不等於美術升級已完成；必須在引擎實測動畫、遮擋、比例與可讀性。具體規格看 docs/QUALITY_AND_ASSETS.md。

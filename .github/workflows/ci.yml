@@ -51,6 +51,16 @@ jobs:
           path: |
             dist/index.html
             dist/build-meta.json
+            dist/QUALITY_STATUS.json
             dist/THIRD_PARTY_LICENSE.txt
             dist/THIRD_PARTY_NOTICES.md
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chrono-hd2d-art-review-kit
+          path: |
+            dist/art/
+            dist/QUALITY_STATUS.json
+          if-no-files-found: warn
           retention-days: 30

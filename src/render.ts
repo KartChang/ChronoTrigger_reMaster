@@ -182,7 +182,7 @@ export class World {
     else if(facing===1){rect(17,11,2,2,'#24333a');rect(18,13,2,2,'#edcaa2');}
     else if(facing===3){rect(8,11,2,2,'#24333a');rect(6,13,2,2,'#edcaa2');}
     else {rect(10,11,2,2,'#24333a');rect(15,11,2,2,'#24333a');rect(12,15,3,1,'#a87966');}
-    if(fair&&slot===0){rect(7,3,3,5,hair);rect(12,1,3,5,hair);rect(16,3,4,5,hair);rect(8,8,10,2,'#d7d6aa');rect(8,16,11,2,'#cfa04d');}
+    if(fair&&slot===0){rect(7,3,3,5,hair);rect(12,1,3,5,hair);rect(16,3,4,4,hair);rect(8,8,10,2,'#d7d6aa');rect(8,16,11,2,'#cfa04d');}
     if(fair&&slot===1){rect(16,2,4,8,hair);rect(18,7,3,9,hair);rect(17,6,4,2,'#91a6ba');}
     sprite.texture.update();
   }
@@ -235,7 +235,7 @@ export class World {
       this.repairs.setEnabled(future&&s.flags.repaired);
     }
     s.players.forEach((p,i)=>{
-      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*7)%2:0,adventure,i===1&&s.kingdom.phase==='rescue');
+      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*8)%4:0,adventure,i===1&&s.kingdom.phase==='rescue');
       const l=this.lunges[i]!;l.time+=dt;const push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
       sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1)&&p.hp>0);
       this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));

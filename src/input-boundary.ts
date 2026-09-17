@@ -1,8 +1,8 @@
 import type {State} from './core';
 
-type BoundaryState = Pick<State, 'chapter' | 'opening' | 'kingdom'>;
+type BoundaryState = Pick<State, 'chapter' | 'opening' | 'kingdom' | 'rescue'>;
 const key = (state: BoundaryState): string =>
-  `${state.chapter}/${state.opening.phase}/${state.kingdom.phase}`;
+  `${state.chapter}/${state.opening.phase}/${state.kingdom.phase}/${state.rescue.stage}`;
 
 /** Tracks input-invalidating transitions, not render frames.
  * Explicit state replacement rebases immediately; it must not clear a newly

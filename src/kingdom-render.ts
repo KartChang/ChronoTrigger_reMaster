@@ -91,7 +91,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   for(const [id,v] of views)v.root.setEnabled(id===s.chapter);
   if(!kingdomMap(s.chapter))return;
   let view=views.get(s.chapter);if(!view){view=build(s.chapter);views.set(s.chapter,view);}view.root.setEnabled(true);
-  if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
+  if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing'||s.rescue.stage==='homecoming');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
   view.lucca?.setEnabled(s.kingdom.phase==='missing');
  }};
 }

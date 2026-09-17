@@ -1,52 +1,39 @@
-# Pages + companion navigation 0.5.1 — current handoff
+# Cathedral rescue 0.6 — recovered publication candidate
 
-**DEVELOPMENT PREVIEW — WHOLE GAME NOT COMPLETE OR 90-POINT ACCEPTED.**
+**DEVELOPMENT CANDIDATE — FULL GAME IN PROGRESS; NOT 90-POINT ACCEPTED.**
 
-## Authoritative published checkpoint
+## Current work and authority
 
-Source **a9b013c55e10f51aae6ffd268f93f7ee4c3848f0**, tree **d9714426e95a8b64af5a17551f6b0105042a252e**. All 20 changed paths and retained source matched the local git write-tree exactly. Non-force fast-forward from 827ff432a071b370d0a82a349e1e45e98925afe8. This subsequent [skip ci] documentation update is not a new gameplay candidate.
+Repository KartChang/ChronoTrigger_reMaster, main. This turn recovered the previously unpublished v0.6 source, not a newly invented second cathedral chapter. At start main was 4a558dd448e8b794f498f9505059101a26889a90 (tree 21f72a1f63165879ab01139cbc9a08c85f234b1b). Latest validated gameplay source remained a9b013c55e10f51aae6ffd268f93f7ee4c3848f0, CI11 / 35232983328. Latest observed Pages #3 / 35234477003 completed success, serving that 0.5.1 source. Do not claim v0.6 live before its matching game CI and separate deployment succeed.
 
-Matching game CI **#11 / 35232983328**, job **105241620603**, last observed **in_progress**. npm run check passed remotely; browser journeys still running. Do not claim new navigation/browser acceptance before that exact run completes.
+The previous write blockage is historical: current GitHub connector create_tree/create_blob actions succeeded without bypass. Objects are assembled into one complete source commit before non-force moving main. This file belongs to that source candidate; a subsequent documentation-only checkpoint records its exact SHA/run. Do not treat old failed-write wording in the uploaded ZIP as current authority.
 
-Pages preview **#1 / 35232983290** finished **success**, but **prepare only**: job 105241621349 passed 17 package tests, downloaded/verified actual CI10 artifact, staged the launcher and unchanged game, and uploaded staged artifact **10501064292** (1,233,345 bytes; SHA256 8413e95c15636b8dc080f075465990aa94ae28d276dce2049b6ef17c3ccf0bd5). Log explicitly reports **PAGES_NOT_ENABLED**. Deploy job 105241696640 was **skipped**, not passed. **No live Pages URL has been published or verified.**
+## Recovery and actual fixes
 
-One-time user action: https://github.com/KartChang/ChronoTrigger_reMaster/settings/pages → Build and deployment → Source = GitHub Actions. Then Actions → GitHub Pages preview → Run workflow, or the next successful game CI will trigger it. No PAT or extra paid host needed. Expected default URL is https://kartchang.github.io/ChronoTrigger_reMaster/ but must not be called live until deployment and HTTP verification succeed.
+Input attachment chrono-hd2d-rescue-v0.6-source.zip SHA256 1168a2d8d5e070edebf393642bc0543e7e4758bb6e7227de95d6da473b402812 contains 84 project files. Its restored source tree b9e053f2e70b4eba82ca544aaafeb1f98a852309 matched the supplied manifest before this turn's changes. Gameplay/art/source were retained rather than rebuilt from a description.
 
-Local 0.5.1 candidate: chrono-hd2d-pages-navigation-v0.5.1-candidate.zip, 1,225,635 bytes, SHA256 5f88ee825976541e510ca3e30983d8bcc9d555c4b1f7d6fc728f58d9adc48b4c. Exact source in build metadata; HTML 5,410,952 bytes, SHA256 e7e75d46794536580272bf0e54f18dab70921785e5d4cf34e7aa271f253e37a7. ZIP integrity checked. This is not a CI-success release. Rebuild from source if temporary files disappear.
+This turn corrected the new rescue browser's final expected dialogue from 千年祭 to 回到 1000 年, matching the actual return-gate title. The distinct returned-stage, fair-map, present-era and v5 reload assertions remain. Added an explicit P2 return-gate denial assertion before reunion to the existing core test. No gameplay numbers, waiting budgets or test-state hooks changed. Updated stale CODEBASE and publication records.
 
-## Authority entering this batch
+## Implemented candidate scope
 
-Parent main HEAD 827ff432a071b370d0a82a349e1e45e98925afe8. CI10 35228818759 at source b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c completed **success**. Its five real browser journeys passed 42 checkpoints: 13 lab, 8 fair, 7 opening, 8 kingdom, 6 reference art/targeting. 163 inherited unit tests were passing.
+Crest → Naga ambush → explicit Frog recruit → organ secret door → passage supplies/guards → Yakra → queen and optional real chancellor → escort to castle → Marle reappears → backtrack to canyon → return to 1000 AD. Three authored rescue rooms, not full original dungeon geometry or scripts. Trial is still unimplemented.
 
-Evidence artifact 10501165019 SHA256 c6572296834cb9f96a24f0369900bf825a50773b4d2df7d41b41d865cabdcaa9 downloaded; source restored from its exact tar.gz. Actually inspected reference/02-reference-fair.png and kingdom/02-forest-battle.png: still simplified art and repetitive surface texture, no final art approval. Previously missing reference/kingdom acceptance is now closed for b2bd930 only.
+Third actor Frog has actual HP/MP/ATB, enemy targetability, defeat handling, A* follow, independent attack and wounded-ally recovery. P1/P2 remain Crono/Lucca. Frog leaves at homecoming; reunited Marle occupies the autonomous third role without stealing P2. No third human slot, free party selection or triple tech. Tonics are one limited stock item, not the whole inventory system.
 
-Validated playable artifact 10501060260 SHA256 07c331b3773cb6c73bebcc0fdb12756cd5e61417e7a3388807d7193cc8f672cd. Exact HTML SHA256 bcd838064d3eacfc946d5a70ebd8a132609da571d8fd6b6fa6af04f96819c7c2, 5,408,589 bytes, version 0.5.0. This is the eligible initial Pages demo, not the new runtime before its CI completes.
+v5 only after cathedral entry; v1–v4 compatibility and the IndexedDB adventure slot retained. Stable rescue/guest data is validated; simulation caches and effects are not imported. Same authored art exports yield 26 PNG sheets / 402 frame records, not 402 unique original frames. Prior image-reference provenance is retained; no new source-image fidelity review performed in this recovery turn. ROM and original image/audio bytes were not opened, extracted or bundled.
 
-## User-approved Pages showcase
+## Current local verification
 
-User explicitly requested Pages exhibition. Added a separate public launcher, stable play/ path, save-transfer instructions, version/CI/source disclosure and a validated-artifact-only deploy workflow. No public game deployment existed on inspection (`has_pages:false`). Existing connector does not expose a Pages-admin write action. GitHub's configure-pages documentation explicitly excludes GITHUB_TOKEN from first-time enablement; do not request/extract user credentials or keep retrying creation with unsupported permissions.
+Re-executed npm run check: 260/260 passed, no skipped or failed units; TypeScript, asset guard and standalone build passed (approximately5.19MiB). All six inherited browser assertion ASTs match a9b013c. All Python scripts compile; workflow parses and includes seven ordered journeys. All26 exported PNGs decoded with Pillow and matched manifest dimensions/SHA256.
 
-The workflow detects enablement, stages a verified package, reports the exact missing setting and skips deployment while disabled. A green prepare job is NOT a live site. On enablement it uploads/deploys and verifies public HTTP HTML bytes. Future successful main CI updates the preview automatically; failed candidates cannot replace it. No changes to repo visibility or custom domain.
+Pinned dependency toolchain restored through authorized artifact10487690665, SHA25618457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90; package files restored from the candidate archive and versions/lock unchanged. Current ordinary Playwright Chromium executable is absent; no local browser acceptance or policy bypass. The new rescue E2E must run on exact committed CI.
 
-No ROM read/extraction, copied original image bytes, soundtrack or new third-party font is included. Public demo remains nonofficial, unfinished and distinct from 90-point product release. Current content is still the opening/kingdom slice, not the complete game.
+Quality baseline remains old30/100 and stale, not a new review or completion percentage. No grade uplift, art approval, hardware/FPS or whole-game completion claim.
 
-## Gameplay change
+## Next exact work
 
-Replaced direct-line solo following with deterministic bounded grid A* using the exact existing collision function. Routes avoid diagonal corner cutting, replan on map/goal changes, cache failed routes briefly, and never teleport. Joined P2 remains manually controlled. Absent story companions stay absent. Transient follow data is reset at join/battle/state reload and excluded from all v1-v4 save formats. No change to story, battle damage, MP/ATB or player speed. This addresses a known full-game movement foundation gap; no new cathedral chapter is claimed.
+1. Check the matching game CI for the published source, once. If running, preserve exact SHA/run and report; no prolonged polling. If failed, inspect the first terminal report/screenshot/state and repair without weakening assertions.
+2. On pass, inspect actual rescue exploration, three-actor combat, doors and reunion captures. Confirm separate Pages deployment source/hash before claiming v0.6 online.
+3. Address visual/readability/animation/audio defects, then implement the true original opening, trial/prison escape, inventory/equipment/progression, full roster/techniques and remaining eras/endings. Do not shrink the whole-remake quality denominator to the current rescue slice.
 
-Added a sixth browser journey: real key movement puts P1 and P2 on opposite sides of the lab house, P2 drops out, the follower must walk around the solid house without teleporting/moving P1, then manual P2 ownership is restored. Five inherited browser scripts remain unchanged.
-
-## Local validation
-
-195/195 unit tests passed: 163 preserved + 15 navigation + 17 Pages package tests. TypeScript, asset guard, build (~5.16 MiB), Python compile and workflow YAML parsing passed. Actual CI10 artifact was staged successfully with byte-identical play/index.html and deployment proof. Old five browser scripts and original test files preserved byte-for-byte.
-
-The local Playwright package has no matching Chromium executable; navigation browser launch failed before any page opened. No local browser pass, policy bypass or hardware performance claim. Existing pinned toolchain artifact 10487690665 was reused for build dependencies only, without modifying package versions/lockfile or executing install lifecycle scripts. New runtime must pass its matching CI before becoming the hosted build.
-
-Quality score remains a dated 30/100 baseline, stale after changes. No numeric increase based on tests; release gate continues to reject. Complete story, final assets, audio, hardware and full-game systems remain open.
-
-## Next exact actions
-
-1. Read CI11 35232983328 first. Do not dispatch duplicate full CI or poll indefinitely. Pages disabled is an explicit setup blocker, not a game test failure. Check any subsequent Pages run independently; preserve actual deployment URL separately.
-2. If new navigation browser fails, inspect its report/positions first and fix the actual root without weakening old tests. On success verify motion/collision screenshots; deployed preview must identify that exact source.
-3. Continue reference-based art/asset import, authored skill choreography and audio; cathedral/Frog/queen rescue, true initial opening, inventory/equipment/progression, remaining eras and endings stay in scope. No claim the game's complete because the demo is online.
-4. Keep testing true save reload, physical input and target device performance. Live progress only here; contracts in docs/PAGES.md, AGENTS.md and CODEBASE.md. All source/checkpoints in GitHub; /mnt/data is temporary.
+Source and evidence belong in GitHub, not only /mnt/data. This is the sole live progress file; chapter design remains docs/RESCUE_SLICE.md. No repository visibility, paid service, force push or hosting-provider change.

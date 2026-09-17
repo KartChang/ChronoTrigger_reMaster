@@ -42,9 +42,9 @@
     {
       "id": "other-party",
       "required": true,
-      "stage": "missing",
-      "source": null,
-      "gap": "Frog and other party members / ownership",
+      "stage": "prototype",
+      "source": "src/rescue-art.ts; src/rescue-data.ts",
+      "gap": "Frog autonomous third actor and reunited Marle implemented; remaining cast, roster selection, three-way techs and original skill learning absent",
       "evidence": [],
       "romExtracted": false
     },
@@ -62,7 +62,7 @@
       "required": true,
       "stage": "prototype",
       "source": "src/pixel-art.ts",
-      "gap": "full roster / directional attack-hit-down poses",
+      "gap": "Added provisional Naga/Hench/Yakra; original move sets, full animation and complete roster still absent",
       "evidence": [],
       "romExtracted": false
     },
@@ -152,7 +152,16 @@
       "required": true,
       "stage": "prototype",
       "source": "src/core.ts",
-      "gap": "versioned authoring assets and complete event routes",
+      "gap": "Added condensed cathedral rescue and return-to-present with v5; full original opening, trial and remaining eras absent",
+      "evidence": [],
+      "romExtracted": false
+    },
+    {
+      "id": "cathedral-kit",
+      "required": true,
+      "stage": "review",
+      "source": "src/rescue-art.ts; src/rescue-render.ts",
+      "gap": "Three authored rooms, organ, stained glass and enemies; actual engine screenshots not yet accepted, original maze topology omitted",
       "evidence": [],
       "romExtracted": false
     }

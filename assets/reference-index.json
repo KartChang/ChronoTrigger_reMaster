@@ -10,8 +10,17 @@
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/ChronoTrigger1000LeeneSquareBG.png",
       "attribution": "Game imagery: Square; assembled map: Rick N. Bruns, SNESMaps, 2011",
       "observed": "SNES map image, visually inspected in browser tools",
-      "cues": ["worn small paving stones", "weathered pale bell arch", "red banners", "curved striped shop canopies and goods", "dense leafy borders"],
-      "appliedTo": ["src/fair-render.ts", "src/world-art.ts"],
+      "cues": [
+        "worn small paving stones",
+        "weathered pale bell arch",
+        "red banners",
+        "curved striped shop canopies and goods",
+        "dense leafy borders"
+      ],
+      "appliedTo": [
+        "src/fair-render.ts",
+        "src/world-art.ts"
+      ],
       "notClaimed": "The present compact level retains its authored routes, not original terrace geometry or exact coordinates."
     },
     {
@@ -19,36 +28,110 @@
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/ChronoTrigger600GuardiaForestBG.png",
       "attribution": "Game imagery: Square; assembled map: Rick N. Bruns, SNESMaps, 2011",
       "observed": "SNES map image, visually inspected in browser tools",
-      "cues": ["cool dark-green undergrowth", "narrow irregular dark-earth paths", "rooted and branching trunks", "multi-lobed leafy crowns instead of green cubes"],
-      "appliedTo": ["src/pixel-art.ts", "src/world-art.ts", "src/kingdom-render.ts"],
+      "cues": [
+        "cool dark-green undergrowth",
+        "narrow irregular dark-earth paths",
+        "rooted and branching trunks",
+        "multi-lobed leafy crowns instead of green cubes"
+      ],
+      "appliedTo": [
+        "src/pixel-art.ts",
+        "src/world-art.ts",
+        "src/kingdom-render.ts"
+      ],
       "notClaimed": "No original map topology, enemy placement or battle numbers were extracted."
     },
     {
       "id": "snes-crono",
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Crono.png",
-      "cues": ["slim red-haired silhouette", "pale headband", "teal clothing and scarf", "separate legs and boots"],
-      "appliedTo": ["src/hero-art.ts"],
+      "cues": [
+        "slim red-haired silhouette",
+        "pale headband",
+        "teal clothing and scarf",
+        "separate legs and boots"
+      ],
+      "appliedTo": [
+        "src/hero-art.ts"
+      ],
       "notClaimed": "24x32 is a project canvas, not an inferred original atlas cell or an original animation extraction."
     },
     {
       "id": "snes-marle",
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Marle.png",
-      "cues": ["orange-gold ponytail", "pale outfit", "slender proportions"],
-      "appliedTo": ["src/hero-art.ts"]
+      "cues": [
+        "orange-gold ponytail",
+        "pale outfit",
+        "slender proportions"
+      ],
+      "appliedTo": [
+        "src/hero-art.ts"
+      ]
     },
     {
       "id": "snes-lucca",
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Lucca.png",
-      "cues": ["round glasses", "violet hair", "khaki cap", "ochre tunic"],
-      "appliedTo": ["src/hero-art.ts"]
+      "cues": [
+        "round glasses",
+        "violet hair",
+        "khaki cap",
+        "ochre tunic"
+      ],
+      "appliedTo": [
+        "src/hero-art.ts"
+      ]
     },
     {
       "id": "snes-gato",
       "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/enemies/Gato.png",
-      "cues": ["rounded red mechanical body", "distinct gloves", "metal grille and boots"],
-      "appliedTo": ["src/pixel-art.ts", "src/fair-render.ts"]
+      "cues": [
+        "rounded red mechanical body",
+        "distinct gloves",
+        "metal grille and boots"
+      ],
+      "appliedTo": [
+        "src/pixel-art.ts",
+        "src/fair-render.ts"
+      ]
+    },
+    {
+      "id": "cathedral-original-2d-composition",
+      "url": "https://ameblo.jp/ruritama888/entry-12797213836.html",
+      "imageUrl": "https://stat.ameba.jp/user_images/20230406/14/ruritama888/c2/f0/j/o2160162015266192393.jpg?caw=800",
+      "observed": "Actual screenshot visually inspected on 2026-09-17. Original 2D composition; exact platform/revision not verified, not labeled a SNES capture.",
+      "cues": [
+        "western pipe organ",
+        "red carpet with muted edging",
+        "fluted dark bronze-gray pillars",
+        "stained glass above northern altar",
+        "dark patterned stone floor"
+      ],
+      "appliedTo": [
+        "src/rescue-render.ts",
+        "src/rescue-art.ts"
+      ],
+      "notClaimed": "Not a full map extraction, verified original geometry, sound, event script, combat balance or platform-specific timing."
+    },
+    {
+      "id": "snes-frog-static",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Frog.png",
+      "observed": "Static sprite visually inspected via web image response on 2026-09-17",
+      "cues": [
+        "green frog silhouette",
+        "pale tunic",
+        "brown cape and boots",
+        "distinct protruding eyes"
+      ],
+      "appliedTo": [
+        "src/rescue-art.ts"
+      ],
+      "notClaimed": "Combat clips are hand-authored four-frame prototype poses, not extracted original frames."
     }
   ],
-  "exclusions": ["Generated concept poster is not original-game evidence.", "Official modern-port comparison images are not substituted for SNES originals.", "No soundtrack, original image files or ROM bytes are committed or included in artifacts."],
+  "exclusions": [
+    "Generated concept poster is not original-game evidence.",
+    "Official modern-port comparison images are not substituted for SNES originals.",
+    "No soundtrack, original image files or ROM bytes are committed or included in artifacts.",
+    "Cathedral 2D screenshot has unverified platform; it guides composition only and is not promoted to SNES-version proof. Yakra/Naga redraws are provisional, not validated frame-accurate reference sheets."
+  ],
   "rights": "Reference availability does not establish redistribution rights. New derivative character drawings are not a declaration of original-IP clearance."
 }

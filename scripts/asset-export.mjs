@@ -73,13 +73,13 @@ export function combatSheet(draw,poses,durations){
 export async function exportAssets(root=process.cwd()){
   const {build}=await import('esbuild');const out=resolve(root,'dist/art');await mkdir(out,{recursive:true});
   const modules={};
-  for(const name of ['pixel-art','hero-art','world-art']){
+  for(const name of ['pixel-art','hero-art','world-art','rescue-art']){
     const bundle=resolve(root,`.test/${name}-export.mjs`);
     await build({entryPoints:[resolve(root,`src/${name}.ts`)],bundle:true,outfile:bundle,format:'esm',platform:'node'});
     modules[name]=await import(pathToFileURL(bundle).href+'?export');
   }
-  const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'];
-  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts'];const hash=createHash('sha256');
+  const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'],rescue=modules['rescue-art'];
+  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts'];const hash=createHash('sha256');
   for(const source of sources){hash.update(source+'\0');hash.update(await readFile(resolve(root,source)));hash.update('\0');}
   const sourceSha256=hash.digest('hex');
   const inventory=[];
@@ -89,15 +89,15 @@ export async function exportAssets(root=process.cwd()){
     await writeFile(resolve(out,id+'.json'),JSON.stringify(data,null,2));
     inventory.push({id,frames:data.frames.length,width:sheet.width,height:sheet.height,sha256:createHash('sha256').update(bytes).digest('hex'),stage:data.stage});
   }
-  for(const [id,draw] of [['crono',(c,d,f,p)=>art.drawAdventureHero(c,0,d,f,p)],['marle',(c,d,f,p)=>art.drawAdventureHero(c,1,d,f,p)],['lucca',art.drawLucca]]){
+  for(const [id,draw] of [['crono',(c,d,f,p)=>art.drawAdventureHero(c,0,d,f,p)],['marle',(c,d,f,p)=>art.drawAdventureHero(c,1,d,f,p)],['lucca',art.drawLucca],['frog',rescue.drawFrog]]){
     const {sheet,frames,clips}=actorSheet(draw);await save(id,sheet,{frames,clips,combatSheet:id+'-combat.json'});
     const combat=combatSheet(draw,hero.COMBAT_POSES,hero.CLIP_MS);
     await save(id+'-combat',combat.sheet,{frames:combat.frames,clips:combat.clips,limitations:['Project-specific four-frame actions; not original animation timing or frames.','Imported-edited atlas playback is not implemented.']});
   }
-  for(const [id,w,h,draw] of [['imp',24,32,art.drawImp],['tree',64,80,art.drawTree],['gato',48,48,art.drawGato],...['resident','guard','king'].map(k=>[k,24,32,c=>art.drawResident(c,k)])]){
+  for(const [id,w,h,draw] of [['imp',24,32,art.drawImp],['tree',64,80,art.drawTree],['gato',48,48,art.drawGato],['yakra',48,48,rescue.drawYakra],['naga',24,32,rescue.drawNaga],['hench',24,32,c=>rescue.drawNaga(c,true)],...['nun','queen','chancellor'].map(k=>[k,24,32,c=>rescue.drawRescueNpc(c,k)]),...['resident','guard','king'].map(k=>[k,24,32,c=>art.drawResident(c,k)])]){
     const s=surface(w,h);draw(s.ink);await save(id,s,{padding:0,frames:[{index:0,rect:{x:0,y:0,w,h},pivot:{x:w/2,y:h-1}}],clips:{idle:{frames:[0],loop:true}}});
   }
-  for(const [id,w,h,draw] of [['fair-ground',512,512,(c)=>world.drawSurface(c,512,512,'fair')],['forest-ground',384,352,(c)=>world.drawSurface(c,384,352,'forest')],['masonry',128,128,(c)=>world.drawMasonry(c)]]){
+  for(const [id,w,h,draw] of [['fair-ground',512,512,(c)=>world.drawSurface(c,512,512,'fair')],['forest-ground',384,352,(c)=>world.drawSurface(c,384,352,'forest')],['masonry',128,128,(c)=>world.drawMasonry(c)],['cathedral-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352)],['crypt-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352,true)],['stained-glass',40,64,rescue.drawGlass]]){
     const s=surface(w,h);draw(s.ink);await save(id,s,{padding:0,frames:[{index:0,rect:{x:0,y:0,w,h}}],clips:{},orientation:'top is north (+z) for ground maps; Babylon texture update uses invertY=true',usage:'Same authoring code is used by the engine DynamicTexture, not an external runtime request.'});
   }
   const report={stage:'reference-review-not-final-art',images:inventory.length,frames:inventory.reduce((n,a)=>n+a.frames,0),sourceSha256,assets:inventory,limitations:['References calibrate silhouettes, palette and surface treatment; compressed layouts and project animation timings are not exact original reconstruction.','Walk cycle has three distinct poses over four timed frames; phases 0 and 2 repeat.','Combat clips require live gameplay review. Portraits, music, full cast and remaining world assets are still incomplete.','Exports are review/editing artifacts. External PNG re-import is not implemented.']};

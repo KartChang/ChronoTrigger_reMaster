@@ -1,10 +1,13 @@
+import {buildRescue} from './rescue-render';
+import {rescueMap} from './rescue-data';
+import {drawFrog,drawYakra,drawNaga} from './rescue-art';
 import {PosePlayer} from './pose-player';
 import type {HeroPose} from './hero-art';
 import type {PoseSample} from './pose-player';
 import {buildKingdom} from './kingdom-render';
 import {buildCanyon} from './canyon-render';
 import {drawAdventureHero,drawImp,drawLucca} from './pixel-art';
-import {activeSlot,selectedEnemy} from './core';
+import {activeSlot,selectedEnemy,guestKind} from './core';
 import {buildFair} from './fair-render';
 import {
   Engine, Scene, Vector3, Color3, Color4, FreeCamera, Camera, HemisphericLight,
@@ -41,6 +44,13 @@ export class World {
   private time=0;
   private labRoot:TransformNode;
   private fairWorld:ReturnType<typeof buildFair>;
+  private rescueWorld:ReturnType<typeof buildRescue>;
+  private guest:Sprite;
+  private guestPose=new PosePlayer();
+  private guestView:PoseSample={pose:'idle',frame:0};
+  private rescueFoes:Sprite[]=[];
+  private yakra:Sprite;
+  private guestVisible=false;
   private kingdomWorld:ReturnType<typeof buildKingdom>;
   private slashes:{mesh:Mesh;time:number}[]=[];
   private lunges:{time:number;dx:number;dz:number}[]=[{time:1,dx:0,dz:0},{time:1,dx:0,dz:0}];
@@ -51,7 +61,7 @@ export class World {
   private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
   private targetMarkers:Mesh[]=[];
   private drawFrames=0;
-  inspect(){return {frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -114,7 +124,10 @@ export class World {
     for(const light of this.scene.lights)if(light instanceof PointLight)light.parent=this.labRoot;
     this.fairWorld=buildFair(this.scene,this.shadow);
     this.canyonWorld=buildCanyon(this.scene,this.shadow);
-    this.kingdomWorld=buildKingdom(this.scene,this.shadow);
+    this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);
+    this.guest=this.sprite('guest-companion',1.36,1.85);this.yakra=this.sprite('yakra',3.5,3.5,48,48);
+    for(let i=0;i<3;i++)this.rescueFoes.push(this.sprite('rescue-enemy-'+i,1.35,1.85));
+    for(const sprite of [this.guest,this.yakra,...this.rescueFoes]){sprite.mesh.setEnabled(false);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;}
     const glow=new GlowLayer('subtle-light',this.scene,{blurKernelSize:16});glow.intensity=.22;
     // Pixel actors and labels must not bloom into unreadable white silhouettes.
     glow.addIncludedOnlyMesh(this.portal);glow.addIncludedOnlyMesh(this.crystal);glow.addIncludedOnlyMesh(saveCrystal);
@@ -171,8 +184,8 @@ export class World {
     this.box('lantern-glass',x,1.8,z,.24,.40,.24,this.lamp);
     const light=new PointLight('warm-lamp',new Vector3(x,1.8,z),this.scene);light.diffuse=color('#ffce8b');light.intensity=.8;light.range=4;
   }
-  private sprite(name:string,w:number,h:number):Sprite {
-    const t=new DynamicTexture(name+'-pixels',{width:24,height:32},this.scene,false,Texture.NEAREST_SAMPLINGMODE);t.hasAlpha=true;
+  private sprite(name:string,w:number,h:number,tw=24,th=32):Sprite {
+    const t=new DynamicTexture(name+'-pixels',{width:tw,height:th},this.scene,false,Texture.NEAREST_SAMPLINGMODE);t.hasAlpha=true;
     const m=new StandardMaterial(name+'-material',this.scene);m.diffuseTexture=t;m.useAlphaFromDiffuseTexture=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.alphaCutOff=.4;m.backFaceCulling=false;m.emissiveColor=new Color3(.52,.52,.52);m.specularColor=Color3.Black();
     const mesh=MeshBuilder.CreatePlane(name,{width:w,height:h},this.scene);mesh.material=m;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;
     return {mesh,texture:t,material:m,last:''};
@@ -210,6 +223,8 @@ export class World {
     const mesh=MeshBuilder.CreatePlane('label',{width,height:width/4},this.scene);mesh.material=mat;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   }
   private effect(e:Effect,s:State):void {
+    if(e.guest)this.guestPose.trigger(e.kind==='heal'?'cast':'attack',this.time);
+    else if(e.kind==='hit'&&guestKind(s)&&Math.hypot(s.rescue.guest.x-e.x,s.rescue.guest.z-e.z)<.2)this.guestPose.trigger('hurt',this.time);
     if(e.actor!==undefined)this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',this.time);
     else if(e.kind==='combo')this.posePlayers.forEach((player,i)=>{if(activeSlot(s,i as 0|1))player.trigger('cast',this.time);});
     else if(e.kind==='hit')s.players.forEach((p,i)=>{if(activeSlot(s,i as 0|1)&&Math.hypot(p.x-e.x,p.z-e.z)<.2)this.posePlayers[i]!.trigger('hurt',this.time);});
@@ -232,14 +247,14 @@ export class World {
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
     const fair=s.chapter==='fair',canyon=s.chapter==='canyon',forest=s.chapter==='forest',adventure=s.chapter!=='lab';
     if(this.chapter!==s.chapter){
-      this.chapter=s.chapter;this.resize();this.posePlayers.forEach(p=>p.reset());this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
+      this.chapter=s.chapter;this.resize();this.guestPose.reset();this.posePlayers.forEach(p=>p.reset());this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
       this.scene.fogDensity=adventure?0:.01;
       this.foes.forEach(f=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();}else this.drawEnemy(f);});
       for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
       this.era=null;
     }
     if(fair)this.fairWorld.draw(s,this.time);
-    this.kingdomWorld.draw(s);
+    this.kingdomWorld.draw(s);this.rescueWorld.draw(s);
     while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e,s);}
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
@@ -274,6 +289,17 @@ export class World {
       const positions=[{x:-1.8,z:2.4},{x:1.8,z:3},{x:.2,z:1.5}];const position=enemy??(forest?{x:i===0?-1.8:1.8,z:2.8}:canyon?positions[i]!:{x:i===0?-2:2,z:4.5});
       f.mesh.setEnabled(visible);f.mesh.scaling.y=canyon||forest?1.3:1;f.mesh.position.set(position.x,canyon||forest?1.0:.86+Math.sin(this.time*2+i)*.035,position.z);
     });
+    const kind=guestKind(s),g=s.rescue.guest;this.guestVisible=!!kind;this.guest.mesh.setEnabled(!!kind);
+    if(kind){
+      const pose=g.hp<=0?{pose:'down' as const,frame:3}:s.mode==='victory'?{pose:'victory' as const,frame:Math.floor(this.time*4)%4}:this.guestPose.sample(this.time,g.walking);this.guestView=pose;
+      const key=`${kind}/${g.facing}/${pose.pose}/${pose.frame}`;
+      if(this.guest.last!==key){this.guest.last=key;const c=this.guest.texture.getContext() as CanvasRenderingContext2D;if(kind==='frog')drawFrog(c,g.facing,pose.frame,pose.pose);else drawAdventureHero(c,1,g.facing,pose.frame,pose.pose);this.guest.texture.update();}
+      this.guest.mesh.position.set(g.x,1.02,g.z);
+    }
+    const inRescue=rescueMap(s.chapter),boss=inRescue&&s.mode==='battle'&&s.enemies[0]?.kind==='yakra'&&s.enemies[0]!.hp>0;
+    this.yakra.mesh.setEnabled(!!boss);
+    if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
+    this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
     const tx=adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=midZ*(adventure?.72:.16)+1;
     this.camera.position.set(tx,23,tz-26);this.camera.setTarget(new Vector3(tx,0,tz));

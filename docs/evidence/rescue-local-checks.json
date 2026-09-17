@@ -1,0 +1,29 @@
+{
+  "scope": "v0.6 recovered candidate, current-turn local recheck; not CI acceptance",
+  "parentMain": "4a558dd448e8b794f498f9505059101a26889a90",
+  "recoveredArchiveSha256": "1168a2d8d5e070edebf393642bc0543e7e4758bb6e7227de95d6da473b402812",
+  "restoredTreeBeforeChanges": "b9e053f2e70b4eba82ca544aaafeb1f98a852309",
+  "unitTests": {
+    "passed": 260,
+    "failed": 0,
+    "skipped": 0,
+    "inherited": 195,
+    "rescueAndArt": 65
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "pngs": 26,
+  "frameRecords": 402,
+  "independentPillowDimensionsAndHashes": "passed",
+  "inheritedBrowserAssertionASTs": "unchanged: six journeys",
+  "pythonSyntax": "passed",
+  "yamlSevenJourneys": "passed",
+  "currentFixes": [
+    "return-gate E2E expects the actual 回到 1000 年 title; retains stage/map/era and save assertions",
+    "extra early P2 denial assertion in existing return-gate core test"
+  ],
+  "localBrowser": "unverified: installed Playwright matching Chromium executable absent",
+  "quality": "old 30/100 review stale; release remains blocked",
+  "remotePublication": "object writes now succeed; exact source commit and CI tracked in docs/STATUS.md",
+  "rom": "untouched"
+}

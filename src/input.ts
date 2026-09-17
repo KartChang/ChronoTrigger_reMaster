@@ -1,10 +1,10 @@
 import type { Input, Slot, Vec } from './core';
-export type Command='attack'|'skill'|'combo'|'interact'|'pause'|'join'|'targetPrevious'|'targetNext';
+export type Command='attack'|'skill'|'combo'|'interact'|'pause'|'join'|'targetPrevious'|'targetNext'|'tonic';
 export class Controls {
   private keys=new Set<string>();
   private touch=new Map<number,string>();
   private previous=new Map<string,boolean>();
-  private bindings: Record<string,[Slot,Command]>={KeyQ:[0,'targetPrevious'],KeyR:[0,'targetNext'],BracketLeft:[1,'targetPrevious'],BracketRight:[1,'targetNext'],KeyJ:[0,'attack'],KeyK:[0,'skill'],KeyL:[0,'combo'],KeyE:[0,'interact'],Comma:[1,'attack'],Period:[1,'skill'],Slash:[1,'combo'],Numpad1:[1,'attack'],Numpad2:[1,'skill'],Numpad3:[1,'combo'],Enter:[1,'interact'],Escape:[0,'pause'],KeyC:[1,'join']};
+  private bindings: Record<string,[Slot,Command]>={KeyU:[0,'tonic'],Backslash:[1,'tonic'],KeyQ:[0,'targetPrevious'],KeyR:[0,'targetNext'],BracketLeft:[1,'targetPrevious'],BracketRight:[1,'targetNext'],KeyJ:[0,'attack'],KeyK:[0,'skill'],KeyL:[0,'combo'],KeyE:[0,'interact'],Comma:[1,'attack'],Period:[1,'skill'],Slash:[1,'combo'],Numpad1:[1,'attack'],Numpad2:[1,'skill'],Numpad3:[1,'combo'],Enter:[1,'interact'],Escape:[0,'pause'],KeyC:[1,'join']};
   constructor(private command:(slot:Slot,command:Command)=>void) {
     window.addEventListener('keydown',e=>{
       if(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)return;

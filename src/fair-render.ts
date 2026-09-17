@@ -122,7 +122,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   }
   root.setEnabled(false);
   return {root,draw(s:State,time:number){
-    lucca.setEnabled(true);pendant.setEnabled(s.opening.phase==='lost');
+    lucca.setEnabled(s.rescue.stage!=='returned');pendant.setEnabled(s.opening.phase==='lost');
     gate.setEnabled(['resonance','lost','pendant','crossing'].includes(s.opening.phase));gate.rotation.z=time*.5;pendant.rotation.y=time;
     robot.setEnabled(s.mode!=='victory'&&!(s.mode==='battle'&&s.enemies[0]?.hp===0));
     robot.position.y=1.3+(s.mode==='battle'?Math.sin(time*4)*.035:0);

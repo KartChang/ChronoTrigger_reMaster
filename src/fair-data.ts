@@ -1,5 +1,5 @@
 /** Authored reconstruction slice, not a ROM map or verified original event script. */
-export type Chapter = 'lab' | 'fair' | 'canyon' | 'truce' | 'forest' | 'castle' | 'chamber';
+export type Chapter = 'lab' | 'fair' | 'canyon' | 'truce' | 'forest' | 'castle' | 'chamber' | 'cathedral' | 'passage' | 'sanctum';
 export type FairFlags = { bellHeard: boolean; gatoWon: boolean; luccaMet: boolean; telepodTested: boolean };
 export const newFairFlags = (): FairFlags => ({ bellHeard: false, gatoWon: false, luccaMet: false, telepodTested: false });
 export const FAIR_STALLS = [

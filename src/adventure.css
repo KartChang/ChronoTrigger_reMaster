@@ -57,3 +57,11 @@ body[data-adventure="true"][data-mode="battle"] .player-title small{display:none
 body[data-adventure="true"][data-mode="battle"] .player{padding:8px 14px}
 body[data-adventure="true"][data-mode="battle"] .story-caption{display:none}
 @media(max-width:650px){body[data-adventure="true"][data-mode="battle"] .party{grid-template-columns:1fr 1fr}.target-picker{gap:6px;font-size:11px}.target-picker button{padding:3px 8px}}
+
+.guest-panel{position:absolute;left:18px;top:108px;max-width:280px;padding:7px 12px;pointer-events:none;font-size:12px}
+.guest-panel strong{display:inline-block;margin-right:10px;color:#ead395;font-size:16px}
+.guest-panel span{font-size:10px;color:#c5d6c0}.guest-panel small{display:block;margin-top:4px}
+body[data-mode="explore"] .guest-panel{top:auto;bottom:60px;background:#17274bc9;padding:4px 9px;border-width:1px}
+body[data-mode="explore"] .guest-panel small{display:none}
+body[data-mode="battle"] .actions:has([data-action="tonic"]:not([hidden])){display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:650px){.guest-panel{left:10px;top:145px;max-width:210px;font-size:10px}.guest-panel strong{font-size:13px}body[data-mode="explore"] .guest-panel{bottom:75px}body[data-mode="battle"] .actions button{padding:6px 3px;font-size:11px}}

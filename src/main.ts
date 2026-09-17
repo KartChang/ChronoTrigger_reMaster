@@ -1,8 +1,9 @@
+import {rescueMap,nearestRescue,RESCUE_NAMES,rescueObjective,GUEST_HP,GUEST_MP} from './rescue-data';
 import {InputBoundary} from './input-boundary';
 import {kingdomMap,nearestKingdom,KINGDOM_NAMES} from './kingdom-data';
 import {nearestFair} from './fair-data';
 import type {Chapter} from './fair-data';
-import {createState,cycleTarget,selectedEnemy,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
+import {createState,guestKind,interactRescue,useTonic,cycleTarget,selectedEnemy,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
@@ -34,6 +35,7 @@ function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
 }
 function interact(slot:Slot):void{
   if(cutsceneActive(state)||!activeSlot(state,slot))return;
+  if(rescueMap(state.chapter)){const result=interactRescue(state,slot);if(result){if(result.title==='管風琴')tone(262);showDialog(result.title,result.text);}else announce('靠近人物、物件或門口再按互動。');updateHud();return;}
   if(kingdomMap(state.chapter)){const result=interactKingdom(state,slot);if(result)showDialog(result.title,result.text);else announce(state.mode==='battle'?'請使用戰鬥指令。':'靠近人物、門口或小路盡頭，再按互動。');updateHud();return;}
   if(state.chapter==='canyon'){const result=interactOpening(state,slot);if(result)showDialog(result.title,result.text);else announce(state.opening.canyonWon?'沿山道向南走，靠近出口按 E。':'山道前方有魔物，小心。');updateHud();return;}
   if(state.chapter==='fair'){
@@ -65,7 +67,7 @@ function command(slot:Slot,cmd:Command):void{
   if(halted()||cutsceneActive(state)||!activeSlot(state,slot)||(slot===1&&!state.joined))return;
   if(cmd==='interact'){interact(slot);return;}
   if(cmd==='targetPrevious'||cmd==='targetNext'){cycleTarget(state,slot,cmd==='targetNext'?1:-1);updateHud();return;}
-  const accepted=cmd==='combo'?requestCombo(state,slot):action(state,slot,cmd);
+  const accepted=cmd==='tonic'?useTonic(state,slot):cmd==='combo'?requestCombo(state,slot):action(state,slot,cmd);
   if(accepted)tone(cmd==='combo'?660:cmd==='skill'?520:330);
   else announce(state.mode==='battle'?'需要存活、ATB 全滿，並有足夠 MP。技能 3 MP，合技每人 4 MP。':(state.chapter==='fair'?'探索時請靠近岡薩雷斯按 E，開始 ATB 挑戰。':'探索模式不會揮砍；靠近敵人或選「練習戰鬥」進入 ATB。'));
   updateHud();
@@ -79,7 +81,7 @@ $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'int
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
-$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
+$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
 $('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
@@ -103,7 +105,7 @@ function updateHud():void{
     document.querySelectorAll<HTMLButtonElement>(`[data-target-slot="${i}"]`).forEach(b=>b.disabled=halted()||cutsceneActive(state)||target===null||(i===1&&!state.joined));
     $('hp'+i).style.width=`${p.hp/MAX_HP*100}%`;$('hp-text'+i).textContent=`${p.hp}/${MAX_HP}`;
     $('mp'+i).textContent=`MP ${p.mp} / ${MAX_MP}`;$('atb'+i).style.width=`${p.atb*100}%`;$('atb-text'+i).textContent=state.mode==='battle'?(p.atb>=1?'READY':`${Math.floor(p.atb*100)}%`):'探索';
-    document.querySelectorAll<HTMLButtonElement>(`[data-slot="${i}"]`).forEach(b=>{const cost=b.dataset.action==='skill'?3:b.dataset.action==='combo'?4:0;b.disabled=halted()||cutsceneActive(state)||!activeSlot(state,i as Slot)||(b.dataset.action==='combo'&&!activeSlot(state,1))||state.mode!=='battle'||p.hp<=0||p.atb<1||p.mp<cost||(i===1&&!state.joined);b.classList.toggle('queued',b.dataset.action==='combo'&&state.combo[i]===true);});
+    document.querySelectorAll<HTMLButtonElement>(`[data-slot="${i}"]`).forEach(b=>{const cost=b.dataset.action==='skill'?3:b.dataset.action==='combo'?4:0;b.disabled=halted()||cutsceneActive(state)||!activeSlot(state,i as Slot)||(b.dataset.action==='combo'&&!activeSlot(state,1))||state.mode!=='battle'||p.hp<=0||p.atb<1||p.mp<cost||(i===1&&!state.joined);if(b.dataset.action==='tonic'){b.hidden=state.rescue.stage==='none';b.disabled ||=state.rescue.tonics<=0||p.hp>=MAX_HP;b.textContent=`回復藥 ${state.rescue.tonics}`;}b.classList.toggle('queued',b.dataset.action==='combo'&&state.combo[i]===true);});
   });
   $('combo-status').textContent=state.combo[0]||state.combo[1]?'合技準備中：等待另一名角色確認。':'合技：雙方 ATB 全滿，各需 4 MP。';
   $('battle-banner').hidden=state.mode!=='battle';$('enemy-hp').textContent=state.enemies.map((e,i)=>`敵 ${i+1} · HP ${e.hp}/90`).join('　');
@@ -152,6 +154,26 @@ function updateHud():void{
     if(!activeSlot(state,1))$('combo-status').textContent='此時只有克羅諾，無法使用合技。';
   }
   if(state.chapter==='canyon'&&state.kingdom.phase==='rescue'){$('party-mode').textContent=state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡';$('combo-status').textContent='兩人同行，戰鬥仍採 ATB。';}
+  const guest=guestKind(state),g=state.rescue.guest;
+  $('guest-panel').hidden=!started||!guest;
+  $('guest-name').textContent=guest==='frog'?'青蛙':'瑪兒';
+  $('guest-stats').textContent=state.mode==='battle'?`HP ${g.hp}/${GUEST_HP} · MP ${g.mp}/${GUEST_MP} · ATB ${Math.floor(g.atb*100)}%`:'第三位同伴 · 自動跟隨';
+  if(state.rescue.stage!=='none'){
+    const text=rescueObjective(state.rescue);$('objective').textContent=text;$('story-caption').textContent=text;$('story-caption').hidden=!started||dialogOpen;
+    $('scene-note').textContent='救援篇 0.6 · 原版對照重畫／壓縮路線／暫定戰鬥數值';
+    $('party-mode').textContent=guest?(state.joined?'雙人操作 ＋ 同伴 AI':'單人 ＋ 同伴 AI'):(state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡');
+    if(rescueMap(state.chapter)){
+      $('era').textContent='600 AD';$('location').textContent=RESCUE_NAMES[state.chapter];
+      const point=nearestRescue(state.players[0].x,state.players[0].z,state.chapter,state.rescue);
+      $('interact-hint').hidden=!started||dialogOpen||state.mode!=='explore'||!point;$('interact-hint').textContent=point?'E · '+point.label:'';
+      $('enemy-hp').textContent=state.enemies.map((e,i)=>`${e.kind==='yakra'?'亞克拉':e.kind==='naga'?'娜迦':`守衛 ${i+1}`} · HP ${e.hp}/${e.maxHp??64}`).join('　');
+      if(state.enemies[0]?.kind==='yakra'&&state.enemies[0]!.atb>.78)$('enemy-hp').textContent+=' · 正在蓄力！';
+      $('result-title').textContent=state.mode==='victory'?(state.rescue.yakraWon?'亞克拉被擊敗':'戰鬥勝利'):'隊伍倒下了';
+      $('result-text').textContent=state.mode==='victory'?'危險暫時解除。繼續調查與救援。':'回入口休整。未贏的戰鬥不會被標成已完成。';$('continue').textContent=state.mode==='victory'?'繼續前進':'回入口休整';
+    }
+    if(state.chapter==='chamber'&&state.rescue.stage==='homecoming'&&distance(state.players[0],{x:0,z:2})<1.8){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 瑪兒';}
+    if(state.chapter==='canyon'&&state.rescue.stage==='reunited'&&state.players[0].z>7.4){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 啟動時門，返回 1000 年';}
+  }
   const message=state.log[state.log.length-1]??'';if(started&&message!==previousLog){previousLog=message;announce(message);}
 }
 try{

@@ -118,10 +118,10 @@ try:
             move(page,'z',.5,['s','ArrowDown'],False);move(page,'x',-9,['a','ArrowLeft'],False)
             talk(page,'修道院');assert snap(page)['kingdom']['forestWon'] is True
             page.screenshot(path=str(OUT/'07-cathedral-boundary.png'))
-            passed('two players backtrack through cleared forest to the honestly marked next-slice boundary')
+            passed('two players backtrack through cleared forest to the cathedral entrance')
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4178/','data:','blob:'))],requests
-            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':'opening/opening-save-v3.json from preceding same-run browser test','limitations':['Compact hand-authored maps and paraphrased dialogue; not exact original assets or numerics.','Software GPU and keyboard only; no physical controller or mobile performance certification.','Cathedral interior/Frog/queen rescue are not implemented.']}
+            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':'opening/opening-save-v3.json from preceding same-run browser test','limitations':['Compact hand-authored maps and paraphrased dialogue; not exact original assets or numerics.','Software GPU and keyboard only; no physical controller or mobile performance certification.','The rescue journey is covered by the separate same-run rescue_browser.py.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:

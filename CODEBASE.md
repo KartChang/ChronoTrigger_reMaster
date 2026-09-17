@@ -1,42 +1,42 @@
-# 專案地圖 — Pages / navigation 0.5.1
+# 專案地圖 — 修道院救援 0.6
 
-KartChang/ChronoTrigger_reMaster，main 開發。HD-2D、瀏覽器優先、同機雙人、保留 ATB；不是其他專案的後台架構。2026-09-17 GitHub metadata 為 public，本批未變更可見性；已建立使用者授權的 Pages 展示流程，是否上線以 STATUS.md 為準。
+Repository：KartChang/ChronoTrigger_reMaster；main；HD-2D、瀏覽器、同機雙人與 ATB。實際提交／CI／Pages 狀態只看 docs/STATUS.md，不從本文件推定已上線。
 
-## 目前模組
+## 執行與製作模組
 
-TypeScript + Babylon.js + esbuild；無後端。Node.js 22+ 用於建置，Python／Playwright 用於驗收，玩家不需安裝。固定相依見 package.json／lockfile。
+TypeScript + Babylon.js + esbuild；沒有後端。Node.js 22+ 用於建置，Python／Playwright 用於驗收，不是玩家安裝條件。相依固定版本及 lockfile 沿用既有工具鏈。
 
 | 路徑 | 職責 |
 |---|---|
-| index.html / src/style.css / src/adventure.css | UI 模板、村落樣式、冒險藍框對話與精簡 HUD |
-| src/main.ts | 啟動、玩家指令、固定步長、暫停、存檔與演出整合 |
-| src/core.ts | 移動碰撞、ATB、隊員有效性、事件、v1-v4 存檔驗證 |
-| src/fair-data.ts / src/story-data.ts | 千年祭／開場／山道型別及碰撞資料 |
-| src/kingdom-data.ts | 王國階段、四張地圖的共用碰撞與互動點 |
-| src/fair-render.ts / src/canyon-render.ts | 千年祭與山道畫面 |
-| src/kingdom-render.ts | 首次進入才建立城鎮／森林／大廳／王后房間 |
-| src/pixel-art.ts | 克羅諾、瑪兒、露卡、NPC、魔物與樹冠像素 |
-| src/render.ts | 共用 Babylon 場景、角色、鏡頭與呈現用斬擊／踏步 |
-| src/input.ts | 鍵盤／觸控／Gamepad 所有權 |
-| src/save.ts | IndexedDB：lab 的 slot1 與冒險 fair-slot1 分開 |
-| scripts/build.mjs | 自含 HTML；build-meta 0.5.1 與 GITHUB_SHA |
-| scripts/test.mjs | 純規則單元測試：core/fair/opening/kingdom |
-| tests/kingdom_browser.py | 消費同一 CI 前段實際匯出的 v3 存檔，走新路線、驗 v4 |
-| .github/workflows/ci.yml | 五段既有流程＋第六段尋路操作、來源封存與 artifacts |
+| index.html / src/style.css / src/adventure.css | UI、冒險藍框對話、双人與第三隊員面板 |
+| src/main.ts | 啟動、指令、固定步長、暫停、存讀檔及演出整合 |
+| src/core.ts | 碰撞、ATB、有效队員、選敵、合技、回復藥、事件、v1–v5 存檔白名單 |
+| src/input.ts / src/input-boundary.ts | 鍵盤／觸控／Gamepad 所有權；狀態替換同步 rebase，階段切換清除一次舊輸入 |
+| src/navigation.ts | 有界確定性 A*；跟隨走現有 collision，不瞬移、不控制已加入的 P2 |
+| src/fair-data.ts / src/story-data.ts / src/kingdom-data.ts | 千年祭、開場、山道、王國共用地圖／互動資料 |
+| src/rescue-data.ts | cathedral/passage/sanctum 碰撞、互動點、救援階段與第三角色資料 |
+| src/render.ts | 共用 Babylon 畫面、相機、角色動畫、目標提示、第三角色／敵人與特效 |
+| src/fair-render.ts / src/canyon-render.ts / src/kingdom-render.ts / src/rescue-render.ts | 各地圖呈現；王國及修道院首次進入才建立，根節點依章節啟用 |
+| src/pixel-art.ts / src/hero-art.ts / src/world-art.ts / src/rescue-art.ts | 同源手製像素與地表；不是 ROM 資產 |
+| src/pose-player.ts | 純呈現動畫影格／时间，不改 core 傷害與資源 |
+| src/save.ts | IndexedDB；技術村落 slot1 與冒險 fair-slot1 分開 |
+| scripts/build.mjs / scripts/asset-export.mjs | 自含 HTML、source metadata、PNG＋JSON 圖集 |
+| scripts/quality.mjs / quality/scorecard.json / assets/manifest.json | 有來源綁定的評估、素材階段與 90 分發布門檻 |
+| .github/workflows/pages.yml / scripts/pages-package.mjs / site/ | 取得通過 CI 的 exact artifact，不另建置；展示頁與 play/ 分離 |
 
-Controls → main → core → render/HUD。規則不依賴 DOM／Babylon。固定步長 1/60 秒、單幀 delta 上限 0.1 秒；暫停／背景／對話不推進。低 FPS 的牆鐘時間不等於模擬時間。
+Controls → main → core → render/HUD。core 不依賴 DOM／Babylon。固定步長 1/60 秒、單幀累計上限0.1秒；暫停／背景／對話不推進。軟體 GPU 牆鐘時間不是遊戲模擬時間。
 
-## 章節與隊員
+## 階段與隊員
 
-lab 原創村落保留 v1；fair 從兩人已同行開始，未演出前為 v2；lost/pendant/canyon/vista 持久開場為 v3。瑪兒離隊後 inactive，不能接受控制或成為敵人目標。
+lab 保留 v1；fair 未開始異變為 v2；持久的 lost/pendant/canyon/vista 為 v3。瑪兒消失後不可控制／受擊。kingdom.phase 的 rescue 只表示露卡加入，不表示救援已完成；該路線為 v4。
 
-從 vista 下山後 opening.phase 保留 vista，kingdom.phase 管新劇情：arrival/audience/erasing/missing/rescue。erasing 是暫態，不能存檔。rescue 才代表露卡已真實加入 P2，不代表王后救援已完成。可退回 canyon，進度仍是 v4。
+修道院首次進入後，rescue.stage 依 entered → cleared → allied → rescued → homecoming → reunited → returned 推進，開始輸出 v5。管風琴、守衛、頭目、箱內大臣與補給旗標分開。三張地圖是壓縮重建，不是完整原版迷宮。
 
-城鎮、森林、大廳與房間是壓縮地圖，不是精確世界地圖。根節點首次進入建立後保留，共四張有限地圖；不是完整的資源串流系統。森林勝利獨立旗標，往返不重生。終點是西方修道院方向標記，內部尚未實作。
+P1 克羅諾，P2 露卡；第三角色在 allied/rescued 為青蛙，homecoming 離隊，reunited/returned 為瑪兒。第三角色有獨立 HP／MP／ATB、敵方可命中、A* 跟隨與自動攻擊／回復，並非 P3 或自由 roster 選角。隊伍全滅需所有有效角色倒下。回復藥只是單一物品；完整背包／裝備／成長未完成。
 
-v4 驗證地圖／時代／開場前置／持久階段／角色數值與距離。v1-v3 格式保留，舊匯出不強制升版。所有冒險地圖共用既有存檔槽。測試 hook 僅唯讀 snapshot／paused。
+v1–v4 不強制破壞升版。v5 檢查地圖／時代／前置旗標／角色及補給，不還原 transient ATB、effects、targets 或 followPlan。冒險仍共用存檔槽。readonly snapshot/paused/view 不提供直接設旗標或瞬移能力。
 
-## 指令與驗證
+## 指令與驗收
 
 ```sh
 npm ci
@@ -48,28 +48,15 @@ python tests/browser_smoke.py
 python tests/fair_browser.py
 python tests/opening_browser.py
 python tests/kingdom_browser.py
+python tests/reference_browser.py
+python tests/navigation_browser.py
+python tests/rescue_browser.py
 ```
 
-preview 4173；harness 依序自行啟動 4175、4176、4177、4178。kingdom 需接續 opening 的真實匯出檔；不得合成或直接改測試狀態。dev 目前 build + serve，非 HMR。
+preview 是4173；七段 browser harness 自行啟動4175–4181。kingdom 消費同次 opening 真正匯出的 v3；rescue 消費同次 kingdom 真正匯出的 v4，不製造存檔。舊六段斷言保留。完整 job 有45分鐘有限上限，不為過關放寬遊戲等待條件。dev 是 build＋serve，非 HMR。
 
-195 單元測試包含原有 163 項與新增 32 項；舊五段 browser journeys 不變。CI 全過才上傳 chrono-hd2d-playable；chrono-hd2d-browser-evidence 保存報告、截圖與 exact source tar.gz。本機 candidate 不等於已驗收 artifact，軟體 GPU 不等於真機效能認證。
+本地規則套件260項，含原有195項與65項救援／美術測試；實際結果只看 STATUS 與相符CI。素材輸出26張PNG、402筆影格資料，不等於402張獨特原作動畫。外部編輯後圖集的通用回匯仍未做。
 
-規則 AGENTS.md；現行接續只看 docs/STATUS.md；玩法 README.md；來源與範圍 docs/KINGDOM_SLICE.md。
+CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、截圖與使用者流程匯出檔。Pages 只部署已通過來源，deployment.json 記錄 source／CI／artifact／HTML hash；資料與 HTML 原封不動核對。CI／Pages 成功不代表畫面或整款達90分。
 
-## 品質修正模組
-
-`src/input-boundary.ts`：start/load/import 同步 rebase；模擬階段切換只清一次輸入。`scripts/asset-export.mjs`：同源程序式像素匯出 PNG／JSON，不是 ROM extractor 或外部圖集 importer。`scripts/quality.mjs`：固定加權、證據、runtime digest、必需素材與 release gates。`quality/scorecard.json` 是受評版本快照；live TODO 仍只有 STATUS.md。
-
-assets:export → dist/art（15 重畫圖集／297 frame records）；check:quality → test-results/quality-report.json；release:check 未達標 exit 1。build 會產生 art review 與 QUALITY_STATUS.json；新增素材／品質測試不改原四段 browser journeys。
-
-## 原版對照美術與戰鬥目標
-
-`src/hero-art.ts` 統一三名角色／七種姿態；`src/pose-player.ts` 控制 presentation clip 時間，不改 core 傷害／ATB；`src/world-art.ts` 以 north=+z 的同源座標製作地表與石材。`core.ts` 的 transient targets 及 selectedEnemy/cycleTarget 分開 P1/P2 目標；存檔白名單不保存此暫態。
-
-`tests/reference_browser.py` 為第五段實際鍵盤／按鈕驗收，自行開 4179。`__CHRONO_TEST__.view()` 是 render frame/pose/mesh 的 cloned observation，並非改狀態指令。新來源索引不含原作圖片bytes。
-
-## Pages / navigation 0.5.1
-
-`src/navigation.ts` is bounded deterministic grid A* for solo follow using core walkable. `State.followPlan` is transient and excluded from v1-v4; joined P2 is unaffected. `tests/navigation_browser.py` (4180) adds a real house-detour/drop-in journey after the five existing journeys. Local suite: 195 tests.
-
-`.github/workflows/pages.yml` stages the latest successful main CI playable without rebuilding it. `scripts/pages-package.mjs` enforces provenance/allowlist/byte count and builds `pages-site/`; `site/` is the separate launcher, `play/` keeps the CI game unchanged. `deployment.json` records source/CI/artifact/HTML hash. First Pages Source=GitHub Actions setting is necessary; prepare success with skipped deploy is not live hosting. See docs/PAGES.md.
+穩定規則 AGENTS.md；章節契約 docs/RESCUE_SLICE.md；來源 assets/reference-index.json；動態進度唯一 docs/STATUS.md。

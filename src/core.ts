@@ -1,3 +1,5 @@
+import {newRescue,rescueMap,rescueWalkable,nearestRescue,RESCUE_NAMES,guestIdentity,GUEST_HP,GUEST_MP} from './rescue-data';
+import type {Rescue,RescueMap,RescueStage} from './rescue-data';
 import {newFollowPlan,followVector} from './navigation';
 import type {FollowPlan} from './navigation';
 import {newKingdom,kingdomMap,kingdomWalkable,nearestKingdom} from './kingdom-data';
@@ -12,13 +14,13 @@ export type Mode = 'explore' | 'battle' | 'victory' | 'defeat';
 export type Slot = 0 | 1;
 export type Vec = { x: number; z: number };
 export type Actor = Vec & { hp: number; mp: number; atb: number; facing: number; walking: boolean };
-export type Enemy = Vec & { hp: number; atb: number };
-export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
+export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra'; maxHp?:number };
+export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
   followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
-  ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom;
+  ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom; rescue:Rescue;
 };
 export type Input = [Vec, Vec];
 export const MAX_HP = 120;
@@ -37,12 +39,13 @@ export function createState(chapter: Chapter = 'lab'): State {
   const actor = (x: number): Actor => ({ x, z: -5, hp: MAX_HP, mp: MAX_MP, atb: 0, facing: 0, walking: false });
   return { followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
-    targets: [null,null], combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom() };
+    targets: [null,null], combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom(), rescue:newRescue() };
 }
 export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase));
 export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing';
 export const distance = (a: Vec, b: Vec): number => Math.hypot(a.x - b.x, a.z - b.z);
 export function walkable(x: number, z: number, chapter: Chapter = 'lab'): boolean {
+  if(rescueMap(chapter))return rescueWalkable(x,z,chapter);
   if(kingdomMap(chapter))return kingdomWalkable(x,z,chapter);
   if(chapter==='fair')return fairWalkable(x,z);
   if(chapter==='canyon')return canyonWalkable(x,z);
@@ -73,6 +76,7 @@ export function setCoop(s: State, joined: boolean): boolean {
 }
 export function beginBattle(s: State): boolean {
   if (s.mode !== 'explore'||cutsceneActive(s)) return false;
+  if(rescueMap(s.chapter))return beginRescueBattle(s);
   if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
   if(s.chapter==='canyon'&&(s.opening.phase!=='canyon'||s.opening.canyonWon))return false;
@@ -88,6 +92,7 @@ function eligible(s: State, slot: Slot, mp: number): boolean {
   const p=s.players[slot];return activeSlot(s,slot)&&!cutsceneActive(s)&&s.mode==='battle' && p.hp>0 && p.atb>=1 && p.mp>=mp;
 }
 function finish(s: State): void {
+  if(rescueMap(s.chapter)){finishRescueBattle(s);return;}
   if (s.enemies.every(e=>e.hp<=0)) { s.mode='victory';if(s.chapter==='forest')s.kingdom.forestWon=true;else if(s.chapter==='canyon')s.opening.canyonWon=true;else if(s.chapter==='fair')s.fair.gatoWon=true;else s.flags.won=true;s.combo=[false,false];log(s,s.chapter==='forest'?'林間小路恢復了寧靜。王城就在北方。':s.chapter==='canyon'?'攔路的魔物倒下了。沿山道向南走。':s.chapter==='fair'?'機器人挑戰完成。可返回廣場或前往露卡的展示區。':'試煉完成！北方時門已可探索。'); }
 }
 /** UI target choice is transient, per-player and never part of a save file. */
@@ -140,6 +145,8 @@ export function step(s: State, input: Input, delta: number): void {
       const a=s.players[0],b=s.players[1];
       move(s,1,followVector(s.followPlan,b,a,s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter)),dt);
     }
+    stepGuest(s,dt);
+    if(s.chapter==='passage'&&!s.rescue.guardsWon&&s.players[0].z>.2)beginRescueBattle(s);
     if(s.chapter==='forest'&&!s.kingdom.forestWon&&s.players[0].z>.2)beginBattle(s);
     if(s.chapter==='canyon'&&!s.opening.canyonWon&&s.players[0].z<5.5)beginBattle(s);
     if (s.chapter==='lab' && !s.flags.won && s.players.some(p=>Math.abs(p.x)<3.3 && p.z>2.4 && p.z<5.8)) beginBattle(s);
@@ -151,20 +158,23 @@ export function step(s: State, input: Input, delta: number): void {
     if (s.combo[0] && eligible(s,1,4)) {s.combo[1]=true;tryCombo(s);}
     else if (!s.combo[0]) action(s,1,'attack');
   }
+  stepGuest(s,dt);
   if(s.mode!=='battle')return;
   for(const e of s.enemies) {
     if(e.hp<=0)continue;
-    e.atb+=dt*0.14;
+    e.atb+=dt*(e.kind==='yakra'?.22:.14);
     if(e.atb>=1) {
-      e.atb=0;const alive=s.players.filter((p,i)=>activeSlot(s,i as Slot)&&p.hp>0);const p=alive[s.enemyTurn++%alive.length];
-      if(!p)break;
-      p.hp=Math.max(0,p.hp-12);s.effects.push({x:p.x,z:p.z,text:'−12',kind:'hit'});
-      if(p.hp===0){const idx=s.players.indexOf(p) as Slot;s.combo[idx]=false;p.atb=0;}
+      e.atb=0;const alive=livingAllies(s);if(!alive.length)break;
+      const pulse=e.kind==='yakra'&&++s.rescue.enemyActions%3===0;
+      const targets=pulse?alive:[alive[s.enemyTurn++%alive.length]!];
+      for(const target of targets)damageAlly(s,target,e.kind==='yakra'?(pulse?12:18):12);
+      if(pulse)log(s,'亞克拉甩出尖刺，掃向整支隊伍！');
     }
   }
-  if(s.players.every((p,i)=>!activeSlot(s,i as Slot)||p.hp<=0)){s.mode='defeat';s.combo=[false,false];log(s,s.chapter==='canyon'?'克羅諾倒下了。可回山道入口重新整裝。':'試煉失敗。可回村補給，再次挑戰。');}
+  if(livingAllies(s).length===0){s.mode='defeat';s.combo=[false,false];log(s,s.chapter==='canyon'?'克羅諾倒下了。可回山道入口重新整裝。':'試煉失敗。可回村補給，再次挑戰。');}
 }
 export function leaveBattle(s: State): void {
+  if(rescueMap(s.chapter)){leaveRescueBattle(s);return;}
   if((s.chapter==='canyon'||kingdomMap(s.chapter))&&s.mode!=='victory'&&s.mode!=='defeat')return;
   s.followPlan=newFollowPlan();s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];
   if(s.chapter==='forest'){s.players.forEach((p,i)=>Object.assign(p,{x:-1+i*2,z:s.kingdom.forestWon?3.5:-6,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;}
@@ -183,9 +193,10 @@ export function travel(s: State): boolean {
   s.players.forEach((p,i)=>{p.x=-0.8+i*1.6;p.z=7;p.walking=false;});
   log(s,s.era==='present'?'回到青翠的現在。':s.flags.repaired?'晶核持續運轉，未來仍有光。':'抵達未來：未修復的晶核已經熄滅。');return true;
 }
-export type SaveData = {version:1|2|3|4;kingdom?:Omit<Kingdom,'elapsed'>;opening?:{phase:Opening['phase'];canyonWon:boolean};chapter?:Chapter;fair?:FairFlags;era:Era;joined:boolean;flags:Flags;players:{x:number;z:number;hp:number;mp:number}[]};
+export type SaveData = {version:1|2|3|4|5;rescue?:RescueSave;kingdom?:Omit<Kingdom,'elapsed'>;opening?:{phase:Opening['phase'];canyonWon:boolean};chapter?:Chapter;fair?:FairFlags;era:Era;joined:boolean;flags:Flags;players:{x:number;z:number;hp:number;mp:number}[]};
 export function serialize(s: State): string {
   if(s.mode!=='explore'||cutsceneActive(s))throw new Error('請先結束戰鬥或演出再存檔。');
+  if(s.rescue.stage!=='none')return JSON.stringify({...rescueSaveBase(s),version:5,rescue:saveRescue(s)} satisfies SaveData);
   if(s.kingdom.phase!=='none')return JSON.stringify({version:4,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},kingdom:{phase:s.kingdom.phase,heardYear:s.kingdom.heardYear,forestWon:s.kingdom.forestWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
   if(s.opening.phase!=='none')return JSON.stringify({version:3,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
   return JSON.stringify({version:s.chapter==='fair'?2:1,...(s.chapter==='fair'?{chapter:s.chapter,fair:{...s.fair}}:{}),era:s.era,joined:s.joined,flags:{...s.flags},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
@@ -195,14 +206,15 @@ export function deserialize(raw: string): State {
   const v:unknown=JSON.parse(raw);
   if(!v||typeof v!=='object')throw new Error('存檔格式錯誤。');
   const o=v as Record<string,unknown>;
-  if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
+  if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4&&o.version!==5)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
   if(!Array.isArray(o.players)||o.players.length!==2||!o.flags||typeof o.flags!=='object')throw new Error('存檔資料不完整。');
   const f=o.flags as Record<string,unknown>;
   if(['won','repaired','visitedFuture'].some(k=>typeof f[k]!=='boolean'))throw new Error('事件旗標錯誤。');
   if(o.version===1&&o.era==='middle')throw new Error('舊存檔不支援此時代。');
+  if(o.version===5&&(typeof o.chapter!=='string'||(!rescueMap(o.chapter)&&!kingdomMap(o.chapter)&&o.chapter!=='canyon'&&o.chapter!=='fair')))throw new Error('救援存檔地圖錯誤。');
   if(o.version===4&&(typeof o.chapter!=='string'||(!kingdomMap(o.chapter)&&o.chapter!=='canyon')))throw new Error('王國存檔地圖錯誤。');
-  const s=createState(o.version===4?o.chapter as Chapter:o.version===3&&o.chapter==='canyon'?'canyon':o.version!==1?'fair':'lab');s.era=o.era as Era;s.joined=o.joined;
-  if(o.version===2||o.version===3||o.version===4){
+  const s=createState(o.version===4||o.version===5?o.chapter as Chapter:o.version===3&&o.chapter==='canyon'?'canyon':o.version!==1?'fair':'lab');s.era=o.era as Era;s.joined=o.joined;
+  if(o.version===2||o.version===3||o.version===4||o.version===5){
     if((o.version===2&&(o.chapter!=='fair'||o.era!=='present'))||!o.fair||typeof o.fair!=='object'||Array.isArray(o.fair))throw new Error('千年祭存檔格式錯誤。');
     const fair=o.fair as Record<string,unknown>;
     for(const key of Object.keys(s.fair) as (keyof FairFlags)[]){
@@ -219,13 +231,14 @@ export function deserialize(raw: string): State {
     if(o.chapter!==(inCanyon?'canyon':'fair')||o.era!==(inCanyon?'middle':'present')||(!inCanyon&&op.canyonWon)||(op.phase==='vista'&&!op.canyonWon))throw new Error('時代與事件進度不一致。');
     s.opening={phase:op.phase as Opening['phase'],elapsed:0,canyonWon:op.canyonWon};
   }
-  if(o.version===4){
+  if(o.version===4||o.version===5){
     const op=o.opening as Record<string,unknown>|undefined,k=o.kingdom as Record<string,unknown>|undefined;
-    if(o.era!=='middle'||!op||typeof op!=='object'||Array.isArray(op)||op.phase!=='vista'||op.canyonWon!==true||!s.fair.telepodTested)throw new Error('王國事件缺少開場進度。');
+    if((o.era!=='middle'&&!(o.version===5&&o.chapter==='fair'&&o.era==='present'))||!op||typeof op!=='object'||Array.isArray(op)||op.phase!=='vista'||op.canyonWon!==true||!s.fair.telepodTested)throw new Error('王國事件缺少開場進度。');
     if(!k||typeof k!=='object'||Array.isArray(k)||typeof k.phase!=='string'||!['arrival','audience','missing','rescue'].includes(k.phase)||typeof k.heardYear!=='boolean'||typeof k.forestWon!=='boolean')throw new Error('王國進度錯誤。');
     if((s.chapter==='chamber'&&k.phase==='arrival')||(['audience','missing','rescue'].includes(k.phase)&&!k.forestWon)||(['castle','chamber'].includes(s.chapter)&&!k.forestWon))throw new Error('王城前置條件不一致。');
     s.opening={phase:'vista',elapsed:0,canyonWon:true};s.kingdom={phase:k.phase as Kingdom['phase'],heardYear:k.heardYear,forestWon:k.forestWon,elapsed:0};
   }
+  if(o.version===5)restoreRescue(s,o.rescue);
   s.flags={won:f.won as boolean,repaired:f.repaired as boolean,visitedFuture:f.visitedFuture as boolean};
   for(let i=0;i<2;i++) {
     const p=o.players[i];if(!p||typeof p!=='object')throw new Error('角色存檔錯誤。');
@@ -240,6 +253,7 @@ export function deserialize(raw: string): State {
 /** Only called through exploration interaction; no renderer owns chapter progression. */
 export function interactFair(s: State, slot: Slot): {title:string;text:string}|null {
   if(s.chapter!=='fair'||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
+  if(s.rescue.stage==='returned')return {title:'千年祭 · 回到 1000 年',text:'鐘聲仍在廣場迴響。克羅諾、露卡與瑪兒平安回來。\n王城審判是下一個尚未製作的章節；可以在此保存救援進度。'};
   const opening=interactOpening(s,slot);if(opening)return opening;
   if(s.opening.phase!=='none')return {title:'露卡',text:'先找回瑪兒留下的項鍊。裝置在北方左側。'};
   const point=nearestFair(s.players[slot].x,s.players[slot].z);
@@ -294,6 +308,11 @@ function stepOpening(s:State,dt:number):void{
   }
 }
 export function interactOpening(s:State,slot:Slot):{title:string;text:string}|null{
+  if(s.chapter==='canyon'&&s.rescue.stage==='reunited'&&slot===0&&s.mode==='explore'&&s.players[0].z>7.4){
+   if(!partyTogether(s))return {title:'等待同行者',text:'靠近時門，一起回去。'};
+   s.rescue.stage='returned';s.chapter='fair';s.era='present';s.players.forEach((p,i)=>Object.assign(p,{x:i*1.3,z:6.2,walking:false,atb:0}));s.followPlan=newFollowPlan();placeGuest(s);
+   return {title:'回到 1000 年',text:'露卡啟動時門鑰匙。熟悉的鐘聲再次傳來。\n三人回到千年祭廣場。這次救援已完成；王城審判尚待接續。'};
+  }
   if(s.mode!=='explore'||cutsceneActive(s)||slot!==0)return null;
   if(s.chapter==='fair'&&distance(s.players[0],{x:-2.4,z:9})<2.05){
     if(s.opening.phase==='lost'){
@@ -316,11 +335,13 @@ export function interactOpening(s:State,slot:Slot):{title:string;text:string}|nu
 function changeKingdomMap(s:State,chapter:KingdomMap|'canyon',x:number,z:number):{title:string;text:string}{
  s.chapter=chapter;s.era='middle';s.enemies=[];s.combo=[false,false];s.effects=[];
  s.players.forEach((p,i)=>Object.assign(p,{x:x+(activeSlot(s,1)?i*1.3:0),z,walking:false,atb:0,facing:2}));
+ placeGuest(s);
  return {title:chapter==='truce'?'托魯斯':chapter==='forest'?'加爾迪亞森林':chapter==='castle'?'加爾迪亞王城':chapter==='chamber'?'王后房間':'托魯斯山道',text:chapter==='truce'?'屋舍散落在小路旁。旅店亮著燈，路邊有人正在交談。':chapter==='forest'?'樹葉掩住天空。北方的小路通往王城。':chapter==='castle'?'靴底踏上石板。衛兵正在大廳前值守。':chapter==='chamber'?'房間裡，有個熟悉的身影……':'回到了山道。南方仍通往托魯斯。'};
 }
 export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|null{
  if(!kingdomMap(s.chapter)||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
- const point=nearestKingdom(s.players[slot].x,s.players[slot].z,s.chapter,s.kingdom.phase);
+ const reunion=s.chapter==='chamber'&&s.rescue.stage==='homecoming'&&distance(s.players[slot],{x:0,z:2})<1.8;
+ const point=reunion?{id:'reunion'}:nearestKingdom(s.players[slot].x,s.players[slot].z,s.chapter,s.kingdom.phase);
  if(!point)return null;
  const result=(title:string,text:string)=>({title,text});
  if(point.id==='resident'){s.kingdom.heardYear=true;return result('托魯斯的鎮民','今年是加爾迪亞曆六百年。你連這個也不知道？\n前些天失蹤的王后已經回城，大家總算能鬆口氣。');}
@@ -337,7 +358,12 @@ export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|nu
  if(s.chapter==='forest'){
   if(point.id==='town')return moveTo('truce',7,-5);
   if(point.id==='castle')return s.kingdom.forestWon?moveTo('castle',0,-6.5):result('林間小路','先通過前方的魔物。');
-  if(point.id==='cathedral')return result('西方的修道院',s.kingdom.phase==='rescue'?'露卡望向林外：先從西邊的修道院找起。\n\n本版先到這裡。修道院內部、青蛙與王后救援尚未接上。':'林外可以看見修道院的屋頂。先去王城找瑪兒的消息。');
+  if(point.id==='cathedral'){
+   if(s.kingdom.phase!=='rescue')return result('西方的修道院','林外可見修道院的屋頂。先去王城找瑪兒的消息。');
+   if(!partyTogether(s))return result('等待同行者','兩人一起靠近修道院入口。');
+   if(s.rescue.stage==='none')s.rescue.stage='entered';
+   return {...enterRescueMap(s,'cathedral',0,-6.8),title:'西方的修道院'};
+  }
  }
  if(s.chapter==='castle'){
   if(point.id==='exit')return moveTo('forest',0,8);
@@ -355,6 +381,10 @@ export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|nu
   }
  }
  if(s.chapter==='chamber'){
+  if(s.rescue.stage==='homecoming'&&distance(s.players[0],{x:0,z:2})<1.8){
+   s.rescue.stage='reunited';Object.assign(s.rescue.guest,{hp:GUEST_HP,mp:GUEST_MP,atb:0});placeGuest(s);
+   return result('瑪兒回來了','克羅諾、露卡！剛才四周一片漆黑……\n你們找到了莉妮王后？謝謝你們沒有放棄我。\n三人重聚。露卡拿出了開啟時門的裝置；沿山道北方回到千年祭吧。');
+  }
   if(point.id==='stairs')return moveTo('castle',8,5);
   if(point.id==='queen'&&s.kingdom.phase==='audience'){
    s.kingdom.phase='erasing';s.kingdom.elapsed=0;s.players.forEach(p=>p.walking=false);
@@ -362,4 +392,155 @@ export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|nu
   }
  }
  return null;
+}
+
+export const guestKind=(s:State):'frog'|'marle'|null=>guestIdentity(s.rescue);
+export const partyTogether=(s:State):boolean=>!s.joined||!activeSlot(s,1)||distance(s.players[0],s.players[1])<=3.5;
+function livingAllies(s:State):Actor[]{
+ const allies=s.players.filter((p,i)=>activeSlot(s,i as Slot)&&p.hp>0);
+ if(guestKind(s)&&s.rescue.guest.hp>0)allies.push(s.rescue.guest);
+ return allies;
+}
+function damageAlly(s:State,p:Actor,amount:number):void{
+ p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit'});
+ if(p.hp===0){p.atb=0;const i=s.players.indexOf(p);if(i>=0)s.combo[i as Slot]=false;}
+}
+function placeGuest(s:State):void{
+ s.rescue.guestPlan=newFollowPlan();
+ const a=s.players[0],g=s.rescue.guest;
+ for(const [dx,dz] of [[-.9,-.7],[.9,-.7],[-.9,0],[0,0]]){
+  if(walkable(a.x+dx!,a.z+dz!,s.chapter)){Object.assign(g,{x:a.x+dx!,z:a.z+dz!,atb:0,walking:false,facing:2});break;}
+ }
+}
+function stepGuest(s:State,dt:number):void{
+ if(!guestKind(s)||cutsceneActive(s))return;
+ const g=s.rescue.guest;
+ if(g.hp<=0){g.walking=false;return;}
+ if(s.mode==='explore'){
+  const v=followVector(s.rescue.guestPlan,g,s.players[0],s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter));
+  g.walking=false;
+  for(const axis of ['x','z'] as const){const value=g[axis]+v[axis]*SPEED*dt;const x=axis==='x'?value:g.x,z=axis==='z'?value:g.z;if(walkable(x,z,s.chapter)){g.walking ||=Math.abs(value-g[axis])>.0001;g[axis]=value;}}
+  if(Math.hypot(v.x,v.z)>.05)g.facing=Math.abs(v.x)>Math.abs(v.z)?(v.x>0?1:3):(v.z>0?2:0);
+  return;
+ }
+ if(s.mode!=='battle')return;
+ g.atb=Math.min(1,g.atb+dt*.38);if(g.atb<1)return;
+ const allies=livingAllies(s),wounded=allies.filter(p=>p.hp<(p===g?GUEST_HP:MAX_HP)*.55).sort((a,b)=>a.hp/(a===g?GUEST_HP:MAX_HP)-b.hp/(b===g?GUEST_HP:MAX_HP))[0];
+ const name=guestKind(s)==='frog'?'青蛙':'瑪兒';
+ if(wounded&&g.mp>=3){
+  const heal=Math.min(36,(wounded===g?GUEST_HP:MAX_HP)-wounded.hp);g.mp-=3;g.atb=0;wounded.hp+=heal;
+  s.effects.push({x:wounded.x,z:wounded.z,text:`+${heal}`,kind:'heal',guest:true,origin:{x:g.x,z:g.z}});log(s,`${name}為受傷的同伴回復體力。`);return;
+ }
+ const target=s.enemies.filter(e=>e.hp>0).sort((a,b)=>distance(a,g)-distance(b,g))[0];if(!target)return;
+ g.atb=0;target.hp=Math.max(0,target.hp-26);s.effects.push({x:target.x,z:target.z,text:'26',kind:'hit',guest:true,origin:{x:g.x,z:g.z},style:guestKind(s)==='frog'?'slash':'shot'});log(s,`${name}攻擊：26 傷害。`);finish(s);
+}
+export function useTonic(s:State,slot:Slot):boolean{
+ if(!eligible(s,slot,0)||s.rescue.tonics<=0||s.players[slot].hp>=MAX_HP)return false;
+ const p=s.players[slot],heal=Math.min(50,MAX_HP-p.hp);s.rescue.tonics--;p.atb=0;p.hp+=heal;s.combo[slot]=false;
+ s.effects.push({x:p.x,z:p.z,text:`+${heal}`,kind:'heal'});log(s,`P${slot+1} 使用回復藥，恢復 ${heal} HP。`);return true;
+}
+function beginRescueBattle(s:State):boolean{
+ const r=s.rescue;
+ if(!rescueMap(s.chapter)||s.mode!=='explore'||cutsceneActive(s))return false;
+ const kind=s.chapter==='cathedral'&&r.stage==='entered'?'naga':s.chapter==='passage'&&r.stage==='allied'&&r.organOpen&&!r.guardsWon?'guards':s.chapter==='sanctum'&&r.stage==='allied'&&r.guardsWon&&!r.yakraWon?'yakra':null;
+ if(!kind)return false;
+ r.encounter=kind;r.enemyActions=0;r.guestPlan=newFollowPlan();s.followPlan=newFollowPlan();s.mode='battle';s.targets=[null,null];s.combo=[false,false];s.enemyTurn=0;
+ s.players.forEach((p,i)=>Object.assign(p,{x:-1.5+i*3,z:-1,atb:0,walking:false,facing:2}));
+ Object.assign(r.guest,{x:0,z:-2.6,atb:0,walking:false,facing:2});
+ s.enemies=kind==='yakra'?[{x:0,z:3.2,hp:720,maxHp:720,atb:0,kind:'yakra'}]:[-1.5,0,1.5].map((x,i)=>({x,z:1.6+(i%2)*1.2,hp:kind==='naga'?60:64,maxHp:kind==='naga'?60:64,atb:0,kind:kind==='naga'?'naga' as const:'hench' as const}));
+ log(s,kind==='yakra'?'大臣露出了真面目——亞克拉！':kind==='naga'?'修女的外表褪去，魔物包圍了你們。':'密道裡的魔物攔住去路。');return true;
+}
+function finishRescueBattle(s:State):void{
+ if(s.mode!=='battle'||s.enemies.length===0||s.enemies.some(e=>e.hp>0))return;
+ if(s.rescue.encounter==='naga')s.rescue.stage='cleared';
+ if(s.rescue.encounter==='guards')s.rescue.guardsWon=true;
+ if(s.rescue.encounter==='yakra')s.rescue.yakraWon=true;
+ s.mode='victory';s.combo=[false,false];log(s,s.rescue.encounter==='yakra'?'亞克拉倒下了。王后就在前方！':'戰鬥結束。繼續調查修道院。');
+}
+function leaveRescueBattle(s:State):void{
+ if(s.mode!=='victory'&&s.mode!=='defeat')return;
+ const win=s.mode==='victory';s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];s.followPlan=newFollowPlan();
+ s.players.forEach((p,i)=>Object.assign(p,{x:-.65+i*1.3,z:win?2.7:-6.5,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false,facing:2}));
+ Object.assign(s.rescue.guest,{hp:GUEST_HP,mp:GUEST_MP});s.rescue.encounter='none';placeGuest(s);
+}
+function enterRescueMap(s:State,map:RescueMap,x:number,z:number):{title:string;text:string}{
+ s.chapter=map;s.era='middle';s.followPlan=newFollowPlan();s.enemies=[];s.targets=[null,null];s.combo=[false,false];s.effects=[];
+ s.players.forEach((p,i)=>Object.assign(p,{x:x+i*1.3,z,walking:false,atb:0,facing:2}));placeGuest(s);
+ return {title:RESCUE_NAMES[map],text:map==='cathedral'?'昏暗的石柱間，燭火靜靜燃燒。地上似乎有一件不屬於這裡的東西。':map==='passage'?'管風琴打開了隱藏的道路。深處傳來窸窣的聲響。':s.rescue.yakraWon?'房間已經安靜下來。':'王后被困在房間深處。那位大臣的笑容，有些不對勁。'};
+}
+export function interactRescue(s:State,slot:Slot):{title:string;text:string}|null{
+ if(!rescueMap(s.chapter)||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
+ const r=s.rescue,point=nearestRescue(s.players[slot].x,s.players[slot].z,s.chapter,r);if(!point)return null;
+ const result=(title:string,text:string)=>({title,text});
+ if(slot!==0)return result('同行','調查與換圖由 P1 帶領；戰鬥時可獨立下指令。');
+ const together=()=>result('等待同行者','兩人先靠近彼此，再一起前進。');
+ if(s.chapter==='cathedral'){
+  if(point.id==='exit')return partyTogether(s)?changeKingdomMap(s,'forest',-8,.5):together();
+  if(point.id==='crest'&&r.stage==='entered'){beginRescueBattle(s);return result('王家的紋章','露卡撿起地上的飾物。這是王家的紋章！\n周圍的修女突然露出獠牙，朝你們撲來。');}
+  if(point.id==='frog'&&r.stage==='cleared'){
+   r.stage='allied';Object.assign(r.guest,{hp:GUEST_HP,mp:GUEST_MP});placeGuest(s);
+   return result('青蛙加入隊伍','披著斗篷的青蛙收起長劍。\n他也在追查莉妮王后的下落，決定與你們同行。\n青蛙是第三名實際參戰的同伴，自動攻擊或照顧傷者；P1／P2 仍控制克羅諾與露卡。');
+  }
+  if(point.id==='organ'){
+   if(r.stage==='entered'||r.stage==='cleared')return result('管風琴','先處理禮拜堂中的異狀，再和那位劍士談談。');
+   const wasOpen=r.organOpen;r.organOpen=true;return result('管風琴',wasOpen?'機關已經啟動。祭壇右後方的暗門仍然敞開。':'最後一個音落下，石牆緩緩移開。\n祭壇右後方露出一條通往深處的密道。');
+  }
+  if(point.id==='door')return !r.organOpen?result('石牆','牆面上沒有把手。附近也許有隱藏的機關。'):partyTogether(s)?enterRescueMap(s,'passage',0,-6.8):together();
+ }
+ if(s.chapter==='passage'){
+  if(point.id==='exit')return partyTogether(s)?enterRescueMap(s,'cathedral',4,7.4):together();
+  if(point.id==='chest'){
+   if(r.chestOpened)return result('木箱','箱子已空。回復藥不會重複出現。');
+   r.chestOpened=true;r.tonics=3;return result('找到回復藥','取得 3 份回復藥。\n戰鬥中等 ATB 充滿，可用面板上的「回復藥」恢復自己的 HP。');
+  }
+  if(point.id==='door')return !r.guardsWon?result('密道守衛','先通過前方的魔物。'):partyTogether(s)?enterRescueMap(s,'sanctum',0,-6.8):together();
+ }
+ if(s.chapter==='sanctum'){
+  if(point.id==='chancellor'&&!r.yakraWon){beginRescueBattle(s);return result('大臣的真面目','那不是加爾迪亞的大臣！\n偽裝崩解，巨大的亞克拉擋在王后前方。小心牠蓄力後的尖刺。');}
+  if(point.id==='queen'){
+   if(!r.yakraWon)return result('莉妮王后','王后就在前面，但亞克拉阻住了去路。');
+   if(r.stage==='allied')r.stage='rescued';
+   return result('莉妮王后獲救','莉妮王后終於安全了。\n東側木箱裡似乎還有動靜；準備好後，從房間南方離開，護送王后回城。');
+  }
+  if(point.id==='prisoner'){
+   if(!r.yakraWon)return result('上鎖的木箱','戰鬥還沒結束，無法安全接近。');
+   const already=r.chancellorFreed;r.chancellorFreed=true;return result('真正的大臣',already?'大臣已經獲救，正準備返回王城。':'箱子打開，真正的大臣跌了出來。\n他感激地向你们道謝。原來亞克拉一直冒用他的身分。');
+  }
+  if(point.id==='exit'){
+   if(!partyTogether(s))return together();
+   if(r.stage==='rescued'){
+    r.stage='homecoming';changeKingdomMap(s,'castle',0,-5.8);
+    return {title:'護送王后返回王城',text:'莉妮王后平安歸來。青蛙向國王致意，暫時離開隊伍。\n克羅諾與露卡抬頭望向東側樓梯：瑪兒應該也回來了。'};
+   }
+   return enterRescueMap(s,'passage',0,7.5);
+  }
+ }
+ return null;
+}
+
+export type RescueSave={stage:RescueStage;organOpen:boolean;guardsWon:boolean;yakraWon:boolean;chancellorFreed:boolean;chestOpened:boolean;tonics:number;guest:{x:number;z:number;hp:number;mp:number}};
+function saveRescue(s:State):RescueSave{
+ const r=s.rescue,{x,z,hp,mp}=r.guest;return {stage:r.stage,organOpen:r.organOpen,guardsWon:r.guardsWon,yakraWon:r.yakraWon,chancellorFreed:r.chancellorFreed,chestOpened:r.chestOpened,tonics:r.tonics,guest:{x,z,hp,mp}};
+}
+function rescueSaveBase(s:State):SaveData{
+ return {version:5,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},kingdom:{phase:s.kingdom.phase,heardYear:s.kingdom.heardYear,forestWon:s.kingdom.forestWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))};
+}
+function restoreRescue(s:State,raw:unknown):void{
+ if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error('救援進度格式錯誤。');
+ const o=raw as Record<string,unknown>,r=newRescue();
+ if(typeof o.stage!=='string'||!['entered','cleared','allied','rescued','homecoming','reunited','returned'].includes(o.stage))throw new Error('不支援的救援階段。');
+ r.stage=o.stage as RescueStage;
+ for(const key of ['organOpen','guardsWon','yakraWon','chancellorFreed','chestOpened'] as const){if(typeof o[key]!=='boolean')throw new Error('救援旗標錯誤。');r[key]=o[key] as boolean;}
+ if(typeof o.tonics!=='number'||!Number.isInteger(o.tonics)||o.tonics<0||o.tonics>3||(!r.chestOpened&&o.tonics!==0))throw new Error('回復藥存量不一致。');r.tonics=o.tonics;
+ if(s.kingdom.phase!=='rescue'||!s.kingdom.forestWon)throw new Error('救援缺少露卡加入的前置條件。');
+ const early=r.stage==='entered'||r.stage==='cleared';
+ if((early&&(r.organOpen||r.guardsWon||r.yakraWon||r.chestOpened))||(r.guardsWon&&!r.organOpen)||(r.yakraWon&&!r.guardsWon)||(r.chancellorFreed&&!r.yakraWon)||(r.chestOpened&&!r.organOpen))throw new Error('修道院事件前置條件不一致。');
+ if(['rescued','homecoming','reunited','returned'].includes(r.stage)&&!r.yakraWon)throw new Error('王后救援尚未完成。');
+ if((s.chapter==='passage'&&!r.organOpen)||(s.chapter==='sanctum'&&!r.guardsWon))throw new Error('所在地尚未開啟。');
+ if(r.stage==='returned'?(s.chapter!=='fair'||s.era!=='present'):(s.chapter==='fair'||s.era!=='middle'))throw new Error('救援時代與地圖不一致。');
+ const g=o.guest;if(!g||typeof g!=='object'||Array.isArray(g))throw new Error('第三名隊員資料錯誤。');const p=g as Record<string,unknown>;
+ for(const key of ['x','z','hp','mp'] as const)if(typeof p[key]!=='number'||!Number.isFinite(p[key]))throw new Error('第三名隊員數值錯誤。');
+ const x=p.x as number,z=p.z as number,hp=p.hp as number,mp=p.mp as number;
+ if(hp<1||hp>GUEST_HP||mp<0||mp>GUEST_MP||!walkable(x,z,s.chapter))throw new Error('第三名隊員位置或能力超出範圍。');
+ Object.assign(r.guest,{x,z,hp,mp});s.rescue=r;
 }

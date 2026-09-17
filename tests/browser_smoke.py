@@ -7,6 +7,8 @@ from pathlib import Path
 import json
 import os
 import subprocess
+import math
+import time
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +17,7 @@ OUT.mkdir(exist_ok=True)
 results = []
 errors = []
 requests = []
+wait_evidence = []
 server = subprocess.Popen(['node', 'scripts/serve.mjs'], cwd=ROOT, env={**os.environ, 'PORT':'4175'}, stdout=subprocess.DEVNULL)
 
 def passed(name):
@@ -24,10 +27,65 @@ def passed(name):
 def snap(page):
     return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 
+def wait_simulation(page, goal, *, mode, ticks, label):
+    """Bound gameplay by simulation ticks, with a separate finite wall-clock guard.
+
+    CI #4 rendered at about 1 FPS. The production loop caps dt at 0.1s, so
+    20 real seconds need not contain the 2.4 simulated seconds required by ATB.
+    This helper observes only: no fast-forward, state mutation or relaxed goal.
+    """
+    start = snap(page)['ticks']
+    began = time.monotonic()
+    record = {'label': label, 'startTick': start, 'budgetTicks': ticks}
+    try:
+        handle = page.wait_for_function("""({start,ticks,mode,goal}) => {
+            const test=window.__CHRONO_TEST__, state=test.snapshot();
+            const observed={state,paused:test.paused(),hidden:document.hidden,
+                fps:document.querySelector('#fps')?.textContent};
+            let reason=null;
+            if(observed.paused) reason='simulation paused';
+            else if(state.mode!==mode) reason='unexpected mode';
+            else if(!state.joined) reason='P2 ownership lost';
+            else if(state.ticks<start) reason='simulation reset';
+            else if(state.ticks-start>ticks) reason='simulation budget exceeded';
+            if(reason) return {...observed,ready:false,reason};
+            const value=goal.kind==='axis' ? state.players[goal.slot][goal.axis] : 0;
+            const ready=goal.kind==='atb'
+                ? state.players.every(p=>p.hp>0 && p.atb>=1)
+                : goal.greater ? value>=goal.target : value<=goal.target;
+            return ready ? {...observed,ready:true} : false;
+        }""", arg={'start':start,'ticks':ticks,'mode':mode,'goal':goal}, polling=100, timeout=90000)
+        observed = handle.json_value()
+        handle.dispose()
+        record['observed'] = observed
+        if not observed['ready']:
+            raise AssertionError(f"{label}: {observed['reason']}")
+    except Exception as exc:
+        record['failure'] = str(exc)
+        try:
+            record['lastObserved'] = page.evaluate("""() => ({
+                state:window.__CHRONO_TEST__.snapshot(),
+                paused:window.__CHRONO_TEST__.paused(),hidden:document.hidden,
+                fps:document.querySelector('#fps')?.textContent
+            })""")
+        except Exception as observation_error:
+            record['observationError'] = str(observation_error)
+        raise
+    finally:
+        record['wallSeconds'] = round(time.monotonic()-began, 3)
+        wait_evidence.append(record)
+        (OUT/'wait-evidence.json').write_text(json.dumps(wait_evidence,ensure_ascii=False,indent=2),encoding='utf-8')
+
+def wait_atb(page):
+    # 0.42 gauge / simulated second: full within 143 ticks; 180 includes polling slack.
+    wait_simulation(page, {'kind':'atb'}, mode='battle', ticks=180, label='both ATB ready')
+
 def move_axis(page, slot, key, axis, target, greater=True):
+    distance = abs(snap(page)['players'][slot][axis]-target)
+    budget = math.ceil((distance/4+1)*60)
     page.keyboard.down(key)
     try:
-        page.wait_for_function("([slot,axis,target,greater]) => { const v=window.__CHRONO_TEST__.snapshot().players[slot][axis]; return greater ? v>=target : v<=target; }", arg=[slot,axis,target,greater], timeout=12000)
+        wait_simulation(page, {'kind':'axis','slot':slot,'axis':axis,'target':target,'greater':greater}, mode='explore', ticks=budget, label=f'P{slot+1} move {axis} to {target}')
     finally:
         page.keyboard.up(key)
 
@@ -97,7 +155,7 @@ try:
         passed('IndexedDB save and load restore gameplay state')
         page.screenshot(path=str(OUT/'02-explore.png'))
         page.click('#trial')
-        page.wait_for_function('window.__CHRONO_TEST__.snapshot().players.every(p=>p.atb>=1)',timeout=20000)
+        wait_atb(page)
         page.click('[data-slot="0"][data-action="combo"]')
         assert snap(page)['players'][0]['mp']==18
         assert snap(page)['enemies'][0]['hp']==90
@@ -106,7 +164,7 @@ try:
         assert [e['hp'] for e in snap(page)['enemies']]==[18,18]
         page.screenshot(path=str(OUT/'03-coop-battle.png'))
         passed('two independent confirmations execute an atomic combo')
-        page.wait_for_function('window.__CHRONO_TEST__.snapshot().players.every(p=>p.atb>=1)',timeout=20000)
+        wait_atb(page)
         page.click('[data-slot="0"][data-action="attack"]')
         page.click('[data-slot="1"][data-action="attack"]')
         assert snap(page)['mode']=='victory'
@@ -122,7 +180,7 @@ try:
         move_axis(page,0,'d','x',-.5)
         page.keyboard.down('w');page.keyboard.down('ArrowUp')
         try:
-            page.wait_for_function('window.__CHRONO_TEST__.snapshot().players[0].z>7.35',timeout=20000)
+            wait_simulation(page, {'kind':'axis','slot':0,'axis':'z','target':7.36,'greater':True}, mode='explore', ticks=240, label='both players walk north to gate')
         finally:
             page.keyboard.up('w');page.keyboard.up('ArrowUp')
         page.keyboard.press('e')
@@ -158,10 +216,10 @@ try:
         assert not errors,errors
         passed('no external resource requests or browser console errors')
         browser.close()
-    report={'status':'passed','checks':len(results),'passed':results,'errors':errors,'limitations':['Software-rendered Chromium, not a hardware FPS benchmark.','Gamepad mapping is API-simulated; physical controllers are not verified.','Responsive viewports are not iOS/Android device tests.'],'requests':requests}
+    report={'status':'passed','checks':len(results),'passed':results,'errors':errors,'limitations':['Software-rendered Chromium, not a hardware FPS benchmark.','Gamepad mapping is API-simulated; physical controllers are not verified.','Responsive viewports are not iOS/Android device tests.'],'requests':requests,'simulationWaits':wait_evidence}
     (OUT/'browser-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
 except Exception as exc:
-    (OUT/'browser-report.json').write_text(json.dumps({'status':'failed','passed':results,'failure':str(exc),'errors':errors},ensure_ascii=False,indent=2))
+    (OUT/'browser-report.json').write_text(json.dumps({'status':'failed','passed':results,'failure':str(exc),'errors':errors,'simulationWaits':wait_evidence},ensure_ascii=False,indent=2))
     raise
 finally:
     server.terminate()

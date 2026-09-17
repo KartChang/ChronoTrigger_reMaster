@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "timezone": "Asia/Taipei",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "gameplaySource": "2eec00c4a9e74c7873724217bd14f5087c42acf0",
+  "gameplayTree": "5f93fb2d04bfdfbef3511b0473ef7927d31ded24",
+  "documentationParent": "8a2e00a94571b516360126500b40f29c04a18326",
+  "runtimeChanged": false,
+  "newCIRequested": false,
+  "currentRun": {"id": 35243837438, "number": 12, "job": 105278814517, "status": "in_progress", "completedBrowserJourneys": 6, "runningJourney": "tests/rescue_browser.py", "artifactIds": []},
+  "drive": {"folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb", "fileId": "15XAmLxm597Lplx4XQPTk9madKmu0iFrI", "fileName": "ChronoTrigger-delivery-archive-2026-09-18.zip", "bytes": 16705596, "sha256": "86942783045635b306557c37a4d0e8fbb6559527625935b8f56a7696899dfb48", "retainedDeliverables": 17, "upload": "success", "metadataReadback": "success", "rawDownloadSha256": "matched", "zipCrc": "passed", "memberSha256": "17/17 matched", "sharingChanged": false},
+  "scope": "Previously generated deliverables mounted in this conversation; not a whole-account backup or a new accepted release",
+  "excluded": ["user-provided ROM", "user-provided original AI template ZIP"],
+  "romReadOrExtracted": false,
+  "quality": "No new numerical grade; previous whole-remake 30/100 review remains stale and release is not approved",
+  "nextTask": "T00: receive exact CI12 terminal result; do not repeat source recovery or historical validation"
+}

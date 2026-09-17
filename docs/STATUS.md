@@ -4,7 +4,12 @@
 
 **KINGDOM 0.4 IMPLEMENTED — EXACT CI BROWSER ACCEPTANCE PENDING.**
 
-Starting HEAD c7cbc76366a131b42df49280e065c67ef6b15f4b (docs), accepted source 4cf5842252b1ea5a44ae38be017ee3593a774567. This batch continues the accepted opening; it does not redo it.
+Published source: **4e9a3c8750c192e731ac7b9421c37f66f0bb9b93**.
+Source tree: **03ea9440edbee54ebe92a97e7e3bc366a58c561e**. Locally staged git tree exactly matches the connector-created tree for all 18 changed paths and retained source. Non-force fast-forward from c7cbc76366a131b42df49280e065c67ef6b15f4b.
+
+Matching CI #8 / run **35216792204**, push event, **in_progress** at last query. Only one exact-SHA run was returned. Do not claim new browser acceptance until this run completes successfully. This documentation-only handoff is not another gameplay candidate.
+
+Starting accepted source was 4cf5842252b1ea5a44ae38be017ee3593a774567. This batch continues the opening; it does not redo it.
 
 Repository KartChang/ChronoTrigger_reMaster, main active. Browser TypeScript/Babylon/esbuild, HD-2D, ATB, local co-op, fast playable delivery. Current GitHub run metadata reports public; no visibility change, deployment, Pages, paid services or ROM distribution performed. Do not import other-project governance.
 
@@ -29,9 +34,16 @@ v4 saves with phase/era/map/flag/actor validation; v1-v3 retained. Shared advent
 - Local default Playwright executable absent; normally launched /usr/bin/chromium rejects file:// with ERR_BLOCKED_BY_ADMINISTRATOR. Not a local browser pass. No policy workaround.
 - Details and fidelity limits: docs/KINGDOM_SLICE.md. Local command evidence: docs/evidence/kingdom-local-checks.json.
 
+## Delivered local candidate
+
+Filename: chrono-hd2d-kingdom-v0.4-candidate.zip, 1,218,565 bytes.
+ZIP SHA256: 77b16050aeebf5f6dec391260f647cca3e142a95fae73683d08f86b3d7fc979e.
+HTML SHA256: 267f09edfe7e4e91777fd7cd8b942a0d984872d720439447cbd93eaccb8ed823.
+Build metadata records the exact published source SHA and version 0.4.0. Package contains standalone HTML, third-party notices/license, validation status, checksums and Chinese route/control/save-import instructions. ZIP integrity checked. It is a candidate, not a successful CI artifact. Container copy is temporary; rebuild from exact source if unavailable.
+
 ## Next exact action
 
-After publishing this source batch, query its exact SHA and record CI run. Never mark new browser or artwork accepted from unit tests alone. If queued/in_progress, preserve checkpoint and report rather than polling indefinitely. On failure inspect the first actual failing step and lastObserved; do not weaken existing assertions or keep guessing at waits.
+Read CI #8 / 35216792204 for source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93. Do not dispatch a duplicate run or use this docs-only commit as a source candidate. Never mark new browser or artwork accepted from unit tests alone. If queued/in_progress, preserve checkpoint and report rather than polling indefinitely. On failure inspect the first actual failing step and lastObserved; do not weaken existing assertions or keep guessing at waits.
 
 After success: inspect kingdom screenshots and artifacts; fix any visual/navigation issue revealed. Then continue cathedral/Frog/queen-rescue story with party ownership rules, followed by inventory/progression and proper authored technique/audio pipeline. The currently playable route ends at the forest's westward cathedral marker, not inside a completed dungeon.
 

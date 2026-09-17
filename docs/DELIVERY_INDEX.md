@@ -2,20 +2,30 @@
 
 ## Authority and destinations
 
-Source／進度：GitHub KartChang/ChronoTrigger_reMaster main。Game source `2eec00c4a9e74c7873724217bd14f5087c42acf0`；文件HEAD可比source更新，不是另一候選。
+Source/progress: GitHub KartChang/ChronoTrigger_reMaster main. Current verified gameplay `2eec00c4a9e74c7873724217bd14f5087c42acf0`; a later [skip ci] documentation HEAD is not another game candidate.
 
-Google Drive専用資料夾：[ChronoTrigger_reMaster](https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb)
-Folder ID：`1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`。
+Google Drive project folder: [ChronoTrigger_reMaster](https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb), ID `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`. All files below are in that folder, not root; sharing was not expanded.
 
-已補存封存：[ChronoTrigger-delivery-archive-2026-09-18.zip](https://drive.google.com/file/d/15XAmLxm597Lplx4XQPTk9madKmu0iFrI/view)
-File ID：`15XAmLxm597Lplx4XQPTk9madKmu0iFrI`；size 16,705,596 bytes。
-SHA256：`86942783045635b306557c37a4d0e8fbb6559527625935b8f56a7696899dfb48`。
+## CI12 / Pages5 — verified 0.6.0
 
-已完成：Drive upload → metadata readback → raw download → 整包SHA256相等 → ZIP CRC與17個成員SHA256相等。不是只宣稱有上傳。相符manifest在封存根目錄MANIFEST.json，每份交付保持原檔名及原始bytes。
+Full receipts, source/tree, byte sizes, SHA256, actual screenshot review and limitations: [CI12_ACCEPTANCE.md](evidence/CI12_ACCEPTANCE.md).
 
-## 封存內17份既有交付
+| Delivery | Exact run / artifact | Drive file |
+|---|---|---|
+| Browser evidence, reports, real saves, screenshots and exact source archive | CI12 35243837438 / 10507651284 | [1SGL7JePxbnD9kmwKgh22iCJthXtHg9Du](https://drive.google.com/file/d/1SGL7JePxbnD9kmwKgh22iCJthXtHg9Du/view?usp=drivesdk) |
+| Verified self-contained playable | CI12 35243837438 / 10507601714 | [1Quphzuk1OV8Z2-dmvouAOXqPPWK2B-py](https://drive.google.com/file/d/1Quphzuk1OV8Z2-dmvouAOXqPPWK2B-py/view?usp=drivesdk) |
+| Art review kit, 26 PNG/JSON pairs and manifests | CI12 35243837438 / 10508215058 | [197NQy705C-URQ1K8IlnZ1dnXVelQIb-8](https://drive.google.com/file/d/197NQy705C-URQ1K8IlnZ1dnXVelQIb-8/view?usp=drivesdk) |
+| Pages staged package and deployment.json | Pages5 35246072981 / 10507646387 | [1jgYbYx5jWuSaXXLntCac3-XQCHo9p_bl](https://drive.google.com/file/d/1jgYbYx5jWuSaXXLntCac3-XQCHo9p_bl/view?usp=drivesdk) |
 
-1. a_single_composite_promotional_gameplay_mockup_ima.png（概念，不是引擎截圖）
+The three CI12 files have complete raw Drive download/readback equality, not just upload acknowledgements. Pages staged file has parent/size metadata readback; its downloaded GitHub ZIP hash and HTML equality were checked. Public 0.6.0: https://kartchang.github.io/ChronoTrigger_reMaster/ . See receipt for the actual deploy-job live verification and the continuation container's network limitation. This is a development preview, not 90-point/final-game acceptance.
+
+## Historical 17-file delivery archive — unchanged
+
+[ChronoTrigger-delivery-archive-2026-09-18.zip](https://drive.google.com/file/d/15XAmLxm597Lplx4XQPTk9madKmu0iFrI/view)
+File ID `15XAmLxm597Lplx4XQPTk9madKmu0iFrI`, 16,705,596 bytes, SHA256 `86942783045635b306557c37a4d0e8fbb6559527625935b8f56a7696899dfb48`.
+Previously uploaded, metadata checked, downloaded raw, full ZIP SHA256/CRC and all 17 member SHA256 matched. MANIFEST.json remains in the archive. Original filenames and bytes retained:
+
+1. a_single_composite_promotional_gameplay_mockup_ima.png (concept, not engine screenshot)
 2. chrono-ci10-playable.zip
 3. chrono-existing-browser-evidence.zip
 4. chrono-hd2d-fair-v0.2-candidate.zip
@@ -33,12 +43,8 @@ SHA256：`86942783045635b306557c37a4d0e8fbb6559527625935b8f56a7696899dfb48`。
 16. chrono-hd2d-rescue-v0.6-source.zip
 17. chrono_hd2d_ai_guidelines_v1.zip
 
-這是本對話當前仍可取得的所有既有生成交付物，不是全帳戶備份。歷史候選、來源包內的舊blocked文字及品質聲明保持原貌，不能凌駕最新STATUS。現行source已在GitHub，舊source ZIP只作歷史留存，不能拿來覆蓋main。
+This is the 17 generated historical deliveries available at the prior checkpoint, not a whole-account backup. Old candidates, blocked notes and scores do not override current main/STATUS. Do not restore old source ZIPs over main. User ROM and original template ZIP are excluded; ROM was not read/extracted. The absence of ROM/SPC/font extensions was a delivery hygiene check, not complete rights clearance.
 
-排除使用者的ROM及原始AI模板ZIP；未讀取／擷取ROM。封存内沒有ROM/SPC及字型副檔名；這是交付衛生檢查，不是完整IP清權稽核。
+## Ongoing rule
 
-## 新版CI交付如何入庫
-
-CI12仍執行中，新的artifact ID尚未取得。成功後保存三類：browser-evidence（含來源與實際save）、playable、art-review-kit；失敗亦保存evidence。每項寫清source SHA、run、artifact ID、Drive file ID、byte size、SHA256、實際驗證狀態。不得以舊candidate冒充新CI成功包，不以會到期的artifact網址當唯一持久留存。
-
-文件主入口：STATUS.md、TODO.md、DEVELOPMENT_WHITEPAPER.md、FEATURE_PROGRESS.md、handoff/IMMEDIATE_CONTINUATION.md均在GitHub。本輪不再以sandbox附件作交付入口；後續也遵守此規則。Drive分享權限沿用建立時設定，未擴大公開分享。
+Every source batch: publish source/tests/progress to main, retain playable/source snapshot/art/reports/screenshots in GitHub artifacts and project Drive, record exact source/run/artifact ID/Drive ID/bytes/SHA256 and readback status here. Never use expiring Actions artifacts or sandbox/chat attachments as the sole permanent delivery. STATUS/TODO/whitepaper/feature snapshot/handoff remain GitHub entrypoints.

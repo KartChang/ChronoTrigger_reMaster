@@ -1,10 +1,24 @@
-# Cloud delivery index — 2026-09-18
+# Cloud delivery index — 2026-09-18 / CI13 checkpoint
 
 ## Authority and destinations
 
-Source/progress: GitHub KartChang/ChronoTrigger_reMaster main. Current verified gameplay `2eec00c4a9e74c7873724217bd14f5087c42acf0`; a later [skip ci] documentation HEAD is not another game candidate.
+Source/progress: GitHub KartChang/ChronoTrigger_reMaster main. Current published candidate `809a5671a63e19c2a573d2b0be759dbe006989ea`, tree `15b81899a2e65d79ec8a7b62262f5ac15bf18189`; CI13 pending. Last accepted gameplay remains `2eec00c4a9e74c7873724217bd14f5087c42acf0` / CI12. A later [skip ci] documentation HEAD is not another game candidate.
 
 Google Drive project folder: [ChronoTrigger_reMaster](https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb), ID `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`. All files below are in that folder, not root; sharing was not expanded.
+
+## T02 / 0.7.0 — published source, browser acceptance pending
+
+Source publication `809a5671a63e19c2a573d2b0be759dbe006989ea` is a non-force main update from `158fdc83e7701034186e67e4446368f52a1bd03e`. CI13 `35262006198`, job `105339788184`, attempt1, last observed in_progress; npm run check succeeded. No CI13 artifact ID or accepted screenshot is claimed before artifact collection.
+
+**Working preservation package:** [ChronoTrigger-T02-working-source-and-playable-20260918.zip](https://drive.google.com/file/d/1S5fzyPVO_CwnmJaJ1eHldZDhcoqtujVc/view?usp=drivesdk).
+Drive ID `1S5fzyPVO_CwnmJaJ1eHldZDhcoqtujVc`; 1,464,981 bytes; SHA256 `fa5016f57f8c5fa5413b2cdc61fbb21302d70e55cabf73781772a3edb2c46c9b`.
+Contains MANIFEST.json, all 21 changed source/test/reference/doc files, local self-contained 0.7.0 candidate HTML/notices/quality status and 28 PNG/JSON review pairs. Metadata confirmed exact project parent. Full raw Drive download equals uploaded bytes; SHA256 matched. This is a changed-source preservation archive, not a replacement for full current GitHub source or a CI13 accepted artifact. Its pre-publication manifest says awaiting-publication; that historical packaging status is superseded by the published source above. All 21 file Git blobs matched published source. Local build-meta sourceSha=null is explicitly not CI build provenance. No new browser screenshot, ROM or original image/audio bytes in this package.
+
+**Validation records:** [ChronoTrigger-T02-CI13-validation-records-20260918.zip](https://drive.google.com/file/d/1khmkCdGt1i3V3npXfxFHwbOanwcJmmpq/view?usp=drivesdk).
+Drive ID `1khmkCdGt1i3V3npXfxFHwbOanwcJmmpq`; 14,612 bytes; SHA256 `30db9a045eaa22fa9c2a59d1fcec1a6ab0f8d8b25f1b2cb383cfaa2120f5b09d`.
+Contains actual prologue-check.log (292 local tests plus checks/build), 21-file bytes/SHA256/Git-blob manifest and publication/run/subtree-equality receipt. Downloaded raw after upload; parent verified; ZIP SHA256, CRC and all three member bytes matched originals. These are local-validation/publication records, not final CI13 logs/results.
+
+Pending after CI13 success: preserve same-run browser evidence, playable and art-review-kit with exact artifact IDs, SHA256 and readback; inspect actual new-game and recovery-feedback images; verify matching automatic Pages source/HTML. Keep last verified public 0.6.0 until this is done. Detailed scope and limitations: PROLOGUE_T02.md / ORIGINAL_FIDELITY.md.
 
 ## CI12 / Pages5 — verified 0.6.0
 

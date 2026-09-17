@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-18 Asia/Taipei",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "source": "809a5671a63e19c2a573d2b0be759dbe006989ea",
+  "sourceTree": "15b81899a2e65d79ec8a7b62262f5ac15bf18189",
+  "parent": "158fdc83e7701034186e67e4446368f52a1bd03e",
+  "version": "0.7.0",
+  "ci": {
+    "run": 35262006198,
+    "number": 13,
+    "job": 105339788184,
+    "attempt": 1,
+    "event": "push",
+    "lastObservedStatus": "in_progress",
+    "npmRunCheck": "success",
+    "lastObservedActiveStep": "python -m playwright install --with-deps chromium",
+    "browserAcceptance": "pending",
+    "artifactIds": []
+  },
+  "localValidation": {"nodeTestsPassed":292,"nodeTestsFailed":0,"typecheck":"passed","build":"passed","pythonCompile":"passed","browser":"ERR_BLOCKED_BY_ADMINISTRATOR; no local new gameplay pass claimed"},
+  "githubReadback": {
+    "changedFiles":21,
+    "exactSubtreeEquality": {
+      ".github":"140091d88015ddedcb8736b929a11208dab03f1e",
+      "assets":"137c0544361073d9159c694bc26244648e8ab738",
+      "scripts":"42134bcd5d8b4472c40c76f994ba7ddbab094a9a",
+      "src":"65ec0acbc4411fa95fee6af691835cdc21b06bc0",
+      "tests":"df099eeaab36d1132c9b301500c36109973a1b0d"
+    },
+    "indexHtmlBlob":"4b103ae27168ac5b353b984ab935552d5f322aea",
+    "originalFidelityBlob":"ba85779e97256dbc1106d894cfdfb0a2f9da0795",
+    "prologueT02Blob":"4e528e72dc36a0de5c996a7dbf79d1eb027a39f8"
+  },
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "retained": [
+    {"kind":"local working source/playable/art, not accepted CI artifact","fileId":"1S5fzyPVO_CwnmJaJ1eHldZDhcoqtujVc","bytes":1464981,"sha256":"fa5016f57f8c5fa5413b2cdc61fbb21302d70e55cabf73781772a3edb2c46c9b","rawReadbackEqual":true},
+    {"kind":"local logs, 21-file manifest, publication receipt","fileId":"1khmkCdGt1i3V3npXfxFHwbOanwcJmmpq","bytes":14612,"sha256":"30db9a045eaa22fa9c2a59d1fcec1a6ab0f8d8b25f1b2cb383cfaa2120f5b09d","rawReadbackEqual":true,"allMembersEqual":true}
+  ],
+  "lastVerifiedPages":{"version":"0.6.0","source":"2eec00c4a9e74c7873724217bd14f5087c42acf0","ci":35243837438,"pages":35246072981,"htmlSha256":"ed6c879daca44ac74f047426a7659ba1f668b5d2ffe383f34068b680acc81edb"},
+  "next":"Receive CI13 once; failure follows actual first root; success retains exact artifacts, inspects actual screenshots and verifies same-source Pages before T03.",
+  "wholeGameAccepted":false,
+  "quality90Accepted":false,
+  "romReadOrOriginalBytesIncluded":false
+}

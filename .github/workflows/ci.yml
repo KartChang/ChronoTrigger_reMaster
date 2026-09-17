@@ -1,0 +1,46 @@
+name: Playable prototype CI
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', 'README.md', '.github/workflows/bootstrap-toolchain.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chrono-prototype-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r tests/requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Test actual file and HTTP browser journeys
+        run: python tests/browser_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chrono-hd2d-browser-evidence
+          path: test-results/
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: chrono-hd2d-playable
+          path: |
+            dist/index.html
+            dist/build-meta.json
+            dist/THIRD_PARTY_LICENSE.txt
+            dist/THIRD_PARTY_NOTICES.md
+          retention-days: 30

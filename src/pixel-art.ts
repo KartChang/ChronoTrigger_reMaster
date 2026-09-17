@@ -49,3 +49,26 @@ export function drawTree(c:Ink):void{
   for(let i=0;i<170;i++){const x=9+rng()*46,y=6+rng()*48;if(((x-32)/27)**2+((y-29)/27)**2>1)continue;disc(Math.floor(x),Math.floor(y),2+Math.floor(rng()*5),['#365d2b','#527a32','#6e923f','#416b2e','#829e49'][Math.floor(rng()*5)]!);}
   for(let i=0;i<80;i++){const x=Math.floor(11+rng()*42),y=Math.floor(8+rng()*39);if(((x-32)/24)**2+((y-26)/22)**2<1)r(x,y,2,1,'#a4b75c');}
 }
+
+/** Authored Lucca silhouette: round glasses, violet hair, cap and tunic. */
+export function drawLucca(c:Ink,facing=0,frame=0):void{
+ c.clearRect(0,0,24,32);const r=(x:number,y:number,w:number,h:number,color:string)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
+ const o='#302b40',hair='#67466f',skin='#e8b68a',boot='#644633',step=frame?1:0;
+ r(7-step,25,5,6,o);r(13+step,25,5,6-step,o);r(8-step,26,3,4,boot);r(14+step,25,3,5-step,boot);
+ r(6,16,13,11,o);r(7,17,11,8,'#c47c3f');r(8,18,8,2,'#eabb72');r(7,24,11,2,'#677b66');
+ r(4,18+step,3,7,o);r(5,19+step,2,4,'#b58357');r(5,24+step,2,2,skin);r(18,18-step,3,7,o);r(18,19-step,2,4,'#b58357');r(18,24-step,2,2,skin);
+ r(6,6,14,11,o);r(7,8,12,9,hair);r(8,9,10,7,skin);r(5,9,3,11,hair);r(18,10,3,9,hair);
+ r(7,3,11,6,o);r(8,3,9,4,'#777d68');r(6,6,14,3,'#bab28a');r(8,4,7,2,'#d1c797');r(17,4,3,4,'#b68548');
+ if(facing===2){r(7,10,12,8,hair);r(8,10,4,6,'#895e8d');}
+ else if(facing===1){r(15,11,5,4,o);r(16,12,3,2,'#b8d9d5');r(19,14,2,1,skin);}
+ else if(facing===3){r(5,11,5,4,o);r(6,12,3,2,'#b8d9d5');}
+ else{r(7,11,5,4,o);r(13,11,5,4,o);r(11,12,3,1,o);r(8,12,3,2,'#b8d9d5');r(14,12,3,2,'#b8d9d5');r(11,16,3,1,'#a86b58');}
+}
+export function drawResident(c:Ink,kind:'resident'|'guard'|'king'):void{
+ c.clearRect(0,0,24,32);const r=(x:number,y:number,w:number,h:number,color:string)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
+ const o='#2d3039',coat=kind==='guard'?'#899fa4':kind==='king'?'#864452':'#7e9671';
+ r(7,25,5,6,o);r(13,25,5,6,o);r(6,16,13,11,o);r(7,17,11,8,coat);r(5,19,3,6,coat);r(18,19,3,6,coat);
+ r(7,6,12,11,o);r(8,8,10,8,'#e0b38c');r(8,6,10,4,'#6b5448');r(9,12,2,2,o);r(15,12,2,2,o);
+ if(kind==='guard'){r(7,5,12,6,coat);r(9,4,8,3,'#d4dcce');r(12,10,2,6,'#c5d0ca');r(3,14,2,17,'#927749');r(3,12,2,4,'#d2d8cb');r(6,21,6,7,'#526476');}
+ if(kind==='king'){r(7,3,12,5,'#bb964b');r(8,3,2,3,'#f3d07e');r(12,1,2,6,'#f3d07e');r(17,3,2,3,'#f3d07e');r(7,17,2,9,'#dfc285');r(17,17,2,9,'#dfc285');r(10,14,6,3,'#d8cbb2');}
+}

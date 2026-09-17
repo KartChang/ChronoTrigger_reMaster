@@ -1,0 +1,43 @@
+{
+  "unitTests": {
+    "passed": 109,
+    "failed": 0,
+    "inherited": 79,
+    "new": 30
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "assetGuard": "passed",
+  "unchangedOldTests": {
+    "opening_browser.py": true,
+    "fair.test.mjs": true,
+    "browser_smoke.py": true,
+    "opening.test.mjs": true,
+    "requirements.txt": true,
+    "core.test.mjs": true,
+    "fair_browser.py": true
+  },
+  "localBrowser": {
+    "localBrowser": "not accepted",
+    "failure": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///mnt/data/chrono-work/dist/index.html\nCall log:\n  - navigating to \"file:///mnt/data/chrono-work/dist/index.html\", waiting until \"load\"\n"
+  },
+  "beforePublicationBlobHashes": {
+    ".github/workflows/ci.yml": "d1f77500f467b3ca408fa9c9e32f882aa0a5f6a2",
+    "CODEBASE.md": "3b860bb9f0b809807ad960e781628ed33b033dc4",
+    "README.md": "137a036745391b2f00369bb8952bc4bbb317a3b8",
+    "docs/STATUS.md": "140acd2e5e99ee2a03383649ceda6c91be314770",
+    "index.html": "22be0114e97dd5fa25bbc7321fb524685e42d505",
+    "scripts/build.mjs": "277c97acb1f61c115a5a240a9c7b374dbb764904",
+    "scripts/test.mjs": "b86c8f51ee6d601c4cdf690d706fc7dcfe500bcb",
+    "src/core.ts": "c37b8b3af0f0400b105d42acb8997108aa14a2cb",
+    "src/fair-data.ts": "d6f4379699047fad2af8a5427b4081900b4231a4",
+    "src/main.ts": "d5ed24aecf621a84ca2f2505a07478340b9f10d9",
+    "src/pixel-art.ts": "dfbcd0c6852ed35cc66d929d8007f531143f86c8",
+    "src/render.ts": "ca4c696ed3ddfbcb820d89a71e2dc1aee4c832f4",
+    "docs/KINGDOM_SLICE.md": "61d5ee72aee9f75cc45f5376d9dae9ba25b7fdaa",
+    "src/kingdom-data.ts": "6c2c0c7e907a3fe2ef5005bdb773f7bdc0bd90b8",
+    "src/kingdom-render.ts": "f396b3fc6c6e7ab4726d00ce5b6be117f958d718",
+    "tests/kingdom.test.mjs": "55b7aeb4b8146694cc420f6932e6b69842c6ccff",
+    "tests/kingdom_browser.py": "5c801ddba1d105476de6cd11c6575d59e09826cb"
+  }
+}

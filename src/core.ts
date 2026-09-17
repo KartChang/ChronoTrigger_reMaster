@@ -1,3 +1,5 @@
+import {newKingdom,kingdomMap,kingdomWalkable,nearestKingdom} from './kingdom-data';
+import type {Kingdom,KingdomMap} from './kingdom-data';
 import {newOpening,cinematic,marlePresent,canyonWalkable,CANYON_EXIT} from './story-data';
 import type {Opening} from './story-data';
 import {fairWalkable,nearestFair,newFairFlags} from './fair-data';
@@ -9,12 +11,12 @@ export type Slot = 0 | 1;
 export type Vec = { x: number; z: number };
 export type Actor = Vec & { hp: number; mp: number; atb: number; facing: number; walking: boolean };
 export type Enemy = Vec & { hp: number; atb: number };
-export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo' };
+export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
   mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
-  ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening;
+  ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom;
 };
 export type Input = [Vec, Vec];
 export const MAX_HP = 120;
@@ -33,12 +35,13 @@ export function createState(chapter: Chapter = 'lab'): State {
   const actor = (x: number): Actor => ({ x, z: -5, hp: MAX_HP, mp: MAX_MP, atb: 0, facing: 0, walking: false });
   return { mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
-    combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening() };
+    combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom() };
 }
-export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||marlePresent(s.opening.phase);
-export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase);
+export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase));
+export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing';
 export const distance = (a: Vec, b: Vec): number => Math.hypot(a.x - b.x, a.z - b.z);
 export function walkable(x: number, z: number, chapter: Chapter = 'lab'): boolean {
+  if(kingdomMap(chapter))return kingdomWalkable(x,z,chapter);
   if(chapter==='fair')return fairWalkable(x,z);
   if(chapter==='canyon')return canyonWalkable(x,z);
   if (!Number.isFinite(x) || !Number.isFinite(z) || x < -12.6 || x > 12.6 || z < -8.6 || z > 10.6) return false;
@@ -68,20 +71,22 @@ export function setCoop(s: State, joined: boolean): boolean {
 }
 export function beginBattle(s: State): boolean {
   if (s.mode !== 'explore'||cutsceneActive(s)) return false;
+  if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
   if(s.chapter==='canyon'&&(s.opening.phase!=='canyon'||s.opening.canyonWon))return false;
   s.mode='battle'; s.combo=[false,false]; s.enemyTurn=0;
   s.players.forEach((p,i)=>{p.x=-1.5+i*3;p.z=1;p.atb=0;p.walking=false;p.facing=2;});
-  s.enemies=s.chapter==='canyon'?[{x:-1.8,z:2.4,hp:48,atb:0},{x:1.8,z:3,hp:48,atb:0},{x:.2,z:1.5,hp:48,atb:0}]:s.chapter==='fair'?[{x:-7,z:4.8,hp:120,atb:0}]:[{x:-2,z:4.5,hp:90,atb:0},{x:2,z:4.8,hp:90,atb:0}];
+  s.enemies=s.chapter==='forest'?[{x:-1.8,z:2.8,hp:48,atb:0},{x:1.8,z:2.8,hp:48,atb:0}]:s.chapter==='canyon'?[{x:-1.8,z:2.4,hp:48,atb:0},{x:1.8,z:3,hp:48,atb:0},{x:.2,z:1.5,hp:48,atb:0}]:s.chapter==='fair'?[{x:-7,z:4.8,hp:120,atb:0}]:[{x:-2,z:4.5,hp:90,atb:0},{x:2,z:4.8,hp:90,atb:0}];
   if(s.chapter==='fair')s.players.forEach((p,i)=>{p.x=-8.5+i*3;p.z=2;});
   if(s.chapter==='canyon')s.players[0].x=0,s.players[0].z=5;
-  log(s,s.chapter==='canyon'?'魔物攔住山道。克羅諾獨自迎戰。':'ATB 戰鬥開始。兩人各自下指令；合技需要雙方確認。'); return true;
+  if(s.chapter==='forest')s.players.forEach((p,i)=>Object.assign(p,{x:-1.5+i*3,z:-1}));
+  log(s,s.chapter==='forest'?'草叢裡有動靜……！':s.chapter==='canyon'?'魔物攔住山道。克羅諾獨自迎戰。':'ATB 戰鬥開始。兩人各自下指令；合技需要雙方確認。'); return true;
 }
 function eligible(s: State, slot: Slot, mp: number): boolean {
   const p=s.players[slot];return activeSlot(s,slot)&&!cutsceneActive(s)&&s.mode==='battle' && p.hp>0 && p.atb>=1 && p.mp>=mp;
 }
 function finish(s: State): void {
-  if (s.enemies.every(e=>e.hp<=0)) { s.mode='victory';if(s.chapter==='canyon')s.opening.canyonWon=true;else if(s.chapter==='fair')s.fair.gatoWon=true;else s.flags.won=true;s.combo=[false,false];log(s,s.chapter==='canyon'?'攔路的魔物倒下了。沿山道向南走。':s.chapter==='fair'?'機器人挑戰完成。可返回廣場或前往露卡的展示區。':'試煉完成！北方時門已可探索。'); }
+  if (s.enemies.every(e=>e.hp<=0)) { s.mode='victory';if(s.chapter==='forest')s.kingdom.forestWon=true;else if(s.chapter==='canyon')s.opening.canyonWon=true;else if(s.chapter==='fair')s.fair.gatoWon=true;else s.flags.won=true;s.combo=[false,false];log(s,s.chapter==='forest'?'林間小路恢復了寧靜。王城就在北方。':s.chapter==='canyon'?'攔路的魔物倒下了。沿山道向南走。':s.chapter==='fair'?'機器人挑戰完成。可返回廣場或前往露卡的展示區。':'試煉完成！北方時門已可探索。'); }
 }
 export function action(s: State, slot: Slot, kind: 'attack'|'skill'): boolean {
   const cost=kind==='skill'?3:0;
@@ -90,7 +95,7 @@ export function action(s: State, slot: Slot, kind: 'attack'|'skill'): boolean {
   if (!target) return false;
   s.combo[slot]=false;p.atb=0;p.mp-=cost;
   const damage=kind==='skill'?48:30;target.hp=Math.max(0,target.hp-damage);
-  s.effects.push({x:target.x,z:target.z,text:String(damage),kind:'hit'});
+  s.effects.push({x:target.x,z:target.z,text:String(damage),kind:'hit',actor:slot,origin:{x:p.x,z:p.z},style:kind==='skill'?(slot===1&&s.kingdom.phase==='rescue'?'fire':'spin'):slot===1?'shot':'slash'});
   log(s,`P${slot+1} ${kind==='skill'?'施放技能':'攻擊'}：${damage} 傷害。`);finish(s);return true;
 }
 export function requestCombo(s: State, slot: Slot): boolean {
@@ -102,12 +107,13 @@ export function requestCombo(s: State, slot: Slot): boolean {
 function tryCombo(s: State): void {
   if (!s.combo[0] || !s.combo[1] || !eligible(s,0,4) || !eligible(s,1,4)) return;
   s.players.forEach(p=>{p.atb=0;p.mp-=4;});s.combo=[false,false];
-  s.enemies.filter(e=>e.hp>0).forEach(e=>{e.hp=Math.max(0,e.hp-72);s.effects.push({x:e.x,z:e.z,text:'72',kind:'combo'});});
+  s.enemies.filter(e=>e.hp>0).forEach(e=>{e.hp=Math.max(0,e.hp-72);s.effects.push({x:e.x,z:e.z,text:'72',kind:'combo',style:'spin'});});
   log(s,'雙人合技「共鳴斬」！雙方消耗 ATB 與 4 MP。');finish(s);
 }
 export function step(s: State, input: Input, delta: number): void {
   if (!Number.isFinite(delta) || delta<=0) return;
   const dt=Math.min(delta,0.05);s.ticks++;
+  if(s.kingdom.phase==='erasing'){s.kingdom.elapsed+=dt;if(s.kingdom.elapsed>=2.2){s.kingdom.phase='missing';s.kingdom.elapsed=0;log(s,'瑪兒的身影消失了。先回大廳看看。');}return;}
   if(cutsceneActive(s)){stepOpening(s,dt);return;}
   if (s.mode==='explore') {
     move(s,0,input[0],dt);
@@ -116,6 +122,7 @@ export function step(s: State, input: Input, delta: number): void {
       const a=s.players[0],b=s.players[1],dist=distance(a,b);
       move(s,1,dist>1.7?{x:(a.x-b.x)/dist,z:(a.z-b.z)/dist}:{x:0,z:0},dt);
     }
+    if(s.chapter==='forest'&&!s.kingdom.forestWon&&s.players[0].z>.2)beginBattle(s);
     if(s.chapter==='canyon'&&!s.opening.canyonWon&&s.players[0].z<5.5)beginBattle(s);
     if (s.chapter==='lab' && !s.flags.won && s.players.some(p=>Math.abs(p.x)<3.3 && p.z>2.4 && p.z<5.8)) beginBattle(s);
     return;
@@ -140,8 +147,9 @@ export function step(s: State, input: Input, delta: number): void {
   if(s.players.every((p,i)=>!activeSlot(s,i as Slot)||p.hp<=0)){s.mode='defeat';s.combo=[false,false];log(s,s.chapter==='canyon'?'克羅諾倒下了。可回山道入口重新整裝。':'試煉失敗。可回村補給，再次挑戰。');}
 }
 export function leaveBattle(s: State): void {
-  if(s.chapter==='canyon'&&s.mode!=='victory'&&s.mode!=='defeat')return;
+  if((s.chapter==='canyon'||kingdomMap(s.chapter))&&s.mode!=='victory'&&s.mode!=='defeat')return;
   s.mode='explore';s.enemies=[];s.combo=[false,false];
+  if(s.chapter==='forest'){s.players.forEach((p,i)=>Object.assign(p,{x:-1+i*2,z:s.kingdom.forestWon?3.5:-6,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;}
   if(s.chapter==='canyon'){
     s.players.forEach(p=>Object.assign(p,{x:0,z:s.opening.canyonWon?4.5:8,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;
   }
@@ -157,9 +165,10 @@ export function travel(s: State): boolean {
   s.players.forEach((p,i)=>{p.x=-0.8+i*1.6;p.z=7;p.walking=false;});
   log(s,s.era==='present'?'回到青翠的現在。':s.flags.repaired?'晶核持續運轉，未來仍有光。':'抵達未來：未修復的晶核已經熄滅。');return true;
 }
-export type SaveData = {version:1|2|3;opening?:{phase:Opening['phase'];canyonWon:boolean};chapter?:Chapter;fair?:FairFlags;era:Era;joined:boolean;flags:Flags;players:{x:number;z:number;hp:number;mp:number}[]};
+export type SaveData = {version:1|2|3|4;kingdom?:Omit<Kingdom,'elapsed'>;opening?:{phase:Opening['phase'];canyonWon:boolean};chapter?:Chapter;fair?:FairFlags;era:Era;joined:boolean;flags:Flags;players:{x:number;z:number;hp:number;mp:number}[]};
 export function serialize(s: State): string {
   if(s.mode!=='explore'||cutsceneActive(s))throw new Error('請先結束戰鬥或演出再存檔。');
+  if(s.kingdom.phase!=='none')return JSON.stringify({version:4,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},kingdom:{phase:s.kingdom.phase,heardYear:s.kingdom.heardYear,forestWon:s.kingdom.forestWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
   if(s.opening.phase!=='none')return JSON.stringify({version:3,chapter:s.chapter,era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},opening:{phase:s.opening.phase,canyonWon:s.opening.canyonWon},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
   return JSON.stringify({version:s.chapter==='fair'?2:1,...(s.chapter==='fair'?{chapter:s.chapter,fair:{...s.fair}}:{}),era:s.era,joined:s.joined,flags:{...s.flags},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))} satisfies SaveData);
 }
@@ -168,13 +177,14 @@ export function deserialize(raw: string): State {
   const v:unknown=JSON.parse(raw);
   if(!v||typeof v!=='object')throw new Error('存檔格式錯誤。');
   const o=v as Record<string,unknown>;
-  if((o.version!==1&&o.version!==2&&o.version!==3)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
+  if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
   if(!Array.isArray(o.players)||o.players.length!==2||!o.flags||typeof o.flags!=='object')throw new Error('存檔資料不完整。');
   const f=o.flags as Record<string,unknown>;
   if(['won','repaired','visitedFuture'].some(k=>typeof f[k]!=='boolean'))throw new Error('事件旗標錯誤。');
   if(o.version===1&&o.era==='middle')throw new Error('舊存檔不支援此時代。');
-  const s=createState(o.version===3&&o.chapter==='canyon'?'canyon':o.version!==1?'fair':'lab');s.era=o.era as Era;s.joined=o.joined;
-  if(o.version===2||o.version===3){
+  if(o.version===4&&(typeof o.chapter!=='string'||(!kingdomMap(o.chapter)&&o.chapter!=='canyon')))throw new Error('王國存檔地圖錯誤。');
+  const s=createState(o.version===4?o.chapter as Chapter:o.version===3&&o.chapter==='canyon'?'canyon':o.version!==1?'fair':'lab');s.era=o.era as Era;s.joined=o.joined;
+  if(o.version===2||o.version===3||o.version===4){
     if((o.version===2&&(o.chapter!=='fair'||o.era!=='present'))||!o.fair||typeof o.fair!=='object'||Array.isArray(o.fair))throw new Error('千年祭存檔格式錯誤。');
     const fair=o.fair as Record<string,unknown>;
     for(const key of Object.keys(s.fair) as (keyof FairFlags)[]){
@@ -190,6 +200,13 @@ export function deserialize(raw: string): State {
     const inCanyon=op.phase==='canyon'||op.phase==='vista';
     if(o.chapter!==(inCanyon?'canyon':'fair')||o.era!==(inCanyon?'middle':'present')||(!inCanyon&&op.canyonWon)||(op.phase==='vista'&&!op.canyonWon))throw new Error('時代與事件進度不一致。');
     s.opening={phase:op.phase as Opening['phase'],elapsed:0,canyonWon:op.canyonWon};
+  }
+  if(o.version===4){
+    const op=o.opening as Record<string,unknown>|undefined,k=o.kingdom as Record<string,unknown>|undefined;
+    if(o.era!=='middle'||!op||typeof op!=='object'||Array.isArray(op)||op.phase!=='vista'||op.canyonWon!==true||!s.fair.telepodTested)throw new Error('王國事件缺少開場進度。');
+    if(!k||typeof k!=='object'||Array.isArray(k)||typeof k.phase!=='string'||!['arrival','audience','missing','rescue'].includes(k.phase)||typeof k.heardYear!=='boolean'||typeof k.forestWon!=='boolean')throw new Error('王國進度錯誤。');
+    if((s.chapter==='chamber'&&k.phase==='arrival')||(['audience','missing','rescue'].includes(k.phase)&&!k.forestWon)||(['castle','chamber'].includes(s.chapter)&&!k.forestWon))throw new Error('王城前置條件不一致。');
+    s.opening={phase:'vista',elapsed:0,canyonWon:true};s.kingdom={phase:k.phase as Kingdom['phase'],heardYear:k.heardYear,forestWon:k.forestWon,elapsed:0};
   }
   s.flags={won:f.won as boolean,repaired:f.repaired as boolean,visitedFuture:f.visitedFuture as boolean};
   for(let i=0;i<2;i++) {
@@ -271,7 +288,60 @@ export function interactOpening(s:State,slot:Slot):{title:string;text:string}|nu
   }
   if(s.chapter==='canyon'&&distance(s.players[0],CANYON_EXIT)<2.05){
     if(!s.opening.canyonWon)return {title:'山道',text:'魔物擋在山道上。先想辦法通過這裡。'};
-    s.opening.phase='vista';return {title:'600 年 · 托魯斯山道',text:'山道向南延伸。先去尋找有人居住的地方。\n瑪兒會在哪裡？\n\n本段試玩到此。城鎮、王城與尋找王后的劇情將接在這裡。'};
+    if(s.opening.phase==='vista'){if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>3.5)return {title:'等待同行者',text:'一起靠近山道出口，再往山下走。'};if(s.kingdom.phase==='none')s.kingdom.phase='arrival';return changeKingdomMap(s,'truce',0,6.4);}
+    s.opening.phase='vista';return {title:'600 年 · 托魯斯山道',text:'山下有房屋與炊煙。沿著路走，或許能打聽到瑪兒的消息。\n\n再按一次 E，前往托魯斯。'};
   }
   return null;
+}
+
+/** Chapter boundaries are user interactions, never renderer side effects. */
+function changeKingdomMap(s:State,chapter:KingdomMap|'canyon',x:number,z:number):{title:string;text:string}{
+ s.chapter=chapter;s.era='middle';s.enemies=[];s.combo=[false,false];s.effects=[];
+ s.players.forEach((p,i)=>Object.assign(p,{x:x+(activeSlot(s,1)?i*1.3:0),z,walking:false,atb:0,facing:2}));
+ return {title:chapter==='truce'?'托魯斯':chapter==='forest'?'加爾迪亞森林':chapter==='castle'?'加爾迪亞王城':chapter==='chamber'?'王后房間':'托魯斯山道',text:chapter==='truce'?'屋舍散落在小路旁。旅店亮著燈，路邊有人正在交談。':chapter==='forest'?'樹葉掩住天空。北方的小路通往王城。':chapter==='castle'?'靴底踏上石板。衛兵正在大廳前值守。':chapter==='chamber'?'房間裡，有個熟悉的身影……':'回到了山道。南方仍通往托魯斯。'};
+}
+export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|null{
+ if(!kingdomMap(s.chapter)||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
+ const point=nearestKingdom(s.players[slot].x,s.players[slot].z,s.chapter,s.kingdom.phase);
+ if(!point)return null;
+ const result=(title:string,text:string)=>({title,text});
+ if(point.id==='resident'){s.kingdom.heardYear=true;return result('托魯斯的鎮民','今年是加爾迪亞曆六百年。你連這個也不知道？\n前些天失蹤的王后已經回城，大家總算能鬆口氣。');}
+ if(point.id==='inn'){s.players.forEach((p,i)=>{if(activeSlot(s,i as Slot)){p.hp=MAX_HP;p.mp=MAX_MP;}});return result('托魯斯旅店','爐火暖了起來。你稍作休息，恢復了體力。\n若要去王城，從東南小路進森林，再向北走。');}
+ if(slot!==0)return result('同行','這段對話與換圖由 P1 帶領。');
+ const moveTo=(map:KingdomMap|'canyon',x:number,z:number)=>{
+  if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>3.5)return result('等待同行者','先靠近彼此，再一起前往下一個地方。');
+  return changeKingdomMap(s,map,x,z);
+ };
+ if(s.chapter==='truce'){
+  if(point.id==='forest')return moveTo('forest',0,-6.5);
+  if(point.id==='canyon')return moveTo('canyon',0,-6);
+ }
+ if(s.chapter==='forest'){
+  if(point.id==='town')return moveTo('truce',7,-5);
+  if(point.id==='castle')return s.kingdom.forestWon?moveTo('castle',0,-6.5):result('林間小路','先通過前方的魔物。');
+  if(point.id==='cathedral')return result('西方的修道院',s.kingdom.phase==='rescue'?'露卡望向林外：先從西邊的修道院找起。\n\n本版先到這裡。修道院內部、青蛙與王后救援尚未接上。':'林外可以看見修道院的屋頂。先去王城找瑪兒的消息。');
+ }
+ if(s.chapter==='castle'){
+  if(point.id==='exit')return moveTo('forest',0,8);
+  if(point.id==='guard'){
+   if(s.kingdom.phase==='arrival'){s.kingdom.phase='audience';return result('王城衛兵','站住！……王后說認識你？\n那就進去吧。她正在東側樓上的房間等候。');}
+   return result('王城衛兵','王后回來後，搜索隊已經撤回。要見她，走東側樓梯。');
+  }
+  if(point.id==='king')return result('加爾迪亞國王','王后平安回來，比什麼都重要。\n年輕人，若你知道她遭遇了什麼，請務必告訴我。');
+  if(point.id==='stairs')return s.kingdom.phase==='arrival'?result('王城衛兵','先在大廳向衛兵說明來意。'):moveTo('chamber',0,-6);
+  if(point.id==='lucca'&&s.kingdom.phase==='missing'){
+   s.kingdom.phase='rescue';Object.assign(s.players[1],{x:s.players[0].x+1.3,z:s.players[0].z,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false,facing:0});
+   // Placement is explicit and validated, not an invisible replacement for the missing Marle.
+   if(!walkable(s.players[1].x,s.players[1].z,s.chapter))Object.assign(s.players[1],{x:1,z:-4});
+   return result('露卡加入隊伍','克羅諾！我終於追上你了。\n瑪兒是這個王國的公主。人們把她當成祖先莉妮王后，停止了搜救。真正的王后若遇害，瑪兒也就不會存在。\n我們得去找到真正的王后！');
+  }
+ }
+ if(s.chapter==='chamber'){
+  if(point.id==='stairs')return moveTo('castle',8,5);
+  if(point.id==='queen'&&s.kingdom.phase==='audience'){
+   s.kingdom.phase='erasing';s.kingdom.elapsed=0;s.players.forEach(p=>p.walking=false);
+   return result('瑪兒','克羅諾！你真的來找我了。\n大家把我當成這裡的王后，我還沒來得及解釋。\n……等等，身體好冷。你還看得見我嗎？');
+  }
+ }
+ return null;
 }

@@ -1,6 +1,7 @@
+import {kingdomMap,nearestKingdom,KINGDOM_NAMES} from './kingdom-data';
 import {nearestFair} from './fair-data';
 import type {Chapter} from './fair-data';
-import {createState,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
+import {createState,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
@@ -27,6 +28,7 @@ function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
 }
 function interact(slot:Slot):void{
   if(cutsceneActive(state)||!activeSlot(state,slot))return;
+  if(kingdomMap(state.chapter)){const result=interactKingdom(state,slot);if(result)showDialog(result.title,result.text);else announce(state.mode==='battle'?'請使用戰鬥指令。':'靠近人物、門口或小路盡頭，再按互動。');updateHud();return;}
   if(state.chapter==='canyon'){const result=interactOpening(state,slot);if(result)showDialog(result.title,result.text);else announce(state.opening.canyonWon?'沿山道向南走，靠近出口按 E。':'山道前方有魔物，小心。');updateHud();return;}
   if(state.chapter==='fair'){
     if(state.mode!=='explore'){announce('請使用戰鬥指令。');return;}
@@ -53,7 +55,7 @@ function command(slot:Slot,cmd:Command):void{
     if(!started||manualPause||dialogOpen)return;
     if(!setCoop(state,!state.joined))announce('請在探索模式加入或退出 P2。');updateHud();return;
   }
-  if(dialogOpen){if(cmd==='interact' && (slot===0||state.joined))closeDialog();return;}
+  if(dialogOpen){if(cmd==='interact' && activeSlot(state,slot) && (slot===0||state.joined))closeDialog();return;}
   if(halted()||cutsceneActive(state)||!activeSlot(state,slot)||(slot===1&&!state.joined))return;
   if(cmd==='interact'){interact(slot);return;}
   const accepted=cmd==='combo'?requestCombo(state,slot):action(state,slot,cmd);
@@ -70,7 +72,7 @@ $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'int
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
-$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
+$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');state=deserialize(await file.text());controls.clear();updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
 $('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
@@ -79,7 +81,7 @@ document.addEventListener('visibilitychange',()=>{controls.clear();if(document.h
 function updateHud():void{
   document.body.dataset.started=String(started);document.body.dataset.adventure=String(state.chapter!=='lab');document.body.dataset.mode=state.mode;document.body.dataset.cinematic=String(cutsceneActive(state));
   $('p1').hidden=!activeSlot(state,1);
-  const captions:Record<State['opening']['phase'],string>={none:'',approach:'瑪兒走上平台。',resonance:'項鍊發光了……！',lost:'瑪兒消失了。找回平台上的項鍊。',pendant:'握緊項鍊，回到左側平台，按 E 追上她。',crossing:'光芒吞沒了周遭的景色。',canyon:state.opening.canyonWon?'沿山道往南，尋找瑪兒的去向。':'陌生的山道。前方傳來魔物的聲音。',vista:'未完待續 · 王國就在山道之外。'};
+  const captions:Record<State['opening']['phase'],string>={none:'',approach:'瑪兒走上平台。',resonance:'項鍊發光了……！',lost:'瑪兒消失了。找回平台上的項鍊。',pendant:'握緊項鍊，回到左側平台，按 E 追上她。',crossing:'光芒吞沒了周遭的景色。',canyon:state.opening.canyonWon?'沿山道往南，尋找瑪兒的去向。':'陌生的山道。前方傳來魔物的聲音。',vista:'山下有一座城鎮。靠近出口，再按 E 前往托魯斯。'};
   $('story-caption').textContent=captions[state.opening.phase];$('story-caption').hidden=!started||state.opening.phase==='none'||dialogOpen;
   $('story-coop-note').hidden=!state.joined||activeSlot(state,1);
 
@@ -99,7 +101,7 @@ function updateHud():void{
   const end=state.mode==='victory'||state.mode==='defeat';$('result').hidden=!end;$('result-title').textContent=state.mode==='victory'?'試煉完成':'這次，先回去休息';$('result-text').textContent=state.mode==='victory'?'雙人合作與 ATB 原型已完成這場試煉。\n返回村落會補滿 HP／MP，接著可以探索北方時門。':'兩名角色都倒下了。\n返回村落會補滿 HP／MP，再嘗試使用技能或合技。';
   const fair=state.chapter==='fair';
   $('trial').hidden=state.chapter!=='lab';
-  $('p0-name').textContent=state.chapter!=='lab'?'克羅諾':'旅人';$('p1-name').textContent=state.chapter!=='lab'?'瑪兒':'守望者';
+  $('p0-name').textContent=state.chapter!=='lab'?'克羅諾':'旅人';$('p1-name').textContent=state.kingdom.phase==='rescue'?'露卡':state.chapter!=='lab'?'瑪兒':'守望者';
   $('continue').textContent=fair?'返回廣場／補給':'返回村落／補給';
   $('scene-note').textContent=fair?'千年祭廣場試作 · 自製素材／重排配置／暫定數值':'自製測試素材 · 非原作地圖／角色／劇情';
   if(fair){
@@ -125,6 +127,21 @@ function updateHud():void{
     $('interact-hint').hidden=state.mode!=='explore'||state.players[0].z>-5.1||dialogOpen;
     $('interact-hint').textContent='E · 山道出口';
   }
+
+  if(kingdomMap(state.chapter)){
+    $('era').textContent='600 AD';$('location').textContent=KINGDOM_NAMES[state.chapter];
+    const text=state.kingdom.phase==='erasing'?'瑪兒的身影……正在消失。':state.kingdom.phase==='missing'?'瑪兒消失了。回王城大廳找線索。':state.kingdom.phase==='rescue'?'與露卡一起尋找真正的王后。森林西方通往修道院。':state.chapter==='truce'?'向鎮民打聽消息，沿東南小路前往森林。':state.chapter==='forest'?'穿過森林，向北前往王城。':state.chapter==='castle'?'向衛兵說明來意，再走東侧樓梯。':'靠近房間裡的女孩，按 E。';
+    $('story-caption').textContent=text;$('story-caption').hidden=!started||dialogOpen;
+    $('objective').textContent=text;$('party-mode').textContent=activeSlot(state,1)?(state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡'):'克羅諾獨自行動';
+    const point=nearestKingdom(state.players[0].x,state.players[0].z,state.chapter,state.kingdom.phase);
+    $('interact-hint').hidden=!started||dialogOpen||cutsceneActive(state)||state.mode!=='explore'||!point;
+    $('interact-hint').textContent=point?'E · '+point.label:'';
+    $('scene-note').textContent='王國篇 0.4 · 重建地圖／原創素材與對話／非原作精確數值';
+    $('enemy-hp').textContent=state.enemies.map((e,i)=>`魔物 ${i+1} · HP ${e.hp}/48`).join('　');
+    $('result-title').textContent=state.mode==='victory'?'戰鬥勝利':'重新整裝';$('result-text').textContent=state.mode==='victory'?'小路安靜下來。北方是加爾迪亞王城。':'回到森林入口，再試一次。';$('continue').textContent=state.mode==='victory'?'繼續前進':'回入口休息';
+    if(!activeSlot(state,1))$('combo-status').textContent='此時只有克羅諾，無法使用合技。';
+  }
+  if(state.chapter==='canyon'&&state.kingdom.phase==='rescue'){$('party-mode').textContent=state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡';$('combo-status').textContent='兩人同行，戰鬥仍採 ATB。';}
   const message=state.log[state.log.length-1]??'';if(started&&message!==previousLog){previousLog=message;announce(message);}
 }
 try{
@@ -132,7 +149,7 @@ try{
   world.draw(state,0,false);
   $<HTMLButtonElement>('start').disabled=false;$<HTMLButtonElement>('start-coop').disabled=false;$('start').textContent='技術村落 · 單人';
   $<HTMLButtonElement>('start-fair').disabled=false;$<HTMLButtonElement>('start-fair-coop').disabled=false;updateHud();
-  let frame=0,lastPhase=state.opening.phase;
+  let frame=0,lastPhase='';
 
   world.start(()=>{
     const now=performance.now(),dt=Math.min((now-last)/1000,.1);last=now;
@@ -142,7 +159,8 @@ try{
       accumulator+=dt;
       while(accumulator>=1/60){step(state,input,1/60);accumulator-=1/60;}
     }else accumulator=0;
-    if(lastPhase!==state.opening.phase){lastPhase=state.opening.phase;controls.clear();updateHud();}
+    const phaseKey=state.chapter+'/'+state.opening.phase+'/'+state.kingdom.phase;
+    if(lastPhase!==phaseKey){lastPhase=phaseKey;controls.clear();updateHud();}
     world.draw(state,dt,!halted()||!started);
     hudTime+=dt;if(hudTime>.08){updateHud();hudTime=0;}
     if(now>messageUntil)$('message').classList.remove('show');

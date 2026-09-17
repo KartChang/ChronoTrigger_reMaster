@@ -1,0 +1,32 @@
+{
+  "sourceSha": "8f02f652bbc756a46c48987220490ca2eb1f78f2",
+  "sourceTree": "59a5d23eb348fba7c90001e62aa9497b78d1dfe1",
+  "localChecks": {
+    "unitTests": {"passed": 53, "failed": 0, "originalPreserved": 32, "fairAdded": 21},
+    "strictTypeScript": "passed",
+    "build": "passed",
+    "fairBrowserPythonSyntax": "passed",
+    "browser": "not verified locally"
+  },
+  "sourceBlobVerification": {
+    "src/core.ts": "3bb21468de65f5c167adbac4c15fb9c80e91b0c7",
+    "src/fair-data.ts": "9ad6e4e2917c7244d6fdcc8814e217e4f4a6a459",
+    "src/fair-render.ts": "5f411fa3ca766195f71658c66a44e593a91abbab",
+    "src/main.ts": "eebd5d1473e236e96791ce8ea785522626c424ee",
+    "src/render.ts": "31a45e3466e0255f8d182c2dc654db7ba664220f",
+    "src/save.ts": "69606ee537eb07f65eeabe182e7a51f300a89d51",
+    "src/style.css": "95a2ec5e9016a5198870ad583f48751307694f2a",
+    "index.html": "e9c17ebf5f61927daea39d3c3a7c9dabd38fede1",
+    "scripts/build.mjs": "49e7184e9e740d5c0a9c99e08aeff24d342572f8",
+    "scripts/test.mjs": "34bd58201d2719c4379bbcf4faec45e90ab099df",
+    "tests/fair.test.mjs": "d8ba6f2bdfa8d0055293c11ff5a7242f411a5765",
+    "tests/fair_browser.py": "2dbad1678931e88f43cdc4eb4b1bad499075c159"
+  },
+  "candidatePackage": {
+    "name": "chrono-hd2d-fair-v0.2-candidate.zip",
+    "bytes": 1207695,
+    "sha256": "21ca0a1075e43e7f711ea8b8c834130b1ead2b0692c442d5e609895101ee6fc6",
+    "acceptance": "candidate; CI #6 still running when assembled"
+  },
+  "ci": {"run": 35209514589, "number": 6, "observedStatus": "in_progress", "headSha": "8f02f652bbc756a46c48987220490ca2eb1f78f2"}
+}

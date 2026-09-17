@@ -1,0 +1,49 @@
+/* Adventure presentation: leave the landscape visible; classic bordered dialogue, not dashboard cards. */
+body[data-adventure="true"] { --gold:#e6d299; --text:#f0ede3; --line:#a0b1ce; }
+body[data-adventure="true"] .glass { background:linear-gradient(110deg,#172552f5,#1b2c60ed);border:2px solid #aebad0;box-shadow:inset 0 0 0 2px #10162b,0 3px 0 #10182988;backdrop-filter:none;border-radius:2px; }
+body[data-adventure="true"] button { border-radius:2px; }
+body[data-adventure="true"] .shade { background:linear-gradient(#09132445,transparent 12%,transparent 91%,#08112255); }
+body[data-adventure="true"][data-started="true"] .brand,body[data-adventure="true"][data-started="true"] #quest,body[data-adventure="true"][data-started="true"] .build-tag { display:none; }
+body[data-adventure="true"][data-started="true"] header { padding:12px 18px;align-items:flex-start; }
+body[data-adventure="true"][data-started="true"] .location { text-align:left;text-shadow:1px 2px 0 #18252b;letter-spacing:1px; }
+body[data-adventure="true"][data-started="true"] .location strong { font-size:20px;letter-spacing:2px; }
+body[data-adventure="true"][data-started="true"] .utility { top:12px;right:105px;width:auto;max-width:60%;padding:3px;display:flex;flex-direction:row;flex-wrap:wrap;gap:0; }
+body[data-adventure="true"] .utility button { font-size:12px;padding:6px 8px; }
+body[data-adventure="true"] .party { left:18px;right:18px;bottom:27px;gap:8px;grid-template-columns:1fr 170px 1fr; }
+body[data-adventure="true"] .player { padding:10px 16px; }
+body[data-adventure="true"] .player-title strong { font-size:17px; }
+body[data-adventure="true"][data-mode="explore"] .player { background:transparent;border:0;box-shadow:none;padding:0; }
+body[data-adventure="true"][data-mode="explore"] .player-title { margin:0;text-shadow:1px 2px #142329; }
+body[data-adventure="true"][data-mode="explore"] .player .meter-row,body[data-adventure="true"][data-mode="explore"] .player .actions,body[data-adventure="true"][data-mode="explore"] .player .mp,body[data-adventure="true"][data-mode="explore"] .player-title small,body[data-adventure="true"][data-mode="explore"] #combo-status { display:none; }
+body[data-adventure="true"] .party-center { padding:0; }
+body[data-adventure="true"] .party-center>span { margin-bottom:6px; }
+body[data-adventure="true"] .dialog-overlay { background:transparent;backdrop-filter:none;align-items:flex-end;padding:0 5vw 5vh; }
+body[data-adventure="true"] #dialog .dialog { max-width:1000px;width:100%;padding:16px 26px;min-height:145px; }
+body[data-adventure="true"] #dialog .eyebrow { display:none; }
+body[data-adventure="true"] #dialog h2 { font-size:19px;letter-spacing:1px;margin:0 0 8px;color:#f3dca7; }
+body[data-adventure="true"] #dialog p { font-size:17px;line-height:1.8;color:#f0eee3;margin:0; }
+body[data-adventure="true"] #dialog-close { display:block;margin:8px 0 0 auto;padding:4px 13px;background:transparent;color:#eee6d4;border-color:#aebad070; }
+body[data-adventure="true"] #battle-banner { top:83px;right:18px;left:auto;transform:none;background:#162048db;padding:9px 15px; }
+body[data-adventure="true"] #battle-banner>span,body[data-adventure="true"] #battle-banner>strong { display:none; }
+body[data-adventure="true"] .interact-hint { top:auto;bottom:91px;font-size:14px;padding:5px 14px;border-radius:2px;background:#142047da; }
+body[data-adventure="true"] .message { bottom:130px;border-radius:2px;background:#132346dc; }
+body[data-adventure="true"] footer { opacity:.6;font-size:8px;bottom:6px; }
+.story-caption { position:absolute;left:50%;top:76px;transform:translateX(-50%);padding:7px 16px;max-width:80vw;background:#10203ec9;color:#eee7d2;font-size:15px;text-align:center;pointer-events:none; }
+.story-coop-note { position:absolute;bottom:76px;right:18px;padding:6px 10px;background:#172957dc;font-size:12px; }
+body[data-cinematic="true"] .utility,body[data-cinematic="true"] #party { visibility:hidden; }
+@media(max-width:650px){
+ body[data-adventure="true"][data-started="true"] header { padding:10px; }
+ body[data-adventure="true"][data-started="true"] .location strong { font-size:15px; }
+ body[data-adventure="true"][data-started="true"] .utility { top:60px;left:10px;right:10px;max-width:none;justify-content:center; }
+ body[data-adventure="true"] .utility button { font-size:11px;padding:6px; }
+ body[data-adventure="true"] .party { left:10px;right:10px;grid-template-columns:1fr 1fr;bottom:24px; }
+ body[data-adventure="true"] .player { padding:8px; }
+ body[data-adventure="true"] .player-title strong { font-size:13px; }
+ body[data-adventure="true"] #dialog .dialog { padding:14px 18px; }
+ body[data-adventure="true"] #dialog p { font-size:15px; }
+ .story-caption { top:111px;font-size:12px;width:85vw; }
+ .story-coop-note { bottom:96px;font-size:10px;max-width:65vw; }
+ body[data-adventure="true"] #battle-banner { top:113px; }
+ body[data-adventure="true"] #touch { bottom:155px; }
+}
+@media(max-height:560px){body[data-adventure="true"] .story-caption{top:65px;font-size:12px;} body[data-adventure="true"] #dialog .dialog{min-height:100px;} body[data-adventure="true"] #dialog p{font-size:14px;} }

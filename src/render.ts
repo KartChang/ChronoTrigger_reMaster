@@ -1,3 +1,6 @@
+import {buildCanyon} from './canyon-render';
+import {drawAdventureHero,drawImp} from './pixel-art';
+import {activeSlot} from './core';
 import {buildFair} from './fair-render';
 import {
   Engine, Scene, Vector3, Color3, Color4, FreeCamera, Camera, HemisphericLight,
@@ -34,6 +37,7 @@ export class World {
   private time=0;
   private labRoot:TransformNode;
   private fairWorld:ReturnType<typeof buildFair>;
+  private canyonWorld:ReturnType<typeof buildCanyon>;
   private chapter:State['chapter']|null=null;
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
@@ -96,6 +100,7 @@ export class World {
     this.repairs.parent=this.labRoot;
     for(const light of this.scene.lights)if(light instanceof PointLight)light.parent=this.labRoot;
     this.fairWorld=buildFair(this.scene,this.shadow);
+    this.canyonWorld=buildCanyon(this.scene,this.shadow);
     const glow=new GlowLayer('subtle-light',this.scene,{blurKernelSize:16});glow.intensity=.22;
     // Pixel actors and labels must not bloom into unreadable white silhouettes.
     glow.addIncludedOnlyMesh(this.portal);glow.addIncludedOnlyMesh(this.crystal);glow.addIncludedOnlyMesh(saveCrystal);
@@ -105,6 +110,7 @@ export class World {
       this.labels.push(this.label('P'+(i+1),0,0,0,i===0?'#ffe4b3':'#b6fff0',.75));
       this.foes.push(this.sprite('enemy-'+i,1.5,1.2));this.drawEnemy(this.foes[i]!);
     }
+    const imp=this.sprite('enemy-2',1.5,1.2);this.foes.push(imp);this.drawEnemy(imp);
     for(let i=0;i<26;i++){
       const m=MeshBuilder.CreateSphere('mote',{diameter:.035,segments:4},this.scene);m.material=this.mat('motes','#eddda0');(m.material as StandardMaterial).emissiveColor=color('#eddda0');
       m.position.set(Math.sin(i*8.31)*12,.6+(i%5)*.35,Math.cos(i*9.31)*9);this.particles.push(m);
@@ -157,6 +163,8 @@ export class World {
   private drawHero(sprite:Sprite,slot:number,facing:number,frame:number,fair:boolean):void {
     const key=`${fair}:${facing}:${frame}`;if(sprite.last===key)return;sprite.last=key;
     const c=sprite.texture.getContext();c.clearRect(0,0,24,32);
+    if(fair){drawAdventureHero(c as CanvasRenderingContext2D,slot,facing,frame);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;sprite.texture.update();return;}
+    sprite.material.disableLighting=false;sprite.material.emissiveTexture=null;
     const rect=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
     const hair=slot===0?(fair?'#b6423d':'#835746'):'#d6b568',coat=slot===0?'#52758b':(fair?'#c6cebd':'#619d8d');
     const step=frame?1:0;
@@ -193,10 +201,12 @@ export class World {
   }
   draw(s:State,delta:number,animate:boolean):void {
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
-    const fair=s.chapter==='fair';
+    const fair=s.chapter==='fair',canyon=s.chapter==='canyon',adventure=fair||canyon;
     if(this.chapter!==s.chapter){
-      this.chapter=s.chapter;this.labRoot.setEnabled(!fair);this.fairWorld.root.setEnabled(fair);
-      for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!fair);
+      this.chapter=s.chapter;this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
+      this.scene.fogDensity=adventure?0:.01;
+      this.foes.forEach(f=>{if(canyon){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();}else this.drawEnemy(f);});
+      for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
       this.era=null;
     }
     if(fair)this.fairWorld.draw(s,this.time);
@@ -209,16 +219,19 @@ export class World {
       this.repairs.setEnabled(future&&s.flags.repaired);
     }
     s.players.forEach((p,i)=>{
-      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*7)%2:0,fair);
-      sprite.mesh.position.set(p.x,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z);sprite.mesh.setEnabled(p.hp>0);
+      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*7)%2:0,adventure);
+      sprite.mesh.position.set(p.x,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z);sprite.mesh.setEnabled(activeSlot(s,i as 0|1)&&p.hp>0);
+      this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));
+      const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;sprite.mesh.scaling.set(vanish,vanish,1);
       this.markers[i]!.position.set(p.x,.21,p.z);this.labels[i]!.position.set(p.x,2.1,p.z);
     });
     this.foes.forEach((f,i)=>{
-      const enemy=s.enemies[i];const visible=!fair&&(s.mode==='battle'?!!enemy&&enemy.hp>0:s.mode==='explore'&&!s.flags.won);
-      f.mesh.setEnabled(visible);f.mesh.position.set(enemy?.x??(i===0?-2:2),.75+Math.sin(this.time*2+i)*.08,enemy?.z??4.5);
+      const enemy=s.enemies[i];const visible=!fair&&(s.mode==='battle'?!!enemy&&enemy.hp>0:s.mode==='explore'&&(canyon?!s.opening.canyonWon:!s.flags.won)&&i<(canyon?3:2));
+      const positions=[{x:-1.8,z:2.4},{x:1.8,z:3},{x:.2,z:1.5}];const position=enemy??(canyon?positions[i]!:{x:i===0?-2:2,z:4.5});
+      f.mesh.setEnabled(visible);f.mesh.scaling.y=canyon?1.3:1;f.mesh.position.set(position.x,canyon?1.0:.86+Math.sin(this.time*2+i)*.035,position.z);
     });
-    const midX=(s.players[0].x+s.players[1].x)/2,midZ=(s.players[0].z+s.players[1].z)/2;
-    const tx=midX*.18,tz=midZ*.16+1;
+    const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
+    const tx=midX*.18,tz=midZ*(adventure?.28:.16)+1;
     this.camera.position.set(tx,23,tz-26);this.camera.setTarget(new Vector3(tx,0,tz));
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});

@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-17",
+  "baselineSource": "8f02f652bbc756a46c48987220490ca2eb1f78f2",
+  "parentHead": "f7c4018daca38ec822541ac43fce3c4d5d36bb3f",
+  "validatedSourceTreeBeforeDocumentation": "eea453a443ef1bc63b8bc0123f584b1ba1322bec",
+  "local": {"unitPassed": 79, "unitFailed": 0, "typecheck": "passed", "assetExtensionCheck": "passed", "build": "passed", "pythonSyntax": "passed", "newBrowserAcceptance": "not-run-successfully", "browserLimitation": "Managed Chromium file:// ERR_BLOCKED_BY_ADMINISTRATOR; no bypass attempted"},
+  "unchangedTests": ["tests/core.test.mjs", "tests/fair.test.mjs", "tests/browser_smoke.py", "tests/fair_browser.py"],
+  "remoteReadbackMatchesLocalGitBlob": {
+    "src/story-data.ts": "9915939b0abc3b7d6ddbab2a02d5d81d0f9ab202",
+    "src/core.ts": "d036b7ca79bd1936d25cf878c560b5cbc113ce5f",
+    "src/fair-data.ts": "6ffb684655c60d02640ed866b48a4bde24104f73",
+    "src/save.ts": "8ef4e85a13a949e3b29d8f594aad13b4287923ab",
+    "src/pixel-art.ts": "7a7af6ac57d626c3a0be3ee62ebce6e607ed969a",
+    "src/canyon-render.ts": "03ced4c109483f4b3e233bb9749b2b92a0ea4ee8",
+    "src/fair-render.ts": "9f7a9aabd32856bb154a6dadd1423703a75c07a6",
+    "src/render.ts": "cbc3cbb9b9f2f100e50afb2e2b0521608ebf4e79",
+    "src/main.ts": "845ea239d6adf1524dfc490d4bdb867714a9a9ba",
+    "src/adventure.css": "e170acf714642462e96532528c36ebd536564443",
+    "index.html": "aa304edbc1c796deda636cb35ffce2aaf83c341f",
+    "scripts/build.mjs": "be0083be1f052d6896b32c72060a48a3b4a988fb",
+    "scripts/test.mjs": "99a47acc108916edb35303e56ace7beb25926a1f",
+    ".github/workflows/ci.yml": "b0dd45900de35dedb4a4edb7fd3b1e2a4e830d91",
+    "tests/opening.test.mjs": "33b2123bad4774cab6ed1fcf44ffc021b15871b4",
+    "tests/opening_browser.py": "0933b709e51d173c519c30222d28c8c0e94946c6"
+  },
+  "renderingAcceptance": "Requires actual new CI screenshots; not established by local unit tests or this manifest"
+}

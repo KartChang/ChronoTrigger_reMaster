@@ -1,16 +1,18 @@
-# ChronoTrigger reMaster — HD-2D Prototype 0.2
+# ChronoTrigger reMaster — HD-2D 開場篇 0.3
 
-**目前是千年祭場景與雙人 ATB 的開發試作，不是完整重製版。**
+**目前是千年祭到 600 年山道的開發試作，不是完整重製版或最終美術。**
 
-TypeScript + Babylon.js，先讓瀏覽器直接遊玩；不先做會員後台、手機上架、Windows 安裝包或網路多人。
+TypeScript + Babylon.js，瀏覽器優先、同機雙人、保留 ATB；沒有登入後台、網路多人或原生安裝包。
 
 ## 試玩
 
-在 Actions 的 **Playable prototype CI** 找到成功 run，下載 `chrono-hd2d-playable`，解壓後用 Chrome／Edge 開啟 `index.html`。完整程式在單一 HTML，不需要 Node.js、CDN、後端或 ROM。repository 根目錄 index.html 是模板，不是建置成品。
+在 Actions 的 Playable prototype CI 找到成功 run，下載 chrono-hd2d-playable，解壓後用 Chrome／Edge 開啟 index.html。完整程式位於單一 HTML，不需要 Node.js、CDN、後端或 ROM。repository 根目錄 index.html 只是模板。
 
-0.2 開始畫面提供「千年祭 · 單人開始／雙人開始」，下方仍保留舊版「技術村落」。CI #5 的 0.1 artifact 只有舊村落；新內容是否完成驗收以 docs/STATUS.md 的 exact run 為準，不以 main 上有程式就認定通過。
+candidate ZIP 是本機建置候選包，不等於成功 CI artifact。實際狀態看 docs/STATUS.md。
 
-千年祭可走到左側鐘台互動、向西挑戰岡薩雷斯，或直接向北找露卡。和露卡交談後，靠近左側傳送圓盤互動，會移動到右側平台。機器人挑戰不是傳送的必要條件。完整時門、項鍊與 600 年地圖尚未製作。
+選「千年祭 · 單人開始」或「千年祭 · 雙人開始」。向北和露卡交談，靠近左側平台按 E 試傳送，回到露卡身旁再交談。瑪兒走上平台後發生異變；到左側平台按 E 拾取項鍊，再按 E 追上她。抵達山道後向南走，戰鬥結束後繼續往南，到出口按 E。
+
+左側鐘台、糖果攤和岡薩雷斯仍可互動；機器人挑戰不是主線必要條件。舊版「技術村落」入口保留。
 
 ## 操作
 
@@ -22,21 +24,25 @@ TypeScript + Babylon.js，先讓瀏覽器直接遊玩；不先做會員後台、
 | 合技確認 | L | 斜線或數字鍵盤 3 |
 | 互動 | E | Enter |
 
-C 在探索時加入／退出 P2；Esc 暫停。戰鬥等 ATB 充滿再下指令。雙人合技需雙方確認，各有足夠 MP／ATB。单人時夥伴自動跟隨和攻擊。觸控方向鍵目前只提供 P1。
+C 在探索時加入／退出 P2；Esc 暫停，演出中也能暫停。等 ATB 充滿再下戰鬥指令。雙人合技需雙方確認及足夠 MP／ATB，觸控方向鍵目前只提供 P1。
 
-標準 Gamepad API：搖桿／十字鍵移動，A 攻擊、X 技能、Y 合技、B 互動；P1 Start 暫停，P2 Start 加入／退出。API 模擬不等於所有實體手把已認證；共享鍵盤可能受 ghosting 限制。双人操作不代表已改成即時動作 ARPG；目前仍保留 ATB。
+雙人逛廣場需一起往北走，避免超出共用畫面距離。瑪兒消失後暫時只有克羅諾，P2 觀戰；本版沒有後續隊伍重聚。不是讓已消失角色繼續攻擊，也不是即時動作 ARPG。
+
+標準 Gamepad API：搖桿／十字鍵移動，A 攻擊、X 技能、Y 合技、B 互動；P1 Start 暫停，P2 Start 加入／退出。API 模擬不等於實體手把認證；共享鍵盤可能受 ghosting 限制。
+
+## 畫面與內容
+
+本批改用藍底細框的底部對話窗，探索時縮減戰鬥 HUD，增加手製像素角色輪廓、樹冠與山道岩層。劇情對白為重新編寫的簡短重建；地圖配置、動作幀、戰鬥數值與技能尚未精確還原。
+
+尚無從家中醒來／最初相遇、完整千年祭、原作音樂、背包裝備、完整尋路、三人隊伍、托魯斯城鎮、王城、後續重聚或實體裝置認證。山道出口是本段界線，不是假裝已進入下一座城鎮。
 
 ## 存檔
 
-技術村落使用原來的 v1 與 IndexedDB slot1；千年祭使用 v2 與獨立 fair-slot1。讀檔、JSON 匯出／匯入都會驗證資料，舊 v1 仍可使用。檔案路徑或瀏覽器資料清除可能影響本機儲存，請另外匯出備份。不能假設換了 HTML 路徑還會共用 file:// 存檔。
+lab 村落保留 v1，千年祭事件開始前保留 v2；新開場持久階段採 v3。舊 v1/v2 可匯入。千年祭與山道共用冒險存檔槽，lab 仍分開。過場演出中不能存檔；匯入會檢查版本、進度、座標與數值。
 
-## 已有與未完成
+更新 HTML、移動檔案或清理瀏覽器前，先匯出 JSON 備份。不能假設換路徑後 file:// 存檔仍共用。
 
-已有：兩個場景入口、同機雙人／基本跟隨、共用鏡頭、簡化碰撞、ATB、合技、勝敗補給、千年祭互動、舊村落跨時代旗標、本機存檔与備份。
-
-千年祭美術是手製像素代理＋3D 場景 blockout，配置已重排；不是原作地圖／素材擷取或最終美術。數值、通用技能與合技尚非原作還原。尚無完整開場、原作音樂、背包裝備、完整尋路、三人隊伍、連線合作、原生 App 或實體裝置認證。
-
-## 開發
+## 開發與素材
 
 ```sh
 npm ci
@@ -44,6 +50,8 @@ npm run check
 npm run preview
 ```
 
-需要 Node.js 22+；preview 預設 http://127.0.0.1:4173。詳見 CODEBASE.md。browser 測試需要 Python 與 tests/requirements.txt。
+Node.js 22+；preview 預設 http://127.0.0.1:4173。其他指令看 CODEBASE.md；進度看 docs/STATUS.md。
 
-素材與 ROM／使用者上傳附件不提交、不打包。沒有公開部署或變更 private 可見性。程式第三方授權見 docs/THIRD_PARTY.md，場景來源與假設見 docs/FAIR_SLICE.md。取得 ROM 不等於已確認原作內容的公開發行授權。
+ROM、原聲帶、原作擷取素材、使用者附件與密鑰不提交、不打包。未做公開遊戲部署。2026-09-17 GitHub 實查 repository 為 public，本批未改可見性；以前文件寫 private 的敘述已過時。原作內容的公開發行授權尚未確認。
+
+程式第三方授權：docs/THIRD_PARTY.md；重建來源與限制：docs/OPENING_SLICE.md。

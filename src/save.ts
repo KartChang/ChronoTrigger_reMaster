@@ -1,6 +1,6 @@
 import type {Chapter} from './fair-data';
 const DB='chrono-hd2d-prototype';
-const key=(chapter:Chapter)=>chapter==='fair'?'fair-slot1':'slot1';
+const key=(chapter:Chapter)=>chapter==='lab'?'slot1':'fair-slot1';
 function open():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{
   const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore('saves');
   r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error??new Error('無法開啟本機存檔。'));r.onblocked=()=>reject(new Error('請關閉其他遊戲分頁後再試。'));

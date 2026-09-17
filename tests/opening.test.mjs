@@ -1,0 +1,50 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as c from '../.test/core.mjs';
+const at=(s,x,z,i=0)=>Object.assign(s.players[i],{x,z});
+const ticks=(s,n,input=c.IDLE,dt=1/60)=>{for(let i=0;i<n;i++)c.step(s,input,dt);};
+const ready=()=>{const s=c.createState('fair');s.joined=true;s.fair.luccaMet=true;s.fair.telepodTested=true;at(s,0,7);at(s,1,7,1);return s;};
+function lost(){const s=ready();assert.equal(c.beginOpening(s,0),true);for(let i=0;i<500&&c.cutsceneActive(s);i++)c.step(s,c.IDLE,1/60);assert.equal(s.opening.phase,'lost');return s;}
+function canyon(){const s=lost();at(s,-2.4,9);c.interactOpening(s,0);c.interactOpening(s,0);ticks(s,90);assert.equal(s.chapter,'canyon');return s;}
+const json=s=>JSON.parse(c.serialize(s));
+
+test('opening starts with distinct fresh progress and a present Marle',()=>{const a=ready(),b=ready();a.opening.phase='lost';assert.equal(b.opening.phase,'none');assert.equal(c.activeSlot(b,1),true);assert.equal(json(b).version,2);});
+test('opening requires normal Lucca demonstration and actual stage proximity',()=>{for(const change of [s=>s.fair.luccaMet=false,s=>s.fair.telepodTested=false,s=>at(s,0,-5),s=>at(s,10,-5,1),s=>s.mode='battle',s=>s.chapter='lab']){const s=ready();change(s);assert.equal(c.beginOpening(s,0),false);assert.equal(s.opening.phase,'none');}});
+test('P2 cannot start the Crono-led story interaction',()=>{const s=ready();assert.equal(c.beginOpening(s,1),false);assert.equal(s.opening.phase,'none');});
+test('revisiting Lucca after demonstration starts script, not another teleport',()=>{const s=ready();assert.equal(c.interactFair(s,0).title,'瑪兒');assert.equal(s.opening.phase,'approach');assert.equal(s.chapter,'fair');});
+test('scripted approach overrides both movement inputs without moving Crono',()=>{const s=ready();c.beginOpening(s,0);const p={...s.players[0]};ticks(s,100,[{x:1,z:-1},{x:1,z:-1}]);assert.deepEqual(s.players[0],p);assert.ok(c.distance(s.players[1],{x:-2.4,z:9})<.06);});
+test('cinematic cannot be restarted, save-scummed, joined over, attacked or left via battle',()=>{const s=ready();c.beginOpening(s,0);assert.equal(c.beginOpening(s,0),false);assert.equal(c.setCoop(s,false),false);assert.equal(c.beginBattle(s),false);assert.equal(c.action(s,0,'skill'),false);assert.equal(c.requestCombo(s,0),false);assert.equal(c.interactFair(s,0),null);assert.throws(()=>c.serialize(s));});
+test('script timing uses simulation seconds, not render frame count',()=>{const times=[];for(const hz of [30,60,144]){const s=ready();c.beginOpening(s,0);let n=0;while(c.cutsceneActive(s)&&n<1000){c.step(s,c.IDLE,1/hz);n++;}assert.equal(s.opening.phase,'lost');times.push(n/hz);}assert.ok(Math.max(...times)-Math.min(...times)<.12);});
+test('pendant remains after disappearance; Marle is not an active invisible co-op actor',()=>{const s=lost(),p=structuredClone(s.players[1]);assert.equal(c.activeSlot(s,0),true);assert.equal(c.activeSlot(s,1),false);ticks(s,30,[{x:0,z:0},{x:1,z:-1}]);assert.deepEqual(s.players[1],p);assert.equal(c.interactFair(s,1),null);assert.equal(s.joined,true);});
+test('disappearance does not unlock a remote pendant or remote time travel',()=>{const s=lost();at(s,0,-5);assert.equal(c.interactOpening(s,0),null);assert.equal(s.opening.phase,'lost');assert.equal(c.travel(s),false);assert.equal(c.beginBattle(s),false);});
+test('pendant pickup and entering gate require two ordered interactions',()=>{const s=lost();at(s,-2.4,9);const first=c.interactOpening(s,0);assert.equal(first.title,'露卡');assert.equal(s.opening.phase,'pendant');assert.equal(s.chapter,'fair');assert.equal(json(s).version,3);c.interactOpening(s,0);assert.equal(s.opening.phase,'crossing');assert.throws(()=>c.serialize(s));});
+test('crossing goes to 600 AD with Crono alone and no laboratory flags',()=>{const s=canyon();assert.equal(s.era,'middle');assert.equal(s.opening.phase,'canyon');assert.equal(c.activeSlot(s,1),false);assert.deepEqual(s.flags,{repaired:false,won:false,visitedFuture:false});assert.equal(s.fair.gatoWon,false);assert.equal(s.players[0].z,8);});
+test('solo canyon movement ignores absent peer distance but honors canyon rocks',()=>{const s=canyon();s.opening.canyonWon=true;at(s,0,0);at(s,10,10,1);ticks(s,100,[{x:0,z:-1},{x:0,z:0}]);assert.ok(s.players[0].z<-6);assert.equal(c.walkable(-7,6,'canyon'),false);assert.equal(c.walkable(0,0,'canyon'),true);assert.equal(c.walkable(0,-9,'canyon'),false);});
+test('dropping and rejoining P2 cannot resurrect Marle before story reunion',()=>{const s=canyon();c.setCoop(s,false);ticks(s,10);c.setCoop(s,true);assert.equal(c.activeSlot(s,1),false);assert.equal(s.opening.phase,'canyon');});
+test('descending into canyon starts three-imp battle, not a fair or lab encounter',()=>{const s=canyon();ticks(s,40,[{x:0,z:-1},{x:0,z:0}]);assert.equal(s.mode,'battle');assert.equal(s.enemies.length,3);assert.ok(s.enemies.every(e=>e.hp===48));assert.equal(s.players[0].x,0);assert.equal(s.players[0].z,5);});
+test('absent Marle cannot gain ATB, act, reserve combo or take enemy hits',()=>{const s=canyon();c.beginBattle(s);ticks(s,460);assert.equal(s.players[1].atb,0);assert.equal(s.players[1].hp,120);assert.ok(s.players[0].hp<120);assert.equal(c.action(s,1,'attack'),false);assert.equal(c.requestCombo(s,0),false);assert.deepEqual(s.combo,[false,false]);});
+test('Crono dying ends canyon battle even though absent character HP remains full',()=>{const s=canyon();c.beginBattle(s);s.players[0].hp=1;ticks(s,440);assert.equal(s.mode,'defeat');assert.equal(s.opening.canyonWon,false);c.leaveBattle(s);assert.equal(s.chapter,'canyon');assert.equal(s.players[0].z,8);assert.equal(s.players[0].hp,120);assert.equal(c.activeSlot(s,1),false);});
+test('canyon victory changes only its encounter flag and prevents repeat farming',()=>{const s=canyon();c.beginBattle(s);for(let i=0;i<3;i++){ticks(s,150);assert.equal(c.action(s,0,'skill'),true);}assert.equal(s.mode,'victory');assert.equal(s.opening.canyonWon,true);assert.equal(s.fair.gatoWon,false);assert.equal(s.flags.won,false);c.leaveBattle(s);assert.equal(s.players[0].z,4.5);assert.equal(c.beginBattle(s),false);});
+test('canyon exit requires victory and a real position near the exit',()=>{const s=canyon();at(s,0,-7);assert.equal(c.interactOpening(s,0).title,'山道');assert.equal(s.opening.phase,'canyon');s.opening.canyonWon=true;at(s,0,4);assert.equal(c.interactOpening(s,0),null);at(s,0,-7);assert.equal(c.interactOpening(s,0).title,'600 年 · 托魯斯山道');assert.equal(s.opening.phase,'vista');});
+test('lost and pendant saves reload without replaying the cinematic or restoring Marle',()=>{for(const phase of ['lost','pendant']){const s=lost();s.opening.phase=phase;const d=c.deserialize(c.serialize(s));assert.equal(d.opening.phase,phase);assert.equal(d.opening.elapsed,0);assert.equal(c.activeSlot(d,1),false);assert.equal(d.chapter,'fair');assert.equal(d.era,'present');}});
+test('canyon and vista save round trips preserve real map, encounter and co-op setting',()=>{for(const phase of ['canyon','vista']){const s=canyon();s.opening.phase=phase;s.opening.canyonWon=phase==='vista';const d=c.deserialize(c.serialize(s));assert.equal(d.opening.phase,phase);assert.equal(d.chapter,'canyon');assert.equal(d.era,'middle');assert.equal(d.joined,true);assert.equal(c.activeSlot(d,1),false);}});
+test('v3 rejects nonexistent and transient phases, including coerced arrays',()=>{for(const phase of ['none','approach','resonance','crossing','unknown',null,['lost']]){const d=json(lost());d.opening.phase=phase;assert.throws(()=>c.deserialize(JSON.stringify(d)));}});
+test('v3 rejects mismatched map/era and impossible prerequisites',()=>{const base=json(canyon());for(const delta of [{chapter:'fair'},{era:'present'},{era:['middle']},{chapter:'missing'},{opening:{phase:'vista',canyonWon:false}},{opening:{phase:'canyon',canyonWon:1}},{fair:{...base.fair,telepodTested:false}}]){assert.throws(()=>c.deserialize(JSON.stringify({...base,...delta})));}});
+test('v3 validates actual map collision and refuses unimplemented arrival location',()=>{const d=json(canyon());d.players[0].x=-7;d.players[0].z=6;assert.throws(()=>c.deserialize(JSON.stringify(d)));});
+test('v3 does not deserialize runtime elapsed, ATB, cinematics or unknown object keys',()=>{const d=json(canyon());d.opening.elapsed=Infinity;d.opening.hacked=true;d.players[0].atb=999;const s=c.deserialize(JSON.stringify(d));assert.deepEqual(s.opening,{phase:'canyon',elapsed:0,canyonWon:false});assert.equal(s.players[0].atb,0);});
+test('existing v1/v2 saves gain a fresh unopened story without requiring migration',()=>{for(const chapter of ['lab','fair']){const s=c.createState(chapter);const d=c.deserialize(c.serialize(s));assert.equal(d.opening.phase,'none');assert.equal(c.activeSlot(d,1),true);assert.equal(json(d).version,chapter==='lab'?1:2);}});
+
+test('complete co-op stage to lone canyon exit is walkable using only normal inputs',()=>{
+  const s=c.createState('fair');c.setCoop(s,true);
+  function walk(axis,target,direction,both=false){let n=0;while((direction>0?s.players[0][axis]<target:s.players[0][axis]>target)&&n++<160){const v={x:0,z:0};v[axis]=direction;ticks(s,6,[v,both?v:{x:0,z:0}]);}assert.ok(n<160,`blocked ${axis} ${target}, mode=${s.mode}`);}
+  walk('z',6.4,1,true);assert.equal(c.interactFair(s,0).title,'露卡的展示');
+  walk('x',-2.4,-1);walk('z',8.7,1);assert.equal(c.interactFair(s,0).title,'短距離傳送成功');
+  walk('z',7,-1);walk('x',0,-1);assert.equal(c.interactFair(s,0).title,'瑪兒');
+  while(c.cutsceneActive(s))ticks(s,1);assert.equal(s.opening.phase,'lost');
+  walk('x',-2.4,-1);walk('z',8.7,1);c.interactFair(s,0);assert.equal(s.opening.phase,'pendant');
+  c.interactFair(s,0);while(c.cutsceneActive(s))ticks(s,1);assert.equal(s.chapter,'canyon');
+  for(let i=0;s.mode==='explore'&&i<60;i++)c.step(s,[{x:0,z:-1},{x:1,z:0}],1/60);
+  assert.equal(s.mode,'battle');for(let i=0;i<3;i++){ticks(s,150);c.action(s,0,'skill');}assert.equal(s.mode,'victory');c.leaveBattle(s);
+  walk('z',-6.1,-1);c.interactOpening(s,0);assert.equal(s.opening.phase,'vista');
+  assert.equal(c.deserialize(c.serialize(s)).opening.phase,'vista');
+});

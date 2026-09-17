@@ -1,3 +1,4 @@
+import {drawTree} from './pixel-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator,Vector3} from '@babylonjs/core';
 import {FAIR_STALLS} from './fair-data';
 import type {State} from './core';
@@ -26,14 +27,14 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   box('fair-plinth',0,-.55,1,27,1.05,21,'#485d59');
   // One authored pixel texture supplies the grass, cobbled paths and flower beds.
   const t=new DynamicTexture('fair-ground',{width:384,height:288},scene,false,Texture.NEAREST_SAMPLINGMODE);
-  const c=t.getContext();c.fillStyle='#65806b';c.fillRect(0,0,384,288);
-  for(let i=0;i<3300;i++){c.fillStyle=['#5d7864','#73896d','#7d9274'][i%3]!;c.fillRect((i*53)%384,(i*37+Math.floor(i/384)*17)%288,2,2);}
+  const c=t.getContext();c.fillStyle='#536e32';c.fillRect(0,0,384,288);
+  for(let i=0;i<3300;i++){c.fillStyle=['#49642a','#779143','#648039'][i%3]!;c.fillRect((i*53)%384,(i*37+Math.floor(i/384)*17)%288,2,2);}
   // Coordinates are mapped to the top surface of a ground mesh (north at texture v=1).
   const path=(x:number,z:number,w:number,d:number)=>{
     const px=(x-w/2+13.4)/26.8*384,py=(z-d/2+9.4)/20.8*288,pw=w/26.8*384,ph=d/20.8*288;
-    c.fillStyle='#756e66';c.fillRect(px-2,py-2,pw+4,ph+4);
-    c.fillStyle='#b3a58b';c.fillRect(px,py,pw,ph);
-    for(let yy=0;yy<ph;yy+=7)for(let xx=0;xx<pw;xx+=11){c.fillStyle=['#bbae92','#c2b398','#a99e89'][(xx+yy)%3]!;c.fillRect(px+xx+(yy%2)*2,py+yy,Math.min(9,pw-xx),Math.min(5,ph-yy));}
+    c.fillStyle='#4f4939';c.fillRect(px-2,py-2,pw+4,ph+4);
+    c.fillStyle='#776f58';c.fillRect(px,py,pw,ph);
+    for(let yy=0;yy<ph;yy+=7)for(let xx=0;xx<pw;xx+=11){c.fillStyle=['#a39a7e','#b7ac91','#8e8a72'][(xx+yy)%3]!;c.fillRect(px+xx+(yy%2)*2,py+yy,Math.min(9,pw-xx),Math.min(5,ph-yy));c.fillStyle='#d0c5a0';c.fillRect(px+xx+(yy%2)*2,py+yy,Math.min(7,pw-xx),1);}
   };
   path(0,1,4.2,20);path(-2.1,.1,18,3.2);path(-7,3.7,5.1,7.5);path(0,8.4,9,4.4);
   t.update();const groundMat=material('#ffffff');groundMat.diffuseTexture=t;
@@ -51,8 +52,8 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     for(let i=0;i<5;i++)box(stall.id+'-goods',stall.x-1.25+i*.6,1.38,stall.z-stall.d/2+.2,.3,.22,.3,['#d7866d','#e2c36d','#82a2a1'][i%3]!);
   }
   // Bell framework: clear passage below the bell, only the two posts block movement.
-  for(const x of [-4.7,-2.3])box('bell-post',x,1.85,-.5,.35,3.7,.65,'#69819b');
-  box('bell-crossbeam',-3.5,3.6,-.5,3.0,.38,.85,'#657793');
+  for(const x of [-4.7,-2.3])box('bell-post',x,1.85,-.5,.35,3.7,.65,'#90957e');
+  box('bell-crossbeam',-3.5,3.6,-.5,3.0,.38,.85,'#b8baa2');
   const bell=cylinder('leene-bell',-3.5,2.7,-.5,.58,1.25,1.1,'#bda15a');
   cylinder('bell-rim',-3.5,2.15,-.5,1.35,1.35,.15,'#dbc781');
   cylinder('bell-clapper',-3.5,1.98,-.5,.18,.18,.32,'#6b5647');
@@ -79,15 +80,24 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     tex.update();const m=new StandardMaterial(name,scene);m.diffuseTexture=tex;m.emissiveTexture=tex;m.disableLighting=true;m.useAlphaFromDiffuseTexture=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.alphaCutOff=.4;m.backFaceCulling=false;
     const mesh=attach(MeshBuilder.CreatePlane(name,{width:robot?1.8:1.35,height:robot?2.4:1.85},scene),m,false);mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   };
+  const lucca=makeSprite('lucca-handdrawn',0,1,7.7);
   const robot=makeSprite('gato-handdrawn',-7,1.3,4.8,true);
-  makeSprite('lucca-handdrawn',0,1,7.7);
+
   label('岡薩雷斯 · 挑戰',-7,3.1,4.8,3.2);
   const save=cylinder('fair-save-point',3.5,.15,-5.5,.9,1.1,.22,'#8ebfc8');label('存檔',3.5,1.25,-5.5,1.7);
-  // Background greenery, outside the authored walking area.
+  // Pixel canopies retain crisp leaf clusters instead of low-poly green balls.
+  const tt=new DynamicTexture('fair-tree',{width:64,height:80},scene,false,Texture.NEAREST_SAMPLINGMODE);tt.hasAlpha=true;drawTree(tt.getContext() as CanvasRenderingContext2D);tt.update();
+  const tm=new StandardMaterial('fair-tree',scene);tm.diffuseTexture=tt;tm.emissiveTexture=tt;tm.disableLighting=true;tm.useAlphaFromDiffuseTexture=true;tm.transparencyMode=Material.MATERIAL_ALPHATEST;tm.backFaceCulling=false;
   for(const [x,z]of [[-11.5,8],[11.5,-6],[-12.9,-5],[12.9,7],[-10.5,11],[8,11]]){
-    box('fair-trunk',x!,1,z!,.45,2,.45,'#6d6451');
-    for(let i=0;i<2;i++){const tree=attach(MeshBuilder.CreateIcoSphere('fair-tree',{radius:1.4-i*.25,subdivisions:1},scene),material(i?'#618271':'#496b60'));tree.position.set(x!,2.3+i*.9,z!);}
+    const tree=attach(MeshBuilder.CreatePlane('fair-tree',{width:4.2,height:5.25},scene),tm,false);tree.billboardMode=Mesh.BILLBOARDMODE_ALL;tree.position.set(x!,2.65,z!);
   }
+  for(const [x,z]of [[-5.5,-.5],[-1.5,-.5]]){
+    box('bell-flowerbed',x!,.22,z!,1,.35,1.7,'#777e65');
+    for(let i=0;i<10;i++)box('bell-flowers',x!+(i%2-.5)*.32,.48,z!+(Math.floor(i/2)-2)*.25,.19,.17,.19,i%2?'#c36c81':'#d7bc67');
+  }
+  // The dropped pendant and gate are story-state visuals, never progression authorities.
+  const pendant=attach(MeshBuilder.CreatePolyhedron('dropped-pendant',{type:1,size:.17},scene),material('#dcdfa6'),false);pendant.position.set(-2.4,.5,9);pendant.setEnabled(false);
+  const gate=attach(MeshBuilder.CreateTorus('opening-gate',{diameter:2.2,thickness:.12,tessellation:48},scene),material('#6ca6dd'),false);gate.rotation.x=Math.PI/2;gate.position.set(-2.4,1.45,9);gate.setEnabled(false);
   // Pennant strings run east-west; no collision or gameplay role.
   for(const z of [-3.9,5.9]){
     for(const x of [-11,11])box('flag-pole',x,1.8,z,.12,3.6,.12,'#837258');
@@ -99,6 +109,8 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   }
   root.setEnabled(false);
   return {root,draw(s:State,time:number){
+    lucca.setEnabled(true);pendant.setEnabled(s.opening.phase==='lost');
+    gate.setEnabled(['resonance','lost','pendant','crossing'].includes(s.opening.phase));gate.rotation.z=time*.5;pendant.rotation.y=time;
     robot.setEnabled(s.mode!=='victory'&&!(s.mode==='battle'&&s.enemies[0]?.hp===0));
     robot.position.y=1.3+(s.mode==='battle'?Math.sin(time*4)*.035:0);
     for(const ring of rings)ring.rotation.y=time*.18;

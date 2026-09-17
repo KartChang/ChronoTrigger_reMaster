@@ -47,3 +47,13 @@ body[data-cinematic="true"] .utility,body[data-cinematic="true"] #party { visibi
  body[data-adventure="true"] #touch { bottom:155px; }
 }
 @media(max-height:560px){body[data-adventure="true"] .story-caption{top:65px;font-size:12px;} body[data-adventure="true"] #dialog .dialog{min-height:100px;} body[data-adventure="true"] #dialog p{font-size:14px;} }
+
+/* Target selection remains available while ATB fills. Each panel owns one target. */
+.target-picker{display:flex;align-items:center;justify-content:center;gap:12px;margin:5px 0;font-size:12px}
+.target-picker button{padding:3px 13px;min-width:34px}
+body:not([data-mode="battle"]) .target-picker{display:none}
+body[data-adventure="true"][data-mode="battle"] .party{grid-template-columns:1fr 130px 1fr;bottom:18px}
+body[data-adventure="true"][data-mode="battle"] .player-title small{display:none}
+body[data-adventure="true"][data-mode="battle"] .player{padding:8px 14px}
+body[data-adventure="true"][data-mode="battle"] .story-caption{display:none}
+@media(max-width:650px){body[data-adventure="true"][data-mode="battle"] .party{grid-template-columns:1fr 1fr}.target-picker{gap:6px;font-size:11px}.target-picker button{padding:3px 8px}}

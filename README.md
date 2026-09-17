@@ -1,8 +1,16 @@
-# ChronoTrigger reMaster — HD-2D 王國篇 0.4.1 品質修正候選
+# ChronoTrigger reMaster — HD-2D 原版對照美術 0.5 候選
 
 **千年祭 → 600 年山道 → 托魯斯 → 加爾迪亞森林／王城 → 露卡加入的開發試作，不是完整重製版或最終美術。**
 
 TypeScript + Babylon.js，瀏覽器優先、同機雙人、保留 ATB；不需要登入後台、ROM 或 Node.js 才能遊玩。
+
+## 0.5 本次變更
+
+以原版圖片校準角色比例、千年祭鐘台／攤位／地面與森林材質。三名角色加入攻擊、施法、受擊、倒地、勝利姿勢；冒險鏡頭更靠近隊伍。這是參考重畫，不是擷取原圖、原版逐像素還原或完成整款遊戲。
+
+戰鬥中 P1 按 **Q／R**，P2 按 **左、右方括號鍵 `[`／`]`** 切換目標；手把 LB／RB 或各自 HUD 箭頭也可用。選目標不花 ATB／MP，兩人互不搶選擇。沒有變更原有 ATB、傷害或存檔格式。
+
+本次未新增劇情地圖；原有進度仍可接續。原版參考與差異見 `assets/reference-index.json`、`docs/REFERENCE_ART_PASS.md`。CI 試玩包仍是開發版本，不是 90 分放行。
 
 ## 試玩與接續
 
@@ -56,6 +64,6 @@ Node.js 22+ 用於建置；preview 預設 http://127.0.0.1:4173。其他指令�
 
 目前不屬 90 分驗收版本。最新已檢視基準暫評 30/100；程式修改後需要重新取得相符證據，不能因測試通過自動升分。CI 的 playable artifact 是開發試玩包，不是完整產品發布。
 
-`npm run assets:export` 產生 `dist/art` 的 8 張原型 PNG 圖集、53 個 frame records 與 JSON；與遊戲共用像素繪製函式，並非 ROM 素材或完成的高品質素材包。CI 另保留 `chrono-hd2d-art-review-kit`。
+`npm run assets:export` 產生 `dist/art` 的 15 張重畫／材質 PNG 圖集、297 個 frame records 與 JSON；與遊戲共用像素繪製函式，並非 ROM 素材或完成的高品質素材包。CI 另保留 `chrono-hd2d-art-review-kit`。
 
-`npm run check:quality` 產生評估報告但不阻擋開發；`npm run release:check` 會阻擋未達標發布。各圖集缺少哪些動作與全部素材缺口，見 `assets/manifest.json`、`quality/scorecard.json`、`docs/QUALITY_AND_ASSETS.md`。
+`npm run check:quality` 產生評估報告但不阻擋開發；`npm run release:check` 會阻擋未達標發布。圖集動作驗收與全部素材缺口，見 `assets/manifest.json`、`quality/scorecard.json`、`docs/QUALITY_AND_ASSETS.md`。

@@ -6,28 +6,37 @@
     {
       "id": "crono",
       "required": true,
-      "stage": "prototype",
-      "source": "src/pixel-art.ts",
-      "gap": "combat poses and visual approval",
-      "evidence": [],
+      "stage": "review",
+      "source": "src/hero-art.ts",
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {
       "id": "marle",
       "required": true,
-      "stage": "prototype",
-      "source": "src/pixel-art.ts",
-      "gap": "combat poses and visual approval",
-      "evidence": [],
+      "stage": "review",
+      "source": "src/hero-art.ts",
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {
       "id": "lucca",
       "required": true,
-      "stage": "prototype",
-      "source": "src/pixel-art.ts",
-      "gap": "combat poses and visual approval",
-      "evidence": [],
+      "stage": "review",
+      "source": "src/hero-art.ts",
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {
@@ -60,19 +69,25 @@
     {
       "id": "fair-kit",
       "required": true,
-      "stage": "prototype",
+      "stage": "review",
       "source": "src/fair-render.ts",
-      "gap": "faithful layout, stalls, bell, texture scale",
-      "evidence": [],
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {
       "id": "terrain-kit",
       "required": true,
-      "stage": "prototype",
-      "source": "src/canyon-render.ts",
-      "gap": "organic slopes, ground patterns, path/occlusion",
-      "evidence": [],
+      "stage": "review",
+      "source": "src/world-art.ts",
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {
@@ -80,7 +95,7 @@
       "required": true,
       "stage": "prototype",
       "source": "src/kingdom-render.ts",
-      "gap": "town/castle architecture / authored modules",
+      "gap": "Forest material/tree pass authored; town/castle architecture still requires its own original reference pass.",
       "evidence": [],
       "romExtracted": false
     },
@@ -96,10 +111,13 @@
     {
       "id": "combat-fx",
       "required": true,
-      "stage": "prototype",
+      "stage": "review",
       "source": "src/render.ts",
-      "gap": "authored timelines and original-technique reference",
-      "evidence": [],
+      "gap": "New reference-informed source implemented; exact browser screenshot/motion and fidelity acceptance still required.",
+      "evidence": [
+        "docs/REFERENCE_ART_PASS.md",
+        "assets/reference-index.json"
+      ],
       "romExtracted": false
     },
     {

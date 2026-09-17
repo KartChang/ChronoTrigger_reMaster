@@ -1,4 +1,4 @@
-# 專案地圖 — Kingdom 0.4.1
+# 專案地圖 — Reference art 0.5
 
 KartChang/ChronoTrigger_reMaster，main 開發。HD-2D、瀏覽器優先、同機雙人、保留 ATB；不是其他專案的後台架構。2026-09-17 GitHub metadata 為 public，本批未變更可見性或部署。
 
@@ -19,10 +19,10 @@ TypeScript + Babylon.js + esbuild；無後端。Node.js 22+ 用於建置，Pytho
 | src/render.ts | 共用 Babylon 場景、角色、鏡頭與呈現用斬擊／踏步 |
 | src/input.ts | 鍵盤／觸控／Gamepad 所有權 |
 | src/save.ts | IndexedDB：lab 的 slot1 與冒險 fair-slot1 分開 |
-| scripts/build.mjs | 自含 HTML；build-meta 0.4.1 與 GITHUB_SHA |
+| scripts/build.mjs | 自含 HTML；build-meta 0.5.0 與 GITHUB_SHA |
 | scripts/test.mjs | 純規則單元測試：core/fair/opening/kingdom |
 | tests/kingdom_browser.py | 消費同一 CI 前段實際匯出的 v3 存檔，走新路線、驗 v4 |
-| .github/workflows/ci.yml | 四段實際操作、來源封存、證據與試玩 artifact |
+| .github/workflows/ci.yml | 四段既有流程＋第五段素材／選敵操作、來源封存與 artifacts |
 
 Controls → main → core → render/HUD。規則不依賴 DOM／Babylon。固定步長 1/60 秒、單幀 delta 上限 0.1 秒；暫停／背景／對話不推進。低 FPS 的牆鐘時間不等於模擬時間。
 
@@ -52,7 +52,7 @@ python tests/kingdom_browser.py
 
 preview 4173；harness 依序自行啟動 4175、4176、4177、4178。kingdom 需接續 opening 的真實匯出檔；不得合成或直接改測試狀態。dev 目前 build + serve，非 HMR。
 
-133 單元測試包含原有 109 項與新增 24 項；舊三段 browser journeys 不變。CI 全過才上傳 chrono-hd2d-playable；chrono-hd2d-browser-evidence 保存報告、截圖與 exact source tar.gz。本機 candidate 不等於已驗收 artifact，軟體 GPU 不等於真機效能認證。
+163 單元測試包含原有 133 項與新增 30 項；舊四段 browser journeys 不變。CI 全過才上傳 chrono-hd2d-playable；chrono-hd2d-browser-evidence 保存報告、截圖與 exact source tar.gz。本機 candidate 不等於已驗收 artifact，軟體 GPU 不等於真機效能認證。
 
 規則 AGENTS.md；現行接續只看 docs/STATUS.md；玩法 README.md；來源與範圍 docs/KINGDOM_SLICE.md。
 
@@ -60,4 +60,10 @@ preview 4173；harness 依序自行啟動 4175、4176、4177、4178。kingdom �
 
 `src/input-boundary.ts`：start/load/import 同步 rebase；模擬階段切換只清一次輸入。`scripts/asset-export.mjs`：同源程序式像素匯出 PNG／JSON，不是 ROM extractor 或外部圖集 importer。`scripts/quality.mjs`：固定加權、證據、runtime digest、必需素材與 release gates。`quality/scorecard.json` 是受評版本快照；live TODO 仍只有 STATUS.md。
 
-assets:export → dist/art（8 原型圖集／53 frame records）；check:quality → test-results/quality-report.json；release:check 未達標 exit 1。build 會產生 art review 與 QUALITY_STATUS.json；新增素材／品質測試不改原四段 browser journeys。
+assets:export → dist/art（15 重畫圖集／297 frame records）；check:quality → test-results/quality-report.json；release:check 未達標 exit 1。build 會產生 art review 與 QUALITY_STATUS.json；新增素材／品質測試不改原四段 browser journeys。
+
+## 原版對照美術與戰鬥目標
+
+`src/hero-art.ts` 統一三名角色／七種姿態；`src/pose-player.ts` 控制 presentation clip 時間，不改 core 傷害／ATB；`src/world-art.ts` 以 north=+z 的同源座標製作地表與石材。`core.ts` 的 transient targets 及 selectedEnemy/cycleTarget 分開 P1/P2 目標；存檔白名單不保存此暫態。
+
+`tests/reference_browser.py` 為第五段實際鍵盤／按鈕驗收，自行開 4179。`__CHRONO_TEST__.view()` 是 render frame/pose/mesh 的 cloned observation，並非改狀態指令。新來源索引不含原作圖片bytes。

@@ -1,50 +1,36 @@
-# Kingdom 0.4.1 — quality hardening handoff
-
-## Authoritative current checkpoint
+# Reference art 0.5 — current handoff
 
 **DEVELOPMENT CANDIDATE — NOT 90-POINT ACCEPTED.**
 
-Published source: **18a99497450b31342ed3f02cd107cf23d8153670**.
-Source tree: **715494da6cc99a2199b59e3ec9fd119809afd4d5**. Local git write-tree exactly matched the connector-created tree, including all retained source and the 21 changed paths. Non-force fast-forward from c862cdc690e2603b9710d5946ac6993b7f3ad8bb.
+Parent main HEAD: `326a662ef1d37436e0eb9650deed55788e25bec1`. Repository KartChang/ChronoTrigger_reMaster. Browser-first TypeScript/Babylon/esbuild, HD-2D, ATB and local co-op remain unchanged. Repository is public; no visibility/deployment change, original-image distribution, paid service or ROM read/extraction performed.
 
-Matching CI **#9 / 35223217588**, push event, **in_progress** at last query. Exact-SHA total_count=1. This documentation-only handoff is not a new gameplay candidate. Check this run first; do not dispatch a duplicate or infer a pass from unit checks.
+## Verified inherited authority
 
-Repository KartChang/ChronoTrigger_reMaster, main active. Browser TypeScript/Babylon/esbuild, HD-2D, ATB, local co-op. Current GitHub metadata is public. No visibility change, public game hosting, paid service, ROM access/extraction or original-asset distribution performed in this batch.
+CI9 **35223217588**, exact source **18a99497450b31342ed3f02cd107cf23d8153670**, completed **success**. Evidence **10498366299**, SHA256 a1d7460a60ef940705ce42fc800cf01bee48e56c44d978525a6ce9bf7d801574. All four journeys passed: browser 13, fair 8, opening 7, kingdom 8, total **36 checkpoints**. The previous held-key failure is fixed and validated, not an open current defect.
 
-## Inherited failure and actual fix
+Actually inspected fair/opening exploration, forest battle and Guardia hall images. These confirm operable scenes but still simplified original fidelity; no 90-point artistic acceptance. The old numeric 30/100 scorecard is a dated baseline and must not be mistaken for a re-review of new source.
 
-CI8 / 35216792204, source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93: completed failure. 109 units/typecheck/build passed; only standalone launch passed before the first lab movement failed. Fair/opening/kingdom steps were skipped.
+## Current batch
 
-Evidence artifact 10495481982, SHA256 c4d6d8511f39b399bd71a32e3af3542177c41fa2b1f2d9f2d85914bd01a7c3c1. P1 stopped at x=-0.6, ticks=79, not paused; tick budget exceeded. lastPhase changed after the first frame and Controls.clear erased a legitimately held key. This was a runtime regression, not a reason to enlarge waits.
+User approved original-image optimization. Visually inspected SNES Leene Square, 600 AD Guardia Forest and Crono/Marle/Lucca/Gato source images. Reference URLs, cues, attribution and exclusions in assets/reference-index.json. The generated concept poster is not used as source truth. No original pixels or ROM included.
 
-InputBoundary now rebases synchronously at start/load/import/dialogue changes; simulated transitions clear once and discard remaining old-input substeps. Seven tests cover the old failure and the corrected behavior. Core game rules and all four existing browser journeys were retained byte-for-byte; no assertion or wait budget was weakened.
+Redrew slimmer/shaded heroes with actual attack/cast/hurt/down/victory clip frames; world events trigger pose playback on a presentation-only clock. Correct pause/reset, fallen active actors versus absent companions, and read-only renderer observations. Fair paving/bell arch/bronze bell/curved striped stalls/goods/red banners and rounded Gato; darker forest soil, narrow paths, roots, rocks/ferns; closer party-follow framing. Static fair details merge by material. Existing compact collision/routes remain; not an original map reconstruction claim.
 
-## Quality and asset work
+P1/P2 can independently select living targets through keyboard, HUD and Gamepad shoulder mapping. Default nearest behavior remains; invalidated selection falls back; no ATB/MP selection cost. Damage/skill costs/ATB rate and v1-v4 save formats unchanged. No new chapter in this batch.
 
-The user requires >=90 before acceptance. Prior work had tests and selected screenshot review, not an evidence-bound numerical quality gate. Provisional whole-remake baseline is 30/100, not a player rating or completion percentage. CI7 artifact 10493917525 opening/01-classic-fair.png and opening/05-canyon-battle.png were actually inspected; current CI8 supplies the regression evidence. Unseen kingdom scenes are not called visually reviewed. The generated concept poster is not a runtime screenshot.
+15 PNG review sheets/textures, 297 records, shared runtime authoring functions. Frame timing, pivot and source hashes supplied; not 297 unique original frames or an approved final art pack. Sprite contact sheet actually inspected. Original image use does not declare IP clearance.
 
-quality/scorecard.json is frozen to reviewed source/digest; source changes mark it stale and never automatically raise ratings. The release preflight requires >=90 total, >=80% in each category, no critical blockers, all five evidence gates and approved required asset groups. The check validates evidence records and arithmetic, not subjective visual quality automatically.
+## Local verification
 
-Three heroes alternate left/right strides over four timed frames (three distinct poses). Exporter produces 8 PNG sheets / 53 frame records plus pivots, timings, clip names, source hashes and missing-clip notes. This is export of existing hand-authored runtime art, not a newly finished high-fidelity art pack or ROM extraction. External edited PNG import is not implemented. 15 required asset groups remain missing/prototype; none approved. CI separately retains chrono-hd2d-art-review-kit.
+**163/163 unit tests passed**: all 133 inherited tests unchanged + 30 new targeting/pose/export/surface/route tests. TypeScript, asset guard and build pass. All 15 PNGs independently decode with Pillow; exact per-frame runtime/export pixel parity tested. New Python browser script compiles. Four inherited browser scripts are byte-for-byte unchanged; a fifth tests real target commands and attack/cast/hurt/victory poses.
 
-## Validation and delivered candidates
+Ordinary local Chromium attempted; file navigation returned ERR_BLOCKED_BY_ADMINISTRATOR. No policy workaround. No local browser acceptance claimed. New source needs its exact matching CI run; do not equate inherited success or unit checks with the new visual/browser result. Release preflight remains blocked by stale/low whole-game score, incomplete required assets/content, audio, hardware and usage clearance.
 
-133/133 local units passed: 109 retained + 7 input-boundary + 7 asset-export + 10 quality-gate. TypeScript, asset guard and standalone build passed; all 8 PNGs independently decoded/verified. Release preflight intentionally returns exit 1: denial works, product is not accepted.
+## Next exact actions
 
-npm network was unavailable (EAI_AGAIN). Restored the existing pinned toolchain artifact 10487690665 from bootstrap run 35199851415, SHA256 18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90. No dependency versions or install lifecycle scripts changed. Ordinary local Chromium returned ERR_BLOCKED_BY_ADMINISTRATOR for file navigation; no policy bypass, no local browser pass.
+1. After this batch is published, check its single exact-SHA CI. If active, save SHA/run checkpoint without indefinite polling. On failure inspect first terminal and preserve assertions; on success inspect actual revised scene/pose captures before rating art.
+2. Compare reference-informed frame composition and motion with original images, fix visible proportion/occlusion/tiling issues. Asset approval requires runtime evidence, not only PNG export or a concept poster.
+3. Finish reusable external asset import, technique choreography/portraits/audio, then cathedral/Frog/queen rescue and the true initial opening; add inventory/equipment/progression and remaining eras. Full-game gaps remain open, not hidden by the small slice's score.
+4. Validate physical desktop/gamepad/mobile performance, frame time/memory/loading. No unsupported frame-rate or hardware claim from software CI.
 
-Candidate HTML: 5,400,333 bytes, build metadata version 0.4.1 and exact source SHA 18a99497450b31342ed3f02cd107cf23d8153670.
-
-- chrono-hd2d-quality-v0.4.1-candidate.zip: 1,220,217 bytes; SHA256 3e13c393bcb13100fafa680f5515fa99e502686bc3d65ae2614af4782c5aa3bf.
-- chrono-hd2d-prototype-art-kit-v0.4.1.zip: 14,359 bytes; SHA256 ab35c09f64c861172a9a69de66e42f111e7a61772b9b27d950f256942785e790.
-
-Both ZIPs passed integrity checks. Candidate includes operation instructions, QUALITY_STATUS, source metadata and third-party notices. They are local-built candidates/review assets, not new CI-success releases. Rebuild from source if temporary container files disappear.
-
-## Next work
-
-1. Read exact CI9 run and first failing state if any. If still running, preserve checkpoint and report instead of waiting indefinitely. On success inspect actual fair/canyon/kingdom captures and input motion; only then reassess applicable criteria.
-2. Produce and integrate one coherent high-fidelity exploration/battle kit before more placeholder chapters: character attack/cast/hurt/down/victory, terrain/buildings/props, UI portraits and authored skill/audio timing. Use original-version references, not inferred details from the generated poster.
-3. Continue cathedral/Frog/queen rescue, true initial opening, inventory/equipment/progression and remaining eras. Whole-game deficits remain open; do not shrink the denominator to label a small slice 90% complete.
-4. Validate target desktop/gamepad frame-time, loading, memory and visual quality. Mobile/native/network scope stays separate. Confirm source version and asset-use boundary before any specific ROM data extraction; the provided ROM remains untouched.
-
-Stable contracts: docs/QUALITY_AND_ASSETS.md, assets/manifest.json, quality/scorecard.json and AGENTS.md. Live progress is only here. Source and evidence persist in GitHub; /mnt/data is temporary.
+Stable scope/reference contract: docs/REFERENCE_ART_PASS.md. Dynamic progress is only this file. Source/evidence live in GitHub; /mnt/data is temporary. Continue existing source, not a rewrite or a new planning cycle.

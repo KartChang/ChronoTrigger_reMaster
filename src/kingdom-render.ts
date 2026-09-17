@@ -1,3 +1,4 @@
+import {drawSurface} from './world-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {KINGDOM_SOLIDS,kingdomMap} from './kingdom-data';
 import type {KingdomMap} from './kingdom-data';
@@ -32,10 +33,11 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
    if(chapter==='truce'){ctx.fillStyle='#a89467';ctx.fillRect(75,93,138,26);ctx.fillRect(80,253,248,34);}
    for(let i=0;i<1300;i++){const x=162+rand()*58,y=rand()*352;ctx.fillStyle=i%2?'#b8a67b':'#9b895f';ctx.fillRect(x,y,2+rand()*4,1);}
   }
+  if(chapter==='forest')drawSurface(ctx,384,352,'forest');
   texture.update();const groundMat=new StandardMaterial(chapter+'-floor-material',scene);groundMat.diffuseTexture=texture;groundMat.specularColor=Color3.Black();
   const floor=MeshBuilder.CreateGround(chapter+'-floor',{width:24,height:22},scene);floor.parent=root;floor.position.set(0,.06,1);floor.material=groundMat;floor.receiveShadows=true;
   box('foundation',0,-.6,1,24,1,22,mat(inside?'#3e4955':'#304b37'));
-  const timber=mat('#665042'),stone=mat('#8b908c'),leaf=mat('#627f43');
+  const timber=mat('#665042'),stone=mat('#8b908c');
   function house(x:number,z:number,w:number,d:number,inn=false){
    box('stone-plinth',x,.18,z,w+.2,.3,d+.2,stone);box('plaster',x,1.5,z,w,2.7,d,mat('#c4baa0'));
    for(const dx of [-w/2+.1,0,w/2-.1])box('timber',x+dx,1.5,z-d/2-.03,.16,2.8,.12,timber);
@@ -57,7 +59,10 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
    picture('innkeeper',-6.5,-3.3,1.32,1.8,c=>drawResident(c,'resident'));
    for(let i=0;i<5;i++)box('flower-box',-9+i*.4,.35,-3.4,.27,.35,.5,mat(i%2?'#c6966c':'#6d854d'));
   }else if(chapter==='forest'){
-   for(const r of KINGDOM_SOLIDS.forest){box('mossy-rock',r.x,.65,r.z,r.w,1.3,r.d,mat('#606c50'));box('moss-cap',r.x,1.31,r.z,r.w+.02,.05,r.d+.02,leaf);}
+   for(const r of KINGDOM_SOLIDS.forest){
+    const rock=MeshBuilder.CreatePolyhedron('forest-weathered-rock',{type:2,size:1},scene);rock.parent=root;rock.position.set(r.x,.38,r.z);rock.scaling.set(r.w*.42,.65,r.d*.42);rock.material=mat('#687257');rock.receiveShadows=true;shadow.addShadowCaster(rock);
+    picture('rock-ferns',r.x,r.z,r.w*.6,.62,c=>{c.fillStyle='#6f8151';for(let i=0;i<7;i++){c.fillRect(3+i*3,10+Math.abs(3-i)*2,1,14);c.fillRect(1+i*3,15+Math.abs(3-i),5,1);}});
+   }
    for(const x of [-10.5,10.5])for(const z of [-7,-2,3,8])tree(x,z,4.8);
    for(const [x,z] of [[-7,7],[7,8],[-6,-6],[6,-5]])tree(x!,z!,3.7);
    for(let i=0;i<55;i++){const x=(rand()-.5)*20,z=rand()*19-8;if(Math.abs(x)<3)continue;box('fern',x,.16,z,.16,.23,.09,mat(i%2?'#7f9558':'#9ba779'));}

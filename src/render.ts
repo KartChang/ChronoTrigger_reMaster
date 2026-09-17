@@ -1,7 +1,10 @@
+import {PosePlayer} from './pose-player';
+import type {HeroPose} from './hero-art';
+import type {PoseSample} from './pose-player';
 import {buildKingdom} from './kingdom-render';
 import {buildCanyon} from './canyon-render';
 import {drawAdventureHero,drawImp,drawLucca} from './pixel-art';
-import {activeSlot} from './core';
+import {activeSlot,selectedEnemy} from './core';
 import {buildFair} from './fair-render';
 import {
   Engine, Scene, Vector3, Color3, Color4, FreeCamera, Camera, HemisphericLight,
@@ -43,6 +46,12 @@ export class World {
   private lunges:{time:number;dx:number;dz:number}[]=[{time:1,dx:0,dz:0},{time:1,dx:0,dz:0}];
   private canyonWorld:ReturnType<typeof buildCanyon>;
   private chapter:State['chapter']|null=null;
+  private posePlayers=[new PosePlayer(),new PosePlayer()];
+  private poseViews:PoseSample[]=[{pose:'idle',frame:0},{pose:'idle',frame:0}];
+  private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
+  private targetMarkers:Mesh[]=[];
+  private drawFrames=0;
+  inspect(){return {frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -113,6 +122,9 @@ export class World {
       this.heroes.push(this.sprite('player-'+i,1.36,1.85));
       const ring=MeshBuilder.CreateTorus('ownership-'+i,{diameter:.85,thickness:.035,tessellation:32},this.scene);ring.material=this.mat('p'+i,i===0?'#dfb87e':'#80c9c0');this.markers.push(ring);
       this.labels.push(this.label('P'+(i+1),0,0,0,i===0?'#ffe4b3':'#b6fff0',.75));
+      const target=MeshBuilder.CreateCylinder('target-pointer-'+i,{diameterTop:.30,diameterBottom:0,height:.40,tessellation:3},this.scene);
+      target.material=this.mat('target-'+i,i===0?'#ffe09a':'#85ddda');(target.material as StandardMaterial).emissiveColor=color(i===0?'#b7a070':'#5eafad');
+      target.setEnabled(false);this.targetMarkers.push(target);
       this.foes.push(this.sprite('enemy-'+i,1.5,1.2));this.drawEnemy(this.foes[i]!);
     }
     const imp=this.sprite('enemy-2',1.5,1.2);this.foes.push(imp);this.drawEnemy(imp);
@@ -165,10 +177,10 @@ export class World {
     const mesh=MeshBuilder.CreatePlane(name,{width:w,height:h},this.scene);mesh.material=m;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;
     return {mesh,texture:t,material:m,last:''};
   }
-  private drawHero(sprite:Sprite,slot:number,facing:number,frame:number,fair:boolean,lucca=false):void {
-    const key=`${fair}:${lucca}:${facing}:${frame}`;if(sprite.last===key)return;sprite.last=key;
+  private drawHero(sprite:Sprite,slot:number,facing:number,frame:number,fair:boolean,lucca=false,pose:HeroPose='walk'):void {
+    const key=`${fair}:${lucca}:${facing}:${frame}:${pose}`;if(sprite.last===key)return;sprite.last=key;
     const c=sprite.texture.getContext();c.clearRect(0,0,24,32);
-    if(fair){if(lucca)drawLucca(c as CanvasRenderingContext2D,facing,frame);else drawAdventureHero(c as CanvasRenderingContext2D,slot,facing,frame);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;sprite.texture.update();return;}
+    if(fair){if(lucca)drawLucca(c as CanvasRenderingContext2D,facing,frame,pose);else drawAdventureHero(c as CanvasRenderingContext2D,slot,facing,frame,pose);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;sprite.texture.update();return;}
     sprite.material.disableLighting=false;sprite.material.emissiveTexture=null;
     const rect=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
     const hair=slot===0?(fair?'#b6423d':'#835746'):'#d6b568',coat=slot===0?'#52758b':(fair?'#c6cebd':'#619d8d');
@@ -197,7 +209,10 @@ export class World {
     const mat=new StandardMaterial('label-material',this.scene);mat.diffuseTexture=t;mat.emissiveTexture=t;mat.opacityTexture=t;mat.disableLighting=true;mat.backFaceCulling=false;
     const mesh=MeshBuilder.CreatePlane('label',{width,height:width/4},this.scene);mesh.material=mat;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   }
-  private effect(e:Effect):void {
+  private effect(e:Effect,s:State):void {
+    if(e.actor!==undefined)this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',this.time);
+    else if(e.kind==='combo')this.posePlayers.forEach((player,i)=>{if(activeSlot(s,i as 0|1))player.trigger('cast',this.time);});
+    else if(e.kind==='hit')s.players.forEach((p,i)=>{if(activeSlot(s,i as 0|1)&&Math.hypot(p.x-e.x,p.z-e.z)<.2)this.posePlayers[i]!.trigger('hurt',this.time);});
     const mesh=this.label(e.kind==='combo'?'✦ '+e.text:e.text,e.x,2.2,e.z,e.kind==='combo'?'#f8d68a':'#fff2d6',1.7);this.floats.push({mesh,time:0});
     if(e.style){
       if(e.actor!==undefined&&e.origin){const d=Math.hypot(e.x-e.origin.x,e.z-e.origin.z)||1;this.lunges[e.actor]={time:0,dx:(e.x-e.origin.x)/d*.55,dz:(e.z-e.origin.z)/d*.55};}
@@ -210,14 +225,14 @@ export class World {
 
   }
   resize():void {
-    this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const half=Math.max(8.2,14/ratio);
+    this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const adventure=this.chapter!==null&&this.chapter!=='lab';const half=Math.max(adventure?6.2:8.2,(adventure?8:14)/ratio);
     this.camera.orthoLeft=-half*ratio;this.camera.orthoRight=half*ratio;this.camera.orthoTop=half;this.camera.orthoBottom=-half;
   }
   draw(s:State,delta:number,animate:boolean):void {
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
     const fair=s.chapter==='fair',canyon=s.chapter==='canyon',forest=s.chapter==='forest',adventure=s.chapter!=='lab';
     if(this.chapter!==s.chapter){
-      this.chapter=s.chapter;this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
+      this.chapter=s.chapter;this.resize();this.posePlayers.forEach(p=>p.reset());this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
       this.scene.fogDensity=adventure?0:.01;
       this.foes.forEach(f=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();}else this.drawEnemy(f);});
       for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
@@ -225,7 +240,7 @@ export class World {
     }
     if(fair)this.fairWorld.draw(s,this.time);
     this.kingdomWorld.draw(s);
-    while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e);}
+    while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e,s);}
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
       this.grass.diffuseColor=color(future?'#8e9991':'#729270');this.leaf.diffuseColor=color(future?(s.flags.repaired?'#779a87':'#636f78'):'#426c58');
@@ -235,9 +250,21 @@ export class World {
       this.repairs.setEnabled(future&&s.flags.repaired);
     }
     s.players.forEach((p,i)=>{
-      const sprite=this.heroes[i]!;this.drawHero(sprite,i,p.facing,p.walking?Math.floor(this.time*8)%4:0,adventure,i===1&&s.kingdom.phase==='rescue');
+      let pose=this.posePlayers[i]!.sample(this.time,p.walking);
+      if(p.hp<=0)pose={pose:'down',frame:3};
+      else if(s.mode==='victory'&&pose.pose==='idle')pose={pose:'victory',frame:Math.floor(this.time*4)%4};
+      const previous=this.poseViews[i]!;
+      if(adventure&&activeSlot(s,i as 0|1)&&!['idle','walk'].includes(pose.pose)&&(previous.pose!==pose.pose||previous.frame!==pose.frame)){
+        this.poseHistory.push({slot:i,...pose,tick:s.ticks});if(this.poseHistory.length>48)this.poseHistory.shift();
+      }
+      this.poseViews[i]=pose;
+      const targetIndex=selectedEnemy(s,i as 0|1),target=targetIndex===null?undefined:s.enemies[targetIndex];
+      const facing=target?(Math.abs(target.x-p.x)>Math.abs(target.z-p.z)?(target.x>p.x?1:3):(target.z>p.z?2:0)):p.facing;
+      const marker=this.targetMarkers[i]!;marker.setEnabled(!!target&&(i===0||s.joined));
+      if(target)marker.position.set(target.x+(i===0?-.25:.25),2.15,target.z);
+      const sprite=this.heroes[i]!;this.drawHero(sprite,i,facing,pose.frame,adventure,i===1&&s.kingdom.phase==='rescue',pose.pose);
       const l=this.lunges[i]!;l.time+=dt;const push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
-      sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1)&&p.hp>0);
+      sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1));
       this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));
       const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;sprite.mesh.scaling.set(vanish,vanish,1);
       this.markers[i]!.position.set(p.x,.21,p.z);this.labels[i]!.position.set(p.x,2.1,p.z);
@@ -248,13 +275,13 @@ export class World {
       f.mesh.setEnabled(visible);f.mesh.scaling.y=canyon||forest?1.3:1;f.mesh.position.set(position.x,canyon||forest?1.0:.86+Math.sin(this.time*2+i)*.035,position.z);
     });
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
-    const tx=midX*.18,tz=midZ*(adventure?.28:.16)+1;
+    const tx=adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=midZ*(adventure?.72:.16)+1;
     this.camera.position.set(tx,23,tz-26);this.camera.setTarget(new Vector3(tx,0,tz));
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
-    this.scene.render();
+    this.scene.render();this.drawFrames++;
   }
   start(loop:()=>void):void{this.engine.runRenderLoop(loop);}
 }

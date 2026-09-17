@@ -15,7 +15,7 @@ export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' 
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
   mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
-  flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
+  targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
   ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom;
 };
 export type Input = [Vec, Vec];
@@ -35,7 +35,7 @@ export function createState(chapter: Chapter = 'lab'): State {
   const actor = (x: number): Actor => ({ x, z: -5, hp: MAX_HP, mp: MAX_MP, atb: 0, facing: 0, walking: false });
   return { mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
-    combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom() };
+    targets: [null,null], combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom() };
 }
 export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase));
 export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing';
@@ -74,7 +74,7 @@ export function beginBattle(s: State): boolean {
   if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
   if(s.chapter==='canyon'&&(s.opening.phase!=='canyon'||s.opening.canyonWon))return false;
-  s.mode='battle'; s.combo=[false,false]; s.enemyTurn=0;
+  s.mode='battle'; s.targets=[null,null]; s.combo=[false,false]; s.enemyTurn=0;
   s.players.forEach((p,i)=>{p.x=-1.5+i*3;p.z=1;p.atb=0;p.walking=false;p.facing=2;});
   s.enemies=s.chapter==='forest'?[{x:-1.8,z:2.8,hp:48,atb:0},{x:1.8,z:2.8,hp:48,atb:0}]:s.chapter==='canyon'?[{x:-1.8,z:2.4,hp:48,atb:0},{x:1.8,z:3,hp:48,atb:0},{x:.2,z:1.5,hp:48,atb:0}]:s.chapter==='fair'?[{x:-7,z:4.8,hp:120,atb:0}]:[{x:-2,z:4.5,hp:90,atb:0},{x:2,z:4.8,hp:90,atb:0}];
   if(s.chapter==='fair')s.players.forEach((p,i)=>{p.x=-8.5+i*3;p.z=2;});
@@ -88,10 +88,26 @@ function eligible(s: State, slot: Slot, mp: number): boolean {
 function finish(s: State): void {
   if (s.enemies.every(e=>e.hp<=0)) { s.mode='victory';if(s.chapter==='forest')s.kingdom.forestWon=true;else if(s.chapter==='canyon')s.opening.canyonWon=true;else if(s.chapter==='fair')s.fair.gatoWon=true;else s.flags.won=true;s.combo=[false,false];log(s,s.chapter==='forest'?'林間小路恢復了寧靜。王城就在北方。':s.chapter==='canyon'?'攔路的魔物倒下了。沿山道向南走。':s.chapter==='fair'?'機器人挑戰完成。可返回廣場或前往露卡的展示區。':'試煉完成！北方時門已可探索。'); }
 }
+/** UI target choice is transient, per-player and never part of a save file. */
+export function selectedEnemy(s:State,slot:Slot):number|null {
+ if(s.mode!=='battle'||!activeSlot(s,slot)||s.players[slot].hp<=0)return null;
+ const chosen=s.targets[slot];
+ if(chosen!==null&&s.enemies[chosen]&&s.enemies[chosen]!.hp>0)return chosen;
+ let result:number|null=null,min=Infinity;
+ s.enemies.forEach((e,i)=>{const d=distance(e,s.players[slot]);if(e.hp>0&&d<min){result=i;min=d;}});
+ return result;
+}
+export function cycleTarget(s:State,slot:Slot,direction:1|-1):boolean {
+ if((direction!==1&&direction!==-1)||cutsceneActive(s)||(slot===1&&!s.joined))return false;
+ const current=selectedEnemy(s,slot);if(current===null)return false;
+ const alive=s.enemies.map((e,i)=>e.hp>0?i:-1).filter(i=>i>=0);
+ const at=alive.indexOf(current);s.targets[slot]=alive[(at+direction+alive.length)%alive.length]!;
+ return true;
+}
 export function action(s: State, slot: Slot, kind: 'attack'|'skill'): boolean {
   const cost=kind==='skill'?3:0;
   if (!eligible(s,slot,cost)) return false;
-  const p=s.players[slot]; const target=s.enemies.filter(e=>e.hp>0).sort((a,b)=>distance(a,p)-distance(b,p))[0];
+  const p=s.players[slot],index=selectedEnemy(s,slot);const target=index===null?undefined:s.enemies[index];
   if (!target) return false;
   s.combo[slot]=false;p.atb=0;p.mp-=cost;
   const damage=kind==='skill'?48:30;target.hp=Math.max(0,target.hp-damage);
@@ -148,7 +164,7 @@ export function step(s: State, input: Input, delta: number): void {
 }
 export function leaveBattle(s: State): void {
   if((s.chapter==='canyon'||kingdomMap(s.chapter))&&s.mode!=='victory'&&s.mode!=='defeat')return;
-  s.mode='explore';s.enemies=[];s.combo=[false,false];
+  s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];
   if(s.chapter==='forest'){s.players.forEach((p,i)=>Object.assign(p,{x:-1+i*2,z:s.kingdom.forestWon?3.5:-6,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;}
   if(s.chapter==='canyon'){
     s.players.forEach(p=>Object.assign(p,{x:0,z:s.opening.canyonWon?4.5:8,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;

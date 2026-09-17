@@ -2,7 +2,7 @@ import {InputBoundary} from './input-boundary';
 import {kingdomMap,nearestKingdom,KINGDOM_NAMES} from './kingdom-data';
 import {nearestFair} from './fair-data';
 import type {Chapter} from './fair-data';
-import {createState,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
+import {createState,cycleTarget,selectedEnemy,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
@@ -64,6 +64,7 @@ function command(slot:Slot,cmd:Command):void{
   if(dialogOpen){if(cmd==='interact' && activeSlot(state,slot) && (slot===0||state.joined))closeDialog();return;}
   if(halted()||cutsceneActive(state)||!activeSlot(state,slot)||(slot===1&&!state.joined))return;
   if(cmd==='interact'){interact(slot);return;}
+  if(cmd==='targetPrevious'||cmd==='targetNext'){cycleTarget(state,slot,cmd==='targetNext'?1:-1);updateHud();return;}
   const accepted=cmd==='combo'?requestCombo(state,slot):action(state,slot,cmd);
   if(accepted)tone(cmd==='combo'?660:cmd==='skill'?520:330);
   else announce(state.mode==='battle'?'需要存活、ATB 全滿，並有足夠 MP。技能 3 MP，合技每人 4 MP。':(state.chapter==='fair'?'探索時請靠近岡薩雷斯按 E，開始 ATB 挑戰。':'探索模式不會揮砍；靠近敵人或選「練習戰鬥」進入 ATB。'));
@@ -83,6 +84,7 @@ $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-f
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
 $('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
 document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button=>button.onclick=()=>command(Number(button.dataset.slot) as Slot,button.dataset.action as Command));
+document.querySelectorAll<HTMLButtonElement>('[data-target-slot]').forEach(b=>b.onclick=()=>command(Number(b.dataset.targetSlot) as Slot,b.dataset.direction==='previous'?'targetPrevious':'targetNext'));
 document.addEventListener('visibilitychange',()=>{controls.clear();if(document.hidden&&started){manualPause=true;$('pause-screen').hidden=false;}last=performance.now();accumulator=0;});
 function updateHud():void{
   document.body.dataset.started=String(started);document.body.dataset.adventure=String(state.chapter!=='lab');document.body.dataset.mode=state.mode;document.body.dataset.cinematic=String(cutsceneActive(state));
@@ -97,6 +99,8 @@ function updateHud():void{
   const flags:[string,boolean,string][]=[['q-repair',state.flags.repaired,'修復晶核'],['q-battle',state.flags.won,'完成試煉'],['q-future',state.flags.visitedFuture,'穿越時門']];for(const[id,yes,text]of flags)$(id).textContent=(yes?'✓ ':'○ ')+text;
   $('objective').textContent=!state.flags.repaired?'前往左側晶核，按 E 修復。':!state.flags.won?'沿中央石路向北，進行 ATB 試煉。':!state.flags.visitedFuture?'靠近北方時門，按 E 前往未來。':'小型試玩目標已完成。可以往返時代、存檔或再戰。';
   state.players.forEach((p,i)=>{
+    const target=selectedEnemy(state,i as Slot);$('target-name'+i).textContent=target===null?'—':(state.chapter==='fair'?'岡薩雷斯':`敵 ${target+1}`);
+    document.querySelectorAll<HTMLButtonElement>(`[data-target-slot="${i}"]`).forEach(b=>b.disabled=halted()||cutsceneActive(state)||target===null||(i===1&&!state.joined));
     $('hp'+i).style.width=`${p.hp/MAX_HP*100}%`;$('hp-text'+i).textContent=`${p.hp}/${MAX_HP}`;
     $('mp'+i).textContent=`MP ${p.mp} / ${MAX_MP}`;$('atb'+i).style.width=`${p.atb*100}%`;$('atb-text'+i).textContent=state.mode==='battle'?(p.atb>=1?'READY':`${Math.floor(p.atb*100)}%`):'探索';
     document.querySelectorAll<HTMLButtonElement>(`[data-slot="${i}"]`).forEach(b=>{const cost=b.dataset.action==='skill'?3:b.dataset.action==='combo'?4:0;b.disabled=halted()||cutsceneActive(state)||!activeSlot(state,i as Slot)||(b.dataset.action==='combo'&&!activeSlot(state,1))||state.mode!=='battle'||p.hp<=0||p.atb<1||p.mp<cost||(i===1&&!state.joined);b.classList.toggle('queued',b.dataset.action==='combo'&&state.combo[i]===true);});
@@ -175,6 +179,6 @@ try{
     if(now>messageUntil)$('message').classList.remove('show');
     if(frame++%30===0){const fps=world.engine.getFps();$('fps').textContent=Number.isFinite(fps)?`WEBGL · ${Math.round(fps)} FPS`:'WEBGL · 準備中';}
   });
-  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean}};
-  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted};
+  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>}};
+  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect()};
 }catch(error){const el=document.createElement('div');el.className='fatal';const title=document.createElement('h2');title.textContent='無法建立 3D 畫面';const p=document.createElement('p');p.textContent='請使用開啟硬體加速的近期 Chrome／Edge 瀏覽器。錯誤：'+asError(error);el.append(title,p);document.body.append(el);console.error(error);}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-17",
+  "purpose": "Original-image visual calibration for hand-authored HD-2D assets; not extracted source sprites or verified battle data.",
+  "originalImageBytesBundled": false,
+  "romReadOrExtracted": false,
+  "references": [
+    {
+      "id": "snes-leene-square",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/ChronoTrigger1000LeeneSquareBG.png",
+      "attribution": "Game imagery: Square; assembled map: Rick N. Bruns, SNESMaps, 2011",
+      "observed": "SNES map image, visually inspected in browser tools",
+      "cues": ["worn small paving stones", "weathered pale bell arch", "red banners", "curved striped shop canopies and goods", "dense leafy borders"],
+      "appliedTo": ["src/fair-render.ts", "src/world-art.ts"],
+      "notClaimed": "The present compact level retains its authored routes, not original terrace geometry or exact coordinates."
+    },
+    {
+      "id": "snes-guardia-forest-600",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/ChronoTrigger600GuardiaForestBG.png",
+      "attribution": "Game imagery: Square; assembled map: Rick N. Bruns, SNESMaps, 2011",
+      "observed": "SNES map image, visually inspected in browser tools",
+      "cues": ["cool dark-green undergrowth", "narrow irregular dark-earth paths", "rooted and branching trunks", "multi-lobed leafy crowns instead of green cubes"],
+      "appliedTo": ["src/pixel-art.ts", "src/world-art.ts", "src/kingdom-render.ts"],
+      "notClaimed": "No original map topology, enemy placement or battle numbers were extracted."
+    },
+    {
+      "id": "snes-crono",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Crono.png",
+      "cues": ["slim red-haired silhouette", "pale headband", "teal clothing and scarf", "separate legs and boots"],
+      "appliedTo": ["src/hero-art.ts"],
+      "notClaimed": "24x32 is a project canvas, not an inferred original atlas cell or an original animation extraction."
+    },
+    {
+      "id": "snes-marle",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Marle.png",
+      "cues": ["orange-gold ponytail", "pale outfit", "slender proportions"],
+      "appliedTo": ["src/hero-art.ts"]
+    },
+    {
+      "id": "snes-lucca",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/party/Lucca.png",
+      "cues": ["round glasses", "violet hair", "khaki cap", "ochre tunic"],
+      "appliedTo": ["src/hero-art.ts"]
+    },
+    {
+      "id": "snes-gato",
+      "url": "https://www.snesmaps.com/maps/ChronoTrigger/sprites/enemies/Gato.png",
+      "cues": ["rounded red mechanical body", "distinct gloves", "metal grille and boots"],
+      "appliedTo": ["src/pixel-art.ts", "src/fair-render.ts"]
+    }
+  ],
+  "exclusions": ["Generated concept poster is not original-game evidence.", "Official modern-port comparison images are not substituted for SNES originals.", "No soundtrack, original image files or ROM bytes are committed or included in artifacts."],
+  "rights": "Reference availability does not establish redistribution rights. New derivative character drawings are not a declaration of original-IP clearance."
+}

@@ -37,7 +37,11 @@ These are prototype systems, not a faithful original chapter or final art.
 
 **PROTOTYPE IMPLEMENTED — BROWSER ACCEPTANCE PENDING.**
 
-After this batch is published, query runs by its exact source SHA. If queued/in_progress, report that checkpoint and stop waiting rather than polling indefinitely. A newer documentation-only commit must not be mistaken for a new gameplay candidate.
+Current source candidate: `f46cd72abf23757f76d48ea2b54efc06f69b3561`.
+Matching CI: Playable prototype CI #5, run `35205557064`, push event on main; last observed **in_progress**, conclusion null.
+Run: https://github.com/KartChang/ChronoTrigger_reMaster/actions/runs/35205557064
+
+This checkpoint update is documentation-only; it does not replace the candidate or start another validation. Resume by checking this run and its artifacts. If queued/in_progress, report the checkpoint and stop waiting rather than polling indefinitely. Do not retry inherited CI #4 or treat it as the current root.
 
 ## Not complete / limits
 

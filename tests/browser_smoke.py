@@ -65,8 +65,8 @@ try:
         passed('pause freezes simulation and discards movement')
         page.evaluate("""() => {
             const pad=i=>({index:i,connected:true,axes:[0,0],buttons:Array.from({length:16},()=>({pressed:false,value:0})),mapping:'standard'});
-            window.__pads=[pad(0),pad(1)];
-            Object.defineProperty(navigator,'getGamepads',{value:()=>window.__pads,configurable:true});
+            window.__pads=[pad(0),pad(1)];window.__padReads=0;
+            Object.defineProperty(navigator,'getGamepads',{value:()=>{window.__padReads++;return window.__pads;},configurable:true});
             window.__pads[0].axes[0]=-1;
         }""")
         p0=snap(page)['players'][0]['x']
@@ -81,8 +81,9 @@ try:
         page.wait_for_function('window.__CHRONO_TEST__.paused()')
         page.wait_for_timeout(300)
         assert page.evaluate('window.__CHRONO_TEST__.paused()') is True
-        page.evaluate('window.__pads[0].buttons[9].pressed=false')
-        page.wait_for_timeout(100)
+        released_at=page.evaluate('window.__pads[0].buttons[9].pressed=false;window.__padReads')
+        # Wait for the real input poll to observe release; software GPU frames can exceed 100 ms.
+        page.wait_for_function('(n)=>window.__padReads>n',arg=released_at)
         page.evaluate('window.__pads[0].buttons[9].pressed=true')
         page.wait_for_function('!window.__CHRONO_TEST__.paused()')
         page.evaluate('window.__pads=[]')

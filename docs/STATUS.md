@@ -1,47 +1,50 @@
 # Kingdom 0.4.1 — quality hardening handoff
 
-## Current status
+## Authoritative current checkpoint
 
 **DEVELOPMENT CANDIDATE — NOT 90-POINT ACCEPTED.**
 
-Parent HEAD: c862cdc690e2603b9710d5946ac6993b7f3ad8bb. Active repository KartChang/ChronoTrigger_reMaster, main. Browser TypeScript/Babylon/esbuild, ATB, local co-op. No visibility changes, public hosting, paid services, ROM access/extraction or distribution in this batch. GitHub metadata currently reports public; never assume private.
+Published source: **18a99497450b31342ed3f02cd107cf23d8153670**.
+Source tree: **715494da6cc99a2199b59e3ec9fd119809afd4d5**. Local git write-tree exactly matched the connector-created tree, including all retained source and the 21 changed paths. Non-force fast-forward from c862cdc690e2603b9710d5946ac6993b7f3ad8bb.
 
-## Latest observed browser authority
+Matching CI **#9 / 35223217588**, push event, **in_progress** at last query. Exact-SHA total_count=1. This documentation-only handoff is not a new gameplay candidate. Check this run first; do not dispatch a duplicate or infer a pass from unit checks.
 
-CI8 / 35216792204, source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93: **completed failure**. 109 units/build/typecheck passed; only the standalone-launch checkpoint passed before first lab movement failed. Kingdom browser steps were skipped, not accepted.
+Repository KartChang/ChronoTrigger_reMaster, main active. Browser TypeScript/Babylon/esbuild, HD-2D, ATB, local co-op. Current GitHub metadata is public. No visibility change, public game hosting, paid service, ROM access/extraction or original-asset distribution performed in this batch.
 
-Downloaded evidence artifact 10495481982, SHA256 c4d6d8511f39b399bd71a32e3af3542177c41fa2b1f2d9f2d85914bd01a7c3c1. First terminal: P1 movement stopped at x=-0.6, ticks=79, not paused; simulated tick budget exceeded. Source is in artifact source-4e9a3c8750c192e731ac7b9421c37f66f0bb9b93.tar.gz.
+## Inherited failure and actual fix
 
-Input root: lastPhase was updated after the first new-scene simulation frame and Controls.clear removed a legitimately held key. Not a slow-render timeout issue. Current fix rebases input boundary synchronously on replacement/dialogue; simulated changes clear once and discard remaining old-input substeps. No existing browser assertion/time budget removed or weakened.
+CI8 / 35216792204, source 4e9a3c8750c192e731ac7b9421c37f66f0bb9b93: completed failure. 109 units/typecheck/build passed; only standalone launch passed before the first lab movement failed. Fair/opening/kingdom steps were skipped.
 
-CI7 artifact 10493917525 was read only for the latest accepted visual baseline, not rerun. Actually inspected opening/01-classic-fair.png and opening/05-canyon-battle.png: visuals remain simplified and far below the concept poster. No unseen 0.4 kingdom scene is called visually accepted.
+Evidence artifact 10495481982, SHA256 c4d6d8511f39b399bd71a32e3af3542177c41fa2b1f2d9f2d85914bd01a7c3c1. P1 stopped at x=-0.6, ticks=79, not paused; tick budget exceeded. lastPhase changed after the first frame and Controls.clear erased a legitimately held key. This was a runtime regression, not a reason to enlarge waits.
 
-## This batch
+InputBoundary now rebases synchronously at start/load/import/dialogue changes; simulated transitions clear once and discard remaining old-input substeps. Seven tests cover the old failure and the corrected behavior. Core game rules and all four existing browser journeys were retained byte-for-byte; no assertion or wait budget was weakened.
 
-- InputBoundary fix with seven unit regressions (including old-failure reproduction).
-- Three heroes now alternate left/right walking strides in a four-frame cycle.
-- Export same runtime authoring functions into 8 PNG sheets / 53 frame records with metadata, pivots, durations, hashes and missing-clip annotations; these remain prototype assets, not final art.
-- Asset register: 15 required whole-remake asset groups, all currently missing/prototype, none promoted to approved.
-- Evidence-bound whole-remake scorecard baseline 30/100. Runtime digest marks it stale after modifications; do not silently inflate it.
-- Release gate needs >=90, each category >=80%, current evidence, no critical blocker, five passed gates and approved required assets. Dev CI may produce candidates without claiming release approval.
-- Added separate art-review CI artifact. No new dependency; old four browser journeys and inherited 109 tests unchanged.
+## Quality and asset work
 
-## Local validation
+The user requires >=90 before acceptance. Prior work had tests and selected screenshot review, not an evidence-bound numerical quality gate. Provisional whole-remake baseline is 30/100, not a player rating or completion percentage. CI7 artifact 10493917525 opening/01-classic-fair.png and opening/05-canyon-battle.png were actually inspected; current CI8 supplies the regression evidence. Unseen kingdom scenes are not called visually reviewed. The generated concept poster is not a runtime screenshot.
 
-133/133 units passed (109 inherited + 7 input-boundary + 7 asset-export + 10 quality-gate tests); TypeScript, asset-extension guard and standalone build passed (~5.15 MiB). All 8 exported PNGs independently decoded/verified with Pillow. Four-frame cycle has three unique poses, not four. Existing tests' byte-for-byte preservation checked against source archive.
+quality/scorecard.json is frozen to reviewed source/digest; source changes mark it stale and never automatically raise ratings. The release preflight requires >=90 total, >=80% in each category, no critical blockers, all five evidence gates and approved required asset groups. The check validates evidence records and arithmetic, not subjective visual quality automatically.
 
-npm network failed EAI_AGAIN; restored existing pinned toolchain artifact 10487690665 from bootstrap run 35199851415, SHA256 18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90, without executing install lifecycle scripts or altering package versions.
+Three heroes alternate left/right strides over four timed frames (three distinct poses). Exporter produces 8 PNG sheets / 53 frame records plus pivots, timings, clip names, source hashes and missing-clip notes. This is export of existing hand-authored runtime art, not a newly finished high-fidelity art pack or ROM extraction. External edited PNG import is not implemented. 15 required asset groups remain missing/prototype; none approved. CI separately retains chrono-hd2d-art-review-kit.
 
-`npm run release:check` intentionally exits 1 (30/100, missing gates/assets, stale review). This is a successfully tested denial, not a passing product release.
+## Validation and delivered candidates
 
-Ordinary installed Chromium could launch but file navigation returned ERR_BLOCKED_BY_ADMINISTRATOR. No policy bypass attempted; local browser acceptance remains unverified. New browser acceptance must use the exact matching CI after this source is committed. Do not dispatch duplicates or wait indefinitely.
+133/133 local units passed: 109 retained + 7 input-boundary + 7 asset-export + 10 quality-gate. TypeScript, asset guard and standalone build passed; all 8 PNGs independently decoded/verified. Release preflight intentionally returns exit 1: denial works, product is not accepted.
 
-## Next exact actions
+npm network was unavailable (EAI_AGAIN). Restored the existing pinned toolchain artifact 10487690665 from bootstrap run 35199851415, SHA256 18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90. No dependency versions or install lifecycle scripts changed. Ordinary local Chromium returned ERR_BLOCKED_BY_ADMINISTRATOR for file navigation; no policy bypass, no local browser pass.
 
-1. Check the single matching run for this source commit. If in progress, preserve exact SHA/run and report rather than prolonged polling. If failed, inspect first terminal state and fix it, keeping all assertions.
-2. Once browser passes, inspect fair, canyon and kingdom exploration/battle screenshots and input motion. Preserve new evidence; do not raise the old assessment merely because source changed.
-3. Improve one coherent fair exploration / forest battle art kit before expanding more low-fidelity chapters: character attack/cast/hurt/down/victory; richer terrain/buildings; target selection/skill timing; audio production. No concept poster as runtime evidence.
-4. Continue cathedral/Frog/queen rescue, full original opening, inventory/equipment/progression and remaining story after core quality issues are addressed. Keep whole-game gaps open; no denominator shrink to make a small demo appear 90% complete.
-5. Actual device/gamepad and frame-time/loading/memory checks; confirm reference/version and asset-use boundaries. Mobile/native/networked scope remains separate.
+Candidate HTML: 5,400,333 bytes, build metadata version 0.4.1 and exact source SHA 18a99497450b31342ed3f02cd107cf23d8153670.
 
-Stable contracts: docs/QUALITY_AND_ASSETS.md, assets/manifest.json, quality/scorecard.json, AGENTS.md. Live progress only here. Source/evidence persist in GitHub; /mnt/data is temporary. No newly claimed 90-point acceptance.
+- chrono-hd2d-quality-v0.4.1-candidate.zip: 1,220,217 bytes; SHA256 3e13c393bcb13100fafa680f5515fa99e502686bc3d65ae2614af4782c5aa3bf.
+- chrono-hd2d-prototype-art-kit-v0.4.1.zip: 14,359 bytes; SHA256 ab35c09f64c861172a9a69de66e42f111e7a61772b9b27d950f256942785e790.
+
+Both ZIPs passed integrity checks. Candidate includes operation instructions, QUALITY_STATUS, source metadata and third-party notices. They are local-built candidates/review assets, not new CI-success releases. Rebuild from source if temporary container files disappear.
+
+## Next work
+
+1. Read exact CI9 run and first failing state if any. If still running, preserve checkpoint and report instead of waiting indefinitely. On success inspect actual fair/canyon/kingdom captures and input motion; only then reassess applicable criteria.
+2. Produce and integrate one coherent high-fidelity exploration/battle kit before more placeholder chapters: character attack/cast/hurt/down/victory, terrain/buildings/props, UI portraits and authored skill/audio timing. Use original-version references, not inferred details from the generated poster.
+3. Continue cathedral/Frog/queen rescue, true initial opening, inventory/equipment/progression and remaining eras. Whole-game deficits remain open; do not shrink the denominator to label a small slice 90% complete.
+4. Validate target desktop/gamepad frame-time, loading, memory and visual quality. Mobile/native/network scope stays separate. Confirm source version and asset-use boundary before any specific ROM data extraction; the provided ROM remains untouched.
+
+Stable contracts: docs/QUALITY_AND_ASSETS.md, assets/manifest.json, quality/scorecard.json and AGENTS.md. Live progress is only here. Source and evidence persist in GitHub; /mnt/data is temporary.

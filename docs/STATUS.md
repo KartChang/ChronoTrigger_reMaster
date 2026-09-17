@@ -2,6 +2,18 @@
 
 **DEVELOPMENT PREVIEW — WHOLE GAME NOT COMPLETE OR 90-POINT ACCEPTED.**
 
+## Authoritative published checkpoint
+
+Source **a9b013c55e10f51aae6ffd268f93f7ee4c3848f0**, tree **d9714426e95a8b64af5a17551f6b0105042a252e**. All 20 changed paths and retained source matched the local git write-tree exactly. Non-force fast-forward from 827ff432a071b370d0a82a349e1e45e98925afe8. This subsequent [skip ci] documentation update is not a new gameplay candidate.
+
+Matching game CI **#11 / 35232983328**, job **105241620603**, last observed **in_progress**. npm run check passed remotely; browser journeys still running. Do not claim new navigation/browser acceptance before that exact run completes.
+
+Pages preview **#1 / 35232983290** finished **success**, but **prepare only**: job 105241621349 passed 17 package tests, downloaded/verified actual CI10 artifact, staged the launcher and unchanged game, and uploaded staged artifact **10501064292** (1,233,345 bytes; SHA256 8413e95c15636b8dc080f075465990aa94ae28d276dce2049b6ef17c3ccf0bd5). Log explicitly reports **PAGES_NOT_ENABLED**. Deploy job 105241696640 was **skipped**, not passed. **No live Pages URL has been published or verified.**
+
+One-time user action: https://github.com/KartChang/ChronoTrigger_reMaster/settings/pages → Build and deployment → Source = GitHub Actions. Then Actions → GitHub Pages preview → Run workflow, or the next successful game CI will trigger it. No PAT or extra paid host needed. Expected default URL is https://kartchang.github.io/ChronoTrigger_reMaster/ but must not be called live until deployment and HTTP verification succeed.
+
+Local 0.5.1 candidate: chrono-hd2d-pages-navigation-v0.5.1-candidate.zip, 1,225,635 bytes, SHA256 5f88ee825976541e510ca3e30983d8bcc9d555c4b1f7d6fc728f58d9adc48b4c. Exact source in build metadata; HTML 5,410,952 bytes, SHA256 e7e75d46794536580272bf0e54f18dab70921785e5d4cf34e7aa271f253e37a7. ZIP integrity checked. This is not a CI-success release. Rebuild from source if temporary files disappear.
+
 ## Authority entering this batch
 
 Parent main HEAD 827ff432a071b370d0a82a349e1e45e98925afe8. CI10 35228818759 at source b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c completed **success**. Its five real browser journeys passed 42 checkpoints: 13 lab, 8 fair, 7 opening, 8 kingdom, 6 reference art/targeting. 163 inherited unit tests were passing.
@@ -14,7 +26,7 @@ Validated playable artifact 10501060260 SHA256 07c331b3773cb6c73bebcc0fdb12756cd
 
 User explicitly requested Pages exhibition. Added a separate public launcher, stable play/ path, save-transfer instructions, version/CI/source disclosure and a validated-artifact-only deploy workflow. No public game deployment existed on inspection (`has_pages:false`). Existing connector does not expose a Pages-admin write action. GitHub's configure-pages documentation explicitly excludes GITHUB_TOKEN from first-time enablement; do not request/extract user credentials or keep retrying creation with unsupported permissions.
 
-The user needs to choose Settings > Pages > Source = GitHub Actions once, then Actions > GitHub Pages preview > Run workflow. The workflow detects enablement, stages a verified package, reports the exact missing setting and skips deployment while disabled. A green prepare job is NOT a live site. On enablement it uploads/deploys and verifies public HTTP HTML bytes. Future successful main CI updates the preview automatically; failed candidates cannot replace it. No changes to repo visibility or custom domain.
+The workflow detects enablement, stages a verified package, reports the exact missing setting and skips deployment while disabled. A green prepare job is NOT a live site. On enablement it uploads/deploys and verifies public HTTP HTML bytes. Future successful main CI updates the preview automatically; failed candidates cannot replace it. No changes to repo visibility or custom domain.
 
 No ROM read/extraction, copied original image bytes, soundtrack or new third-party font is included. Public demo remains nonofficial, unfinished and distinct from 90-point product release. Current content is still the opening/kingdom slice, not the complete game.
 
@@ -34,7 +46,7 @@ Quality score remains a dated 30/100 baseline, stale after changes. No numeric i
 
 ## Next exact actions
 
-1. Read the matching new CI and Pages runs after publication. Do not dispatch duplicate full CI or poll indefinitely. Pages disabled is an explicit setup blocker, not a game test failure. Preserve final SHA/run and actual URL separately.
+1. Read CI11 35232983328 first. Do not dispatch duplicate full CI or poll indefinitely. Pages disabled is an explicit setup blocker, not a game test failure. Check any subsequent Pages run independently; preserve actual deployment URL separately.
 2. If new navigation browser fails, inspect its report/positions first and fix the actual root without weakening old tests. On success verify motion/collision screenshots; deployed preview must identify that exact source.
 3. Continue reference-based art/asset import, authored skill choreography and audio; cathedral/Frog/queen rescue, true initial opening, inventory/equipment/progression, remaining eras and endings stay in scope. No claim the game's complete because the demo is online.
 4. Keep testing true save reload, physical input and target device performance. Live progress only here; contracts in docs/PAGES.md, AGENTS.md and CODEBASE.md. All source/checkpoints in GitHub; /mnt/data is temporary.

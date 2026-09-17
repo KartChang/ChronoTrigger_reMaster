@@ -17,3 +17,8 @@ private-reference/
 original-assets/
 __pycache__/
 *.pyc
+
+# Generated Pages staging and validated CI downloads
+/pages-site/
+/validated-playable/
+/pages-approval.json

@@ -1,4 +1,4 @@
-# ChronoTrigger reMaster — HD-2D 原版對照美術 0.5 候選
+# ChronoTrigger reMaster — HD-2D Pages／尋路 0.5.1 候選
 
 **千年祭 → 600 年山道 → 托魯斯 → 加爾迪亞森林／王城 → 露卡加入的開發試作，不是完整重製版或最終美術。**
 
@@ -44,7 +44,7 @@ C 在探索時加入／退出 P2；Esc 暫停。等 ATB 充滿再下指令；雙
 
 村落 v1、千年祭 v2、開場 v3 保留相容；進入王國路線採 v4。冒險共用存檔槽，技術村落分開。過場不能存檔；匯入檢查版本、旗標、時代、地圖、座標與能力值。更新 HTML、移動檔案或清理瀏覽器前先匯出備份；不保證不同 file:// 路徑共用存檔。
 
-尚無家中醒來／最初相遇、完整世界地圖、修道院內部／青蛙／王后救援、原作配樂、背包裝備與升級、完整尋路、三人隊伍、網路多人、原生安裝包或實體裝置認證。
+尚無家中醒來／最初相遇、完整世界地圖、修道院內部／青蛙／王后救援、原作配樂、背包裝備與升級、完整世界導航、三人隊伍、網路多人、原生安裝包或實體裝置認證。
 
 ## 開發與素材
 
@@ -67,3 +67,13 @@ Node.js 22+ 用於建置；preview 預設 http://127.0.0.1:4173。其他指令�
 `npm run assets:export` 產生 `dist/art` 的 15 張重畫／材質 PNG 圖集、297 個 frame records 與 JSON；與遊戲共用像素繪製函式，並非 ROM 素材或完成的高品質素材包。CI 另保留 `chrono-hd2d-art-review-kit`。
 
 `npm run check:quality` 產生評估報告但不阻擋開發；`npm run release:check` 會阻擋未達標發布。圖集動作驗收與全部素材缺口，見 `assets/manifest.json`、`quality/scorecard.json`、`docs/QUALITY_AND_ASSETS.md`。
+
+## GitHub Pages 開發試玩
+
+已加入自動展示流程，僅採用 main 上完整 CI 成功的試玩 artifact，並保留原 HTML 的 exact bytes。展示頁會顯示版本／SHA／CI，清楚標示未完成。這不是 90 分正式發布。
+
+首次啟用：repository **Settings → Pages → Build and deployment → Source 選 GitHub Actions**，再從 **Actions → GitHub Pages preview → Run workflow** 執行一次。之後每次遊戲 CI 成功會自動更新。尚未啟用時 workflow 只產生 staged preview，不會假裝已上線；目前實際狀態看 docs/STATUS.md。預定 project site 為 `https://kartchang.github.io/ChronoTrigger_reMaster/`，須以部署後實際 HTTP 驗證為準。
+
+本機 HTML 的 IndexedDB 不會自動轉移到網頁；先從舊版匯出 JSON，再在網站遊戲內匯入／存檔。沒有雲端存檔同步。
+
+0.5.1 加入使用實際碰撞資料的單人夥伴繞路，保留雙人控制及舊存檔。這一批不宣稱新增故事章節；整個重製仍持續開發。

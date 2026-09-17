@@ -1,0 +1,21 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {findRoute,visibleSegment,newFollowPlan,followVector} from '../.test/navigation.mjs';
+import {createState,step,IDLE,walkable,distance,serialize,deserialize,setCoop} from '../.test/core.mjs';
+const solid=(x,z)=>Math.abs(x)>2||Math.abs(z)>2;
+const simulate=(s,n)=>{for(let i=0;i<n;i++)step(s,IDLE,1/60);};
+test('clear line route remains direct',()=>assert.deepEqual(findRoute({x:0,z:0},{x:4,z:0},()=>true).points,[{x:4,z:0}]));
+test('route reaches around a wall without crossing solid pixels',()=>{const from={x:-4,z:0},to={x:4,z:0};const r=findRoute(from,to,solid);assert.equal(r.reason,'found');let p=from;for(const q of r.points){assert.ok(visibleSegment(p,q,solid));p=q;}assert.ok(distance(p,to)<=1.4);});
+test('same inputs produce identical path and node count',()=>assert.deepEqual(findRoute({x:-4,z:0},{x:4,z:0},solid),findRoute({x:-4,z:0},{x:4,z:0},solid)));
+test('unreachable route terminates without teleport destination',()=>{const r=findRoute({x:-3,z:0},{x:3,z:0},(x,z)=>Math.abs(x)>.5,1.4,1800);assert.equal(r.reason,'unreachable');assert.equal(r.points.length,0);assert.ok(r.visited<=1800);});
+test('work budget is enforced rather than an unbounded search',()=>{const r=findRoute({x:-4,z:0},{x:4,z:0},solid,1.4,1);assert.equal(r.reason,'budget');assert.equal(r.visited,1);assert.equal(r.points.length,0);});
+test('invalid coordinates and configuration rejected',()=>{for(const p of [{x:NaN,z:0},{x:Infinity,z:1},{x:100,z:1}])assert.equal(findRoute(p,{x:0,z:0},()=>true).reason,'invalid');assert.equal(findRoute({x:0,z:0},{x:3,z:0},()=>true,-1).reason,'invalid');});
+test('no wall corner cutting',()=>{const route=findRoute({x:0,z:0},{x:1,z:1},(x,z)=>!(x>.1&&x<.6&&z<.7),0,200);let p={x:0,z:0};for(const q of route.points){assert.ok(visibleSegment(p,q,(x,z)=>!(x>.1&&x<.6&&z<.7)));p=q;}assert.equal(route.reason,'found');});
+test('solo companion walks around the lab house and never moves the leader',()=>{const s=createState();s.flags.won=true;Object.assign(s.players[0],{x:-8,z:5});Object.assign(s.players[1],{x:-8,z:-1});const leader={x:-8,z:5};for(let i=0;i<600;i++){const last={...s.players[1]};step(s,IDLE,1/60);assert.ok(walkable(s.players[1].x,s.players[1].z));assert.ok(distance(last,s.players[1])<.068);}assert.ok(distance(s.players[0],s.players[1])<1.8);assert.equal(s.players[0].x,leader.x);assert.equal(s.players[0].z,leader.z);});
+test('joined P2 never follows autonomously',()=>{const s=createState();s.flags.won=true;s.joined=true;s.players[0].x=-4;const b={...s.players[1]};simulate(s,120);assert.equal(s.players[1].x,b.x);assert.equal(s.players[1].z,b.z);});
+test('joining and leaving clears stale follow plans',()=>{const s=createState();s.followPlan.points=[{x:1,z:1}];setCoop(s,true);assert.deepEqual(s.followPlan.points,[]);s.followPlan.points=[{x:2,z:2}];setCoop(s,false);assert.deepEqual(s.followPlan.points,[]);});
+test('a path on one map is never reused on another map',()=>{const p=newFollowPlan();p.chapter='lab';p.goal={x:5,z:0};p.points=[{x:0,z:-8}];p.repathAt=1000;const v=followVector(p,{x:0,z:0},{x:5,z:0},'fair',1,()=>true);assert.equal(p.chapter,'fair');assert.equal(v.x,1);assert.equal(v.z,0);});
+test('transient navigation data never enters versioned saves',()=>{const s=createState();s.followPlan.points=[{x:1,z:3}];const raw=serialize(s);assert.equal(raw.includes('followPlan'),false);assert.deepEqual(deserialize(raw).followPlan,newFollowPlan());});
+test('arrived follower idles without jitter',()=>{const p=newFollowPlan();assert.deepEqual(followVector(p,{x:0,z:0},{x:1,z:0},'lab',1,()=>true),{x:0,z:0});});
+test('inactive story companion remains inactive',()=>{const s=createState('fair');s.opening.phase='lost';s.players[0].x=-4;const b={...s.players[1]};simulate(s,120);assert.equal(s.players[1].x,b.x);assert.equal(s.players[1].z,b.z);});
+
+test('a close leader behind a wall is not treated as already reached',()=>{const r=findRoute({x:-.4,z:0},{x:.4,z:0},(x,z)=>Math.abs(x)>.1||Math.abs(z)>2,1.4);assert.equal(r.reason,'found');assert.ok(r.points.length>0);});

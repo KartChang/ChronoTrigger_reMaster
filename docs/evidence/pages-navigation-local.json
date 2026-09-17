@@ -1,0 +1,19 @@
+{
+  "parentSource": "b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c",
+  "parentCI": 35228818759,
+  "parentCIConclusion": "success",
+  "parentBrowserCheckpoints": 42,
+  "unitTests": {
+    "passed": 195,
+    "failed": 0,
+    "retained": 163,
+    "added": 32
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "pythonCompile": "passed",
+  "yamlParsing": "passed",
+  "localBrowser": "not run: installed Playwright has no matching Chromium executable",
+  "pagesStatusAtInspection": "has_pages:false; first setting required",
+  "actualStagedHTMLHash": "bcd838064d3eacfc946d5a70ebd8a132609da571d8fd6b6fa6af04f96819c7c2"
+}

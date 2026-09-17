@@ -2,7 +2,7 @@ name: Playable prototype CI
 on:
   push:
     branches: [main]
-    paths-ignore: ['docs/**', 'README.md', '.github/workflows/bootstrap-toolchain.yml']
+    paths-ignore: ['docs/**', 'README.md', '.github/workflows/bootstrap-toolchain.yml', '.github/workflows/pages.yml', 'site/**', 'scripts/pages-package.mjs', 'tests/pages-package.test.mjs']
   workflow_dispatch:
 permissions:
   contents: read
@@ -40,6 +40,8 @@ jobs:
         run: python tests/kingdom_browser.py
       - name: Test explicit targets and reference-art animation in real gameplay
         run: python tests/reference_browser.py
+      - name: Test real companion route and P2 ownership after rejoining
+        run: python tests/navigation_browser.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

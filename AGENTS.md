@@ -56,3 +56,7 @@ ROM／原聲帶／原作擷取素材／使用者附件／密鑰不提交、不�
 每次先看 exact CI／實際畫面並記錄缺口，未達 90 不稱完成。`quality/scorecard.json` 綁定受評 source 與 runtime digest；`assets/manifest.json` 記素材狀態。評分是開發驗收判斷，不是玩家評分；未知不計通過。整體 >=90、每項 >=80%、無 critical blocker、五項 gate 與必需素材皆有通過證據，才可過 `npm run release:check`。不改分母、刪缺口或提高自評硬湊 90。
 
 概念生成图不是實際截圖或原作設定資料。素材輸出先做可重用的小套件；原型 PNG／程序式圖形／測試資料可以推進，但不可標 approved。現有素材 export 不等於美術升級已完成；必須在引擎實測動畫、遮擋、比例與可讀性。具體規格看 docs/QUALITY_AND_ASSETS.md。
+
+## 8. GitHub Pages 展示授權
+
+2026-09-17 使用者明確要求 Pages 展示，允許發布目前自製素材的開發試玩，不代表正式成品或解除 90 分門檻。只部署同 repository/main 通過完整 CI 的 exact artifact，公開說明未完成範圍與本機存檔限制。不更改 repository 可見性，不上傳 ROM／原圖／原聲帶／來源封存。首次 Pages 啟用若工具缺少管理動作，清楚給出一次性的 Source=GitHub Actions 設定；不要索取權杖或以 workflow token 嘗試繞過管理权限。以實際部署輸出與 HTTP 結果確認網址，不虛構已上線。

@@ -1,49 +1,40 @@
-# Reference art 0.5 — current handoff
+# Pages + companion navigation 0.5.1 — current handoff
 
-**DEVELOPMENT CANDIDATE — NOT 90-POINT ACCEPTED.**
+**DEVELOPMENT PREVIEW — WHOLE GAME NOT COMPLETE OR 90-POINT ACCEPTED.**
 
-## Authoritative checkpoint
+## Authority entering this batch
 
-Published source **b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c**, tree **21d4a09bc39df178d164e21721cf9a41387e8997**. All 25 changed paths and all retained source matched the local git write-tree exactly. Non-force fast-forward from main 326a662ef1d37436e0eb9650deed55788e25bec1.
+Parent main HEAD 827ff432a071b370d0a82a349e1e45e98925afe8. CI10 35228818759 at source b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c completed **success**. Its five real browser journeys passed 42 checkpoints: 13 lab, 8 fair, 7 opening, 8 kingdom, 6 reference art/targeting. 163 inherited unit tests were passing.
 
-Single matching push CI **#10 / 35228818759** was **in_progress** at last query. This [skip ci] documentation checkpoint is not a new gameplay candidate. Check that exact run first; do not dispatch duplicates or mistake the previous source's passing CI for acceptance of this batch.
+Evidence artifact 10501165019 SHA256 c6572296834cb9f96a24f0369900bf825a50773b4d2df7d41b41d865cabdcaa9 downloaded; source restored from its exact tar.gz. Actually inspected reference/02-reference-fair.png and kingdom/02-forest-battle.png: still simplified art and repetitive surface texture, no final art approval. Previously missing reference/kingdom acceptance is now closed for b2bd930 only.
 
-Repository KartChang/ChronoTrigger_reMaster, main. Browser-first TypeScript/Babylon/esbuild, HD-2D, ATB and local co-op remain unchanged. Repository is public; no visibility/deployment change, original-image distribution, paid service or ROM read/extraction performed.
+Validated playable artifact 10501060260 SHA256 07c331b3773cb6c73bebcc0fdb12756cd5e61417e7a3388807d7193cc8f672cd. Exact HTML SHA256 bcd838064d3eacfc946d5a70ebd8a132609da571d8fd6b6fa6af04f96819c7c2, 5,408,589 bytes, version 0.5.0. This is the eligible initial Pages demo, not the new runtime before its CI completes.
 
-## Verified inherited authority
+## User-approved Pages showcase
 
-CI9 **35223217588**, exact source **18a99497450b31342ed3f02cd107cf23d8153670**, completed **success**. Evidence **10498366299**, SHA256 a1d7460a60ef940705ce42fc800cf01bee48e56c44d978525a6ce9bf7d801574. All four journeys passed: browser 13, fair 8, opening 7, kingdom 8, total **36 checkpoints**. The previous held-key failure is fixed and validated, not an open current defect.
+User explicitly requested Pages exhibition. Added a separate public launcher, stable play/ path, save-transfer instructions, version/CI/source disclosure and a validated-artifact-only deploy workflow. No public game deployment existed on inspection (`has_pages:false`). Existing connector does not expose a Pages-admin write action. GitHub's configure-pages documentation explicitly excludes GITHUB_TOKEN from first-time enablement; do not request/extract user credentials or keep retrying creation with unsupported permissions.
 
-Actually inspected fair/opening exploration, forest battle and Guardia hall images. These confirm operable scenes but still simplified original fidelity; no 90-point artistic acceptance. The old numeric 30/100 scorecard is a dated baseline and must not be mistaken for a re-review of new source.
+The user needs to choose Settings > Pages > Source = GitHub Actions once, then Actions > GitHub Pages preview > Run workflow. The workflow detects enablement, stages a verified package, reports the exact missing setting and skips deployment while disabled. A green prepare job is NOT a live site. On enablement it uploads/deploys and verifies public HTTP HTML bytes. Future successful main CI updates the preview automatically; failed candidates cannot replace it. No changes to repo visibility or custom domain.
 
-## Current batch
+No ROM read/extraction, copied original image bytes, soundtrack or new third-party font is included. Public demo remains nonofficial, unfinished and distinct from 90-point product release. Current content is still the opening/kingdom slice, not the complete game.
 
-User approved original-image optimization. Visually inspected SNES Leene Square, 600 AD Guardia Forest and Crono/Marle/Lucca/Gato source images. Reference URLs, cues, attribution and exclusions in assets/reference-index.json. The generated concept poster is not used as source truth. No original pixels or ROM included.
+## Gameplay change
 
-Redrew slimmer/shaded heroes with actual attack/cast/hurt/down/victory clip frames; world events trigger pose playback on a presentation-only clock. Correct pause/reset, fallen active actors versus absent companions, and read-only renderer observations. Fair paving/bell arch/bronze bell/curved striped stalls/goods/red banners and rounded Gato; darker forest soil, narrow paths, roots, rocks/ferns; closer party-follow framing. Static fair details merge by material. Existing compact collision/routes remain; not an original map reconstruction claim.
+Replaced direct-line solo following with deterministic bounded grid A* using the exact existing collision function. Routes avoid diagonal corner cutting, replan on map/goal changes, cache failed routes briefly, and never teleport. Joined P2 remains manually controlled. Absent story companions stay absent. Transient follow data is reset at join/battle/state reload and excluded from all v1-v4 save formats. No change to story, battle damage, MP/ATB or player speed. This addresses a known full-game movement foundation gap; no new cathedral chapter is claimed.
 
-P1/P2 can independently select living targets through keyboard, HUD and Gamepad shoulder mapping. P1 Q/R; P2 left/right square-bracket keys; shoulder buttons 4/5. Default nearest behavior remains; invalidated selection falls back; no ATB/MP selection cost. Damage/skill costs/ATB rate and v1-v4 save formats unchanged. No new chapter in this batch.
+Added a sixth browser journey: real key movement puts P1 and P2 on opposite sides of the lab house, P2 drops out, the follower must walk around the solid house without teleporting/moving P1, then manual P2 ownership is restored. Five inherited browser scripts remain unchanged.
 
-15 PNG review sheets/textures, 297 records, shared runtime authoring functions. Frame timing, pivot and source hashes supplied; not 297 unique original frames or an approved final art pack. Sprite contact sheet actually inspected: it shows authored poses but still simplified drawings, not a gameplay capture or proof of final fidelity. Original image use does not declare IP clearance.
+## Local validation
 
-## Local verification and candidate files
+195/195 unit tests passed: 163 preserved + 15 navigation + 17 Pages package tests. TypeScript, asset guard, build (~5.16 MiB), Python compile and workflow YAML parsing passed. Actual CI10 artifact was staged successfully with byte-identical play/index.html and deployment proof. Old five browser scripts and original test files preserved byte-for-byte.
 
-**163/163 unit tests passed**: all 133 inherited tests unchanged + 30 new targeting/pose/export/surface/route tests. TypeScript, asset guard and build pass. All 15 PNGs independently decode with Pillow; exact per-frame runtime/export pixel parity tested. New Python browser script compiles. Four inherited browser scripts are byte-for-byte unchanged; a fifth tests real target commands and attack/cast/hurt/victory poses. The new fair approach route also passes real rule-step collision testing.
+The local Playwright package has no matching Chromium executable; navigation browser launch failed before any page opened. No local browser pass, policy bypass or hardware performance claim. Existing pinned toolchain artifact 10487690665 was reused for build dependencies only, without modifying package versions/lockfile or executing install lifecycle scripts. New runtime must pass its matching CI before becoming the hosted build.
 
-Ordinary local Chromium attempted; file navigation returned ERR_BLOCKED_BY_ADMINISTRATOR. No policy workaround. No local browser acceptance claimed. New source needs its exact matching CI run; do not equate inherited success or unit checks with the new visual/browser result. Release preflight remains blocked by stale/low whole-game score, incomplete required assets/content, audio, hardware and usage clearance.
-
-Built metadata 0.5.0 with exact source b2bd930e1a552b6f20ee8cfd5c49c3b60e4ecd8c. HTML is 5,408,589 bytes. Candidate ZIP integrity and lack of ROM/font files verified:
-
-- chrono-hd2d-reference-v0.5-candidate.zip: 1,219,788 bytes, SHA256 f8b2f152005dd07fdecc0fb81cae6414fddbf3a162dd093ce8b02d84d4ded047. Contains HTML, metadata, quality status, instructions and third-party notices.
-- chrono-hd2d-reference-art-v0.5.zip: 137,557 bytes, SHA256 cc94bcf9762bbbf57d612d76c18612bf26e47ea947baaf3ae5bad1363ac33c33. Contains PNG/JSON review assets, reference index, manifest, scope notes and a clearly labelled asset contact sheet (not gameplay).
-
-These are locally built development candidates, not new CI-success releases. Rebuild from source if temporary container files disappear. Dependencies remained pinned; the existing toolchain artifact supplied node_modules only, without package/lock overwrites or install lifecycle scripts.
+Quality score remains a dated 30/100 baseline, stale after changes. No numeric increase based on tests; release gate continues to reject. Complete story, final assets, audio, hardware and full-game systems remain open.
 
 ## Next exact actions
 
-1. Check CI10 35228818759 at source b2bd930. If active, preserve checkpoint without indefinite polling. On failure inspect first terminal and preserve assertions; on success download and inspect actual revised fair/forest/kingdom and reference scene/pose captures before rating art.
-2. Compare reference-informed frame composition and motion with original images, fix visible proportion/occlusion/tiling issues. Asset approval requires runtime evidence, not only PNG export or a concept poster. Do not automatically score the new art higher because a unit or browser test passes.
-3. Finish reusable external asset import, technique choreography/portraits/audio, then cathedral/Frog/queen rescue and the true initial opening; add inventory/equipment/progression and remaining eras. Full-game gaps remain open, not hidden by the small slice's score.
-4. Validate physical desktop/gamepad/mobile performance, frame time/memory/loading. No unsupported frame-rate or hardware claim from software CI.
-
-Stable scope/reference contract: docs/REFERENCE_ART_PASS.md. Dynamic progress is only this file. Source/evidence live in GitHub; /mnt/data is temporary. Continue existing source, not a rewrite or a new planning cycle.
+1. Read the matching new CI and Pages runs after publication. Do not dispatch duplicate full CI or poll indefinitely. Pages disabled is an explicit setup blocker, not a game test failure. Preserve final SHA/run and actual URL separately.
+2. If new navigation browser fails, inspect its report/positions first and fix the actual root without weakening old tests. On success verify motion/collision screenshots; deployed preview must identify that exact source.
+3. Continue reference-based art/asset import, authored skill choreography and audio; cathedral/Frog/queen rescue, true initial opening, inventory/equipment/progression, remaining eras and endings stay in scope. No claim the game's complete because the demo is online.
+4. Keep testing true save reload, physical input and target device performance. Live progress only here; contracts in docs/PAGES.md, AGENTS.md and CODEBASE.md. All source/checkpoints in GitHub; /mnt/data is temporary.

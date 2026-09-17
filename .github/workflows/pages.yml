@@ -1,0 +1,135 @@
+name: GitHub Pages preview
+on:
+  workflow_run:
+    workflows: [Playable prototype CI]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths: ['.github/workflows/pages.yml', 'scripts/pages-package.mjs', 'tests/pages-package.test.mjs', 'site/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chrono-pages-preview
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+    outputs:
+      enabled: ${{ steps.select.outputs.enabled }}
+      source_sha: ${{ steps.select.outputs.source_sha }}
+      run_id: ${{ steps.select.outputs.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/pages-package.test.mjs
+      - name: Select a successful same-repository main CI; inspect Pages enablement
+        id: select
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const {pathToFileURL} = require('node:url');
+            const {checkRun} = await import(pathToFileURL(process.cwd()+'/scripts/pages-package.mjs'));
+            const {owner, repo} = context.repo;
+            const repository = (await github.rest.repos.get({owner,repo})).data;
+            let selected = null;
+            for (let page=1; page<=5 && !selected; page++) {
+              const response = await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'ci.yml',branch:'main',status:'success',per_page:20,page});
+              for (const r of response.data.workflow_runs) {
+                try { checkRun(r,repository.id); selected=r; break; } catch {}
+              }
+              if (response.data.workflow_runs.length<20) break;
+            }
+            if (!selected) throw new Error('No successful same-repository main CI is available. Nothing will be deployed.');
+            const arts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts,{owner,repo,run_id:selected.id,per_page:100});
+            const matches = arts.filter(a=>a.name==='chrono-hd2d-playable' && !a.expired);
+            if(matches.length!==1) throw new Error('Successful run has no unique unexpired playable artifact; do not fall back silently.');
+            const artifact=matches[0];
+            if(artifact.workflow_run?.head_sha!==selected.head_sha || artifact.workflow_run?.repository_id!==repository.id) throw new Error('Artifact provenance mismatch');
+            fs.writeFileSync('pages-approval.json',JSON.stringify({run:selected,repositoryId:repository.id,artifactId:artifact.id,artifactDigest:artifact.digest},null,2));
+            core.setOutput('run_id',String(selected.id));core.setOutput('artifact_id',String(artifact.id));core.setOutput('source_sha',selected.head_sha);
+            let enabled=false;
+            try { const site=(await github.rest.repos.getPages({owner,repo})).data; enabled=site.build_type==='workflow'; }
+            catch(e) { if(e.status!==404) throw e; }
+            core.setOutput('enabled',String(enabled));
+            await core.summary.addHeading('Development preview — not a 90-point product release')
+              .addRaw(`Selected CI #${selected.run_number}, source ${selected.head_sha}, artifact ${artifact.id}.\n`).write();
+            if(!enabled) {
+              const url=`https://github.com/${owner}/${repo}/settings/pages`;
+              core.notice('PAGES_NOT_ENABLED: Settings > Pages > Build and deployment > Source = GitHub Actions. Then run this workflow once.');
+              await core.summary.addHeading('BLOCKED: first Pages enablement',2)
+                .addRaw(`Open ${url} and select GitHub Actions as Source, then Run workflow. No website has been published. The standard GITHUB_TOKEN cannot enable a new Pages site; no admin token is requested or exposed.\n`).write();
+            }
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.select.outputs.artifact_id }}
+          path: validated-playable
+          merge-multiple: true
+          run-id: ${{ steps.select.outputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Package only the verified playable and the public launcher
+        run: node scripts/pages-package.mjs validated-playable pages-approval.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chrono-pages-staged-preview
+          path: pages-site/
+          include-hidden-files: true
+          retention-days: 14
+      - uses: actions/upload-pages-artifact@v4
+        if: steps.select.outputs.enabled == 'true'
+        with:
+          path: pages-site
+  deploy:
+    needs: prepare
+    if: needs.prepare.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the exact staged preview
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify public HTTP response and exact deployed game bytes
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          SOURCE_SHA: ${{ needs.prepare.outputs.source_sha }}
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,time,urllib.request
+          url=os.environ['PAGE_URL'].rstrip('/')+'/'
+          last=None
+          for attempt in range(6):
+            try:
+              def get(path):
+                request=urllib.request.Request(url+path,headers={'Cache-Control':'no-cache'})
+                with urllib.request.urlopen(request,timeout=20) as r: return r.read()
+              meta=json.loads(get('deployment.json'))
+              assert meta['sourceSha']==os.environ['SOURCE_SHA'], 'Pages still serves another source'
+              assert hashlib.sha256(get('play/index.html')).hexdigest()==meta['htmlSha256'], 'Deployed game hash mismatch'
+              assert b'./play/' in get('index.html'), 'Launcher link missing'
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+                f.write(f'\nPublic preview verified: {url}\n\nSource: {meta["sourceSha"]}\n')
+              break
+            except Exception as e:
+              last=e
+              if attempt==5: raise
+              time.sleep(10)
+          PY

@@ -1,3 +1,5 @@
+import {newFollowPlan,followVector} from './navigation';
+import type {FollowPlan} from './navigation';
 import {newKingdom,kingdomMap,kingdomWalkable,nearestKingdom} from './kingdom-data';
 import type {Kingdom,KingdomMap} from './kingdom-data';
 import {newOpening,cinematic,marlePresent,canyonWalkable,CANYON_EXIT} from './story-data';
@@ -14,7 +16,7 @@ export type Enemy = Vec & { hp: number; atb: number };
 export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
-  mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
+  followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
   ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom;
 };
@@ -33,7 +35,7 @@ export const OBSTACLES = [
 ];
 export function createState(chapter: Chapter = 'lab'): State {
   const actor = (x: number): Actor => ({ x, z: -5, hp: MAX_HP, mp: MAX_MP, atb: 0, facing: 0, walking: false });
-  return { mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
+  return { followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: [actor(-1), actor(1)],
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
     targets: [null,null], combo: [false, false], log: [chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom() };
 }
@@ -64,7 +66,7 @@ function move(s: State, slot: Slot, vector: Vec, dt: number): void {
 }
 export function setCoop(s: State, joined: boolean): boolean {
   if (s.mode !== 'explore'||cutsceneActive(s)) return false;
-  s.joined=joined;
+  s.joined=joined;s.followPlan=newFollowPlan();
   s.combo=[false,false];
   log(s,!activeSlot(s,1)?'瑪兒暫時離隊；雙人設定保留，但此段由克羅諾行動。':joined?'P2 已加入：各自控制角色，共享鏡頭。':'P2 已退出：夥伴恢復跟隨與自動攻擊。');
   return true;
@@ -74,7 +76,7 @@ export function beginBattle(s: State): boolean {
   if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
   if(s.chapter==='canyon'&&(s.opening.phase!=='canyon'||s.opening.canyonWon))return false;
-  s.mode='battle'; s.targets=[null,null]; s.combo=[false,false]; s.enemyTurn=0;
+  s.followPlan=newFollowPlan();s.mode='battle'; s.targets=[null,null]; s.combo=[false,false]; s.enemyTurn=0;
   s.players.forEach((p,i)=>{p.x=-1.5+i*3;p.z=1;p.atb=0;p.walking=false;p.facing=2;});
   s.enemies=s.chapter==='forest'?[{x:-1.8,z:2.8,hp:48,atb:0},{x:1.8,z:2.8,hp:48,atb:0}]:s.chapter==='canyon'?[{x:-1.8,z:2.4,hp:48,atb:0},{x:1.8,z:3,hp:48,atb:0},{x:.2,z:1.5,hp:48,atb:0}]:s.chapter==='fair'?[{x:-7,z:4.8,hp:120,atb:0}]:[{x:-2,z:4.5,hp:90,atb:0},{x:2,z:4.8,hp:90,atb:0}];
   if(s.chapter==='fair')s.players.forEach((p,i)=>{p.x=-8.5+i*3;p.z=2;});
@@ -135,8 +137,8 @@ export function step(s: State, input: Input, delta: number): void {
     move(s,0,input[0],dt);
     if (s.joined && activeSlot(s,1)) move(s,1,input[1],dt);
     else if(activeSlot(s,1)) {
-      const a=s.players[0],b=s.players[1],dist=distance(a,b);
-      move(s,1,dist>1.7?{x:(a.x-b.x)/dist,z:(a.z-b.z)/dist}:{x:0,z:0},dt);
+      const a=s.players[0],b=s.players[1];
+      move(s,1,followVector(s.followPlan,b,a,s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter)),dt);
     }
     if(s.chapter==='forest'&&!s.kingdom.forestWon&&s.players[0].z>.2)beginBattle(s);
     if(s.chapter==='canyon'&&!s.opening.canyonWon&&s.players[0].z<5.5)beginBattle(s);
@@ -164,7 +166,7 @@ export function step(s: State, input: Input, delta: number): void {
 }
 export function leaveBattle(s: State): void {
   if((s.chapter==='canyon'||kingdomMap(s.chapter))&&s.mode!=='victory'&&s.mode!=='defeat')return;
-  s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];
+  s.followPlan=newFollowPlan();s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];
   if(s.chapter==='forest'){s.players.forEach((p,i)=>Object.assign(p,{x:-1+i*2,z:s.kingdom.forestWon?3.5:-6,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;}
   if(s.chapter==='canyon'){
     s.players.forEach(p=>Object.assign(p,{x:0,z:s.opening.canyonWon?4.5:8,hp:MAX_HP,mp:MAX_MP,atb:0,walking:false}));return;

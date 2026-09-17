@@ -1,0 +1,27 @@
+name: Bootstrap prototype toolchain
+on:
+  push:
+    paths: ['.github/workflows/bootstrap-toolchain.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  toolchain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Obtain pinned build dependencies
+        run: |
+          mkdir -p /tmp/chrono-toolchain
+          cd /tmp/chrono-toolchain
+          npm init -y
+          npm install --save-exact --no-audit --no-fund @babylonjs/core@8.0.0 typescript@5.8.3 esbuild@0.25.0
+          tar -czf /tmp/chrono-toolchain.tgz package.json package-lock.json node_modules
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chrono-prototype-toolchain
+          path: /tmp/chrono-toolchain.tgz
+          retention-days: 3

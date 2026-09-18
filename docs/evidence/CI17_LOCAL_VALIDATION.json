@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "baseMain": "8ae191f46aa4f2fd1b4408f90406dea566d8e5a5",
+  "baseGameplay": "490218402b493cc69296c5de4afa278be7471223",
+  "runtimeChanged": false,
+  "changes": [
+    "shared keyboard chest aisle for rescue and both witness paths",
+    "after-key-release coordinates, focused element and prompt diagnostics",
+    "11 added collision/latency/one-time stock/v5/topology unit regressions"
+  ],
+  "command": "npm run check",
+  "tests": 515,
+  "passed": 515,
+  "failed": 0,
+  "skipped": 0,
+  "typecheck": "passed",
+  "build": "passed",
+  "assets": "passed",
+  "pythonCompile": "passed",
+  "toolVersions": {
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "esbuild": "0.25.0",
+    "babylon": "8.0.0"
+  },
+  "toolchain": {
+    "run": 35199851415,
+    "artifactId": 10487690665,
+    "file": "chrono-prototype-toolchain.zip",
+    "bytes": 18868330,
+    "sha256": "18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90",
+    "scope": "only pinned node_modules reused; old source/package files NOT restored"
+  },
+  "browserAttempt": {
+    "status": "blocked-before-game-load",
+    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:4181/?test=1",
+    "executable": "/usr/bin/chromium",
+    "policyBypassed": false,
+    "genuineInputSave": "CI16 kingdom/kingdom-save-v4.json",
+    "genuineInputSaveSha256": "29d72ef83d7001a2970e42c261438da3116f41ccebc86b145d83a50bdeb4372c",
+    "notBrowserPass": true
+  },
+  "firstDevelopmentUnitRun": {
+    "passed": 509,
+    "failed": 6,
+    "cause": "new tests expected short title 回復藥 instead of actual 找到回復藥; corrected test expected full existing game title",
+    "notCI": true
+  },
+  "localCheckLog": {
+    "file": "ci17-local-check.log",
+    "bytes": 104622,
+    "sha256": "f7bf15ce09528efc4293c9bfde37e67ecd1409b930a292000083ae0daaf8a932"
+  },
+  "localBrowserLog": {
+    "file": "ci17-local-rescue.log",
+    "bytes": 1888,
+    "sha256": "ba63cc621cac2e2eadc6e4f3c9354f9a63862d0ec64e024aaffa593e631935f7"
+  },
+  "next": "Commit coherent route batch; one next full existing CI, all three jobs required; no duplicate dispatch or long polling."
+}

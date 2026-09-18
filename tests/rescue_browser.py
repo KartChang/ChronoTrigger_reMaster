@@ -3,7 +3,8 @@ Only keyboard, visible controls and public save/import UI mutate the game. No st
 constructed saves, teleports or accelerated clocks. Software GPU is not hardware certification.
 """
 from pathlib import Path
-import hashlib, json, math, subprocess, sys, time
+import hashlib, json, math, os, subprocess, sys, time
+from rescue_route import approach_supply_chest, input_context
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -12,6 +13,7 @@ OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'test-results'/'kingdom'/'kingdom-save-v4.json'
 checks, errors, waits, requests=[], [], [], []
 feedback_geometry=[]
+chest_approaches=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4181','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):checks.append(name);print('PASS',name,flush=True)
@@ -90,7 +92,7 @@ try:
     original=SOURCE.read_bytes();source=json.loads(original)
     assert source['version']==4 and source['chapter']=='castle' and source['kingdom']['phase']=='rescue'
     with sync_playwright() as p:
-        browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
+        browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
         page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
@@ -129,8 +131,10 @@ try:
             page.screenshot(path=str(OUT/'04-organ.png'))
             move(page,'x',4);move(page,'z',8.6);talk(page,'密道')
             assert snap(page)['chapter']=='passage'
-            move(page,'z',-6.15);move(page,'x',-7);talk(page,'回復藥')
-            assert snap(page)['rescue']['tonics']==3
+            approach_supply_chest(page,move,snap,chest_approaches)
+            page.screenshot(path=str(OUT/'05a-supply-chest-approach.png'))
+            talk(page,'回復藥')
+            assert snap(page)['rescue']['tonics']==3 and snap(page)['rescue']['chestOpened']
             talk(page,'木箱');assert snap(page)['rescue']['tonics']==3
             save_reload(page,'allied','passage','rescue-allied-v5.json')
             wait_view(page,'v.guest.visible')
@@ -213,12 +217,14 @@ try:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
                 report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['fps']=page.locator('#fps').inner_text()
-                report['view']=page.evaluate('window.__CHRONO_TEST__.view()')
+                report['view']=page.evaluate('window.__CHRONO_TEST__.view()');report['inputContext']=input_context(page);report['focused']=report['inputContext']['focused']
                 page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as e:report['observationError']=str(e)
             raise
         finally:
-            if 'report' in locals():(OUT/'rescue-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+            if 'report' in locals():
+                report.update(chestApproaches=chest_approaches,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),browserVersion=browser.version,sourceSaveSha256=hashlib.sha256(original).hexdigest())
+                (OUT/'rescue-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:
     server.terminate()

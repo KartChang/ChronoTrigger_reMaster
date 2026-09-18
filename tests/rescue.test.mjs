@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {visibleSegment,findRoute} from '../.test/navigation.mjs';
+const chestRoute=JSON.parse(readFileSync(new URL('./rescue-route.json',import.meta.url),'utf8'));
 import * as c from '../.test/core.mjs';
 import {RESCUE_POINTS,RESCUE_SOLIDS,rescueWalkable,guestIdentity,nearestRescue} from '../.test/rescue-data.mjs';
 const tick=(s,n,input=c.IDLE)=>{for(let i=0;i<n;i++)c.step(s,input,1/60);};
@@ -59,7 +62,7 @@ test('full paired cathedral rescue and return to 1000 AD uses walk, battle, dial
  walk(s,'z',4.4);walk(s,'x',.5);c.interactRescue(s,0);assert.equal(c.guestKind(s),'frog');
  walk(s,'z',5.8);walk(s,'x',-6.8);c.interactRescue(s,0);assert.equal(s.rescue.organOpen,true);
  walk(s,'x',4);walk(s,'z',8.6);c.interactRescue(s,0);assert.equal(s.chapter,'passage');s=roundTrip(s);
- walk(s,'z',-6.15);walk(s,'x',-7);c.interactRescue(s,0);assert.equal(s.rescue.tonics,3);
+ for(const waypoint of chestRoute.waypoints)walk(s,waypoint.axis,waypoint.target);c.interactRescue(s,0);assert.equal(s.rescue.tonics,3);
  walk(s,'x',0);walk(s,'z',.5);battle(s);c.leaveBattle(s);walk(s,'x',0);walk(s,'z',8.3);c.interactRescue(s,0);assert.equal(s.chapter,'sanctum');
  walk(s,'z',3.8);c.interactRescue(s,0);battle(s);c.leaveBattle(s);assert.equal(s.rescue.yakraWon,true);
  walk(s,'z',5.8);walk(s,'x',7.8);c.interactRescue(s,0);assert.equal(s.rescue.chancellorFreed,true);
@@ -69,4 +72,52 @@ test('full paired cathedral rescue and return to 1000 AD uses walk, battle, dial
  walk(s,'z',-6.8);c.interactKingdom(s,0);walk(s,'z',4);walk(s,'x',0);walk(s,'z',-6.8);c.interactKingdom(s,0);assert.equal(s.chapter,'forest');
  walk(s,'z',-6.8);c.interactKingdom(s,0);assert.equal(s.chapter,'truce');walk(s,'x',0);walk(s,'z',7.6);c.interactKingdom(s,0);assert.equal(s.chapter,'canyon');
  walk(s,'z',8);c.interactOpening(s,0);assert.equal(s.rescue.stage,'returned');assert.equal(s.chapter,'fair');assert.equal(s.rescue.chancellorFreed,true);assert.equal(c.guestKind(s),'marle');roundTrip(s);
+});
+
+
+// Synthetic unit fixtures reproduce input latency without certifying a browser.
+test('CI16 south chest edge stays solid; extending the blocked westward hold cannot cross it',()=>{
+ const s=passage();walk(s,'z',-6.15);
+ tick(s,4,[{x:0,z:1},{x:0,z:1}]); // release arrives four fixed ticks after observation
+ assert.ok(s.players[0].z>-5.95);
+ tick(s,300,[{x:-1,z:0},{x:-1,z:0}]);
+ assert.ok(s.players[0].x>-6 && s.players[0].x<-5.5);
+ assert.equal(nearestRescue(s.players[0].x,s.players[0].z,'passage',s.rescue)?.id,'chest');
+ const stopped=s.players.map(p=>({x:p.x,z:p.z}));
+ tick(s,300,[{x:-1,z:0},{x:-1,z:0}]);
+ assert.deepEqual(s.players.map(p=>({x:p.x,z:p.z})),stopped);
+ assert.equal(s.rescue.chestOpened,false);assert.equal(s.rescue.tonics,0);
+});
+
+test('shared chest approach follows a visible collision-safe segment, not the chest interior',()=>{
+ const s=passage();let from={x:s.players[0].x,z:s.players[0].z};
+ for(const w of chestRoute.waypoints){const to={...from,[w.axis]:w.target};
+  assert.ok(visibleSegment(from,to,(x,z)=>rescueWalkable(x,z,'passage')));from=to;}
+ assert.equal(nearestRescue(from.x,from.z,'passage',s.rescue)?.id,chestRoute.interaction.id);
+ assert.equal(rescueWalkable(-7,-5,'passage'),false);
+});
+
+for(const paired of [false,true])for(const releaseTicks of [0,3,8])
+test(`shared chest approach survives ${releaseTicks} delayed release ticks; ${paired?'paired':'solo follower'}; keeps one-time v5 stock`,()=>{
+ let s=passage();s.joined=paired;
+ for(const w of chestRoute.waypoints){
+  const direction=Math.sign(w.target-s.players[0][w.axis]);walk(s,w.axis,w.target,paired);
+  if(direction){const input=[{x:0,z:0},{x:0,z:0}];input[0][w.axis]=direction;if(paired)input[1][w.axis]=direction;tick(s,releaseTicks,input);}
+  assert.ok(s.players.every(p=>c.walkable(p.x,p.z,s.chapter)));
+ }
+ assert.equal(c.interactRescue(s,0).title,'找到回復藥');assert.equal(s.rescue.tonics,3);assert.equal(s.rescue.chestOpened,true);
+ c.interactRescue(s,0);assert.equal(s.rescue.tonics,3);s=roundTrip(s);
+ c.interactRescue(s,0);assert.equal(s.rescue.tonics,3);assert.equal(s.players.length,2);
+ walk(s,'x',0,paired);assert.equal(s.mode,'explore');assert.equal(s.rescue.guardsWon,false);
+});
+
+for(const map of ['cathedral','passage','sanctum'])
+test(`${map} interactions have collision-checked routes from the south entrance (not only walkable markers)`,()=>{
+ for(const p of RESCUE_POINTS[map]){
+  const walkable=(x,z)=>rescueWalkable(x,z,map),start={x:0,z:-6.8};
+  const route=findRoute(start,p,walkable,.5);
+  assert.ok(['found','arrived'].includes(route.reason),`${map}/${p.id}: ${route.reason}`);
+  let from=start;for(const to of route.points){assert.ok(visibleSegment(from,to,walkable));from=to;}
+  assert.ok(Math.hypot(from.x-p.x,from.z-p.z)<chestRoute.interaction.radius,`${map}/${p.id}`);
+ }
 });

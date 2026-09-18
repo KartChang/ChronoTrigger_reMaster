@@ -5,12 +5,14 @@ All reloads consume only JSON this browser actually exported through the game UI
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
+from rescue_route import approach_supply_chest, input_context
 ROOT=Path(__file__).resolve().parents[1]
 ROUTE=os.environ.get('WITNESS_ROUTE','good')
 assert ROUTE in ('good','bad')
 BAD=ROUTE=='bad'
 OUT=ROOT/'test-results'/('witness-'+ROUTE);OUT.mkdir(parents=True,exist_ok=True)
 checks,errors,waits,saves,requests=[],[],[],[],[]
+chest_approaches=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4184','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(p):return p.evaluate('window.__CHRONO_TEST__.snapshot()')
 def wait(p,expression,budget=300,modes=('explore',)):
@@ -123,7 +125,7 @@ def rescue_return(p):
     wait(p,'s.kingdom.phase==="missing"',220);move(p,'z',-6.8);talk(p,'王城');move(p,'z',-3.2);move(p,'x',2.5);talk(p,'露卡加入')
     move(p,'x',0);move(p,'z',-6.8);talk(p,'森林');move(p,'z',.5);move(p,'x',-9);talk(p,'修道院');move(p,'z',1);talk(p,'紋章');fight(p)
     move(p,'z',4.4);move(p,'x',.5);talk(p,'青蛙加入');move(p,'z',5.8);move(p,'x',-6.8);talk(p,'管風琴');move(p,'x',4);move(p,'z',8.6);talk(p,'密道')
-    move(p,'z',-6.15);move(p,'x',-7);talk(p,'回復藥');move(p,'x',0);move(p,'z',.5,True);fight(p);move(p,'x',0);move(p,'z',8.3);talk(p,'深處');move(p,'z',3.8);talk(p,'大臣的真面目');fight(p)
+    approach_supply_chest(p,move,snap,chest_approaches);talk(p,'回復藥');assert snap(p)['rescue']['chestOpened'] and snap(p)['rescue']['tonics']==3;move(p,'x',0);move(p,'z',.5,True);fight(p);move(p,'x',0);move(p,'z',8.3);talk(p,'深處');move(p,'z',3.8);talk(p,'大臣的真面目');fight(p)
     move(p,'z',5.8);move(p,'x',7.8);talk(p,'真正的大臣');move(p,'x',-2.5);move(p,'z',6.8);talk(p,'莉妮王后');move(p,'z',5.5);move(p,'x',0);move(p,'z',-6.9);talk(p,'王城')
     move(p,'z',4);move(p,'x',8);move(p,'z',6.2);talk(p,'王后房間');move(p,'z',.9);talk(p,'瑪兒回來');move(p,'z',-6.8);talk(p,'王城');move(p,'z',4);move(p,'x',0);move(p,'z',-6.8);talk(p,'森林')
     move(p,'z',-6.8);talk(p,'托魯斯');move(p,'x',0);move(p,'z',7.6);talk(p,'山道');move(p,'z',8);talk(p,'回到 1000 年')
@@ -170,7 +172,7 @@ def hearing(p):
 
 try:
  with sync_playwright() as pw:
-    browser=pw.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
+    browser=pw.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
     p=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True)
     p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text) if m.type=='error' else None);p.on('request',lambda r:requests.append(r.url))
     try:
@@ -180,11 +182,13 @@ try:
         report={'status':'passed','route':ROUTE,'sourceSha':os.environ.get('GITHUB_SHA'),'htmlSha256':hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),'passed':checks,'errors':errors,'waits':waits,'saves':saves,'limitations':['Project-specific deterministic jury policy; original hidden cat RNG/flag bug is not reproduced or ROM-verified.','Old compressed maps, authored balance and limited NPC animation remain; not final artwork, full-game or physical-device >=90 approval.']}
     except Exception as exc:
         report={'status':'failed','route':ROUTE,'failure':str(exc),'passed':checks,'errors':errors,'waits':waits,'saves':saves}
-        try:report['lastObserved']=snap(p);report['view']=p.evaluate('window.__CHRONO_TEST__.view()');p.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+        try:report['lastObserved']=snap(p);report['view']=p.evaluate('window.__CHRONO_TEST__.view()');report['inputContext']=input_context(p);report['focused']=report['inputContext']['focused'];p.screenshot(path=str(OUT/'failure.png'),timeout=15000)
         except Exception as observation:report['observationError']=str(observation)
         raise
     finally:
-        if 'report' in locals():(OUT/'witness-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+        if 'report' in locals():
+            report.update(chestApproaches=chest_approaches,browserVersion=browser.version)
+            (OUT/'witness-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
         browser.close()
 finally:
  server.terminate()

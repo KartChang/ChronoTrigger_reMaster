@@ -1,0 +1,9 @@
+{
+  "chapter": "passage",
+  "interaction": {"id": "chest", "label": "木箱", "x": -7, "z": -6.1, "radius": 1.8},
+  "waypoints": [
+    {"axis": "z", "target": -6.8},
+    {"axis": "x", "target": -7}
+  ],
+  "note": "Retain the south entrance aisle before turning west. The old z=-6.15 row had only 0.20 units of clearance from the inflated chest collider. Real input release is not synchronous with a snapshot. This is a keyboard route, not a state fixture."
+}

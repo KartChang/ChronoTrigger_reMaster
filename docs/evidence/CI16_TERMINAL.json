@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "sourceSha": "490218402b493cc69296c5de4afa278be7471223",
+  "sourceTree": "0ac1fc9b0d168c62e31ddefb4902e008bcd58f69",
+  "run": 35328892846,
+  "attempt": 1,
+  "conclusion": "failure",
+  "jobs": [
+    {"id":105548368148,"name":"validate","conclusion":"failure","firstFailedStep":18},
+    {"id":105548368471,"name":"witness-bad","conclusion":"success"},
+    {"id":105548368477,"name":"witness-good","conclusion":"success"}
+  ],
+  "firstRoot": {
+    "name":"rescue-passage-chest-keyboard-route",
+    "file":"tests/rescue_browser.py",
+    "oldLine":132,
+    "oldSequence":"move(page,'z',-6.15);move(page,'x',-7);talk(page,'回復藥')",
+    "failedPredicate":"s.mode===\"battle\" || s.players[0].x<=-7",
+    "observedSummary":{"chapter":"passage","mode":"explore","joined":true,"p1":{"x":-5.6,"z":-5.800000000000003},"p2":{"x":-5.633333333333333,"z":-5.800000000000003},"stage":"allied","organOpen":true,"chestOpened":false,"tonics":0,"screenshotPrompt":"E・木箱"},
+    "evidence":"chrono-hd2d-browser-evidence/rescue/rescue-report.json and rescue/failure.png; complete lastObserved also preserved in the Drive bundle's working/docs/evidence/CI16_TERMINAL.json",
+    "diagnosis":"Old approach enters the inflated chest collision row during real key-release latency. Chest stays solid; a longer westward hold cannot reach x=-7. Actual E chest prompt is already visible. Not a manufactured state or a broken trial verdict.",
+    "collider":{"x":-7,"z":-5,"w":2.2,"d":1.4,"margin":0.25,"southEdge":-5.95},
+    "fix":"shared keyboard aisle z=-6.8 then x=-7; assert distance and visible chest prompt; retain original stock/save/battle assertions"
+  },
+  "artifacts":[
+    {"name":"chrono-hd2d-browser-evidence","id":10540982279,"bytes":11103773,"sha256":"6246ed990e558992f341a3ddc9c224976eacb4fb7e03e99fe2742c24a307d842","zipCrc":"passed","members":80},
+    {"name":"chrono-hd2d-art-review-kit","id":10540658044,"bytes":314229,"sha256":"fffe4e7dd8c76f612134fbceea9378240c89cd696de449cddb9527ebcf544878","zipCrc":"passed","members":118},
+    {"name":"chrono-witness-good-evidence","id":10540991544,"bytes":1418928,"sha256":"77a939d4cc9824dc9f31f918bb2683a48c567d3dbd2de8e48c12683dfd1104e2","zipCrc":"passed","members":19},
+    {"name":"chrono-witness-bad-evidence","id":10540413671,"bytes":1458676,"sha256":"a41def96b2e5089eb7939dd854c501108e15835501b183c2a40c8a24658879ed","zipCrc":"passed","members":20}
+  ],
+  "missingPlayable":{"name":"chrono-hd2d-playable","reason":"validate failed before success-only upload; four real artifacts exist, not five","fabricated":false},
+  "keyboard":{"status":"passed","checkedActualReport":true,"checks":6,"observations":5,"allObservedFocus":"world","coverage":["title/home solo arrows and WASD","idle/NPC change and pause freeze","real Gato battle, ready stance, victory Enter continuation","same-journey export/import and canvas focus recovery","P1/P2 key ownership","held arrows isolated across C ownership change"]},
+  "trialBrowserStep":"skipped; not newly accepted by CI16",
+  "allThreePassed":false,
+  "newPagesAccepted":false,
+  "visualReview":"CI16_VISUAL_REVIEW.md",
+  "drive":{"folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE","file":"Chrono-CI16-terminal-CI17-route-batch.zip","bytes":35691788,"sha256":"72f6ae721f07e5775939b89c4a6e4b74d8574116d89d59a483f3c33a48b27d15","manifestRecords":20,"zipCrc":"passed","rawReadbackEqual":true,"allMemberHashesEqual":true,"correctParent":true,"contents":"four untouched CI16 artifacts, pinned toolchain, five changed test files, full terminal/visual/local-validation receipts, real logs, review contact sheet and honestly labeled local build; not an accepted playable artifact"},
+  "notAccepted":["whole run","new playable deployment","physical device","full art","90-point whole game"]
+}

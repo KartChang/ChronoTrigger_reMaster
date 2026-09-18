@@ -7,15 +7,86 @@
   "sourceTree": "0ac1fc9b0d168c62e31ddefb4902e008bcd58f69",
   "parent": "1d1ab451290597813dacad8df59f2dba22a6f640",
   "sourceRefReadback": true,
-  "ci": {"run":35328892846,"number":16,"event":"push","attempt":1,"lastObservedStatus":"in_progress","validateJob":105548368148,"badJob":105548368471,"goodJob":105548368477,"validateNpmCheck":"success","bothWitnessBuilds":"success","browserResult":"pending","allThreeRequired":true},
-  "automaticPagesPushRun": {"id":35328892934,"number":9,"notGameplayCI":true,"selectedGameplayNotYetVerified":true},
-  "localValidation": {"tests":504,"passed":504,"failed":0,"skipped":0,"typecheck":"passed","build":"passed","assets":"passed","pythonCompile":"passed","evidence":"INPUT_ACTORS_LOCAL_504.json"},
-  "drive": {"folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM","bytes":1874700,"sha256":"8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b","manifestMembers":231,"sourceFiles":106,"rawReadbackEqual":true,"allMemberHashesEqual":true,"correctParent":true,"scope":"complete runtime/test/build/site/asset/config snapshot plus local playable/art/log; not every repository document; not accepted CI artifact"},
-  "lastAccepted": {"source":"2a689fe5abc76d865bc15bc948a43f9738bd6650","ci":35315967536,"pages":35317920193,"version":"0.8.1","receipt":"CI15_ACCEPTANCE.md"},
+  "continuationObservation": {
+    "kind": "single GitHub connector run-and-jobs read after immediate handoff",
+    "mainHeadReadback": "5a10bcfa3b5de3f6c532327d130bb52a0bf86fe5",
+    "runUrl": "https://api.github.com/repos/KartChang/ChronoTrigger_reMaster/actions/runs/35328892846",
+    "jobsUrl": "https://api.github.com/repos/KartChang/ChronoTrigger_reMaster/actions/runs/35328892846/jobs?per_page=10",
+    "runReadCount": 1,
+    "jobsReadCount": 1,
+    "sourceMatchesRunAndAllJobs": true,
+    "terminalResultReceived": false,
+    "sourceFrozen": true,
+    "gameplayChanged": false,
+    "newWorkflowDispatched": false,
+    "workflowCancelledOrRerun": false,
+    "longPollingPerformed": false,
+    "note": "Snapshot, not a live status. Step timestamps below come from GitHub. No later terminal result is implied by publishing this document."
+  },
+  "ci": {
+    "run": 35328892846,
+    "number": 16,
+    "event": "push",
+    "attempt": 1,
+    "lastObservedStatus": "in_progress",
+    "conclusion": null,
+    "validateJob": 105548368148,
+    "badJob": 105548368471,
+    "goodJob": 105548368477,
+    "validateNpmCheck": "success",
+    "bothWitnessBuilds": "success",
+    "browserResult": "partial steps successful; complete run pending",
+    "allThreeRequired": true,
+    "jobs": [
+      {
+        "id": 105548368148,
+        "name": "validate",
+        "status": "in_progress",
+        "conclusion": null,
+        "dependenciesAndChromium": "success",
+        "completedBrowserSteps": [
+          {"number": 10, "name": "Test real keyboard-only navigation, recovery and live actor presentation", "conclusion": "success", "startedAt": "2026-09-18T09:19:43Z", "completedAt": "2026-09-18T09:21:30Z"},
+          {"number": 11, "name": "Test fresh home, overworld, first meeting and v6 saves", "conclusion": "success", "completedAt": "2026-09-18T09:26:06Z"},
+          {"number": 12, "name": "Test original file and HTTP browser journeys", "conclusion": "success", "completedAt": "2026-09-18T09:27:44Z"},
+          {"number": 13, "name": "Test fair exploration, co-op battle and versioned saves", "conclusion": "success", "completedAt": "2026-09-18T09:29:14Z"}
+        ],
+        "activeStep": {"number": 14, "name": "Test pendant story, lone canyon battle and v3 save reload", "status": "in_progress", "startedAt": "2026-09-18T09:29:14Z"},
+        "pendingBrowserSteps": [15, 16, 17, 18, 19],
+        "artifactUploadSteps": "pending"
+      },
+      {
+        "id": 105548368471,
+        "name": "Fresh story and hearing (bad)",
+        "status": "in_progress",
+        "conclusion": null,
+        "buildDependenciesAndChromium": "success",
+        "activeStep": {"number": 9, "name": "Walk a fresh game through recorded fair conduct, rescue, trial and cell", "status": "in_progress", "startedAt": "2026-09-18T09:19:46Z"},
+        "artifactUploadSteps": "pending"
+      },
+      {
+        "id": 105548368477,
+        "name": "Fresh story and hearing (good)",
+        "status": "in_progress",
+        "conclusion": null,
+        "buildDependenciesAndChromium": "success",
+        "activeStep": {"number": 9, "name": "Walk a fresh game through recorded fair conduct, rescue, trial and cell", "status": "in_progress", "startedAt": "2026-09-18T09:19:44Z"},
+        "artifactUploadSteps": "pending"
+      }
+    ],
+    "failedStepObserved": false,
+    "artifactsDownloadedThisContinuation": false,
+    "keyboardReportAndScreenshotsInspected": false,
+    "visualAcceptance": "pending; a successful workflow step is not visual approval"
+  },
+  "automaticPagesPushRun": {"id":35328892934,"number":9,"notGameplayCI":true,"selectedGameplayNotYetVerified":true,"checkedThisContinuation":false},
+  "localValidation": {"tests":504,"passed":504,"failed":0,"skipped":0,"typecheck":"passed","build":"passed","assets":"passed","pythonCompile":"passed","evidence":"INPUT_ACTORS_LOCAL_504.json","rerunThisContinuation":false},
+  "drive": {"folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM","bytes":1874700,"sha256":"8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b","manifestMembers":231,"sourceFiles":106,"rawReadbackEqual":true,"allMemberHashesEqual":true,"correctParent":true,"scope":"complete runtime/test/build/site/asset/config snapshot plus local playable/art/log; not every repository document; not accepted CI artifact","verificationScope":"retained prior delivery verification; no duplicate download or upload this continuation"},
+  "lastAccepted": {"source":"2a689fe5abc76d865bc15bc948a43f9738bd6650","ci":35315967536,"pages":35317920193,"version":"0.8.1","receipt":"CI15_ACCEPTANCE.md","notLiveSiteRevalidation":true},
   "oldRecoverySuperseded": {"stagingTree":"9e4feb71119d5f6bcb61398408af1fa92d56df53","workingDriveId":"1_Tc_Syw6pxGSZDvEGUwObeHvos8TeKnF","doNotReapply":true},
   "newGameplayOnline": false,
+  "newGameplayOnlineMeaning": "0.8.2 deployment not verified; not an assertion about the current live bytes",
   "browserOrPhysicalDeviceApproval": false,
   "quality90Accepted": false,
   "wholeGameAccepted": false,
-  "next": "Read STATUS and IMMEDIATE_CONTINUATION; receive CI16 once. Do not rebuild or recover old staging. Pending means preserve/report; failure follows actual first root; complete success retains five artifacts and verifies actual scenes and matching Pages."
+  "next": "Wait for the user to report CI16 completion, then receive this same run once. Source remains frozen. Failure follows the actual first root; complete three-job success retains the five same-run artifacts, inspects reports and actual scenes, then verifies the matching Pages deployment. Only after that closure resume remaining T03/T04 and existing TODO. Do not recover old staging or dispatch another run."
 }

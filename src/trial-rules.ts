@@ -1,3 +1,4 @@
+import {equipmentBonuses} from './equipment';
 import {newHearing,witnessEvidence,jailGift,hearingChoice,hearingDialog,restoreHearing} from './trial-hearing';
 import type {Actor,Enemy,Slot,State,Vec} from './core';
 import {newFollowPlan} from './navigation';
@@ -161,7 +162,7 @@ export function tickTrialEnemies(s:State,dt:number):void{
   }
   const allies=alive();if(!allies.length)return;
   const targets=e.kind==='tankWheel'?allies:[allies[s.enemyTurn++%allies.length]!];
-  for(const a of targets){const n=e.kind==='tankBody'?16:e.kind==='tankWheel'?10:7;a.hp=Math.max(0,a.hp-n);s.effects.push({x:a.x,z:a.z,text:`−${n}`,kind:'hit'});if(a.hp===0){a.atb=0;s.combo[s.players.indexOf(a) as Slot]=false;}}
+  for(const a of targets){const base=e.kind==='tankBody'?16:e.kind==='tankWheel'?10:7,n=Math.max(1,base-equipmentBonuses(s.equipment,s.players.indexOf(a)===0?'crono':'lucca').defense);a.hp=Math.max(0,a.hp-n);s.effects.push({x:a.x,z:a.z,text:`−${n}`,kind:'hit'});if(a.hp===0){a.atb=0;s.combo[s.players.indexOf(a) as Slot]=false;}}
  }
 }
 export function finishTrialBattle(s:State):void{

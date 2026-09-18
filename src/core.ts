@@ -1,3 +1,6 @@
+import {newEquipment,equipmentBonuses,tradeEquipment,wearEquipment,restoreEquipment} from './equipment';
+import type {EquipmentState,Member} from './equipment';
+import {CONDUCT_POINTS} from './fair-conduct-data';
 import {validateHearing} from './trial-hearing';
 import {tickConduct,shopping,interactConduct,chooseConduct,sealConduct} from './fair-conduct';
 import {newTrial,trialMap} from './trial-data';
@@ -27,6 +30,7 @@ export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra
 export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
+  equipment:EquipmentState|null;
   trial:Trial; prologue:Prologue; followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
   ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom; rescue:Rescue;
@@ -49,7 +53,7 @@ export function createState(chapter: Chapter = 'lab'): State {
   const prologue=newPrologue(chapter==='bedroom');
   const initial=[actor(-1),actor(1)] as [Actor,Actor];
   if(chapter==='bedroom')initial.forEach(p=>Object.assign(p,{x:1.5,z:1.4,facing:0}));
-  return { trial:newTrial(),prologue,followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: initial,
+  return { equipment:null,trial:newTrial(),prologue,followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: initial,
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
     targets: [null,null], combo: [false, false], log: [chapter==='bedroom'?'母親：克羅諾，起床了！':chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom(), rescue:newRescue() };
 }
@@ -134,7 +138,7 @@ export function action(s: State, slot: Slot, kind: 'attack'|'skill'): boolean {
   const p=s.players[slot],index=selectedEnemy(s,slot);const target=index===null?undefined:s.enemies[index];
   if (!target) return false;
   s.combo[slot]=false;p.atb=0;p.mp-=cost;
-  const damage=trialDamage(s,target,kind==='skill'?48:30,kind==='skill'&&slot===1&&s.kingdom.phase==='rescue');target.hp=Math.max(0,target.hp-damage);
+  const damage=trialDamage(s,target,kind==='skill'?48:30+equipmentBonuses(s.equipment,partyMember(s,slot)).attack,kind==='skill'&&slot===1&&s.kingdom.phase==='rescue');target.hp=Math.max(0,target.hp-damage);
   s.effects.push({x:target.x,z:target.z,text:String(damage),kind:'hit',actor:slot,origin:{x:p.x,z:p.z},style:kind==='skill'?(slot===1&&s.kingdom.phase==='rescue'?'fire':'spin'):slot===1?'shot':'slash'});
   log(s,`P${slot+1} ${kind==='skill'?'施放技能':'攻擊'}：${damage} 傷害。`);finish(s);return true;
 }
@@ -229,6 +233,11 @@ export function deserialize(raw: string): State {
   const v:unknown=JSON.parse(raw);
   if(!v||typeof v!=='object')throw new Error('存檔格式錯誤。');
   const o=v as Record<string,unknown>;
+  if(o.version===8){
+   if(o.schema!=='equipment-v1'||typeof o.adventure!=='string'||o.adventure.length>49152)throw new Error('裝備存檔格式錯誤。');
+   const a:unknown=JSON.parse(o.adventure);if(!a||typeof a!=='object'||Array.isArray(a)||!Number.isInteger((a as {version:number}).version)||(a as {version:number}).version<1||(a as {version:number}).version>7)throw new Error('禁止巢狀裝備存檔。');
+   const gear=restoreEquipment(o.equipment),s=deserialize(o.adventure);s.equipment=gear;return s;
+  }
   if(o.version===7)return restoreV7(o);
   if(o.version===6)return restoreV6(o);
   if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4&&o.version!==5)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
@@ -281,7 +290,7 @@ export function interactFair(s: State, slot: Slot): {title:string;text:string}|n
   const conduct=interactConduct(s,slot);if(conduct)return conduct;
   if(!['legacy','companions'].includes(s.prologue.stage))return interactPrologue(s,slot);
   if(s.prologue.stage==='companions'&&s.opening.phase==='none'&&s.kingdom.phase==='none'&&distance(s.players[slot],{x:0,z:-7.7})<1.5){startPrologueTravel(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);return null;}
-  if(s.rescue.stage==='returned'){if(slot===0&&partyTogether(s)){const result=startTrial(s,serialize(s));if(result)return result;}return {title:'千年祭 · 回到 1000 年',text:'瑪兒希望你送她回王城。沿廣場南方走，靠近出口按 E。'};}
+  if(s.rescue.stage==='returned'){if(slot===0&&partyTogether(s)){const result=startTrial(s,serializeAdventure(s));if(result)return result;}return {title:'千年祭 · 回到 1000 年',text:'瑪兒希望你送她回王城。沿廣場南方走，靠近出口按 E。'};}
   const opening=interactOpening(s,slot);if(opening)return opening;
   if(s.opening.phase!=='none')return {title:'露卡',text:'先找回瑪兒留下的項鍊。裝置在北方左側。'};
   const point=nearestFair(s.players[slot].x,s.players[slot].z);
@@ -430,6 +439,7 @@ function livingAllies(s:State):Actor[]{
  return allies;
 }
 function damageAlly(s:State,p:Actor,amount:number):void{
+ amount=Math.max(1,amount-equipmentBonuses(s.equipment,p===s.rescue.guest?(guestKind(s)??'frog'):partyMember(s,s.players.indexOf(p) as Slot)).defense);
  p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit'});
  if(p.hp===0){p.atb=0;const i=s.players.indexOf(p);if(i>=0)s.combo[i as Slot]=false;}
 }
@@ -460,7 +470,7 @@ function stepGuest(s:State,dt:number):void{
   s.effects.push({x:wounded.x,z:wounded.z,text:`+${heal}`,kind:'heal',guest:true,origin:{x:g.x,z:g.z}});log(s,`${name}為受傷的同伴回復體力。`);return;
  }
  const target=s.enemies.filter(e=>e.hp>0).sort((a,b)=>distance(a,g)-distance(b,g))[0];if(!target)return;
- g.atb=0;target.hp=Math.max(0,target.hp-26);s.effects.push({x:target.x,z:target.z,text:'26',kind:'hit',guest:true,origin:{x:g.x,z:g.z},style:guestKind(s)==='frog'?'slash':'shot'});log(s,`${name}攻擊：26 傷害。`);finish(s);
+ const amount=26+equipmentBonuses(s.equipment,guestKind(s)??'frog').attack;g.atb=0;target.hp=Math.max(0,target.hp-amount);s.effects.push({x:target.x,z:target.z,text:String(amount),kind:'hit',guest:true,origin:{x:g.x,z:g.z},style:guestKind(s)==='frog'?'slash':'shot'});log(s,`${name}攻擊：${amount} 傷害。`);finish(s);
 }
 export function useTonic(s:State,slot:Slot):boolean{
  if(!eligible(s,slot,0)||s.rescue.tonics<=0||s.players[slot].hp>=MAX_HP)return false;
@@ -576,6 +586,10 @@ function restoreRescue(s:State,raw:unknown):void{
 
 /** Additive opening: the old fair/checkpoint state never acquires invented trial choices. */
 export function serialize(s:State):string{
+ const adventure=serializeAdventure(s);return s.equipment?JSON.stringify({version:8,schema:'equipment-v1',adventure,equipment:restoreEquipment(s.equipment)}):adventure;
+}
+/** Adventure-only checkpoint retains unchanged v1-v7 story provenance inside v8. */
+function serializeAdventure(s:State):string{
  if(shopping(s))throw new Error('請等瑪兒選好糖果，再存檔。');
  if(trialActive(s)){
   if(s.mode!=='explore'||cutsceneActive(s)||s.trial.choice)throw new Error('請先結束戰鬥、選擇或演出再存檔。');
@@ -691,4 +705,19 @@ function restoreV7(o:Record<string,unknown>):State{
  const computed=(trialEvidence(s).jurors.filter(x=>x==='guilty').length>=4?'guilty':'not-guilty');if(t.verdict!=='pending'&&t.verdict!==computed)throw new Error('裁決與記錄不一致。');
  validateHearing(s);
  s.log=['已讀取審判與越獄存檔；舊旅程與未記錄的選擇保持原樣。'];return s;
+}
+
+
+/** Menus follow the current story roster; no party swap or third human slot. */
+export const partyMember=(s:State,slot:Slot):Member=>slot===0?'crono':s.kingdom.phase==='rescue'?'lucca':'marle';
+const equipmentEditable=(s:State):boolean=>s.mode==='explore'&&!cutsceneActive(s)&&!shopping(s)&&!s.prologue.choice&&!s.trial.choice;
+export function shopAvailable(s:State):boolean{
+ return equipmentEditable(s)&&s.chapter==='fair'&&s.opening.phase==='none'&&s.rescue.stage==='none'&&s.kingdom.phase==='none'&&!!s.prologue.conduct&&!s.prologue.conduct.sealed&&['fair','companions'].includes(s.prologue.stage)&&distance(s.players[0],CONDUCT_POINTS.merchant)<1.8;
+}
+export function equipItem(s:State,member:Member,id:string):boolean{
+ if(!equipmentEditable(s)||(member!=='crono'&&!(activeSlot(s,1)&&partyMember(s,1)===member)&&guestKind(s)!==member))return false;
+ const next=wearEquipment(s.equipment??newEquipment(),member,id);if(!next)return false;s.equipment=next;return true;
+}
+export function tradeItem(s:State,id:string,quantity:number,buy:boolean):boolean{
+ if(!shopAvailable(s))return false;const next=tradeEquipment(s.equipment??newEquipment(),id,quantity,buy);if(!next)return false;s.equipment=next;return true;
 }

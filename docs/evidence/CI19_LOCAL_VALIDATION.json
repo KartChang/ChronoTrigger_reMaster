@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "version": "0.9.0",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "baseMain": "ee4efad97a5b1a09743f0cccaaff29efb706abcd",
+  "baseTree": "2e6bcac748505fbece42f2b439b5d9589bf1a2ff",
+  "acceptedBaseSource": "8c6f8fb97ef96718d542d1c1f29d44bade46d969",
+  "acceptedBaseCI": 35344366293,
+  "acceptedPages": 35346462349,
+  "runtimeChanged": true,
+  "scope": [
+    "current-story member status and weapon/body/head equipment in existing bag",
+    "nearby fair Melchior atomic buy/sell and explicitly authored starter400G allowance",
+    "ordinary damage/defense integration while retaining old defaults and ATB/skill rules",
+    "v8 equipment envelope around old v1-v7 adventure; unchanged actual CI18 fixtures for parser regression only",
+    "same-run real-keyboard equipment/export/import/reload/combat browser scenario, pending execution",
+    "metadata-only read of the already-private ROM; no game rules or assets decoded"
+  ],
+  "checks": {
+    "node": {
+      "passed": 644,
+      "failed": 0,
+      "skipped": 0,
+      "added": 76,
+      "command": "npm run check"
+    },
+    "python": {
+      "passed": 16,
+      "failed": 0,
+      "hostInput": 10,
+      "syntheticHeader": 6,
+      "command": "python -m unittest discover -s tests -p '*_test.py'"
+    },
+    "typecheck": "passed",
+    "build": "passed",
+    "assets": "passed",
+    "compileall": "passed"
+  },
+  "localBrowser": {
+    "status": "blocked-before-game-load",
+    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:4188/?test=1",
+    "policyBypassed": false,
+    "executable": "/usr/bin/chromium",
+    "diagnosticInput": "unmodified CI18 prologue/prologue-companions-v6.json",
+    "sourceSaveSha256": "6f11a0d066215ac0d2c7534ec6fe0df7ef23b7c758d71c4a57ae062d10bc61e5",
+    "notBrowserPass": true,
+    "newCITestUsesOwnRunSave": true
+  },
+  "codeFileCount": 23,
+  "testedCodeFiles": {
+    ".github/workflows/ci.yml": {
+      "bytes": 4461,
+      "sha256": "f7b241c748ac3eed2c5ad3367d07ff1d965cc628057d0aa30830eebbdf14924a",
+      "gitBlobSha": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf"
+    },
+    "index.html": {
+      "bytes": 8573,
+      "sha256": "79b483dad34861a01fe78c0aa94c85cc074bfa931abed3f74a6a57e4631387c7",
+      "gitBlobSha": "122249d89df1c8ea3e1fb26466342065f2aab5bf"
+    },
+    "scripts/build.mjs": {
+      "bytes": 1791,
+      "sha256": "922ad12dbb9f67f24132e940cf6ecdce8966f6f2d1eeb4718977f1fda59c22af",
+      "gitBlobSha": "3d8bd8da44539f5d43bfd616e385fe30a0a416e5"
+    },
+    "scripts/rom_fingerprint.py": {
+      "bytes": 3847,
+      "sha256": "7cbb31b0e65e3bb888245af5ff8c215f11426776de42bf959a7dd3c084262471",
+      "gitBlobSha": "2abaa92b16eb1a7bd468eeca34e561acc891cdd7"
+    },
+    "scripts/test.mjs": {
+      "bytes": 1696,
+      "sha256": "79b4935acc77e13feb85be52f7672e79aee4efb5f6b6c4a210c435f3427293d1",
+      "gitBlobSha": "615e22740e33ed926d4f074af740f755dd3c6044"
+    },
+    "src/adventure.css": {
+      "bytes": 9832,
+      "sha256": "4f98828460e8774bc230222c4cbdc8a64ebaa274c0c15315fe78cf5aafe34e24",
+      "gitBlobSha": "987053b2cc5cd890c49b757f36d01aecc32f1ccd"
+    },
+    "src/core.ts": {
+      "bytes": 60112,
+      "sha256": "d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d",
+      "gitBlobSha": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4"
+    },
+    "src/equipment-ui.ts": {
+      "bytes": 4983,
+      "sha256": "2fa971f033f9fe76c6ff4b64ec4a5f162286d574f06a461d76588c9c7ab0d1de",
+      "gitBlobSha": "4c785d4184143e209881fbd4d1fd72b429d284cd"
+    },
+    "src/equipment.ts": {
+      "bytes": 6004,
+      "sha256": "93a62b7b9249d40444e34cdbbd8515e0fc67142eca96f7ed278cd67b56949a96",
+      "gitBlobSha": "1437173ec8f54439d10ae18c40a7c5d50da378d9"
+    },
+    "src/main.ts": {
+      "bytes": 37485,
+      "sha256": "522c175a7b5778924d4d4889ede9970c54c5fe957ded4fa598b2983b8bacbb26",
+      "gitBlobSha": "755caeefc222389b8c9d291dea16c192acb1dc9d"
+    },
+    "src/trial-rules.ts": {
+      "bytes": 23137,
+      "sha256": "25fdd7d1cf08e1a4b4f28c94bad8b4586d96dfcd67ec06e2a37b859b0da30958",
+      "gitBlobSha": "6194083c3c930e2753699ba39e94e56589854ee7"
+    },
+    "tests/art-profile.test.mjs": {
+      "bytes": 5279,
+      "sha256": "6d4ba7c04180cf20668474de1fec76dad890b31f32e24edba8798f5ef4ca2bee",
+      "gitBlobSha": "1db200d8f48273779adc8025da7ae245340b527e"
+    },
+    "tests/equipment.test.mjs": {
+      "bytes": 14511,
+      "sha256": "76f62f32bf43a77f7f353f48750264c3d24624206375d3648deb2800dae8ccff",
+      "gitBlobSha": "c6ff58f8a9df227dab7dd4119084ff572dfc0214"
+    },
+    "tests/equipment_browser.py": {
+      "bytes": 13463,
+      "sha256": "4c82a8925703dc2e6d155813406cbb15f5dc045babdc36bf7e750478011a4ab9",
+      "gitBlobSha": "6877b2c2fde3227097bcbeb8876b4f0a16929edd"
+    },
+    "tests/fixtures/equipment-legacy/manifest.json": {
+      "bytes": 1814,
+      "sha256": "983e29a9ad1792f8f205cb721580923a369e68eaa459e1252278d46fc959effe",
+      "gitBlobSha": "340f0ba287436ad1af08025d3f8ad5af4239e110"
+    },
+    "tests/fixtures/equipment-legacy/v1.json": {
+      "bytes": 179,
+      "sha256": "3d9c646a65b496f83dd89c28b87e425333a854ece9b9662920df858da1aae926",
+      "gitBlobSha": "c57fd8c75eb6c08e471bbf739a8975485534e298"
+    },
+    "tests/fixtures/equipment-legacy/v2.json": {
+      "bytes": 308,
+      "sha256": "b454d7e134e26d65d97cdaed3a73449f7758dc2528bd8a95f764aaeca1e3d731",
+      "gitBlobSha": "33396ab4a85d9b7f242d6f3b159b9a38d522be9f"
+    },
+    "tests/fixtures/equipment-legacy/v3.json": {
+      "bytes": 340,
+      "sha256": "ecc58c706be284730164552733d35b4f5de3070cb71fa158e6e66f8fdff91947",
+      "gitBlobSha": "0e2b821a9bfa2ef87ffe656dee9ca9830a170bf5"
+    },
+    "tests/fixtures/equipment-legacy/v4.json": {
+      "bytes": 453,
+      "sha256": "17f6cc39facb683d705da7ff4453b0b01fb262166e8bf04558b36cdf61e47c90",
+      "gitBlobSha": "a75b16d99dc0ec6ca3fd1a1694c538d6bcd699fb"
+    },
+    "tests/fixtures/equipment-legacy/v5.json": {
+      "bytes": 633,
+      "sha256": "f574f709f233ca42ebf243f815af6c79a674c40b17088ff9e87ef3e86390a3bd",
+      "gitBlobSha": "81e9ab55a8abe6c81aeb1590fa319bd5a8e25b22"
+    },
+    "tests/fixtures/equipment-legacy/v6.json": {
+      "bytes": 682,
+      "sha256": "6f11a0d066215ac0d2c7534ec6fe0df7ef23b7c758d71c4a57ae062d10bc61e5",
+      "gitBlobSha": "62cd9824e045e0462949f7c8c641690945fbb3da"
+    },
+    "tests/fixtures/equipment-legacy/v7.json": {
+      "bytes": 1283,
+      "sha256": "d797cdef0d79f7b5c566a9458d9a21cb0de757e88e020f332d7ca6d0f0968575",
+      "gitBlobSha": "3a8a3d18dfa5765d601da2ae0170ba966bd4aa7a"
+    },
+    "tests/rom_fingerprint_test.py": {
+      "bytes": 2345,
+      "sha256": "51a8803445aa76db6f7b0c54fd2fd5676138797e083a1d51fc50d74f6ee8ffd8",
+      "gitBlobSha": "5507813d120fe31dd5bdb03bce53f67d56655b85"
+    }
+  },
+  "logs": {
+    "CI19-local-check.log": {
+      "bytes": 132258,
+      "sha256": "80d29feea1c55447677220752358bf55726455e5761f27407b45e4f8126643db",
+      "gitBlobSha": "81f65cc70ce130f7d1fc2ec4d8b44ca1fd398273"
+    },
+    "CI19-python-all.log": {
+      "bytes": 115,
+      "sha256": "a0aaba130eea8aace6734b8ea10f4aff5e3ba82cd903b1dd93563a9be28ea53b",
+      "gitBlobSha": "44c5078a79023712b8c23729e0c6ff015f07ab67"
+    },
+    "equipment-browser-local.log": {
+      "bytes": 1814,
+      "sha256": "baf3ca575412eb7859bb18c66f53e43d86b8321c0d0f404c2aee47742219689a",
+      "gitBlobSha": "a07bb3faf2b1e0e9af9f3863cff129998b20c982"
+    }
+  },
+  "localBuild": {
+    "meta": {
+      "version": "0.9.0",
+      "sourceSha": null,
+      "bundled": true,
+      "externalRequests": 0,
+      "bytes": 5567693
+    },
+    "html": {
+      "bytes": 5567693,
+      "sha256": "c657e5aa27c7e091b4c71c6b4f9fc8aeafa61a5c4d4fc7e17f74a842bb19e9fa",
+      "gitBlobSha": "364e418a1a363f71981152f3847f0b104880103c"
+    },
+    "notAcceptedCIArtifact": true
+  },
+  "limitations": [
+    "400G, item names/prices/additive bonuses are provisional project authoring, not original-ROM values.",
+    "No level/stat growth, battle gold/rewards, skill learning, accessories or complete shop/roster implementation.",
+    "Currency ledger establishes internal consistency, not authenticity or anti-cheat.",
+    "Metadata fingerprint is not patch identity, emulation, event-rule or full-map verification.",
+    "No new real browser/hardware/final-art/whole-game90 acceptance."
+  ],
+  "next": "Publish tested coherent batch once, register one exact three-job CI, freeze and preserve source/run. Do not restart CI18 or Pages12."
+}

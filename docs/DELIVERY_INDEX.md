@@ -1,35 +1,29 @@
-# Cloud delivery index — CI18 registered / 2026-09-18
+# Cloud delivery index — accepted CI18 / new0.9.0 batch
 
-Current source/progress authority: GitHub `KartChang/ChronoTrigger_reMaster` main. Exact CI18 source `8c6f8fb97ef96718d542d1c1f29d44bade46d969`, run `35344366293`; see STATUS.md and evidence/CI18_CHECKPOINT.json. Later documentation HEAD is not a new candidate. No CI18 artifact is claimed collected yet.
+2026-09-18. GitHub `KartChang/ChronoTrigger_reMaster` main is complete current source/progress authority. Exact new source/CI will be registered in evidence/CI19_CHECKPOINT.json after publication. All files below belong to [the existing project folder](https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb); no sharing permissions changed, no Drive-root delivery.
 
-All deliveries belong to the existing [ChronoTrigger_reMaster project folder](https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb). No sharing permissions changed. Current index is compact; the complete unchanged historical catalog and original per-file IDs/hashes remain at [the pre-batch delivery index](https://github.com/KartChang/ChronoTrigger_reMaster/blob/ed9f229452b65a04c4d5eaf1bbd959d0f910d98f/docs/DELIVERY_INDEX.md). No Drive delivery was deleted or moved by this update.
+## New0.9.0 equipment, shop, v8 and metadata research — local validation
 
-## Latest: CI17 terminal evidence and CI18 interaction repair
+[Chrono-0.9.0-equipment-v8-local-batch.zip](https://drive.google.com/file/d/11lvRWYYjxN7VaUp4DjFiLf0damz7eD_G/view?usp=drivesdk)
 
-[Chrono-CI17-terminal-CI18-interaction-batch.zip](https://drive.google.com/file/d/18S4M1D7gkB8L0S-fIVnaKM2V0_SFt1uD/view?usp=drivesdk)
+File **11lvRWYYjxN7VaUp4DjFiLf0damz7eD_G**, **1944304 bytes**, SHA256 **22b0c8eca2cdc58af81a9cfdb58ca964b698eb8f07563813fe1096c7b7d492ec**. Upload, correct parent, raw download, whole hash, ZIP CRC and all261 manifest records verified. Contains127 runtime/build/test/config source files, local playable/art, selected current product documentation, actual644-Node/16-Python logs and local-validation receipt.23 code/test/config/fixture files changed. New source/src/scripts/tests/.github/index bytes were compared using matching Git trees before publication. This is not a complete mirror of historical repository documents and is NOT an accepted CI19 artifact. Package sealed before publication; later commit/run metadata lives on GitHub, not retroactively in this ZIP.
 
-ID **`18S4M1D7gkB8L0S-fIVnaKM2V0_SFt1uD`**; **18567674 bytes**; SHA256 **`d8e997083493d14df65b48ee26056df87c3893f86b5f639df85e267e87cbf45b`**. Uploaded and raw downloaded through Drive connector; correct parent, full byte hash, ZIP CRC and all23 manifest records verified. Nine changed code/test/workflow files match the published, individually read-back Git blobs. Package was sealed before publication, so later source/run registration is recorded in GitHub, not misrepresented as already inside this ZIP.
+Local HTML5567693bytes/SHA256c657e5aa27c7e091b4c71c6b4f9fc8aeafa61a5c4d4fc7e17f74a842bb19e9fa; build-meta sourceSha=null is honestly local. New browser attempt was blocked by administrator policy before game load; no0.9.0 gameplay screenshot or final-art/hardware approval. Detailed tested file/log hashes: evidence/CI19_LOCAL_VALIDATION.json. No ROM, original image/audio/font bytes, node_modules or private credentials included. Header research publishes metadata/digests only.
 
-Contents: five untouched CI17 artifact ZIPs; nine tested code/test/workflow modifications; CI17 terminal and actual-screen review; CI18 local-validation receipt; real Node/Python/browser logs; derivative review contact sheet. Browser artifact includes the exact CI17 source tar. No original ROM/audio/image/font bytes or credentials added. Local browser blocked before game load; no new browser pass implied.
+## Accepted0.8.2 CI18 / matched Pages12
 
-| Artifact | ID | Bytes | SHA256 |
-|---|---|---|---|
-| browser evidence |10542747461|13740361|b6d3114c212a5fbe0dc109185a8b688ba58d44a9e438f0be7b3fb95c8db8910d|
-| playable |10543266958|1274087|d04ae0cf66088f469ff56398b6c457b53751efbf5e3a57c042e11ab68dd17acd|
-| art review kit |10542852306|314229|516ca02f8eeeaf45adcf378de8dfbbb9fd1a0d3d0d90ea227bbde9067c4cfa8f|
-| witness good |10541999620|844613|a3ce9b0f9036c1c230ad7ad38cf71b5ec7cad5aaaa243ddf92b7203540921e76|
-| witness bad |10543385214|1463289|4db1bf2c078fbf811d5d24f699e7e15f365c60e9452a68cc84feb17341132113|
+[Chrono-CI18-Pages12-accepted-evidence.zip](https://drive.google.com/file/d/1PFL6kk7oiml1B0qWTkMhDlAhXAfXHl1G/view?usp=drivesdk)
 
-All five belong to CI17 `35333606073`, source `3833d42b63bcce65ab055b1d08d0fb88ece200fe`. Validate/bad passed, good failed before organ activation. **Playable0.8.2 exists, but the failed complete run blocks deployment eligibility.** HTML5556988 bytes/SHA256 `1bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3`. No forced Pages deployment or new live-site acceptance. evidence/CI17_TERMINAL.json indexes full terminal provenance; evidence/CI17_REVIEW.md distinguishes original-resolution inspection from the resized contact sheet.
+File **1PFL6kk7oiml1B0qWTkMhDlAhXAfXHl1G**, **21067329 bytes**, SHA256 **16fb1a5abb28aeb5569c43d999c5d90d141be5efa1fff2f74bdf1638b43c8d46**. Correct parent, raw download/hash/CRC/all9 manifest records verified. Six untouched artifact ZIPs plus detailed acceptance/review/labeled contact sheet; browser artifact includes exact source tar. Full artifact IDs/sizes/digests: evidence/CI18_ACCEPTANCE.md.
 
-## Required recovery and accepted baseline — already retained
+Source8c6f8fb97ef96718d542d1c1f29d44bade46d969; CI18 **35344366293**, all3jobs success; Pages12 **35346462349** selected playable10547875087, matching source/digest and HTML5556988bytes/SHA2561bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3. Deploy job public-byte checks passed. Separate local public-host DNS failed, so no additional independent local live-site check is claimed. Acceptance closes the existing0.8.2 regression preview, not whole game, physical devices, original fidelity or90 points.
 
-- CI16 terminal/CI17 route/toolchain: **`1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE`**,35691788 bytes,SHA256 `72f6ae721f07e5775939b89c4a6e4b74d8574116d89d59a483f3c33a48b27d15`. Its pinned toolchain ZIP SHA256 is `18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90`. Restore only node_modules, never old bundled source/config. Previous raw readback and20 manifest entries verified; not redownloaded merely for this index update.
-- Earlier0.8.2 runtime/art/local validation: **`1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM`**,1874700 bytes,SHA256 `8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b`. Runtime remains unchanged, but this is not current test/CI/document authority.
-- Accepted CI15/Pages8 exact bundle: **`1AKR6UJGdOB0fxzW6trUTlCdpbmuPwel6`**,18220375 bytes,SHA256 `cb7ccb1dd424bcc925828ae4b9dc8311e2605200d8b860302dffeba437cbaf3a`.0.8.1 source `2a689fe5abc76d865bc15bc948a43f9738bd6650`, CI15 `35315967536`, Pages8 `35317920193`, HTMLSHA256 `8a3a09e2557540e389446a31a592a462d62bd1c4f22567f8988efa44604f9a9b`. Historical retained acceptance, not a fresh live-site check. Full receipt evidence/CI15_ACCEPTANCE.md.
+## Retained history and dependencies — do not restore over main
 
-Earlier CI12–14 artifacts, native art/source packages, old staging/working archives and their hashes remain in the linked immutable historical catalog. They are retained history, not instructions to overwrite current main. No duplicate historical upload or bootstrap workflow is needed.
+CI17 terminal/CI18 interaction batch: **18S4M1D7gkB8L0S-fIVnaKM2V0_SFt1uD**,18567674bytes,SHA256d8e997083493d14df65b48ee26056df87c3893f86b5f639df85e267e87cbf45b. CI16 terminal/CI17 route/toolchain: **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**,35691788bytes,SHA25672f6ae721f07e5775939b89c4a6e4b74d8574116d89d59a483f3c33a48b27d15. Its pinned toolchain ZIP SHA25618457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90: restore node_modules only, not old source/config; no duplicate bootstrap needed.
 
-Private ROM file **`1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM`**,4194304 bytes,SHA256 `b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a`, remains private and not emulated/extracted/publicly bundled. Receipt evidence/PRIVATE_ROM_RECEIPT.md. No new download/upload or visibility change in this batch.
+Earlier0.8.2 runtime: **1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM**. Accepted CI15/Pages8 bundle: **1AKR6UJGdOB0fxzW6trUTlCdpbmuPwel6**. Earlier CI12–17 delivery IDs and hashes remain in [the immutable previous index](https://github.com/KartChang/ChronoTrigger_reMaster/blob/3730fb10295f827932d2a037f87cda58b912e575/docs/DELIVERY_INDEX.md) and its linked catalog. No delivery was deleted or moved, and no old recovery ZIP is current source authority.
 
-Temporary files and expiring artifacts alone are not permanent delivery. Current work is now on main and in the correct Drive folder. No final-art/hardware/90-point/full-game claim.
+Private image **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM**,4194304bytes,SHA256b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a: this batch read it privately for metadata/header/checksum only. Still no emulator, game-rule/map/item decoding, asset extraction or public binary inclusion. New metadata-only receipt evidence/T03_ROM_FINGERPRINT.json and T03_VERSION_BOUNDARY.md supersede only the older claim that no header had been inspected, not rights/visibility restrictions.
+
+Every batch finishes actual commit -> non-force ref -> readback, cloud bytes/manifest receipts, exact CI registration. Temporary files alone are not delivery. No new release or0.9.0 Pages claim until matching all-three CI and deployment evidence.

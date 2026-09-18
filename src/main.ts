@@ -1,3 +1,4 @@
+import {equipmentPanel} from './equipment-ui';
 import {trialActive,trialHint,trialChoiceLabels,trialEvidence} from './trial-rules';
 import {trialMap,TRIAL_NAMES,TANK_PART_NAMES} from './trial-data';
 import {interactTrial,chooseTrial,useInventory} from './core';
@@ -8,7 +9,7 @@ import {InputBoundary} from './input-boundary';
 import {kingdomMap,nearestKingdom,KINGDOM_NAMES} from './kingdom-data';
 import {nearestFair} from './fair-data';
 import type {Chapter} from './fair-data';
-import {createState,guestKind,interactRescue,useTonic,cycleTarget,selectedEnemy,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
+import {createState,shopAvailable,guestKind,interactRescue,useTonic,cycleTarget,selectedEnemy,interactKingdom,interactFair,interactOpening,activeSlot,cutsceneActive,step,beginBattle,setCoop,action,requestCombo,leaveBattle,repair,travel,serialize,deserialize,distance,MAX_HP,MAX_MP} from './core';
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
@@ -21,9 +22,11 @@ let soundEnabled=false,audio:AudioContext|undefined;
 const controls=new Controls(command,{solo:()=>!state.joined,routeUi:routeKeyboardUi});
 const inputBoundary=new InputBoundary(state);
 function replaceState(next:State):void {
+  gearPanel.reset();
   state=next;controls.clear();if(started)focusWorld();inputBoundary.rebase(state);
   last=performance.now();accumulator=0;
 }
+const gearPanel=equipmentPanel($('equipment-panel'),()=>state,message=>{$('inventory-feedback').textContent=message;},()=>bagOpen&&!manualPause&&!document.hidden);
 const halted=()=>!started||manualPause||dialogOpen||bagOpen||document.hidden;
 const asError=(e:unknown)=>e instanceof Error?e.message:String(e);
 function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');messageUntil=performance.now()+4500;}
@@ -91,7 +94,7 @@ $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'int
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
-$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
+$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.equipment?'chrono-equipment-save-v8.json':trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';focusWorld();}};
 $('save-file').addEventListener('cancel',()=>{controls.clear();focusWorld();});
@@ -197,7 +200,8 @@ function updateHud():void{
     $('q-repair').textContent=(state.prologue.motherTalked?'✓ ':'○ ')+'與母親交談';$('q-battle').textContent=(state.prologue.pendantPicked?'✓ ':'○ ')+'找回項鍊';$('q-future').textContent=(state.prologue.pendantReturned?'✓ ':'○ ')+'歸還項鍊';
   }
   if(state.chapter==='fair'&&state.prologue.stage==='companions'&&state.opening.phase==='none'&&state.kingdom.phase==='none'&&state.players[0].z<-6.2){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 離開廣場，返回大地圖';}
-  $('bag').hidden=!started||!trialActive(state);
+  $('bag').hidden=!started;document.body.dataset.inventoryItems=String(trialActive(state));
+  if(shopAvailable(state)&&!dialogOpen){$('interact-hint').hidden=!started;$('interact-hint').textContent='E · 梅爾基歐　I · 裝備買賣';}
   if(state.rescue.stage==='returned'&&!trialActive(state)&&state.players[0].z<-6.2){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 離開廣場，護送瑪兒回王城';}
   if(trialActive(state)){
     const t=state.trial,hint=trialHint(state);
@@ -267,11 +271,14 @@ function layoutFeedback():void{
 new ResizeObserver(layoutFeedback).observe($('party'));window.addEventListener('resize',layoutFeedback);
 
 function openBag():void{
- if(!started||halted()||cutsceneActive(state)||!trialActive(state)||(state.mode!=='explore'&&state.mode!=='battle'))return;
- bagOpen=true;controls.clear();inputBoundary.rebase(state);$('inventory-screen').hidden=false;refreshBag();$('inventory-close').focus();
+ if(!started||halted()||cutsceneActive(state)||(state.mode!=='explore'&&state.mode!=='battle'))return;
+ bagOpen=true;controls.clear();inputBoundary.rebase(state);$('inventory-screen').hidden=false;$('inventory-feedback').textContent='';refreshBag();$('inventory-close').focus();
 }
 function closeBag():void{bagOpen=false;$('inventory-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;focusWorld();updateHud();}
 function refreshBag():void{
+ gearPanel.refresh();
+ $('inventory-items-section').hidden=!trialActive(state);
+ $('inventory-stock').hidden=!trialActive(state);$('inventory-actors').hidden=!trialActive(state);
  $('inventory-stock').textContent=`回復藥 ${state.rescue.tonics}　乙太 ${state.trial.ethers}　｜　本篇經驗 ${state.trial.experience}`;
  document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>{
   const slot=Number(b.dataset.bagSlot) as Slot,p=state.players[slot],tonic=b.dataset.bagItem==='tonic';
@@ -317,6 +324,6 @@ function routeKeyboardUi(code:string,repeat:boolean):boolean{
  return false;
 }
 function showControls():void{if(!started||halted()||cutsceneActive(state))return;showDialog('操作說明',
- '單人：WASD 或方向鍵移動；E、Enter 或空白鍵互動。\n雙人：P1 WASD／E／J K L；P2 方向鍵／Enter／, . /。Q R 與 [ ] 分別選敵。\n對話／結果：E、Enter 或空白鍵繼續；選項可用方向鍵＋Enter，或 1／2。\nI 背包，H 操作，Esc 暫停。切回頁面後按 Esc 或 Enter 恢復；需要時點一下遊戲畫面。\n劇情離隊期間，雙人模式的 P2 會暫時觀戰，不會接管 P1。');}
+ '單人：WASD 或方向鍵移動；E、Enter 或空白鍵互動。\n雙人：P1 WASD／E／J K L；P2 方向鍵／Enter／, . /。Q R 與 [ ] 分別選敵。\n對話／結果：E、Enter 或空白鍵繼續；選項可用方向鍵＋Enter，或 1／2。\nI 背包／角色裝備；靠近梅爾基歐可買賣。H 操作，Esc 暫停。切回頁面後按 Esc 或 Enter 恢復；需要時點一下遊戲畫面。\n劇情離隊期間，雙人模式的 P2 會暫時觀戰，不會接管 P1。');}
 $('help').onclick=showControls;
 $('world').addEventListener('pointerdown',()=>{if(started&&!dialogOpen&&!bagOpen)focusWorld();});

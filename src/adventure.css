@@ -72,12 +72,25 @@ body[data-adventure="true"][data-mode="battle"] .message {bottom:var(--party-cle
 #dialog-choices{display:flex;gap:14px;justify-content:flex-end;}
 #dialog-choices[hidden]{display:none;}
 #dialog-choices button:focus-visible{outline:3px solid #e8c879;outline-offset:3px;}
-/* The bag is hidden only outside the trial; prison interiors retain party controls. */
-body[data-map-kind="overworld"][data-mode="explore"] #party .player,body[data-map-kind="interior"]:has(#bag[hidden]) #party .player{display:none;}
-body[data-map-kind="overworld"][data-mode="explore"] #party,body[data-map-kind="interior"]:has(#bag[hidden]) #party{display:flex;justify-content:center;}
+/* Item capability, not bag visibility, keeps early interiors compact and prison controls available. */
+body[data-map-kind="overworld"][data-mode="explore"] #party .player,body[data-map-kind="interior"][data-inventory-items="false"] #party .player{display:none;}
+body[data-map-kind="overworld"][data-mode="explore"] #party,body[data-map-kind="interior"][data-inventory-items="false"] #party{display:flex;justify-content:center;}
 .start-screen .intro-actions{margin-top:12px;}
 @media(max-height:650px){.start-screen .intro h1{font-size:38px;margin:10px 0;}.start-screen .intro p,.start-screen .controls-note{font-size:12px;}.start-screen .intro-actions{margin-top:8px;}.start-screen .intro-index{display:none;}}
 
 .inventory-dialog{max-height:calc(100vh - 32px);overflow:auto}.inventory-items{display:grid;gap:14px}.inventory-items>div{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;padding:12px;border:1px solid #a99b713d}.inventory-items span{font-size:13px}.jury-status{position:fixed;left:50%;top:110px;transform:translateX(-50%);max-width:90vw;padding:10px 14px;font-size:12px;z-index:5;pointer-events:none}@media(max-width:650px){.jury-status{top:125px;font-size:10px}.inventory-dialog{width:calc(100vw - 28px)}}
 
 .control-hint{position:fixed;left:18px;bottom:5px;max-width:calc(100vw - 155px);font-size:11px;color:#e0dcc8;pointer-events:none;text-shadow:1px 1px #10172b;z-index:4}body:not([data-started="true"]) .control-hint{display:none}body[data-mode="battle"] .control-hint{font-size:10px}#world:focus{outline:none}#world:focus-visible{outline:1px solid #a9bcce;outline-offset:-1px}footer #scene-note{display:none}
+
+/* Inventory grows by content and remains scrollable on narrow/short viewports. */
+.inventory-dialog {max-height:calc(100dvh - 32px);overflow:auto;width:min(760px,94vw);}
+.equipment-note {font-size:.8rem;opacity:.85;line-height:1.5;}
+.equipment-actions,.equipment-slot {display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0;align-items:center;}
+.equipment-slot strong {min-width:9rem;}
+.equipment-shop-row {display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin:.55rem 0;}
+.equipment-shop-row span {flex:1 1 230px;}
+#equipment-panel {border-top:1px solid #617786;margin-top:1rem;padding-top:.5rem;}
+#equipment-panel button:focus-visible {outline:3px solid #ffdf9b;outline-offset:2px;}
+
+.inventory-dialog {max-width:760px;}
+#equipment-panel button {margin-top:0;padding:8px 10px;}

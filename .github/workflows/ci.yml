@@ -36,6 +36,8 @@ jobs:
         run: python tests/keyboard_browser.py
       - name: Test fresh home, overworld, first meeting and v6 saves
         run: python tests/prologue_browser.py
+      - name: Test actual merchant, equipment, economy, v8 reload and equipped combat
+        run: python tests/equipment_browser.py
       - name: Test original file and HTTP browser journeys
         run: python tests/browser_smoke.py
       - name: Test fair exploration, co-op battle and versioned saves

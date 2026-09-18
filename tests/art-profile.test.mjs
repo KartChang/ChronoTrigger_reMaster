@@ -41,7 +41,11 @@ test('production constants are consumed by camera, scene construction, collision
 test('prison interiors retain party panels and commands; compact home/world UI is not a global interior rule',()=>{
  const css=readFileSync('src/adventure.css','utf8');
  assert.doesNotMatch(css,/body\[data-map-kind="interior"\] #party/);
- assert.match(css,/body\[data-map-kind="interior"\]:has\(#bag\[hidden\]\) #party \.player/);
+ assert.match(css,/body\[data-map-kind="interior"\]\[data-inventory-items="false"\] #party \.player/);
  assert.match(css,/body\[data-map-kind="overworld"\]\[data-mode="explore"\] #party/);
- assert.match(readFileSync('src/main.ts','utf8'),/\$\('bag'\)\.hidden=!started\|\|!trialActive\(state\)/);
+ // Equipment is available before prison; compact interiors must remain independent of that button.
+ const main=readFileSync('src/main.ts','utf8');
+ assert.match(main,/\$\('bag'\)\.hidden=!started;/);
+ assert.match(main,/dataset\.inventoryItems=String\(trialActive\(state\)\)/);
+ assert.match(main,/\$\('inventory-items-section'\)\.hidden=!trialActive\(state\)/);
 });

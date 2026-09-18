@@ -1,0 +1,58 @@
+{
+  "sourceSha": "8c6f8fb97ef96718d542d1c1f29d44bade46d969",
+  "run": 35344366293,
+  "artifactId": 10547295789,
+  "artifactSha256": "d507ce51d4f518d8b80167a2f5992ce79d79272f3e5efd9a7247e75b77cb5d93",
+  "scope": "Unchanged real CI18 browser exports for parser/unit regression only. New browser tests must consume their own run export, not these fixtures.",
+  "files": [
+    {
+      "file": "v1.json",
+      "version": 1,
+      "path": "exported-save.json",
+      "bytes": 179,
+      "sha256": "3d9c646a65b496f83dd89c28b87e425333a854ece9b9662920df858da1aae926"
+    },
+    {
+      "file": "v2.json",
+      "version": 2,
+      "path": "fair/fair-save-v2.json",
+      "bytes": 308,
+      "sha256": "b454d7e134e26d65d97cdaed3a73449f7758dc2528bd8a95f764aaeca1e3d731"
+    },
+    {
+      "file": "v3.json",
+      "version": 3,
+      "path": "opening/opening-save-v3.json",
+      "bytes": 340,
+      "sha256": "ecc58c706be284730164552733d35b4f5de3070cb71fa158e6e66f8fdff91947"
+    },
+    {
+      "file": "v4.json",
+      "version": 4,
+      "path": "kingdom/kingdom-save-v4.json",
+      "bytes": 453,
+      "sha256": "17f6cc39facb683d705da7ff4453b0b01fb262166e8bf04558b36cdf61e47c90"
+    },
+    {
+      "file": "v5.json",
+      "version": 5,
+      "path": "rescue/rescue-allied-v5.json",
+      "bytes": 633,
+      "sha256": "f574f709f233ca42ebf243f815af6c79a674c40b17088ff9e87ef3e86390a3bd"
+    },
+    {
+      "file": "v6.json",
+      "version": 6,
+      "path": "prologue/prologue-companions-v6.json",
+      "bytes": 682,
+      "sha256": "6f11a0d066215ac0d2c7534ec6fe0df7ef23b7c758d71c4a57ae062d10bc61e5"
+    },
+    {
+      "file": "v7.json",
+      "version": 7,
+      "path": "trial/trial-future-v7.json",
+      "bytes": 1283,
+      "sha256": "d797cdef0d79f7b5c566a9458d9a21cb0de757e88e020f332d7ca6d0f0968575"
+    }
+  ]
+}

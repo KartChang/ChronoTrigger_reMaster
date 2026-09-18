@@ -1,37 +1,35 @@
-# Execution TODO — CI18 active / 2026-09-18
+# Execution TODO — CI18/Pages12 closed; equipment product batch
 
-Current exact source/run/jobs: STATUS.md and evidence/CI18_CHECKPOINT.json. main only/non-force. Continue existing implementation, not a repository/history audit or old recovery replay.
+Main single-line/non-force. Exact source/run authority is STATUS.md and latest checkpoint. Continue existing implementation, no historical audit or accepted chapter rewrite.
 
-## Current regression closure
+## Completed current increments (not complete-game approval)
 
-CI17 received: validate and bad succeeded; good failed at the solid organ's exact-coordinate approach, before reaching the chest. The CI16 chest root passed CI17 validate; do not reopen it as the current failure. See evidence/CI17_TERMINAL.json and CI17_REVIEW.md.
+CI18 `35344366293` all three jobs passed; matched Pages12 `35346462349` verified0.8.2 source/playable/HTML. Five raw CI artifacts plus Pages staging retained/readback verified; evidence/CI18_ACCEPTANCE.md. Old chest/organ roots are closed.
 
-Completed this batch: shared real-key organ/chest approach with both visible correct prompt and physical-distance guard; safe aisle; pause/modal/focus/ownership/map/mode/clock rejection; all-key cleanup and post-release failure traces; real organ v5/v6 export/reload/re-interaction scenarios in rescue and good/bad journeys;53 added Node regressions and10 host-unit cases. Full local568/0/0, typecheck/build/assets/compileall passed. Local browser was blocked before game load by administrator policy, not passed. Runtime/collisions/balance/save schema/art unchanged. Nine code/test/workflow files published and blob-readback matched. Existing CI has one added host-unit step, unchanged three-job coverage and timeouts.
+T03 narrow version research: private image whole hash/header/checksum observation and six synthetic-header parser tests. No emulator, reverse-engineered event rules, patch identity or full geography proof. Checksum mismatch is recorded, not repaired or hidden.
 
-**CI18 `35344366293`, source `8c6f8fb97ef96718d542d1c1f29d44bade46d969`, is the sole frozen validation.** Registration: validate105597385016 and good105597385166 in_progress, bad105597385342 queued; not terminal. No duplicate dispatch/rerun/cancellation or long polling. Receive the same run on completion. If failed, diagnose only its actual first root from same-run evidence. If all three pass, preserve its five artifacts, inspect actual repaired flows/keyboard/art frames and verify the matching Pages deployment/source/HTML. CI17 playable exists but failed whole-run status blocks its deployment eligibility.
+T04 first equipment/economy increment implemented: existing bag gains active-member HP/MP and weapon/body/head; actual nearby Melchior buy/sell; authored400G allowance and13-item catalog; atomic money/copy limits/equipped reservation; compatible-member gear, actual ordinary damage/defense; v8 envelope and unchanged v1–v7 migration boundaries. Default viewing does not modify a save. Local644 Node/16 Python/typecheck/build/assets/compile checks passed. Full same-run keyboard equipment/export/reload/combat scenario added, not yet browser-accepted. See EQUIPMENT_T04.md and current checkpoint after publication.
 
-Durable package `18S4M1D7gkB8L0S-fIVnaKM2V0_SFt1uD` in the existing project Drive folder contains five raw CI17 artifacts, tested modifications, receipts and local logs; whole raw readback and23 manifest records verified. GitHub holds current source/progress. No fake saves, injected progress, removed collisions, timeout-only changes or local HTML substituted as accepted CI evidence.
+## Current acceptance work
 
-## Accepted functional baselines — do not recreate
+Publish coherent tested source once, non-force ref/readback, one full existing CI (three jobs, no removed coverage). Freeze upon registration. On failure diagnose actual first root from same-run evidence, not a speculative old failure. On success retain five artifacts, inspect actual new UI/gear/trade/v8/real combat and existing keyboard/scene results, then verify matching Pages. Local browser was blocked before load by administrator policy; do not treat local HTML or scripted unit fixtures as browser success. No fake saves, injected flags, relaxed collision/assertions or timeout-only fixes.
 
-T00/T01/T02: existing rescue, start-at-home, miniature map/confirmed entries, first meeting,600AD and input-boundary foundations remain implemented and accepted within prior tested scope. CI17 validate additionally passed every existing browser scenario, including keyboard and rescue; the whole batch still failed good.
+## Accepted existing functional baseline — do not recreate
 
-T03: existing trial/two escape routes/Fritz/stair guards/Lucca/supplies/three-part Dragon Tank/reunion/Gate/2300 arrival. CI15 accepted both fresh-game fair-conduct-to-hearing routes: cat/lunch/pendant/candy/refusal history, sealing before travel, conditional testimony, two verdict branches and supporter parcel. CI17 validate trial passed and bad fresh route passed; good did not reach court. Original hidden jury algorithm, patched-ROM differences and complete jail topology are not certified by these results.
+T00/T01/T02: home waking/stairs, miniature overworld/confirmed entrances, first meeting/pendant choices, fair,600AD route/input boundaries. T03 existing rescue, organ/one-time chest, Frog/Yakra/queen/chancellor/return; sealed fair conduct, conditional witnesses and two verdicts, two prison routes/Fritz/Lucca/three-part tank/reunion/Gate/2300 arrival. CI18 runs the whole existing suite including the repaired interactions. These are tested authored slices, not full original maps or all original hidden algorithms.
 
-T04: tonic/ether inventory, ATB/resource guards, one-time supplies/parcel, save provenance and encounter XP bookkeeping already exist. XP records are not complete growth. T05: four native48x64 party painters, eight supporting NPCs, live poses/palette/grounding and shared runtime/export pipeline exist. They are not finished art merely because pixels/frames/tests exist.
+Existing tonic/ether stock, ATB/target guards, one-time support parcel, real save provenance and encounter XP records remain. XP records are not growth. Four native48×64 actors and registered NPC ambient/idle/ready/palette/grounding work remain implemented; tested dimensions and frames are not final-art approval.
 
-Last retained accepted Pages baseline:0.8.1 CI15/Pages8. Do not rerun CI12–17 merely to replay history, and do not reapply superseded staging/38-file work archives.
+## Remaining full product TODO (scope unchanged)
 
-## Continue existing work after the current regression gate
+**T03:** invisible original jury rules/flag edge cases, exact Traditional Chinese Beta differences, complete map/room connections, staging and numerical fidelity. Header metadata does not certify any of these. Preserve implemented witnesses/prison while extending fidelity.
 
-**T03 remainder:** original invisible rules/patch differences, whole map/room connections, event staging and numerical fidelity. Extend current witnesses/prison and maps, not rewrite them. Local collision-route coverage does not certify original full topology. Missing ROM-derived proof is a research gap, not permission to erase working chapters.
+**T04:** real character growth/levels/stats, battle currency/reward/drop flow, complete shops/consumables and original item balance, accessories, party roster and skill learning, appropriate dual/triple techs. Current status/equipment/shop prototype does not close these. Extend core/inventory/save/UI, not a second framework; keep P1 Crono/P2 Lucca with autonomous story companion.
 
-**T04:** equipment, character status and real growth, currency/shops, roster/skill progression and appropriate dual/triple techs. Extend existing core/inventory/save/UI; no second framework or P3. Preserve P1 Crono/P2 Lucca and autonomous companion story ownership.
+**T05:** whole art/animation pass, directional silhouettes/proportions/choreography, environment density and hierarchy, external edited-atlas import, rights-cleared music and sound. Actual same-source gameplay/animated observations required; concept images/atlas previews/material flags are not game-screen approval.
 
-**T05 ongoing:** silhouettes/proportions/directional actions, NPC movement/choreography, environment hierarchy, sprite/terrain density, external edited-atlas import, rights-cleared music/sound. Fix visible repetitive floors, sparse props and companion overlap in their proper batch. Same-source in-engine screenshots and animated observations are required; concept art/atlas previews/material flags are not gameplay approval.
+**T06:** remaining2300 campaign and every other era, main quest, sidequest and ending. futuregate is arrival only.
 
-**T06:** remaining2300 world and every other era/main quest/sidequest/ending. Current futuregate is an arrival location, not a finished future campaign. Complete-game target stays unchanged.
+**T07:** whole-game>=90, every dimension>=80%, zero critical, required assets/five evidence gates, real keyboard/gamepad devices, FPS/frame-time/loading/memory/background/save validation. Old30 is stale. No new score, hidden gap or reduced denominator.
 
-**T07:** whole-game>=90, each dimension>=80%, zero critical defects, required asset and five evidence gates, real keyboard/gamepad devices, FPS/frame time/loading/memory/background/save validation. Old30 is stale; no new score. Keep all dimensions and the complete denominator.
-
-**T08 each batch:** actual commit -> non-force ref -> readback; source/progress on main, playable/art/logs/screenshots/manifest in the correct project Drive folder. Preserve sufficient cloud recovery before ephemeral state disappears. Intermediate documentation may use[skip ci]; one final non-skip CI per coherent development batch. Stop for active validation or a genuine external blocker, not after each small task. Once current regression closes, move to these product tasks rather than repeating closed fixes.
+**T08 each batch:** actual GitHub commit -> non-force main -> readback; source/progress and cloud manifests, playable/art/logs/screenshots in the project Drive folder. [skip ci] for documentation/intermediate preservation only; one final non-skip source CI. Stop only for active CI or a real external blocker, not one small item.

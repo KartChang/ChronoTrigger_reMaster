@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+  "sourceTree": "a99bd9be894b396e5c0d1c512a1e7d8fb98b898d",
+  "run": 35333606073,
+  "attempt": 1,
+  "conclusion": "failure",
+  "completedAt": "2026-09-18T10:46:50Z",
+  "jobs": {
+    "validate": {
+      "id": 105563278252,
+      "conclusion": "success",
+      "browserSteps10to19": "all succeeded"
+    },
+    "bad": {
+      "id": 105563278477,
+      "conclusion": "success"
+    },
+    "good": {
+      "id": 105563278493,
+      "conclusion": "failure",
+      "step": 9
+    }
+  },
+  "firstRoot": {
+    "name": "witness-good-organ-interaction-target",
+    "path": "tests/witness_browser.py",
+    "line": 127,
+    "predicate": "players[0].x <= -6.8",
+    "map": "cathedral",
+    "p1": {
+      "x": -5.116666666666669,
+      "z": 6.166666666666663
+    },
+    "inputContext": {
+      "focused": "world",
+      "tag": "CANVAS",
+      "hint": "E · 管風琴",
+      "hintHidden": false,
+      "dialogOpen": false,
+      "paused": false
+    },
+    "stage": "allied",
+    "organOpen": false,
+    "chestApproaches": [],
+    "diagnosis": "Exact-coordinate approach insists on moving inside the inflated solid organ after northward key-release drift; E organ prompt is already visible and in-range. No evidence of a trial verdict failure.",
+    "collider": {
+      "x": -6.8,
+      "z": 7.6,
+      "w": 2.8,
+      "d": 2.4,
+      "margin": 0.25,
+      "southEdge": 6.15,
+      "eastEdge": -5.15
+    },
+    "rawReport": "chrono-witness-good-evidence/test-results/witness-good/witness-report.json",
+    "rawScreenshot": "chrono-witness-good-evidence/test-results/witness-good/failure.png",
+    "logJob": 105563278493
+  },
+  "previousRoot": {
+    "name": "rescue-passage-chest-keyboard-route",
+    "ci17Validate": "passed",
+    "chestDistance": 0.7125852775477307,
+    "notCurrentFailure": true
+  },
+  "artifacts": [
+    {
+      "name": "chrono-hd2d-browser-evidence",
+      "id": 10542747461,
+      "file": "CI17-chrono-hd2d-browser-evidence.zip",
+      "bytes": 13740361,
+      "sha256": "b6d3114c212a5fbe0dc109185a8b688ba58d44a9e438f0be7b3fb95c8db8910d",
+      "members": 108,
+      "zipCRC": "passed",
+      "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+      "run": 35333606073
+    },
+    {
+      "name": "chrono-hd2d-playable",
+      "id": 10543266958,
+      "file": "CI17-chrono-hd2d-playable.zip",
+      "bytes": 1274087,
+      "sha256": "d04ae0cf66088f469ff56398b6c457b53751efbf5e3a57c042e11ab68dd17acd",
+      "members": 5,
+      "zipCRC": "passed",
+      "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+      "run": 35333606073
+    },
+    {
+      "name": "chrono-hd2d-art-review-kit",
+      "id": 10542852306,
+      "file": "CI17-chrono-hd2d-art-review-kit.zip",
+      "bytes": 314229,
+      "sha256": "516ca02f8eeeaf45adcf378de8dfbbb9fd1a0d3d0d90ea227bbde9067c4cfa8f",
+      "members": 118,
+      "zipCRC": "passed",
+      "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+      "run": 35333606073
+    },
+    {
+      "name": "chrono-witness-good-evidence",
+      "id": 10541999620,
+      "file": "CI17-chrono-witness-good-evidence.zip",
+      "bytes": 844613,
+      "sha256": "a3ce9b0f9036c1c230ad7ad38cf71b5ec7cad5aaaa243ddf92b7203540921e76",
+      "members": 9,
+      "zipCRC": "passed",
+      "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+      "run": 35333606073
+    },
+    {
+      "name": "chrono-witness-bad-evidence",
+      "id": 10543385214,
+      "file": "CI17-chrono-witness-bad-evidence.zip",
+      "bytes": 1463289,
+      "sha256": "4db1bf2c078fbf811d5d24f699e7e15f365c60e9452a68cc84feb17341132113",
+      "members": 20,
+      "zipCRC": "passed",
+      "sourceSha": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+      "run": 35333606073
+    }
+  ],
+  "playable": {
+    "exists": true,
+    "version": "0.8.2",
+    "htmlBytes": 5556988,
+    "htmlSha256": "1bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3",
+    "deploymentEligible": false,
+    "reason": "validate succeeded, but whole run failed in witness-good; artifact existence does not override the all-three-job requirement"
+  },
+  "partialEvidence": {
+    "keyboardChecks": 6,
+    "rescueChecks": 9,
+    "trialChecks": 7,
+    "badChecks": 3,
+    "goodChecksBeforeFailure": 1
+  },
+  "visualReview": "CI17_REVIEW.md",
+  "allThreePassed": false,
+  "newPagesAccepted": false,
+  "quality90Accepted": false
+}

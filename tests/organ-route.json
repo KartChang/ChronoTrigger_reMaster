@@ -1,0 +1,9 @@
+{
+  "chapter": "cathedral",
+  "interaction": {"id": "organ", "label": "管風琴", "x": -6.8, "z": 5.8, "radius": 1.8},
+  "waypoints": [
+    {"axis": "z", "target": 5.0},
+    {"axis": "x", "target": -6.8}
+  ],
+  "note": "Use the aisle between the north pew and the organ. The final leg ends on the actual in-range interaction prompt, not an exact coordinate inside the organ's inflated collider after input-release drift. No gameplay collision or interaction radius is changed."
+}

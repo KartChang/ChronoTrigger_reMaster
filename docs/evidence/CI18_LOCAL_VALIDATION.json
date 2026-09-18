@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "baseMain": "ed9f229452b65a04c4d5eaf1bbd959d0f910d98f",
+  "baseValidationSource": "3833d42b63bcce65ab055b1d08d0fb88ece200fe",
+  "runtimeChanged": false,
+  "runtimeFilesEqualToCI17": true,
+  "changes": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 4328,
+      "sha256": "1e7d3ac2904aaed2b6ce546d5eb70995b3ef3a8433ddda652eb529b4eb57c365",
+      "blobSha": "679fc03af639e87b86a625c6f09022f2e53bbb10"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 1657,
+      "sha256": "55cfd5237c8bd4df11ee1e1ae1330c05acde9542f5eed0e888507521f1cf8d4c",
+      "blobSha": "c8aba8e0c07feec420778134e292504187f8919e"
+    },
+    {
+      "path": "tests/organ-route.json",
+      "bytes": 481,
+      "sha256": "390ce4957266d92dea6002b490ee43485e61cc109b65f9ac308cef41cc40050f",
+      "blobSha": "3bb82f1147f2522ad30512a17dfe777fe0173d08"
+    },
+    {
+      "path": "tests/rescue-approach-probe.js",
+      "bytes": 1480,
+      "sha256": "cf1daf0f79a9c1e47e30d8db33e4299de924e93174ea3e84827b619df7ac5175",
+      "blobSha": "0d24e14b9b487481aa3093efcde7e0fe9d7958a1"
+    },
+    {
+      "path": "tests/rescue-approach.test.mjs",
+      "bytes": 7430,
+      "sha256": "0b0240955c7d72c213fdc82d1119d10b50e11f667e1efc50e9b16ca62c0c4388",
+      "blobSha": "11b5150ba1b88606c93ac15ffca1807cc732ca65"
+    },
+    {
+      "path": "tests/rescue_route.py",
+      "bytes": 5333,
+      "sha256": "c2b9548523b391256ee06344756fb8850e1705ab4a5fe653fb2a3c7a1f2e24e8",
+      "blobSha": "43b3f4929f1bd603855bab33241ddb9e2e09bc64"
+    },
+    {
+      "path": "tests/rescue_route_test.py",
+      "bytes": 6095,
+      "sha256": "b6cbb20600ecbc622280ac8ebd49640c2cc87bcd67f68f89adddd1b7eca20e56",
+      "blobSha": "6421ddaad8870c9cf78df71a24a7edeac7a607bf"
+    },
+    {
+      "path": "tests/rescue_browser.py",
+      "bytes": 16486,
+      "sha256": "f6e68ce6a85805f1241a34da2dc17c77515d97b88b93b3b92d506d4a943836f7",
+      "blobSha": "8c7b3157a94d472926aa3256e50fb946c2daaa34"
+    },
+    {
+      "path": "tests/witness_browser.py",
+      "bytes": 15056,
+      "sha256": "173909e9da0d46bca540572d36adbbb761a900526ca82988722a490ea9fa11f6",
+      "blobSha": "9f7de06ea78b390511adbb1090d0fee4a51ce33d"
+    }
+  ],
+  "node": {
+    "command": "npm run check",
+    "passed": 568,
+    "failed": 0,
+    "skipped": 0,
+    "addedTests": 53,
+    "typecheck": "passed",
+    "build": "passed",
+    "assets": "passed",
+    "logSha256": "ed9c6527e8fcb63aeff55064dd972d8bce2dae0a5fe327aeb9816b81cc80905b"
+  },
+  "python": {
+    "command": "python -m unittest discover -s tests -p '*_test.py' -v",
+    "passed": 10,
+    "failed": 0,
+    "scope": "Host-side unit doubles for key cleanup/diagnostics, not browser acceptance",
+    "compileall": "passed",
+    "logSha256": "eaba4ab40bd294c9f7c7ca18195ad411b6cf6b5e519da5b1f488a16f2ba630dd"
+  },
+  "browser": {
+    "command": "CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium timeout 35s python tests/rescue_browser.py",
+    "exit": 1,
+    "status": "blocked-before-game-load",
+    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:4181/?test=1",
+    "policyBypassed": false,
+    "timeoutTriggered": false,
+    "scope": "Genuine same-CI17 kingdom save staged unmodified; load blocked before import. No new browser pass.",
+    "inputSha256": "7b8d73eef03ebdbe0dff3b62a1bbbac757a6bbdf8e841ba47070d55cb8c408f6",
+    "logSha256": "7d636b4958e961328e4fa626095761058d74e182fa9763c869a5944426ca35c5"
+  },
+  "testedDelayScope": {
+    "observationTicks": [
+      1,
+      6
+    ],
+    "releaseTicks": [
+      0,
+      5,
+      12
+    ],
+    "coverage": "solo/paired; organ approaches from Frog and locked door, chest, true E event, v5 roundtrip and retained route locks",
+    "notUniversalLatencyGuarantee": true
+  },
+  "toolchain": {
+    "restoredOnly": "node_modules from already retained pinned ZIP",
+    "sha256": "18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90"
+  },
+  "quality": "Prior 30 score is stale; release remains blocked; no new score",
+  "next": "One full existing CI after publication; all three jobs required; no cancellation/rerun/duplicate dispatch."
+}

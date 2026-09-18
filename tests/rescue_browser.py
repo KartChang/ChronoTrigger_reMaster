@@ -4,7 +4,7 @@ constructed saves, teleports or accelerated clocks. Software GPU is not hardware
 """
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
-from rescue_route import approach_supply_chest, input_context
+from rescue_route import approach_supply_chest, approach_organ, input_context
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -14,6 +14,7 @@ SOURCE=ROOT/'test-results'/'kingdom'/'kingdom-save-v4.json'
 checks, errors, waits, requests=[], [], [], []
 feedback_geometry=[]
 chest_approaches=[]
+organ_approaches=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4181','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):checks.append(name);print('PASS',name,flush=True)
@@ -126,9 +127,15 @@ try:
             # Visit the concealed door before playing the organ; a real lock must refuse it.
             move(page,'z',5.8);move(page,'x',4);move(page,'z',8.6);talk(page,'石牆')
             assert snap(page)['chapter']=='cathedral' and snap(page)['rescue']['organOpen'] is False
-            move(page,'z',5.8);move(page,'x',-6.8);talk(page,'管風琴')
+            approach_organ(page,move,snap,organ_approaches)
+            page.screenshot(path=str(OUT/'04a-organ-approach.png'))
+            talk(page,'管風琴')
             assert snap(page)['rescue']['organOpen'] is True
             page.screenshot(path=str(OUT/'04-organ.png'))
+            save_reload(page,'allied','cathedral','rescue-organ-v5.json')
+            talk(page,'管風琴');assert snap(page)['rescue']['organOpen']
+            assert snap(page)['rescue']['tonics']==0
+            passed('organ prompt at a solid prop, E activation and actual v5 reload preserve the opened route without awarding chest stock')
             move(page,'x',4);move(page,'z',8.6);talk(page,'密道')
             assert snap(page)['chapter']=='passage'
             approach_supply_chest(page,move,snap,chest_approaches)
@@ -223,7 +230,7 @@ try:
             raise
         finally:
             if 'report' in locals():
-                report.update(chestApproaches=chest_approaches,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),browserVersion=browser.version,sourceSaveSha256=hashlib.sha256(original).hexdigest())
+                report.update(organApproaches=organ_approaches,chestApproaches=chest_approaches,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),browserVersion=browser.version,sourceSaveSha256=hashlib.sha256(original).hexdigest())
                 (OUT/'rescue-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:

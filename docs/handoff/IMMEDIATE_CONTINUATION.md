@@ -1,15 +1,23 @@
-# Immediate continuation — 0.8.1 fair-witness batch
+# Immediate continuation — CI15 / 0.8.1 frozen source
 
-Use GitHub connector; main only/non-force, project Drive only. Read STATUS and this file, not all history. Do not rebuild accepted game/framework or apply GauAI rules.
+Use GitHub connector and project Drive. Read STATUS and this file first. main only/non-force; no repository/history audit or rebuilding accepted chapters. Do not use other-project governance.
 
-Accepted source66831b98ba9a0ced2998c918947bcc4a80813df1, CI14 35306737632 SUCCESS with nine journeys; Pages7 35308890507 verified0.8.0. Four exact ZIPs are in Drive with raw-readback equality; see evidence/CI14_ACCEPTANCE.md and DELIVERY_INDEX. Old CI14 pending markers are historical, not a new failure.
+## Exact next action
 
-This source batch builds from docs HEAD5bf19b897432797d8be7cd7de6dc4193f212b20d/tree f1d2d1239877ae870a5613a461ca4d44236330f2. It adds actual fair conduct/sealed history, conditional hearing/versioned verdicts, supporter gifts, native supporting NPCs and court framing. Existing trial/prison/ATB/party/v1-v7 remain. Local467 tests/typecheck/build passed;57PNG/JSON,833frames. Docs/FAIR_WITNESSES.md describes research and unresolved ROM/version differences; this is not final fidelity/90.
+Receive **CI15 `35315967536`**, source **`2a689fe5abc76d865bc15bc948a43f9738bd6650`**, tree **`baf926bdf41a73e7a73ba458329be1fe61795699`**. Parent5bf19b897432797d8be7cd7de6dc4193f212b20d. Main commit/ref/readback already completed. Later [skip ci] HEAD is documents only.
 
-After the source commit, record its exact SHA and one push CI in a docs-only receipt. If still active, stop modifying gameplay and report exact checkpoint without prolonged polling. Do not dispatch again. If failed, inspect first actual failed job and its report/lastObserved/failure.png; no assertion deletion, injected state, fabricated save or timeout-only fix.
+Last observation: all three jobs in_progress. validate105507568011 had npm run check success; bad105507568141 and good105507568198 had build success; all at Chromium installation. Exactly one matching push run/attempt1, no duplicate dispatch. No completed browser result yet. **Do not modify gameplay while this source is being validated.**
 
-Same CI contains the old validate job plus good/bad fresh-story matrix jobs. BOTH extra jobs are necessary: they walk new game→fair conduct→600 rescue→return→court/cell using real inputs and only their own UI exports. Artifacts to retain after success: chrono-hd2d-browser-evidence, chrono-hd2d-playable, chrono-hd2d-art-review-kit, chrono-witness-good-evidence, chrono-witness-bad-evidence. Compare exact source and HTML hashes, inspect new NPC/window and verdict/gift images, then verify existing Pages same artifact. No0.8.1 online claim before that.
+Pending: preserve point and report, do not wait/poll until interruption. Failed: read first actual failing job and its same-run report, lastObserved, failure.png and logs. Validate uses usual per-journey reports; good/bad use witness-report.json in their respective chrono-witness-good-evidence / chrono-witness-bad-evidence artifacts. Never remove assertions, fabricate saves or inject game state. Successful: retain all five artifacts, compare common source/HTML, inspect witnesses/verdict/gift/NPC and court framing, then verify exact Pages. Entire CI must succeed, not only nine old journeys.
 
-Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb, never root. Private ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM is retained/shared=false, hash in PRIVATE_ROM_RECEIPT; do not reupload or put original bytes in public files. Source is GitHub authority; temporary container can disappear. Working package is not a CI acceptance artifact. Always finish commit+ref+readback, not only create blobs/trees.
+## Already implemented, not to rebuild
 
-Next TODO after this batch: outstanding original hidden jury/patch-version/topology verification, then equipment/growth/shops/roster/skills; remaining art/audio, eras/quests/endings and whole-game real-device>=90. Preserve all gaps and full scope; no fake numeric grade.
+Fair cat/lunch/pendant/candy/refusal facts sealed before time travel; real conditional witnesses and questions, both verdict paths with saved fair-witness-v1 policy; supporter Ether parcel with stock validation; eight native48x64 supporting NPCs and32x32 props; court-window clipping fix. Local467 tests passed and scripts compiled. Runtime browser acceptance pending. Legacy v1-v7 unknown history and old verdicts preserved; existing ATB/prison/party/native heroes untouched except integration. Details and uncertainty: FAIR_WITNESSES.md. Hidden original jury/cat RNG, patch differences and complete topology are not certified.
+
+## Permanent authority and baseline
+
+Working archive `123VhKlsMuKBOWK7GGO7UNTKu751CPGW3` in project `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb` only,1691825 bytes,SHA256 `5fff8167b5c815f54224cc5f906fae9b2e5dded10791cee3ce61969ee5fbf517`; raw-readback ZIP/CRC/all156 member equality verified. This is32 changed-source files plus local playable/art/validation, not full current repo or a CI acceptance artifact. Current full source is GitHub. Exact source/run/jobs/subtree parity: evidence/FAIR_WITNESS_CI15_CHECKPOINT.json. DELIVERY_INDEX links old and new receipts. Do not restore old ZIPs over main.
+
+CI14/source66831 accepted nine journeys; Pages7 verified **0.8.0**, not0.8.1. Four exact retained artifacts and actual screenshot observations: evidence/CI14_ACCEPTANCE.md. No repeated CI14 validation. Original ROM `1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM` remains private4MiB, correct parent/shared=false; hash/readback previously matched. Not emulated/extracted, no original bytes in public source/CI/Pages; no reupload needed.
+
+After actualCI15 acceptance, continue remaining T03 hidden rules/version/topology and T04 equipment/growth/shops/roster/skills, T05 art/animation/music, T06 rest of game and T07 whole-game>=90 with real devices. No score is awarded. Preserve complete scope and all gaps. Always complete source/progress commit+ref+readback and cloud delivery, never rely on temporary container memory.

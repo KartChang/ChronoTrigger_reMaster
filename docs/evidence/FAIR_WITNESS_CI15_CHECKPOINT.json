@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-18 Asia/Taipei",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "version": "0.8.1",
+  "source": "2a689fe5abc76d865bc15bc948a43f9738bd6650",
+  "sourceTree": "baf926bdf41a73e7a73ba458329be1fe61795699",
+  "parent": "5bf19b897432797d8be7cd7de6dc4193f212b20d",
+  "publication": {"commitCreated":true,"mainUpdatedNonForce":true,"mainRefReadbackMatched":true},
+  "ci": {
+    "run":35315967536,"number":15,"event":"push","attempt":1,"matchingRunCount":1,
+    "lastObservedStatus":"in_progress","finalConclusion":null,
+    "jobs":[
+      {"id":105507568011,"name":"validate","status":"in_progress","npmRunCheck":"success","activeStep":"Chromium installation"},
+      {"id":105507568141,"name":"Fresh story and hearing (bad)","status":"in_progress","build":"success","activeStep":"Chromium installation"},
+      {"id":105507568198,"name":"Fresh story and hearing (good)","status":"in_progress","build":"success","activeStep":"Chromium installation"}
+    ],
+    "requiredArtifacts":["chrono-hd2d-browser-evidence","chrono-hd2d-playable","chrono-hd2d-art-review-kit","chrono-witness-good-evidence","chrono-witness-bad-evidence"],
+    "finalArtifactIds":[],"gameplayFrozen":true,"duplicateDispatch":false,"cancelled":false
+  },
+  "testedSourceReadback": {
+    "src":"176d23b522e021bb1a5f124e5d2f452201cc829b",
+    "scripts":"080589e59e1a6b1ce4247b3df17422ca333fc0c2",
+    "tests":"446173e496329c445c3ba699f0af9a90da1e2e45",
+    ".github":"34b01cbf48905f8c514b44f9deaa5b3e02f33865",
+    "assets":"28582cd73b879fde5e1e68306b3ea70afe25ab30",
+    "indexHtmlBlob":"0730a7ca511a65acb40432addc4536a785287cb9",
+    "equalToTestedLocal":true
+  },
+  "local":{"testsPassed":467,"testsFailed":0,"typecheck":"passed","build":"passed","assetHygiene":"passed","pythonCompile":"passed","newBrowserPassClaimed":false},
+  "localEvidence":"FAIR_WITNESS_LOCAL.json",
+  "drive":{
+    "folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileId":"123VhKlsMuKBOWK7GGO7UNTKu751CPGW3",
+    "name":"Chrono-0.8.1-working-source-art-validation.zip",
+    "bytes":1691825,
+    "sha256":"5fff8167b5c815f54224cc5f906fae9b2e5dded10791cee3ce61969ee5fbf517",
+    "changedSourceFiles":32,"manifestMembers":156,
+    "rawReadbackEqual":true,"crcValid":true,"allManifestMembersMatched":true,
+    "kind":"changed-source/local-playable/art/log preservation, not complete repo snapshot or accepted CI artifact"
+  },
+  "lastAccepted":{"source":"66831b98ba9a0ced2998c918947bcc4a80813df1","ci":35306737632,"pages":35308890507,"version":"0.8.0","htmlSha256":"7e2e20cbc031c512173e62ac26ce20021769fc6f4e17b0af788c7d9220176e16","receipt":"CI14_ACCEPTANCE.md"},
+  "privateRom":{"fileId":"1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM","shared":false,"emulatedOrExtracted":false,"publicBytesIncluded":false},
+  "wholeGameAccepted":false,"quality90Accepted":false,"numericScoreAwarded":false,
+  "next":"Receive this exact CI once. Pending: preserve checkpoint/report. Failure: first actual job evidence. Success: five artifacts with same source/HTML and raw Drive retention, actual screenshot inspection and exact Pages, then existing TODO."
+}

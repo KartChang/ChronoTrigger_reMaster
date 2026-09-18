@@ -1,31 +1,39 @@
-# Current status — 2026-09-18 / fair-witness batch 0.8.1
+# Current status — 2026-09-18 / CI15 exact checkpoint
 
 **DEVELOPMENT CANDIDATE — FULL GAME IN PROGRESS; NOT 90-POINT ACCEPTED.**
 
-Repository KartChang/ChronoTrigger_reMaster; main only, non-force. This source batch continues documentation HEAD `5bf19b897432797d8be7cd7de6dc4193f212b20d` / tree `f1d2d1239877ae870a5613a461ca4d44236330f2`. The commit containing this source is the only new candidate; record its actual SHA and push run after publication. Do not rerun for a later documentation HEAD.
+Repository KartChang/ChronoTrigger_reMaster. Only active branch main; non-force. Current gameplay source **`2a689fe5abc76d865bc15bc948a43f9738bd6650`**, tree **`baf926bdf41a73e7a73ba458329be1fe61795699`**, parent documentation HEAD `5bf19b897432797d8be7cd7de6dc4193f212b20d`. Commit created, main ref updated non-force and read back. This later [skip ci] checkpoint changes documents only, not game source.
 
-## Accepted baseline — do not reopen
+## Sole active validation
 
-CI14 `35306737632` / job `105480363515`, gameplay `66831b98ba9a0ced2998c918947bcc4a80813df1` / tree `d8fd75f70a8a5d708e8a826f55f88ea994ed0dfa`: SUCCESS, all nine browser journeys and checks. Exact three artifacts plus Pages staging are permanently retained and raw-readback verified. `evidence/CI14_ACCEPTANCE.md` records IDs, SHA256 and actual images.
+**CI15 `35315967536`**, event push, attempt1, exact source above. One matching run returned. Last observed **in_progress**; no final browser result claimed.
 
-Pages7 `35308890507` / deploy `105486650952` succeeded including public HTTP verification. Staged HTML equals CI14, SHA256 `7e2e20cbc031c512173e62ac26ce20021769fc6f4e17b0af788c7d9220176e16`. **Last verified public version: 0.8.0.** No independent new live HTTP fetch is claimed. Do not call 0.8.1 online until its complete CI and exact Pages have been checked.
+| Job | ID | Last observation |
+|---|---|---|
+| validate, nine retained browser journeys |105507568011|in_progress; npm run check completed/success; Chromium install active|
+| Fresh story and hearing (bad) |105507568141|in_progress; build success; Chromium install active|
+| Fresh story and hearing (good) |105507568198|in_progress; build success; Chromium install active|
 
-## Implemented in this batch; browser acceptance pending
+**Source frozen.** Next continuation receives this exact run once. Pending means preserve checkpoint/report, not prolonged polling, cancellation or duplicate dispatch. Failure means inspect the first actual failing job, same-run logs and report/lastObserved/failure.png; do not fabricate state/saves, remove assertions or only extend timeouts. Success requires all three jobs, not only validate. Preserve the original three artifacts plus chrono-witness-good-evidence and chrono-witness-bad-evidence; compare source/HTML, inspect actual new scenes, then verify matching Pages. See `evidence/FAIR_WITNESS_CI15_CHECKPOINT.json`.
 
-T03: actual cat escort, one-time lunch, explicit pendant-sale query, patient/rushed candy stop and sticky return refusal; recorded only for fresh games and sealed before time travel. New versioned hearing sequences actual witnesses and conditional questions, supports both verdict branches, and preserves old v1-v7 unknown facts/old verdict policy. Original hidden cat RNG/jury bytecode remains unverified; deterministic policy is disclosed, not silently claimed ROM-exact.
+## This completed development batch — acceptance pending
 
-T04: once-only supporter parcel after qualifying not-guilty outcome, merged with real inventory stock and existing supervisor supplies. SNES-reference distribution is1 Ether for4/5 not-guilty votes,3 for6/7; published guides disagree across versions, and user-patched ROM has not been checked. This is not a complete equipment/level/shop/roster system.
+T03: real cat escort, one-time lunch, explicit pendant query, patient/rushed candy, sticky refusal, sealed fair history, conditional courtroom questions/witness appearances, both verdict branches. Fresh games record real actions; old v1-v7 missing facts stay unknown and old verdict policy stays unchanged. New hearing is explicitly versioned fair-witness-v1, not a claim of original hidden ROM jury/cat RNG fidelity.
 
-T05: eight native48x64 supporting NPCs,32x32 cat/lunch/parcel, shared runtime/export painters, courtroom camera/window framing fix for the actual CI14 clipping defect. Existing native party remains. Total57 PNG/JSON sets and833 frame records include old assets; new NPCs are static front-facing poses, not complete animation or final approval.
+T04: supporter Ether parcel after qualifying not-guilty verdict, one-time claim, correct stock provenance and compatibility with existing supervisor supplies/item use. It does not complete equipment/growth/shops/roster/skills.
 
-Local **467 tests passed,0 failed**; typecheck/build/asset hygiene passed, browser scripts compiled. Three new core journeys traverse actual production inputs through fresh opening,600AD rescue and trial (both verdicts, gift plus subsequent prison supplies); no state/position assignment is used in those complete routes. Isolated negative save tests deliberately corrupt JSON only to test rejection.
+T05: eight newly authored native48x64 supporting NPCs,32x32 cat/lunch/parcel, same painter in runtime/export; local fix to CI14's actually observed court-window clipping. Existing native party/ATB/old chapters are preserved.57 PNG/JSON sets and833 frame records include existing assets; new NPCs are front-facing static poses, not complete animation or approved final art.
 
-Preserve all nine original browser journeys. The same single CI additionally runs good/bad fresh-story matrix jobs, each walking the actual opening/rescue/court, not importing a unit-generated save. Both use the same source and report HTML hashes. Additional artifacts `chrono-witness-good-evidence` and `chrono-witness-bad-evidence` are required alongside the original three. Pages must wait for entire CI success. Each job retains its45-minute upper bound; no timeout relaxation or duplicate dispatch.
+Local **467 tests passed,0 failed**, typecheck/build/asset hygiene passed, Python scripts compiled. Pure-core full routes use only production input/actions through fresh game,600AD/rescue,hearing and prison; isolated malicious-JSON tests are rejection tests, not gameplay evidence. Nine old browser journeys plus two new fresh-story matrix routes are in the same CI. No new local engine pass/screenshot or physical-device result is claimed; prior normal local navigation was blocked and not bypassed.
 
-No local new engine pass or screenshot claimed: prior normal navigation was blocked by environment policy; no bypass. Native asset contact sheet and pure geometry tests are not runtime/physical-device approval. Original witnesses/order are researched, but full jury internals, dungeon/world topology, accurate balance, full growth/equipment/skills, remaining eras/stories/endings, music and real-device90 gates remain open.
+## Permanent delivery
 
-## Next action / preservation
+Working package **`123VhKlsMuKBOWK7GGO7UNTKu751CPGW3`**, project folder **`1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`**,1691825 bytes,SHA256 **`5fff8167b5c815f54224cc5f906fae9b2e5dded10791cee3ce61969ee5fbf517`**. Raw Drive readback matched complete ZIP/CRC and all156 manifest members, including32 changed source files. Source/scripts/tests/workflow/assets/index subtrees match tested local source exactly. Package is changed-source/local playable/art/log preservation, NOT a full-repository snapshot or accepted CI artifact. Local build sourceSha=null is retained honestly. Native NPC contact sheet is NOT gameplay. Details/links: DELIVERY_INDEX.md; local log/hash receipt: evidence/FAIR_WITNESS_LOCAL.json.
 
-Complete commit/ref/readback to main and register one matching push CI. If queued/in_progress, freeze gameplay and write exact SHA/run/jobs before reporting; no long polling. Failure: first actual failing job and its report/lastObserved/failure.png, no fabricated state or weakened assertion. Success: retain all five artifacts and verify common source/HTML; inspect real new witnesses, verdict, gift and court framing; then verify Pages and continue TODO.
+All code/progress is on real main commits. Temporary container paths are never authority. Private supplied ROM remains `1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM`,4194304 bytes,shared=false,correct project parent; original raw hash in PRIVATE_ROM_RECEIPT.md. No duplicate upload; not emulated/extracted or included in public source/CI/Pages.
 
-Drive project folder `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`, never root. DELIVERY_INDEX is the cloud entrypoint; temporary files are not authority. Private ROM remains `1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM`,4MiB,shared=false, no new upload required; not extracted or included in public source/CI/Pages.
+## Accepted baseline and remaining scope
+
+CI14 `35306737632`, source `66831b98ba9a0ced2998c918947bcc4a80813df1`, SUCCESS with nine journeys. Three artifacts plus Pages7 staging retained/readback verified. Pages7 `35308890507` successful public HTTP verification and matching staged HTML. **Last verified public preview:0.8.0**, HTML SHA256 `7e2e20cbc031c512173e62ac26ce20021769fc6f4e17b0af788c7d9220176e16`. No0.8.1 online claim. Receipt: evidence/CI14_ACCEPTANCE.md. Do not rerun old baseline or restore older work over main.
+
+After CI15: finish actual evidence/Pages closure, then remaining T03 original hidden rules/patch differences/topology and T04 systems. T05 complete assets/animation/audio, T06 all remaining eras/main story/sidequests/endings and T07 actual whole-game>=90/physical devices remain open.2300 arrival is not the future chapter.467 tests or higher pixel dimensions are not a score; old30 is stale. No inflated rating, waived gap or reduced full-game scope.

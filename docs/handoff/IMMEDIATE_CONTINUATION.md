@@ -1,24 +1,11 @@
-# Immediate continuation — CI14 / native48x64 batch
+# Immediate continuation — CI14 accepted / T03 witness work
 
-Read STATUS and this file, then execute existing TODO. main only, non-force; no history audit, parallel branches, old chapter rebuild or other-project governance. GitHub and project Drive connectors have been used successfully.
+Read STATUS and this file. main only/non-force; no history audit, framework rebuild or other-project governance.
 
-## Exact current point
+CI14 `35306737632`, source `66831b98ba9a0ced2998c918947bcc4a80813df1`, is SUCCESS with all nine journeys. Pages7 `35308890507` verified0.8.0; exact staged/playable HTML hash `7e2e20cbc031c512173e62ac26ce20021769fc6f4e17b0af788c7d9220176e16`. Evidence receipt: `evidence/CI14_ACCEPTANCE.md`. Four ZIPs retained in project Drive and raw-readback matched. Do not reopen pending markers from the old CI14 checkpoint or rerun this source.
 
-Gameplay source **66831b98ba9a0ced2998c918947bcc4a80813df1**, tree **d8fd75f70a8a5d708e8a826f55f88ea994ed0dfa**. Earlier missing publication was fixed with04c01941 [skip ci], then final66831 triggered the ONE push validation.
+Next batch is remaining T03 fair behaviors/testimony/verdicts, related one-time T04 items, T05 courtroom clipping/NPC consistency. No new source is published at this docs-only checkpoint. Existing trial/prison/tank, v7, inventory and native party are implemented/accepted within scope; do not recreate them. Full original jury algorithm/topology, full systems/assets/audio/story/endings and real-device90 gates remain open.
 
-**CI14 35306737632; job105480363515; attempt1/push.** Last observed in_progress, npm run check success, Playwright installation active; browser completion not yet confirmed. A later [skip ci] docs HEAD is NOT another game source/candidate. Gameplay frozen; no duplicate dispatch, cancellation or CI of docs HEAD.
+Project Drive `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`, never root. Current accepted browser `1HYM7hmu6DNPmGlc60E9TKAdLffdnKCYj`, playable `12jrZe8YNlsv2TqgZ-zRX30iF3YlamKqr`, art `1Y3Ts8dSiMv0r8CjBSg8zrWd8Rlb0m0y1`, staged `1qQVUQNC1N75Vus27fBSeSewR1z20fBDn`. IDs/hashes/limits in receipt and DELIVERY_INDEX. Private ROM remains `1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM`; never include original bytes in public source or artifacts. Current accepted source can be restored from exact same-run source archive; older working ZIPs are not authority.
 
-Next action: read same run's result once. Still pending: preserve/report, no indefinite polling. Failure: first true failed step's same-run logs and report/lastObserved/failure.png; no assertion deletion, direct game-state mutation, manufactured saves or timeout-only changes. Success: retain all3 exact artifacts in project Drive with IDs/source/run/hash/raw readback; inspect actual home/map/party/court/cell/tank/inventory/alternate-route screenshots and native texture reports; verify matching Pages before claiming0.8 online. Then continue T03 missing original witnesses/jury/topology and T04 equipment/growth/shops/roster/skills, not rebuild existing framework.
-
-## Already implemented
-
-Court/two prison routes/Fritz/stairs/Lucca/three-part tank/reunion/2300 connection; partial bag/ether/XP; v7 real prior history; material/scale/bridge/animation contract; four native48x64 party characters,4 atlases/400 frame records, connected to runtime and static appearances. Existing8 journeys plus ninth trial retained. Local415 tests, typecheck/build pass. New local browser navigation was administratively blocked and not bypassed. Assets are authored with new pixel coordinates, not old-image enlargement or image-generation-model output. New actual browser/art approval is pending.
-
-## Permanent delivery
-
-Project folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**, never root.
-Final source/art/local-validation ZIP **1Kcbxm_zm-5C61ofV3QEJI3doQ6mcGnCH**,1883229 bytes,SHA25661294661a0a7f14f19b63cbd5d96c10f5175857105a4d4195ea8694fb698c111. Complete124-file source tree equals66831;227 manifest members and ZIP CRC/hash verified after raw Drive download.
-Asset contact sheet **1253-oRcUnWAyBnap3QdTA_0_GrinAj9Q**,raw readback equal, explicitly NOT gameplay. Exact receipt:evidence/T03_NATIVE_CI_CHECKPOINT.json; all cloud entries:DELIVERY_INDEX.md. Older intermediate packages are not restore authority.
-Private ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** already stored/verified; no duplicate upload. Not emulated/extracted. Never include original binary/assets in public source/Actions/Pages.
-
-Last accepted source809a567 / CI13 success / Pages6 verified0.7.0. Do not rerun it. Full-game faithful>=90 target unchanged; no score claimed. Full original jury/witness/topology, complete progression, remaining assets/music/eras/endings and hardware validation remain open. Native dimensions and passed tests are not final quality acceptance.
+Batch related changes before one CI. Freeze new source during validation; pending means save exact point and report, not prolonged polling. First real failure only, preserve assertions and genuine input/save workflows. Always complete commit/ref/readback, not merely create unattached Git objects. Temporary paths are not permanent memory.

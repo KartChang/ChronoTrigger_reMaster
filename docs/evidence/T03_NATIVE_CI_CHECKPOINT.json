@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18 Asia/Taipei",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "source": "66831b98ba9a0ced2998c918947bcc4a80813df1",
+  "sourceTree": "d8fd75f70a8a5d708e8a826f55f88ea994ed0dfa",
+  "parent": "04c01941cc9b11c7f70dc11f37cdb4af4789055b",
+  "sourceRefReadback": true,
+  "completeLocalSourceTreeEquality": true,
+  "gameplayFrozen": true,
+  "ci": {
+    "run": 35306737632,
+    "number": 14,
+    "job": 105480363515,
+    "attempt": 1,
+    "event": "push",
+    "registeredMatchingRunCount": 1,
+    "lastObservedStatus": "in_progress",
+    "npmRunCheck": "success",
+    "lastObservedActiveStep": "python -m playwright install --with-deps chromium",
+    "browserAcceptance": "not yet confirmed",
+    "artifactIds": [],
+    "duplicateDispatch": false,
+    "cancelledOrRerun": false
+  },
+  "localValidation": {"passed":415,"failed":0,"typecheck":"passed","build":"passed","localBrowser":"ERR_BLOCKED_BY_ADMINISTRATOR; not bypassed; no local gameplay acceptance"},
+  "newAssets": {"nativeCell":{"w":48,"h":64},"characters":["crono","marle","lucca","frog"],"newAtlases":4,"atlasSize":{"w":416,"h":884},"newFrameRecords":400,"totalExportPairs":46,"totalExportFrameRecords":821,"aiImageGenerated":false,"legacyImageResampled":false,"finalArtApproved":false},
+  "driveFolder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "retained": [
+    {"kind":"complete published source plus local playable/art/logs; NOT accepted CI artifact","fileId":"1Kcbxm_zm-5C61ofV3QEJI3doQ6mcGnCH","bytes":1883229,"sha256":"61294661a0a7f14f19b63cbd5d96c10f5175857105a4d4195ea8694fb698c111","sourceFileCount":124,"manifestMemberCount":227,"rawReadbackEqual":true,"zipCrcPassed":true,"allMemberHashesEqual":true},
+    {"kind":"asset contact sheet; NOT gameplay screenshot","fileId":"1253-oRcUnWAyBnap3QdTA_0_GrinAj9Q","bytes":37416,"sha256":"d2fafa922ef4fd0e8201cde6e5f7e914214888141185700784be5b6f5d8914f5","rawReadbackEqual":true}
+  ],
+  "localPlayable": {"version":"0.8.0","buildSourceSha":null,"sha256":"7e2e20cbc031c512173e62ac26ce20021769fc6f4e17b0af788c7d9220176e16","isCiArtifact":false},
+  "lastAccepted": {"source":"809a5671a63e19c2a573d2b0be759dbe006989ea","ci":35262006198,"pages":35264087535,"version":"0.7.0"},
+  "privateRom": {"fileId":"1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM","bytes":4194304,"sha256":"b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a","shared":false,"emulatedOrExtracted":false,"publiclyIncluded":false},
+  "next": "Receive exact CI14 result once. Pending: preserve/report without long polling. Failure: first actual terminal logs/evidence. Success: retain three artifacts, inspect real scenes and verify exact Pages; then continue existing T03/T04 TODO.",
+  "wholeGameAccepted": false,
+  "quality90Accepted": false,
+  "documentationCheckpointOnly": true
+}

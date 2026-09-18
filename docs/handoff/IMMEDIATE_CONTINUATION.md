@@ -1,13 +1,24 @@
-# Immediate continuation — 0.8 native48x64 batch
+# Immediate continuation — CI14 / native48x64 batch
 
-Read STATUS and this file, then execute TODO. main single line, non-force; no repository/history audit or other-project rules. The prior missing publication was closed at04c01941cc9b11c7f70dc11f37cdb4af4789055b [skip ci]. The final non-skip child contains trial/prison/inventory/materials AND native48x64 party. Do not recreate either batch or overlay an old ZIP.
+Read STATUS and this file, then execute existing TODO. main only, non-force; no history audit, parallel branches, old chapter rebuild or other-project governance. GitHub and project Drive connectors have been used successfully.
 
-CI13 35262006198/source809a567 is accepted, eight journeys; Pages6 last verified0.7.0. Final local415 checks passed. Source subtree77834456155efe97f4c8037b7608b484fe05a434; tests77f238562c498afc9e830f050ee8621009ae220c; scripts6730ff88c38f3cf62e6eeaa12038bc985900b721; assets4354c05e31cd53534cd78e67fd4fa5789a898622 matched remote prepared tree and local tested files.
+## Exact current point
 
-Next: receive the ONE final push CI for this source. Its registered source/run/job will be recorded in evidence/T03_NATIVE_CI_CHECKPOINT.json after publication. No second dispatch, no CI for documentation HEAD. If queued/in_progress, freeze gameplay and report without long polling. Failure: inspect same-run first true terminal and its evidence; no assertion removal/state injection/artificial save/timeout-only change. Success: preserve all three exact artifacts with hashes/raw Drive readback, inspect actual images including native texture evidence and full trial journey, verify exact Pages package.
+Gameplay source **66831b98ba9a0ced2998c918947bcc4a80813df1**, tree **d8fd75f70a8a5d708e8a826f55f88ea994ed0dfa**. Earlier missing publication was fixed with04c01941 [skip ci], then final66831 triggered the ONE push validation.
 
-Implemented: court/two prison routes/Fritz/stairs/Lucca/three-part tank/reunion/2300, partial bag/ether/XP, v7, material/scale contract, four new native48x64 party atlases actually connected to runtime. New graphics are programmatically authored, not image-generation-model output or nearest-neighbor old-image enlargement. Asset review/contact sheet is not browser acceptance; new local browser was genuinely blocked by administrator policy, not bypassed.
+**CI14 35306737632; job105480363515; attempt1/push.** Last observed in_progress, npm run check success, Playwright installation active; browser completion not yet confirmed. A later [skip ci] docs HEAD is NOT another game source/candidate. Gameplay frozen; no duplicate dispatch, cancellation or CI of docs HEAD.
 
-Remaining per TODO: full original fair witnesses/jury rules and geography, equipment/growth/shops/roster/techs, remaining high-detail assets/animation/music, all other eras/stories/endings, whole-game>=90 and real-device gates. No score or scope reduction.
+Next action: read same run's result once. Still pending: preserve/report, no indefinite polling. Failure: first true failed step's same-run logs and report/lastObserved/failure.png; no assertion deletion, direct game-state mutation, manufactured saves or timeout-only changes. Success: retain all3 exact artifacts in project Drive with IDs/source/run/hash/raw readback; inspect actual home/map/party/court/cell/tank/inventory/alternate-route screenshots and native texture reports; verify matching Pages before claiming0.8 online. Then continue T03 missing original witnesses/jury/topology and T04 equipment/growth/shops/roster/skills, not rebuild existing framework.
 
-Drive project folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb only. Delivery receipts in DELIVERY_INDEX; permanent GitHub progress not temporary files. ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM already private, verified; no duplicate upload or public distribution. Full source must be restored from current GitHub exact source, not intermediate old package.
+## Already implemented
+
+Court/two prison routes/Fritz/stairs/Lucca/three-part tank/reunion/2300 connection; partial bag/ether/XP; v7 real prior history; material/scale/bridge/animation contract; four native48x64 party characters,4 atlases/400 frame records, connected to runtime and static appearances. Existing8 journeys plus ninth trial retained. Local415 tests, typecheck/build pass. New local browser navigation was administratively blocked and not bypassed. Assets are authored with new pixel coordinates, not old-image enlargement or image-generation-model output. New actual browser/art approval is pending.
+
+## Permanent delivery
+
+Project folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**, never root.
+Final source/art/local-validation ZIP **1Kcbxm_zm-5C61ofV3QEJI3doQ6mcGnCH**,1883229 bytes,SHA25661294661a0a7f14f19b63cbd5d96c10f5175857105a4d4195ea8694fb698c111. Complete124-file source tree equals66831;227 manifest members and ZIP CRC/hash verified after raw Drive download.
+Asset contact sheet **1253-oRcUnWAyBnap3QdTA_0_GrinAj9Q**,raw readback equal, explicitly NOT gameplay. Exact receipt:evidence/T03_NATIVE_CI_CHECKPOINT.json; all cloud entries:DELIVERY_INDEX.md. Older intermediate packages are not restore authority.
+Private ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** already stored/verified; no duplicate upload. Not emulated/extracted. Never include original binary/assets in public source/Actions/Pages.
+
+Last accepted source809a567 / CI13 success / Pages6 verified0.7.0. Do not rerun it. Full-game faithful>=90 target unchanged; no score claimed. Full original jury/witness/topology, complete progression, remaining assets/music/eras/endings and hardware validation remain open. Native dimensions and passed tests are not final quality acceptance.

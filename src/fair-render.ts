@@ -1,4 +1,5 @@
-import {drawTree,drawLucca,drawGato,drawResident} from './pixel-art';
+import {drawHDHero,HD_ART} from './hd-hero-art';
+import {drawTree,drawGato,drawResident} from './pixel-art';
 import {drawSurface,drawMasonry} from './world-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {FAIR_STALLS} from './fair-data';
@@ -76,9 +77,9 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     box('telepod-beam',x,2.2,10.3,2.4,.2,.2,'#b9a269');
   }
   const makeSprite=(name:string,x:number,y:number,z:number,robot=false)=>{
-    const tex=new DynamicTexture(name,{width:robot?48:24,height:robot?48:32},scene,false,Texture.NEAREST_SAMPLINGMODE);tex.hasAlpha=true;
+    const tex=new DynamicTexture(name,{width:robot?48:HD_ART.width,height:robot?48:HD_ART.height},scene,false,Texture.NEAREST_SAMPLINGMODE);tex.hasAlpha=true;
     const ctx=tex.getContext() as CanvasRenderingContext2D;
-    if(robot)drawGato(ctx);else drawLucca(ctx);
+    if(robot)drawGato(ctx);else drawHDHero(ctx,'lucca',0,0);
     tex.update();const m=new StandardMaterial(name,scene);m.diffuseTexture=tex;m.emissiveTexture=tex;m.disableLighting=true;m.useAlphaFromDiffuseTexture=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.alphaCutOff=.4;m.backFaceCulling=false;
     const mesh=attach(MeshBuilder.CreatePlane(name,{width:robot?2.8:1.35,height:robot?2.8:1.85},scene),m,false);mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   };
@@ -111,7 +112,8 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   for(const stall of FAIR_STALLS){
     const vendor=makeSprite('fair-vendor-'+stall.id,stall.x,1.0,stall.z+.48);
     const tex=(vendor.material as StandardMaterial).diffuseTexture as DynamicTexture;
-    drawResident(tex.getContext() as CanvasRenderingContext2D,'resident');tex.update();
+    // Vendors retain their own native canvas; never paint a 24px NPC over the HD Lucca canvas.
+    tex.scaleTo(24,32);drawResident(tex.getContext() as CanvasRenderingContext2D,'resident');tex.update();
   }
   // Merge only immobile opaque boxes. Animated bell, sprites, rings and gate stay separate.
   const groups=new Map<Material,Mesh[]>();

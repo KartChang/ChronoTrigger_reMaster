@@ -1,8 +1,9 @@
+import {drawHDHero,HD_ART} from './hd-hero-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {RESCUE_SOLIDS,rescueMap} from './rescue-data';
 import type {RescueMap} from './rescue-data';
 import type {State} from './core';
-import {drawFrog,drawRescueNpc,drawCathedralFloor,drawGlass} from './rescue-art';
+import {drawRescueNpc,drawCathedralFloor,drawGlass} from './rescue-art';
 
 /** Lazy authored sets. Shared solid footprints drive benches, pillars, organ and crates. */
 export function buildRescue(scene:Scene,shadow:ShadowGenerator){
@@ -47,7 +48,7 @@ export function buildRescue(scene:Scene,shadow:ShadowGenerator){
    box('organ-keys',-6.8,1.04,6.27,2.5,.13,.46,mat('#eee3bb'));
    for(let i=0;i<15;i++)if(i%7!==2&&i%7!==6)box('black-key',-7.94+i*.16,1.13,6.38,.075,.08,.22,dark);
    for(const [x,z] of [[-2.8,-2],[2.8,1],[-2.8,4]])v.nuns.push(picture('disguised-nun',x!,1.03,z!,1.3,1.85,c=>drawRescueNpc(c,'nun')));
-   v.frog=picture('frog-arrival',1.2,1.03,4.8,1.4,1.85,c=>drawFrog(c));
+   v.frog=picture('frog-arrival',1.2,1.03,4.8,1.4,1.85,c=>drawHDHero(c,'frog',0,0),HD_ART.width,HD_ART.height);
    v.crest=box('royal-crest',0,.12,1.8,.27,.06,.27,gold);
    v.door=box('secret-stone-door',4,1.65,10.02,2.3,3.3,.35,stone);
    box('door-shadow',4,1.55,10.22,2.3,3.1,.08,mat('#111b20'));

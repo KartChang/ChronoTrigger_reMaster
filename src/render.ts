@@ -1,3 +1,4 @@
+import {drawHDHero,HD_ART} from './hd-hero-art';
 import {ART_PROFILE,cameraHalf} from './art-profile';
 import {buildTrial} from './trial-render';
 import {trialMap} from './trial-data';
@@ -5,13 +6,13 @@ import {buildPrologue} from './prologue-render';
 import {prologueMap} from './prologue-data';
 import {buildRescue} from './rescue-render';
 import {rescueMap} from './rescue-data';
-import {drawFrog,drawYakra,drawNaga} from './rescue-art';
+import {drawYakra,drawNaga} from './rescue-art';
 import {PosePlayer} from './pose-player';
 import type {HeroPose} from './hero-art';
 import type {PoseSample} from './pose-player';
 import {buildKingdom} from './kingdom-render';
 import {buildCanyon} from './canyon-render';
-import {drawAdventureHero,drawImp,drawLucca} from './pixel-art';
+import {drawImp} from './pixel-art';
 import {activeSlot,selectedEnemy,guestKind} from './core';
 import {buildFair} from './fair-render';
 import {
@@ -69,7 +70,7 @@ export class World {
   private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
   private targetMarkers:Mesh[]=[];
   private drawFrames=0;
-  inspect(){return {trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -134,14 +135,14 @@ export class World {
     this.fairWorld=buildFair(this.scene,this.shadow);
     this.canyonWorld=buildCanyon(this.scene,this.shadow);
     this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);this.trialWorld=buildTrial(this.scene,this.shadow);
-    this.guest=this.sprite('guest-companion',1.36,1.85);this.yakra=this.sprite('yakra',3.5,3.5,48,48);
+    this.guest=this.sprite('guest-companion',1.36,1.85,HD_ART.width,HD_ART.height);this.yakra=this.sprite('yakra',3.5,3.5,48,48);
     for(let i=0;i<3;i++)this.rescueFoes.push(this.sprite('rescue-enemy-'+i,1.35,1.85));
     for(const sprite of [this.guest,this.yakra,...this.rescueFoes]){sprite.mesh.setEnabled(false);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;}
     const glow=new GlowLayer('subtle-light',this.scene,{blurKernelSize:16});glow.intensity=.22;
     // Pixel actors and labels must not bloom into unreadable white silhouettes.
     glow.addIncludedOnlyMesh(this.portal);glow.addIncludedOnlyMesh(this.crystal);glow.addIncludedOnlyMesh(saveCrystal);
     for(let i=0;i<2;i++){
-      this.heroes.push(this.sprite('player-'+i,1.36,1.85));
+      this.heroes.push(this.sprite('player-'+i,1.36,1.85,HD_ART.width,HD_ART.height));
       const ring=MeshBuilder.CreateTorus('ownership-'+i,{diameter:.85,thickness:.035,tessellation:32},this.scene);ring.material=this.mat('p'+i,i===0?'#dfb87e':'#80c9c0');this.markers.push(ring);
       this.labels.push(this.label('P'+(i+1),0,0,0,i===0?'#ffe4b3':'#b6fff0',.75));
       const target=MeshBuilder.CreateCylinder('target-pointer-'+i,{diameterTop:.30,diameterBottom:0,height:.40,tessellation:3},this.scene);
@@ -201,8 +202,10 @@ export class World {
   }
   private drawHero(sprite:Sprite,slot:number,facing:number,frame:number,fair:boolean,lucca=false,pose:HeroPose='walk'):void {
     const key=`${fair}:${lucca}:${facing}:${frame}:${pose}`;if(sprite.last===key)return;sprite.last=key;
-    const c=sprite.texture.getContext();c.clearRect(0,0,24,32);
-    if(fair){if(lucca)drawLucca(c as CanvasRenderingContext2D,facing,frame,pose);else drawAdventureHero(c as CanvasRenderingContext2D,slot,facing,frame,pose);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;sprite.texture.update();return;}
+    const width=fair?HD_ART.width:24,height=fair?HD_ART.height:32;
+    if(sprite.texture.getSize().width!==width)sprite.texture.scaleTo(width,height);
+    const c=sprite.texture.getContext();c.clearRect(0,0,width,height);
+    if(fair){drawHDHero(c as CanvasRenderingContext2D,lucca?'lucca':slot===0?'crono':'marle',facing,frame,pose);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;sprite.texture.update();return;}
     sprite.material.disableLighting=false;sprite.material.emissiveTexture=null;
     const rect=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
     const hair=slot===0?(fair?'#b6423d':'#835746'):'#d6b568',coat=slot===0?'#52758b':(fair?'#c6cebd':'#619d8d');
@@ -305,7 +308,7 @@ export class World {
     if(kind){
       const pose=g.hp<=0?{pose:'down' as const,frame:3}:s.mode==='victory'?{pose:'victory' as const,frame:Math.floor(this.time*4)%4}:this.guestPose.sample(this.time,g.walking);this.guestView=pose;
       const key=`${kind}/${g.facing}/${pose.pose}/${pose.frame}`;
-      if(this.guest.last!==key){this.guest.last=key;const c=this.guest.texture.getContext() as CanvasRenderingContext2D;if(kind==='frog')drawFrog(c,g.facing,pose.frame,pose.pose);else drawAdventureHero(c,1,g.facing,pose.frame,pose.pose);this.guest.texture.update();}
+      if(this.guest.last!==key){this.guest.last=key;const c=this.guest.texture.getContext() as CanvasRenderingContext2D;drawHDHero(c,kind,g.facing,pose.frame,pose.pose);this.guest.texture.update();}
       const gs=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;this.guest.mesh.scaling.setAll(gs);this.guest.mesh.position.set(g.x,s.chapter==='overworld1000'?.43:1.02,g.z);
     }
     const inRescue=rescueMap(s.chapter),boss=inRescue&&s.mode==='battle'&&s.enemies[0]?.kind==='yakra'&&s.enemies[0]!.hp>0;

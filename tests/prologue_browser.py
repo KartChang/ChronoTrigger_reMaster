@@ -4,6 +4,7 @@ Snapshot and view hooks are read-only. No injected game state, synthetic saves o
 from pathlib import Path
 import hashlib, json, math, subprocess, sys, time
 from playwright.sync_api import sync_playwright
+from hd_party_browser import record_hd_party
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'prologue';OUT.mkdir(parents=True,exist_ok=True)
@@ -47,6 +48,7 @@ def fresh(page,coop=False):
     s=snap(page);assert s['players'][0]['x']==1.5 and s['players'][1]['x']==1.5
     assert page.locator('#p1').is_hidden()
 def to_fair(page,prefix):
+    record_hd_party(page,OUT,prefix+'-native-party')
     page.screenshot(path=str(OUT/f'{prefix}-bedroom.png'))
     move(page,'x',0);trigger(page,'s',"s.chapter==='home'&&!s.prologue.transition")
     assert snap(page)['players'][0]['x']==4.5 and snap(page)['players'][0]['z']==2.2

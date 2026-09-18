@@ -5,6 +5,7 @@ Alternate route reloads only the cell save exported by this very browser journey
 from pathlib import Path
 import hashlib, json, math, subprocess, sys, time
 from playwright.sync_api import sync_playwright
+from hd_party_browser import record_hd_party
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'trial';OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'test-results'/'rescue'/'rescue-returned-v5.json'
@@ -157,6 +158,7 @@ try:
             assert after['players'][1]['mp']==before['players'][1]['mp']-3
             wait_game(page,'s.trial.headRepairs>0',300,('battle',))
             assert snap(page)['enemies'][1]['hp']>after['enemies'][1]['hp']
+            record_hd_party(page,OUT,'07-native-party-battle')
             page.screenshot(path=str(OUT/'07-dragon-tank.png'))
             passed('horizontal bridge has three live independently targeted parts; fire is blocked on head and actual head action repairs damaged body')
             wait_game(page,'s.players[1].atb>=1',210,('battle',));page.click('#bag')

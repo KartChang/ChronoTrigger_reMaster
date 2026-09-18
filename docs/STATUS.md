@@ -1,27 +1,29 @@
-# Current status — 2026-09-18 / recovered 0.8 working batch
+# Current status — 2026-09-18 / 0.8 native-pixel batch
 
-**DEVELOPMENT IN PROGRESS — NOT 90-POINT ACCEPTED.**
+**DEVELOPMENT CANDIDATE — FULL GAME IN PROGRESS; NOT 90-POINT ACCEPTED.**
 
-GitHub main is the sole active branch. The prior continuation created Git blobs/trees but did NOT create a commit/update main; main was still b8416fec3e6efda96f077c424126f00ddf0ae9b3. This checkpoint closes that publication omission by committing the existing 0.8 work, not recreating it. Non-force single-line update; [skip ci] intentionally preserves work while this source batch continues. No 0.8 CI acceptance or deployment is claimed.
+Repository KartChang/ChronoTrigger_reMaster; main only, non-force. Prior uncommitted0.8 work was actually published as04c01941cc9b11c7f70dc11f37cdb4af4789055b [skip ci]. This final source batch extends that commit, rather than repeating old chapters. Resolve the exact final push SHA/run from the immediate handoff/checkpoint receipt; a later documentation commit is not another game build.
 
 ## Accepted baseline
 
-CI13 35262006198 / job105339788184 is completed/success; all eight browser journeys and npm run check passed. Accepted gameplay809a5671a63e19c2a573d2b0be759dbe006989ea. Prior exact artifact/Pages6 receipts: docs/evidence/CI13_ACCEPTANCE.md. Last verified deployed version0.7.0, not0.8.0.
+CI13 35262006198, source809a5671a63e19c2a573d2b0be759dbe006989ea: success, eight browser journeys. T00/T01/T02 functional scope accepted. Pages6 35264087535 verified0.7.0 source and HTML. Receipt:evidence/CI13_ACCEPTANCE.md. No0.8 deployment or whole-game acceptance yet.
 
-## Working source now being published
+## Final batch implemented, awaiting one CI
 
-Recovered tree cea636d4ddc98987bf7c6075d62ddb32d7e9b8de; source subtree ebc349c0bcfbba99a9f4acbf1628a8fded79f7f6; tests b08fee7ed7a875e77ccf1765bcc972699b3f1c56; scripts9b599f170bfa5ec0295de4b6956d8d73282d3fa9; workflow subtree42b1cdb92f12d20a22102eb4ea5c937ea67d686d. These equal the final375-test Drive package and the freshly checked local files. No old game ZIP was overlaid onto newer published source.
+T03: genuine returned-fair escort, court questions, cell, three-knock solo escape or three-day Lucca rescue, optional Fritz, stair battle, supervisor/manual/supplies, three independently targeted Dragon Tank parts, head repair/fire shield, reunion and forest Gate to a walkable2300 arrival. v7 preserves the real v5/v6 earlier save; ATB/co-op/old saves retained.
+T04 partial: inventory UI, tonic/ether stock, target/readiness guards and atomic use, pause, one-time encounter XP. This is NOT full equipment/level/shop/roster/tech progression.
+T05: material/camera/bridge production contract plus NEW native48x64 Crono/Marle/Lucca/Frog drawings. Four416x884 transparent PNG atlases,100 frame records each, integrated into six existing render modules and exported by the same painter. Not old sprite enlargement, ROM extraction or AI image generation. Existing24x32 NPCs retain their own canvas; vendor residue regression fixed. Full package46 PNG/JSON pairs,821 frame records; most older assets are not high-detail remakes.
 
-T03 implemented pending browser: returned-fair escort, court, cell, two escape routes, Fritz, guards, Lucca, supplies, three-part Dragon Tank, reunion, forest gate, 2300 arrival. T04 partial inventory/ether/XP bookkeeping. T05 machine-consumed scale/material contract, five tiled surfaces, bridge geometry and two-frame tank. Existing ATB/co-op/v1–v6 remain; v7 adds real pre-trial history.
+Fresh final npm run check:415 passed,0 failed; TypeScript/build/asset checks passed. Forty added tests include native detail, exact atlas/runtime painter parity, all directions/poses, and read-only actual GPU texture observation in existing browser journeys. Local Chromium navigation returned ERR_BLOCKED_BY_ADMINISTRATOR, not a new gameplay pass. Exported contact sheet was viewed; it is NOT a gameplay screenshot.
 
-Fresh restoration validation: npm run check passed375/375, typecheck/build/asset hygiene successful. Source/package manifest211 members checked. Browser acceptance still pending. Existing eight journeys plus trial ninth retained.
+Prepared source/tests/scripts/assets subtrees read back and equal tested local files: src77834456155efe97f4c8037b7608b484fe05a434; tests77f238562c498afc9e830f050ee8621009ae220c; scripts6730ff88c38f3cf62e6eeaa12038bc985900b721; assets4354c05e31cd53534cd78e67fd4fa5789a898622. One non-skip final push is the only new CI trigger; no duplicate dispatch or cancellation.
 
-## Current continuation
+## Not closed
 
-Continue the same unvalidated batch with the user's asset concern: current24x32 actors and64px tank parts are newly authored small procedural assets, NOT a completed high-detail pixel remake. Do not call enlarged images new detail or asset export visual approval. Implement usable higher-detail source assets and runtime/export parity, record actual scope, validate locally, then publish ONE final push CI. No repeated CI for checkpoints.
+Original full witness/juror logic and jail topology, exact combat statistics, equipment/growth/shops/roster/skills, remaining cast/enemies/world art, soundtrack, other eras/main story/sidequests/endings and physical-device gates remain open. Native dimensions alone do not prove quality or fidelity. The stale30 score is not a current score; no>=90 acceptance awarded or scope reduced.
 
-T03 missing full fair witnesses/original jury rules and topology, T04 equipment/growth/shops/roster/skills, T05 full art/audio, T06 remaining stories/endings, T07 whole-game>=90 and physical devices remain open. Keep honest original-reference limitations and full scope.
+## Next action and preservation
 
-## Permanent storage
+Read same-source CI result once. If queued/in_progress: freeze gameplay, save exact SHA/run/job and report, no prolonged polling. Failure: same-run first terminal/logs/report/lastObserved/failure.png only. Success: retain three same-run artifacts in project Drive, inspect home/fair/party/prison/tank/portrait evidence, verify matching Pages, then continue T03 fidelity/T04 systems per TODO.
 
-Project Drive1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb only. Final375 package1Zs96UaqigokhPBewJcQJH7KsQk9BsRqF:1737952 bytes, SHA256423a87663da701e5bfd02a768c3ce0f1ae0ff1cc5c91804555a903d8b7e78b2f; raw download/CRC/member hashes verified this continuation. ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM remains private,4194304 bytes, SHA256b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a. No ROM extraction/emulation or public distribution occurred. See DELIVERY_INDEX.
+GitHub owns source/progress. Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb only; DELIVERY_INDEX records packages/readbacks. Private ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM is already stored,4194304 bytes, SHA256b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a,shared=false. No emulation/extraction/public distribution.

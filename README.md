@@ -1,48 +1,16 @@
-# ChronoTrigger reMaster — 修道院救援 0.6 開發候選
+# ChronoTrigger reMaster — HD-2D browser reconstruction
 
-**不是完整重製版，尚未達 90 分整體驗收。**
+**Development in progress; not a completed game or90-point accepted release.**
 
-## 直接試玩
+Current implementation/CI: [STATUS](docs/STATUS.md). Next tasks: [TODO](docs/TODO.md). Cloud files and receipts: [DELIVERY_INDEX](docs/DELIVERY_INDEX.md). Immediate handoff: [IMMEDIATE_CONTINUATION](docs/handoff/IMMEDIATE_CONTINUATION.md).
 
-已上線的展示頁：https://kartchang.github.io/ChronoTrigger_reMaster/
+## Current batch
 
-Pages 只接收完整 CI 通過的遊戲包。頁面會顯示實際版本與 source SHA；本次 0.6 在 CI／部署完成前，線上仍是已驗收的 0.5.1，不會把候選當成已上線。也可在成功的 Playable prototype CI 下載 `chrono-hd2d-playable`，以 Chrome／Edge 開啟其中 index.html。repository 根目錄 index.html 是未建置模板。
+0.8 adds the trial, alternate prison escapes, Fritz, Dragon Tank, reunion and2300 arrival to the existing waking/fair/600-year/cathedral journey. Inventory/ether/XP are partial systems, not full equipment/growth. New Crono, Marle, Lucca and Frog are native48x64 pixel redraws connected to gameplay, not enlarged old sprites. See [actual asset scope](docs/HD_PARTY_ASSETS.md) and [trial scope/gaps](docs/TRIAL_T03.md).
 
-TypeScript + Babylon.js + esbuild，瀏覽器執行、同機雙人、ATB。玩家不需安裝 Node.js、後端或 ROM。
+415 local tests, typecheck/build passed; final same-source browser acceptance remains pending until STATUS records it. Last verified public deployment is0.7.0 fromCI13/Pages6, not automatically the newest source. Existing preview: https://kartchang.github.io/ChronoTrigger_reMaster/ .
 
-## 可玩的路線與本版終點
-
-千年祭（從克羅諾／瑪兒已同行開始）→ 項鍊異變 → 600 年山道 → 托魯斯／森林／王城 → 瑪兒消失、露卡加入 → 瑪諾利亞修道院 → 修女伏擊 → 青蛙同行 → 管風琴暗門 → 密道與補給 → 亞克拉 → 莉妮王后與真正的大臣 → 王城瑪兒重現 → 山道時門 → 回到 1000 年。
-
-**新增救援採壓縮的三房間路線，不是原版完整迷宮。** 怪物數值與動作是試作；審判章節及後續內容未開放。整套背包裝備、角色成長、剩餘時代與結局、原版配樂仍未完成。
-
-## 舊進度接續
-
-從舊 HTML 匯出 JSON，再到新版本開始千年祭後按「匯入」。原 v1–v4 不改格式；已在王城與露卡會合的 v4，直接返回森林，沿西方小路进入修道院。冒險地圖共用本機存檔槽；技術村落分開。從 file:// 搬到 Pages、換瀏覽器或清理網站資料前先匯出。沒有雲端同步。
-
-首次進修道院後採 v5，保存第三名同伴、救援階段、管風琴、寶箱與補給。場景轉換／過場與戰鬥仍不能存檔。救援存檔不會把角色 ATB、尋路快取或特效序列化。
-
-## 操作
-
-| 功能 | P1 | P2 |
-|---|---|---|
-| 移動 | WASD | 方向鍵 |
-| 互動 | E | Enter |
-| 攻擊 | J | 逗號 |
-| 技能 | K | 句號 |
-| 合技確認 | L | 斜線 |
-| 選擇上一／下一敵人 | Q／R | 左／右方括號 |
-| 使用回復藥 | U | 反斜線 |
-
-C 加入／退出 P2（探索）；Esc 暫停。也能按面板按鈕。主線／換圖由 P1 帶領，兩位玩家靠近後一起過圖。
-
-雙人操作始終是克羅諾與目前第二位主隊員。瑪兒消失時 P2 觀戰；露卡加入後 P2 控制露卡。**青蛙是第三名自動同伴，有實際 HP、MP、ATB、尋路、攻擊與傷者回復，不是 P3 控制槽。** 救援回城後青蛙離隊，瑪兒重現後成為第三位同行者，P2 仍是露卡。尚無自由切換完整隊伍或三人合技。
-
-回復藥由密道寶箱取得 3 份，戰鬥中需自身 ATB 充滿、HP 未滿；使用消耗一份及自身 ATB、不消耗 MP。這是單一物品功能，不是完整背包。
-
-手把沿用標準 Gamepad API：A 攻擊、X 技能、Y 合技、B 互動、LB／RB 選敵；P1 Start 暫停，P2 Start 加入／退出。回復藥目前用鍵盤／螢幕按鈕，未配置手把快捷鍵。觸控只提供 P1；實體手把、手機與硬體效能尚未認證。
-
-## 開發與品質
+## Development
 
 ```sh
 npm ci
@@ -50,10 +18,14 @@ npm run check
 npm run preview
 ```
 
-Node.js 22+ 用於建置。preview 本機 4173；Python／Playwright 僅用於驗收。完整模組與測試說明見 CODEBASE.md，現行進度只看 docs/STATUS.md，本章節契約見 docs/RESCUE_SLICE.md。
+The built dist/index.html is self-contained. TypeScript/Babylon.js/esbuild, browser-first, fixed-step ATB and local two-player support are retained. P1 Crono; Lucca returns to P2 when story allows; Frog/Marle may be autonomous third companion. This is not a new real-time ARPG or network-multiplayer implementation.
 
-美術以原版圖片校準後手工繪製，來源與版本限制在 assets/reference-index.json。ROM、原作圖片檔、原聲帶、使用者附件及密鑰不進 source／artifact。這不是原作 IP 清權聲明。新素材 export 為審查用 PNG＋JSON，不是原版擷取或美術通過證明。
+Save v1–v7 compatibility and actual earlier-choice provenance are retained. Browser tests use genuine input and same-run exported saves, not direct state injection. The full nine-journey CI and exact-source Pages packaging remain under .github/workflows.
 
-`npm run check:quality` 產生品質報告；`npm run release:check` 未達門檻會拒絕。目前整體受評基準仍是舊版 30/100 且 stale，不因新增章節／測試數目提高分數；本版完整浏览器／畫面尚待 exact CI。Pages 上線只是開發展示，不是完整產品放行。
+## Original fidelity and assets
 
-第三方程式授權见 docs/THIRD_PARTY.md；部署機制見 docs/PAGES.md。
+Full original geography, court witnesses/jury rules, character/skill progression, remaining eras/endings, art/audio and physical-device verification are incomplete. Four new atlases do not mean all assets are remade. Larger texture dimensions and unit-test counts are not a quality score. The old30-point review is stale; whole-game>=90 is not accepted.
+
+Original ROM is privately retained in the project Drive at the user's request, not included or required for play. It has not been emulated/extracted in this batch. No original image/audio binaries are publicly packaged. Authored derivative character drawings do not establish original-IP rights clearance. References/provenance are in assets/reference-index.json and docs/ORIGINAL_FIDELITY.md; dependencies/notices in docs/THIRD_PARTY.md.
+
+GitHub main is source/progress authority; source, generated PNG/JSON and validation packages are permanently retained in the project Drive. Do not use temporary containers or historical ZIPs to overwrite newer main. Stable agent instructions:AGENTS.md; implementation map:CODEBASE.md.

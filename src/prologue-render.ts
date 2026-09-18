@@ -1,10 +1,11 @@
+import {drawHDHero,HD_ART} from './hd-hero-art';
 import {materialSet,boxTextureUV} from './material-runtime';
 import {drawMountain} from './material-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {prologueMap,HOME_SOLIDS,MARLE_MEETING,DROPPED_PENDANT,WORLD_HOME} from './prologue-data';
 import type {PrologueMap} from './prologue-data';
 import type {State} from './core';
-import {drawAdventureHero,drawResident,drawTree} from './pixel-art';
+import {drawResident,drawTree} from './pixel-art';
 import {drawRoomFloor,drawRegionalMap} from './prologue-art';
 /** Three cached scene roots; rendering never changes progression or writes a save. */
 export function buildPrologue(scene:Scene,shadow:ShadowGenerator){
@@ -71,12 +72,12 @@ export function buildPrologue(scene:Scene,shadow:ShadowGenerator){
   root.setEnabled(false);return {root,curtains,mother};
  }
  const meeting=builder('prologue-meeting');
- const marle=meeting.picture('marle',MARLE_MEETING.x,MARLE_MEETING.z,1.36,1.85,c=>drawAdventureHero(c,1,0,0));
+ const marle=meeting.picture('marle',MARLE_MEETING.x,MARLE_MEETING.z,1.36,1.85,c=>drawHDHero(c,'marle',0,0),HD_ART.width,HD_ART.height);
  const pendant=meeting.picture('pendant',DROPPED_PENDANT.x,DROPPED_PENDANT.z,.48,.55,c=>{c.strokeStyle='#cfb46c';c.lineWidth=2;c.beginPath();c.arc(12,9,6,0,Math.PI*1.7);c.stroke();c.fillStyle='#86cbd0';c.fillRect(9,15,7,10);c.fillStyle='#fcf0b7';c.fillRect(11,16,2,5);});
  let marlePose='';
  return {inspect:()=>({maps:[...views.keys()],meeting:meeting.root.isEnabled(),marle:marle.isEnabled(),pendant:pendant.isEnabled()}),draw(s:State){
   for(const [id,v] of views)v.root.setEnabled(id===s.chapter);
   if(prologueMap(s.chapter)){let v=views.get(s.chapter);if(!v){v=build(s.chapter);views.set(s.chapter,v);}v.root.setEnabled(true);if(s.chapter==='bedroom'){v.mother?.setEnabled(s.prologue.stage==='waking');v.curtains.forEach((c,i)=>{c.position.x=(i===0?-1:1)*(.34+Math.min(1,s.prologue.elapsed/.9)*.78);if(s.prologue.stage!=='waking')c.position.x=(i===0?-1:1)*1.12;});}}
-  const atMeeting=s.chapter==='fair'&&['fair','collision'].includes(s.prologue.stage);meeting.root.setEnabled(atMeeting);marle.setEnabled(atMeeting);const pose=s.prologue.stage==='collision'&&s.prologue.elapsed<.6?'down':'idle';if(atMeeting&&pose!==marlePose){marlePose=pose;const t=(marle.material as StandardMaterial).diffuseTexture as DynamicTexture;drawAdventureHero(t.getContext() as CanvasRenderingContext2D,1,0,0,pose);t.update();}pendant.setEnabled(atMeeting&&s.prologue.stage==='collision'&&!s.prologue.pendantPicked);
+  const atMeeting=s.chapter==='fair'&&['fair','collision'].includes(s.prologue.stage);meeting.root.setEnabled(atMeeting);marle.setEnabled(atMeeting);const pose=s.prologue.stage==='collision'&&s.prologue.elapsed<.6?'down':'idle';if(atMeeting&&pose!==marlePose){marlePose=pose;const t=(marle.material as StandardMaterial).diffuseTexture as DynamicTexture;drawHDHero(t.getContext() as CanvasRenderingContext2D,'marle',0,0,pose);t.update();}pendant.setEnabled(atMeeting&&s.prologue.stage==='collision'&&!s.prologue.pendantPicked);
  }};
 }

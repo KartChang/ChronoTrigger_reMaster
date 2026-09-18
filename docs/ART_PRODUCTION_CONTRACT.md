@@ -1,3 +1,5 @@
+> Current party amendment (2026-09-18): HD_PARTY_ASSETS.md and HD_ART now define native48x64 party cells/pivot(24,62), integrated runtime and four new atlases. The earlier24x32 and375-test numbers below describe the prior working batch, not current party density. Final local415 tests pass; whole export46 pairs/821 records. New actual browser/art approval is pending. Other production conventions and open fidelity gaps remain.
+
 # 可進引擎的美術製作契約 — r1 / 0.8 batch
 
 這是既有 QUALITY_AND_ASSETS、reference index 與 PNG/JSON 匯出流程的具體化，不是另一套素材系統，不是全遊戲美術核准書。**先定尺度、分層、材質與交付格式，再按可玩章節做素材並在引擎驗收；不等待全遊戲素材一次做完。**

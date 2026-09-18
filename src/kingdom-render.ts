@@ -1,9 +1,10 @@
+import {drawHDHero,HD_ART} from './hd-hero-art';
 import {drawSurface} from './world-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {KINGDOM_SOLIDS,kingdomMap} from './kingdom-data';
 import type {KingdomMap} from './kingdom-data';
 import type {State} from './core';
-import {drawTree,drawAdventureHero,drawLucca,drawResident} from './pixel-art';
+import {drawTree,drawResident} from './pixel-art';
 
 /** Lazy map construction. No game state is written here; footprints come from the rule data. */
 export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
@@ -78,11 +79,11 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
     picture('guard',-1.8,-2.5,1.4,1.95,c=>drawResident(c,'guard'));
     for(let i=0;i<6;i++)box('east-stair',8,.12+i*.1,6.4+i*.4,2,.2+i*.2,.5,mat(i%2?'#a4aaa4':'#7e8b8b'));
     for(const x of [-3.8,3.8]){box('banner',x,2.15,10.3,1.3,2.5,.08,mat('#415a7e'));box('banner-crest',x,2.3,10.23,.45,.7,.05,mat('#d6b873'));}
-    lucca=picture('lucca',2,-3.2,1.36,1.85,c=>drawLucca(c));
+    lucca=picture('lucca',2,-3.2,1.36,1.85,c=>drawHDHero(c,'lucca',0,0),HD_ART.width,HD_ART.height);
    }else{
     const bed=KINGDOM_SOLIDS.chamber[0]!;box('bed-frame',bed.x,.48,bed.z,bed.w,.7,bed.d,timber);box('quilt',bed.x,.9,bed.z-.4,bed.w-.2,.22,bed.d-1,mat('#647c9b'));box('pillow',bed.x,1.08,bed.z+1.2,2.5,.15,.75,mat('#ded7b7'));
     box('cupboard',6.5,1.1,7,3,2.2,1.5,timber);box('table',6.5,.8,1.5,2,1.6,2,mat('#876d4d'));
-    queen=picture('marle-as-queen',0,2,1.36,1.85,c=>drawAdventureHero(c,1,0,0));
+    queen=picture('marle-as-queen',0,2,1.36,1.85,c=>drawHDHero(c,'marle',0,0),HD_ART.width,HD_ART.height);
    }
   }
   root.setEnabled(false);return {root,queen,lucca};

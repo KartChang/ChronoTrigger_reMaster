@@ -1,10 +1,11 @@
+import {drawHDHero,HD_ART} from './hd-hero-art';
 import {materialSet,boxTextureUV} from './material-runtime';
 import {ART_PROFILE,tankVisualFrame} from './art-profile';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import type {State} from './core';
 import {TRIAL_SOLIDS,trialMap} from './trial-data';
 import type {TrialMap} from './trial-data';
-import {drawResident,drawAdventureHero,drawTree} from './pixel-art';
+import {drawResident,drawTree} from './pixel-art';
 import {drawRescueNpc} from './rescue-art';
 import {drawSurface} from './world-art';
 import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
@@ -51,7 +52,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    for(const x of [-1.3,0,1.3])v.guards.push(guard(x,-4.5));door(0,6.7,'castle-path');
   }else if(map==='hall1000'){
    for(const x of [-5,5])for(const z of [-3,2]){box('pillar-base',x,.16,z,1.3,.32,1.3,'#b2b198');box('pillar',x,1.5,z,.75,2.6,.75,'#8d958a');box('pillar-capital',x,2.9,z,1.35,.22,1.35,'#b8b18e');}
-   box('royal-carpet',0,.06,1,3.3,.05,10,'#7c3e45');v.marle=picture('marle-waits',0,1,1.25,1.8,ctx=>drawAdventureHero(ctx,1,0,0));
+   box('royal-carpet',0,.06,1,3.3,.05,10,'#7c3e45');v.marle=picture('marle-waits',0,1,1.25,1.8,ctx=>drawHDHero(ctx,'marle',0,0),HD_ART.width,HD_ART.height);
    for(const x of [-2.2,2.2])v.guards.push(guard(x,.2));picture('chancellor',2.5,4,1.3,1.8,ctx=>drawRescueNpc(ctx,'chancellor'));door(0,-6.9,'city-gate');
   }else if(map==='cellblock'){
    box('storage-locker',-5,.6,4,2.3,1.2,2.4,'#4b5050');

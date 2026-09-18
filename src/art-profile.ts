@@ -1,8 +1,9 @@
+import {HD_ART} from './hd-hero-art';
 /** Production conventions for this reconstruction, NOT claims about the original ROM. */
 export const ART_PROFILE = Object.freeze({
  schemaVersion:1, id:'snes-reference-hd2d-r1', status:'implemented-awaiting-browser-review',
  referenceVersion:'SNES composition reference; supplied Traditional Chinese beta ROM retained privately, not extracted',
- actors:{cell:{w:24,h:32},pivot:{x:12,y:31},padding:2,worldScale:.4,fieldScale:1,sampling:'nearest'},
+ actors:{cell:{w:HD_ART.width,h:HD_ART.height},pivot:HD_ART.pivot,padding:HD_ART.padding,worldScale:.4,fieldScale:1,sampling:'nearest'},
  camera:{projection:'orthographic',heading:'north-positive-z',height:23,back:26,
   world:{minimumHalfHeight:9,minimumHalfWidth:12},home:{minimumHalfHeight:5.5,minimumHalfWidth:7},
   field:{minimumHalfHeight:6.2,minimumHalfWidth:8},lab:{minimumHalfHeight:8.2,minimumHalfWidth:14}},

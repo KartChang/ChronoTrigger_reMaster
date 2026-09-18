@@ -1,8 +1,19 @@
-# Cloud delivery index — 2026-09-18 / CI14 accepted
+# Cloud delivery index — 2026-09-18 / 0.8.1 working batch
 
-GitHub KartChang/ChronoTrigger_reMaster main is source/progress authority. Accepted source `66831b98ba9a0ced2998c918947bcc4a80813df1`, CI14 `35306737632`, Pages7 `35308890507`, verified preview0.8.0. Later documentation HEADs do not change gameplay.
+GitHub KartChang/ChronoTrigger_reMaster main is source/progress authority. Accepted source `66831b98ba9a0ced2998c918947bcc4a80813df1`, CI14 `35306737632`, Pages7 `35308890507`, verified preview0.8.0. The new0.8.1 source is a candidate; exact published SHA/run is recorded in STATUS and the subsequent CI checkpoint. Documentation HEAD changes do not change gameplay.
 
 Project folder: https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb . All deliveries stay inside this folder; sharing unchanged.
+
+## New 0.8.1 working preservation — not a passed CI artifact
+
+[Chrono-0.8.1-working-source-art-validation.zip](https://drive.google.com/file/d/123VhKlsMuKBOWK7GGO7UNTKu751CPGW3/view)
+Drive ID `123VhKlsMuKBOWK7GGO7UNTKu751CPGW3`; **1691825 bytes**; SHA256 **`5fff8167b5c815f54224cc5f906fae9b2e5dded10791cee3ce61969ee5fbf517`**.
+
+Contains32 changed source/test/asset/doc files, local self-contained0.8.1 HTML,57 PNG/JSON asset pairs, native supporting-cast review contact sheet, actual467-test check log and manifest;156 manifest members. This is a changed-source preservation package, NOT a full-repository snapshot or an accepted browser artifact. Its base documentation HEAD is5bf19b897432797d8be7cd7de6dc4193f212b20d. Correct project parent was confirmed; raw Drive download matches complete uploaded ZIP SHA256/CRC, all156 member hashes and all32 local source bytes. No original ROM/audio/font files or node_modules are included. The contact sheet is NOT gameplay.
+
+Local build sourceSha=null is honestly retained; HTML SHA256 `8a3a09e2557540e389446a31a592a462d62bd1c4f22567f8988efa44604f9a9b`. Check log SHA256 `5ca118be86f265cb9b147b40eb1bd50c750cda4bda7c466cc02511e700729c03`. These are local results, not a new CI pass. Detailed rules/fidelity boundaries: FAIR_WITNESSES.md; local evidence: evidence/FAIR_WITNESS_LOCAL.json.
+
+After successful new CI, retain five exact-run artifacts: chrono-hd2d-browser-evidence, chrono-hd2d-playable, chrono-hd2d-art-review-kit, chrono-witness-good-evidence, chrono-witness-bad-evidence. Both extra jobs must match source and HTML, not just the old nine journeys. Do not declare0.8.1 online until complete CI, actual screenshot inspection and exact Pages verification.
 
 ## Accepted CI14 / Pages7
 

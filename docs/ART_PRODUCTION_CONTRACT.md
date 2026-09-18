@@ -45,3 +45,7 @@ CI13已通過的家中、大地圖、初遇、600年與亞克拉提示畫面仍�
 References inspected as text this continuation:
 - https://www.snesmaps.com/maps/ChronoTrigger/ChronoTrigger1000JailBG.html
 - https://www.snesmaps.com/maps/ChronoTrigger/ChronoTriggerMapSelectBG.html
+
+## 0.8.1 supporting-cast increment
+
+Existing native48×64 party remains. Eight newly authored48×64 supporting NPCs and32×32 cat/lunch/parcel share runtime/export painters; no enlarged old PNG or image-generation-model claim. NPCs have static front views only; cat has two tail frames. Total57 PNG/JSON sets,833 frame records include old assets. Court-only camera/window framing addresses an actual CI14 clipping defect; browser inspect reads GPU texture sizes and projected bounds. New images remain review-not-approved pending exactCI. Original world topology, all directions/poses, soundtrack and whole-game90 remain open.

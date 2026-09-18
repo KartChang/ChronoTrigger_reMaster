@@ -111,6 +111,7 @@ try:
             move(page,'z',5.7);talk(page,'加爾迪亞王城')
             move(page,'z',-.5);talk(page,'被捕')
             assert snap(page)['chapter']=='courtroom'
+            page.wait_for_function('''()=>{const v=window.__CHRONO_TEST__.view().trialMaps,b=v.windowBounds;return b&&b.top>=.065&&b.left>=0&&b.right<=1&&b.bottom<=1&&v.npcTextures.length>=10&&v.npcTextures.every(t=>t.width===48&&t.height===64)}''',timeout=20000)
             page.screenshot(path=str(OUT/'02-courtroom.png'))
             passed('real returned v5 follows fair exit, miniature world, forest and castle arrest; P2 never takes Marle')
             talk(page,'大臣的質問',choice=True);talk(page,'大臣的質問',choice=False)

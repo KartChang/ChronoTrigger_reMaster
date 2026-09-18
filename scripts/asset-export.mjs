@@ -74,7 +74,7 @@ export function combatSheet(draw,poses,durations){
 export async function exportAssets(root=process.cwd()){
   const {build}=await import('esbuild');const out=resolve(root,'dist/art');await mkdir(out,{recursive:true});
   const modules={};
-  for(const name of ['pixel-art','hero-art','world-art','rescue-art','prologue-art','trial-art','material-art','art-profile','hd-hero-art']){
+  for(const name of ['pixel-art','hero-art','world-art','rescue-art','prologue-art','trial-art','material-art','art-profile','hd-hero-art','witness-art']){
     const bundle=resolve(root,`.test/${name}-export.mjs`);
     await build({entryPoints:[resolve(root,`src/${name}.ts`)],bundle:true,outfile:bundle,format:'esm',platform:'node'});
     modules[name]=await import(pathToFileURL(bundle).href+'?export');
@@ -82,7 +82,7 @@ export async function exportAssets(root=process.cwd()){
   const prologue=modules['prologue-art'],trial=modules['trial-art'],materials=modules['material-art'],profile=modules['art-profile'].ART_PROFILE;
   await writeFile(resolve(out,'production-profile.json'),JSON.stringify(profile,null,2));
   const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'],rescue=modules['rescue-art'];
-  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts'];const hash=createHash('sha256');
+  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts','src/witness-art.ts'];const hash=createHash('sha256');
   for(const source of sources){hash.update(source+'\0');hash.update(await readFile(resolve(root,source)));hash.update('\0');}
   const sourceSha256=hash.digest('hex');
   const inventory=[];
@@ -111,6 +111,20 @@ export async function exportAssets(root=process.cwd()){
   }
   for(const [id,w,h,draw] of [...materials.SURFACE_KINDS.map(k=>['material-'+k,64,64,c=>materials.drawMaterial(c,k)]),['regional-mountain',64,48,materials.drawMountain],...['court','prison','bridge','future'].map(k=>['trial-'+k+'-floor',384,352,c=>trial.drawTrialFloor(c,384,352,k)]),['court-window',64,80,trial.drawCourtWindow],['home-wood-floor',384,352,c=>prologue.drawRoomFloor(c,384,352)],['truce-regional-map',384,352,c=>prologue.drawRegionalMap(c,384,352)],['fair-ground',512,512,(c)=>world.drawSurface(c,512,512,'fair')],['forest-ground',384,352,(c)=>world.drawSurface(c,384,352,'forest')],['masonry',128,128,(c)=>world.drawMasonry(c)],['cathedral-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352)],['crypt-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352,true)],['stained-glass',40,64,rescue.drawGlass]]){
     const s=surface(w,h);draw(s.ink);await save(id,s,{padding:0,frames:[{index:0,rect:{x:0,y:0,w,h}}],clips:{},orientation:'top is north (+z) for ground maps; Babylon texture update uses invertY=true',usage:'Same authoring code is used by the engine DynamicTexture, not an external runtime request.'});
+  }
+  const witness=modules['witness-art'];
+  for(const kind of witness.WITNESS_KINDS){
+    const canvas=surface(48,64);witness.drawWitness(canvas.ink,kind);
+    await save('witness-'+kind,canvas,{padding:0,frames:[{index:0,rect:{x:0,y:0,w:48,h:64},pivot:witness.WITNESS_SIZE.pivot}],clips:{idle:{frames:[0],loop:true}},limitations:['New native 48x64 static supporting NPC, not complete four-direction animation or exact original drawing.']});
+  }
+  for(const kind of ['cat','lunch','parcel']){
+    const count=kind==='cat'?2:1,canvas=surface(count*34,36),frames=[];
+    for(let phase=0;phase<count;phase++){
+      const frame=surface(32,32);witness.drawFairProp(frame.ink,kind,phase);
+      const x=phase*34+1,y=2;for(let row=0;row<32;row++)frame.rgba.copy(canvas.rgba,((row+y)*canvas.width+x)*4,row*32*4,(row+1)*32*4);
+      frames.push({index:phase,rect:{x,y,w:32,h:32},pivot:{x:16,y:31},durationMs:300});
+    }
+    await save('fair-'+kind,canvas,{padding:1,frames,clips:{idle:{frames:[0],loop:true},...(kind==='cat'?{follow:{frames:[0,1],loop:true}}:{})}});
   }
   inventory.push(...await exportHDAssets(out,modules['hd-hero-art'],hero.CLIP_MS,sourceSha256));
   const report={stage:'reference-review-not-final-art',images:inventory.length,frames:inventory.reduce((n,a)=>n+a.frames,0),sourceSha256,productionProfile:profile.id,assets:inventory,limitations:['References calibrate silhouettes, palette and surface treatment; compressed layouts and project animation timings are not exact original reconstruction.','Walk cycle has three distinct poses over four timed frames; phases 0 and 2 repeat.','Combat clips require live gameplay review. Portraits, music, full cast and remaining world assets are still incomplete.','Exports are review/editing artifacts. External PNG re-import is not implemented.']};

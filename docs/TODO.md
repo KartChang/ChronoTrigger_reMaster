@@ -1,30 +1,25 @@
-# Execution TODO — 0.8 native-pixel batch / 2026-09-18
+# Execution TODO — 0.8.1 fair witnesses / 2026-09-18
 
-Current exact source/run: STATUS and handoff receipt. main only, non-force; no duplicate framework or old chapter rebuilding.
+main單線、非force；exact source/run以STATUS與immediate handoff為準。維持完整遊戲與90分門檻，不從頭重做已驗收章節。
 
-## Accepted functional baseline
+## 已關閉的功能基線
 
-T00 CI12 rescue accepted; T01 healing-feedback fix/Pages6 verified; T02 fresh waking/home/miniature map/meeting/v6 accepted in CI13. These are functional slices, NOT final art or full original geography. Do not rerun CI13 for documentation changes.
+T00／T01／T02：CI12–CI14既有修道院、初始開場、提示修正及八段回歸已通過。
+T03既有可玩增量：CI14第九段已通過護送／法庭基本問題／兩種越獄／弗里茲／階梯／看守室／三部位戰車／重聚／2300抵達。T04背包、乙太、XP記錄與T05原生48×64主角也在同run驗收。Pages7已核對0.8.0同source/HTML；四份交付已下載回讀留存。這些不等於完整原作、完整未來篇或最終美術。
 
-## Current final batch — implemented, browser acceptance pending
+## 目前整批待驗收，不是待重做
 
-T03 court and prison: genuine returned checkpoint, escort/map/forest/castle/arrest/questions; cell knock/solo battle and alternate wait/Lucca rescue; optional Fritz; stairs, supervisor, one-time supplies/manual; three-part Dragon Tank/head repair/fire shield; castle reunion and forest Gate to2300 arrival. v7 preserves actual v5/v6 history. The ninth browser journey uses same-run rescue output, never manufactured saves.
+T03：尋貓、午餐、項鍊詢問、買糖等待／催促、拒還記錄；穿越前封存。新遊戲實際行為連到法庭條件質問、按順序出庭證人、兩種裁決；舊存檔不捏造證詞、不改舊裁決。完整七人隱藏程式、貓的隨機／殘留旗標版差、回憶演出及監獄完整拓樸仍未關閉。
+T04：支持者物資包裹、防重領、真實庫存與後續看守室補給相容。本批採SNES實玩記錄的4/5票→1、6/7票→3乙太；數量與補丁版ROM尚待直接核對。装備／等級／貨幣／商店／完整角色技能仍待增量實作。
+T05：八名新48×64配角、32×32道具、同源PNG與runtime；局部修正CI14法庭彩窗裁切。57組PNG/JSON、833筆影格包含既有素材；配角只有正面靜態圖，全人物／全方向／全場景／音樂並未完成。
 
-T04 partial inventory/ether/XP: pause/input boundary, actual stock, full/dead/inactive-target rejection, battle ATB deduction, one-time rewards. Full equipment/levels/shop/currency/roster/skills are NOT done.
+本機467項測試、typecheck、build和素材檢查通過；新的瀏覽器結果與截圖尚未取得。保留九段原流程；同一次CI另跑good/bad新遊戲到法庭兩個matrix job，從實際遊玩經歷驗證正負裁決、物資與存讀，不拿核心測試存檔跳過剧情。所有job都維持45分鐘上限，不放寬timeout。
 
-T05 same batch: executable material/scale/camera/bridge contract; four freshly authored native48x64 party characters, four100-frame PNG/JSON atlases connected to runtime; vendor canvas isolation; old assets remain. Whole export46 pairs/821 records, NOT46 completely remade asset sets. No AI image generation/ROM extraction claimed. Asset contract details:HD_PARTY_ASSETS.md; it supersedes the earlier24x32 party convention only.
+CI在跑就凍結source、記錄exact後回報，不長時間輪詢。失敗看第一個實際失敗job的report/lastObserved/failure.png，不刪斷言或直接改遊戲狀態。成功須留存原三artifact和chrono-witness-good-evidence／chrono-witness-bad-evidence，共五份；核對source與HTML，實看證人／裁決／法庭／道具畫面，再核對Pages。0.8.1未核對前線上只宣稱0.8.0。
 
-Final local415 tests/check/build pass. Native-art contact sheet reviewed; actual new browser gameplay remains pending because localhost navigation was administratively blocked. Preserve all eight existing journeys plus trial ninth and actual renderer-texture/screenshot observation. Do not claim0.8 online before exact CI/Pages review.
+## 下一批順序與未完成範圍
 
-## Immediate acceptance path
-
-One final source push CI. queued/in_progress: freeze code and persist exact continuation, no prolonged polling, cancel or duplicate dispatch. failure: first real same-run terminal/log/report/lastObserved/failure.png. success: retain browser-evidence/playable/art-review-kit in project Drive and hash/readback, inspect actual updated opening/party/court/prison/tank/inventory images, verify same-source Pages. Functional pass does not close the fidelity gaps below.
-
-## Remaining original TODO, unchanged full-game scope
-
-T03 fidelity: cat/lunch/pendant-sale/candy evidence, original seven-juror algorithm and supported verdict branches, complete original jail topology/choreography/balance. Current provisional subset is explicitly incomplete; missing facts remain unknown.
-T04: equipment, inventory expansion, currency/shops, levels/stat growth, full party management, skill learning and authentic dual/triple-tech systems.
-T05: refine new party style against original references and real gameplay; remake remaining NPC/enemy/world/portrait assets and animations, external edited-atlas runtime reimport, music/audio. Neither increased pixels nor concept images meet visual gates.
-T06: full future and all remaining eras, main story, sidequests and endings.2300 arrival is only a connection, not a finished future chapter.
-T07: whole-game>=90, each dimension>=80%, no critical blockers, evidence gates and actual keyboard/gamepad/frame-time/load/memory/background/save tests. Software GPU is not a physical device; old30 is stale. Never delete gaps, score only completed slices or shrink scope to pass.
-T08 every batch: source/tests/progress on GitHub, source/art/playable/logs/screenshots/manifest on project Drive1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb. Exact IDs/hashes/readback in DELIVERY_INDEX. ROM is private separate reference, excluded from public packages. Continue beyond small tasks unless awaiting CI or genuinely blocked.
+完成本批實證後，接T03隱藏規則／版差／拓樸，再T04裝備、成長、商店、角色／技能；T05場景、動畫、音樂持續同批改善，不另造管線。
+T06：完整2300年與其餘時代、主線、支線、結局未完成，不拿抵達點或空場景當全章。
+T07：整體>=90、各面向>=80%、五項證據gate、必要資產與無critical；真機鍵盤／手把、frame time、載入／記憶體、背景與存檔實測尚未完成。舊30分已stale，不是當前分數；不改分數、刪缺口或縮小範圍過關。
+T08每批：GitHub實際commit/ref/readback，source與進度不能停在未引用Git物件；素材／可玩包／報告／截圖留存專案Drive，記錄SHA256與回讀。ROM只留私人檔，不加入公開原始碼、CI或Pages。除等CI或真正外部阻擋，繼續下一項。

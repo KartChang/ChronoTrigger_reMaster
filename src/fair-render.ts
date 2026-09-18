@@ -1,3 +1,4 @@
+import {buildFairConduct} from './fair-conduct-render';
 import {drawHDHero,HD_ART} from './hd-hero-art';
 import {drawTree,drawGato,drawResident} from './pixel-art';
 import {drawSurface,drawMasonry} from './world-art';
@@ -122,8 +123,10 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     const merged=Mesh.MergeMeshes(group,true,true,undefined,false,false);
     if(merged){merged.name='fair-static-batch';merged.parent=root;merged.receiveShadows=true;shadow.addShadowCaster(merged);}
   }
+  const conductView=buildFairConduct(scene,root);
   root.setEnabled(false);
   return {root,draw(s:State,time:number){
+    conductView.draw(s);
     lucca.setEnabled(s.rescue.stage!=='returned');pendant.setEnabled(s.opening.phase==='lost');
     gate.setEnabled(['resonance','lost','pendant','crossing'].includes(s.opening.phase));gate.rotation.z=time*.5;pendant.rotation.y=time;
     robot.setEnabled(s.mode!=='victory'&&!(s.mode==='battle'&&s.enemies[0]?.hp===0));

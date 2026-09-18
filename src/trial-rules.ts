@@ -1,3 +1,4 @@
+import {newHearing,witnessEvidence,jailGift,hearingChoice,hearingDialog,restoreHearing} from './trial-hearing';
 import type {Actor,Enemy,Slot,State,Vec} from './core';
 import {newFollowPlan} from './navigation';
 import {newTrial,trialMap,trialWalkable,trialStageAllows,TRIAL_NAMES,WORLD_GUARDIA,TANK_PARTS} from './trial-data';
@@ -19,7 +20,7 @@ export function enterTrialMap(s:State,chapter:TrialMap|'overworld1000',x:number,
 /** history is the genuine serialized returned checkpoint, captured before any new chapter mutation. */
 export function startTrial(s:State,history:string):TrialDialog|null{
  if(s.trial.stage!=='none'||s.rescue.stage!=='returned'||s.chapter!=='fair'||s.mode!=='explore'||dist(s.players[0],{x:0,z:-7.7})>1.5||!together(s))return null;
- s.trial=newTrial();s.trial.history=history;s.trial.stage='escort';enterTrialMap(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);
+ s.trial=newTrial();s.trial.hearing=s.prologue.conduct?newHearing():null;s.trial.history=history;s.trial.stage='escort';enterTrialMap(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);
  return {title:'送瑪兒回王城',text:'露卡先回去整理時門裝置。瑪兒希望你陪她回家。\n沿大地圖往西北，穿過加爾迪亞森林。P2 設定保留，露卡再次加入時恢復操作。'};
 }
 export function trialHint(s:State):string{
@@ -29,7 +30,7 @@ export function trialHint(s:State):string{
  case 'guardia1000':return t.stage==='flight'?'向東北的光芒走，與同伴一起調查時門。':'沿林間小路向北，護送瑪兒回王城。';
  case 'hall1000':return t.stage==='flight'?(t.marleJoined?'由南方城門逃往森林。':'瑪兒就在大廳中央。'):'前方的衛兵攔住了去路。';
  case 'courtroom':return t.question<2?'E · 回答大臣的質問':t.question===2?'E · 聽取證詞與裁決':'E · 接受拘禁，進入獨房';
- case 'cellblock':return !t.cellOpen?'南側獨房：床鋪可等待；中央鐵門可敲擊；左邊水碗可恢復。':'鐵門已開，向北穿過走廊；東側小門通往處刑室。';
+ case 'cellblock':if(jailGift(s)>0&&!t.hearing?.giftTaken)return '床鋪對面的包裹，是有人送來的物資。靠近按 E。';return !t.cellOpen?'南側獨房：床鋪可等待；中央鐵門可敲擊；左邊水碗可恢復。':'鐵門已開，向北穿過走廊；東側小門通往處刑室。';
  case 'execution':return '靠近受困的弗里茲，檢查斷頭台。南門回獨房走廊。';
  case 'prisonstairs':return t.guardsWon?'向北登上階梯，前往看守室。':'衛兵守住階梯。通過此處才能登上吊橋。';
  case 'warden':return '看守桌上有戰車說明，西側有補給箱；北門通往吊橋。';
@@ -38,10 +39,11 @@ export function trialHint(s:State):string{
  default:return '';
  }
 }
-export function trialChoiceLabels(s:State):[string,string]{switch(s.trial.choice){case 'collision':return ['是我撞到她','是她撞到我'];case 'wealth':return ['曾動過念頭','沒有'];case 'wait':return ['在床上等到隔天','先不等'];default:return ['是','否'];}}
+export function trialChoiceLabels(s:State):[string,string]{switch(s.trial.choice){case 'theft':return ['承認吃過','否認'];case 'wealth-confirm':return ['一點也沒有','有一點'];case 'collision':return ['是我撞到她','是她撞到我'];case 'wealth':return ['曾動過念頭','沒有'];case 'wait':return ['在床上等到隔天','先不等'];default:return ['是','否'];}}
 /** Unrecorded fair witnesses are explicitly absent, not retroactively invented.
  * Exact seven-juror ROM logic remains unverified; these are transparent reconstruction rules. */
 export function trialEvidence(s:State):{jurors:('guilty'|'not-guilty'|'unknown')[];lines:string[]}{
+ if(s.trial.hearing)return witnessEvidence(s);
  const p=s.prologue,t=s.trial;
  const first=p.first==='unknown'?'unknown':p.first==='pendant'?'guilty':'not-guilty';
  const jurors:('guilty'|'not-guilty'|'unknown')[]=['unknown','unknown','unknown',t.wealthMotive?'guilty':first,t.wealthMotive===null?'unknown':t.wealthMotive?'guilty':'not-guilty','unknown',t.blamedMarle===null?'unknown':t.blamedMarle?'guilty':'not-guilty'];
@@ -53,6 +55,7 @@ export function trialEvidence(s:State):{jurors:('guilty'|'not-guilty'|'unknown')
 }
 export function chooseTrial(s:State,yes:boolean):TrialDialog|null{
  const t=s.trial;if(!t.choice||s.mode!=='explore'||t.fade>0)return null;
+ const enhanced=hearingChoice(s,yes);if(enhanced)return enhanced;
  const choice=t.choice;t.choice=null;
  if(choice==='collision'&&s.chapter==='courtroom'&&t.question===0){t.blamedMarle=!yes;t.question=1;return {title:'王國法庭',text:'法庭記下了你的回答。大臣繼續詢問你接近公主的動機。'};}
  if(choice==='wealth'&&s.chapter==='courtroom'&&t.question===1){t.wealthMotive=yes;t.question=2;return {title:'王國法庭',text:'接下來核對祭典上的證詞。沒有記錄的行為，不會替你補成既定事實。'};}
@@ -86,6 +89,7 @@ export function interactTrial(s:State,slot:Slot):TrialDialog|null{
   if(t.stage==='flight'&&t.marleJoined&&near(0,-6))return go('guardia1000',0,5.3,'衛兵追出城門。林間東北方出現了熟悉的光芒。');
  }
  if(s.chapter==='courtroom'&&near(0,-1,2.4)){
+  const enhanced=hearingDialog(s);if(enhanced)return enhanced;
   if(t.question===0){t.choice='collision';return {title:'大臣的質問',text:'祭典上，是誰先撞到對方？'};}
   if(t.question===1){t.choice='wealth';return {title:'大臣的質問',text:'公主的財富，是否曾讓你動過念頭？'};}
   if(t.question===2){const e=trialEvidence(s);t.verdict=e.jurors.filter(x=>x==='guilty').length>=4?'guilty':'not-guilty';t.question=3;
@@ -93,6 +97,7 @@ export function interactTrial(s:State,slot:Slot):TrialDialog|null{
   if(t.question===3){t.stage='cell';enterTrialMap(s,'cellblock',0,-4);return {title:'空中刑務所',text:'鐵門在身後關上。牢房裡有床鋪與水碗。\n可以等待三天，也可以反覆敲門，尋找逃走的機會。'};}
  }
  if(s.chapter==='cellblock'){
+  if(near(3,-4)&&jailGift(s)>0){if(t.hearing!.giftTaken)return {title:'空包裹',text:'物資已經收下，包裹不會重複出現。'};const n=jailGift(s);t.hearing!.giftTaken=true;t.ethers+=n;return {title:'支持者的物資',text:`收下乙太 ×${n}。有人相信你的清白，把這些東西送到牢房。`};}
   if(t.stage==='cell'&&near(0,-1.3)){t.knocks=Math.min(3,t.knocks+1);if(t.knocks===3){t.route='breakout';beginTrialBattle(s,'cellguards');return {title:'鐵門打開了',text:'衛兵被敲門聲激怒，打開鐵門。趁機擊退他們，戰鬥仍採 ATB。'};}return {title:'衛兵',text:t.knocks===1?'安靜！別再敲門。':'再吵，就讓你吃點苦頭。'};}
   if(t.stage==='cell'&&near(-3.2,-4)){t.choice='wait';return {title:'獨房的床鋪',text:'躺下休息，等到隔天？這段等待會推進一個牢房日。'};}
   if(near(-3.4,-1.7)){s.players[0].hp=120;s.players[0].mp=18;return {title:'水碗',text:'清水讓你恢復精神與體力。'};}
@@ -188,18 +193,18 @@ export function useInventory(s:State,kind:'tonic'|'ether',slot:Slot):boolean{
 /** Strict whitelist. Transient questions, enemies and animation clocks are never loaded. */
 export function restoreTrial(raw:unknown,chapter:unknown):Trial{
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||typeof chapter!=='string')throw new Error('審判存檔格式錯誤。');
- const o=raw as Record<string,unknown>,t=newTrial();
+ const o=raw as Record<string,unknown>,t=newTrial();t.hearing=restoreHearing(o.hearing);
  if(typeof o.stage!=='string'||!['escort','court','cell','escape','tank','flight','future'].includes(o.stage))throw new Error('審判階段錯誤。');t.stage=o.stage as Trial['stage'];
  for(const k of ['cellOpen','guardsWon','fritzFreed','luccaJoined','marleJoined','manualRead','suppliesTaken','tankWon'] as const){if(typeof o[k]!=='boolean')throw new Error('審判旗標錯誤。');t[k]=o[k];}
- for(const [k,max] of [['question',3],['knocks',3],['days',3],['ethers',2],['experience',160],['headRepairs',10000]] as const){const n=o[k];if(typeof n!=='number'||!Number.isInteger(n)||n<0||n>max)throw new Error('審判數值錯誤。');(t as unknown as Record<string,unknown>)[k]=n;}
+ for(const [k,max] of [['question',3],['knocks',3],['days',3],['ethers',t.hearing?5:2],['experience',160],['headRepairs',10000]] as const){const n=o[k];if(typeof n!=='number'||!Number.isInteger(n)||n<0||n>max)throw new Error('審判數值錯誤。');(t as unknown as Record<string,unknown>)[k]=n;}
  for(const k of ['blamedMarle','wealthMotive'] as const){if(o[k]!==null&&typeof o[k]!=='boolean')throw new Error('審判回答錯誤。');t[k]=o[k] as boolean|null;}
  if(!['pending','guilty','not-guilty'].includes(String(o.verdict))||!['unknown','breakout','wait'].includes(String(o.route)))throw new Error('裁決與逃脫路線錯誤。');t.verdict=o.verdict as Trial['verdict'];t.route=o.route as Trial['route'];
  if(!trialStageAllows(t,chapter))throw new Error('審判階段與地圖不一致。');
- if((t.question>=1)!==(t.blamedMarle!==null)||(t.question>=2)!==(t.wealthMotive!==null)||(t.question===3)!==(t.verdict!=='pending'))throw new Error('問答順序不一致。');
+ if((t.question>=1)!==(t.blamedMarle!==null)||((t.question>=2||!!t.hearing&&t.question===1&&t.wealthMotive===false)!==(t.wealthMotive!==null))||(t.question===3)!==(t.verdict!=='pending'))throw new Error('問答順序不一致。');
  if((t.stage==='escort'&&t.question!==0)||(!['escort','court'].includes(t.stage)&&t.question!==3))throw new Error('審判前置事件不一致。');
  if((t.route==='breakout'&&t.knocks!==3)||(t.route==='wait'&&t.days!==3)||(t.cellOpen&&t.route==='unknown')||(['escape','tank','flight','future'].includes(t.stage)&&!t.cellOpen))throw new Error('牢房事件不一致。');
  if((t.luccaJoined&&!t.cellOpen)||(t.route==='wait'&&!t.luccaJoined)||(t.guardsWon&&!t.cellOpen)||(['tank','flight','future'].includes(t.stage)&&(!t.guardsWon||!t.luccaJoined)))throw new Error('越獄前置事件不一致。');
- if((t.fritzFreed&&!t.cellOpen)||((t.manualRead||t.suppliesTaken)&&!t.luccaJoined)||(t.ethers>0&&!t.suppliesTaken))throw new Error('越獄物品或救援不一致。');
+ if((t.fritzFreed&&!t.cellOpen)||((t.manualRead||t.suppliesTaken)&&!t.luccaJoined)||(t.ethers>0&&!t.suppliesTaken&&!t.hearing?.giftTaken))throw new Error('越獄物品或救援不一致。');
  if(['escort','court'].includes(t.stage)&&(t.knocks!==0||t.days!==0||t.route!=='unknown'||t.cellOpen||t.guardsWon||t.fritzFreed||t.luccaJoined||t.manualRead||t.suppliesTaken||t.headRepairs!==0))throw new Error('審判之前不得提前越獄。');
  if(t.stage==='cell'&&(t.cellOpen||t.guardsWon||t.fritzFreed||t.luccaJoined||t.route==='wait'||t.days===3||t.headRepairs!==0))throw new Error('獨房尚未解鎖逃脫事件。');
  if(t.stage==='escape'&&(t.manualRead||t.suppliesTaken||t.headRepairs!==0))throw new Error('尚未到達看守室。');

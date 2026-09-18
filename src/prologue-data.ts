@@ -1,8 +1,10 @@
+import {newConduct,saveConduct,restoreConduct} from './fair-conduct-data';
+import type {FairConduct} from './fair-conduct-data';
 /** SNES-reference prologue. All coordinates/timing/art are authored reconstruction values. */
 export type PrologueMap='bedroom'|'home'|'overworld1000';
 export type PrologueStage='legacy'|'waking'|'home'|'fair'|'collision'|'companions';
-export type Prologue={stage:PrologueStage;elapsed:number;first:'unknown'|'marle'|'pendant';checkedMarle:boolean;pendantPicked:boolean;pendantReturned:boolean;motherTalked:boolean;choice:'return'|'company'|null;transition:{to:PrologueMap|'fair';x:number;z:number;elapsed:number;entered:boolean}|null};
-export const newPrologue=(fresh=false):Prologue=>({stage:fresh?'waking':'legacy',elapsed:0,first:'unknown',checkedMarle:false,pendantPicked:false,pendantReturned:false,motherTalked:false,choice:null,transition:null});
+export type Prologue={conduct:FairConduct|null;stage:PrologueStage;elapsed:number;first:'unknown'|'marle'|'pendant';checkedMarle:boolean;pendantPicked:boolean;pendantReturned:boolean;motherTalked:boolean;choice:'return'|'company'|'sell-pendant'|null;transition:{to:PrologueMap|'fair';x:number;z:number;elapsed:number;entered:boolean}|null};
+export const newPrologue=(fresh=false):Prologue=>({conduct:fresh?newConduct():null,stage:fresh?'waking':'legacy',elapsed:0,first:'unknown',checkedMarle:false,pendantPicked:false,pendantReturned:false,motherTalked:false,choice:null,transition:null});
 export const prologueMap=(id:string):id is PrologueMap=>['bedroom','home','overworld1000'].includes(id);
 export const PROLOGUE_NAMES:Record<PrologueMap,string>={bedroom:'克羅諾的房間',home:'克羅諾的家',overworld1000:'托魯斯周邊 · 大地圖'};
 export const MARLE_MEETING={x:-3.5,z:-1.7},DROPPED_PENDANT={x:-.5,z:-.2};
@@ -27,8 +29,8 @@ export function prologueHint(chapter:string,p:{x:number;z:number},q:Prologue):st
  return '';
 }
 /** Persist only facts witnessed by this playthrough; no inferred trial verdict or legacy choices. */
-export type PrologueSave=Pick<Prologue,'stage'|'first'|'checkedMarle'|'pendantPicked'|'pendantReturned'|'motherTalked'>;
-export function prologueSave(p:Prologue):PrologueSave{return {stage:p.stage,first:p.first,checkedMarle:p.checkedMarle,pendantPicked:p.pendantPicked,pendantReturned:p.pendantReturned,motherTalked:p.motherTalked};}
+export type PrologueSave=Pick<Prologue,'stage'|'first'|'checkedMarle'|'pendantPicked'|'pendantReturned'|'motherTalked'> & {conduct?:Record<string,unknown>};
+export function prologueSave(p:Prologue):PrologueSave{return {...(p.conduct?{conduct:saveConduct(p.conduct)}:{}),stage:p.stage,first:p.first,checkedMarle:p.checkedMarle,pendantPicked:p.pendantPicked,pendantReturned:p.pendantReturned,motherTalked:p.motherTalked};}
 export function restorePrologue(v:unknown):Prologue{
  if(!v||typeof v!=='object'||Array.isArray(v))throw new Error('初始開場資料錯誤。');
  const o=v as Record<string,unknown>,p=newPrologue();
@@ -36,6 +38,8 @@ export function restorePrologue(v:unknown):Prologue{
  p.stage=o.stage as PrologueStage;p.first=o.first as Prologue['first'];
  for(const k of ['checkedMarle','pendantPicked','pendantReturned','motherTalked'] as const){if(typeof o[k]!=='boolean')throw new Error('初始開場旗標錯誤。');p[k]=o[k];}
  if((p.first==='unknown'&&(p.checkedMarle||p.pendantPicked))||(p.first==='marle'&&!p.checkedMarle)||(p.first==='pendant'&&!p.pendantPicked)||(p.pendantReturned&&(!p.pendantPicked||!p.checkedMarle))||(p.stage==='companions'&&!p.pendantReturned)||(['home','fair'].includes(p.stage)&&(p.first!=='unknown'||p.pendantReturned)))throw new Error('初遇事件順序不一致。');
+ p.conduct=restoreConduct(o.conduct);
+ if(p.conduct&&['home','fair'].includes(p.stage)&&(p.conduct.saleAttempted||p.conduct.saleDeclined||p.conduct.returnRefused||p.conduct.candy!=='unseen'||p.conduct.sealed))throw new Error('初遇之前不得有同行經歷。');
  if(p.stage==='collision')p.elapsed=.6;
  return p;
 }

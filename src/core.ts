@@ -1,3 +1,5 @@
+import {validateHearing} from './trial-hearing';
+import {tickConduct,shopping,interactConduct,chooseConduct,sealConduct} from './fair-conduct';
 import {newTrial,trialMap} from './trial-data';
 import type {Trial} from './trial-data';
 import {trialWalkable} from './trial-data';
@@ -67,6 +69,7 @@ export function walkable(x: number, z: number, chapter: Chapter = 'lab'): boolea
 }
 function log(s: State, text: string): void { s.log.push(text); if (s.log.length > 5) s.log.shift(); }
 function move(s: State, slot: Slot, vector: Vec, dt: number): void {
+  if(slot===1&&shopping(s))return;
   const p = s.players[slot], peer = s.players[slot === 0 ? 1 : 0];
   const len = Math.hypot(vector.x, vector.z);
   p.walking = false;
@@ -161,7 +164,7 @@ export function step(s: State, input: Input, delta: number): void {
       const a=s.players[0],b=s.players[1];
       move(s,1,followVector(s.followPlan,b,a,s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter)),dt);
     }
-    stepGuest(s,dt);
+    stepGuest(s,dt);tickConduct(s,dt);
     if(trialActive(s)){trialTriggers(s);return;}
     prologueTriggers(s);
     if(s.chapter==='passage'&&!s.rescue.guardsWon&&s.players[0].z>.2)beginRescueBattle(s);
@@ -275,6 +278,7 @@ export function deserialize(raw: string): State {
 /** Only called through exploration interaction; no renderer owns chapter progression. */
 export function interactFair(s: State, slot: Slot): {title:string;text:string}|null {
   if(s.chapter!=='fair'||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
+  const conduct=interactConduct(s,slot);if(conduct)return conduct;
   if(!['legacy','companions'].includes(s.prologue.stage))return interactPrologue(s,slot);
   if(s.prologue.stage==='companions'&&s.opening.phase==='none'&&s.kingdom.phase==='none'&&distance(s.players[slot],{x:0,z:-7.7})<1.5){startPrologueTravel(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);return null;}
   if(s.rescue.stage==='returned'){if(slot===0&&partyTogether(s)){const result=startTrial(s,serialize(s));if(result)return result;}return {title:'千年祭 · 回到 1000 年',text:'瑪兒希望你送她回王城。沿廣場南方走，靠近出口按 E。'};}
@@ -314,7 +318,7 @@ export function interactFair(s: State, slot: Slot): {title:string;text:string}|n
 export function beginOpening(s:State,slot:Slot):boolean{
   if(s.chapter!=='fair'||!['legacy','companions'].includes(s.prologue.stage)||s.mode!=='explore'||s.opening.phase!=='none'||!s.fair.luccaMet||!s.fair.telepodTested||slot!==0)return false;
   if(distance(s.players[0],{x:0,z:7.2})>2.05||distance(s.players[1],{x:-2.4,z:9})>6)return false;
-  s.opening.phase='approach';s.opening.elapsed=0;s.combo=[false,false];
+  sealConduct(s);s.opening.phase='approach';s.opening.elapsed=0;s.combo=[false,false];
   s.players.forEach(p=>p.walking=false);return true;
 }
 function stepOpening(s:State,dt:number):void{
@@ -572,6 +576,7 @@ function restoreRescue(s:State,raw:unknown):void{
 
 /** Additive opening: the old fair/checkpoint state never acquires invented trial choices. */
 export function serialize(s:State):string{
+ if(shopping(s))throw new Error('請等瑪兒選好糖果，再存檔。');
  if(trialActive(s)){
   if(s.mode!=='explore'||cutsceneActive(s)||s.trial.choice)throw new Error('請先結束戰鬥、選擇或演出再存檔。');
   return JSON.stringify({version:7,history:s.trial.history,chapter:s.chapter,era:s.era,joined:s.joined,trial:saveTrial(s.trial),tonics:s.rescue.tonics,players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp})),guest:(({x,z,hp,mp})=>({x,z,hp,mp}))(s.rescue.guest)});
@@ -599,6 +604,7 @@ function restoreV6(o:Record<string,unknown>):State{
   if(p.stage!=='companions'&&(s.fair.luccaMet||s.fair.telepodTested))throw new Error('初遇前不得已有祭典進度。');
  }
  s.prologue=p;
+ if(p.conduct){if(!fairWalkable(p.conduct.cat.x,p.conduct.cat.z))throw new Error('貓的位置不可通行。');if(s.opening.phase!=='none'&&!p.conduct.sealed)throw new Error('穿越之後不得改寫祭典經歷。');}
  if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>MAX_SEPARATION+.01)throw new Error('雙人距離超出範圍。');
  s.log=['已讀取存檔；初遇選擇保留。'];return s;
 }
@@ -623,6 +629,7 @@ function prologueTriggers(s:State):void{
 export type PrologueDialog={title:string;text:string;choice?:'return'|'company'};
 export function interactPrologue(s:State,slot:Slot):PrologueDialog|null{
  if(slot!==0||s.mode!=='explore'||cutsceneActive(s)||s.prologue.choice||s.prologue.stage==='legacy')return null;
+ const conduct=interactConduct(s,slot);if(conduct)return conduct;
  const p=s.players[0],q=s.prologue,near=(x:number,z:number,r=1.6)=>distance(p,{x,z})<r;
  if(s.chapter==='bedroom'){
   if(near(3.6,1.6,2.6)){s.players.forEach(p=>{p.hp=MAX_HP;p.mp=MAX_MP;});return {title:'克羅諾的房間',text:'在熟悉的床鋪休息，體力恢復了。窗外傳來千年祭的鐘聲。'};}
@@ -655,9 +662,10 @@ export function interactPrologue(s:State,slot:Slot):PrologueDialog|null{
  return null;
 }
 export function choosePrologue(s:State,yes:boolean):PrologueDialog|null{
- const q=s.prologue;if(s.mode!=='explore'||cutsceneActive(s)||s.chapter!=='fair'||q.stage!=='collision'||!q.choice)return null;
+ const q=s.prologue;if(q.choice==='sell-pendant')return chooseConduct(s,yes);
+ if(s.mode!=='explore'||cutsceneActive(s)||s.chapter!=='fair'||q.stage!=='collision'||!q.choice)return null;
  const choice=q.choice;q.choice=null;
- if(!yes)return {title:'女孩',text:choice==='return'?'這條項鍊對我很重要，請再想一想。':'那我先在這裡等一下。'};
+ if(!yes){if(choice==='return'&&q.conduct)q.conduct.returnRefused=true;return {title:'女孩',text:choice==='return'?'這條項鍊對我很重要，請再想一想。':'那我先在這裡等一下。'};}
  if(choice==='return'){if(!q.pendantPicked||!q.checkedMarle)return null;q.pendantReturned=true;return {title:'女孩',text:'太好了！這是我很珍惜的東西，謝謝你。'};}
  if(!q.pendantReturned)return null;q.stage='companions';Object.assign(s.players[1],{x:MARLE_MEETING.x,z:MARLE_MEETING.z,walking:false,facing:0});s.followPlan=newFollowPlan();log(s,'瑪兒加入同行。露卡的展示在廣場北方。');
  return {title:'瑪兒',text:'走吧！去看看露卡的發明。'};
@@ -681,5 +689,6 @@ function restoreV7(o:Record<string,unknown>):State{
  if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>MAX_SEPARATION+.01)throw new Error('雙人距離超出範圍。');
  if(typeof o.tonics!=='number'||!Number.isInteger(o.tonics)||o.tonics<0||o.tonics>baseTonics+(t.suppliesTaken?2:0))throw new Error('回復藥來源不一致。');s.rescue.tonics=o.tonics;
  const computed=(trialEvidence(s).jurors.filter(x=>x==='guilty').length>=4?'guilty':'not-guilty');if(t.verdict!=='pending'&&t.verdict!==computed)throw new Error('裁決與記錄不一致。');
+ validateHearing(s);
  s.log=['已讀取審判與越獄存檔；舊旅程與未記錄的選擇保持原樣。'];return s;
 }

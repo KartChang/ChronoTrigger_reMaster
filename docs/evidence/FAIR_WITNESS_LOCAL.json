@@ -1,0 +1,29 @@
+{
+  "baseDocumentationHead": "5bf19b897432797d8be7cd7de6dc4193f212b20d",
+  "acceptedGameplay": "66831b98ba9a0ced2998c918947bcc4a80813df1",
+  "version": "0.8.1",
+  "local": {
+    "command": "npm run check",
+    "testsPassed": 467,
+    "testsFailed": 0,
+    "typecheck": "passed",
+    "build": "passed",
+    "assetHygiene": "passed",
+    "pythonCompile": "passed"
+  },
+  "logSha256": "5ca118be86f265cb9b147b40eb1bd50c750cda4bda7c466cc02511e700729c03",
+  "localHtmlSha256": "8a3a09e2557540e389446a31a592a462d62bd1c4f22567f8988efa44604f9a9b",
+  "localBuildSourceSha": null,
+  "assets": {
+    "pngJsonPairs": 57,
+    "frameRecords": 833,
+    "newNative48x64Npcs": 8,
+    "new32x32Props": 3,
+    "stage": "review-not-approved"
+  },
+  "coverage": "Pure core routes use real inputs/actions through fresh prologue,600AD/rescue,return,hearing and prison. Additional browser jobs good/bad are newly authored, not yet accepted.",
+  "browser": "No new local runtime pass or gameplay screenshot claimed; previous normal navigation was administratively blocked and no bypass attempted.",
+  "scoreAwarded": false,
+  "wholeGameAccepted": false,
+  "romEmulatedOrExtracted": false
+}

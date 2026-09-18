@@ -6,6 +6,7 @@ export const ART_PROFILE = Object.freeze({
  actors:{cell:{w:HD_ART.width,h:HD_ART.height},pivot:HD_ART.pivot,padding:HD_ART.padding,worldScale:.4,fieldScale:1,sampling:'nearest'},
  camera:{projection:'orthographic',heading:'north-positive-z',height:23,back:26,
   world:{minimumHalfHeight:9,minimumHalfWidth:12},home:{minimumHalfHeight:5.5,minimumHalfWidth:7},
+  court:{minimumHalfHeight:9.5,minimumHalfWidth:10.5},
   field:{minimumHalfHeight:6.2,minimumHalfWidth:8},lab:{minimumHalfHeight:8.2,minimumHalfWidth:14}},
  surfaces:{tilePixels:64,materialWorldSpan:2,nearWallHeight:.95,nearWallPolicy:'cutaway-not-camera-rotation'},
  bridge:{width:16,depth:14,deckHalfDepth:1.8,actorMargin:.25,railZ:1.75},
@@ -14,7 +15,7 @@ export const ART_PROFILE = Object.freeze({
 } as const);
 export function cameraHalf(chapter:string,ratio:number):number{
  const r=Number.isFinite(ratio)&&ratio>0?ratio:1;
- const c=chapter==='overworld1000'?ART_PROFILE.camera.world:chapter==='bedroom'||chapter==='home'?ART_PROFILE.camera.home:chapter==='lab'?ART_PROFILE.camera.lab:ART_PROFILE.camera.field;
+ const c=chapter==='overworld1000'?ART_PROFILE.camera.world:chapter==='bedroom'||chapter==='home'?ART_PROFILE.camera.home:chapter==='lab'?ART_PROFILE.camera.lab:chapter==='courtroom'?ART_PROFILE.camera.court:ART_PROFILE.camera.field;
  return Math.max(c.minimumHalfHeight,c.minimumHalfWidth/r);
 }
 export function bridgeDeckPixels(height:number):{top:number;bottom:number}{

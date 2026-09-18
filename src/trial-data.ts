@@ -1,17 +1,18 @@
+import type {Hearing} from './trial-hearing';
 import {ART_PROFILE} from './art-profile';
 /** Reconstructed trial/prison slice. Layouts and balance are authored, not ROM data. */
 export type TrialMap='guardia1000'|'hall1000'|'courtroom'|'cellblock'|'execution'|'prisonstairs'|'warden'|'prisonbridge'|'futuregate';
 export type TrialStage='none'|'escort'|'court'|'cell'|'escape'|'tank'|'flight'|'future';
-export type TrialChoice='collision'|'wealth'|'wait'|null;
+export type TrialChoice='theft'|'wealth-confirm'|'collision'|'wealth'|'wait'|null;
 export type Verdict='pending'|'guilty'|'not-guilty';
 export type Trial={
- stage:TrialStage; history:string|null; fade:number; choice:TrialChoice; question:0|1|2|3;
+ hearing:Hearing|null;stage:TrialStage; history:string|null; fade:number; choice:TrialChoice; question:0|1|2|3;
  blamedMarle:boolean|null; wealthMotive:boolean|null; verdict:Verdict; knocks:number; days:number;
  route:'unknown'|'breakout'|'wait'; cellOpen:boolean; guardsWon:boolean; fritzFreed:boolean;
  luccaJoined:boolean; marleJoined:boolean; manualRead:boolean; suppliesTaken:boolean; tankWon:boolean;
  encounter:'none'|'cellguards'|'stairguards'|'tank'; ethers:number; experience:number; headRepairs:number;
 };
-export const newTrial=():Trial=>({stage:'none',history:null,fade:0,choice:null,question:0,blamedMarle:null,wealthMotive:null,verdict:'pending',knocks:0,days:0,route:'unknown',cellOpen:false,guardsWon:false,fritzFreed:false,luccaJoined:false,marleJoined:false,manualRead:false,suppliesTaken:false,tankWon:false,encounter:'none',ethers:0,experience:0,headRepairs:0});
+export const newTrial=():Trial=>({hearing:null,stage:'none',history:null,fade:0,choice:null,question:0,blamedMarle:null,wealthMotive:null,verdict:'pending',knocks:0,days:0,route:'unknown',cellOpen:false,guardsWon:false,fritzFreed:false,luccaJoined:false,marleJoined:false,manualRead:false,suppliesTaken:false,tankWon:false,encounter:'none',ethers:0,experience:0,headRepairs:0});
 export const TRIAL_NAMES:Record<TrialMap,string>={guardia1000:'加爾迪亞森林 · 1000 年',hall1000:'加爾迪亞王城 · 1000 年',courtroom:'王國法庭',cellblock:'空中刑務所 · 獨房',execution:'空中刑務所 · 處刑室',prisonstairs:'空中刑務所 · 階梯塔',warden:'空中刑務所 · 看守室',prisonbridge:'空中刑務所 · 吊橋',futuregate:'2300 年 · 班哥巨蛋'};
 export const trialMap=(x:string):x is TrialMap=>Object.hasOwn(TRIAL_NAMES,x);
 export const WORLD_GUARDIA={x:-2.9,z:4.5};

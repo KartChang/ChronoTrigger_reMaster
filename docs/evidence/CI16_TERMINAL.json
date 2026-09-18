@@ -20,7 +20,7 @@
     "oldSequence":"move(page,'z',-6.15);move(page,'x',-7);talk(page,'回復藥')",
     "failedPredicate":"s.mode===\"battle\" || s.players[0].x<=-7",
     "observedSummary":{"chapter":"passage","mode":"explore","joined":true,"p1":{"x":-5.6,"z":-5.800000000000003},"p2":{"x":-5.633333333333333,"z":-5.800000000000003},"stage":"allied","organOpen":true,"chestOpened":false,"tonics":0,"screenshotPrompt":"E・木箱"},
-    "evidence":"chrono-hd2d-browser-evidence/rescue/rescue-report.json and rescue/failure.png; complete lastObserved also preserved in the Drive bundle's working/docs/evidence/CI16_TERMINAL.json",
+    "evidence":"chrono-hd2d-browser-evidence/rescue/rescue-report.json and rescue/failure.png; complete lastObserved also preserved in the Drive bundle's working-batch/docs/evidence/CI16_TERMINAL.json",
     "diagnosis":"Old approach enters the inflated chest collision row during real key-release latency. Chest stays solid; a longer westward hold cannot reach x=-7. Actual E chest prompt is already visible. Not a manufactured state or a broken trial verdict.",
     "collider":{"x":-7,"z":-5,"w":2.2,"d":1.4,"margin":0.25,"southEdge":-5.95},
     "fix":"shared keyboard aisle z=-6.8 then x=-7; assert distance and visible chest prompt; retain original stock/save/battle assertions"

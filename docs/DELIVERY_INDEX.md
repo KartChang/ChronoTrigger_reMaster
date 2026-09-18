@@ -1,17 +1,33 @@
-# Cloud delivery index — CI16 handoff / 2026-09-18
+# Cloud delivery index — CI17 registered / 2026-09-18
 
-GitHub `KartChang/ChronoTrigger_reMaster` main is source/progress authority. Current game `490218402b493cc69296c5de4afa278be7471223`, tree `0ac1fc9b0d168c62e31ddefb4902e008bcd58f69`, CI16 `35328892846` pending at registration. Later docs HEAD is not another candidate. Exact jobs/status: STATUS.md.
+GitHub `KartChang/ChronoTrigger_reMaster` main is source/progress authority. Current validation source `3833d42b63bcce65ab055b1d08d0fb88ece200fe`, tree `a99bd9be894b396e5c0d1c512a1e7d8fb98b898d`, CI17 `35333606073` in_progress at registration. Runtime implementation remains490218's0.8.2; this batch repairs five test files, not gameplay rules. Later [skip ci] docs HEAD is not another candidate. Exact jobs/status: STATUS.md and evidence/CI17_CHECKPOINT.json.
 
-Project folder: https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb . Every delivery below belongs in this folder; no new sharing permissions were granted. The full current whitepaper/TODO/feature snapshot/continuation are stored on GitHub, not only in chat.
+Project folder: https://drive.google.com/drive/folders/1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb . Every delivery below belongs in this folder; no new sharing permissions were granted. Current source and continuation are stored on GitHub, not only in chat.
 
-## Current0.8.2 published runtime + local evidence
+## Latest: CI16 terminal evidence + CI17 route repair + pinned toolchain
+
+[Chrono-CI16-terminal-CI17-route-batch.zip](https://drive.google.com/file/d/1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE/view)
+ID **`1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE`**, **35691788 bytes**, SHA256 **`72f6ae721f07e5775939b89c4a6e4b74d8574116d89d59a483f3c33a48b27d15`**. Correct project parent verified. Raw Drive download/full ZIP hash/CRC and all20 manifest records matched; five repaired test files match published source blobs. The bundle was sealed before the source commit; the later exact commit/run authority is GitHub evidence/CI17_CHECKPOINT.json. This is not a passed CI17 playable.
+
+Contains four unchanged CI16 artifact ZIPs, full diagnosis/actual-screen review, source repair, actual515-test and blocked-browser logs, screenshot contact sheet, honestly labeled local build, and the pinned toolchain. Complete terminal snapshot path: `working-batch/docs/evidence/CI16_TERMINAL.json`; GitHub's compact terminal receipt indexes the same raw evidence. No ROM/original image/audio/font files were added.
+
+| CI16 artifact | ID | Bytes | SHA256 |
+|---|---|---|---|
+| browser evidence |10540982279|11103773|6246ed990e558992f341a3ddc9c224976eacb4fb7e03e99fe2742c24a307d842|
+| art review kit |10540658044|314229|fffe4e7dd8c76f612134fbceea9378240c89cd696de449cddb9527ebcf544878|
+| witness good |10540991544|1418928|77a939d4cc9824dc9f31f918bb2683a48c567d3dbd2de8e48c12683dfd1104e2|
+| witness bad |10540413671|1458676|a41def96b2e5089eb7939dd854c501108e15835501b183c2a40c8a24658879ed|
+
+CI16 source490218/run35328892846 failed validate step18; both witness jobs passed. **Only four artifacts exist: playable upload was skipped after failure.** No fifth artifact was fabricated. Actual home/fair/ready/import/court/cell and failure frames were reviewed; this is not final-art or whole-batch approval. After CI17 all-three success, preserve its five real artifacts and verify matching Pages deployment/source/HTML hashes. Pages9's push HEAD is not proof of0.8.2 online.
+
+The support toolchain ZIP comes from run35199851415/artifact10487690665,18868330 bytes,SHA256 `18457176e5279091e751685f0fca5517f59d85e8e88e610d7c3be830b951af90`; restore only pinned node_modules, not its old source/config. Local check log SHA256 `f7bf15ce09528efc4293c9bfde37e67ecd1409b930a292000083ae0daaf8a932`. Local browser was blocked before game load by administrator policy; log SHA256 `ba63cc621cac2e2eadc6e4f3c9354f9a63862d0ec64e024aaffa593e631935f7`. No bypass or browser pass claimed.
+
+## Earlier0.8.2 runtime + local evidence, before the CI17 test repair
 
 [Chrono-0.8.2-49021840-runtime-art-validation.zip](https://drive.google.com/file/d/1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM/view)
-ID **`1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM`**,1874700 bytes,SHA256 **`8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b`**. Upload and raw readback succeeded; correct parent, complete ZIP/CRC and all231 manifest members matched.106 source files cover all runtime/build/test/workflow/site/assets/quality/config roots and necessary third-party text. Runtime subtrees exactly match published source; this is NOT an exact mirror of all repository documentation. Retrieve current docs/source from main, not historical ZIPs.
+ID **`1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM`**,1874700 bytes,SHA256 **`8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b`**. Upload and raw readback succeeded; correct parent, complete ZIP/CRC and all231 manifest members matched.106 source files cover runtime/build/test/workflow/site/assets/quality/config roots and necessary third-party text as of490218. Runtime subtrees match that published source; this is NOT an exact mirror of current test repairs or all repository documentation. Retrieve current docs/source from main, not historical ZIPs.
 
-Also contains actual local self-contained0.8.2 build,57PNG/JSON sets/969 frame records,504-pass log and machine receipt. Local build sourceSha=null is not forged into a CI build. Local HTML SHA256 `1bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3`; check log SHA256 `06ba5c268b3e00d3cca61c25eff199a6f1300da2aba4a8484a8c296f6d69eeb9`. No new gameplay screenshot or local browser/hardware/final-art pass claimed. Source equality and local tests do not equal CI16 acceptance. No ROM/original audio/images/fonts/node_modules included.
-
-After CI16 success retain its actual five artifacts with ID/source/run/hash/readback, inspect real keyboard/presentation frames and verify matching Pages. Do not invent uncollected IDs. Pages9 push run does not establish0.8.2 game bytes.
+Also contains local self-contained0.8.2 build,57PNG/JSON sets/969 frame records,504-pass log and machine receipt. Local build sourceSha=null is not forged into a CI build. Local HTML SHA256 `1bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3`; check log SHA256 `06ba5c268b3e00d3cca61c25eff199a6f1300da2aba4a8484a8c296f6d69eeb9`. No browser/hardware/final-art pass is implied by this local package. No ROM/original audio/images/fonts/node_modules included in this earlier package.
 
 ## Accepted CI15 / Pages8 preserved bundle
 

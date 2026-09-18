@@ -72,7 +72,10 @@ body[data-adventure="true"][data-mode="battle"] .message {bottom:var(--party-cle
 #dialog-choices{display:flex;gap:14px;justify-content:flex-end;}
 #dialog-choices[hidden]{display:none;}
 #dialog-choices button:focus-visible{outline:3px solid #e8c879;outline-offset:3px;}
-body[data-map-kind="overworld"] #party .player,body[data-map-kind="interior"] #party .player{display:none;}
-body[data-map-kind="overworld"] #party,body[data-map-kind="interior"] #party{display:flex;justify-content:center;}
+/* The bag is hidden only outside the trial; prison interiors retain party controls. */
+body[data-map-kind="overworld"][data-mode="explore"] #party .player,body[data-map-kind="interior"]:has(#bag[hidden]) #party .player{display:none;}
+body[data-map-kind="overworld"][data-mode="explore"] #party,body[data-map-kind="interior"]:has(#bag[hidden]) #party{display:flex;justify-content:center;}
 .start-screen .intro-actions{margin-top:12px;}
 @media(max-height:650px){.start-screen .intro h1{font-size:38px;margin:10px 0;}.start-screen .intro p,.start-screen .controls-note{font-size:12px;}.start-screen .intro-actions{margin-top:8px;}.start-screen .intro-index{display:none;}}
+
+.inventory-dialog{max-height:calc(100vh - 32px);overflow:auto}.inventory-items{display:grid;gap:14px}.inventory-items>div{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;padding:12px;border:1px solid #a99b713d}.inventory-items span{font-size:13px}.jury-status{position:fixed;left:50%;top:110px;transform:translateX(-50%);max-width:90vw;padding:10px 14px;font-size:12px;z-index:5;pointer-events:none}@media(max-width:650px){.jury-status{top:125px;font-size:10px}.inventory-dialog{width:calc(100vw - 28px)}}

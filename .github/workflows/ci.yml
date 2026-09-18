@@ -46,6 +46,8 @@ jobs:
         run: python tests/navigation_browser.py
       - name: Test cathedral rescue, third ally, Yakra and return-to-present v5 saves
         run: python tests/rescue_browser.py
+      - name: Test trial, both prison routes, Dragon Tank, inventory and v7 future arrival
+        run: python tests/trial_browser.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

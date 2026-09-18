@@ -1,6 +1,6 @@
 # Original-game fidelity contract — T02 / 2026-09-18
 
-Goal: a complete, browser-first HD-2D reconstruction, evidence-backed quality >=90, with local two-player support as an explicit adaptation. This is not an ARPG conversion. The full game is not accepted or scored by this document. No ROM was read or extracted.
+Goal: a complete, browser-first HD-2D reconstruction, evidence-backed quality >=90, with local two-player support as an explicit adaptation. This is not an ARPG conversion. The full game is not accepted or scored by this document. The user-supplied Chinese Beta ROM is privately retained and byte-hashed; no gameplay data or assets were read, emulated or extracted. See evidence/PRIVATE_ROM_RECEIPT.md.
 
 ## What was actually researched
 
@@ -36,3 +36,11 @@ The wider story must preserve era-specific geography, people and consequences; e
 ## Quality gate
 
 The previous 30-point score is bound to an older runtime. It is neither this batch's score nor a completion percentage. Keep the existing release gate blocked until matched-source screenshots, actual playthroughs, original-reference comparisons, content completeness and physical-device findings support the required score. Do not gain points by hiding the above gaps, excluding remaining chapters or treating a concept poster as gameplay.
+
+## T03 / 0.8 extension
+
+CI13 accepted the earlier home/map/meeting functional routes and fixed healing feedback; receipt: evidence/CI13_ACCEPTANCE.md. New trial/prison/tank/reunion/2300 arrival and inventory code extends, rather than replaces, that source. See TRIAL_T03.md for event order, concrete references, validation and explicit missing witness/juror/topology/animation/balance work. Seven slots do not certify the original juror algorithm; neither original verdict branch completeness nor whole-game fidelity is claimed. Court architecture, separated room scales and the tank on a horizontal bridge use identified screenshot composition cues; image bytes were not sampled. Source/local checks are not substitutes for pending new browser screenshots.
+
+## 0.8 production contract continuation
+
+ART_PRODUCTION_CONTRACT.md and src/art-profile.ts define the project-specific geometry/scale/pixel/animation contract actually consumed by the engine and exporter. This fixes the distinction between a miniature world symbol and field geometry, stretched material density, curtain pleat parenting and bridge visual/collision extent. It does not complete the original maps, seven-juror algorithm, original animation timing, soundtrack or reverse engineering. This continuation could read the SNESMaps jail page/index but could not fetch the linked original image; no new original-image visual observation is claimed from that attempt.

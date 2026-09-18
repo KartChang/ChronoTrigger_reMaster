@@ -73,14 +73,15 @@ export function combatSheet(draw,poses,durations){
 export async function exportAssets(root=process.cwd()){
   const {build}=await import('esbuild');const out=resolve(root,'dist/art');await mkdir(out,{recursive:true});
   const modules={};
-  for(const name of ['pixel-art','hero-art','world-art','rescue-art','prologue-art']){
+  for(const name of ['pixel-art','hero-art','world-art','rescue-art','prologue-art','trial-art','material-art','art-profile']){
     const bundle=resolve(root,`.test/${name}-export.mjs`);
     await build({entryPoints:[resolve(root,`src/${name}.ts`)],bundle:true,outfile:bundle,format:'esm',platform:'node'});
     modules[name]=await import(pathToFileURL(bundle).href+'?export');
   }
-  const prologue=modules['prologue-art'];
+  const prologue=modules['prologue-art'],trial=modules['trial-art'],materials=modules['material-art'],profile=modules['art-profile'].ART_PROFILE;
+  await writeFile(resolve(out,'production-profile.json'),JSON.stringify(profile,null,2));
   const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'],rescue=modules['rescue-art'];
-  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts'];const hash=createHash('sha256');
+  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts'];const hash=createHash('sha256');
   for(const source of sources){hash.update(source+'\0');hash.update(await readFile(resolve(root,source)));hash.update('\0');}
   const sourceSha256=hash.digest('hex');
   const inventory=[];
@@ -95,13 +96,22 @@ export async function exportAssets(root=process.cwd()){
     const combat=combatSheet(draw,hero.COMBAT_POSES,hero.CLIP_MS);
     await save(id+'-combat',combat.sheet,{frames:combat.frames,clips:combat.clips,limitations:['Project-specific four-frame actions; not original animation timing or frames.','Imported-edited atlas playback is not implemented.']});
   }
+  for(const part of ['head','body','wheel']){
+    const sheet=surface(132,68),frames=[];
+    for(let phase=0;phase<2;phase++){
+      const frame=surface(64,64);trial.drawTankPart(frame.ink,part,phase);const x=phase*66+1,y=2;
+      for(let row=0;row<64;row++)frame.rgba.copy(sheet.rgba,((y+row)*132+x)*4,row*64*4,(row+1)*64*4);
+      frames.push({index:phase,rect:{x,y,w:64,h:64},pivot:{x:32,y:63},durationMs:profile.animation.tankFrameTicks/profile.animation.fixedHz*1000});
+    }
+    await save('dragon-tank-'+part,sheet,{padding:1,frames,clips:{idle:{frames:[0],loop:true},battle:{frames:[0,1],loop:true}},animationClock:profile.animation.clock});
+  }
   for(const [id,w,h,draw] of [['imp',24,32,art.drawImp],['tree',64,80,art.drawTree],['gato',48,48,art.drawGato],['yakra',48,48,rescue.drawYakra],['naga',24,32,rescue.drawNaga],['hench',24,32,c=>rescue.drawNaga(c,true)],...['nun','queen','chancellor'].map(k=>[k,24,32,c=>rescue.drawRescueNpc(c,k)]),...['resident','guard','king'].map(k=>[k,24,32,c=>art.drawResident(c,k)])]){
     const s=surface(w,h);draw(s.ink);await save(id,s,{padding:0,frames:[{index:0,rect:{x:0,y:0,w,h},pivot:{x:w/2,y:h-1}}],clips:{idle:{frames:[0],loop:true}}});
   }
-  for(const [id,w,h,draw] of [['home-wood-floor',384,352,c=>prologue.drawRoomFloor(c,384,352)],['truce-regional-map',384,352,c=>prologue.drawRegionalMap(c,384,352)],['fair-ground',512,512,(c)=>world.drawSurface(c,512,512,'fair')],['forest-ground',384,352,(c)=>world.drawSurface(c,384,352,'forest')],['masonry',128,128,(c)=>world.drawMasonry(c)],['cathedral-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352)],['crypt-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352,true)],['stained-glass',40,64,rescue.drawGlass]]){
+  for(const [id,w,h,draw] of [...materials.SURFACE_KINDS.map(k=>['material-'+k,64,64,c=>materials.drawMaterial(c,k)]),['regional-mountain',64,48,materials.drawMountain],...['court','prison','bridge','future'].map(k=>['trial-'+k+'-floor',384,352,c=>trial.drawTrialFloor(c,384,352,k)]),['court-window',64,80,trial.drawCourtWindow],['home-wood-floor',384,352,c=>prologue.drawRoomFloor(c,384,352)],['truce-regional-map',384,352,c=>prologue.drawRegionalMap(c,384,352)],['fair-ground',512,512,(c)=>world.drawSurface(c,512,512,'fair')],['forest-ground',384,352,(c)=>world.drawSurface(c,384,352,'forest')],['masonry',128,128,(c)=>world.drawMasonry(c)],['cathedral-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352)],['crypt-floor',384,352,c=>rescue.drawCathedralFloor(c,384,352,true)],['stained-glass',40,64,rescue.drawGlass]]){
     const s=surface(w,h);draw(s.ink);await save(id,s,{padding:0,frames:[{index:0,rect:{x:0,y:0,w,h}}],clips:{},orientation:'top is north (+z) for ground maps; Babylon texture update uses invertY=true',usage:'Same authoring code is used by the engine DynamicTexture, not an external runtime request.'});
   }
-  const report={stage:'reference-review-not-final-art',images:inventory.length,frames:inventory.reduce((n,a)=>n+a.frames,0),sourceSha256,assets:inventory,limitations:['References calibrate silhouettes, palette and surface treatment; compressed layouts and project animation timings are not exact original reconstruction.','Walk cycle has three distinct poses over four timed frames; phases 0 and 2 repeat.','Combat clips require live gameplay review. Portraits, music, full cast and remaining world assets are still incomplete.','Exports are review/editing artifacts. External PNG re-import is not implemented.']};
+  const report={stage:'reference-review-not-final-art',images:inventory.length,frames:inventory.reduce((n,a)=>n+a.frames,0),sourceSha256,productionProfile:profile.id,assets:inventory,limitations:['References calibrate silhouettes, palette and surface treatment; compressed layouts and project animation timings are not exact original reconstruction.','Walk cycle has three distinct poses over four timed frames; phases 0 and 2 repeat.','Combat clips require live gameplay review. Portraits, music, full cast and remaining world assets are still incomplete.','Exports are review/editing artifacts. External PNG re-import is not implemented.']};
   await writeFile(resolve(out,'asset-report.json'),JSON.stringify(report,null,2));return report;
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){

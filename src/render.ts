@@ -1,3 +1,6 @@
+import {ART_PROFILE,cameraHalf} from './art-profile';
+import {buildTrial} from './trial-render';
+import {trialMap} from './trial-data';
 import {buildPrologue} from './prologue-render';
 import {prologueMap} from './prologue-data';
 import {buildRescue} from './rescue-render';
@@ -48,6 +51,7 @@ export class World {
   private prologueWorld:ReturnType<typeof buildPrologue>;
   private prologueKind='field';
   private fairWorld:ReturnType<typeof buildFair>;
+  private trialWorld:ReturnType<typeof buildTrial>;
   private rescueWorld:ReturnType<typeof buildRescue>;
   private guest:Sprite;
   private guestPose=new PosePlayer();
@@ -65,7 +69,7 @@ export class World {
   private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
   private targetMarkers:Mesh[]=[];
   private drawFrames=0;
-  inspect(){return {prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -129,7 +133,7 @@ export class World {
     this.prologueWorld=buildPrologue(this.scene,this.shadow);
     this.fairWorld=buildFair(this.scene,this.shadow);
     this.canyonWorld=buildCanyon(this.scene,this.shadow);
-    this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);
+    this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);this.trialWorld=buildTrial(this.scene,this.shadow);
     this.guest=this.sprite('guest-companion',1.36,1.85);this.yakra=this.sprite('yakra',3.5,3.5,48,48);
     for(let i=0;i<3;i++)this.rescueFoes.push(this.sprite('rescue-enemy-'+i,1.35,1.85));
     for(const sprite of [this.guest,this.yakra,...this.rescueFoes]){sprite.mesh.setEnabled(false);sprite.material.disableLighting=true;sprite.material.emissiveTexture=sprite.texture;}
@@ -245,8 +249,7 @@ export class World {
 
   }
   resize():void {
-    this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const adventure=this.chapter!==null&&this.chapter!=='lab';const half=Math.max(adventure?6.2:8.2,(adventure?8:14)/ratio);
-    const viewHalf=this.chapter==='overworld1000'?Math.max(9,12/ratio):this.chapter==='bedroom'||this.chapter==='home'?Math.max(5.5,7/ratio):half;
+    this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const viewHalf=cameraHalf(this.chapter??'lab',ratio);
     this.camera.orthoLeft=-viewHalf*ratio;this.camera.orthoRight=viewHalf*ratio;this.camera.orthoTop=viewHalf;this.camera.orthoBottom=-viewHalf;
   }
   draw(s:State,delta:number,animate:boolean):void {
@@ -259,9 +262,9 @@ export class World {
       for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
       this.era=null;
     }
-    this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':prologueMap(s.chapter)?'interior':'field';
+    this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':(prologueMap(s.chapter)||(trialMap(s.chapter)&&!['guardia1000','prisonbridge'].includes(s.chapter)))?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
-    this.kingdomWorld.draw(s);this.rescueWorld.draw(s);
+    this.kingdomWorld.draw(s);this.rescueWorld.draw(s);this.trialWorld.draw(s);
     while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e,s);}
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
@@ -290,7 +293,7 @@ export class World {
       const l=this.lunges[i]!;l.time+=dt;const push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
       sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1));
       this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));
-      const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;const scale=s.chapter==='overworld1000'?.40:1;sprite.mesh.scaling.set(vanish*scale,vanish*scale,scale);if(s.chapter==='overworld1000')sprite.mesh.position.y=.43;if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)sprite.mesh.position.set(3.6,1.35,1.6);
+      const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;const scale=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;sprite.mesh.scaling.set(vanish*scale,vanish*scale,scale);if(s.chapter==='overworld1000')sprite.mesh.position.y=.43;if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)sprite.mesh.position.set(3.6,1.35,1.6);
       this.markers[i]!.position.set(p.x,.21,p.z);this.labels[i]!.position.set(p.x,2.1,p.z);
     });
     this.foes.forEach((f,i)=>{
@@ -303,15 +306,15 @@ export class World {
       const pose=g.hp<=0?{pose:'down' as const,frame:3}:s.mode==='victory'?{pose:'victory' as const,frame:Math.floor(this.time*4)%4}:this.guestPose.sample(this.time,g.walking);this.guestView=pose;
       const key=`${kind}/${g.facing}/${pose.pose}/${pose.frame}`;
       if(this.guest.last!==key){this.guest.last=key;const c=this.guest.texture.getContext() as CanvasRenderingContext2D;if(kind==='frog')drawFrog(c,g.facing,pose.frame,pose.pose);else drawAdventureHero(c,1,g.facing,pose.frame,pose.pose);this.guest.texture.update();}
-      this.guest.mesh.position.set(g.x,1.02,g.z);
+      const gs=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;this.guest.mesh.scaling.setAll(gs);this.guest.mesh.position.set(g.x,s.chapter==='overworld1000'?.43:1.02,g.z);
     }
     const inRescue=rescueMap(s.chapter),boss=inRescue&&s.mode==='battle'&&s.enemies[0]?.kind==='yakra'&&s.enemies[0]!.hp>0;
     this.yakra.mesh.setEnabled(!!boss);
     if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
     this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
-    const fixed=prologueMap(s.chapter);const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
-    this.camera.position.set(tx,23,tz-26);this.camera.setTarget(new Vector3(tx,0,tz));
+    const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
+    this.camera.position.set(tx,ART_PROFILE.camera.height,tz-ART_PROFILE.camera.back);this.camera.setTarget(new Vector3(tx,0,tz));
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}

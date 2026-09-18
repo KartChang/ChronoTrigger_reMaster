@@ -1,0 +1,8 @@
+{
+  "sourceSha": "809a5671a63e19c2a573d2b0be759dbe006989ea",
+  "runId": 35262006198,
+  "artifactId": 10515981261,
+  "member": "rescue/rescue-returned-v5.json",
+  "sha256": "b4421dfacbd335200976b67e858dd213119aac9f476e63e9ca7e980ac32e17b9",
+  "purpose": "Read-only genuine prior-run fixture for unit tests; live trial E2E uses same-run rescue output, not this fixture."
+}

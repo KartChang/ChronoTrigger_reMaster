@@ -1,35 +1,27 @@
-# Current status — 2026-09-18 Asia/Taipei
+# Current status — 2026-09-18 / recovered 0.8 working batch
 
-**DEVELOPMENT CANDIDATE — FULL GAME IN PROGRESS; NOT 90-POINT ACCEPTED.**
+**DEVELOPMENT IN PROGRESS — NOT 90-POINT ACCEPTED.**
 
-## Exact current position
+GitHub main is the sole active branch. The prior continuation created Git blobs/trees but did NOT create a commit/update main; main was still b8416fec3e6efda96f077c424126f00ddf0ae9b3. This checkpoint closes that publication omission by committing the existing 0.8 work, not recreating it. Non-force single-line update; [skip ci] intentionally preserves work while this source batch continues. No 0.8 CI acceptance or deployment is claimed.
 
-Repository KartChang/ChronoTrigger_reMaster; only active branch main; non-force single-line updates.
+## Accepted baseline
 
-Current published gameplay candidate **0.7.0**: `809a5671a63e19c2a573d2b0be759dbe006989ea`, tree `15b81899a2e65d79ec8a7b62262f5ac15bf18189`, parent `158fdc83e7701034186e67e4446368f52a1bd03e`. This checkpoint is a later [skip ci] documentation update, not another gameplay candidate.
+CI13 35262006198 / job105339788184 is completed/success; all eight browser journeys and npm run check passed. Accepted gameplay809a5671a63e19c2a573d2b0be759dbe006989ea. Prior exact artifact/Pages6 receipts: docs/evidence/CI13_ACCEPTANCE.md. Last verified deployed version0.7.0, not0.8.0.
 
-**Only active validation: CI13 `35262006198`, job `105339788184`, attempt 1, push/main, exact source above.** Last observed in_progress. `npm run check` completed success; browser installation was in progress and the fresh prologue plus seven retained browser journeys had not yet reported results. Do not call the whole run successful. Do not dispatch again, cancel, poll indefinitely or modify the source under validation. Resume with this run's actual result.
+## Working source now being published
 
-**T02 implemented, browser acceptance pending:** waking bedroom and lower floor, regional miniature 1000 AD map, confirmed destination entrances, actual first collision and separate pendant-return/companionship choices, both first-action orders, no early active P2, v6 witnessed facts while retaining v1–v5 and existing checkpoints. T01 residual battle-toast placement is fixed in this candidate with real-tonic responsive geometry assertions, not yet visually accepted. Full implementation details: `docs/PROLOGUE_T02.md`; original evidence and unresolved fidelity: `docs/ORIGINAL_FIDELITY.md`.
+Recovered tree cea636d4ddc98987bf7c6075d62ddb32d7e9b8de; source subtree ebc349c0bcfbba99a9f4acbf1628a8fded79f7f6; tests b08fee7ed7a875e77ccf1765bcc972699b3f1c56; scripts9b599f170bfa5ec0295de4b6956d8d73282d3fa9; workflow subtree42b1cdb92f12d20a22102eb4ea5c937ea67d686d. These equal the final375-test Drive package and the freshly checked local files. No old game ZIP was overlaid onto newer published source.
 
-Local check: 292 tests passed, 0 failed; TypeScript, asset hygiene and build passed. Two browser scripts compiled. Local browser navigation was blocked by ERR_BLOCKED_BY_ADMINISTRATOR; no bypass, local browser pass or new gameplay screenshot is claimed. All 21 changed files matched their retained manifests; code/test/script/asset/workflow subtree hashes matched GitHub readback. Local logs and manifests are retained in project Drive.
+T03 implemented pending browser: returned-fair escort, court, cell, two escape routes, Fritz, guards, Lucca, supplies, three-part Dragon Tank, reunion, forest gate, 2300 arrival. T04 partial inventory/ether/XP bookkeeping. T05 machine-consumed scale/material contract, five tiled surfaces, bridge geometry and two-frame tank. Existing ATB/co-op/v1–v6 remain; v7 adds real pre-trial history.
 
-## Previous accepted baseline — do not reopen
+Fresh restoration validation: npm run check passed375/375, typecheck/build/asset hygiene successful. Source/package manifest211 members checked. Browser acceptance still pending. Existing eight journeys plus trial ninth retained.
 
-**T00 accepted:** CI12 `35243837438`, job `105278814517`, gameplay source `2eec00c4a9e74c7873724217bd14f5087c42acf0`, tree `5f93fb2d04bfdfbef3511b0473ef7927d31ded24`. Seven browser journeys passed; three artifacts retained in project Drive with raw download equality.
-**T01 baseline screen review and Pages verification completed:** Pages5 `35246072981` succeeded. Inspected cathedral, three-actor battle, Yakra and reunion. Only the recovery-toast overlap was carried into the current source batch. Do not rebuild these existing chapters or re-run CI12.
-Exact accepted receipts: `docs/evidence/CI12_ACCEPTANCE.md`.
+## Current continuation
 
-## Delivery and Pages
+Continue the same unvalidated batch with the user's asset concern: current24x32 actors and64px tank parts are newly authored small procedural assets, NOT a completed high-detail pixel remake. Do not call enlarged images new detail or asset export visual approval. Implement usable higher-detail source assets and runtime/export parity, record actual scope, validate locally, then publish ONE final push CI. No repeated CI for checkpoints.
 
-`docs/DELIVERY_INDEX.md` records both accepted packages and pending working deliveries. Drive project folder `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb` only; never root. T02 working source/playable/art package `1S5fzyPVO_CwnmJaJ1eHldZDhcoqtujVc` and local logs/manifest/publication receipt `1khmkCdGt1i3V3npXfxFHwbOanwcJmmpq` were uploaded, downloaded back and checked. They are not CI13 accepted artifacts. CI13 artifact collection remains pending.
+T03 missing full fair witnesses/original jury rules and topology, T04 equipment/growth/shops/roster/skills, T05 full art/audio, T06 remaining stories/endings, T07 whole-game>=90 and physical devices remain open. Keep honest original-reference limitations and full scope.
 
-https://kartchang.github.io/ChronoTrigger_reMaster/
-Last verified published version remains **0.6.0**, source `2eec00c4a9e74c7873724217bd14f5087c42acf0`, CI12/Pages5. HTML SHA256 `ed6c879daca44ac74f047426a7659ba1f668b5d2ffe383f34068b680acc81edb`. Do not claim 0.7.0 live until its exact accepted artifact and deployment HTML/source hash are checked. Existing Pages workflow is retained, not re-enabled or redesigned.
+## Permanent storage
 
-## Remaining scope and continuation
-
-Preserve TS/Babylon/esbuild, self-contained browser HTML, fixed-step ATB, local co-op, independent targets, confirmed dual techs, A* follow, InputBoundary, animations, background pause and versioned saves. Existing fair → anomaly → 600 mountain → town/forest/castle/Lucca → nuns/Frog/organ/passage/Yakra/queen/chancellor → reunion → 1000 route stays implemented. P1 Crono; P2 Marle initially, then Lucca after her introduction; Frog then reunited Marle is autonomous third companion, not P3/free roster/triple techs.
-
-Next: receive CI13. Failure: read the same job logs and evidence, especially prologue/prologue-report.json, failure.png and lastObserved if that is the first failed step; fix only the actual first root. Success: retain all three exact artifacts in project Drive, inspect fresh home/map/meeting and battle feedback screenshots, verify matching Pages, then continue T03 trial/prison. Do not stop after a small task when no CI/external blocker remains.
-T04 inventory/equipment/growth/roster/skills, T05 reference visuals/animations/music, T06 remaining eras/stories/endings and T07 evidence-backed >=90 plus physical devices remain open. Full geography and original multi-screen topology are not completed by a regional map. Do not inflate scores, use obsolete 30/100 as this version's score, shrink the complete-game scope, or present concept posters as gameplay. No ROM/original image/audio bytes are distributed. Temporary storage is not authority.
+Project Drive1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb only. Final375 package1Zs96UaqigokhPBewJcQJH7KsQk9BsRqF:1737952 bytes, SHA256423a87663da701e5bfd02a768c3ce0f1ae0ff1cc5c91804555a903d8b7e78b2f; raw download/CRC/member hashes verified this continuation. ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM remains private,4194304 bytes, SHA256b61ca56a3baef8831211517138a8bfa4b89b82ae8bde558b53af704b30a4846a. No ROM extraction/emulation or public distribution occurred. See DELIVERY_INDEX.

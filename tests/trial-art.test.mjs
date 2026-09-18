@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {surface,png} from '../scripts/asset-export.mjs';
+import {drawTankPart,drawCourtWindow,drawTrialFloor} from '../.test/trial-art.mjs';
+for(const part of ['head','body','wheel'])test(`Dragon Tank ${part} uses deterministic authored pixels with transparent margins`,()=>{const a=surface(64,64),b=surface(64,64);drawTankPart(a.ink,part);drawTankPart(b.ink,part);assert.deepEqual(png(a),png(b));const alpha=a.rgba.filter((_,i)=>i%4===3);assert(alpha.some(v=>v===255));assert(alpha.some(v=>v===0));});
+test('three tank components are distinct, not recolored identical sprites',()=>{const values=['head','body','wheel'].map(part=>{const s=surface(64,64);drawTankPart(s.ink,part);return s.rgba.toString('hex');});assert.equal(new Set(values).size,3);});
+test('court stained window exports with integer-only pixel API',()=>{const s=surface(64,80);drawCourtWindow(s.ink);assert(png(s).length>100);});
+for(const kind of ['court','prison','bridge','future'])test(`${kind} floor is repeatable, opaque and exportable through existing asset pipeline`,()=>{const a=surface(384,352),b=surface(384,352);drawTrialFloor(a.ink,384,352,kind);drawTrialFloor(b.ink,384,352,kind);assert.deepEqual(png(a),png(b));assert(a.rgba.filter((_,i)=>i%4===3).every(v=>v===255));});
+test('bridge floor is horizontal and separates walkable deck from abyss',()=>{const s=surface(384,352);drawTrialFloor(s.ink,384,352,'bridge');const rgb=(x,y)=>s.rgba.subarray((y*384+x)*4,(y*384+x)*4+3);assert.notDeepEqual(rgb(10,176),rgb(10,30));assert.deepEqual(rgb(10,176),rgb(170,176));});

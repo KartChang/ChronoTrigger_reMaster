@@ -1,3 +1,5 @@
+import {materialSet,boxTextureUV} from './material-runtime';
+import {drawMountain} from './material-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {prologueMap,HOME_SOLIDS,MARLE_MEETING,DROPPED_PENDANT,WORLD_HOME} from './prologue-data';
 import type {PrologueMap} from './prologue-data';
@@ -9,9 +11,9 @@ export function buildPrologue(scene:Scene,shadow:ShadowGenerator){
  type View={root:TransformNode;curtains:Mesh[];mother?:Mesh};
  const views=new Map<PrologueMap,View>();
  function builder(id:string){
-  const root=new TransformNode(id,scene),mats=new Map<string,StandardMaterial>();
+  const root=new TransformNode(id,scene),mats=new Map<string,StandardMaterial>(),surface=materialSet(scene,id);
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(id+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
-  const box=(n:string,x:number,y:number,z:number,w:number,h:number,d:number,hex:string)=>{const b=MeshBuilder.CreateBox(id+'-'+n,{width:w,height:h,depth:d},scene);b.parent=root;b.position.set(x,y,z);b.material=mat(hex);b.receiveShadows=true;if(h>.45)shadow.addShadowCaster(b);return b;};
+  const box=(n:string,x:number,y:number,z:number,w:number,h:number,d:number,hex:string)=>{const b=MeshBuilder.CreateBox(id+'-'+n,{width:w,height:h,depth:d,faceUV:boxTextureUV(w,h,d)},scene);b.parent=root;b.position.set(x,y,z);b.material=surface(n,hex);b.receiveShadows=true;if(h>.45)shadow.addShadowCaster(b);return b;};
   const picture=(n:string,x:number,z:number,w:number,h:number,draw:(c:CanvasRenderingContext2D)=>void,tw=24,th=32)=>{
    const t=new DynamicTexture(id+'-'+n,{width:tw,height:th},scene,false,Texture.NEAREST_SAMPLINGMODE);t.hasAlpha=true;draw(t.getContext() as CanvasRenderingContext2D);t.update();const m=new StandardMaterial(id+'-'+n,scene);m.diffuseTexture=t;m.emissiveTexture=t;m.disableLighting=true;m.useAlphaFromDiffuseTexture=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.backFaceCulling=false;
    const p=MeshBuilder.CreatePlane(id+'-'+n,{width:w,height:h},scene);p.parent=root;p.material=m;p.billboardMode=Mesh.BILLBOARDMODE_ALL;p.position.set(x,h/2+.1,z);return p;
@@ -37,7 +39,8 @@ export function buildPrologue(scene:Scene,shadow:ShadowGenerator){
    box('square',2,.09,6.9,3.4,.12,2.5,'#c6b783');
    for(const [x,tint] of [[.8,'#ac5261'],[3.2,'#4e718a']] as const){box('tiny-tent',x,.38,7,1,.55,1.1,tint);box('tent-stripe',x,.68,7,.16,.04,1.15,'#e5d3a4');}
    for(const x of [1.4,2.6])box('square-post',x,.42,5.8,.15,.8,.15,'#ddd6b6');box('square-arch',2,.86,5.8,1.4,.16,.22,'#d2c797');
-   box('distant-mountain',-6.7,.7,4.9,4.6,1.4,.5,'#758073');
+   for(const x of [-3.4,-2.4])picture('guardia-forest-entrance',x,5.1,1.2,1.5,c=>drawTree(c),64,80);
+   picture('distant-mountain',-6.7,4.9,4.6,3.2,drawMountain,64,48);
   }else{
    floor('wood-floor',12,10,c=>drawRoomFloor(c,384,352));box('plinth',0,-.3,0,12.3,.6,10.3,'#3c352b');
    box('north-wall',0,1.5,4.85,12,3,.25,'#74664a');
@@ -46,7 +49,7 @@ export function buildPrologue(scene:Scene,shadow:ShadowGenerator){
    for(const x of [-5.7,-2.9,3,5.7])box('vertical-beam',x,1.45,4.65,.18,2.9,.14,'#463b2e');
    box('window-frame',0,1.93,4.54,2.8,2.25,.18,'#b4a57a');box('morning-window',0,1.93,4.42,2.48,2.05,.04,'#f3df9a');
    for(const x of [-.6,.6])box('window-mullion',x,1.93,4.35,.1,2.02,.06,'#9d8857');box('window-transom',0,2,4.34,2.42,.12,.08,'#9d8857');
-   for(const side of [-1,1]){const curtain=box('curtain',side*1.1,1.93,4.2,.64,2.25,.12,'#c8bc9e');curtains.push(curtain);for(let i=0;i<4;i++)box('curtain-pleat',side*(1.04+i*.12),1.93,4.10,.04,2.1,.04,'#dfcfaa');}
+   for(const side of [-1,1]){const curtain=box('curtain',side*1.1,1.93,4.2,.64,2.25,.12,'#c8bc9e');curtains.push(curtain);for(let i=0;i<4;i++){const pleat=box('curtain-pleat',0,0,0,.04,2.1,.04,'#dfcfaa');pleat.parent=curtain;pleat.position.set(-.23+i*.15,0,-.10);}}
    for(const x of [-.6,0,.6]){box('pot',x,.68,4.15,.28,.36,.30,'#955947');picture('plant',x,4.1,.54,.6,c=>{c.fillStyle='#467149';for(let i=0;i<7;i++)c.fillRect(4+i*2,5+Math.abs(i-3)*2,5,14);},24,32).position.y=1.05;}
    if(map==='bedroom'){
     const bed=HOME_SOLIDS.bedroom[0]!;box('bed-frame',bed.x,.38,bed.z,bed.w,.7,bed.d,'#76513a');box('headboard',bed.x,.86,bed.z+1.7,2.4,1.2,.2,'#8c6344');box('blanket',bed.x,.82,bed.z-.35,2.12,.20,2.5,'#dbceb0');box('pillow',bed.x,.95,bed.z+1.06,1.65,.25,.66,'#eee4c5');

@@ -1,3 +1,6 @@
+import {trialActive,trialHint,trialChoiceLabels,trialEvidence} from './trial-rules';
+import {trialMap,TRIAL_NAMES,TANK_PART_NAMES} from './trial-data';
+import {interactTrial,chooseTrial,useInventory} from './core';
 import {prologueMap,PROLOGUE_NAMES,prologueHint} from './prologue-data';
 import {interactPrologue,choosePrologue} from './core';
 import {rescueMap,nearestRescue,RESCUE_NAMES,rescueObjective,GUEST_HP,GUEST_MP} from './rescue-data';
@@ -13,7 +16,7 @@ import {World} from './render';
 import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
-let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
+let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
 let soundEnabled=false,audio:AudioContext|undefined;
 const controls=new Controls(command);
 const inputBoundary=new InputBoundary(state);
@@ -21,15 +24,15 @@ function replaceState(next:State):void {
   state=next;controls.clear();inputBoundary.rebase(state);
   last=performance.now();accumulator=0;
 }
-const halted=()=>!started||manualPause||dialogOpen||document.hidden;
+const halted=()=>!started||manualPause||dialogOpen||bagOpen||document.hidden;
 const asError=(e:unknown)=>e instanceof Error?e.message:String(e);
 function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');messageUntil=performance.now()+4500;}
 function tone(frequency=440):void{
   if(!soundEnabled)return;
   try{audio??=new AudioContext();void audio.resume().catch(()=>{});const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='triangle';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(.04,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start();oscillator.stop(audio.currentTime+.13);}catch{soundEnabled=false;$('sound').textContent='音效不可用';}
 }
-function showDialog(title:string,text:string):void{dialogOpen=true;controls.clear();inputBoundary.rebase(state);$('dialog-title').textContent=title;$('dialog-text').textContent=text;$('dialog').hidden=false;$('dialog-choices').hidden=!state.prologue.choice;$('dialog-close').hidden=!!state.prologue.choice;(state.prologue.choice?$('choice-yes'):$('dialog-close')).focus();}
-function closeDialog():void{if(state.prologue.choice)return;dialogOpen=false;$('dialog').hidden=true;controls.clear();last=performance.now();accumulator=0;}
+function showDialog(title:string,text:string):void{dialogOpen=true;controls.clear();inputBoundary.rebase(state);$('dialog-title').textContent=title;$('dialog-text').textContent=text;$('dialog').hidden=false;const choice=!!state.prologue.choice||!!state.trial.choice;$('dialog-choices').hidden=!choice;$('dialog-close').hidden=choice;const labels=state.trial.choice?trialChoiceLabels(state):['是','不是現在'];$('choice-yes').textContent=labels[0]+' · 1';$('choice-no').textContent=labels[1]+' · 2';(choice?$('choice-yes'):$('dialog-close')).focus();}
+function closeDialog():void{if(state.prologue.choice||state.trial.choice)return;dialogOpen=false;$('dialog').hidden=true;controls.clear();last=performance.now();accumulator=0;}
 function togglePause():void{if(!started)return;manualPause=!manualPause;controls.clear();$('pause-screen').hidden=!manualPause;last=performance.now();accumulator=0;}
 function start(coop:boolean,chapter:Chapter='lab'):void{replaceState(createState(chapter));started=true;state.joined=coop;$('start-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;announce(chapter==='bedroom'?'晨光照進房間。相遇之前，由克羅諾獨自行動。':coop?'雙人已啟動：P1 WASD，P2 方向鍵。':(chapter==='fair'?'WASD 移動；靠近鐘台、攤位或露卡按 E。':'WASD 移動；靠近物件按 E。也可直接點「練習戰鬥」。'));updateHud();}
 function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
@@ -37,6 +40,7 @@ function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
 }
 function interact(slot:Slot):void{
   if(cutsceneActive(state)||!activeSlot(state,slot))return;
+  if(trialActive(state)){const result=interactTrial(state,slot);if(result)showDialog(result.title,result.text);else announce(trialHint(state));updateHud();return;}
   if(prologueMap(state.chapter)||(state.chapter==='fair'&&!['legacy','companions'].includes(state.prologue.stage))){const result=interactPrologue(state,slot);if(result)showDialog(result.title,result.text);updateHud();return;}
   if(rescueMap(state.chapter)){const result=interactRescue(state,slot);if(result){if(result.title==='管風琴')tone(262);showDialog(result.title,result.text);}else announce('靠近人物、物件或門口再按互動。');updateHud();return;}
   if(kingdomMap(state.chapter)){const result=interactKingdom(state,slot);if(result)showDialog(result.title,result.text);else announce(state.mode==='battle'?'請使用戰鬥指令。':'靠近人物、門口或小路盡頭，再按互動。');updateHud();return;}
@@ -61,12 +65,13 @@ function interact(slot:Slot):void{
   }
 }
 function command(slot:Slot,cmd:Command):void{
-  if(cmd==='pause'){togglePause();return;}
+  if(cmd==='pause'){if(bagOpen)closeBag();else togglePause();return;}
+  if(bagOpen){if(cmd==='interact'&&slot===0)closeBag();return;}
   if(cmd==='join'){
     if(!started||manualPause||dialogOpen)return;
     if(!setCoop(state,!state.joined))announce('請在探索模式加入或退出 P2。');updateHud();return;
   }
-  if(dialogOpen){if(cmd==='interact' && activeSlot(state,slot) && (slot===0||state.joined)){if(state.prologue.choice&&slot===0)resolveChoice(document.activeElement?.id!=='choice-no');else closeDialog();}return;}
+  if(dialogOpen){if(cmd==='interact' && activeSlot(state,slot) && (slot===0||state.joined)){if((state.prologue.choice||state.trial.choice)&&slot===0)resolveChoice(document.activeElement?.id!=='choice-no');else closeDialog();}return;}
   if(halted()||cutsceneActive(state)||!activeSlot(state,slot)||(slot===1&&!state.joined))return;
   if(cmd==='interact'){interact(slot);return;}
   if(cmd==='targetPrevious'||cmd==='targetNext'){cycleTarget(state,slot,cmd==='targetNext'?1:-1);updateHud();return;}
@@ -85,7 +90,7 @@ $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'int
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
-$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
+$('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
 $('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
 $('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
@@ -189,10 +194,28 @@ function updateHud():void{
     $('q-repair').textContent=(state.prologue.motherTalked?'✓ ':'○ ')+'與母親交談';$('q-battle').textContent=(state.prologue.pendantPicked?'✓ ':'○ ')+'找回項鍊';$('q-future').textContent=(state.prologue.pendantReturned?'✓ ':'○ ')+'歸還項鍊';
   }
   if(state.chapter==='fair'&&state.prologue.stage==='companions'&&state.opening.phase==='none'&&state.kingdom.phase==='none'&&state.players[0].z<-6.2){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 離開廣場，返回大地圖';}
-  $('story-coop-note').textContent=state.prologue.stage!=='legacy'&&!['companions'].includes(state.prologue.stage)?'P2 等待中 · 初遇之前，克羅諾獨自行動。':'P2 觀戰中 · 瑪兒暫時離隊，保留劇情順序。';
-  const transition=state.prologue.transition;document.body.dataset.mapKind=state.chapter==='overworld1000'?'overworld':prologueMap(state.chapter)?'interior':'field';
+  $('bag').hidden=!started||!trialActive(state);
+  if(state.rescue.stage==='returned'&&!trialActive(state)&&state.players[0].z<-6.2){$('interact-hint').hidden=dialogOpen;$('interact-hint').textContent='E · 離開廣場，護送瑪兒回王城';}
+  if(trialActive(state)){
+    const t=state.trial,hint=trialHint(state);
+    $('era').textContent=t.stage==='future'?'2300 AD':'1000 AD';$('location').textContent=trialMap(state.chapter)?TRIAL_NAMES[state.chapter]:'托魯斯周邊 · 大地圖';
+    $('objective').textContent=hint;$('story-caption').hidden=true;$('scene-note').textContent='審判與越獄 · 原版參考重建／部分證詞、地圖拓樸與數值待補';
+    $('interact-hint').hidden=!started||dialogOpen||bagOpen||cutsceneActive(state)||state.mode!=='explore';$('interact-hint').textContent=hint;
+    $('p1-name').textContent='露卡';$('party-mode').textContent=t.luccaJoined?(state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡'):t.stage==='escort'?'護送瑪兒 · P2 等待露卡歸隊':'克羅諾獨自行動 · P2 設定保留';
+    $('story-coop-note').hidden=!state.joined||activeSlot(state,1);$('story-coop-note').textContent='P2 等待中 · 露卡再次加入時恢復控制。';
+    const name=(kind:string|undefined,i:number)=>kind&&kind in TANK_PART_NAMES?TANK_PART_NAMES[kind as keyof typeof TANK_PART_NAMES]:`衛兵 ${i+1}`;
+    $('enemy-hp').textContent=state.enemies.map((e,i)=>`${name(e.kind,i)} · HP ${e.hp}/${e.maxHp??60}`).join('　');
+    for(const i of [0,1] as const){const target=selectedEnemy(state,i);$('target-name'+i).textContent=target===null?'—':name(state.enemies[target]?.kind,target);}
+    $('continue').textContent=state.mode==='victory'?'繼續前進':'回入口休整';$('result-title').textContent=state.mode==='victory'?(t.tankWon?'龍戰車被摧毀':'戰鬥勝利'):'克羅諾一行倒下了';
+    $('result-text').textContent=state.mode==='victory'?`前方的通路已打開。本篇累積經驗 ${t.experience}。`:'回到本區入口休整。敗北不會完成戰鬥，也不會補回已使用的物品。';
+    $('q-repair').textContent=(t.question===3?'✓ ':'○ ')+'法庭質問';$('q-battle').textContent=(t.tankWon?'✓ ':'○ ')+'龍戰車';$('q-future').textContent=(t.stage==='future'?'✓ ':'○ ')+'逃入時門';
+    $('jury-status').hidden=state.chapter!=='courtroom'||t.question<3;
+    $('jury-status').textContent=trialEvidence(state).jurors.map((v,i)=>`${i+1}：${v==='unknown'?'未記錄':v==='guilty'?'有罪':'無罪'}`).join('　');
+  }else $('jury-status').hidden=true;
+  if(!trialActive(state))$('story-coop-note').textContent=state.prologue.stage!=='legacy'&&!['companions'].includes(state.prologue.stage)?'P2 等待中 · 初遇之前，克羅諾獨自行動。':'P2 觀戰中 · 瑪兒暫時離隊，保留劇情順序。';
+  const transition=state.prologue.transition;document.body.dataset.mapKind=state.chapter==='overworld1000'?'overworld':(prologueMap(state.chapter)||(trialMap(state.chapter)&&!['guardia1000','prisonbridge'].includes(state.chapter)))?'interior':'field';
   $('map-fade').style.opacity=transition?String(transition.elapsed<.22?transition.elapsed/.22:Math.max(0,1-(transition.elapsed-.22)/.26)):'0';
-  $('map-fade').hidden=!transition;
+  if(state.trial.fade>0)$('map-fade').style.opacity=String(state.trial.fade/.32);$('map-fade').hidden=!transition&&state.trial.fade<=0;
   layoutFeedback();
   const message=state.log[state.log.length-1]??'';if(started&&message!==previousLog){previousLog=message;announce(message);}
 }
@@ -227,13 +250,13 @@ try{
 }catch(error){const el=document.createElement('div');el.className='fatal';const title=document.createElement('h2');title.textContent='無法建立 3D 畫面';const p=document.createElement('p');p.textContent='請使用開啟硬體加速的近期 Chrome／Edge 瀏覽器。錯誤：'+asError(error);el.append(title,p);document.body.append(el);console.error(error);}
 
 function resolveChoice(yes:boolean):void{
- if(!dialogOpen||!state.prologue.choice||manualPause||document.hidden)return;
- const result=choosePrologue(state,yes);controls.clear();inputBoundary.rebase(state);
+ if(!dialogOpen||(!state.prologue.choice&&!state.trial.choice)||manualPause||document.hidden)return;
+ const result=state.trial.choice?chooseTrial(state,yes):choosePrologue(state,yes);controls.clear();inputBoundary.rebase(state);
  if(result)showDialog(result.title,result.text);else closeDialog();updateHud();
 }
 $('choice-yes').onclick=()=>resolveChoice(true);$('choice-no').onclick=()=>resolveChoice(false);
 document.addEventListener('keydown',e=>{
- if(!dialogOpen||!state.prologue.choice||e.repeat)return;
+ if(!dialogOpen||(!state.prologue.choice&&!state.trial.choice)||e.repeat)return;
  if(e.code==='Digit1'||e.code==='Digit2'){e.preventDefault();resolveChoice(e.code==='Digit1');}
  else if(e.code==='ArrowLeft'||e.code==='ArrowRight'){e.preventDefault();(document.activeElement?.id==='choice-yes'?$('choice-no'):$('choice-yes')).focus();}
 });
@@ -244,3 +267,25 @@ function layoutFeedback():void{
  document.documentElement.style.setProperty('--party-clearance',Math.ceil(window.innerHeight-box.top+12)+'px');
 }
 new ResizeObserver(layoutFeedback).observe($('party'));window.addEventListener('resize',layoutFeedback);
+
+function openBag():void{
+ if(!started||halted()||cutsceneActive(state)||!trialActive(state)||(state.mode!=='explore'&&state.mode!=='battle'))return;
+ bagOpen=true;controls.clear();inputBoundary.rebase(state);$('inventory-screen').hidden=false;refreshBag();$('inventory-close').focus();
+}
+function closeBag():void{bagOpen=false;$('inventory-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;updateHud();}
+function refreshBag():void{
+ $('inventory-stock').textContent=`回復藥 ${state.rescue.tonics}　乙太 ${state.trial.ethers}　｜　本篇經驗 ${state.trial.experience}`;
+ document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>{
+  const slot=Number(b.dataset.bagSlot) as Slot,p=state.players[slot],tonic=b.dataset.bagItem==='tonic';
+  b.disabled=!activeSlot(state,slot)||p.hp<=0||(state.mode==='battle'&&(p.atb<1||(slot===1&&!state.joined)))||(tonic?(state.rescue.tonics<=0||p.hp>=MAX_HP):(state.trial.ethers<=0||p.mp>=MAX_MP));
+ });
+ $('inventory-actors').textContent=state.players.filter((_,i)=>activeSlot(state,i as Slot)).map((p,i)=>`${i===0?'克羅諾':'露卡'}：HP ${p.hp}/${MAX_HP} · MP ${p.mp}/${MAX_MP}`).join('　');
+}
+$('bag').onclick=openBag;$('inventory-close').onclick=closeBag;
+document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>b.onclick=()=>{
+ if(!bagOpen||manualPause||document.hidden)return;
+ const slot=Number(b.dataset.bagSlot) as Slot;
+ if(useInventory(state,b.dataset.bagItem==='ether'?'ether':'tonic',slot)){$('inventory-feedback').textContent=state.log.at(-1)??'';tone(620);}
+ refreshBag();updateHud();
+});
+document.addEventListener('keydown',e=>{if(e.code==='KeyI'&&!e.repeat){e.preventDefault();if(bagOpen)closeBag();else openBag();}});

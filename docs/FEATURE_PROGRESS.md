@@ -1,26 +1,23 @@
-# 功能現況快照 — 2026-09-18
+# 功能現況快照 — 0.8 候選 / 2026-09-18
 
-範圍：source `2eec00c4a9e74c7873724217bd14f5087c42acf0` 的0.6候選。本表是交接快照，不取代STATUS的即時CI結果；不是完成百分比。除讀目前CI外，本輪未重跑先前驗證。
+即時 source/run 以 STATUS.md 為準。本表不代表完成百分比或90分。
 
-| 領域 | 已有實作／保存位置 | 目前驗收或剩餘邊界 |
+| 領域 | 目前實作 | 驗收與缺口 |
 |---|---|---|
-| 網頁執行／打包 | TS、Babylon、esbuild、自含HTML | CI12 build通過；不是原生手機／Windows安裝包 |
-| 單人／同機雙人 | Controls、InputBoundary、各自選敵、共用鏡頭 | CI12既有輸入與reference流程成功；實體手把未認證 |
-| 夥伴路徑 | 碰撞共用的A*、退出P2後跟隨 | CI12 navigation流程成功；不要再重造尋路 |
-| ATB／合技 | 獨立ATB、MP、技能、雙方確認與原子扣除 | 六段既有browser流程通過；仍為試作數值，非全部原版技能 |
-| 千年祭／異變／山道 | 已提交並保留v2/v3進度 | CI12 fair/opening流程成功；最初醒來／相遇尚未實作 |
-| 城鎮／森林／王城 | 露卡加入、前置與換圖、v4 | CI12 kingdom流程成功；原版完整世界地圖未還原 |
-| 修道院／青蛙／亞克拉／返鄉 | 三房間救援、機關、敵人、重聚、v5已提交 | CI12第七段rescue正在執行；不得當未實作重做，也不得先報完成驗收 |
-| 第三同伴 | 青蛙獨立HP/MP/ATB/AI、敵方可攻擊、返鄉瑪兒替換 | 本機單元已有；新browser未結束；無完整roster自由切换/P3/三人技 |
-| 物品 | 一次性三份回復藥、ATB與stock扣除 | 非完整背包／裝備／貨幣商店／成長 |
-| 存檔 | IndexedDB、匯入匯出、v1–v5白名單相容 | v1–v4的CI12流程成功；v5等待rescue流程；無雲端帳號同步 |
-| 美術／動作 | 原版對照重畫、角色多姿勢、26張PNG/402筆紀錄 | 匯出不等於最終藝術驗收；未核實影格不得說原版精準重現 |
-| 音樂／完整音效 | 簡單提示音與素材缺口登錄 | 尚未完成關卡配樂與完整音效庫 |
-| Pages | 既有部署／exact artifact／source-hash核對 | 最後已知0.5.1；0.6尚未確認上線，不重做Pages |
-| 雲端交付 | GitHub source/docs；17份歷史交付物補存Drive | 已上傳並下載核驗；參照DELIVERY_INDEX，後續不只給sandbox |
-| 完整主線／支線／結局 | 已有開場片段至救援的連貫基底 | 審判／越獄與剩餘時代等未實作，不能宣稱整款快完成 |
-| 整體90分／真機性能 | 證據綁定評分及release guard | 舊30/100已stale；沒有本輪新分數／硬體認證 |
+| 網頁／ATB／同機雙人 | 既有 TS/Babylon 自含HTML、固定步長、獨立選敵、雙確認合技與跟隨 | CI13舊路線通過；實體手把、完整原版技能數值未認證 |
+| 原作開場 | 起床、家中、縮尺大地圖、初遇與選擇、v6 | CI13與Pages6 0.7.0已驗收；完整原作地理／演出仍有差距 |
+| 600年與修道院 | 托魯斯／王城／露卡／青蛙／亞克拉／重聚／返鄉 | 既有內容與七段回歸旅程保留，不重做；完整迷宮拓樸仍缺 |
+| 審判／越獄 | 護送、法庭問題、敲門或等待救援、弗里茲、階梯守衛、看守室 | 0.8已實作，本地規則路線通過；新瀏覽器待驗收，祭典證詞與原版七陪審員判定未完整 |
+| 龍戰車與逃亡 | 橫向吊橋、三部位選敵、頭部修復／火焰盾、瑪兒重聚、森林時門 | 0.8候選；原版數值、動作與精細地圖未完成 |
+| 未來世界 | 2300年破損巨蛋抵達，可走動與v7保存 | 只有主線接點，巨蛋外世界、後續時代／主線／支線／結局仍未完成 |
+| 物品與成長 | I背包、共用回復藥、乙太、目標與ATB原子扣量、一次性補給和戰鬥XP記錄 | 0.8候選；裝備、商店、貨幣、完整等級／技能／自由roster尚未完成 |
+| 存檔與控制權 | v7新增；v1–v6相容；牢房無P2，露卡歸隊恢復P2，瑪兒自主同行 | 本地白名單／非法狀態／走路整合已測；新UI存讀待CI |
+| 美術與音樂 | 原版構圖參照、自製法庭／牢房／橫向橋／戰車三部位，沿用PNG匯出 | 非原作擷取；非最終藝術認證；完整音樂、動畫、環境仍缺 |
+| Pages／保存 | 最後已驗證0.7.0 source809a／CI13／Pages6；ROM私人Drive保存 | 0.8尚未宣稱上線；永久收據見DELIVERY_INDEX |
+| 整體90分 | 完整遊戲範圍與既有release guard保留 | 沒有本輪新分數；舊30已stale，真機／原汁原味／完整內容未驗收 |
 
-本機260/260、型別／建置、PNG核驗是已保存的上輪證據。CI12目前npm run check成功、六段browser成功、第七段進行中，不把階段成功當成整個run成功。
+本批最終本地check：375項通過，0失敗。新瀏覽器因本地管理政策阻擋而交由唯一新CI；未製造截圖、存檔或通過結果。
 
-下一步固定T00→T01；通過後按TODO補真正開場與審判等，不重新寫原有core、save、navigation、Pages或修道院。只在新增需求或實際失敗要求時做相應局部修改。
+## Batched art implementation (0.8 candidate; browser pending)
+
+Executable production contract r1, five cached nearest-filtered material families with dimension-based UV, miniature mountain silhouette, curtain-child animation fix, shared deck/collision metrics, real tick-bound two-frame Dragon Tank visuals, 42 PNG/JSON review sets and 421 frame records. 375 local tests passed. No external edited atlas runtime import, soundtrack, full geography, final-art or >=90 acceptance.

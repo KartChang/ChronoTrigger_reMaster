@@ -1,4 +1,4 @@
-# 專案地圖 — 修道院救援 0.6
+# 專案地圖 — 審判與越獄 0.8 候選
 
 Repository：KartChang/ChronoTrigger_reMaster；main；HD-2D、瀏覽器、同機雙人與 ATB。實際提交／CI／Pages 狀態只看 docs/STATUS.md，不從本文件推定已上線。
 
@@ -10,7 +10,7 @@ TypeScript + Babylon.js + esbuild；沒有後端。Node.js 22+ 用於建置，Py
 |---|---|
 | index.html / src/style.css / src/adventure.css | UI、冒險藍框對話、双人與第三隊員面板 |
 | src/main.ts | 啟動、指令、固定步長、暫停、存讀檔及演出整合 |
-| src/core.ts | 碰撞、ATB、有效队員、選敵、合技、回復藥、事件、v1–v5 存檔白名單 |
+| src/core.ts | 碰撞、ATB、有效队員、選敵、合技、回復藥、事件、v1–v7 存檔白名單 |
 | src/input.ts / src/input-boundary.ts | 鍵盤／觸控／Gamepad 所有權；狀態替換同步 rebase，階段切換清除一次舊輸入 |
 | src/navigation.ts | 有界確定性 A*；跟隨走現有 collision，不瞬移、不控制已加入的 P2 |
 | src/fair-data.ts / src/story-data.ts / src/kingdom-data.ts | 千年祭、開場、山道、王國共用地圖／互動資料 |
@@ -26,7 +26,7 @@ TypeScript + Babylon.js + esbuild；沒有後端。Node.js 22+ 用於建置，Py
 
 Controls → main → core → render/HUD。core 不依賴 DOM／Babylon。固定步長 1/60 秒、單幀累計上限0.1秒；暫停／背景／對話不推進。軟體 GPU 牆鐘時間不是遊戲模擬時間。
 
-## 階段與隊員
+## 原有階段與隊員（0.6 基礎；本批增量見下節）
 
 lab 保留 v1；fair 未開始異變為 v2；持久的 lost/pendant/canyon/vista 為 v3。瑪兒消失後不可控制／受擊。kingdom.phase 的 rescue 只表示露卡加入，不表示救援已完成；該路線為 v4。
 
@@ -55,8 +55,16 @@ python tests/rescue_browser.py
 
 preview 是4173；七段 browser harness 自行啟動4175–4181。kingdom 消費同次 opening 真正匯出的 v3；rescue 消費同次 kingdom 真正匯出的 v4，不製造存檔。舊六段斷言保留。完整 job 有45分鐘有限上限，不為過關放寬遊戲等待條件。dev 是 build＋serve，非 HMR。
 
-本地規則套件260項，含原有195項與65項救援／美術測試；實際結果只看 STATUS 與相符CI。素材輸出26張PNG、402筆影格資料，不等於402張獨特原作動畫。外部編輯後圖集的通用回匯仍未做。
+原0.6規則套件260項，本批375項；實際結果只看 STATUS 與相符CI。原0.6素材26張PNG，本批42組PNG/JSON、421筆影格資料，不等於402張獨特原作動畫。外部編輯後圖集的通用回匯仍未做。
 
 CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、截圖與使用者流程匯出檔。Pages 只部署已通過來源，deployment.json 記錄 source／CI／artifact／HTML hash；資料與 HTML 原封不動核對。CI／Pages 成功不代表畫面或整款達90分。
 
 穩定規則 AGENTS.md；章節契約 docs/RESCUE_SLICE.md；來源 assets/reference-index.json；動態進度唯一 docs/STATUS.md。
+
+## Trial/prison extension (0.8 candidate)
+
+`src/trial-data.ts` defines staged maps/collision and authored tank components. `src/trial-rules.ts` owns trial choices, alternate escape, inventory and v7 whitelist validation; core delegates and retains v1–v6. `src/trial-render.ts`/`trial-art.ts` use the existing renderer/export pipeline. `tests/trial_browser.py` consumes the preceding same-run rescue export (not the unit fixture) and tests both escape routes. `docs/TRIAL_T03.md` separates implemented function from remaining original-fidelity work. Exact source/run belongs to STATUS.
+
+- `src/art-profile.ts`: executable production scale/camera/bridge/animation contract; project conventions, not ROM claims.
+- `src/material-art.ts` / `src/material-runtime.ts`: shared integer-pixel material export/runtime, scene caching and size-based UV; no original bytes.
+- `docs/ART_PRODUCTION_CONTRACT.md`: applied art rules and actual pending review gates.

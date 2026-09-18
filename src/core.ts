@@ -1,3 +1,8 @@
+import {newTrial,trialMap} from './trial-data';
+import type {Trial} from './trial-data';
+import {trialWalkable} from './trial-data';
+import {trialActive,trialP2,trialGuest,trialMoveAllowed,startTrial,tickTrial,trialTriggers,trialDamage,tickTrialEnemies,finishTrialBattle,leaveTrialBattle,saveTrial,restoreTrial,trialPositionValid,trialEvidence} from './trial-rules';
+export {interactTrial,chooseTrial,useInventory} from './trial-rules';
 import {newPrologue,prologueMap,prologueWalkable,prologueSave,restorePrologue,MARLE_MEETING,DROPPED_PENDANT,WORLD_HOME,WORLD_FAIR} from './prologue-data';
 import type {Prologue,PrologueMap} from './prologue-data';
 import {newRescue,rescueMap,rescueWalkable,nearestRescue,RESCUE_NAMES,guestIdentity,GUEST_HP,GUEST_MP} from './rescue-data';
@@ -16,11 +21,11 @@ export type Mode = 'explore' | 'battle' | 'victory' | 'defeat';
 export type Slot = 0 | 1;
 export type Vec = { x: number; z: number };
 export type Actor = Vec & { hp: number; mp: number; atb: number; facing: number; walking: boolean };
-export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra'; maxHp?:number };
+export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra'|'prisonGuard'|'tankHead'|'tankBody'|'tankWheel'; maxHp?:number };
 export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
-  prologue:Prologue; followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
+  trial:Trial; prologue:Prologue; followPlan: FollowPlan; mode: Mode; era: Era; joined: boolean; players: [Actor, Actor]; enemies: Enemy[];
   targets: [number|null,number|null]; flags: Flags; combo: [boolean, boolean]; log: string[]; effects: Effect[];
   ticks: number; enemyTurn: number; chapter: Chapter; fair: FairFlags; opening: Opening; kingdom:Kingdom; rescue:Rescue;
 };
@@ -42,15 +47,16 @@ export function createState(chapter: Chapter = 'lab'): State {
   const prologue=newPrologue(chapter==='bedroom');
   const initial=[actor(-1),actor(1)] as [Actor,Actor];
   if(chapter==='bedroom')initial.forEach(p=>Object.assign(p,{x:1.5,z:1.4,facing:0}));
-  return { prologue,followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: initial,
+  return { trial:newTrial(),prologue,followPlan:newFollowPlan(), mode: 'explore', era: 'present', joined: false, players: initial,
     enemies: [], flags: { repaired: false, won: false, visitedFuture: false },
     targets: [null,null], combo: [false, false], log: [chapter==='bedroom'?'母親：克羅諾，起床了！':chapter==='fair'?'千年祭：同行之後、傳送實驗之前。':'沿石路向北，探索測試村落。'], effects: [], ticks: 0, enemyTurn: 0, chapter, fair: newFairFlags(), opening:newOpening(), kingdom:newKingdom(), rescue:newRescue() };
 }
-export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||((s.prologue.stage==='legacy'||s.prologue.stage==='companions')&&(s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase))));
-export const cutsceneActive=(s:State):boolean=>cinematic(s.opening.phase)||s.kingdom.phase==='erasing'||s.prologue.stage==='waking'||(s.prologue.stage==='collision'&&s.prologue.elapsed<.6)||!!s.prologue.transition;
+export const activeSlot=(s:State,slot:Slot):boolean=>slot===0||(trialActive(s)?trialP2(s):((s.prologue.stage==='legacy'||s.prologue.stage==='companions')&&(s.kingdom.phase==='rescue'||(s.kingdom.phase==='none'&&marlePresent(s.opening.phase)))));
+export const cutsceneActive=(s:State):boolean=>s.trial.fade>0||cinematic(s.opening.phase)||s.kingdom.phase==='erasing'||s.prologue.stage==='waking'||(s.prologue.stage==='collision'&&s.prologue.elapsed<.6)||!!s.prologue.transition;
 export const distance = (a: Vec, b: Vec): number => Math.hypot(a.x - b.x, a.z - b.z);
 export function walkable(x: number, z: number, chapter: Chapter = 'lab'): boolean {
   if(prologueMap(chapter))return prologueWalkable(x,z,chapter);
+  if(trialMap(chapter))return trialWalkable(x,z,chapter);
   if(rescueMap(chapter))return rescueWalkable(x,z,chapter);
   if(kingdomMap(chapter))return kingdomWalkable(x,z,chapter);
   if(chapter==='fair')return fairWalkable(x,z);
@@ -66,7 +72,7 @@ function move(s: State, slot: Slot, vector: Vec, dt: number): void {
   p.walking = false;
   if (len < 0.05) return;
   const nx = vector.x / Math.max(1, len), nz = vector.z / Math.max(1, len);
-  const allowed = (x: number, z: number) => walkable(x, z, s.chapter) && (!s.joined || !activeSlot(s,1) || distance({x,z},peer) <= MAX_SEPARATION);
+  const allowed = (x: number, z: number) => walkable(x, z, s.chapter) && trialMoveAllowed(s,x,z) && (!s.joined || !activeSlot(s,1) || distance({x,z},peer) <= MAX_SEPARATION);
   const x = p.x + nx * (s.chapter==='overworld1000'?2.4:SPEED) * dt;
   if (allowed(x,p.z)) { p.walking ||= Math.abs(x-p.x)>0.0001; p.x=x; }
   const z = p.z + nz * (s.chapter==='overworld1000'?2.4:SPEED) * dt;
@@ -82,6 +88,7 @@ export function setCoop(s: State, joined: boolean): boolean {
 }
 export function beginBattle(s: State): boolean {
   if (s.mode !== 'explore'||cutsceneActive(s)||prologueMap(s.chapter)||(s.chapter==='fair'&&!['legacy','fair','companions'].includes(s.prologue.stage))) return false;
+  if(trialActive(s))return false;
   if(rescueMap(s.chapter))return beginRescueBattle(s);
   if(kingdomMap(s.chapter)&&(s.chapter!=='forest'||s.kingdom.forestWon))return false;
   if(s.chapter==='fair'&&s.opening.phase!=='none')return false;
@@ -98,6 +105,7 @@ function eligible(s: State, slot: Slot, mp: number): boolean {
   const p=s.players[slot];return activeSlot(s,slot)&&!cutsceneActive(s)&&s.mode==='battle' && p.hp>0 && p.atb>=1 && p.mp>=mp;
 }
 function finish(s: State): void {
+  if(trialActive(s)){finishTrialBattle(s);return;}
   if(rescueMap(s.chapter)){finishRescueBattle(s);return;}
   if (s.enemies.every(e=>e.hp<=0)) { s.mode='victory';if(s.chapter==='forest')s.kingdom.forestWon=true;else if(s.chapter==='canyon')s.opening.canyonWon=true;else if(s.chapter==='fair')s.fair.gatoWon=true;else s.flags.won=true;s.combo=[false,false];log(s,s.chapter==='forest'?'林間小路恢復了寧靜。王城就在北方。':s.chapter==='canyon'?'攔路的魔物倒下了。沿山道向南走。':s.chapter==='fair'?'機器人挑戰完成。可返回廣場或前往露卡的展示區。':'試煉完成！北方時門已可探索。'); }
 }
@@ -123,7 +131,7 @@ export function action(s: State, slot: Slot, kind: 'attack'|'skill'): boolean {
   const p=s.players[slot],index=selectedEnemy(s,slot);const target=index===null?undefined:s.enemies[index];
   if (!target) return false;
   s.combo[slot]=false;p.atb=0;p.mp-=cost;
-  const damage=kind==='skill'?48:30;target.hp=Math.max(0,target.hp-damage);
+  const damage=trialDamage(s,target,kind==='skill'?48:30,kind==='skill'&&slot===1&&s.kingdom.phase==='rescue');target.hp=Math.max(0,target.hp-damage);
   s.effects.push({x:target.x,z:target.z,text:String(damage),kind:'hit',actor:slot,origin:{x:p.x,z:p.z},style:kind==='skill'?(slot===1&&s.kingdom.phase==='rescue'?'fire':'spin'):slot===1?'shot':'slash'});
   log(s,`P${slot+1} ${kind==='skill'?'施放技能':'攻擊'}：${damage} 傷害。`);finish(s);return true;
 }
@@ -136,12 +144,13 @@ export function requestCombo(s: State, slot: Slot): boolean {
 function tryCombo(s: State): void {
   if (!s.combo[0] || !s.combo[1] || !eligible(s,0,4) || !eligible(s,1,4)) return;
   s.players.forEach(p=>{p.atb=0;p.mp-=4;});s.combo=[false,false];
-  s.enemies.filter(e=>e.hp>0).forEach(e=>{e.hp=Math.max(0,e.hp-72);s.effects.push({x:e.x,z:e.z,text:'72',kind:'combo',style:'spin'});});
+  s.enemies.filter(e=>e.hp>0).forEach(e=>{const damage=trialDamage(s,e,72,s.kingdom.phase==='rescue');e.hp=Math.max(0,e.hp-damage);s.effects.push({x:e.x,z:e.z,text:String(damage),kind:'combo',style:'spin'});});
   log(s,'雙人合技「共鳴斬」！雙方消耗 ATB 與 4 MP。');finish(s);
 }
 export function step(s: State, input: Input, delta: number): void {
   if (!Number.isFinite(delta) || delta<=0) return;
   const dt=Math.min(delta,0.05);s.ticks++;
+  if(tickTrial(s,dt))return;
   if(stepPrologue(s,dt))return;
   if(s.kingdom.phase==='erasing'){s.kingdom.elapsed+=dt;if(s.kingdom.elapsed>=2.2){s.kingdom.phase='missing';s.kingdom.elapsed=0;log(s,'瑪兒的身影消失了。先回大廳看看。');}return;}
   if(cutsceneActive(s)){stepOpening(s,dt);return;}
@@ -153,6 +162,7 @@ export function step(s: State, input: Input, delta: number): void {
       move(s,1,followVector(s.followPlan,b,a,s.chapter,s.ticks,(x,z)=>walkable(x,z,s.chapter)),dt);
     }
     stepGuest(s,dt);
+    if(trialActive(s)){trialTriggers(s);return;}
     prologueTriggers(s);
     if(s.chapter==='passage'&&!s.rescue.guardsWon&&s.players[0].z>.2)beginRescueBattle(s);
     if(s.chapter==='forest'&&!s.kingdom.forestWon&&s.players[0].z>.2)beginBattle(s);
@@ -168,7 +178,8 @@ export function step(s: State, input: Input, delta: number): void {
   }
   stepGuest(s,dt);
   if(s.mode!=='battle')return;
-  for(const e of s.enemies) {
+  if(trialActive(s))tickTrialEnemies(s,dt);
+  else for(const e of s.enemies) {
     if(e.hp<=0)continue;
     e.atb+=dt*(e.kind==='yakra'?.22:.14);
     if(e.atb>=1) {
@@ -182,6 +193,7 @@ export function step(s: State, input: Input, delta: number): void {
   if(livingAllies(s).length===0){s.mode='defeat';s.combo=[false,false];log(s,s.chapter==='canyon'?'克羅諾倒下了。可回山道入口重新整裝。':'試煉失敗。可回村補給，再次挑戰。');}
 }
 export function leaveBattle(s: State): void {
+  if(trialActive(s)){leaveTrialBattle(s);return;}
   if(rescueMap(s.chapter)){leaveRescueBattle(s);return;}
   if((s.chapter==='canyon'||kingdomMap(s.chapter))&&s.mode!=='victory'&&s.mode!=='defeat')return;
   s.followPlan=newFollowPlan();s.mode='explore';s.enemies=[];s.targets=[null,null];s.combo=[false,false];
@@ -214,6 +226,7 @@ export function deserialize(raw: string): State {
   const v:unknown=JSON.parse(raw);
   if(!v||typeof v!=='object')throw new Error('存檔格式錯誤。');
   const o=v as Record<string,unknown>;
+  if(o.version===7)return restoreV7(o);
   if(o.version===6)return restoreV6(o);
   if((o.version!==1&&o.version!==2&&o.version!==3&&o.version!==4&&o.version!==5)||(typeof o.era!=='string'||!['present','future','middle'].includes(o.era))||typeof o.joined!=='boolean')throw new Error('不支援的存檔版本或格式。');
   if(!Array.isArray(o.players)||o.players.length!==2||!o.flags||typeof o.flags!=='object')throw new Error('存檔資料不完整。');
@@ -264,7 +277,7 @@ export function interactFair(s: State, slot: Slot): {title:string;text:string}|n
   if(s.chapter!=='fair'||s.mode!=='explore'||cutsceneActive(s)||!activeSlot(s,slot)||(slot===1&&!s.joined))return null;
   if(!['legacy','companions'].includes(s.prologue.stage))return interactPrologue(s,slot);
   if(s.prologue.stage==='companions'&&s.opening.phase==='none'&&s.kingdom.phase==='none'&&distance(s.players[slot],{x:0,z:-7.7})<1.5){startPrologueTravel(s,'overworld1000',WORLD_FAIR.x,WORLD_FAIR.z-1.6);return null;}
-  if(s.rescue.stage==='returned')return {title:'千年祭 · 回到 1000 年',text:'鐘聲仍在廣場迴響。克羅諾、露卡與瑪兒平安回來。\n王城審判是下一個尚未製作的章節；可以在此保存救援進度。'};
+  if(s.rescue.stage==='returned'){if(slot===0&&partyTogether(s)){const result=startTrial(s,serialize(s));if(result)return result;}return {title:'千年祭 · 回到 1000 年',text:'瑪兒希望你送她回王城。沿廣場南方走，靠近出口按 E。'};}
   const opening=interactOpening(s,slot);if(opening)return opening;
   if(s.opening.phase!=='none')return {title:'露卡',text:'先找回瑪兒留下的項鍊。裝置在北方左側。'};
   const point=nearestFair(s.players[slot].x,s.players[slot].z);
@@ -322,7 +335,7 @@ export function interactOpening(s:State,slot:Slot):{title:string;text:string}|nu
   if(s.chapter==='canyon'&&s.rescue.stage==='reunited'&&slot===0&&s.mode==='explore'&&s.players[0].z>7.4){
    if(!partyTogether(s))return {title:'等待同行者',text:'靠近時門，一起回去。'};
    s.rescue.stage='returned';s.chapter='fair';s.era='present';s.players.forEach((p,i)=>Object.assign(p,{x:i*1.3,z:6.2,walking:false,atb:0}));s.followPlan=newFollowPlan();placeGuest(s);
-   return {title:'回到 1000 年',text:'露卡啟動時門鑰匙。熟悉的鐘聲再次傳來。\n三人回到千年祭廣場。這次救援已完成；王城審判尚待接續。'};
+   return {title:'回到 1000 年',text:'露卡啟動時門鑰匙。熟悉的鐘聲再次傳來。\n三人回到千年祭廣場。沿南方出口回到大地圖，護送瑪兒回王城。'};
   }
   if(s.mode!=='explore'||cutsceneActive(s)||slot!==0)return null;
   if(s.chapter==='fair'&&distance(s.players[0],{x:-2.4,z:9})<2.05){
@@ -405,7 +418,7 @@ export function interactKingdom(s:State,slot:Slot):{title:string;text:string}|nu
  return null;
 }
 
-export const guestKind=(s:State):'frog'|'marle'|null=>guestIdentity(s.rescue);
+export const guestKind=(s:State):'frog'|'marle'|null=>trialActive(s)?(trialGuest(s)?'marle':null):guestIdentity(s.rescue);
 export const partyTogether=(s:State):boolean=>!s.joined||!activeSlot(s,1)||distance(s.players[0],s.players[1])<=3.5;
 function livingAllies(s:State):Actor[]{
  const allies=s.players.filter((p,i)=>activeSlot(s,i as Slot)&&p.hp>0);
@@ -559,6 +572,10 @@ function restoreRescue(s:State,raw:unknown):void{
 
 /** Additive opening: the old fair/checkpoint state never acquires invented trial choices. */
 export function serialize(s:State):string{
+ if(trialActive(s)){
+  if(s.mode!=='explore'||cutsceneActive(s)||s.trial.choice)throw new Error('請先結束戰鬥、選擇或演出再存檔。');
+  return JSON.stringify({version:7,history:s.trial.history,chapter:s.chapter,era:s.era,joined:s.joined,trial:saveTrial(s.trial),tonics:s.rescue.tonics,players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp})),guest:(({x,z,hp,mp})=>({x,z,hp,mp}))(s.rescue.guest)});
+ }
  if(s.prologue.stage==='legacy')return serializeLegacy(s);
  if(s.mode!=='explore'||cutsceneActive(s)||s.prologue.choice)throw new Error('請先完成演出或選擇再存檔。');
  const base=prologueMap(s.chapter)?{era:s.era,joined:s.joined,flags:{...s.flags},fair:{...s.fair},players:s.players.map(({x,z,hp,mp})=>({x,z,hp,mp}))}:JSON.parse(serializeLegacy(s));
@@ -644,4 +661,25 @@ export function choosePrologue(s:State,yes:boolean):PrologueDialog|null{
  if(choice==='return'){if(!q.pendantPicked||!q.checkedMarle)return null;q.pendantReturned=true;return {title:'女孩',text:'太好了！這是我很珍惜的東西，謝謝你。'};}
  if(!q.pendantReturned)return null;q.stage='companions';Object.assign(s.players[1],{x:MARLE_MEETING.x,z:MARLE_MEETING.z,walking:false,facing:0});s.followPlan=newFollowPlan();log(s,'瑪兒加入同行。露卡的展示在廣場北方。');
  return {title:'瑪兒',text:'走吧！去看看露卡的發明。'};
+}
+
+/** v7 keeps the real pre-trial save as immutable history, so v1–v6 migration does not forge facts. */
+function restoreV7(o:Record<string,unknown>):State{
+ if(typeof o.history!=='string'||o.history.length>16384)throw new Error('缺少原始回歸存檔。');
+ const history:unknown=JSON.parse(o.history);
+ if(!history||typeof history!=='object'||!Number.isInteger((history as {version:number}).version)||(history as {version:number}).version>6)throw new Error('不允許巢狀審判存檔。');
+ const s=deserialize(o.history);if(s.rescue.stage!=='returned'||s.chapter!=='fair'||s.era!=='present')throw new Error('審判缺少真實救援回歸進度。');
+ const baseTonics=s.rescue.tonics,t=restoreTrial(o.trial,o.chapter);t.history=o.history;s.trial=t;
+ s.chapter=o.chapter as Chapter;s.era=t.stage==='future'?'future':'present';
+ if(o.era!==s.era||typeof o.joined!=='boolean'||!Array.isArray(o.players)||o.players.length!==2)throw new Error('審判角色或時代錯誤。');s.joined=o.joined;
+ const loadActor=(v:unknown,p:Actor,maxHp:number,maxMp:number)=>{if(!v||typeof v!=='object'||Array.isArray(v))throw new Error('角色格式錯誤。');const a=v as Record<string,unknown>;
+  for(const k of ['x','z','hp','mp'])if(typeof a[k]!=='number'||!Number.isFinite(a[k]))throw new Error('角色數值錯誤。');
+  const next={...p,x:a.x as number,z:a.z as number,hp:a.hp as number,mp:a.mp as number};
+  if(!Number.isInteger(next.hp)||!Number.isInteger(next.mp)||next.hp<1||next.hp>maxHp||next.mp<0||next.mp>maxMp||!trialPositionValid(s.chapter,next)||!trialMoveAllowed(s,next.x,next.z))throw new Error('審判角色位置或能力超出範圍。');Object.assign(p,next,{atb:0,walking:false});
+ };
+ s.players.forEach((p,i)=>loadActor((o.players as unknown[])[i],p,MAX_HP,MAX_MP));loadActor(o.guest,s.rescue.guest,GUEST_HP,GUEST_MP);
+ if(s.joined&&activeSlot(s,1)&&distance(s.players[0],s.players[1])>MAX_SEPARATION+.01)throw new Error('雙人距離超出範圍。');
+ if(typeof o.tonics!=='number'||!Number.isInteger(o.tonics)||o.tonics<0||o.tonics>baseTonics+(t.suppliesTaken?2:0))throw new Error('回復藥來源不一致。');s.rescue.tonics=o.tonics;
+ const computed=(trialEvidence(s).jurors.filter(x=>x==='guilty').length>=4?'guilty':'not-guilty');if(t.verdict!=='pending'&&t.verdict!==computed)throw new Error('裁決與記錄不一致。');
+ s.log=['已讀取審判與越獄存檔；舊旅程與未記錄的選擇保持原樣。'];return s;
 }

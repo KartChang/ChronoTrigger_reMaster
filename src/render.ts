@@ -1,3 +1,5 @@
+import {PixelPalettePass} from './pixel-presentation';
+import {MOTION_PROFILE} from './actor-motion';
 import {drawHDHero,HD_ART} from './hd-hero-art';
 import {ART_PROFILE,cameraHalf} from './art-profile';
 import {buildTrial} from './trial-render';
@@ -70,7 +72,9 @@ export class World {
   private poseHistory:{slot:number;pose:HeroPose;frame:number;tick:number}[]=[];
   private targetMarkers:Mesh[]=[];
   private drawFrames=0;
-  inspect(){return {actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  private palettePass=new PixelPalettePass();
+  private actorShadows:Mesh[]=[];
+  inspect(){return {fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -155,6 +159,7 @@ export class World {
       const m=MeshBuilder.CreateSphere('mote',{diameter:.035,segments:4},this.scene);m.material=this.mat('motes','#eddda0');(m.material as StandardMaterial).emissiveColor=color('#eddda0');
       m.position.set(Math.sin(i*8.31)*12,.6+(i%5)*.35,Math.cos(i*9.31)*9);this.particles.push(m);
     }
+    for(let i=0;i<3;i++){const d=MeshBuilder.CreateDisc('actor-ground-shadow-'+i,{radius:.43,tessellation:24},this.scene);d.rotation.x=Math.PI/2;d.scaling.y=.52;const m=new StandardMaterial('actor-shadow-'+i,this.scene);m.diffuseColor=Color3.Black();m.disableLighting=true;m.alpha=.25;m.backFaceCulling=false;d.material=m;d.position.y=.13;d.isPickable=false;this.actorShadows.push(d);}
     this.resize();window.addEventListener('resize',()=>this.resize());
   }
   private mat(name:string,hex:string):StandardMaterial {
@@ -278,13 +283,13 @@ export class World {
       this.repairs.setEnabled(future&&s.flags.repaired);
     }
     s.players.forEach((p,i)=>{
-      let pose=this.posePlayers[i]!.sample(this.time,p.walking);
+      let pose=this.posePlayers[i]!.sample(this.time,p.walking,s.mode==='battle');
       if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)pose={pose:'down',frame:0};
       if(s.prologue.stage==='collision'&&s.prologue.elapsed<.6)pose={pose:'hurt',frame:Math.min(3,Math.floor(s.prologue.elapsed*6))};
       if(p.hp<=0)pose={pose:'down',frame:3};
       else if(s.mode==='victory'&&pose.pose==='idle')pose={pose:'victory',frame:Math.floor(this.time*4)%4};
       const previous=this.poseViews[i]!;
-      if(adventure&&activeSlot(s,i as 0|1)&&!['idle','walk'].includes(pose.pose)&&(previous.pose!==pose.pose||previous.frame!==pose.frame)){
+      if(adventure&&activeSlot(s,i as 0|1)&&!['idle','walk','ready'].includes(pose.pose)&&(previous.pose!==pose.pose||previous.frame!==pose.frame)){
         this.poseHistory.push({slot:i,...pose,tick:s.ticks});if(this.poseHistory.length>48)this.poseHistory.shift();
       }
       this.poseViews[i]=pose;
@@ -306,7 +311,7 @@ export class World {
     });
     const kind=guestKind(s),g=s.rescue.guest;this.guestVisible=!!kind;this.guest.mesh.setEnabled(!!kind);
     if(kind){
-      const pose=g.hp<=0?{pose:'down' as const,frame:3}:s.mode==='victory'?{pose:'victory' as const,frame:Math.floor(this.time*4)%4}:this.guestPose.sample(this.time,g.walking);this.guestView=pose;
+      const pose=g.hp<=0?{pose:'down' as const,frame:3}:s.mode==='victory'?{pose:'victory' as const,frame:Math.floor(this.time*4)%4}:this.guestPose.sample(this.time,g.walking,s.mode==='battle');this.guestView=pose;
       const key=`${kind}/${g.facing}/${pose.pose}/${pose.frame}`;
       if(this.guest.last!==key){this.guest.last=key;const c=this.guest.texture.getContext() as CanvasRenderingContext2D;drawHDHero(c,kind,g.facing,pose.frame,pose.pose);this.guest.texture.update();}
       const gs=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;this.guest.mesh.scaling.setAll(gs);this.guest.mesh.position.set(g.x,s.chapter==='overworld1000'?.43:1.02,g.z);
@@ -315,6 +320,10 @@ export class World {
     this.yakra.mesh.setEnabled(!!boss);
     if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
     this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
+    const up=this.camera.getDirection(Vector3.Up()),as=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;
+    const groundActor=(mesh:Mesh,x:number,z:number)=>{mesh.position.set(x,0.14,z);mesh.position.addInPlace(up.scale(1.85*(HD_ART.pivot.y/HD_ART.height-.5)*as));};
+    s.players.forEach((p,i)=>{if(adventure&&s.prologue.stage!=='waking')groundActor(this.heroes[i]!.mesh,p.x+this.lunges[i]!.dx*Math.sin(Math.min(1,this.lunges[i]!.time/.42)*Math.PI),p.z+this.lunges[i]!.dz*Math.sin(Math.min(1,this.lunges[i]!.time/.42)*Math.PI));const sh=this.actorShadows[i]!;sh.setEnabled(adventure&&activeSlot(s,i as 0|1)&&s.prologue.stage!=='waking');sh.position.set(p.x,.14,p.z);sh.scaling.x=as;sh.scaling.y=.52*as;});
+    if(kind)groundActor(this.guest.mesh,g.x,g.z);const gs=this.actorShadows[2]!;gs.setEnabled(!!kind);gs.position.set(g.x,.14,g.z);gs.scaling.x=as;gs.scaling.y=.52*as;
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
     const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
     this.camera.position.set(tx,ART_PROFILE.camera.height,tz-ART_PROFILE.camera.back);this.camera.setTarget(new Vector3(tx,0,tz));
@@ -322,6 +331,7 @@ export class World {
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
+    this.palettePass.apply(this.scene);
     this.scene.render();this.drawFrames++;
   }
   start(loop:()=>void):void{this.engine.runRenderLoop(loop);}

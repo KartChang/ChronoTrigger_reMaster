@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "version": "0.8.2",
+  "publicationParent": "1d1ab451290597813dacad8df59f2dba22a6f640",
+  "recoveredStagingTree": "9e4feb71119d5f6bcb61398408af1fa92d56df53",
+  "method": "Recovered only matching working delta and newer stored blobs; every runtime/test/build/workflow/site subtree exactly equals the retained GitHub tree. Current main documents are the publication base, not overwritten by the old ZIP.",
+  "verifiedSubtrees": {
+    "src": "d0812c9a39c91b5acd679d9b3b1bf285b25617d4",
+    "tests": "c4b6b7c7d2e4d97f97e3d097f253a60b645b8d0b",
+    "scripts": "7178a0de26d7105056d60a36817afb941afc0a0f",
+    ".github": "8951dee945c52926fd46047e34e72481866df985",
+    "site": "c9f90cb47a4c8f11c51dab0f004d0ba49334c632",
+    "assets": "28582cd73b879fde5e1e68306b3ea70afe25ab30"
+  },
+  "indexHtmlBlob": "68c20971f153a23a4c36824e5da38f436a26ba00",
+  "localCheck": {
+    "command": "npm run check",
+    "tests": 504,
+    "passed": 504,
+    "failed": 0,
+    "skipped": 0,
+    "typecheck": "passed",
+    "build": "passed",
+    "assetHygiene": "passed",
+    "keyboardAndHdBrowserScriptsCompile": "passed",
+    "checkLogSha256": "06ba5c268b3e00d3cca61c25eff199a6f1300da2aba4a8484a8c296f6d69eeb9",
+    "localHtmlSha256": "1bc84974408d43d515c6db1a138502cee17f31ec0321fb1691c5e927a8988fb3",
+    "localBuildSourceSha": null
+  },
+  "releaseAccepted": false,
+  "quality90Accepted": false,
+  "browserAcceptance": "pending exact new CI; no local browser pass claimed",
+  "originalRomReadOrExtracted": false,
+  "old498Result": "Superseded for this integrated tree by the fresh 504-pass check. Neither number is a game-quality score.",
+  "next": "One non-skip source publication CI, then document exact SHA/run/jobs. Preserve all existing journeys, both witness routes and new keyboard-only journey; no duplicate dispatch or prolonged waiting."
+}

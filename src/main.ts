@@ -18,10 +18,10 @@ import * as storage from './save';
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
 let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
 let soundEnabled=false,audio:AudioContext|undefined;
-const controls=new Controls(command);
+const controls=new Controls(command,{solo:()=>!state.joined,routeUi:routeKeyboardUi});
 const inputBoundary=new InputBoundary(state);
 function replaceState(next:State):void {
-  state=next;controls.clear();inputBoundary.rebase(state);
+  state=next;controls.clear();if(started)focusWorld();inputBoundary.rebase(state);
   last=performance.now();accumulator=0;
 }
 const halted=()=>!started||manualPause||dialogOpen||bagOpen||document.hidden;
@@ -32,9 +32,10 @@ function tone(frequency=440):void{
   try{audio??=new AudioContext();void audio.resume().catch(()=>{});const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='triangle';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(.04,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start();oscillator.stop(audio.currentTime+.13);}catch{soundEnabled=false;$('sound').textContent='音效不可用';}
 }
 function showDialog(title:string,text:string):void{dialogOpen=true;controls.clear();inputBoundary.rebase(state);$('dialog-title').textContent=title;$('dialog-text').textContent=text;$('dialog').hidden=false;const choice=!!state.prologue.choice||!!state.trial.choice;$('dialog-choices').hidden=!choice;$('dialog-close').hidden=choice;const labels=state.trial.choice?trialChoiceLabels(state):['是','不是現在'];$('choice-yes').textContent=labels[0]+' · 1';$('choice-no').textContent=labels[1]+' · 2';(choice?$('choice-yes'):$('dialog-close')).focus();}
-function closeDialog():void{if(state.prologue.choice||state.trial.choice)return;dialogOpen=false;$('dialog').hidden=true;controls.clear();last=performance.now();accumulator=0;}
-function togglePause():void{if(!started)return;manualPause=!manualPause;controls.clear();$('pause-screen').hidden=!manualPause;last=performance.now();accumulator=0;}
-function start(coop:boolean,chapter:Chapter='lab'):void{replaceState(createState(chapter));started=true;state.joined=coop;$('start-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;announce(chapter==='bedroom'?'晨光照進房間。相遇之前，由克羅諾獨自行動。':coop?'雙人已啟動：P1 WASD，P2 方向鍵。':(chapter==='fair'?'WASD 移動；靠近鐘台、攤位或露卡按 E。':'WASD 移動；靠近物件按 E。也可直接點「練習戰鬥」。'));updateHud();}
+function focusWorld():void{$('world').focus({preventScroll:true});}
+function closeDialog():void{if(state.prologue.choice||state.trial.choice)return;dialogOpen=false;$('dialog').hidden=true;controls.clear();last=performance.now();accumulator=0;focusWorld();}
+function togglePause():void{if(!started)return;manualPause=!manualPause;controls.clear();$('pause-screen').hidden=!manualPause;last=performance.now();accumulator=0;if(!manualPause)focusWorld();}
+function start(coop:boolean,chapter:Chapter='lab'):void{replaceState(createState(chapter));started=true;state.joined=coop;$('start-screen').hidden=true;focusWorld();controls.clear();last=performance.now();accumulator=0;announce(chapter==='bedroom'?'晨光照進房間。相遇之前，由克羅諾獨自行動。':coop?'雙人已啟動：P1 WASD，P2 方向鍵。':(chapter==='fair'?'WASD 移動；靠近鐘台、攤位或露卡按 E。':'WASD 移動；靠近物件按 E。也可直接點「練習戰鬥」。'));updateHud();}
 function nearest(slot:Slot):'crystal'|'gate'|'save'|null{
   const p=state.players[slot];const options:[number,'crystal'|'gate'|'save'][]=[[distance(p,{x:-5,z:-1}),'crystal'],[distance(p,{x:0,z:9}),'gate'],[distance(p,{x:-8,z:-5}),'save']];options.sort((a,b)=>a[0]-b[0]);return options[0]![0]<2.05?options[0]![1]:null;
 }
@@ -92,13 +93,15 @@ $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(sta
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
 $('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 $('import').onclick=()=>{if(started&&!halted()&&state.mode==='explore')$('save-file').click();else announce('請在探索模式匯入存檔。');};
-$('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';}};
-$('continue').onclick=()=>{leaveBattle(state);$('result').hidden=true;controls.clear();updateHud();};
+$('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file)return;try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';focusWorld();}};
+$('save-file').addEventListener('cancel',()=>{controls.clear();focusWorld();});
+function continueEncounter():void{if(state.mode!=='victory'&&state.mode!=='defeat')return;leaveBattle(state);$('result').hidden=true;controls.clear();inputBoundary.rebase(state);last=performance.now();accumulator=0;focusWorld();updateHud();}
+$('continue').onclick=continueEncounter;
 document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button=>button.onclick=()=>command(Number(button.dataset.slot) as Slot,button.dataset.action as Command));
 document.querySelectorAll<HTMLButtonElement>('[data-target-slot]').forEach(b=>b.onclick=()=>command(Number(b.dataset.targetSlot) as Slot,b.dataset.direction==='previous'?'targetPrevious':'targetNext'));
 document.addEventListener('visibilitychange',()=>{controls.clear();if(document.hidden&&started){manualPause=true;$('pause-screen').hidden=false;}last=performance.now();accumulator=0;});
 function updateHud():void{
-  document.body.dataset.started=String(started);document.body.dataset.adventure=String(state.chapter!=='lab');document.body.dataset.mode=state.mode;document.body.dataset.cinematic=String(cutsceneActive(state));
+  document.body.dataset.started=String(started);$('control-hint').textContent=state.joined?'P1 WASD／E · P2 方向鍵／Enter · H 操作':'WASD 或方向鍵移動 · E／Enter／空白鍵互動 · H 操作';document.body.dataset.adventure=String(state.chapter!=='lab');document.body.dataset.mode=state.mode;document.body.dataset.cinematic=String(cutsceneActive(state));
   $('p1').hidden=!activeSlot(state,1);
   const captions:Record<State['opening']['phase'],string>={none:'',approach:'瑪兒走上平台。',resonance:'項鍊發光了……！',lost:'瑪兒消失了。找回平台上的項鍊。',pendant:'握緊項鍊，回到左側平台，按 E 追上她。',crossing:'光芒吞沒了周遭的景色。',canyon:state.opening.canyonWon?'沿山道往南，尋找瑪兒的去向。':'陌生的山道。前方傳來魔物的聲音。',vista:'山下有一座城鎮。靠近出口，再按 E 前往托魯斯。'};
   $('story-caption').textContent=captions[state.opening.phase];$('story-caption').hidden=!started||state.opening.phase==='none'||dialogOpen;
@@ -255,11 +258,6 @@ function resolveChoice(yes:boolean):void{
  if(result)showDialog(result.title,result.text);else closeDialog();updateHud();
 }
 $('choice-yes').onclick=()=>resolveChoice(true);$('choice-no').onclick=()=>resolveChoice(false);
-document.addEventListener('keydown',e=>{
- if(!dialogOpen||(!state.prologue.choice&&!state.trial.choice)||e.repeat)return;
- if(e.code==='Digit1'||e.code==='Digit2'){e.preventDefault();resolveChoice(e.code==='Digit1');}
- else if(e.code==='ArrowLeft'||e.code==='ArrowRight'){e.preventDefault();(document.activeElement?.id==='choice-yes'?$('choice-no'):$('choice-yes')).focus();}
-});
 /** Content-sized battle panels, including tonics, must never cover feedback. */
 function layoutFeedback():void{
  if(!started||state.mode!=='battle')return;
@@ -272,7 +270,7 @@ function openBag():void{
  if(!started||halted()||cutsceneActive(state)||!trialActive(state)||(state.mode!=='explore'&&state.mode!=='battle'))return;
  bagOpen=true;controls.clear();inputBoundary.rebase(state);$('inventory-screen').hidden=false;refreshBag();$('inventory-close').focus();
 }
-function closeBag():void{bagOpen=false;$('inventory-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;updateHud();}
+function closeBag():void{bagOpen=false;$('inventory-screen').hidden=true;controls.clear();last=performance.now();accumulator=0;focusWorld();updateHud();}
 function refreshBag():void{
  $('inventory-stock').textContent=`回復藥 ${state.rescue.tonics}　乙太 ${state.trial.ethers}　｜　本篇經驗 ${state.trial.experience}`;
  document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>{
@@ -288,4 +286,37 @@ document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>b.onc
  if(useInventory(state,b.dataset.bagItem==='ether'?'ether':'tonic',slot)){$('inventory-feedback').textContent=state.log.at(-1)??'';tone(620);}
  refreshBag();updateHud();
 });
-document.addEventListener('keydown',e=>{if(e.code==='KeyI'&&!e.repeat){e.preventDefault();if(bagOpen)closeBag();else openBag();}});
+
+
+/** UI confirmation is independent of temporary P2 story availability, never of world movement ownership. */
+function routeKeyboardUi(code:string,repeat:boolean):boolean{
+ const confirm=['KeyE','Enter','Space'].includes(code),left=['ArrowLeft','KeyA','ArrowUp','KeyW'].includes(code),right=['ArrowRight','KeyD','ArrowDown','KeyS'].includes(code);
+ const navigate=(root:string)=>{
+  const buttons=[...$(root).querySelectorAll<HTMLButtonElement>('button')].filter(b=>!b.disabled&&!b.hidden&&b.getClientRects().length>0);
+  if(!buttons.length)return;const at=buttons.indexOf(document.activeElement as HTMLButtonElement);buttons[at<0?(left?buttons.length-1:0):(at+(left?-1:1)+buttons.length)%buttons.length]!.focus();
+ };
+ const activate=(fallback:string)=>{const el=document.activeElement;const b=el instanceof HTMLButtonElement&&!el.disabled&&!el.hidden&&el.getClientRects().length>0?el:$(fallback);b.click();};
+ if(!started){
+  if(left||right||confirm){if(!repeat){if(left||right)navigate('start-screen');else activate('start-story');}return true;}return false;
+ }
+ if(manualPause){if(['Escape','Enter','Space','KeyE'].includes(code)&&!repeat)togglePause();return code!=='Tab';}
+ if(dialogOpen){
+  if(!repeat){
+   if(state.prologue.choice||state.trial.choice){if(left||right)navigate('dialog-choices');else if(code==='Digit1'||code==='Digit2')resolveChoice(code==='Digit1');else if(confirm)resolveChoice(document.activeElement?.id!=='choice-no');}
+   else if(confirm||code==='Escape')closeDialog();
+  }return code!=='Tab';
+ }
+ if(bagOpen){
+  if(!repeat){if(['KeyI','KeyE','Escape'].includes(code))closeBag();else if(left||right)navigate('inventory-screen');else if(code==='Enter'||code==='Space')activate('inventory-close');}
+  return code!=='Tab';
+ }
+ if(state.mode==='victory'||state.mode==='defeat'){if(confirm&&!repeat)continueEncounter();return code!=='Tab'&&code!=='Escape';}
+ if((code==='Enter'||code==='Space')&&document.activeElement instanceof HTMLButtonElement&&document.activeElement.closest('.utility,header')){if(!repeat){document.activeElement.click();if(!dialogOpen&&!bagOpen&&!manualPause)focusWorld();}return true;}
+ if(code==='KeyI'){if(!repeat)openBag();return true;}
+ if(code==='KeyH'){if(!repeat&&!cutsceneActive(state))showControls();return true;}
+ return false;
+}
+function showControls():void{if(!started||halted()||cutsceneActive(state))return;showDialog('操作說明',
+ '單人：WASD 或方向鍵移動；E、Enter 或空白鍵互動。\n雙人：P1 WASD／E／J K L；P2 方向鍵／Enter／, . /。Q R 與 [ ] 分別選敵。\n對話／結果：E、Enter 或空白鍵繼續；選項可用方向鍵＋Enter，或 1／2。\nI 背包，H 操作，Esc 暫停。切回頁面後按 Esc 或 Enter 恢復；需要時點一下遊戲畫面。\n劇情離隊期間，雙人模式的 P2 會暫時觀戰，不會接管 P1。');}
+$('help').onclick=showControls;
+$('world').addEventListener('pointerdown',()=>{if(started&&!dialogOpen&&!bagOpen)focusWorld();});

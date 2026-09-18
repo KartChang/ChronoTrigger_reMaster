@@ -82,7 +82,7 @@ export async function exportAssets(root=process.cwd()){
   const prologue=modules['prologue-art'],trial=modules['trial-art'],materials=modules['material-art'],profile=modules['art-profile'].ART_PROFILE;
   await writeFile(resolve(out,'production-profile.json'),JSON.stringify(profile,null,2));
   const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'],rescue=modules['rescue-art'];
-  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts','src/witness-art.ts'];const hash=createHash('sha256');
+  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts','src/witness-art.ts','src/actor-motion.ts','src/npc-motion.ts','src/pixel-presentation.ts'];const hash=createHash('sha256');
   for(const source of sources){hash.update(source+'\0');hash.update(await readFile(resolve(root,source)));hash.update('\0');}
   const sourceSha256=hash.digest('hex');
   const inventory=[];
@@ -114,8 +114,13 @@ export async function exportAssets(root=process.cwd()){
   }
   const witness=modules['witness-art'];
   for(const kind of witness.WITNESS_KINDS){
-    const canvas=surface(48,64);witness.drawWitness(canvas.ink,kind);
-    await save('witness-'+kind,canvas,{padding:0,frames:[{index:0,rect:{x:0,y:0,w:48,h:64},pivot:witness.WITNESS_SIZE.pivot}],clips:{idle:{frames:[0],loop:true}},limitations:['New native 48x64 static supporting NPC, not complete four-direction animation or exact original drawing.']});
+    const canvas=surface(208,68),frames=[];
+    for(let phase=0;phase<4;phase++){
+      const frame=surface(48,64);witness.drawWitness(frame.ink,kind,phase);const x=phase*52+2,y=2;
+      for(let row=0;row<64;row++)frame.rgba.copy(canvas.rgba,((row+y)*canvas.width+x)*4,row*48*4,(row+1)*48*4);
+      frames.push({index:phase,rect:{x,y,w:48,h:64},pivot:witness.WITNESS_SIZE.pivot,durationMs:[1500,1500,150,850][phase]});
+    }
+    await save('witness-'+kind,canvas,{padding:2,frames,clips:{idle:{frames:[0,1,2,3],loop:true}},limitations:['Four authored ambient poses; not complete four-direction movement or original timing.']});
   }
   for(const kind of ['cat','lunch','parcel']){
     const count=kind==='cat'?2:1,canvas=surface(count*34,36),frames=[];

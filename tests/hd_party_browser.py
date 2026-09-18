@@ -5,7 +5,7 @@ import json
 
 def record_hd_party(page, output, name):
     page.wait_for_function('''()=>{const t=window.__CHRONO_TEST__,v=t?.view();
-      return v?.actorArt?.profile==='party-redraw-48x64-r1'
+      return v?.actorArt?.profile==='party-redraw-48x64-r2'
         && v.actorArt.textures.every(x=>x.width===48&&x.height===64)
         && v.actorArt.guestTexture.width===48&&v.actorArt.guestTexture.height===64;
     }''', timeout=15000)

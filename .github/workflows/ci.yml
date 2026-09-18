@@ -30,6 +30,8 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r tests/requirements.txt
       - run: python -m playwright install --with-deps chromium
+      - name: Test real keyboard-only navigation, recovery and live actor presentation
+        run: python tests/keyboard_browser.py
       - name: Test fresh home, overworld, first meeting and v6 saves
         run: python tests/prologue_browser.py
       - name: Test original file and HTTP browser journeys

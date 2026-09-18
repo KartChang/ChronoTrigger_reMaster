@@ -9,8 +9,8 @@ const PALETTES:Record<WitnessArtKind,readonly [string,string,string,string]>={
  judge:['#55556d','#303447','#d9d2b6','#c2c4b5'],defender:['#718a72','#3f5554','#d4c99c','#7d6552'],
  prosecutor:['#886087','#493857','#d3b477','#c3bbaa'],guard:['#7e8c93','#415968','#c3ccc3','#655344']};
 export function drawWitness(c:CanvasRenderingContext2D,kind:WitnessArtKind,frame=0):void{
- c.clearRect(0,0,48,64);const [cloth,shade,light,hair]=PALETTES[kind],outline='#2c3037';
- const r=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
+ c.clearRect(0,0,48,64);const [cloth,shade,light,hair]=PALETTES[kind],outline='#191e2a';
+ const r=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y+(frame===1&&y<49&&!(kind==='elder'&&x>=35)?-1:0),w,h);};
  const child=kind==='girl',elder=kind==='elder',robe=kind==='judge'||kind==='prosecutor'||kind==='shopper';
  const headY=child?17:elder?12:8,bodyY=headY+18,bottom=child?56:58;
  // Separate boot shapes and a grounded hem: no opaque background or rectangle silhouette.
@@ -22,8 +22,9 @@ export function drawWitness(c:CanvasRenderingContext2D,kind:WitnessArtKind,frame
  // Face shading, nose, brows and ears remain separate at native pixel density.
  r(15,headY+2,18,17,outline);r(17,headY,14,21,outline);r(17,headY+3,14,15,'#bc856b');r(18,headY+3,12,13,'#dfac86');r(19,headY+4,10,7,'#eed0a2');
  r(14,headY+8,3,6,'#c38b70');r(31,headY+8,3,6,'#dcab86');r(17,headY+1,14,5,hair);r(15,headY+3,3,9,hair);r(30,headY+3,3,9,hair);
- r(18,headY+7,4,1,shade);r(26,headY+7,4,1,shade);r(19,headY+9,2,frame%2?1:3,outline);r(27,headY+9,2,frame%2?1:3,outline);
+ r(18,headY+7,4,1,shade);r(26,headY+7,4,1,shade);r(19,headY+9,2,frame===2?1:3,outline);r(27,headY+9,2,frame===2?1:3,outline);
  r(23,headY+11,2,3,'#c88b6d');r(22,headY+16,5,1,'#a76e62');r(21,headY+19,6,3,light);
+ if(frame===3){r(13,bodyY+12,4,4,'#d5a07f');r(14,bodyY+12,2,2,'#f0d4aa');r(21,bodyY+9,1,7,shade);}
  if(child){
   r(12,headY+2,4,14,hair);r(33,headY+2,4,14,hair);r(11,headY+9,6,3,'#e6c17a');r(32,headY+9,6,3,'#e6c17a');r(13,headY+3,1,9,'#bd8860');r(34,headY+3,1,9,'#bc8460');
   r(17,bodyY+3,14,2,light);r(19,bodyY+6,10,11,'#e8d6b0');r(21,bodyY+8,6,1,'#f3e6c7');r(20,bottom-5,2,3,shade);r(27,bottom-5,2,3,shade);
@@ -51,6 +52,7 @@ export function drawWitness(c:CanvasRenderingContext2D,kind:WitnessArtKind,frame
   r(16,bodyY+1,17,13,shade);r(18,bodyY+2,13,10,cloth);r(19,bodyY+3,11,2,light);r(18,bodyY+14,14,3,'#9d7751');r(23,bodyY+14,4,3,'#d9bc78');
   r(38,bodyY-10,2,39,'#846544');r(37,bodyY-13,4,7,shade);r(38,bodyY-16,2,7,light);
  }
+ if(frame===2&&(elder||kind==='defender')){r(18,headY+11,4,1,outline);r(27,headY+11,3,1,outline);}
 }
 export function drawFairProp(c:CanvasRenderingContext2D,kind:'cat'|'lunch'|'parcel',frame=0):void{
  c.clearRect(0,0,32,32);const r=(x:number,y:number,w:number,h:number,col:string)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};

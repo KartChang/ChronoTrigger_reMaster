@@ -5,7 +5,7 @@ import {surface,png} from '../scripts/asset-export.mjs';
 import {hdSheet} from '../scripts/hd-asset-export.mjs';
 import {drawHDHero,HD_ART,HD_HERO_IDS} from '../.test/hd-hero-art.mjs';
 import {drawReferenceHero,CLIP_MS} from '../.test/hero-art.mjs';
-const poses=['idle','walk','attack','cast','hurt','down','victory'];
+const poses=['idle','ready','walk','attack','cast','hurt','down','victory'];
 const image=(hero,d=0,f=0,p='idle')=>{const s=surface(48,64);drawHDHero(s.ink,hero,d,f,p);return s;};
 function oddDetail(s){let total=0;for(let y=0;y<64;y+=2)for(let x=0;x<48;x+=2){const colors=[];for(const [dx,dy] of [[0,0],[1,0],[0,1],[1,1]]){const pos=((y+dy)*48+x+dx)*4;colors.push(s.rgba.subarray(pos,pos+4).toString('hex'));}if(new Set(colors).size>1)total++;}return total;}
 for(const hero of HD_HERO_IDS){
@@ -21,9 +21,9 @@ for(const hero of HD_HERO_IDS){
    variants.add(s.rgba.toString('hex'));
   }assert(variants.size>=2,'Direction or pose collapsed to one frame');
  });
- test(`${hero}: atlas packs100 native frames without cropping/resampling and with exact runtime parity`,()=>{
+ test(`${hero}: atlas packs128 native frames without cropping/resampling and with exact runtime parity`,()=>{
   const {sheet,frames,clips}=hdSheet((c,d,f,p)=>drawHDHero(c,hero,d,f,p),HD_ART,CLIP_MS);
-  assert.equal(frames.length,100);assert.equal(Object.keys(clips).length,28);assert.equal(sheet.width,416);assert.equal(sheet.height,884);
+  assert.equal(frames.length,128);assert.equal(Object.keys(clips).length,32);assert.equal(sheet.width,416);assert.equal(sheet.height,1088);
   for(const f of frames){assert.deepEqual(f.pivot,{x:24,y:62});assert(f.rect.x+48<=sheet.width&&f.rect.y+64<=sheet.height);const [pose,dir,n]=f.name.split('.');const original=image(hero,['down','right','up','left'].indexOf(dir),+n,pose);
    for(let row=0;row<64;row++){const start=((f.rect.y+row)*sheet.width+f.rect.x)*4;assert.deepEqual(sheet.rgba.subarray(start,start+48*4),original.rgba.subarray(row*48*4,(row+1)*48*4));}
   }

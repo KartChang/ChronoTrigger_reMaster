@@ -5,15 +5,15 @@ import {surface,png} from './asset-export.mjs';
 /** General atlas packing for native redraws, without a scaling/interpolation stage. */
 export function hdSheet(draw,profile,durations){
  const {width:w,height:h,padding:pad}=profile,cols=8;
- const plan=[];for(const pose of ['idle','walk','attack','cast','hurt','down','victory'])for(let direction=0;direction<4;direction++)for(let frame=0;frame<(pose==='idle'?1:4);frame++)plan.push({pose,direction,frame});
+ const plan=[];for(const pose of ['idle','ready','walk','attack','cast','hurt','down','victory'])for(let direction=0;direction<4;direction++)for(let frame=0;frame<4;frame++)plan.push({pose,direction,frame});
  const sheet=surface(cols*(w+2*pad),Math.ceil(plan.length/cols)*(h+2*pad)),frames=[],clips={};
  for(const [i,p] of plan.entries()){
   const single=surface(w,h);draw(single.ink,p.direction,p.frame,p.pose);
   const x=(i%cols)*(w+2*pad)+pad,y=Math.floor(i/cols)*(h+2*pad)+pad;
   for(let row=0;row<h;row++)single.rgba.copy(sheet.rgba,((y+row)*sheet.width+x)*4,row*w*4,(row+1)*w*4);
   const key=p.pose+'.'+['down','right','up','left'][p.direction];
-  frames.push({index:i,name:key+'.'+p.frame,rect:{x,y,w,h},pivot:profile.pivot,durationMs:p.pose==='walk'?125:p.pose==='idle'?250:durations[p.pose][p.frame]});
-  (clips[key]??={frames:[],loop:p.pose==='idle'||p.pose==='walk'}).frames.push(i);
+  frames.push({index:i,name:key+'.'+p.frame,rect:{x,y,w,h},pivot:profile.pivot,durationMs:p.pose==='walk'?125:p.pose==='idle'?[1500,1500,150,850][p.frame]:p.pose==='ready'?300:durations[p.pose][p.frame]});
+  (clips[key]??={frames:[],loop:p.pose==='idle'||p.pose==='ready'||p.pose==='walk'}).frames.push(i);
  }
  return {sheet,frames,clips};
 }

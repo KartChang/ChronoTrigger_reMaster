@@ -1,3 +1,4 @@
+import {NpcMotion} from './npc-motion';
 import {drawWitness,drawFairProp,WITNESS_SIZE} from './witness-art';
 import {witnessScenes,jailGift} from './trial-hearing';
 import {drawHDHero,HD_ART} from './hd-hero-art';
@@ -13,7 +14,7 @@ import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
 /** Cached, distinct interior/field sets; camera and game rules stay outside this renderer. */
 export function buildTrial(scene:Scene,shadow:ShadowGenerator){
  type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};
- const views=new Map<TrialMap,View>();
+ const views=new Map<TrialMap,View>();const motion=new NpcMotion();
  function build(map:TrialMap):View{
   const root=new TransformNode('trial-'+map,scene),mats=new Map<string,StandardMaterial>(),surface=materialSet(scene,map);
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(map+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
@@ -35,16 +36,16 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    for(const x of [-5.8,5.8]){box('torch-arm',x,1.1,6.4,.13,.6,.3,'#9a855d');const flame=box('torch-flame',x,1.65,6.4,.16,.25,.12,'#ecbe73');(flame.material as StandardMaterial).emissiveColor=Color3.FromHexString('#d5a85c');}
   }
   const door=(x:number,z:number,n='door')=>{box(n+'-left',x-1,1,z,.28,2,.45,'#a29d83');box(n+'-right',x+1,1,z,.28,2,.45,'#a29d83');box(n+'-arch',x,2.08,z,2.4,.22,.48,'#b9b197');};
-  const guard=(x:number,z:number)=>picture('guard',x,z,1.2,1.7,ctx=>drawWitness(ctx,'guard'),48,64);
+  const guard=(x:number,z:number)=>motion.add(picture('guard',x,z,1.2,1.7,ctx=>drawWitness(ctx,'guard'),48,64),'guard');
   if(map==='courtroom'){
    for(let i=0;i<3;i++){
     const platform=MeshBuilder.CreateCylinder('court-curved-dais',{diameter:10-i*.8,height:.24,tessellation:28},scene);platform.parent=root;platform.position.set(0,.14+i*.23,4);platform.material=mat(i%2?'#817957':'#55594e');
    }
    v.window=picture('royal-stained-glass',0,6.65,4,2.6,drawCourtWindow,64,80,2.8,false);
    for(const side of [-1,1])for(let i=0;i<4;i++){box('velvet-curtain',side*(4.3+i*.26),2.65,6.45,.34,4.2-i*.35,.16,i%2?'#7d393c':'#9b4b46');box('curtain-gold-edge',side*(4.3+i*.26),.42+i*.18,6.39,.35,.09,.1,'#c9ac65');}
-   box('judge-rostrum',0,1.02,4.2,1.7,.85,1.2,'#9e8c56');picture('judge',0,4.9,1.2,1.7,ctx=>drawWitness(ctx,'judge'),48,64,1.9);
-   picture('defender',-3.1,3.4,1.1,1.7,ctx=>drawWitness(ctx,'defender'),48,64);picture('prosecutor',3.1,3.4,1.1,1.7,ctx=>drawWitness(ctx,'prosecutor'),48,64);
-   for(const kind of ['girl','elder','merchant','shopper'] as const)v.witnesses.push(picture('testimony-'+kind,2.6,.4,1.36,1.85,ctx=>drawWitness(ctx,kind),48,64));
+   box('judge-rostrum',0,1.02,4.2,1.7,.85,1.2,'#9e8c56');motion.add(picture('judge',0,4.9,1.2,1.7,ctx=>drawWitness(ctx,'judge'),48,64,1.9),'judge');
+   motion.add(picture('defender',-3.1,3.4,1.1,1.7,ctx=>drawWitness(ctx,'defender'),48,64),'defender');motion.add(picture('prosecutor',3.1,3.4,1.1,1.7,ctx=>drawWitness(ctx,'prosecutor'),48,64),'prosecutor');
+   for(const kind of ['girl','elder','merchant','shopper'] as const)v.witnesses.push(motion.add(picture('testimony-'+kind,2.6,.4,1.36,1.85,ctx=>drawWitness(ctx,kind),48,64),kind));
    box('defendant-stand',0,.43,-1.2,1.5,.7,.7,'#a3854b');
    for(let i=0;i<7;i++){const side=i<4?-1:1,z=1+(i%4)*1.28;box('jury-tier',side*5.5,.3,z,2.3,.5,1.2,'#817c64');v.jurors.push(picture('juror-'+i,side*5.4,z,1,1.4,ctx=>drawWitness(ctx,i%2?'merchant':'defender'),48,64,1.05));}
   }else if(map==='guardia1000'){
@@ -55,7 +56,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   }else if(map==='hall1000'){
    for(const x of [-5,5])for(const z of [-3,2]){box('pillar-base',x,.16,z,1.3,.32,1.3,'#b2b198');box('pillar',x,1.5,z,.75,2.6,.75,'#8d958a');box('pillar-capital',x,2.9,z,1.35,.22,1.35,'#b8b18e');}
    box('royal-carpet',0,.06,1,3.3,.05,10,'#7c3e45');v.marle=picture('marle-waits',0,1,1.25,1.8,ctx=>drawHDHero(ctx,'marle',0,0),HD_ART.width,HD_ART.height);
-   for(const x of [-2.2,2.2])v.guards.push(guard(x,.2));picture('chancellor',2.5,4,1.3,1.8,ctx=>drawWitness(ctx,'prosecutor'),48,64);door(0,-6.9,'city-gate');
+   for(const x of [-2.2,2.2])v.guards.push(guard(x,.2));motion.add(picture('chancellor',2.5,4,1.3,1.8,ctx=>drawWitness(ctx,'prosecutor'),48,64),'prosecutor');door(0,-6.9,'city-gate');
   }else if(map==='cellblock'){
    v.parcel=picture('supporters-parcel',3,-4,1,.9,ctx=>drawFairProp(ctx,'parcel'),32,32);
    box('storage-locker',-5,.6,4,2.3,1.2,2.4,'#4b5050');
@@ -66,7 +67,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    door(0,6.8,'stairs');door(6,2.5,'execution-door');v.guards.push(guard(2,2));
   }else if(map==='execution'){
    for(const x of [3,4.6])box('guillotine-upright',x,1.4,2,.23,2.8,.28,'#655540');box('guillotine-crossbar',3.8,2.85,2,1.95,.22,.3,'#877258');box('guillotine-blade',3.8,2.14,2,1.3,.52,.09,'#bac2b8');box('restraint',3.8,.65,2,1.5,.26,1.8,'#675644');
-   v.fritz=picture('fritz',2.1,2,1.2,1.7,ctx=>drawWitness(ctx,'defender'),48,64);door(0,-6.8);
+   v.fritz=motion.add(picture('fritz',2.1,2,1.2,1.7,ctx=>drawWitness(ctx,'defender'),48,64),'defender');door(0,-6.8);
   }else if(map==='prisonstairs'){
    for(let i=0;i<9;i++){box('stone-stair',0,.05+i*.03,3.5+i*.26,6.4,.12,.27,i%2?'#84918f':'#636f75');}
    for(const side of [-1,1])box('tower-masonry',side*5.6,.68,0,4.4,1.35,4.5,'#4d5c68');door(0,6.8);door(0,-6.8);
@@ -89,7 +90,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const points=windowMesh.getBoundingInfo().boundingBox.vectorsWorld.map(v=>Vector3.Project(v,Matrix.Identity(),scene.getTransformMatrix(),viewport));
   return {left:Math.min(...points.map(v=>v.x))/e.getRenderWidth(),right:Math.max(...points.map(v=>v.x))/e.getRenderWidth(),top:Math.min(...points.map(v=>v.y))/e.getRenderHeight(),bottom:Math.max(...points.map(v=>v.y))/e.getRenderHeight()};
  }
- return {inspect:()=>({built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State){
+ return {inspect:()=>({motion:motion.inspect(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State){
   if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));
   for(const [map,v] of views){const on=map===s.chapter;v.root.setEnabled(on);if(!on)continue;
    v.enemies.forEach((m,i)=>{const e=s.enemies[i];m.setEnabled(s.mode==='battle'&&!!e&&e.hp>0);if(e)m.position.set(e.x,.95,e.z);});
@@ -104,5 +105,6 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    if(v.parcel)v.parcel.setEnabled(jailGift(s)>0&&!s.trial.hearing?.giftTaken);
    if(v.lid)v.lid.rotation.z=s.trial.suppliesTaken?-.6:0;
   }
+  motion.draw(s.ticks);
  }};
 }

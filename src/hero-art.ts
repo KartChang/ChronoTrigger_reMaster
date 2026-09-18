@@ -3,7 +3,7 @@
  */
 export type Ink=Pick<CanvasRenderingContext2D,'fillStyle'|'fillRect'|'clearRect'>;
 export type Hero='crono'|'marle'|'lucca';
-export type HeroPose='idle'|'walk'|'attack'|'cast'|'hurt'|'down'|'victory';
+export type HeroPose='ready'|'idle'|'walk'|'attack'|'cast'|'hurt'|'down'|'victory';
 export const COMBAT_POSES=['attack','cast','hurt','down','victory'] as const;
 export const CLIP_MS:Record<typeof COMBAT_POSES[number],readonly number[]>={
  attack:[100,90,100,180],cast:[130,130,160,180],hurt:[90,90,100,130],down:[120,120,140,400],victory:[180,140,180,260]

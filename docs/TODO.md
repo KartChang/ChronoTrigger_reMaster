@@ -1,25 +1,26 @@
-# Execution TODO — 0.8.1 fair witnesses / 2026-09-18
+# Execution TODO — CI16 handoff / 2026-09-18
 
-main單線、非force；exact source/run以STATUS與immediate handoff為準。維持完整遊戲與90分門檻，不從頭重做已驗收章節。
+Exact source/run only in STATUS.md; main single-line/non-force. This replaces stale0.6/0.8.1 pending markers, not the existing product plan. Do not repeat accepted implementation because an older document still says pending.
 
-## 已關閉的功能基線
+## Current priority: user's keyboard regression and actor presentation
 
-T00／T01／T02：CI12–CI14既有修道院、初始開場、提示修正及八段回歸已通過。
-T03既有可玩增量：CI14第九段已通過護送／法庭基本問題／兩種越獄／弗里茲／階梯／看守室／三部位戰車／重聚／2300抵達。T04背包、乙太、XP記錄與T05原生48×64主角也在同run驗收。Pages7已核對0.8.0同source/HTML；四份交付已下載回讀留存。這些不等於完整原作、完整未來篇或最終美術。
+**Implemented and published in0.8.2; awaiting CI16, not waiting to be written.** Solo/co-op key ownership, modal/result keyboard continuation, focus restoration, held-input isolation, context help, live native actor/NPC poses, palette and grounding fixes. Fresh integrated504 tests/typecheck/build/assets passed. Prior staging recovery is finished. No need to replay the Git blob upload or overlay38-file work archive.
 
-## 目前整批待驗收，不是待重做
+Next: receive CI16 `35328892846`/source `490218402b493cc69296c5de4afa278be7471223` once. All3 jobs are required: validate105548368148, bad105548368471, good105548368477. Pending: freeze/report. Failure: first actual terminal report/log/lastObserved/failure.png. Success: retain five artifacts (browser-evidence/playable/art-review-kit/witness-good/witness-bad), raw readback with IDs/source/run/SHA256, inspect keyboard results and actual home/fair/party/NPC/battle/court frames, then matching Pages deployment. Pages9 push run is not itself proof of0.8.2 deployed. Never delete assertions, create a fake save, inject progress or change only timeout.
 
-T03：尋貓、午餐、項鍊詢問、買糖等待／催促、拒還記錄；穿越前封存。新遊戲實際行為連到法庭條件質問、按順序出庭證人、兩種裁決；舊存檔不捏造證詞、不改舊裁決。完整七人隱藏程式、貓的隨機／殘留旗標版差、回憶演出及監獄完整拓樸仍未關閉。
-T04：支持者物資包裹、防重領、真實庫存與後續看守室補給相容。本批採SNES實玩記錄的4/5票→1、6/7票→3乙太；數量與補丁版ROM尚待直接核對。装備／等級／貨幣／商店／完整角色技能仍待增量實作。
-T05：八名新48×64配角、32×32道具、同源PNG與runtime；局部修正CI14法庭彩窗裁切。57組PNG/JSON、833筆影格包含既有素材；配角只有正面靜態圖，全人物／全方向／全場景／音樂並未完成。
+## Accepted functional baselines — do not recreate
 
-本機467項測試、typecheck、build和素材檢查通過；新的瀏覽器結果與截圖尚未取得。保留九段原流程；同一次CI另跑good/bad新遊戲到法庭兩個matrix job，從實際遊玩經歷驗證正負裁決、物資與存讀，不拿核心測試存檔跳過剧情。所有job都維持45分鐘上限，不放寬timeout。
+T00/T01/T02: existing CI12–CI15 rescue, start-at-home, miniature map/confirmed entries, first meeting,600AD and input-boundary foundations remain accepted in their tested scope.
+T03: CI14 trial/two escape routes/Fritz/stair guards/Lucca/supplies/three-part Dragon Tank/reunion/Gate/2300 arrival. CI15 additionally accepted both fresh-game fair-conduct-to-hearing routes: cat/lunch/pendant/candy/refusal history, seal-before-travel, conditional testimony, two verdict branches and supporter parcel. Original hidden jury algorithm, patched-ROM differences and complete jail topology are not thereby certified.
+T04: existing tonic/ether inventory, ATB/resource guards, one-time supplies/parcel, save provenance and encounter XP records exist. XP bookkeeping is not a complete growth system.
+T05: four48×64 party painters, eight native supporting NPCs, original-reference review and shared runtime/export pipeline already exist. CI16 contains their new motion/palette pass. Larger pixels and extra frames do not certify finished art.
+Pages8/CI15 source2a689fe5 last verified0.8.1; accepted bundles are already retained. Do not run old CI12–15 again just to repeat acceptance.
 
-CI在跑就凍結source、記錄exact後回報，不長時間輪詢。失敗看第一個實際失敗job的report/lastObserved/failure.png，不刪斷言或直接改遊戲狀態。成功須留存原三artifact和chrono-witness-good-evidence／chrono-witness-bad-evidence，共五份；核對source與HTML，實看證人／裁決／法庭／道具畫面，再核對Pages。0.8.1未核對前線上只宣稱0.8.0。
+## Continue existing order after current regression closure
 
-## 下一批順序與未完成範圍
-
-完成本批實證後，接T03隱藏規則／版差／拓樸，再T04裝備、成長、商店、角色／技能；T05場景、動畫、音樂持續同批改善，不另造管線。
-T06：完整2300年與其餘時代、主線、支線、結局未完成，不拿抵達點或空場景當全章。
-T07：整體>=90、各面向>=80%、五項證據gate、必要資產與無critical；真機鍵盤／手把、frame time、載入／記憶體、背景與存檔實測尚未完成。舊30分已stale，不是當前分數；不改分數、刪缺口或縮小範圍過關。
-T08每批：GitHub實際commit/ref/readback，source與進度不能停在未引用Git物件；素材／可玩包／報告／截圖留存專案Drive，記錄SHA256與回讀。ROM只留私人檔，不加入公開原始碼、CI或Pages。除等CI或真正外部阻擋，繼續下一項。
+**T03 remainder:** original invisible rules/patch differences, whole map/room connections, event staging and numerical fidelity. Use current implemented witnesses/prison as the base, not a rewrite. Missing ROM-derived proof is a research gap, not permission to erase working chapters.
+**T04:** equipment, character status and real growth, currency/shops, roster/skill progression and appropriate dual/triple techs. Extend core/inventory/save/UI; do not add a second framework or P3. Preserve P1 Crono/P2 Lucca and autonomous companion story ownership.
+**T05 ongoing:** refine silhouette/proportions/directional actions, NPC movement/choreography, environment hierarchy, sprite/terrain density, external edited-atlas import and rights-cleared music/sound. Same-source in-engine screenshots and animated observations are required; concept art/atlas previews are not gameplay proof.
+**T06:** remaining2300 world and every other era/main quest/sidequest/ending. Current futuregate is only an arrival location, not a finished future campaign.
+**T07:** whole-game>=90, each dimension>=80%, zerocritical, required asset and five evidence gates, real keyboard/gamepad devices, FPS/frame time/loading/memory/background/save validation. Old30 is stale; no new score assigned. Do not hide gaps or shrink the denominator.
+**T08 each batch:** actual commit -> non-force ref -> readback; source/progress on main, playable/art/logs/screenshots and manifests in project Drive. No sandbox-only delivery. Validated intermediate checkpoints may use[skip ci]; one final non-skip CI per development batch. Stop only for active CI or a genuine external blocker, not after each small change.

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-18",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "sourceSha": "490218402b493cc69296c5de4afa278be7471223",
+  "sourceTree": "0ac1fc9b0d168c62e31ddefb4902e008bcd58f69",
+  "parent": "1d1ab451290597813dacad8df59f2dba22a6f640",
+  "sourceRefReadback": true,
+  "ci": {"run":35328892846,"number":16,"event":"push","attempt":1,"lastObservedStatus":"in_progress","validateJob":105548368148,"badJob":105548368471,"goodJob":105548368477,"validateNpmCheck":"success","bothWitnessBuilds":"success","browserResult":"pending","allThreeRequired":true},
+  "automaticPagesPushRun": {"id":35328892934,"number":9,"notGameplayCI":true,"selectedGameplayNotYetVerified":true},
+  "localValidation": {"tests":504,"passed":504,"failed":0,"skipped":0,"typecheck":"passed","build":"passed","assets":"passed","pythonCompile":"passed","evidence":"INPUT_ACTORS_LOCAL_504.json"},
+  "drive": {"folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1RhFYQsR3vkqEDvoD0X_75PbZRkD6s8uM","bytes":1874700,"sha256":"8ab826688fdf974a5faa83ce9a9da121713b17ccfcd265bbed81c4abd6b99b7b","manifestMembers":231,"sourceFiles":106,"rawReadbackEqual":true,"allMemberHashesEqual":true,"correctParent":true,"scope":"complete runtime/test/build/site/asset/config snapshot plus local playable/art/log; not every repository document; not accepted CI artifact"},
+  "lastAccepted": {"source":"2a689fe5abc76d865bc15bc948a43f9738bd6650","ci":35315967536,"pages":35317920193,"version":"0.8.1","receipt":"CI15_ACCEPTANCE.md"},
+  "oldRecoverySuperseded": {"stagingTree":"9e4feb71119d5f6bcb61398408af1fa92d56df53","workingDriveId":"1_Tc_Syw6pxGSZDvEGUwObeHvos8TeKnF","doNotReapply":true},
+  "newGameplayOnline": false,
+  "browserOrPhysicalDeviceApproval": false,
+  "quality90Accepted": false,
+  "wholeGameAccepted": false,
+  "next": "Read STATUS and IMMEDIATE_CONTINUATION; receive CI16 once. Do not rebuild or recover old staging. Pending means preserve/report; failure follows actual first root; complete success retains five artifacts and verifies actual scenes and matching Pages."
+}

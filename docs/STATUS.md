@@ -1,41 +1,43 @@
-# Current status — CI19 registered / 0.9.0 equipment source frozen
+# Current status — VQ01 implemented and retained; source publication blocked
 
-**FULL GAME IN PROGRESS — CI18/PAGES12 0.8.2 ACCEPTED; 0.9.0 EQUIPMENT/SHOP/V8 PUBLISHED; CI19 ACTIVE; NOT WHOLE-GAME/FINAL-ART/HARDWARE/90-POINT ACCEPTED.**
+**FULL GAME IN PROGRESS — EARLY VISUAL QUALITY FIRST. VQ01 / 0.9.1 IMPLEMENTED IN RETAINED WORKING SOURCE; NOT PUBLISHED TO MAIN; NO CI20 STARTED; NO 90-POINT CLAIM.**
 
-Main only/non-force. Current exact validation source **`16313037a0d1ab59358963014e797f7e11ea95d1`**, tree **`8c963ed350abd953e51ee47517932e9f54b91c50`**, parent `ee4efad97a5b1a09743f0cccaaff29efb706abcd`. Commit creation, non-force main update and actual main ref readback completed. Aggregate GitHub source/script/test/workflow trees and root HTML blob matched the locally tested objects, covering all23 changed code/test/config/fixture files. Later staged changes were documentation only. Subsequent [skip ci] docs HEAD is not another validation source.
+The user explicitly prioritized the first scenes, characters, textures, models and readable HUD before further story/system expansion. This changes execution order, not the full-game scope. Do not answer with another planning-only list or claim GitHub/Drive are inaccessible without invoking them.
 
-## Sole active validation: CI19
+## Current source and real publication blocker
 
-**Run `35355492232`, number19, push, attempt1**, created `2026-09-18T14:19:18Z`. One exact-SHA run query returned queued; one following jobs read returned:
+Game source on main remains **`16313037a0d1ab59358963014e797f7e11ea95d1`** (0.9.0); pre-checkpoint main documentation HEAD **`fb9aa1bafe250f4fe49e4ee356ac5afd0faaf42f`**, tree **`cfb54507399b5ca41311bde9cec02bd42cbc395c`**. This checkpoint is documentation-only and skip-ci. No incomplete runtime tree was committed or moved onto main.
 
-| Job | ID | Saved registration observation |
-|---|---|---|
-| validate |105633716808|in_progress; npm run check successful; Python requirements installing|
-| Fresh story and hearing (good) |105633716547|in_progress; build successful; Python requirements installing|
-| Fresh story and hearing (bad) |105633716751|in_progress; build successful; Python requirements installing|
+GitHub and the project Drive were actually accessed successfully. GitHub accepted two temporary trees and two additional code blobs, but two identical attempts to write the next source blob (`src/prologue-render.ts`) were blocked by the platform with: **「由於 OpenAI 無法確定要求的安全狀態，因此已將此工具調用封鎖。」** This is the observed reason; it is not a missing connector or an established repository-permission failure. No encoding, alternate write route or other workaround was used to bypass that block. Further runtime publication stopped; there is no CI20 run to await.
 
-These are registration snapshots, not terminal or live results. All three jobs are required. **Source frozen; one new full CI, no manual dispatch, cancellation, rerun, repeated polling or Pages restart.** Exact receipt `evidence/CI19_CHECKPOINT.json`. Host tests remain step10, keyboard11, prologue12, new equipment13; remaining existing journeys14–21. Diagnose by actual step name rather than older numeric indices.
+Publication details, staged-object limitations and exact retained package are in `evidence/VQ01_PUBLICATION_CHECKPOINT.json`. The incomplete unreferenced tree is NOT a candidate or restore authority. Do not update main to it. Preserve the complete tested source from the verified Drive package and complete normal authorized publication only when the blocked operation is permitted. Do not redo the art batch or repeat old chapter acceptance.
 
-Pending: preserve/report. Failure: first actual failed step and same-run logs/report/lastObserved/focused/failure PNG. New equipment evidence is `equipment/equipment-report.json`. Preserve actual keyboard input, native chooser, real exported saves, stock/damage/focus/story assertions; no injected progress, fabricated save or timeout-only fix. Success: retain five actual same-run artifacts, inspect equipment/status/trade/v8/combat and existing keyboard/scene evidence, then verify the Pages deployment selecting this source/artifact/HTML hash.0.9.0 is not yet browser- or Pages-accepted.
+## Actual development completed in this batch
 
-## Product work actually published
+Thirty code/config/test files implement the early visual pass: low-contrast staggered timber and larger fair paving; pale plaster/dado/deep windows; separate bed/table/cupboard/shelf/cloth/ceramic models; folded curtains; native mother and matching vendor density; four-hero palette/side-silhouette/costume refinements; curved stall awnings and identifiable goods; curved bell skirt/clapper and telepod hardware; a default quiet HUD with accessible controls and keyboard-switchable guide mode. Door, stair, interaction and collision facts remain unchanged. No P3, ARPG conversion or new gameplay framework.
 
-0.9.0 extends the existing paused bag with currently present story-member HP/MP and weapon/body/head equipment; nearby Melchior buy/sell; integer/currency/copy bounds and reservation of equipped copies; actual ordinary attack/defense effects; and a v8 envelope around unchanged v1–v7 adventure saves. First successful equipment mutation writes v8; viewing the default kit does not migrate the save. P1/P2/guest story ownership, fixed ATB, old event facts, shield rules and default combat without upgraded gear remain. No P3 or new framework.
+The same runtime builders export three OBJ/MTL/PNG editing kits. NullEngine checks geometry and texture output only; it does not render gameplay. The 63 exported PNGs and montage are asset evidence, not game screenshots. New same-run browser observations cover bedroom/home/fair/telepod and quiet/guide at desktop,650 and390 widths; existing keyboard, combat, NPC and court scenarios are retained. No new workflow was introduced.
 
-Starter400G, thirteen items, prices and additive bonuses are explicit authored prototype choices, not original-ROM values or invented prior earnings. No earned battle currency, real levels/growth, skill learning, accessories, complete shops or free roster is claimed. Details `EQUIPMENT_T04.md`; full scope in TODO/FEATURE_PROGRESS/DEVELOPMENT_WHITEPAPER.
+CI19's first observed native-file-chooser failure was addressed in the same batch: preserve native Enter/Space button activation, do not synthesize utility click then prematurely return focus, track the actual picker lifecycle, and retain genuine filechooser/real-export assertions and diagnostics. This remains an implemented repair awaiting browser validation, not a proven Chromium-race diagnosis or a pass.
 
-Local complete check: **644 Node passed/0 failed/0 skipped**, including76 new cases; typecheck/build/assets passed. **16 Python tests** (10 host-input and6 synthetic-header) and compileall passed. The new browser scenario consumes only the same run's prologue export and uses Tab/Enter/I, native chooser, IndexedDB/reload and actual combat. Local Chromium was attempted with an unmodified CI18 export but blocked before game load by administrator policy; no policy bypass, new0.9.0 gameplay screenshot or local browser pass. Exact code/log/build hashes: `evidence/CI19_LOCAL_VALIDATION.json`.
+## Validation actually completed
 
-## Accepted baseline and T03 version boundary
+**663 Node tests passed,0 failed,0 skipped;16 Python tests passed.** Typecheck,build,asset checks and compileall passed. Three actual builder exports: bedroom4620 triangles, home7038, festival20440. A new triangle-budget test led to reduced small-ring geometry, not a relaxed budget. Exact tested-file and log hashes are inside `source/docs/evidence/VQ01_LOCAL_VALIDATION.json` in the package and indexed by the publication checkpoint.
 
-CI18 `35344366293` source `8c6f8fb97ef96718d542d1c1f29d44bade46d969` passed all three jobs. Pages12 `35346462349` selected playable10547875087 and matched source/digest/HTML; deployment-time public-byte checks passed. Receipt `evidence/CI18_ACCEPTANCE.md`. CI16 chest/CI17 organ roots are closed, not current failures; no repeat of accepted chapters or old CI recovery. Separate local public-host DNS failed, so no additional independent local live-site/browser check is claimed.
+The local Chromium attempt was blocked **before game load** by `ERR_BLOCKED_BY_ADMINISTRATOR`. No policy bypass or new in-engine/physical-device acceptance. No numerical aesthetic score assigned. The old quality-script30 is stale and was not relabeled90.
 
-Already-private ROM was fetched read-only, not re-uploaded. Whole hash matches the retained record; plausible HiROM header stored checksum0xfb86/complement0x0479 differs from ordinary power-of-two sum0xfbda. This does not verify an unmodified original revision or exact patch. Only metadata/hash/header were examined, not emulation, disassembly, event/map/item decoding or image/audio/font extraction. `T03_VERSION_BOUNDARY.md` and `evidence/T03_ROM_FINGERPRINT.json` record the limits. CI tests synthetic headers only.
+## CI19 terminal and last accepted preview
 
-## Durable delivery and continuation
+CI19 **35355492232**,source16313037,attempt1: validate105633716808 **failure** at equipment step13's first native chooser; good105633716547 and bad105633716751 **success**. Keyboard/prologue passed; later validate journeys were skipped. Four actual artifacts exist and are retained; no playable was produced. The equipment buy/sell journey did not reach its assertions, so it is not accepted. Do not reopen the already accepted chest/organ roots.
 
-Project folder **`1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`**. New local batch file **`11lvRWYYjxN7VaUp4DjFiLf0damz7eD_G`**,1944304bytes,SHA256 **`22b0c8eca2cdc58af81a9cfdb58ca964b698eb8f07563813fe1096c7b7d492ec`**. Correct parent, raw download/hash/ZIP CRC/all261 manifest records verified.127 runtime/build/test/config source files plus local build/art, selected documents and real logs. Sealed before publication; this checkpoint, not the ZIP, supplies later source/run IDs. It is not an accepted CI19 artifact or a full historical-document mirror.
+Last accepted development preview remains **0.8.2 CI18 35344366293 / Pages12 35346462349**, source8c6f8fb97ef96718d542d1c1f29d44bade46d969; see CI18_ACCEPTANCE.md. No new Pages restart,dispatch or0.9.1 deployment claim.
 
-Accepted CI18/Pages12 bundle **`1PFL6kk7oiml1B0qWTkMhDlAhXAfXHl1G`**,21067329bytes,SHA25616fb1a5abb28aeb5569c43d999c5d90d141be5efa1fff2f74bdf1638b43c8d46, six untouched artifacts plus review/metadata; raw readback/CRC/all9 records verified. Current main is source authority. Dependency toolchain remains in prior Drive bundle1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE; restore node_modules only, never old source/config. Private ROM stays outside public repo/CI/Pages/packages.
+## Durable retention
 
-After the current exact acceptance, continue T03 original hidden rules/version/full topology; T04 growth/skills/rewards/full economy; T05 complete art/audio; T06 every remaining era/quest/ending; T07 whole-game>=90 and physical devices/performance; T08 every-batch receipts.2300 is arrival only. No inflated score or reduced denominator. A cosmetic start-screen brand still carries the older0.8.2 label while build-meta identifies0.9.0; align that copy in the next product batch, not by changing this frozen source.
+Project folder **`1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`**. **`Chrono-VQ01-0.9.1-local-and-CI19-evidence.zip`**,file **`1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k`**,**9771993 bytes**,SHA256 **`1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3`**. Upload and actual raw Drive download verified identical hash,ZIP CRC and all300 manifest records; correct parent confirmed.139 source/selected-document records,local build/63PNG/three model kits,actual logs,asset montage and four untouched CI19 artifact ZIPs. It was sealed before publication attempts; later publication state is this GitHub checkpoint, not retroactively in the ZIP.
+
+If temporary storage is erased, current main provides the unchanged baseline and the package provides the explicitly identified, complete uncommitted30-file batch. Compare the package's file hashes, apply only that known delta over the documented base, and do not restore unrelated historical ZIPs. Dependencies are already retained in Drive1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE; restore node_modules only. ROM/original media/fonts remain outside all public source/build/evidence packages.
+
+## Remaining priority
+
+Finish source publication and one full existing CI, then actual same-source screen/playability review and matched Pages provenance. Continue early visual refinement toward90 using actual evidence and user play feedback. Truce/castle/court environment detail, fuller NPC/party animation, original geography, rights-cleared audio and physical performance remain open. Only after early comfort acceptance resume later T03/T04/T06 expansion. Whole-game T03–T08 and>=90/device gates are unchanged;2300 remains arrival only.

@@ -1,41 +1,34 @@
-# Execution TODO — CI19 active, 0.9.0 equipment source frozen
+# Execution TODO — early visuals first; VQ01 complete working batch awaiting permitted publication
 
-Main single-line/non-force. Exact source/run authority is STATUS.md and evidence/CI19_CHECKPOINT.json. Continue existing implementation, no historical audit or accepted chapter rewrite.
+Main only/non-force. Read STATUS.md and evidence/VQ01_PUBLICATION_CHECKPOINT.json. The user changed priority: make the first scenes comfortable and reach a genuinely supported early-visual90target before further story/system expansion. Do not respond with another planning-only asset list.
 
-## Completed current increments (not complete-game approval)
+## Completed this batch, retained but not published as runtime
 
-CI18 `35344366293` all three jobs passed; matched Pages12 `35346462349` verified0.8.2 source/playable/HTML. Five raw CI artifacts plus Pages staging retained/readback verified; evidence/CI18_ACCEPTANCE.md. Old chest/organ roots are closed.
+30code/config/test files implement home/bedroom surface and joinery/cloth/ceramic models,curved festival stalls/goods/bell/telepod detail,shared63PNG asset output,three actual-builder OBJ/MTL/PNG kits,mother/native vendors/fourhero palette and side silhouettes,defaultquiet and keyboardguide HUD. Existing interaction/collision/story/player ownership remain. CI19 native utility activation/chooser lifecycle was repaired without dropping the genuine chooser assertion.663Node/0failed/0skipped and16Python,typecheck/build/assets/compileall pass. Local browser blocked before load;asset montage/NullEngine geometry are not gameplay approval.
 
-T03 narrow version research: private image whole hash/header/checksum observation and six synthetic-header parser tests. No emulator, reverse-engineered event rules, patch identity or full geography proof. Checksum mismatch is recorded, not repaired or hidden.
+Complete verified working delivery is Drive **1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k**,9771993bytes,SHA2561901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3,300manifestrecords,in the project folder. Contains139source/selecteddocs,localbuild/art/models/logs andfour rawCI19 artifacts. Full tested-file hashes inside source/docs/evidence/VQ01_LOCAL_VALIDATION.json.
 
-T04 first equipment/economy increment implemented: existing bag gains active-member HP/MP and weapon/body/head; actual nearby Melchior buy/sell; authored400G allowance and13-item catalog; atomic money/copy limits/equipped reservation; compatible-member gear, actual ordinary damage/defense; v8 envelope and unchanged v1–v7 migration boundaries. Default viewing does not modify a save. Local644 Node/16 Python/typecheck/build/assets/compile checks passed. Full same-run keyboard equipment/export/reload/combat scenario added, not yet browser-accepted. See EQUIPMENT_T04.md.
+## Sole execution blocker and next action
 
-## Sole current acceptance work
+Normal GitHub reads and initial writes succeeded, then two identical src/prologue-render.ts blob writes were blocked by the platform safety-status check. This is not connector unavailability. Do not evade the block using a different encoding/route. No runtime commit was made from the incomplete tree and **no CI20 exists**. Preserve current main runtime16313037 and the full retained working batch. Publication staging detail and the known uncommitted home-interior color transcription discrepancy are recorded in the checkpoint; never move main to that incomplete tree.
 
-**Published source `16313037a0d1ab59358963014e797f7e11ea95d1`, tree `8c963ed350abd953e51ee47517932e9f54b91c50`; CI19 `35355492232`, push/attempt1.** Commit/non-force main/ref readback complete. Aggregate code/test/build/workflow/HTML objects match the tested bytes for all23 changed files. One new full CI; no manual dispatch or removed coverage/timeouts.
+When the normal source write is permitted, finish the complete tested delta, compare all30 source/test/config objects, commit -> non-force main -> readback, and register one existing push CI. Do not redo the art or accepted chapter tests before publication. No extra dispatch,cancel or continuous polling. PendingCI:freeze/report. Failure:actual first step/log/report/lastObserved/focused/failurePNG. Success:allthreejobs,exact artifacts/actualscreenreview/matchedPages. Do not declare0.9.1 published or90 before those events.
 
-Registration observation: validate105633716808 in_progress, npm check successful; good105633716547 and bad105633716751 in_progress with successful builds; all installing Python requirements. No terminal result. Source frozen, no repeated polling/rerun/cancel. Later [skip ci] docs do not make another candidate. New equipment browser step13/report equipment/equipment-report.json consumes its own run's genuine prologue v6 export, not committed unit fixtures.
+## CI19 terminal / accepted baseline
 
-On completion, receive the same run once. Pending: preserve/report. Failure: diagnose the actual first root from same-run logs/report/lastObserved/focused/failure.png, not a speculative old failure. Success requires all3jobs: preserve five artifacts, inspect actual UI/gear/trade/v8/real combat and existing keyboard/scene results, then verify matching Pages deployment.json/source/playable/HTML hash. Local Chromium was blocked before load by administrator policy; local HTML and scripted unit fixtures are not browser success. No fake saves, injected flags, relaxed collision/assertions or timeout-only fixes.0.9.0 is not declared deployed.
+CI19 run35355492232:validate105633716808 failed first equipmentnativechooser(step13);good105633716547 andbad105633716751 succeeded. Keyboard/prologue passed;later validatesteps skipped. Four artifacts exist;no playable. The new nativeactivation repair is pending browser proof;don't claim a provenChromiumrace or tradingacceptance. CI18run35344366293/source8c6f8fb9/Pages12run35346462349 remain the accepted0.8.2preview. Oldchest/organroots are closed,not currentfailures.
 
-New local product bundle11lvRWYYjxN7VaUp4DjFiLf0damz7eD_G and accepted CI18/Pages12 bundle1PFL6kk7oiml1B0qWTkMhDlAhXAfXHl1G are in the project Drive folder; raw download/hash/CRC/all261 and9 manifest entries respectively verified. Current source/progress is on main, not only in a temporary container.
+## Remaining early-visual acceptance
 
-## Accepted existing functional baseline — do not recreate
+Review actual same-source bedroom,waking/home/mother,fairarrival/firstmeeting,telepod,quiet/guide atdesktop/650/390,readycombat,NPC/court and importfocus. Inspect materialscale,proportions,occlusion,animation,UIreadability and performance;retain userplayfeedback. Truce/castle/court environmentkits,completeNPCdirections/partyactions,originalmapfidelity,rights-clearedaudio and physicaldeviceevidence remain incomplete. More pixels/tests do not produce a90score;old30is stale. Continue this priority before expanding laterplot.
 
-T00/T01/T02: home waking/stairs, miniature overworld/confirmed entrances, first meeting/pendant choices, fair,600AD route/input boundaries. T03 existing rescue, organ/one-time chest, Frog/Yakra/queen/chancellor/return; sealed fair conduct, conditional witnesses and two verdicts, two prison routes/Fritz/Lucca/three-part tank/reunion/Gate/2300 arrival. CI18 runs the whole existing suite including the repaired interactions. These are tested authored slices, not full original maps or all original hidden algorithms.
+## Full product scope retained, not reset or reduced
 
-Existing tonic/ether stock, ATB/target guards, one-time support parcel, real save provenance and encounter XP records remain. XP records are not growth. Four native48×64 actors and registered NPC ambient/idle/ready/palette/grounding work remain implemented; tested dimensions and frames are not final-art approval.
+Existing home/miniatureworld/firstmeeting/fair/600AD/rescue/queenreturn/sealedwitnesses/twoverdicts/twoprisonroutes/Fritz/Lucca/three-parttank/reunion/Gate/2300arrival remain implemented.0.9.0bag/equipment/Melchiorbuy-sell/v8 exist but fullCI19acceptance failed. No chapterrebuild,extraP3 orARPGconversion;preserve P1Crono/P2Lucca/autonomousstorycompanion.
 
-## Remaining full product TODO (scope unchanged)
-
-**T03:** invisible original jury rules/flag edge cases, exact Traditional Chinese Beta differences, complete map/room connections, staging and numerical fidelity. Header metadata does not certify any of these. Preserve implemented witnesses/prison while extending fidelity.
-
-**T04:** real character growth/levels/stats, battle currency/reward/drop flow, complete shops/consumables and original item balance, accessories, party roster and skill learning, appropriate dual/triple techs. Current status/equipment/shop prototype does not close these. Extend core/inventory/save/UI, not a second framework; keep P1 Crono/P2 Lucca with autonomous story companion. Align cosmetic start-screen version copy (still0.8.2) with the new build-meta version in the next product batch, without changing this frozen candidate.
-
-**T05:** whole art/animation pass, directional silhouettes/proportions/choreography, environment density and hierarchy, external edited-atlas import, rights-cleared music and sound. Actual same-source gameplay/animated observations required; concept images/atlas previews/material flags are not game-screen approval.
-
-**T06:** remaining2300 campaign and every other era, main quest, sidequest and ending. futuregate is arrival only.
-
-**T07:** whole-game>=90, every dimension>=80%, zero critical, required assets/five evidence gates, real keyboard/gamepad devices, FPS/frame-time/loading/memory/background/save validation. Old30 is stale. No new score, hidden gap or reduced denominator.
-
-**T08 each batch:** actual GitHub commit -> non-force main -> readback; source/progress and cloud manifests, playable/art/logs/screenshots in the project Drive folder. [skip ci] for documentation/intermediate preservation only; one final non-skip source CI. Stop only for active CI or a real external blocker, not one small item.
+T03:originalhiddenrules,exactpatchdifferences,fullmap/roomtopology andnumericalfidelity. PrivateROMheaderobservations do not close these.
+T04:realgrowth/levels,battlerewards/drops,completeeconomy/shops/consumables/accessories,roster/skills/dual-tripletechs. Existing400G/13itemvalues are authored,notoriginaldata.
+T05:completeart/animation/editedassetworkflow/audiomusic,startingwithearlyscenesasabove.
+T06:remaining2300campaign,allothereras/mainquests/sidequests/endings;futuregateisarrivalonly.
+T07:whole-game>=90,eachdimension>=80%,zero critical,requiredassets/evidencegates,physicalkeyboard/gamepad/FPS/frametime/loading/memory/background/savevalidation. No newscore orsmallerscopedenominator.
+T08:eachbatchdurablesource/progressandverifiedcloudbytes;skip-ci fordocs/intermediatepreservation,onefullCIaftercompletepublication. StoponlyforactiveCIorrealexternalblocker,notafterasmallitem.

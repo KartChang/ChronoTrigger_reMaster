@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 import unittest
 
-from native_import import import_save, _ATTEMPTS
+from native_import import import_save, state_difference, _ATTEMPTS
 
 
 class Handle:
@@ -161,6 +161,48 @@ class NativeImportProtocolTest(unittest.TestCase):
         p = PagePort(); p.phase = 'open'
         with self.assertRaises(AssertionError): import_save(p, self.file, self.out)
         self.assertEqual(p.order, [])
+
+    def test_full_state_difference_is_diagnostic_only_and_bounds_output(self):
+        before = {'effects': [{'text': 'sensitive unit marker'}], 'nested': list(range(40))}
+        after = {'effects': [], 'nested': list(range(1, 41))}
+        result = state_difference(before, after)
+        self.assertFalse(result['equal'])
+        self.assertEqual(result['changedFieldCount'], 41)
+        self.assertEqual(len(result['paths']), 24)
+        self.assertTrue(result['truncated'])
+        self.assertIn('/effects/length', result['paths'])
+        self.assertNotIn('sensitive unit marker', json.dumps(result))
+        self.assertNotEqual(result['beforeSha256'], result['afterSha256'])
+        self.assertEqual(before['effects'][0]['text'], 'sensitive unit marker')
+
+    def test_unchanged_snapshots_have_identical_hashes_without_dropped_fields(self):
+        state = {'ticks': 20, 'effects': [], 'players': [{'hp': 100}], 'log': ['unit']}
+        result = state_difference(state, deepcopy(state))
+        self.assertTrue(result['equal'])
+        self.assertEqual(result['paths'], [])
+        self.assertEqual(result['beforeSha256'], result['afterSha256'])
+        after = deepcopy(state); after['log'].append('unit2')
+        self.assertFalse(state_difference(state, after)['equal'])
+
+    def test_state_drift_before_selection_fails_with_paths_and_never_supplies_file(self):
+        p = PagePort()
+        original = p.evaluate
+        snapshots = 0
+        def observed(expression):
+            nonlocal snapshots
+            if expression == 'window.__CHRONO_TEST__.snapshot()':
+                snapshots += 1
+                return {'ticks': 20, 'effects': ['unit'] if snapshots == 1 else []}
+            return original(expression)
+        p.evaluate = observed
+        with self.assertRaises(AssertionError):
+            import_save(p, self.file, self.out)
+        attempt = self.read_report()['attempts'][0]
+        self.assertEqual(attempt['stage'], 'chooser-observed')
+        self.assertEqual(attempt['freezeComparison']['paths'], ['/effects/length'])
+        self.assertEqual(attempt['failureType'], 'AssertionError')
+        self.assertNotIn('set-files', p.order)
+        self.assertEqual(p.order.count('click'), 1)
 
     def test_all_importing_journeys_use_shared_real_chooser_contract(self):
         root = Path(__file__).parent

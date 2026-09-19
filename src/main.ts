@@ -1,3 +1,4 @@
+import {takeFrameEffects,FeedbackClock} from './presentation-state';
 import {ModalFocus,jumpInventorySection} from './modal-focus';
 import {bindSaveImport} from './save-import';
 import {equipmentPanel} from './equipment-ui';
@@ -19,8 +20,9 @@ import {World} from './render';
 import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
-let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,messageUntil=0,previousLog='';
+let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,previousLog='';
 let soundEnabled=false,audio:AudioContext|undefined,filePickerOpen=false;
+const feedbackClock=new FeedbackClock();
 const modalFocus=new ModalFocus(document);
 const controls=new Controls(command,{solo:()=>!state.joined,routeUi:routeKeyboardUi});
 const inputBoundary=new InputBoundary(state);
@@ -32,7 +34,7 @@ function replaceState(next:State):void {
 const gearPanel=equipmentPanel($('equipment-panel'),()=>state,message=>{$('inventory-feedback').textContent=message;},()=>bagOpen&&!manualPause&&!document.hidden);
 const halted=()=>!started||manualPause||dialogOpen||bagOpen||filePickerOpen||document.hidden;
 const asError=(e:unknown)=>e instanceof Error?e.message:String(e);
-function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');messageUntil=performance.now()+4500;}
+function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');feedbackClock.show();}
 function tone(frequency=440):void{
   if(!soundEnabled)return;
   try{audio??=new AudioContext();void audio.resume().catch(()=>{});const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='triangle';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(.04,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start();oscillator.stop(audio.currentTime+.13);}catch{soundEnabled=false;$('sound').textContent='音效不可用';}
@@ -263,9 +265,10 @@ try{
         }
       }
     }else accumulator=0;
-    world.draw(state,dt,!halted()||!started);
+    const running=!halted();
+    world.draw(state,dt,running||!started,takeFrameEffects(state,running));
     hudTime+=dt;if(hudTime>.08){updateHud();hudTime=0;}
-    if(now>messageUntil)$('message').classList.remove('show');
+    if(!feedbackClock.advance(dt,halted()))$('message').classList.remove('show');
     if(frame++%30===0){const fps=world.engine.getFps();$('fps').textContent=Number.isFinite(fps)?`WEBGL · ${Math.round(fps)} FPS`:'WEBGL · 準備中';}
   });
   const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};

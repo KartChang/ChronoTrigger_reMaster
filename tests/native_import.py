@@ -23,6 +23,46 @@ def import_context(page: Any) -> dict[str, Any]:
         lifecycle:t.importStatus()};}""")
 
 
+def state_difference(before: Any, after: Any, limit: int = 24) -> dict[str, Any]:
+    """Bounded paths and full-snapshot hashes; never dump selected-file contents.
+
+    All fields still participate in equality. The bound only limits diagnostics,
+    not the assertion, so ticks, effects or a late nested mutation cannot pass.
+    """
+    paths: list[str] = []
+    count = 0
+
+    def changed(path: str):
+        nonlocal count
+        count += 1
+        if len(paths) < limit:
+            paths.append(path)
+
+    def walk(left: Any, right: Any, path: str):
+        if type(left) is not type(right):
+            changed(path)
+        elif isinstance(left, dict):
+            for key in sorted(left.keys() | right.keys()):
+                child = path + '/' + str(key).replace('~', '~0').replace('/', '~1')
+                if key not in left or key not in right:
+                    changed(child)
+                else:
+                    walk(left[key], right[key], child)
+        elif isinstance(left, list):
+            if len(left) != len(right):
+                changed(path + '/length')
+            for i, (a, b) in enumerate(zip(left, right)):
+                walk(a, b, path + '/' + str(i))
+        elif left != right:
+            changed(path)
+
+    walk(before, after, '')
+    digest = lambda value: hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False,
+        separators=(',', ':')).encode('utf-8')).hexdigest()
+    return {'equal': before == after, 'changedFieldCount': count, 'paths': paths,
+        'truncated': count > len(paths), 'beforeSha256': digest(before), 'afterSha256': digest(after)}
+
+
 def import_save(page: Any, files: Any, out: Path, *, activation: str = 'click',
                 expected: str = 'imported', label: str | None = None) -> dict[str, Any]:
     """One request/one event/one selection, with a durable receipt even on failure.
@@ -88,7 +128,9 @@ def import_save(page: Any, files: Any, out: Path, *, activation: str = 'click',
         frozen = page.evaluate('window.__CHRONO_TEST__.snapshot()')
         frame = page.evaluate('window.__CHRONO_TEST__.view().frame')
         page.wait_for_function('window.__CHRONO_TEST__.view().frame >= '+str(frame+2), timeout=15000)
-        assert page.evaluate('window.__CHRONO_TEST__.snapshot()') == frozen
+        selected_state = page.evaluate('window.__CHRONO_TEST__.snapshot()')
+        attempt['freezeComparison'] = state_difference(frozen, selected_state)
+        assert selected_state == frozen, attempt['freezeComparison']
         attempt['frozenWhileSelecting'] = True
         attempt['stage'] = 'selection-supplied'
         chooser.set_files(selection)
@@ -113,7 +155,7 @@ def import_save(page: Any, files: Any, out: Path, *, activation: str = 'click',
         attempt.update(status='passed', stage='completed')
         return attempt
     except Exception as exc:
-        attempt.update(status='failed', failure=str(exc))
+        attempt.update(status='failed', failure=str(exc), failureType=type(exc).__name__)
         raise
     finally:
         try:

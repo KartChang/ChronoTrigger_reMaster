@@ -74,7 +74,8 @@ export class World {
   private drawFrames=0;
   private palettePass=new PixelPalettePass();
   private actorShadows:Mesh[]=[];
-  inspect(){return {fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  private presentationState:State|null=null;
+  inspect(){return {transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -260,7 +261,20 @@ export class World {
     this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const viewHalf=cameraHalf(this.chapter??'lab',ratio);
     this.camera.orthoLeft=-viewHalf*ratio;this.camera.orthoRight=viewHalf*ratio;this.camera.orthoTop=viewHalf;this.camera.orthoBottom=-viewHalf;
   }
-  draw(s:State,delta:number,animate:boolean):void {
+  private resetTransientPresentation():void {
+    // Dispose only owned, temporary meshes. Shared characters/scenery remain cached.
+    for(const list of [this.floats,this.slashes]){
+      for(const effect of list){effect.mesh.material?.dispose(true,true);effect.mesh.dispose();}
+      list.length=0;
+    }
+    this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
+    this.poseHistory.length=0;this.guestView={pose:'idle',frame:0};
+    this.lunges.forEach(l=>{l.time=1;l.dx=0;l.dz=0;});
+  }
+  draw(s:State,delta:number,animate:boolean,frameEffects:readonly Effect[]=[]):void {
+    if(this.presentationState!==s||this.chapter!==s.chapter){
+      this.resetTransientPresentation();this.presentationState=s;
+    }
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
     const fair=s.chapter==='fair',canyon=s.chapter==='canyon',forest=s.chapter==='forest',adventure=s.chapter!=='lab';
     if(this.chapter!==s.chapter){
@@ -273,7 +287,7 @@ export class World {
     this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':(prologueMap(s.chapter)||(trialMap(s.chapter)&&!['guardia1000','prisonbridge'].includes(s.chapter)))?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
     this.kingdomWorld.draw(s);this.rescueWorld.draw(s);this.trialWorld.draw(s);
-    while(s.effects.length){const e=s.effects.shift();if(e)this.effect(e,s);}
+    for(const effect of frameEffects)this.effect(effect,s);
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
       this.grass.diffuseColor=color(future?'#8e9991':'#729270');this.leaf.diffuseColor=color(future?(s.flags.repaired?'#779a87':'#636f78'):'#426c58');

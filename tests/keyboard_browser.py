@@ -92,6 +92,22 @@ try:
     saved=OUT/'keyboard-fair-v2.json';d.value.save_as(str(saved));data=json.loads(saved.read_text());assert data['version']==2 and data['fair']['gatoWon']
     ui_button(p,'import')
     import_save(p,saved,OUT,activation='Enter');p.wait_for_function('document.activeElement.id==="world" && document.querySelector("#message").textContent.includes("匯入")')
+    # A same-map load must not retain the previous battle's numbers/strokes.
+    frame=view(p)['frame']
+    p.wait_for_function('(f)=>window.__CHRONO_TEST__.view().frame>=f+2',arg=frame,timeout=15000)
+    assert view(p)['transient']=={'floats':0,'strokes':0},view(p)['transient']
+    assert p.locator('#message').evaluate('(el)=>el.classList.contains("show")')
+    p.keyboard.press('Escape');p.wait_for_selector('#pause-screen:not([hidden])')
+    paused_state=snap(p)
+    # A deliberate reading-time check longer than the existing 4.5s message life;
+    # not an increased timeout or simulated clock/progress change.
+    p.wait_for_timeout(4600)
+    assert snap(p)==paused_state
+    assert p.locator('#message').evaluate('(el)=>el.classList.contains("show")')
+    record(p,'05-import-feedback-paused')
+    p.keyboard.press('Enter');assert focus(p)=='world'
+    assert p.locator('#message').evaluate('(el)=>el.classList.contains("show")')
+    passed('same-map native import clears stale battle effects; full state and feedback reading time freeze while paused')
     z=snap(p)['players'][0]['z'];move(p,'z',z-.6)
     passed('Tab/Enter toolbar activation, real export/import and canvas focus recovery preserve keyboard movement')
     record(p,'05-after-import')

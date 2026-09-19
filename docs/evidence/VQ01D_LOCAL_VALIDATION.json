@@ -1,0 +1,117 @@
+{
+  "batch": "VQ01D-independent-inventory-comfort",
+  "version": "0.9.4",
+  "baseMain": "714c48db1eaa11cf22653e102b778c9ae726c586",
+  "baseTree": "3b1e7d9ab4b881c767c18b3356bf2c9d042eac84",
+  "acceptedPreviousSource": "0e65066d2e1e54cfff9b9a7a4d5466a694a79484",
+  "createdUtc": "2026-09-19T11:36:27.149129+00:00",
+  "scope": [
+    "Separate non-overlapping header / scroll body / status",
+    "Compact gear summary; reversible keyboard-operable explanatory disclosure",
+    "Bounded PageUp/PageDown/Home/End with retained focus; same-row trading scroll preservation",
+    "36px fine-pointer and 44px coarse-pointer menu targets; safe-area padding",
+    "Seven viewport assertions and top/bottom screenshots in existing same-run equipment journey"
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 9883,
+      "beforeBlob": "f173142a53fd7aaaae2ae52d0950623a9e112912",
+      "blobSha": "302fc0d80a44f9cdfd2e1546d568e3818191a9c3",
+      "sha256": "e97338a9e72bae04589c27137520644542228a0a6f3373b2e359826d3ffb4b8d"
+    },
+    {
+      "path": "src/equipment-ui.ts",
+      "bytes": 6082,
+      "beforeBlob": "f6d07bf37d35b182755056a81c1a5a10476f3f1f",
+      "blobSha": "22526a52beba8fc34a829484a60edbcf7b7a9c7b",
+      "sha256": "b5bda87e77c132269078ec1d20016bb0cb8e7c72e5f0a29ce985d4a4746be73e"
+    },
+    {
+      "path": "src/modal-focus.ts",
+      "bytes": 5902,
+      "beforeBlob": "2fc36f5f765b76c88125318ac7f897c7c5235eae",
+      "blobSha": "8d61a30e170ac1afe44ac603328f41053bd5c307",
+      "sha256": "083f754334d0daaaf23ec862c4255b2353103be4e53a343d4c280026a0e4182f"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 1841,
+      "beforeBlob": "8cc20ced5ca09d4614d858caaed165be02408367",
+      "blobSha": "0423f8e85bae46b6e0a53c9457ad72efdff8a06d",
+      "sha256": "073a14f1d7a5dabd131dd7c42ae24fc3d1a00f5c5e98e31fa7d254542434e815"
+    },
+    {
+      "path": "tests/equipment_browser.py",
+      "bytes": 17805,
+      "beforeBlob": "3452400a241b3c22876abfb782656149b697a8cb",
+      "blobSha": "9a111674d0a7756594c7a2a1d7d04cb8cc8d37bb",
+      "sha256": "bc9f345b19d8e4ff88881b83a429cbafc47b40ddc1b2d5c3bd6b512bbddc3df5"
+    },
+    {
+      "path": "tests/modal-focus.test.mjs",
+      "bytes": 18797,
+      "beforeBlob": "63324545df680373d4af4c9f104765ac181b2f96",
+      "blobSha": "a20d6f243459ec21da08832ad1741e1a5848a18d",
+      "sha256": "4716c5970ebdab5e70bb01921ffed5f8335631f314d15f8e7924d2ed5edd14f4"
+    },
+    {
+      "path": "src/inventory.css",
+      "bytes": 3970,
+      "beforeBlob": null,
+      "blobSha": "0339f69f71edbc1f73306c4551f08e75b8158c5b",
+      "sha256": "e3e5e11596633529219604bb372702d0904d9b36c2fb48caf7fd8ebf0aec46a7"
+    },
+    {
+      "path": "tests/inventory_comfort.py",
+      "bytes": 1887,
+      "beforeBlob": null,
+      "blobSha": "e4b39fa0be7bb1444f313305f2e6db51aea0a88d",
+      "sha256": "bc5500f044ba73b0d27b7ef5d2fcf145114a961d5eb8d90a6fac1972834879ae"
+    },
+    {
+      "path": "tests/inventory_comfort_test.py",
+      "bytes": 1955,
+      "beforeBlob": null,
+      "blobSha": "ab5cd1bb791c467f39340042003a1812b64d91f0",
+      "sha256": "f42c17f3e2a57d0ea0440a9be1ab8d4fa4ff26cc02c4c75e0995b4a1a86224c1"
+    }
+  ],
+  "unchanged": {
+    "src/prologue-render.ts": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "src/main.ts": "a4a280117abe6400120d0919716a980ea75df3ce",
+    "src/adventure.css": "0394127b452c8ef868e21b72a5dc9d8329197c40",
+    "src/render.ts": "5c11a97fe1dd9d7f2991e81d2d5c49960f00c276",
+    "src/core.ts": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4",
+    "src/save.ts": "8ef4e85a13a949e3b29d8f594aad13b4287923ab",
+    "src/input.ts": "53a8b6709eae7287ce0bfffd53ac21a9397a477c",
+    "src/equipment.ts": "1437173ec8f54439d10ae18c40a7c5d50da378d9",
+    ".github/workflows/ci.yml": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf"
+  },
+  "validation": {
+    "npmRunCheck": {
+      "status": "passed",
+      "nodeTests": 695,
+      "failed": 0,
+      "skipped": 0,
+      "typecheck": "passed",
+      "assetCheck": "passed",
+      "build": "passed"
+    },
+    "pythonUnit": {
+      "status": "passed",
+      "tests": 20
+    },
+    "pythonCompile": "passed",
+    "browser": "not run locally; prior administrative restriction not retried",
+    "CI": "not yet published or started when this local record was produced",
+    "screenshots": "none for this new batch yet",
+    "buildHtmlBytes": 5584230,
+    "buildHtmlSha256": "4a164c7ad33a6a5a13e7aa606fa85e6c16f7165a1aa630d9ee53fae426eac951",
+    "qualityScore": "existing 30 is stale, not a current assessment",
+    "early90Approved": false,
+    "physicalDeviceApproved": false,
+    "fullSceneApproved": false
+  },
+  "heldChain": "VQ01+B+C original held work remains private/unpublished; no renderer resubmission or bypass. Rebase only overlapping permitted UI/build/test edits during a future approved integration; do not overwrite 0.9.4 UI with old independent-ui."
+}

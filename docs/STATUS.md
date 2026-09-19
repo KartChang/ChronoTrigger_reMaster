@@ -1,38 +1,54 @@
-# Current status — CI20 / Pages14 closed; early visuals remain the next priority
+# Current status — VQ01D inventory comfort published; CI21 checkpoint
 
-Updated 2026-09-19. **Independent input/menu/equipment version 0.9.3 has passed CI20 and matching Pages14. Full retained scene/model/camera work is NOT published or visually accepted. No early-90, hardware or whole-game approval.**
+Updated 2026-09-19. Repository KartChang/ChronoTrigger_reMaster, main only, non-force updates. This is the dynamic execution authority. Read this and handoff/IMMEDIATE_CONTINUATION.md; do not audit old runs or recreate accepted chapters.
 
-## Exact accepted source; no active validation
+## Exact current source and validation
 
-Game source: `0e65066d2e1e54cfff9b9a7a4d5466a694a79484`; source tree: `aaef95965728d2eb068eaf3be6cb08e3b0215af9`. Main observed before this documentation-only handoff: `820f871de97933ca0f4e41b4ca5112079872f660`, document tree `8f2ac0ca3edfb8ab355a6ce182b0f4343faf5c3d`. This handoff uses [skip ci], changes no runtime, and does not create another candidate.
+Runtime source: **69dc0524b593df6948c11397280bfcedc841236f**
+Runtime tree: **f6c39685bd811e3903a0edfbaaac8235c54c5e33**
+Parent: 714c48db1eaa11cf22653e102b778c9ae726c586.
 
-**CI20 `35436087487`, push/attempt1, completed success.** Validate `105878862672`, bad `105878862731`, good `105878862753`: all success. Validate steps10–21 all succeeded, including keyboard, new-game, equipment/native import/v8/combat and every retained journey. Twenty actual journey/modal JSON reports passed; the stale quality report is not counted. Do not rerun CI19/20 or reopen the native-picker/chest/organ failures just because old records contain them.
+VQ01D / 0.9.4 is a genuinely independent inventory-comfort batch. All nine tested file blobs matched the remote tree; compare confirmed exactly nine changed paths, one commit ahead and zero behind. Main was advanced without force and read back at the exact source. Subsequent [skip ci] documentation does not change this game source.
 
-**Pages14 `35437851648`, workflow_run, success.** Prepare `105883462806`, deploy `105883495029` succeeded. Its workflow HEAD is the documentation SHA820f871, but deployment.json selects source0e65066, CI20 and playable artifact10582547615. Downloaded staged play/index.html is byte-identical to the playable HTML: SHA256 `7f3246da5fae089320a4b6554971ffe726ada7c7a5249ffc7e4ee575369b45d2`,5579064bytes. Deploy step3 independently verified public HTTP metadata, game bytes and launcher at deployment time. This is not a new manual play session.
+**CI21: 35440863455**, .github/workflows/ci.yml, workflow360357259, push / attempt1, created2026-09-19T11:42:55Z. Last observed **queued**, conclusion null. Exact-source all-event/all-state lookup returned one run. No manual dispatch, rerun, cancellation or long polling. Job results have not been accepted. Preserve this checkpoint and resume this run after the user reports E2E completion, rather than waiting in the conversation. See evidence/CI21_CHECKPOINT.json.
 
-No active CI, no new candidate, no CI21 dispatch, no Pages restart. Exact receipt: `evidence/CI20_ACCEPTANCE.json`; review: `evidence/CI20_VISUAL_REVIEW.md`. CI20_CHECKPOINT now points to the completed result, superseding its prior in_progress snapshot.
+## Work actually implemented in this batch
 
-## Accepted functionality and limits
+The old whole-dialog scrolling/sticky-header/sticky-feedback arrangement is replaced by separate header, scrollable content and status regions. The return control and transaction feedback no longer sit on top of the scrolling rows. A scoped src/inventory.css is appended after the existing CSS; the old scene/HUD CSS and renderer are not rewritten.
 
-Native Tab/Enter file selection succeeded three times with real same-run v6 and own v8 exports; picker open/closed, pause and final canvas focus were observed. Equipment purchase/equip/spare sale, wallet/stock rules, real IndexedDB reload, ordinary attack36/received damage9 in the authored test setup, battle equipment locks and victory Enter continuation passed. Keyboard six-check journey and seven modal reports passed, including desktop/650/390/short landscape. This closes the CI19 picker root in the tested software-browser scope, not a physical-input or accessibility audit.
+Equipment heading, gold and character stats are compacted. Long provisional-balance notes remain available in an accessible, keyboard-operated disclosure. Its open state is presentation-only, survives panel repaint and resets on state replacement. No allowance, inventory, equipment rules or save schema changed.
 
-Inspected actual home, fair idle, battle-ready, victory, trade, final import and good/bad court PNGs; also full-resolution390x700 and844x390 inventory frames. Existing repeated wood/paving, simple mother/furniture and compressed court remain visible. Sticky inventory header/footer still consume substantial short-screen height. These are remaining visual-comfort issues, not grounds to repeat successful functional tests unchanged. No numerical art score. The old30 in quality metadata has stale=true and is not current task authority.
+PageUp/PageDown/Home/End operate the active bag content, clamp to real scroll bounds and preserve focus. Existing same-row focus/scroll restoration now follows the content scroll owner. Tab/Shift+Tab, modal isolation, native picker activation and keyboard world ownership remain intact. Fine-pointer menu buttons have a 36px minimum, coarse-pointer buttons 44px; safe-area insets are respected.
 
-## Durable acceptance delivery
+The existing equipment browser journey keeps its true native filechoosers, same-run v6 and own v8 exports, money/stock/equip/IndexedDB/combat/victory assertions. Added seven viewport cases (1200x900,650x900,390x700,844x390,360x640,320x568,568x320), actual scroll-key input, reversible-disclosure/state-preservation assertions, no-overlap/no-overflow geometry, minimum target sizes and top/bottom screenshots. The content region must occupy at least65% of the panel. These new browser assertions and screenshots are pending CI, not already passed visual evidence.
 
-Project folder `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb` only.
-New `Chrono-CI20-Pages14-accepted-evidence.zip`, Drive **`1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n`**, **23765122bytes**, SHA256 **`f7f6dac2d86cf4fff172eae5728dfa3f5afb48508f367d0414542dc19bdd7d48`**. Contains all five original CI20 ZIPs plus the original Pages14 staged ZIP, acceptance/report index/actual-screen review and screenshot contact sheet. All six provider digests and CRC verified; upload, correct parent, raw Drive download, whole hash/CRC and all10 manifest entries verified. The browser ZIP also contains the exact published source tarball; current documentation remains on main. No private ROM/original media/font files added.
+Fresh local results: **npm run check passed; 695 Node tests, zero failed/skipped; typecheck/assets/build passed. 20 Python unit tests passed; Python compile passed.** Synthetic DOM/geometry tests are explicitly not gameplay or device certification. No local browser retry: the prior administrative restriction was not retried. No new screenshots yet. Local preview HTML5584230bytes/SHA2564a164c7ad33a6a5a13e7aa606fa85e6c16f7165a1aa630d9ee53fae426eac951 is a build output, not an accepted deployment. Existing score30 remains stale, not a current rating. No90 or physical-device claim.
 
-## Retained full visual work — not the deployed 0.9.3 scene
+## Durable delivery
 
-VQ01+B+C full work remains retained: early room/furniture/cloth/materials; curved stalls/bell/telepods; mother/vendors/hero refinements; portrait camera, real-triangle foreground fades, foot/shadow fixes, fixed-tick camera easing and reduced-motion behavior. Its prior full-working checks were763Node/16Python; the independently published UI checks were681Node/16Python. These are distinct scopes and were not rerun during this handoff.
+Folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**.
+**Chrono-VQ01D-independent-menu-comfort.zip**, Drive **1p58xW20eSNKpXzv4MkK0HTaPg-TpVobN**,1329483bytes.
+SHA256 **64a8377b2dd3aee4642e2511bad2910b9f6ae8c49e266aa6eb3f7ffd65d3b6fb**.
+Correct parent, raw Drive download, full hash, ZIP CRC and all nine delta hashes verified. Contains source/test delta, prepublication local receipt, fresh check logs and labelled local preview; no new gameplay screenshots. The prepublication receipt is unchanged at evidence/VQ01D_LOCAL_VALIDATION.json; publication/run/Drive results are in evidence/CI21_CHECKPOINT.json. No original ROM/media/font files redistributed.
 
-The full working chain differs in43 paths from old0.9.0 and **31 paths from current accepted UI**. Restore only when needed from VQ01 base `1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k`, B delta `1vkPuPN8HN46d1uHaJY9__OPrf455k3QV`, then C working-delta `16iHw_Py_RGLr819nPAEG6d5h98JuyLNe`, using per-file base/target hashes. Do not overwrite current documents with old package docs, reapply independent-ui over main, or promote old incomplete staging. Full recovery hashes are in DELIVERY_INDEX.md and C's evidence/VQ01C_LOCAL_VALIDATION.json. Dependencies: earlier `1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE`, node_modules only.
+## Prior acceptance stays closed
 
-The prior platform safety block on the new src/prologue-render.ts has no new permission outcome. The accepted UI keeps the baseline scene blob2711a74185aacf3c6bddf9db85ba99a2afbc507a. Do not repeat/bypass the blocked write, change encoding/routes, or infer permission from unrelated successful writes. No blocked source was submitted in this handoff. The prior local browser administrative block was not retried. These are specific operation boundaries, not connector unavailability.
+Last accepted game/Pages remain independentUI0.9.3 source **0e65066d2e1e54cfff9b9a7a4d5466a694a79484**, treeaaef95965728d2eb068eaf3be6cb08e3b0215af9. CI20 **35436087487** all3jobs and20journey/modal reports accepted. Pages14 **35437851648** matched exact source, CI20, playable10582547615 and staged/public HTTP verification. HTML5579064bytes/SHA2567f3246da5fae089320a4b6554971ffe726ada7c7a5249ffc7e4ee575369b45d2. No new Pages deployment in this batch yet.
 
-## Next work; do not restart history
+Accepted evidence Drive **1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n**,23765122bytes/SHA256f7f6dac2d86cf4fff172eae5728dfa3f5afb48508f367d0414542dc19bdd7d48 remains closed. CI19 native-picker and prior chest/organ roots stay closed. CI20's exact-source archive was recovered only to restore this empty development environment, not to rerun its acceptance. Do not reopen CI20 or repeat Pages14 closure.
 
-Read STATUS and IMMEDIATE_CONTINUATION, sanity-check main once, then directly resume T05 early visual/play comfort from the accepted UI and retained work. CI20/Pages14 artifact retention and provenance are DONE; do not repeat them or download all historical evidence. Continue permissible independent early refinements without recreating stored models/actors; normal full scene publication needs its actual permission outcome. After a coherent permitted source batch, commit/non-force main/readback and one existing full CI; stop polling when pending.
+## Held full visual work — unchanged boundary
 
-Early90 still needs genuine same-source scenes/animation/compositing/occlusion/UI/performance and user feedback. Truce/castle/court details, fuller actions, original geography and cleared audio/physical devices remain. Later story/system expansion stays behind early-comfort acceptance. Full T03–T08 and whole-game>=90 scope remain;2300 is arrival only, not completed future campaign. Whitepaper, FEATURE_PROGRESS, TODO and delivery index were updated with this handoff. No multi-writer branches/PRs/audit: only this AI workflow uses the repository.
+**src/prologue-render.ts remains baseline blob2711a74185aacf3c6bddf9db85ba99a2afbc507a.** No newscene write or previously blocked operation was retried, encoded differently or bypassed. The successful independent UI publication does not approve the blocked full scene. Scene/actor/core/input/save/assets/workflow bytes are unchanged by VQ01D except the listed UI/build/test files.
+
+Held VQ01+B+C already implements room materials, segmented furniture/pottery/cloth, fair stalls/bell/telepod, mother/merchant/heroes, portrait framing, triangle foreground fades, foot contact shadows, fixed-tick camera easing and reduced motion. The old ledger counts43cumulative paths versus0.9.0 and31residual versus accepted0.9.3; these are not counts recomputed against0.9.4. Do not repaint or treat held files as unimplemented. Full scene still needs a normal allowed publication outcome and actual engine evidence.
+
+Restore held work only as base **1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k** -> B **1vkPuPN8HN46d1uHaJY9__OPrf455k3QV** -> C **16iHw_Py_RGLr819nPAEG6d5h98JuyLNe** working-delta, with per-file ledger/hash checks. Current main documents and0.9.4 UI win; never reapply C independent-ui or promote incomplete old staging. During a future permitted integration merge overlapping UI/build/test edits instead of overwriting VQ01D. Exact archive hashes remain in DELIVERY_INDEX. Toolchain **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**, node_modules only, preserving esbuild hardlinks. PrivateROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** needs no re-upload.
+
+## Next execution and unchanged full scope
+
+After the user reports E2E done, inspect exact CI21 once. Pending: keep source frozen and report. Failure: only the first actual same-run root using logs/report/lastObserved/focused/failurePNG. Success: require all3jobs, retain exact artifacts and review actual top/bottom menu images plus seven viewport measurements and all preserved journeys; only then match Pages to this accepted artifact. Do not weaken assertions, inject saves/progress, raise timeouts alone, duplicate dispatch or run CI for documents.
+
+**T05 early visual/play comfort remains first, before later chapter expansion.** Real early-scene composition, actors/actions, scale, occlusion, camera, readable HUD and comfortable play must support90; build sizes/test counts/models do not. Truce/castle/court detail, full directions/actions, original geography, cleared audio and physical devices remain. Held art is not deployed by this menu batch.
+
+Preserve home -> miniatureworld -> fair ->600AD -> rescue/homecoming ->trial/two verdicts/two escapes/Fritz ->three-parttank/reunion/Gate ->2300arrival, equipment/Melchior/v1-v8 saves.2300arrival is not the complete future campaign. Keep TypeScript/Babylon/esbuild, ATB/A*, InputBoundary, P1Crono/P2Lucca/autonomous third companion; noP3/ARPG/newframework. T03 original hidden rules/version differences/full geography; T04 growth/rewards/full shop/skills; T05 complete art/animation/music; T06 other eras/quests/endings; T07 full90/physical devices/performance; T08 verified cloud retention all remain in scope.

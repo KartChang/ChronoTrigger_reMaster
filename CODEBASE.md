@@ -1,4 +1,4 @@
-# 專案地圖 — 審判與越獄 0.8 候選
+# 專案地圖 — 瀏覽器 HD-2D 與冒險模組
 
 Repository：KartChang/ChronoTrigger_reMaster；main；HD-2D、瀏覽器、同機雙人與 ATB。實際提交／CI／Pages 狀態只看 docs/STATUS.md，不從本文件推定已上線。
 
@@ -68,3 +68,7 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 - `src/art-profile.ts`: executable production scale/camera/bridge/animation contract; project conventions, not ROM claims.
 - `src/material-art.ts` / `src/material-runtime.ts`: shared integer-pixel material export/runtime, scene caching and size-based UV; no original bytes.
 - `docs/ART_PRODUCTION_CONTRACT.md`: applied art rules and actual pending review gates.
+
+## 現有背包／裝備的獨立呈現層
+
+`src/equipment-ui.ts` 沿用 `src/equipment.ts`／core 裝備規則，呈現角色、買賣、換裝與可收合說明；說明展開狀態不進存檔。`src/modal-focus.ts` 管理既有 modal 的焦點、背景 inert、換裝同列焦點與背包 PageUp/PageDown/Home/End。`src/inventory.css` 由 build 接在 adventure.css 之後，將背包標頭、可捲動內容與回饋列分開；不更動場景 renderer。`tests/equipment_browser.py` 沿用同 run 真實 v6 匯出與原生選檔旅程，使用 `tests/inventory_comfort.py` 量測七種視窗；`inventory_comfort_test.py` 的合成幾何僅測量測斷言，不是遊玩證據。舊段落的批次數字與裝備未完成敘述只描述當時切片，不得據此重造框架；目前完成範圍與 exact CI 一律看 STATUS。

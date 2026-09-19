@@ -1,0 +1,77 @@
+{
+  "schema": "chrono-ci-checkpoint-v1",
+  "recordedUtc": "2026-09-19T11:44:31.872157+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ01D-independent-inventory-comfort",
+  "version": "0.9.4",
+  "sourceSha": "69dc0524b593df6948c11397280bfcedc841236f",
+  "sourceTree": "f6c39685bd811e3903a0edfbaaac8235c54c5e33",
+  "parentSha": "714c48db1eaa11cf22653e102b778c9ae726c586",
+  "publication": {
+    "nonForceUpdate": true,
+    "mainRefReadbackMatched": true,
+    "allNineBlobHashesMatchedTestedFiles": true,
+    "compare": {
+      "aheadBy": 1,
+      "behindBy": 0,
+      "changedFiles": 9
+    },
+    "baselineRendererBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "rendererChanged": false
+  },
+  "run": {
+    "id": 35440863455,
+    "number": 21,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "event": "push",
+    "attempt": 1,
+    "observedStatus": "queued",
+    "observedConclusion": null,
+    "headSha": "69dc0524b593df6948c11397280bfcedc841236f",
+    "createdAt": "2026-09-19T11:42:55Z",
+    "url": "https://github.com/KartChang/ChronoTrigger_reMaster/actions/runs/35440863455",
+    "exactShaRunCountAtObservation": 1,
+    "manuallyDispatched": false,
+    "jobsObserved": false,
+    "longPolling": false
+  },
+  "cloud": {
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileId": "1p58xW20eSNKpXzv4MkK0HTaPg-TpVobN",
+    "name": "Chrono-VQ01D-independent-menu-comfort.zip",
+    "bytes": 1329483,
+    "sha256": "64a8377b2dd3aee4642e2511bad2910b9f6ae8c49e266aa6eb3f7ffd65d3b6fb",
+    "parentVerified": true,
+    "rawDownloadHashVerified": true,
+    "zipCrcVerified": true,
+    "deltaHashesVerified": 9,
+    "contents": "9 source/test deltas; prepublication local validation receipt; npm/Python logs; local-preview HTML/build metadata/notices. No new screenshots."
+  },
+  "localValidation": {
+    "receipt": "docs/evidence/VQ01D_LOCAL_VALIDATION.json",
+    "npmRunCheck": "passed",
+    "nodeTests": 695,
+    "pythonUnitTests": 20,
+    "typecheck": "passed",
+    "build": "passed",
+    "browser": "not executed; prior administrative restriction not retried"
+  },
+  "acceptedPrevious": {
+    "sourceSha": "0e65066d2e1e54cfff9b9a7a4d5466a694a79484",
+    "ciRunId": 35436087487,
+    "pagesRunId": 35437851648,
+    "closed": true
+  },
+  "limits": {
+    "newBrowserAcceptance": false,
+    "newPagesDeployment": false,
+    "fullHeldScenePublished": false,
+    "early90Approved": false,
+    "physicalDevicesApproved": false,
+    "blockedRendererWriteRetried": false,
+    "generatedImagesAsEvidence": false
+  },
+  "next": "After user reports E2E complete, inspect this exact CI21 once. Pending: freeze. Failure: first actual same-run root. Success: all three jobs, retain exact artifacts, inspect actual new top/bottom menu PNGs and seven viewport geometry plus preserved real journeys, then matching Pages. No rerun of CI20 or duplicate dispatch. Current docs-only descendant never changes the selected game source."
+}

@@ -3,11 +3,13 @@ Only genuine key presses, native file chooser and player exports change state.
 No manufactured save, writable test hook, clock acceleration or synthetic wallet.
 """
 from pathlib import Path
+import traceback
 import hashlib, json, math, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
 from inventory_comfort import measure_inventory, assert_inventory_layout, assert_inventory_readability
 from inventory_touch import record_touch_inventory
+from inventory_repaint import measure_merchant_repaint, assert_merchant_repaint
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'equipment'
@@ -178,12 +180,25 @@ try:
             activate(page,'equip-crono-bronze-mail')
             assert page.locator('#sell-bronze-mail').is_disabled()
             button(page,'sell-bronze-helm')
+            repaint_before=measure_merchant_repaint(page)
+            page.screenshot(path=str(OUT/'02-before-last-copy-sale.png'))
             prior_scroll=page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')
             page.keyboard.press('Enter')
             assert snap(page)['equipment']['gold']==90
             assert page.locator('#sell-bronze-helm').is_disabled()
             assert focus(page)=='equipment-shop-row-bronze-helm'
+            # Observe two actual painted frames: no state mutation or artificial clock.
+            page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
+            repaint_after=measure_merchant_repaint(page)
+            repaint={'method':'real keyboard last-copy sale, read-only DOM before/after two painted frames',
+                     'before':repaint_before,'after':repaint_after,'physicalDevice':False}
+            observations.append({'name':'last-copy-sale-layout',**repaint})
+            (OUT/'merchant-repaint-report.json').write_text(json.dumps(repaint,ensure_ascii=False,indent=2),encoding='utf-8')
+            page.screenshot(path=str(OUT/'02-after-last-copy-sale.png'))
             assert abs(page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')-prior_scroll)<=2
+            assert_merchant_repaint(repaint_before,repaint_after)
+            assert page.locator('#equip-crono-bronze-helm').is_disabled()
+            assert '尚未持有' in page.locator('#equip-crono-bronze-helm').inner_text()
             protected=snap(page)['equipment']
             page.keyboard.press('Enter')
             assert page.locator('#inventory-screen').is_visible() and snap(page)['equipment']==protected
@@ -309,7 +324,7 @@ try:
             assert all(u.startswith(('http://127.0.0.1:4188/','data:','blob:')) for u in requests),requests
             report={'status':'passed','checks':checks,'waits':waits,'observations':observations,'errors':errors}
         except Exception as exc:
-            report={'status':'failed','failure':str(exc),'checks':checks,'waits':waits,'observations':observations,'errors':errors}
+            report={'status':'failed','failure':str(exc),'exceptionType':type(exc).__name__,'traceback':traceback.format_exc(),'checks':checks,'waits':waits,'observations':observations,'errors':errors}
             try:
                 report.update(lastObserved=snap(page),focused=focus(page),view=page.evaluate('window.__CHRONO_TEST__.view()'))
                 page.screenshot(path=str(OUT/'failure.png'),timeout=15000)

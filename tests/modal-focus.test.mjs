@@ -9,7 +9,7 @@ import {ModalFocus,nextModalTabIndex,retainPanelPosition,modalTabStops,scrollInv
 class Element {
  constructor(doc,id,tagName='DIV'){Object.assign(this,{ownerDocument:doc,id,tagName,children:[],parentElement:null,inert:false,hidden:false,disabled:false,tabIndex:tagName==='BUTTON'?0:-1,dataset:{},scrollTop:0,rect:true});}
  setAttribute(name,value){this[name]=value;}
- replaceChildren(){const owned=this.contains(this.ownerDocument.activeElement);for(const c of this.children)c.parentElement=null;this.children=[];if(owned){this.ownerDocument.activeElement=this.ownerDocument.body;this.ownerDocument.emit('focusin',{});}}
+ replaceChildren(...children){const owned=this.contains(this.ownerDocument.activeElement);for(const c of this.children)c.parentElement=null;this.children=[];this.append(...children);if(owned){this.ownerDocument.activeElement=this.ownerDocument.body;this.ownerDocument.emit('focusin',{});}}
  append(...children){for(const c of children){this.children.push(c);c.parentElement=this;}}
  get isConnected(){let e=this;while(e.parentElement)e=e.parentElement;return e===this.ownerDocument.body;}
  contains(other){return this===other||this.children.some(c=>c.contains(other));}
@@ -171,4 +171,109 @@ test('inventory reading surface is opaque with explicit disabled/current styles 
  // Chosen sRGB foreground/background token pairs exceed our internal 4.5:1 reading target.
  const luminance=hex=>hex.match(/../g).map(x=>parseInt(x,16)/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0);
  for(const [fg,bg] of [['e4eddf','20354a'],['bac9cd','283d4d'],['f1dda7','334b5c'],['c4d2d6','20354a']])assert.ok((luminance(fg)+.05)/(luminance(bg)+.05)>4.5);
+});
+
+
+// VQ01J: structural/layout-constraint ports; these do not claim browser pixel evidence.
+const gearButtons=k=>['weapon','body','head'].flatMap(slot=>k.d.getElementById('equipment-row-'+slot).children.filter(x=>x.tagName==='BUTTON').map(x=>x.id));
+const buttonReason=(k,id)=>k.d.getElementById(id).children.filter(x=>x.className==='equipment-action-reason').map(x=>x.textContent).join(' ');
+test('merchant comparison catalog stays present across last-copy sale without inventing ownership',()=>{
+ const k=realPanel();try{
+  const before=structuredClone(k.state),ids=gearButtons(k);
+  assert.ok(ids.includes('equip-crono-bronze-helm'));
+  assert.ok(ids.includes('equip-crono-iron-katana'));
+  assert.equal(k.d.getElementById('equip-crono-bronze-helm').disabled,true);
+  assert.match(buttonReason(k,'equip-crono-bronze-helm'),/尚未持有/);
+  assert.deepEqual(k.state,before);
+  press(k,'buy-bronze-helm');assert.deepEqual(gearButtons(k),ids);
+  assert.equal(k.d.getElementById('equip-crono-bronze-helm').disabled,false);
+  press(k,'sell-bronze-helm');assert.deepEqual(gearButtons(k),ids);
+  assert.equal(k.state.equipment.owned['bronze-helm'],0);
+  assert.equal(k.d.getElementById('equip-crono-bronze-helm').disabled,true);
+  assert.match(buttonReason(k,'equip-crono-bronze-helm'),/尚未持有/);
+  assert.equal(k.state.equipment.gold,360);
+ }finally{k.done();}
+});
+test('trade actions always have truthful status lines, including available actions',()=>{
+ const k=realPanel();try{
+  assert.match(buttonReason(k,'buy-bronze-helm'),/可買入/);
+  assert.match(buttonReason(k,'sell-bronze-helm'),/沒有可售物品/);
+  press(k,'buy-bronze-helm');assert.match(buttonReason(k,'sell-bronze-helm'),/可賣出/);
+  press(k,'equip-crono-bronze-helm');assert.match(buttonReason(k,'sell-bronze-helm'),/裝備中/);
+  press(k,'equip-crono-cloth-cap');press(k,'sell-bronze-helm');
+  assert.match(buttonReason(k,'sell-bronze-helm'),/沒有可售物品/);
+  const shop=k.d.getElementById('equipment-shop');
+  const actions=shop.children.filter(x=>x.dataset.focusRow).flatMap(row=>row.children.filter(x=>x.tagName==='BUTTON'));
+  assert.equal(actions.length,14);
+  assert.ok(actions.every(b=>b.children.filter(x=>x.className==='equipment-action-reason').length===1));
+ }finally{k.done();}
+});
+test('equipment refresh publishes a complete detached panel once, never an empty intermediate tree',()=>{
+ const k=realPanel();try{
+  const original=k.root.replaceChildren,seen=[];
+  k.root.replaceChildren=function(...nodes){seen.push(nodes.map(n=>n.id));return original.apply(this,nodes);};
+  press(k,'buy-bronze-helm');
+  assert.equal(seen.length,1);assert.ok(seen[0].includes('equipment-shop'));
+  assert.ok(seen[0].includes('equipment-row-head'));assert.ok(seen[0].includes('equipment-members'));
+  assert.equal(k.d.activeElement.id,'buy-bronze-helm');
+ }finally{k.done();}
+});
+test('constraint port: last-copy sale cannot shrink a merchant catalog and clamp the owned scroll',()=>{
+ const k=realPanel();try{
+  press(k,'buy-bronze-katana');press(k,'buy-bronze-mail');press(k,'buy-bronze-helm');
+  press(k,'equip-crono-bronze-katana');press(k,'equip-crono-bronze-mail');
+  // Explicit synthetic range: models browser clamping when rendered options disappear.
+  // It is not a measured CSS height or proof of the exact historical pixel delta.
+  let top=0;const range=()=>200+gearButtons(k).length*70;
+  Object.defineProperty(k.bag,'scrollTop',{configurable:true,get:()=>Math.min(top,range()),set:v=>{top=Math.max(0,Math.min(v,range()));}});
+  k.bag.scrollTop=range();const prior=k.bag.scrollTop;
+  press(k,'sell-bronze-helm');assert.equal(k.bag.scrollTop,prior);
+  assert.equal(k.d.activeElement.id,'equipment-shop-row-bronze-helm');
+  assert.equal(k.state.equipment.gold,90);assert.equal(k.state.equipment.owned['bronze-helm'],0);
+ }finally{k.done();}
+});
+test('repeated stock and affordability changes keep the catalog shape and cannot focus a different purchase',()=>{
+ const k=realPanel();try{
+  const initial=gearButtons(k);const ticks=k.state.ticks;
+  for(let cycle=0;cycle<7;cycle++){
+   press(k,'buy-bronze-helm');assert.deepEqual(gearButtons(k),initial);
+   press(k,'sell-bronze-helm');assert.deepEqual(gearButtons(k),initial);
+   assert.equal(k.d.activeElement.id,'equipment-shop-row-bronze-helm');
+   assert.equal(k.state.equipment.gold,400-(cycle+1)*40);
+  }
+  assert.equal(k.state.ticks,ticks);assert.equal(k.state.equipment.owned['bronze-helm'],0);
+ }finally{k.done();}
+});
+test('outside merchant range the equipment list stays owned-only; no catalog preview enters a save',()=>{
+ const k=realPanel();try{
+  k.state.players[0].x=0;k.ui.refresh();
+  assert.equal(k.d.getElementById('equip-crono-bronze-helm'),null);
+  assert.equal(k.d.getElementById('buy-bronze-helm'),null);
+  assert.equal(k.state.equipment,null);assert.equal(gearButtons(k).length,3);
+ }finally{k.done();}
+});
+test('merchant action columns are stable across affordability changes without disabling real overflow',()=>{
+ const css=readFileSync(new URL('../src/inventory.css',import.meta.url),'utf8');
+ assert.match(css,/grid-template-columns:minmax\(0,1fr\) repeat\(2,106px\)/);
+ assert.match(css,/overflow-anchor:none/);
+ assert.match(css,/equipment-shop-row button\{width:100%/);
+ assert.doesNotMatch(css,/equipment-shop-row[^}]*overflow:hidden/);
+});
+
+test('disabled catalog callbacks do not trade, equip, emit misleading feedback or migrate an untouched save',()=>{
+ const k=realPanel();try{
+  const before=structuredClone(k.state);
+  for(const id of ['equip-crono-bronze-helm','sell-bronze-helm']){
+   const b=k.d.getElementById(id);assert.ok(b&&b.disabled);b.onclick();
+  }
+  assert.deepEqual(k.state,before);assert.deepEqual(k.messages,[]);
+ }finally{k.done();}
+});
+test('a detached old merchant button cannot perform a second trade after refresh',()=>{
+ const k=realPanel();try{
+  const old=k.d.getElementById('buy-bronze-helm');press(k,old.id);
+  const before=structuredClone(k.state),messages=k.messages.length;
+  assert.equal(old.isConnected,false);old.onclick();
+  assert.deepEqual(k.state,before);assert.equal(k.messages.length,messages);
+ }finally{k.done();}
 });

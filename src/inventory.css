@@ -15,7 +15,7 @@ body #inventory-screen .inventory-dialog{display:flex;flex-direction:column;min-
 #inventory-screen .equipment-actions{margin:8px 0;gap:8px}
 #inventory-screen .equipment-slot{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:6px 0;padding:8px 0}
 #inventory-screen .equipment-slot strong{grid-column:1/-1;min-width:0;font-size:14px;line-height:1.5;font-weight:500}
-#inventory-screen .equipment-shop-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;margin:4px 0;padding:8px 0}
+#inventory-screen .equipment-shop-row{display:grid;grid-template-columns:minmax(0,1fr) repeat(2,106px);gap:8px;margin:4px 0;padding:8px 0}
 #inventory-screen .equipment-shop-row span{min-width:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
 #inventory-screen #equipment-shop>p{font-size:13px;line-height:1.55;margin:8px 0}
 #inventory-screen #equipment-panel button{padding:7px 10px;font-size:13px}
@@ -65,3 +65,10 @@ body #inventory-screen .inventory-dialog{background:#20354a;color:#e4eddf;opacit
 #inventory-screen .inventory-shortcuts button{flex:1 1 100px;min-width:0;margin:0;padding:7px 10px;font-size:13px}
 #inventory-screen #inventory-items-section:focus-visible,#inventory-screen #equipment-panel:focus-visible,#inventory-screen #equipment-shop:focus-visible{outline:2px solid #f1dda7;outline-offset:-2px}
 @media(forced-colors:active){#inventory-screen #inventory-items-section:focus-visible,#inventory-screen #equipment-panel:focus-visible,#inventory-screen #equipment-shop:focus-visible{outline-color:Highlight}}
+
+/* VQ01J: explicit scroll restoration owns catalog updates, not UA anchoring.
+   Status lines are present for available and unavailable trades. Fixed desktop
+   action columns avoid width/line-wrap changes when gold or stock changes. */
+#inventory-screen .inventory-content{overflow-anchor:none}
+#inventory-screen .equipment-shop-row button{width:100%;align-self:stretch}
+#inventory-screen .equipment-slot button .equipment-action-reason:last-child{min-height:1.5em}

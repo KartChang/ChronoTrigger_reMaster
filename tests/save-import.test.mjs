@@ -61,3 +61,32 @@ test('production import remains read-only in diagnostics and shields commands wh
  assert.match(main,/inputBoundary.rebase\(state\);last=performance.now\(\);accumulator=0/);
  assert.match(browser,/page.expect_file_chooser\(\)/);assert.match(browser,/activation='Space'/);assert.doesNotMatch(browser,/\.set_input_files\(/);
 });
+
+// Unit event-order regression, using actual CI23 exports without rewriting flags.
+// This reconstructs the cancelled->late-change failure mode, not an observed OS trace.
+import {createHash} from 'node:crypto';
+import {deserialize} from '../.test/core.mjs';
+const provenance=JSON.parse(readFileSync('tests/fixtures/ci23-import/provenance.json','utf8'));
+for(const entry of provenance.entries){
+ test(`actual CI23 ${entry.file}: parses, late unowned assignment is rejected, explicit request imports`,async()=>{
+  const raw=readFileSync(`tests/fixtures/ci23-import/${entry.file}`);
+  assert.equal(createHash('sha256').update(raw).digest('hex'),entry.sha256);assert.equal(raw.length,entry.bytes);
+  const expected=deserialize(raw.toString('utf8'));assert.equal(expected.chapter,'fair');assert(expected.prologue.conduct);
+  const h=harness();let current=null;h.hooks.apply=text=>{current=deserialize(text);};
+  h.port.request();h.cancel();h.choose({size:raw.length,text:async()=>raw.toString('utf8')});await flush();
+  assert.equal(current,null);assert.equal(h.port.inspect().events.at(-1).event,'unexpected-change-ignored');
+  h.port.request();h.choose({size:raw.length,text:async()=>raw.toString('utf8')});await flush();
+  assert.deepEqual(current,expected);assert.equal(h.port.inspect().events.at(-1).event,'imported');
+  assert.equal(createHash('sha256').update(readFileSync(`tests/fixtures/ci23-import/${entry.file}`)).digest('hex'),entry.sha256);
+ });
+}
+test('unit import: a duplicated change cannot apply twice or release a pending read',async()=>{
+ const h=harness();h.port.request();const file=h.pendingFile();h.choose(file);h.choose(file);
+ assert.equal(h.port.inspect().events.at(-1).event,'unexpected-change-ignored');assert(h.busy());assert.equal(h.releases(),0);
+ h.resolve('once');await flush();assert.deepEqual(h.applied,['once']);assert.equal(h.releases(),1);
+});
+test('unit import: reselecting identical bytes is allowed only after a fresh user request',async()=>{
+ const h=harness(),file={size:4,text:async()=>'same'};
+ for(let i=0;i<2;i++){assert(h.port.request());assert.equal(h.input.value,'');h.choose(file);await flush();}
+ assert.deepEqual(h.applied,['same','same']);assert.equal(h.releases(),2);
+});

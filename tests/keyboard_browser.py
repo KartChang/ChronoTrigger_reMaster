@@ -3,6 +3,7 @@ Native import uses Playwright's file chooser with a save exported by this journe
 """
 from pathlib import Path
 import json,math,subprocess,sys,time
+from native_import import import_save
 from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'test-results'/'keyboard';OUT.mkdir(parents=True,exist_ok=True)
@@ -90,11 +91,23 @@ try:
     with p.expect_download() as d:p.keyboard.press('Enter')
     saved=OUT/'keyboard-fair-v2.json';d.value.save_as(str(saved));data=json.loads(saved.read_text());assert data['version']==2 and data['fair']['gatoWon']
     ui_button(p,'import')
-    with p.expect_file_chooser() as fc:p.keyboard.press('Enter')
-    fc.value.set_files(str(saved));p.wait_for_function('document.activeElement.id==="world" && document.querySelector("#message").textContent.includes("匯入")')
+    import_save(p,saved,OUT,activation='Enter');p.wait_for_function('document.activeElement.id==="world" && document.querySelector("#message").textContent.includes("匯入")')
     z=snap(p)['players'][0]['z'];move(p,'z',z-.6)
     passed('Tab/Enter toolbar activation, real export/import and canvas focus recovery preserve keyboard movement')
     record(p,'05-after-import')
+    def persistent_state():
+        current=snap(p)
+        return {key:current[key] for key in ('chapter','era','joined','fair','flags','opening','kingdom','prologue','trial','rescue','equipment')}
+    stable_state=persistent_state()
+    ui_button(p,'import');import_save(p,[],OUT,activation='Space',expected='empty')
+    assert persistent_state()==stable_state
+    for label,buffer in [('invalid-json',b'{not-json'),('over-limit',b' ' * 65537)]:
+        ui_button(p,'import')
+        import_save(p,{'name':label+'.json','mimeType':'application/json','buffer':buffer},OUT,activation='Enter',expected='rejected',label=label)
+        assert persistent_state()==stable_state
+    ui_button(p,'import');import_save(p,saved,OUT,activation='Space')
+    assert snap(p)['fair']==data['fair'] and snap(p)['chapter']==data['chapter']
+    passed('real chooser empty selection, corrupt/oversize rejection, state preservation and same-file Space recovery; no direct hidden-input assignment')
     open_game(p,3);before=snap(p);p.keyboard.down('ArrowUp')
     try:wait(p,f's.players[1].z>{before["players"][1]["z"]+.6}',100)
     finally:p.keyboard.up('ArrowUp')

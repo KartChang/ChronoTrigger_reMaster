@@ -4,6 +4,7 @@ All reloads consume only JSON this browser actually exported through the game UI
 """
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from rescue_route import approach_supply_chest, approach_organ, input_context
 ROOT=Path(__file__).resolve().parents[1]
@@ -61,7 +62,7 @@ def save_reload(p,name):
     p.click('#save');p.wait_for_function("document.querySelector('#message').textContent.includes('存檔完成')")
     with p.expect_download() as download:p.click('#export')
     path=OUT/name;download.value.save_as(str(path));raw=path.read_bytes();data=json.loads(raw)
-    p.click('#import');p.set_input_files('#save-file',str(path))
+    import_save(p,path,OUT)
     p.wait_for_function("document.querySelector('#message').textContent.includes('存檔已匯入')");stable(p)
     after=snap(p);assert after['chapter']==before['chapter']
     assert after['prologue']['conduct']==before['prologue']['conduct'] or all(after['prologue']['conduct'][k]==before['prologue']['conduct'][k] for k in ('sealed','askedGirl','catReturned','lunchEaten','saleAttempted','saleDeclined','returnRefused','candy'))
@@ -187,7 +188,7 @@ try:
         report={'status':'passed','route':ROUTE,'sourceSha':os.environ.get('GITHUB_SHA'),'htmlSha256':hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),'passed':checks,'errors':errors,'waits':waits,'saves':saves,'limitations':['Project-specific deterministic jury policy; original hidden cat RNG/flag bug is not reproduced or ROM-verified.','Old compressed maps, authored balance and limited NPC animation remain; not final artwork, full-game or physical-device >=90 approval.']}
     except Exception as exc:
         report={'status':'failed','route':ROUTE,'failure':str(exc),'passed':checks,'errors':errors,'waits':waits,'saves':saves}
-        try:report['lastObserved']=snap(p);report['view']=p.evaluate('window.__CHRONO_TEST__.view()');report['inputContext']=input_context(p);report['focused']=report['inputContext']['focused'];p.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+        try:report['importContext']=import_context(p);report['lastObserved']=snap(p);report['view']=p.evaluate('window.__CHRONO_TEST__.view()');report['inputContext']=input_context(p);report['focused']=report['inputContext']['focused'];p.screenshot(path=str(OUT/'failure.png'),timeout=15000)
         except Exception as observation:report['observationError']=str(observation)
         raise
     finally:

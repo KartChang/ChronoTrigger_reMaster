@@ -4,6 +4,7 @@ Alternate route reloads only the cell save exported by this very browser journey
 """
 from pathlib import Path
 import hashlib, json, math, subprocess, sys, time
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
 ROOT=Path(__file__).resolve().parents[1]
@@ -101,7 +102,7 @@ try:
         page.on('request',lambda r:requests.append(r.url))
         try:
             page.goto('http://127.0.0.1:4183/?test=1',wait_until='load');page.wait_for_function('window.__CHRONO_TEST__ !== undefined',timeout=30000)
-            page.click('#start-fair-coop');page.set_input_files('#save-file',str(SOURCE))
+            page.click('#start-fair-coop');import_save(page,SOURCE,OUT)
             page.wait_for_function('window.__CHRONO_TEST__.snapshot().rescue.stage==="returned"',timeout=30000);stable(page)
             move(page,'x',0);move(page,'z',-7.2);talk(page,'送瑪兒回王城')
             assert snap(page)['chapter']=='overworld1000' and snap(page)['trial']['stage']=='escort'
@@ -185,7 +186,7 @@ try:
             assert snap(page)['chapter']=='futuregate' and snap(page)['era']=='future'
             save_reload(page,'trial-future-v7.json');page.screenshot(path=str(OUT/'10-future-arrival.png'))
             passed('defeated tank unlocks castle reunion, Marle remains third ally, forest Gate and 2300 arrival persist in v7')
-            page.set_input_files('#save-file',str(OUT/'trial-cell-v7.json'))
+            import_save(page,OUT/'trial-cell-v7.json',OUT)
             page.wait_for_function('window.__CHRONO_TEST__.snapshot().chapter==="cellblock"',timeout=30000);stable(page)
             move(page,'x',-3.1)
             talk(page,'獨房的床鋪',choice=False);assert snap(page)['trial']['days']==0
@@ -202,7 +203,7 @@ try:
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
-                report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['view']=page.evaluate('window.__CHRONO_TEST__.view()');report['fps']=page.locator('#fps').inner_text();page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+                report['importContext']=import_context(page);report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['view']=page.evaluate('window.__CHRONO_TEST__.view()');report['fps']=page.locator('#fps').inner_text();page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as e:report['observationError']=str(e)
             raise
         finally:

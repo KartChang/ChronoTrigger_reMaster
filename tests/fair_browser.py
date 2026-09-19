@@ -3,6 +3,7 @@ Uses a fresh browser context and its own HTTP origin. Not physical device certif
 """
 from pathlib import Path
 import json, math, subprocess, sys, time
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -135,7 +136,7 @@ try:
             record('separate lab/fair IndexedDB slots survive reload without overwriting each other')
             corrupt={**exported,'fair':{**exported['fair'],'luccaMet':False}}
             before=snapshot(page)
-            page.set_input_files('#save-file',{'name':'invalid-fair.json','mimeType':'application/json','buffer':json.dumps(corrupt).encode()})
+            import_save(page,{'name':'invalid-fair.json','mimeType':'application/json','buffer':json.dumps(corrupt).encode()},OUT,expected='rejected',label='invalid-fair-event-sequence')
             page.wait_for_function("document.querySelector('#message').textContent.includes('匯入失敗')")
             after=snapshot(page)
             assert after['fair']==before['fair'] and after['players']==before['players']
@@ -153,7 +154,7 @@ try:
         except Exception as exc:
             report={'status':'failed','passed':checks,'failure':str(exc),'errors':errors,'waits':waits}
             try:
-                report['lastObserved']=snapshot(page)
+                report['importContext']=import_context(page);report['lastObserved']=snapshot(page)
                 report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()')
                 report['fps']=page.locator('#fps').inner_text()
                 page.screenshot(path=str(OUT/'failure.png'),timeout=15000)

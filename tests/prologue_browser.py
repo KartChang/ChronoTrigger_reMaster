@@ -3,6 +3,7 @@ Snapshot and view hooks are read-only. No injected game state, synthetic saves o
 """
 from pathlib import Path
 import hashlib, json, math, subprocess, sys, time
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
 
@@ -89,7 +90,7 @@ def save_reload(page,name):
     before=snap(page);page.click('#save');page.wait_for_function("document.querySelector('#message').textContent.includes('本機存檔完成')")
     with page.expect_download() as event:page.click('#export')
     path=OUT/name;event.value.save_as(path);data=json.loads(path.read_text());assert data['version']==6
-    page.click('#import');page.set_input_files('#save-file',str(path));page.wait_for_function("document.querySelector('#message').textContent.includes('存檔已匯入')")
+    import_save(page,path,OUT);page.wait_for_function("document.querySelector('#message').textContent.includes('存檔已匯入')")
     now=snap(page);assert now['chapter']==before['chapter'];assert now['prologue']['first']==before['prologue']['first']
     for key in ['stage','checkedMarle','pendantPicked','pendantReturned','motherTalked']:assert now['prologue'][key]==before['prologue'][key]
     assert now['joined']==before['joined'];assert now['players'][0]['x']==before['players'][0]['x']
@@ -141,7 +142,7 @@ try:
         report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'saves':receipts,'limitations':['SNES-manual and screenshot reference reconstruction, not original event-code or pixel-exact topology.','Regional overworld; full 1000 AD map and other town interiors remain open.','Software Chromium evidence, not physical-controller performance or 90-point acceptance.']}
     except Exception as e:
         report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(e),'saves':receipts}
-        try:report['lastObserved']=snap(page);report['view']=page.evaluate('window.__CHRONO_TEST__.view()');page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+        try:report['importContext']=import_context(page);report['lastObserved']=snap(page);report['view']=page.evaluate('window.__CHRONO_TEST__.view()');page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
         except Exception as nested:report['observationError']=str(nested)
         raise
     finally:

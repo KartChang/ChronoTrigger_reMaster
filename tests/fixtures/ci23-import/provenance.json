@@ -1,0 +1,28 @@
+{
+  "runId": 35446872657,
+  "sourceSha": "c7a154929ccf28be8ea3e0e0b724982c92be95bf",
+  "purpose": "Unedited actual exports for unit parser/event-order regression only; not substitute browser success.",
+  "entries": [
+    {
+      "file": "refused-v6.json",
+      "artifactArchive": "CI23-browser.zip",
+      "originalPath": "prologue/prologue-refused-v6.json",
+      "bytes": 681,
+      "sha256": "fc524af615ace7b743d14f93e08d81106ec84e516d5f2e661d36be33f8c3c3a0"
+    },
+    {
+      "file": "cat-follow-v6.json",
+      "artifactArchive": "CI23-witness-good.zip",
+      "originalPath": "test-results/witness-good/cat-follow-v6.json",
+      "bytes": 707,
+      "sha256": "97923aeb79e6f6b6655ff482a7504ed3d4fada72f8c00e42c913060c1eb66f28"
+    },
+    {
+      "file": "rushed-v6.json",
+      "artifactArchive": "CI23-witness-bad.zip",
+      "originalPath": "test-results/witness-bad/fair-conduct-v6.json",
+      "bytes": 707,
+      "sha256": "766316f6aefd1fab66035c367d3f1f9249fa801966a9581da813022f0f10b28b"
+    }
+  ]
+}

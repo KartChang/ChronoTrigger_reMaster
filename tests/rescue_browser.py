@@ -5,6 +5,7 @@ constructed saves, teleports or accelerated clocks. Software GPU is not hardware
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from rescue_route import approach_supply_chest, approach_organ, input_context
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -100,7 +101,7 @@ try:
         page.on('request',lambda r:requests.append(r.url))
         try:
             page.goto('http://127.0.0.1:4181/?test=1',wait_until='load');page.wait_for_function('window.__CHRONO_TEST__ !== undefined',timeout=30000)
-            page.click('#start-fair-coop');page.set_input_files('#save-file',str(SOURCE))
+            page.click('#start-fair-coop');import_save(page,SOURCE,OUT)
             page.wait_for_function('window.__CHRONO_TEST__.snapshot().chapter==="castle"')
             assert snap(page)['rescue']['stage']=='none'
             tick=snap(page)['ticks'];wait_game(page,f's.ticks>{tick}',60)
@@ -223,7 +224,7 @@ try:
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
-                report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['fps']=page.locator('#fps').inner_text()
+                report['importContext']=import_context(page);report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['fps']=page.locator('#fps').inner_text()
                 report['view']=page.evaluate('window.__CHRONO_TEST__.view()');report['inputContext']=input_context(page);report['focused']=report['inputContext']['focused']
                 page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as e:report['observationError']=str(e)

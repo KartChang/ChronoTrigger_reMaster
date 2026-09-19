@@ -3,6 +3,7 @@ Imports through the real UI; never edits a save, injects state, teleports or acc
 """
 from pathlib import Path
 import json, math, subprocess, sys, time
+from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -52,7 +53,7 @@ try:
         page.on('request',lambda r:requests.append(r.url))
         try:
             page.goto('http://127.0.0.1:4178/?test=1',wait_until='load');page.wait_for_function('window.__CHRONO_TEST__ !== undefined',timeout=30000)
-            page.click('#start-fair-coop');page.set_input_files('#save-file',str(SOURCE))
+            page.click('#start-fair-coop');import_save(page,SOURCE,OUT)
             page.wait_for_function('window.__CHRONO_TEST__.snapshot().chapter==="canyon"')
             tick=snap(page)['ticks'];wait_game(page,f's.ticks>{tick}',60)
             talk(page,'托魯斯');assert snap(page)['chapter']=='truce'
@@ -125,7 +126,7 @@ try:
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
-                report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['fps']=page.locator('#fps').inner_text()
+                report['importContext']=import_context(page);report['lastObserved']=snap(page);report['paused']=page.evaluate('window.__CHRONO_TEST__.paused()');report['fps']=page.locator('#fps').inner_text()
                 page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as e:report['observationError']=str(e)
             raise

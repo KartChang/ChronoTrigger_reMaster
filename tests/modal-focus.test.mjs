@@ -129,3 +129,46 @@ test('modal page scrolling leaves browser modifier shortcuts alone',()=>{
  const k=setup(),content=new Element(k.d,'inventory-content');k.bag.append(content);Object.assign(content,{clientHeight:200,scrollHeight:1000});k.m.set(k.bag,k.close);
  const e={key:'End',ctrlKey:true,preventDefault(){this.prevented=true;},stopPropagation(){}};k.d.emit('keydown',e);assert.equal(content.scrollTop,0);assert.equal(e.prevented,undefined);k.m.dispose();
 });
+
+// VQ01E read-only presentation contracts. Synthetic DOM is not rendered/accessibility proof.
+test('equipment comparisons use the current slot, include sign, and never allocate a saved kit',async()=>{
+ const {equipmentComparison}=await import('../.test/equipment-ui.mjs');
+ const {newEquipment,itemById,wearEquipment,tradeEquipment}=await import('../.test/equipment.mjs');
+ let e=newEquipment();const before=structuredClone(e);
+ assert.equal(equipmentComparison(e,'crono',itemById('bronze-katana')),'普攻 +6 · 減傷 0｜相較目前：普攻 +6 · 減傷 0');
+ assert.match(equipmentComparison(e,'crono',itemById('bronze-mail')),/相較目前：普攻 0 · 減傷 \+3/);
+ assert.match(equipmentComparison(e,'marle',itemById('bronze-katana')),/適用：克羅諾/);
+ assert.doesNotMatch(equipmentComparison(e,'marle',itemById('bronze-katana')),/相較目前/);
+ assert.deepEqual(e,before);
+ e=wearEquipment(tradeEquipment(e,'bronze-katana',1,true),'crono','bronze-katana');
+ assert.match(equipmentComparison(e,'crono',itemById('wood-katana')),/相較目前：普攻 -6 · 減傷 0/);
+ assert.match(equipmentComparison(e,'crono',itemById('bronze-katana')),/相較目前：普攻 0 · 減傷 0/);
+});
+test('current member and worn item have explicit states instead of looking like unavailable purchases',()=>{
+ const k=realPanel();try{
+  const before=structuredClone(k.state),crono=k.d.getElementById('equipment-member-crono');
+  assert.equal(crono.dataset.current,'true');assert.equal(crono['aria-pressed'],'true');assert.match(crono.textContent,/檢視中/);
+  assert.equal(k.d.getElementById('equip-crono-wood-katana').dataset.current,'true');
+  press(k,'equipment-member-marle');assert.equal(k.d.getElementById('equipment-member-crono')['aria-pressed'],'false');
+  assert.equal(k.d.getElementById('equipment-member-marle')['aria-pressed'],'true');assert.deepEqual(k.state,before);
+ }finally{k.done();}
+});
+test('shop buttons name their own item and explain unavailable actions without changing trading rules',()=>{
+ const k=realPanel();const reason=id=>k.d.getElementById(id).children.map(c=>c.textContent).join('');try{
+  assert.equal(k.d.getElementById('buy-bronze-katana')['aria-label'],'買入青銅刀，150 G');
+  assert.equal(k.d.getElementById('buy-bronze-katana')['aria-describedby'],'equipment-shop-label-bronze-katana');
+  assert.match(reason('sell-bronze-katana'),/沒有可售物品/);
+  press(k,'buy-bronze-katana');press(k,'equip-crono-bronze-katana');assert.match(reason('sell-bronze-katana'),/裝備中，無閒置/);
+  assert.match(reason('buy-iron-katana'),/金幣不足/);assert.match(reason('equip-crono-wood-katana'),/普攻 -6/);
+  assert.equal(k.state.equipment.gold,250);assert.equal(k.state.equipment.worn.crono.weapon,'bronze-katana');
+ }finally{k.done();}
+});
+test('inventory reading surface is opaque with explicit disabled/current styles and forced-colors fallback',()=>{
+ const css=readFileSync(new URL('../src/inventory.css',import.meta.url),'utf8');
+ assert.match(css,/\.inventory-dialog\{background:#20354a;color:#e4eddf;opacity:1\}/);
+ assert.match(css,/button:disabled\{opacity:1;color:#bac9cd;background:#283d4d/);
+ assert.match(css,/button\[data-current="true"\]/);assert.match(css,/@media\(forced-colors:active\)/);
+ // Chosen sRGB foreground/background token pairs exceed our internal 4.5:1 reading target.
+ const luminance=hex=>hex.match(/../g).map(x=>parseInt(x,16)/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0);
+ for(const [fg,bg] of [['e4eddf','20354a'],['bac9cd','283d4d'],['f1dda7','334b5c'],['c4d2d6','20354a']])assert.ok((luminance(fg)+.05)/(luminance(bg)+.05)>4.5);
+});

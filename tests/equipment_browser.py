@@ -6,7 +6,8 @@ from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
-from inventory_comfort import measure_inventory, assert_inventory_layout
+from inventory_comfort import measure_inventory, assert_inventory_layout, assert_inventory_readability
+from inventory_touch import record_touch_inventory
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'equipment'
@@ -161,6 +162,11 @@ try:
             page.keyboard.press('i')
             assert page.locator('#buy-bronze-katana').is_visible()
             record_modal_boundary(page,'inventory-screen',OUT,'02-shop-focus')
+            initial_kit=snap(page)
+            assert '相較目前：普攻 +6' in page.locator('#equipment-shop-label-bronze-katana').inner_text()
+            assert '適用：瑪兒' in page.locator('#equipment-shop-label-iron-bow').inner_text()
+            assert page.locator('#buy-bronze-katana').get_attribute('aria-label')=='買入青銅刀，150 G'
+            assert snap(page)==initial_kit
             frozen=snap(page)['ticks']
             activate(page,'buy-bronze-katana');assert snap(page)['equipment']['gold']==250
             activate(page,'buy-bronze-mail');assert snap(page)['equipment']['gold']==130
@@ -182,6 +188,11 @@ try:
             assert page.locator('#inventory-screen').is_visible() and snap(page)['equipment']==protected
             assert snap(page)['ticks']==frozen
             assert snap(page)['prologue']['conduct']==facts
+            assert '金幣不足' in page.locator('#buy-iron-katana').inner_text()
+            assert '裝備中，無閒置' in page.locator('#sell-bronze-katana').inner_text()
+            assert '沒有可售物品' in page.locator('#sell-bronze-helm').inner_text()
+            assert '相較目前：普攻 -6' in page.locator('#equip-crono-wood-katana').inner_text()
+            assert page.locator('#equipment-member-crono').get_attribute('aria-pressed')=='true'
             record(page,'02-keyboard-trade-and-equipped')
             # Disclosure uses real keys, keeps all authored-value caveats and cannot mutate the save.
             protected= snap(page)
@@ -204,6 +215,7 @@ try:
                 record_modal_boundary(page,'inventory-screen',OUT,f'03-focus-{width}x{height}')
                 observations.append({'name':f'panel-{width}x{height}','geometry':geometry,'returnButton':close_rect})
                 layout=measure_inventory(page);assert_inventory_layout(layout)
+                assert_inventory_readability(page)
                 observations.append({'name':f'comfort-{width}x{height}','layout':layout})
                 # Native page keys only: no setting DOM scrollTop or gameplay state in browser tests.
                 held=snap(page);anchor=focus(page)
@@ -281,6 +293,9 @@ try:
             assert snap(page)['fair']['gatoWon'] and snap(page)['equipment']['gold']==90
             record(page,'06-final-import-focus')
             passed('real enemy turn deals 9, normal Crono attack deals 36; battle gear locks, independent P2 ATB, victory Enter and final v8 import all remain functional')
+            touch=record_touch_inventory(browser,saved,OUT,imported,snap)
+            observations.append({'name':'coarse-touch-inventory','report':touch})
+            passed('coarse-pointer portrait/landscape use 44px targets, real taps and own v8 with no progress/gear mutation')
             assert SOURCE.read_bytes()==source_bytes
             assert not errors,errors
             assert all(u.startswith(('http://127.0.0.1:4188/','data:','blob:')) for u in requests),requests

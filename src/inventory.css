@@ -43,3 +43,19 @@ body #inventory-screen .inventory-dialog{display:flex;flex-direction:column;min-
 }
 
 #inventory-screen .equipment-slot,#inventory-screen .equipment-shop-row{scroll-margin-block:8px}
+
+/* VQ01E: opaque reading surface, current-state clarity and reasons without hover. */
+body #inventory-screen .inventory-dialog{background:#20354a;color:#e4eddf;opacity:1}
+#inventory-screen #equipment-panel button{white-space:normal;overflow-wrap:anywhere;min-width:0}
+#inventory-screen #equipment-panel button:disabled{opacity:1;color:#bac9cd;background:#283d4d;border-color:#7c919c;cursor:default}
+#inventory-screen #equipment-panel button[data-current="true"]{color:#f1dda7;background:#334b5c;border-color:#d9bf86}
+#inventory-screen .equipment-action-reason,#inventory-screen .equipment-comparison{display:block;font-size:12px;line-height:1.5;font-weight:400;letter-spacing:0;margin-top:4px}
+#inventory-screen .equipment-comparison{color:#c4d2d6}
+#inventory-screen #equipment-panel .equipment-slot button{text-align:left}
+#inventory-screen .equipment-shop-row{align-items:stretch}
+@media(forced-colors:active){
+ body #inventory-screen .inventory-dialog{background:Canvas;color:CanvasText}
+ #inventory-screen #equipment-panel button:disabled{color:GrayText;border-color:GrayText}
+ #inventory-screen #equipment-panel button[data-current="true"]{color:CanvasText;border:2px solid Highlight}
+ #inventory-screen .equipment-comparison{color:CanvasText}
+}

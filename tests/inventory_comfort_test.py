@@ -1,7 +1,7 @@
 """Synthetic geometry tests for the assertions only; these are NOT gameplay evidence."""
 import copy
 import unittest
-from inventory_comfort import assert_inventory_layout
+from inventory_comfort import assert_inventory_layout, assert_inventory_readability
 
 
 def geometry():
@@ -34,5 +34,21 @@ class InventoryGeometryContract(unittest.TestCase):
             with self.subTest(key=key):
                 m=copy.deepcopy(geometry());m[key]=value
                 with self.assertRaises(AssertionError):assert_inventory_layout(m)
+
+
+    def test_readability_requires_opaque_surface_unique_item_names_and_clear_current_controls(self):
+        m={'panel':{'background':'rgb(32, 53, 74)','opacity':'1'},
+           'current':[{'opacity':'1'} for _ in range(4)],'disabled':[{'opacity':'1'}],
+           'comparisons':7,'buyNames':[f'item-{i}' for i in range(7)]}
+        class Page:
+            def evaluate(self,expression):return m
+        assert_inventory_readability(Page())
+        for key,value in [('panel',{'background':'rgba(32, 53, 74, 0.7)','opacity':'1'}),
+                          ('current',[{'opacity':'.5'} for _ in range(4)]),
+                          ('disabled',[{'opacity':'.4'}]),('comparisons',0),('buyNames',['buy']*7)]:
+            with self.subTest(key=key):
+                original=m[key];m[key]=value
+                with self.assertRaises(AssertionError):assert_inventory_readability(Page())
+                m[key]=original
 
 if __name__=='__main__':unittest.main()

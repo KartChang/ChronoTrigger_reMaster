@@ -26,3 +26,20 @@ def assert_inventory_layout(m):
     minimum=44 if m['coarse'] else 36
     assert m['buttonHeights'] and all(b['height']>=minimum-1 for b in m['buttonHeights']),m
     return m
+
+
+def assert_inventory_readability(page):
+    """Observe real computed styles and semantic state, not screenshot aesthetics."""
+    m=page.evaluate('''()=>{
+      const style=e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,color:s.color,opacity:s.opacity};};
+      const panel=document.querySelector('.inventory-dialog');
+      return {panel:style(panel),current:[...panel.querySelectorAll('button[data-current="true"]')].map(b=>({id:b.id,...style(b)})),
+        disabled:[...panel.querySelectorAll('#equipment-panel button:disabled')].map(b=>({id:b.id,...style(b)})),
+        comparisons:panel.querySelectorAll('.equipment-comparison').length,
+        buyNames:[...panel.querySelectorAll('[id^="buy-"]')].map(b=>b.getAttribute('aria-label'))};
+    }''')
+    assert m['panel']['background']=='rgb(32, 53, 74)' and m['panel']['opacity']=='1',m
+    assert len(m['current'])>=4 and all(x['opacity']=='1' for x in m['current']),m
+    assert m['disabled'] and all(x['opacity']=='1' for x in m['disabled']),m
+    assert m['comparisons']==7 and len(m['buyNames'])==len(set(m['buyNames']))==7,m
+    return m

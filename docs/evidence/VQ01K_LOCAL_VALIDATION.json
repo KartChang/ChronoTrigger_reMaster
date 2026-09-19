@@ -1,0 +1,151 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ01K-retained-early-camera-integration",
+  "version": "0.9.10",
+  "recordedUtc": "2026-09-19T19:47:45.364009+00:00",
+  "baseHead": "858fb70ce67f41e5974161c15a7306194fb804f2",
+  "baseSource": "4f8273035bb39f82b38d09d1973e4a4f09f1c63c",
+  "baseSourceTree": "5f47255d4fc8c77f070838a1afad1d2b3e6d8982",
+  "sourceArchiveTreeVerified": true,
+  "changes": [
+    {
+      "path": "index.html",
+      "bytes": 10259,
+      "before": "a05d8fca5b14f16c74f1e9ff1ae366696a64099b",
+      "after": "684cb12312bed4cd4a95b0ad115edb06c68ce2fc",
+      "sha256": "251f66f3a539c7495d58941da76317694d54704ae2f57e5421b284cc4ae07a54"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 1842,
+      "before": "9f97c590b66a697ff8a87a8c8feadc840107ca81",
+      "after": "9ab24cadc164db89ba5cd8d62bdc08e484b56529",
+      "sha256": "b63702c3df5fa374df3427936a966b94f23495cfad87d19fc7c86cd0ab485dd4"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 2057,
+      "before": "9d368c1949d950369eb8837a21935ef96c8b2277",
+      "after": "f1979d5848023c8794baf587cf8b32b7fafbaf5d",
+      "sha256": "25fdd3a99ac57ab4f99edf862fc8932a433ed65f403afc2614ef222ae35c53f3"
+    },
+    {
+      "path": "src/camera-motion.ts",
+      "bytes": 3646,
+      "before": null,
+      "after": "bfb74714b15886ef7dca03f0bc8bef688aa557fd",
+      "sha256": "204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44"
+    },
+    {
+      "path": "src/early-camera-view.ts",
+      "bytes": 2386,
+      "before": null,
+      "after": "a7576b476adce19a97559528633e41dffe7f7721",
+      "sha256": "1178068da232b893edccdade747c80b18e634a07fca37c9fe9107aa8cdf5475f"
+    },
+    {
+      "path": "src/early-comfort.ts",
+      "bytes": 4445,
+      "before": null,
+      "after": "5a94e05801be35c43288d2287ca006e4f5c4c511",
+      "sha256": "1e0785e83acbe50490a40d2b18586de00649d9d3314ea63538af9b6217dfec1b"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 33231,
+      "before": "9c4e801f543c5a48c3222c6922a9ba3cfed9bf72",
+      "after": "3ac318c4dec83ec58b139ee3bec40d933ee88269",
+      "sha256": "0e5353b561e2837347bda72297e15dabdd4b68998453b2d59b0f0ae191b4b5d9"
+    },
+    {
+      "path": "tests/early-camera-motion.test.mjs",
+      "bytes": 6041,
+      "before": null,
+      "after": "9e55a5bf2b3cdf6b17f3be969625e5365ee942b6",
+      "sha256": "c6c10531e4d84a13f7df94d14ec73aef22250428f516cce5f27552d50c51ead6"
+    },
+    {
+      "path": "tests/early-camera-view.test.mjs",
+      "bytes": 7699,
+      "before": null,
+      "after": "61c8e4f15a48816ac5243b17e471b0d2dd0dc414",
+      "sha256": "5ffef7fe5a93e663c6bcafa1af8108c29b1e743839f3fbf1670c40a577c4a81f"
+    },
+    {
+      "path": "tests/early_camera.py",
+      "bytes": 5697,
+      "before": null,
+      "after": "cd0f5fd5c6512115c81758c5e234668976687b22",
+      "sha256": "e917fc1c74c9ec68323ba25730d184017e9421e5a11bc9d8553698019d042115"
+    },
+    {
+      "path": "tests/early_camera_test.py",
+      "bytes": 3039,
+      "before": null,
+      "after": "8fff8424335688b17736238fd7f4a2a870eca906",
+      "sha256": "c3f37afb7c0239ec880d1532e34c17fecf17087647bcbb17cd155cf84f486909"
+    },
+    {
+      "path": "tests/early_comfort.py",
+      "bytes": 3062,
+      "before": "8d94977b65bbeb4290905faf2060e6961e97235c",
+      "after": "4efbab23046afc97a73a469c81c7627112d00de7",
+      "sha256": "3b4488f35bb23e4ec1cff43d60acebef6c67a4778b9155a76e68040a2bcf6de9"
+    },
+    {
+      "path": "tests/prologue_browser.py",
+      "bytes": 11516,
+      "before": "3a4fa151819b0bcbb8d1118cea6eb0129209d7c5",
+      "after": "92d69df1d58a53b0986641607afc29002142f4fd",
+      "sha256": "637001b8df5501c57953426fe828798f0bbf0dec78bed7170a90d826f9869324"
+    }
+  ],
+  "reused": {
+    "chain": "verified A -> B -> C working-delta; only self-contained camera modules integrated, no held scene promotion",
+    "earlyComfort": {
+      "origin": "VQ01B/delta/src/early-comfort.ts",
+      "sha256": "1e0785e83acbe50490a40d2b18586de00649d9d3314ea63538af9b6217dfec1b",
+      "unchanged": true
+    },
+    "cameraMotion": {
+      "origin": "VQ01C/working-delta/src/camera-motion.ts",
+      "sha256": "204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44",
+      "unchanged": true
+    }
+  },
+  "tests": {
+    "node": 794,
+    "python": 56,
+    "nodeBefore": 755,
+    "pythonBefore": 48,
+    "npmRunCheck": "passed",
+    "pythonCompile": "passed",
+    "prologueOriginalAssertions": 37,
+    "prologueCurrentAssertions": 37,
+    "originalAssertionsRetained": true,
+    "equipmentKeyboardCoreInputSaveWorkflowUnchanged": true
+  },
+  "implemented": [
+    "Reuse saved early orthographic frame and fixed-tick safety-constrained motion, without rebuilding held art.",
+    "Observe actual current sprite mesh vertices (foot pivot, scale, lunge) and frame visible party, nearby existing interaction subjects, and Gato in battle.",
+    "Preserve waking/miniature overworld/later-chapter base cameras; clear response on state identity changes including same-map import.",
+    "Respect reduced-motion media and paused simulation ticks; copied inspection prevents external mutation.",
+    "Extend six genuine initial-meeting views with actual scene projection; add six bedroom/home views, real Escape pause and emulated reduced-motion state checks, and observation after same-run real imports."
+  ],
+  "html": {
+    "bytes": 5599950,
+    "sha256": "7e8834373e33c316fb02c16f2ab7ea10efd096a8f8932e3baff61b575fe0c82c",
+    "status": "unaccepted local build"
+  },
+  "limits": {
+    "localBrowserRun": false,
+    "newCiAccepted": false,
+    "newPagesAccepted": false,
+    "fullScenePublished": false,
+    "physicalDeviceEvidence": false,
+    "early90Approved": false,
+    "restrictedOperationsRetried": false,
+    "nullEngineIsBrowserEvidence": false
+  },
+  "note": "Prepublication receipt. GitHub checkpoint records later exact source commit/run and cloud verification. Preserve current main docs, not archive source docs."
+}

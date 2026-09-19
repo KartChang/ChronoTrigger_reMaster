@@ -84,3 +84,9 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 `src/prologue-data.ts` 的 `prologueHint` 依原有距離／優先序返回查看女孩、拾取／歸還項鍊與同行邀請文字，不寫入劇情資料；`main.ts` 將文字與單雙人正確按鍵接到既有互動按鈕。`adventure.css` 只在初遇探索狀態調整字級、按鈕尺寸及提示位置，不替换場景 renderer。
 
 `tests/meeting_approach.py` 與唯讀 `meeting-approach-probe.js` 識別現有近距離 collision 邊界，於任一原路徑步驟停止舊座標等待並釋放按鍵。`tests/early_comfort.py` 由兩條真實序章旅程觀察三種 viewport 的 DOM 邊界並保存截圖；對應單元測試的事件替身／合成幾何不能作為實際畫面證據。驗證結果與接續一律看 STATUS。
+
+## 前段鏡頭整合（VQ01K / 0.9.10）
+
+`src/early-comfort.ts` 與 `src/camera-motion.ts` 分別沿用保存的 VQ01B 框景與 VQ01C 固定 tick 緩動，非重寫。`src/early-camera-view.ts` 唯讀觀察既有 sprite 的實際變換頂點，將腳底支點、縮放、突進納入框景，再透過 Babylon camera 投影輸出觀察矩形。`World.frameEarlyScene` 整合有效隊員、附近既有可見互動對象與加藤；依 state identity、章節／模式、視窗及 reduced-motion 重置或約束回應。起床鏡頭、大地圖及後段維持既有規則。`inspectEarlyCamera` 複製輸出，不提供寫入遊戲狀態或 live frame 的介面。
+
+`tests/early_camera.py` 接到原有序章旅程，觀察房間／家中／初遇視窗、真實暫停與原生匯入後取景；reduced-motion 是媒體模擬而非真機。相應 Node NullEngine 與 Python 合成幾何只測方法／斷言；實際接受狀態看 STATUS。沒有啟用保存中的 full-scene／occlusion renderer，沒有改 core、輸入、存檔或重畫素材。

@@ -1,28 +1,28 @@
-# Execution TODO — early comfort; VQ01J / CI27
+# Execution TODO — early camera; VQ01K / CI28
 
-Main only / non-force. Current exact authority: STATUS.md and evidence/CI27_CHECKPOINT.json. No repository history audit, unchanged accepted-run replay, completed chapter rebuild or new product plan.
+Main only / non-force. Exact source/run/cloud facts belong to STATUS and evidence/CI28_CHECKPOINT.json. Execute current work, not repository/history audit, old acceptance reruns or a product restart.
 
-## Current batch
+## Current execution
 
-VQ01J / 0.9.9 published eight tested paths: complete detached equipment-panel replacement, stable merchant comparison catalog with disabled unowned states, consistent action reason lines/desktop widths, disabled/stale callback guards, and real sale-layout diagnostics. Local755Node/48Python/assets/typecheck/build/compile passed. All80 original equipment assertions retained, now82. Unit range/geometry ports are not browser acceptance.
+VQ01K 0.9.10 source 3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3 is published. Only CI28 **35465946145** is current; last observed in_progress, push/attempt1. On E2E completion read this exact run once. Pending: preserve/report without polling/cancel/retry/duplicate dispatch. Failure: first actual same-run root using raw report/trace/state/image. Do not shorten journeys, remove assertions, forge saves or merely extend timeouts.
 
-Only current validation **CI27 35460638960**, source **4f8273035bb39f82b38d09d1973e4a4f09f1c63c**, push/attempt1; last observed queued/null at2026-09-19T18:15:57Z. Read exact run once after E2E notice. Pending: freeze/save/report, no polling/cancel/duplicate dispatch. Failure: first same-run root; for merchant repaint inspect before/after scroll and row geometry, source-linked observations, traceback and PNGs. Success requires all3jobs, actual last-copy sale without scroll/row displacement or unsafe focus, seven fine/two coarse inventory cases, all native chooser/rejection/state/focus/effects checks, equipment/economy/ATB/IndexedDB/victory and every original journey. Retain originals, inspect actual pictures, verify matching Pages/source/HTML. Do not label partial success accepted.
+Success requires all three jobs, twelve early camera viewport cases (six existing meeting plus six bedroom/home), real pause/resume, emulated reduced-motion and same-run native-import camera observation, plus every retained keyboard/native import/merchant/equipment/economy/ATB/victory/IndexedDB/coarse/fine and original chapter journey. Preserve raw artifacts, inspect actual images and match Pages/source/HTML before acceptance. Unit794/Python56 are not browser or art acceptance.
 
-CI26 completed failure in equipment step13 after gold90/helmet0/safe-row focus, at the <=2px scroll assertion. No historical before/after geometry existed. Keyboard, both prologue contact orders/six viewports and both witnesses passed. CI25 meeting root is not current; no unchanged rerun. Source physics/InputBoundary/saves/prices remain intact. No edited positive saves, writable hooks, assertion removals, swallowed exceptions or timeout-only fixes.
+CI27/Pages21 are fully accepted and retained; last public accepted version0.9.9. Merchant last-copy scroll/row displacement both0, all original journeys executed. Old native-picker, first-contact and chest/organ roots are closed. Do not reaccept CI27 or fall back to CI21 as the latest accepted version.
 
-## Product priority and scope retained
+## Product priority
 
-T05 first: opening scenes, characters, materials, models, actions, camera, occlusion and HUD need comfortable play with evidence-supported >=90 before later expansion. Repeated paving/wood, simplified furniture/mother, compressed courtroom and geographic composition remain gaps. No test-count/asset-size score. Use retained VQ01+B+C, not repainting.
+T05 early scene/character/material/model/animation/camera/occlusion/HUD/play comfort first, with real evidence supporting >=90 before later chapter expansion. Portrait actors were too small in CI27; saved B/C camera framing/filter has now been integrated, not recreated. New camera pictures still await CI28. Repeated wood/paving, simple furniture/mother, compressed court and full geography remain open.
 
-Held renderer/local-browser operations have no new permission; do not retry/bypass or publish incomplete old staging. Continue permissible independent improvements. Prologue-renderer blob2711a74185aacf3c6bddf9db85ba99a2afbc507a remains. Recovery hashes in DELIVERY_INDEX; current main UI/docs win.
+Full saved VQ01+B+C visuals are not published. The specific held prologue-renderer write and local browser operation have no new permission; no retry/bypass/incomplete staging promotion. Reuse the saved chain only when needed, merge current UI/docs and already integrated camera work. Renderer blob remains2711a74185aacf3c6bddf9db85ba99a2afbc507a.
 
-| TODO | Remaining scope; not a restart |
+| TODO | Remaining scope, not a restart |
 |---|---|
 | T03 | Original hidden rules, version differences, complete map/room topology and numeric fidelity. |
-| T04 | Growth, rewards/drops, complete shops/consumables/accessories/roster/skills and dual/triple techs. Do not rebuild accepted equipment. Authored prices/bonuses are not original balance. |
-| T05 | Complete art/animation/cleared audio. Early scenes and play comfort first. |
-| T06 | Remaining2300 campaign, other eras, main/side quests and endings. Arrival is not the full future. |
-| T07 | Overall>=90, each dimension>=80%, zero critical issues, required assets and physical input/FPS/frame-time/loading/memory/background/saves evidence. Old30 is stale. |
-| T08 | Each batch: coherent tested code, GitHub non-force commit/readback, verified project-folder retention, one full CI, documents with [skip ci]. |
+| T04 | Growth, rewards/drops, complete shops/consumables/accessories/roster/skills and dual/triple techs. Do not rebuild accepted equipment; authored prices/bonuses are not original balance. |
+| T05 | Full art/animation/cleared music/audio; early visual and play comfort first. |
+| T06 | Remaining future campaign, other eras, main/side quests and endings; 2300 arrival is not the complete future. |
+| T07 | Overall>=90, each dimension>=80%, zero critical, required asset gates and physical input/FPS/frame-time/loading/memory/background/saves evidence. Old30 is stale. |
+| T08 | Coherent tested batch; GitHub commit/non-force/readback, correct-folder raw-verified cloud retention, one full CI, then [skip ci] progress documents. |
 
-Preserve home→scaled overworld→fair→600 rescue→return/trial/two verdicts/two escapes/Fritz→three-part Dragon Tank→reunion/Gate/2300 arrival, equipment/Melchior/v1–v8. TS/Babylon/esbuild/fixedATB/A*/InputBoundary, P1Crono/P2Lucca/autonomous third. No P3/ARPG/framework restart. CI21/Pages15 and CI20/Pages14/chest/organ remain accepted and closed. Full scenes, physical devices and final90 remain unaccepted.
+Preserve home→scaled overworld→fair→600 rescue→return/trial/two verdicts/two escapes/Fritz→three-part Dragon Tank→reunion/Gate/2300 arrival; equipment/Melchior/v1–v8; TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third. No P3/ARPG/new framework. No physical-device/full-scene/final90 approval yet.

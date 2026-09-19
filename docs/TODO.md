@@ -1,34 +1,28 @@
-# Execution TODO — VQ01H / CI25; early comfort first
+# Execution TODO — early comfort; VQ01I continuation
 
-2026-09-19 UTC. Main only/non-force. STATUS and IMMEDIATE_CONTINUATION are current authority. No repository audit, completed chapter rebuild, parallel candidate or unchanged accepted-run replay.
+Main only / non-force. Current exact state is in STATUS.md and evidence/CI26_CHECKPOINT.json. Do not audit the repository history, replay unchanged accepted tests, rebuild completed chapters or restart the product plan.
 
-## Current exact work
+## Current batch
 
-Published0.9.7 source **afec069dfb6fe4fc169c4b7240ec1af270914cf5**, tree **1a8159a14119dd158d3d50cd4dca4abe26a4c43f**, ten tested paths. Pause-safe combat-effect transfer, same-map load transient cleanup, preserved feedback reading time and full-snapshot diagnostic paths implemented.729Node/35Python/typecheck/build passed; no local browser acceptance. Code and raw-verified Drive bundle saved, not dependent on temporary storage.
+VQ01I / 0.9.8 is published with thirteen tested code/support files: event-aware first-meeting approach, correct nearby action labels and co-op key hints, larger early interaction UI, separated notices, and six actual-viewport checks added to two genuine routes. Local 746 Node / 40 Python passed; all 37 original prologue assertions remain. Implementation is not browser acceptance.
 
-Only validation **CI25 35454492528**, push/attempt1, last observed **in_progress**. After E2E notice read exactrun once. Pending:freeze/report, do not wait/cancel/redispatch. Failure: first actual same-run root; native-import-report stage/sequence/freezeComparison paths+hashes, driver report/log/PNG. Success: all3jobs, native import and state/rejection/reselection/focus, actual new feedback/transient images, seven fine/two coarse menus and equipment/economy/ATB/victory, every existing journey, raw artifact retention and matching Pages. Do not run CI for [skip ci] docs.
+Only current validation: **CI26 35458116851**, source **cca5690500d4ff7954698de406da736c957d2bc3**. Last observed in_progress, push/attempt1. On E2E completion read this exact run once. Pending: save/report; no polling, cancellation or duplicate dispatch. Failure: first actual same-run root, matching report/log/lastObserved/failure PNG; for this route inspect the first-meeting leg trace. Success requires all three jobs, both original first-contact orders, all six new early-viewport cases, original native chooser/rejection/state/focus/effects checks, equipment/economy/ATB/IndexedDB/victory, seven fine/two coarse inventory cases and all remaining journeys. Retain original artifacts, inspect actual pictures and verify matching Pages/source/HTML before acceptance.
 
-CI24 completedfailure: validate105913253190 failedstep11 snapshot equality after actual first Enter chooser, before selection. Good105913253430/bad105913253444 succeeded,20nativeimports total. Exact historical differing field was not captured. Baseline production draw mutation reproduced locally; no root-closure claim until CI25. No playable/newPages. CI23/CI22 are not active; skipped equipment is not CI22 closure. Do not rerun unchanged historical candidates.
+CI25 is completed failure, not active. Its real root is initial collision interrupting a coordinate-only movement wait, not Gato or save provenance. Do not relax core collision/InputBoundary, edit positive saves, inject progress, remove assertions or merely lengthen timeouts. The candidate correction is now in CI26. CI21/Pages15, CI20/Pages14 and old chest/organ roots remain closed.
 
-Keep complete state comparison and original journey assertions. No writable testhook, fabricated positive save, removed assertion, exception swallowing or timeout-only fix. Pause/readability dwell tests are not higher timeout allowances. Unit ports and coarse-pointer emulation are not physical-device proof.
+## Product priority and scope retained
 
-## Accepted, not to reopen
+T05 comes first: opening scenes, characters, materials, models, actions, camera, occlusion and HUD must produce comfortable play and evidence-supported >=90 before later expansion. Repeated paving/wood, simplified furniture/mother, compressed courtroom and geographic composition remain real gaps. No test-count or asset-size score. Use already implemented VQ01+B+C work, not repainting.
 
-CI21/35440863455, source69dc0524b593df6948c11397280bfcedc841236f, all3jobs/23reports/seven fine-pointer views; Pages15/35442701457 and retained bundle19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5 remain the last accepted0.9.4. CI20/Pages14/chest/organ closed. New0.9.7 remains unaccepted.
+The specific held renderer write and local browser execution have no new administrative permission. Do not retry/bypass them or promote incomplete old staging. Continue permissible independent improvements. Current prologue-renderer blob is 2711a74185aacf3c6bddf9db85ba99a2afbc507a. Recovery chain and hashes are in DELIVERY_INDEX; current main UI/docs prevail.
 
-## Product priority and retained work
+| TODO | Remaining scope; not a restart |
+|---|---|
+| T03 | Original hidden rules, version differences, complete map/room topology and numeric fidelity. |
+| T04 | Growth, rewards/drops, complete shops/consumables/accessories/roster/skills and dual/triple techs. Do not rebuild accepted equipment. Authored prices/bonuses are not original balance. |
+| T05 | Complete art/animation/cleared audio. Early scenes and play comfort first. |
+| T06 | Remaining 2300 campaign, other eras, main/side quests and endings. Arrival is not the full future. |
+| T07 | Overall >=90, each dimension >=80%, zero critical issues, required assets and physical input/FPS/frame-time/loading/memory/background/saves evidence. Old30 is stale. |
+| T08 | Every batch: coherent tested code, GitHub commit/non-force/readback, verified project-folder retention, one new full CI, then documents with [skip ci]. |
 
-First evidence-backed comfortable early scenes, characters, movement/actions, camera, occlusion, HUD and sound; later chapters/systems wait. No synthetic90. Repeated floor/paving, simplified scenes and geography remain. Use already implemented VQ01+B+C; do not repaint/rebuild. The restricted new prologue-renderer publication has no new permission. No retry/bypass or incomplete staging promotion. Baselineblob2711a74185aacf3c6bddf9db85ba99a2afbc507a unchanged.
-
-Held A1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k -> B1vkPuPN8HN46d1uHaJY9__OPrf455k3QV -> C16iHw_Py_RGLr819nPAEG6d5h98JuyLNe working-delta only as needed, per-file hashes in DELIVERY_INDEX/archive. Preserve currentUI/docs; merge lifetime changes. No old independent-ui; historical43/31 not currentcounts. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE node_modules only/hardlinks. ROM already private, no reupload.
-
-## Full scope retained
-
-T03 original hidden rules/version differences/full map-room topology/numeric fidelity.
-T04 growth/rewards/drops/full shops/consumables/accessories/roster/skills/dual-triple techs; retain accepted equipment framework.400G/prices/bonuses are authored, not originalbalance.
-T05 complete art/animation/assets/music; early90 first, Truce/castle/court details/geography/full directions/actions/clearedaudio remain.
-T06 remaining2300campaign/othereras/main-sidequests/endings; arrival is not completefuture.
-T07 overall>=90/eachdimension>=80%/zero critical/requiredassets/physicalinput/FPS/frame-time/loading/memory/background/saves. Old30 stale; no reduced denominator or syntheticproof.
-T08 every coherent batch actualcommit/non-force/readback, verified correct-folder cloud save, onefullCI; documentation[skip ci].
-
-Preserve home/fair/600/rescue/return/trial/twoverdicts/twoescapes/Fritz/three-parttank/reunion/Gate/2300arrival, Melchior/equipment/v1–v8. TypeScript/Babylon/esbuild/fixedATB/A*/InputBoundary, P1Crono/P2Lucca/autonomous third; noP3/ARPG/framework restart.
+Preserve home → scaled overworld → fair → 600 rescue → return/trial/two verdicts/two escapes/Fritz → three-part Dragon Tank → reunion/Gate/2300 arrival, equipment/Melchior/v1–v8. Preserve TS/Babylon/esbuild, fixedATB/A*/InputBoundary and P1 Crono/P2 Lucca/autonomous third. No P3/ARPG/new framework. Physical devices, full scenes and final90 are not accepted.

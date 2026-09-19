@@ -77,4 +77,10 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 
 `src/presentation-state.ts` 的 `takeFrameEffects` 只由未暫停的 main-loop 交付效果，`World.draw` 接收 readonly effect batch，不再清除 `State.effects`。`FeedbackClock` 只計算未暫停閱讀時間。`src/render.ts` 在 state identity 或章節變更時清理自有傷害數字／揮擊 meshes、突進及姿勢歷史；不重建共用人物、場景或資產。`src/save-import.ts` 的原生請求／讀取／取消生命週期不變。
 
-`tests/native_import.py` 為八份實際旅程共用原生選檔 driver；保留完整 snapshot 相等斷言，失敗報告新增差異欄位路徑與完整 hash，不排除 effects 或 ticks。`tests/presentation-pause.test.mjs` 執行 production 方法配合事件／圖形 ports，屬單元測試，不是 WebGL 或真機證據。`keyboard_browser.py` 才驗證實際原生匯入後的 transient 清理及暫停時的提示閱讀時間；最新結果／來源／雲端收據只看 STATUS 和 CI25_CHECKPOINT。
+`tests/native_import.py` 為八份實際旅程共用原生選檔 driver；保留完整 snapshot 相等斷言，失敗報告新增差異欄位路徑與完整 hash，不排除 effects 或 ticks。`tests/presentation-pause.test.mjs` 執行 production 方法配合事件／圖形 ports，屬單元測試，不是 WebGL 或真機證據。`keyboard_browser.py` 才驗證實際原生匯入後的 transient 清理及暫停時的提示閱讀時間；最新結果／來源／雲端收據只看 STATUS 指定的當前 CI checkpoint。
+
+## 初遇邊界與提示（VQ01I / 0.9.8）
+
+`src/prologue-data.ts` 的 `prologueHint` 依原有距離／優先序返回查看女孩、拾取／歸還項鍊與同行邀請文字，不寫入劇情資料；`main.ts` 將文字與單雙人正確按鍵接到既有互動按鈕。`adventure.css` 只在初遇探索狀態調整字級、按鈕尺寸及提示位置，不替换場景 renderer。
+
+`tests/meeting_approach.py` 與唯讀 `meeting-approach-probe.js` 識別現有近距離 collision 邊界，於任一原路徑步驟停止舊座標等待並釋放按鍵。`tests/early_comfort.py` 由兩條真實序章旅程觀察三種 viewport 的 DOM 邊界並保存截圖；對應單元測試的事件替身／合成幾何不能作為實際畫面證據。驗證結果與接續一律看 STATUS。

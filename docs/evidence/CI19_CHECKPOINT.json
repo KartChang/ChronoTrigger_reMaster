@@ -1,5 +1,5 @@
 {
-  "schemaVersion":3,
+  "schemaVersion":4,
   "repository":"KartChang/ChronoTrigger_reMaster",
   "sourceSha":"16313037a0d1ab59358963014e797f7e11ea95d1",
   "run":35355492232,
@@ -8,16 +8,13 @@
   "conclusion":"failure",
   "jobs":{"validate":105633716808,"validateConclusion":"failure","good":105633716547,"goodConclusion":"success","bad":105633716751,"badConclusion":"success"},
   "firstFailedStep":13,
-  "firstRoot":"equipment-first-native-filechooser",
-  "keyboardAndPrologue":"passed",
-  "laterValidateJourneys":"skipped",
+  "historicalFirstRoot":"equipment-first-native-filechooser",
   "artifactCount":4,
   "playableArtifactProduced":false,
-  "allThreePassed":false,
-  "repair":{"independentInputUIPublished":true,"sourceSha":"0e65066d2e1e54cfff9b9a7a4d5466a694a79484","browserAccepted":false,"blockedSceneContentIncluded":false},
-  "currentValidationRun":35436087487,
-  "currentValidationNumber":20,
-  "currentCheckpoint":"CI20_CHECKPOINT.json",
-  "retainedVisualCheckpoint":"VQ01C_CHECKPOINT.json",
-  "next":"Receive exactCI20, not rerunCI19 or old chest/organ roots. Allthreejobs required; inspect genuine nativechooser, same-run exports, equipment/menu and matchingPages. IndependentUI acceptance is not held-scene or90approval."
+  "repair":{"sourceSha":"0e65066d2e1e54cfff9b9a7a4d5466a694a79484","run":35436087487,"allThreeJobsPassed":true,"genuineNativeChooserEvents":3,"browserAcceptedInTestedScope":true,"sameRunV6AndOwnV8Used":true,"blockedNewSceneContentIncluded":false},
+  "rootClosed":true,
+  "doNotRerunHistoricalCI":true,
+  "currentReceipt":"CI20_ACCEPTANCE.json",
+  "activeValidation":null,
+  "next":"CI19 is historical. Continue early visual/play comfort; do not reopen this root or earlier accepted chest/organ paths."
 }

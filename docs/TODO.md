@@ -1,43 +1,39 @@
-# Execution TODO — CI20 active; early visual/play comfort first
+# Execution TODO — CI20/Pages14 closed; early visual comfort first
 
-2026-09-19. Main only/non-force. Current STATUS and evidence/CI20_CHECKPOINT.json are authority. No historical audit, accepted chapter rewrite, planning-only reply or repeated blocked-write loop. Full scope unchanged.
+Updated2026-09-19. Main only/non-force; single AI workflow, no parallel branch/PR/audit. STATUS and IMMEDIATE_CONTINUATION are current authority. This handoff changes documentation only.
 
-## Completed and published this batch
+## Completed current closure — do not rerun
 
-Independent input/menu0.9.3 source **0e65066d2e1e54cfff9b9a7a4d5466a694a79484**, treeaaef95965728d2eb068eaf3be6cb08e3b0215af9. Fourteen source/test/build files; fresh **681Node/16Python**, typecheck/build/assets/compileall pass. Commit/non-force main/ref readback and aggregate tested-object comparison complete.
+CI20 `35436087487` / source `0e65066d2e1e54cfff9b9a7a4d5466a694a79484` completed success in all3jobs.20 actual journey/modal reports passed. Native chooser, equipment purchase/equip/spare sale/wallet/stock/v8/IndexedDB/equipped combat/victory Enter and existing keyboard/story/co-op journeys are accepted in their tested software-browser scope. CI19 picker and earlier chest/organ roots are closed, not next work.
 
-Published native Enter/Space/picker lifecycle repair, common quiet-guide HUD, modal Tab/Shift+Tab and background inert, nested pause focus restoration, stable post-trade item-row focus and scroll, repeated Enter protection, sticky inventory return/feedback and narrow/short display behavior. Original picker/real same-run save/stock/wallet/damage/story/co-op assertions retained. Scene renderers, actor painters, core/saves, assets, quality and existing CI workflow unchanged. This is an independent complete UI increment, not partial VQ scene deployment.
+Pages14 `35437851648` succeeded; deployment.json/source/CI20/playable10582547615/digest/HTML match. Public HTTP byte verification passed in deploy105883495029/step3. Downloaded playable and stagedHTML identical SHA7f3246da5fae089320a4b6554971ffe726ada7c7a5249ffc7e4ee575369b45d2. Six original artifacts, receipt, report index and actual screenshot review retained and raw-readback verified in Drive **1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n**. No activeCI/newcandidate/CI21. Do not repeat this closure or all old evidence downloads.
 
-## Sole current validation
+## Immediate next work
 
-**CI20 35436087487**, push/attempt1. Registration observation all3 in_progress: validate105878862672 npm check/host tests successful, keyboard step11 running; bad105878862731 and good105878862753 build/install successful, fresh journey step9 running. Saved status only; allthree success required. Source frozen. One new full CI, no manual dispatch, rerun, cancellation, long polling or Pages restart. Later docs HEAD is not a second candidate.
+**T05 early visual/play comfort stays first.** Work from acceptedUI main and the already implemented held VQ01+B+C scene/model/actor/camera chain.31 residual paths versus acceptedUI remain unpublished. Do not repaint/rebuild already stored room/furniture/stall kits, mother/heroes or camera mechanisms. Recover the explicit base/B/C chain only as needed using C's per-file ledger, preserve current main documents.
 
-Receive same run after completion. Pending: preserve/report. Failure: actual first failure from same-run logs/report/lastObserved/focused/importAttempts/failure.png, not an inferred old root; no assertion deletion, injected progress, manufactured saves or timeout-only repair. Success: retain five artifacts with source/run/IDs/hash/raw readback, inspect actual menus/native import/gear/keyboard/screens, then matching Pages deployment.json/source/playable/HTML. CI20 cannot approve held scene/model/camera work or90points.
+Held full scene publication still needs normal permission for the previously blocked new src/prologue-render.ts; no changed permission result in this handoff. Do not repeat/bypass the blocked write or promote incomplete old staging. Continue genuinely independent permissible early refinements and preserve files, not merely repeated diagnostics. No new browser retry or generated imagery as gameplay proof.
 
-## Implemented and retained, still not full visual publication
+Actual CI20 screens show that baseline high-frequency wood/paving, simple furniture/mother and compressed court still need the held art work; short portrait/landscape inventory header/footer consumes significant content height and remains a comfort refinement item. Functional tests passed: do not reopen a failed-CI root for this visual observation. Real compositing, action animation, occlusion, movement, readableHUD and performance/user play feedback must establish early90. Truce/castle/court detail, full hero/NPC directions/actions, original geography, cleared audio and physical devices remain.
 
-VQ01 base30paths: new early home/bedroom materials and furniture/cloth/ceramic models, fair awnings/bell/telepod, mother/vendors/heroes and quiet HUD. VQ01B13delta/cumulative35paths: portrait actor-safe camera, actual-triangle foreground fadegroups, foot/shadow correction and projected-vertex observations.
+When a coherent permitted runtime batch is ready: test all related work, commit/non-force main/readback and one full existingCI. Do not startCI for this docs-only handoff. PendingCI:freeze/report. Failure:same-run actual firstroot/log/report/lastObserved/focused/failurePNG. Success:all3jobs/exactartifacts/actualscreens/matchedPages. Keep real chooser/export/v8/stock/wallet/ATB assertions; no state injection, fabricated saves, removed assertions or timeout-only patches.
 
-VQ01C full-working15delta/cumulative43paths adds fixed-tick camera smoothing with immediate safe zoom-out, pause/reset/reduced-motion handling and overlapping UI. Fresh763Node/16Python pass. After independentUI publication **31 differences remain** in the held full visual chain, including its specific build/test wiring. No local browser retry/new screenshots/hardware or visual score. CPU geometry, DOM doubles and matrix tests are not aesthetic acceptance.
+## Published versus held evidence
 
-Latest Drive **16iHw_Py_RGLr819nPAEG6d5h98JuyLNe**,233959bytes,SHA26548a1a9d6bf70899b8d002e97ebf8b6733bb0468b2326e02e4d28d9eea7ea2,39raw-readback-verified records. Contains independently published14files and separate15working replacements with full43/31 ledger. BaseVQ01 andB remain required for held chain; details DELIVERY_INDEX.md. Current main docs must not be replaced by older packaged docs.
+Accepted0.9.3 independentUI:14files, prior681Node/16Python local tests, now genuineCI20/Pages14. Native input/quiet-guideHUD/modal focus/inert/row-scroll/stickycontrols and responsive layouts published. Scene/actor/core/save/assets/workflow remained baseline.
+Held VQ01+B+C:43 cumulative paths versus old0.9.0,31 residual versus acceptedUI; prior763Node/16Python. Rooms/materials/props/actors, portrait camera/triangle foreground fades/foot-shadows/easing/reducedmotion implemented and retained, NOT browser/visual approved. These old test counts were not rerun during handoff and are not quality scores.
 
-Prior blocked new prologue-render.ts was not retried, modified, published or included in latest package/full executable. Independent UI leaves baseline scene bytes untouched. Full scene publication remains subject to normal authorization; do not bypass the original block, use a different encoding/route or promote old partial trees. Successful independentUI publication is not permission to resubmit the blocked content.
+## Durable chain
 
-## Earlier acceptance retained
+Folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb. Current acceptance1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n. Held base1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k -> B1vkPuPN8HN46d1uHaJY9__OPrf455k3QV -> C16iHw_Py_RGLr819nPAEG6d5h98JuyLNe working-delta/. PublishedUI comes from main, not reapplying C independent-ui/. Exact hashes/contents in DELIVERY_INDEX and C evidence/VQ01C_LOCAL_VALIDATION.json. Dependencies in1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE, node_modules only. ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM private; no re-upload/public redistribution.
 
-CI19 35355492232: validate nativechooser step13 failed; good/bad passed; keyboard/prologue passed, later validate skipped; four artifacts/no playable. Repair is now in CI20, not yet browser accepted. CI18 35344366293/source8c6f8fb97ef96718d542d1c1f29d44bade46d969/Pages12 35346462349 remains accepted0.8.2. No repeated old chest/organ acceptance or forced Pages selection.
+## Existing full product scope — retained, not restarted
 
-## Remaining early-quality work before later expansion
+Home/miniatureworld/firstmeeting/fair/600AD/rescue/queenreturn/sealedwitnesses/twoversicts/twoprisonroutes/Fritz/Lucca/three-parttank/reunion/Gate/2300arrival exist. Equipment/Melchior/v8 now has CI20 behavioral acceptance. Preserve TypeScript/Babylon/esbuild, ATB/A*/InputBoundary, P1Crono/P2Lucca/autonomousstorycompanion; noP3/ARPG/newframework.
 
-Normal full scene publication and genuine same-source bedroom/home/mother/fair/firstmeeting/telepod/readycombat/NPC/court screens; actual transparency/occlusion/animation/comfortable input/UI and performance at desktop/narrow/short viewports. Truce/castle/court details, complete hero/NPC actions, original map fidelity, rights-cleared audio and physical devices remain. Keep supported90target; do not assign an inflated score or count tests/pixels as quality.
-
-## Full product scope retained
-
-Existing home/miniatureworld/firstmeeting/fair/600AD/rescue/queenreturn/sealedwitnesses/twoverdicts/twoprisonroutes/Fritz/Lucca/three-parttank/reunion/Gate/2300arrival remain implemented. Equipment/Melchior/v8 retained. No P3/ARPG/new framework; preserve story P1Crono/P2Lucca and autonomous companion.
-T03: original hidden rules/version differences/full map-room topology/numerical fidelity; private header metadata is insufficient.
-T04: real growth/levels/rewards/drops/full shops/consumables/accessories/roster/skills/dual-triple techs; authored400G/13items are not original values.
-T05: complete art/animation/edited-asset workflow/audio, earlyscenes first.
+T03: original hidden rules, patch differences, full map-room topology and numerical fidelity; private header metadata is insufficient.
+T04: realgrowth/levels/rewards/drops/full shops/consumables/accessories/roster/skills/dual-tripletechs;400G/13items are authored values, not original data. Do not rebuild the accepted equipment framework.
+T05: complete art/animation/edited-asset workflow/audio, with earlyscenes priority above.
 T06: remaining2300campaign/allothereras/mainquests/sidequests/endings; arrival is not wholefuture.
-T07: whole-game>=90/eachdimension>=80%/zero critical/requiredassets/evidencegates/physicalinput/FPS/frame-time/loading/memory/background/saves; old30 stale, no reduced denominator.
-T08: everybatch persistent source/progress and verified cloud files. Docs skip-ci; one fullCI after coherent permitted publication. Stop for activeCI/genuine blocker, not a small completed task.
+T07: whole-game>=90/eachdimension>=80%/zero critical/requiredassets/evidencegates/physicalinput/FPS/frame-time/loading/memory/background/saves. No newscore or reduceddenominator; old30 stale.
+T08: every batch persistent source/progress and verified cloud files. GitHub docs [skip ci]; onefullCI after coherent permitted sourcepublication, no sandbox-onlydelivery.

@@ -1,0 +1,73 @@
+{
+  "schema": "chrono-ci-checkpoint-v1",
+  "recordedUtc": "2026-09-19T13:03:23.416938+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ01E-equipment-readability-and-coarse-input",
+  "version": "0.9.5",
+  "sourceSha": "fe855253f18cc8134b5bae785c38d831c30f436b",
+  "sourceTree": "ca907dd884590924cd02ad3f9e4dc801dc6173f6",
+  "parentSha": "c4702c7ee99cb5d4b51da0c233b3d2a2847886b9",
+  "publication": {
+    "nonForceUpdate": true,
+    "mainRefReadbackMatched": true,
+    "allNineBlobHashesMatchedTestedFiles": true,
+    "changedFiles": 9,
+    "aheadBy": 1,
+    "behindBy": 0
+  },
+  "run": {
+    "id": 35444592684,
+    "number": 22,
+    "event": "push",
+    "attempt": 1,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "headSha": "fe855253f18cc8134b5bae785c38d831c30f436b",
+    "observedStatus": "in_progress",
+    "observedConclusion": null,
+    "createdAt": "2026-09-19T13:02:28Z",
+    "updatedAtObservation": "2026-09-19T13:02:40Z",
+    "exactShaRunCount": 1,
+    "manuallyDispatched": false,
+    "longPolling": false,
+    "jobsAccepted": false
+  },
+  "cloud": {
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileId": "1VnDWBt6oKbpavPVHyuLMOfRUz09Ru1NP",
+    "name": "Chrono-VQ01E-readability-coarse-input.zip",
+    "bytes": 1334167,
+    "sha256": "d7e3f64a88260d3e0f48fbca9362734995a036eb8ce8af562a83328cee72459b",
+    "parentVerified": true,
+    "rawReadbackVerified": true,
+    "crcVerified": true,
+    "manifestEntriesVerified": 18,
+    "deltaFiles": 9
+  },
+  "local": {
+    "receipt": "docs/evidence/VQ01E_LOCAL_VALIDATION.json",
+    "npmRunCheck": "passed",
+    "nodeTests": 699,
+    "pythonUnitTests": 21,
+    "typecheck": "passed",
+    "build": "passed",
+    "browser": "not run; no retry of prior administrative restriction"
+  },
+  "previousAccepted": {
+    "sourceSha": "69dc0524b593df6948c11397280bfcedc841236f",
+    "ci": 35440863455,
+    "pages": 35442701457,
+    "receipt": "docs/evidence/CI21_ACCEPTANCE.json",
+    "closed": true
+  },
+  "limits": {
+    "newBrowserAccepted": false,
+    "newPagesAccepted": false,
+    "fullHeldScenePublished": false,
+    "early90Approved": false,
+    "physicalDevicesApproved": false,
+    "blockedRendererWriteRetried": false
+  },
+  "next": "After user reports E2E done, read exact CI22 once. Pending:freeze/report. Failure:first same-run actual root with report/log/lastObserved/focused/failure PNG. Success:all3 jobs, retain artifacts, inspect seven fine-pointer and two coarse-pointer menu cases/real taps/native own-v8 import and preserved journeys, then match Pages. Do not reaccept CI21/Pages15 or rerun CI20. Docs-only descendants are not new runtime."
+}

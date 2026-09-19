@@ -1,0 +1,115 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "recordedUtc": "2026-09-19T13:01:24.321449+00:00",
+  "batch": "VQ01E-equipment-readability-and-coarse-input",
+  "version": "0.9.5",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "parentSha": "c4702c7ee99cb5d4b51da0c233b3d2a2847886b9",
+  "acceptedSource": "69dc0524b593df6948c11397280bfcedc841236f",
+  "stagedTree": "ca907dd884590924cd02ad3f9e4dc801dc6173f6",
+  "remoteNineBlobsMatched": true,
+  "files": [
+    {
+      "path": "src/equipment-ui.ts",
+      "bytes": 8159,
+      "beforeBlob": "22526a52beba8fc34a829484a60edbcf7b7a9c7b",
+      "afterBlob": "843392754b5e7953cf4a96122ecaba9226611c09",
+      "sha256": "b61c9c1f667233be7ebfc43eafb39ca25bd569207a514f1e189e5805ed81978f"
+    },
+    {
+      "path": "src/inventory.css",
+      "bytes": 5222,
+      "beforeBlob": "0339f69f71edbc1f73306c4551f08e75b8158c5b",
+      "afterBlob": "e8b435848fe5e37e34b2d8a7916c3064bc1f45eb",
+      "sha256": "c7e47852d0b94344eafac8c3b53f92e0974e522e79e0a5f21b3a46a0cc2980f9"
+    },
+    {
+      "path": "index.html",
+      "bytes": 9883,
+      "beforeBlob": "302fc0d80a44f9cdfd2e1546d568e3818191a9c3",
+      "afterBlob": "729974bf6477e42d0422053f0819dc213939bd55",
+      "sha256": "aa954996ea8286325377ca73c12c7fcfff259af797f75280ba00a92b41006884"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 1841,
+      "beforeBlob": "0423f8e85bae46b6e0a53c9457ad72efdff8a06d",
+      "afterBlob": "89ecbd3f67e0da4073b43e62a8ecbe8e6fa302b2",
+      "sha256": "4d8a089b3dc561e3b9cd08708438cf1eb0e4635bb753b3bfc89cea0abd1dc277"
+    },
+    {
+      "path": "tests/equipment_browser.py",
+      "bytes": 19088,
+      "beforeBlob": "9a111674d0a7756594c7a2a1d7d04cb8cc8d37bb",
+      "afterBlob": "e12eac007b058550ef70d4befa13f1d2f1f01d60",
+      "sha256": "6e751df5867851f9545323ceccadc7acd6a643819df9af248ea51b1a13afc498"
+    },
+    {
+      "path": "tests/inventory_comfort.py",
+      "bytes": 3008,
+      "beforeBlob": "e4b39fa0be7bb1444f313305f2e6db51aea0a88d",
+      "afterBlob": "d45a54ab2a825a66080a5d08c68f9247ab60868b",
+      "sha256": "1e6594efe64de660653521a1c7af185e273d80d45cff1840d45a5a788c0c97b3"
+    },
+    {
+      "path": "tests/inventory_comfort_test.py",
+      "bytes": 2905,
+      "beforeBlob": "ab5cd1bb791c467f39340042003a1812b64d91f0",
+      "afterBlob": "217130a5c4c3b60678b3c8adb91c3902a2093140",
+      "sha256": "a28c94610e86f4499ceeaddbc9052120d5d4493e267cb2ed367fc060fbd3d9c6"
+    },
+    {
+      "path": "tests/inventory_touch.py",
+      "bytes": 3539,
+      "beforeBlob": null,
+      "afterBlob": "8d911ac02e39b4061f3fbe132d49a6033196daaf",
+      "sha256": "4410c077f85582ae1a455cca202c2fec7a371aa85fd8e59cd16cc5c3bf1c399a"
+    },
+    {
+      "path": "tests/modal-focus.test.mjs",
+      "bytes": 22475,
+      "beforeBlob": "a20d6f243459ec21da08832ad1741e1a5848a18d",
+      "afterBlob": "29a5404d8183e85646e630de5f860d319608d18d",
+      "sha256": "8ba92eeea81cd9e9338c5a40a637c648ac4ace55701f2710ccb7ec4effb7175d"
+    }
+  ],
+  "validation": {
+    "npmRunCheck": "passed",
+    "nodeTests": 699,
+    "nodeFailed": 0,
+    "nodeSkipped": 0,
+    "pythonUnitTests": 21,
+    "pythonUnit": "passed",
+    "pythonCompile": "passed",
+    "typecheck": "passed",
+    "assets": "passed",
+    "build": "passed",
+    "browser": "not executed locally; prior administrative restriction not retried",
+    "newBrowserAssertions": "pending one full CI after publication",
+    "newScreenshots": false,
+    "buildHtmlBytes": 5587057,
+    "buildHtmlSha256": "24ab53d5d7b97eddfa59936004ab0123590f56dfb59c2719815ca825c7259814",
+    "quality": "old score30 marked stale; no new art or release rating"
+  },
+  "changes": [
+    "Opaque inventory reading surface; legible current and disabled controls; forced-colors fallback",
+    "Pure authored equipment comparison and compatibility text; no equip-preview state mutation",
+    "Item-specific accessible buy/sell names and visible unavailable-action reasons",
+    "Existing seven fine-pointer viewport journeys preserved and extended",
+    "New coarse-pointer portrait/landscape context with real taps and unmodified same-run own v8 native import"
+  ],
+  "unchanged": {
+    "prologueRendererBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "core": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4",
+    "save": "8ef4e85a13a949e3b29d8f594aad13b4287923ab",
+    "workflow": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf"
+  },
+  "limits": {
+    "early90Approved": false,
+    "fullHeldScenePublished": false,
+    "physicalDevicesApproved": false,
+    "blockedRendererWriteRetried": false,
+    "localBrowserRetried": false
+  },
+  "notes": "Prepublication record. Later commit/CI/cloud outcomes belong to CI22_CHECKPOINT.json. Current main docs are not replaced from this source archive; held chain remains unchanged."
+}

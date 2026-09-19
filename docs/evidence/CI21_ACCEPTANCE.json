@@ -1,0 +1,194 @@
+{
+  "schema": "chrono-ci-acceptance-v1",
+  "recordedUtc": "2026-09-19T12:51:09.300341+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "sourceSha": "69dc0524b593df6948c11397280bfcedc841236f",
+  "sourceTree": "f6c39685bd811e3903a0edfbaaac8235c54c5e33",
+  "version": "0.9.4",
+  "ci": {
+    "id": 35440863455,
+    "number": 21,
+    "event": "push",
+    "attempt": 1,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 105891283868,
+        "name": "validate",
+        "conclusion": "success"
+      },
+      {
+        "id": 105891283720,
+        "name": "bad",
+        "conclusion": "success"
+      },
+      {
+        "id": 105891283890,
+        "name": "good",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "reportsPassed": 23,
+  "nativeChooserEvents": 3,
+  "viewports": [
+    {
+      "viewport": {
+        "width": 1200,
+        "height": 900
+      },
+      "contentHeight": 794.5,
+      "panelHeight": 884,
+      "contentRatio": 0.8987556561085973,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 650,
+        "height": 900
+      },
+      "contentHeight": 794.5,
+      "panelHeight": 884,
+      "contentRatio": 0.8987556561085973,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 700
+      },
+      "contentHeight": 594.5,
+      "panelHeight": 684,
+      "contentRatio": 0.8691520467836257,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "contentHeight": 294.5,
+      "panelHeight": 374,
+      "contentRatio": 0.7874331550802139,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "contentHeight": 534.5,
+      "panelHeight": 624,
+      "contentRatio": 0.8565705128205128,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "contentHeight": 462.5,
+      "panelHeight": 552,
+      "contentRatio": 0.8378623188405797,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "contentHeight": 224.5,
+      "panelHeight": 304,
+      "contentRatio": 0.7384868421052632,
+      "coarse": false,
+      "minimumButtonHeight": 36
+    }
+  ],
+  "pages": {
+    "id": 35442701457,
+    "number": 15,
+    "workflowHead": "c4702c7ee99cb5d4b51da0c233b3d2a2847886b9",
+    "conclusion": "success",
+    "prepareJob": 105896187209,
+    "deployJob": 105896214810,
+    "publicHttpVerifiedByDeployStep": 3,
+    "sourceSha": "69dc0524b593df6948c11397280bfcedc841236f",
+    "ciRunId": 35440863455,
+    "artifactId": 10584540642,
+    "artifactDigest": "sha256:b2fea749681f1632b6a57fb93b24ebbd6042d3696220fdb4e587a85b0024baca",
+    "htmlBytes": 5584230,
+    "htmlSha256": "4a164c7ad33a6a5a13e7aa606fa85e6c16f7165a1aa630d9ee53fae426eac951",
+    "stagedPlayableBytesIdentical": true,
+    "url": "https://kartchang.github.io/ChronoTrigger_reMaster/"
+  },
+  "artifacts": [
+    {
+      "name": "CI21-browser.zip",
+      "id": 10584670568,
+      "bytes": 17454841,
+      "sha256": "53fa499b3736ffdac1c58fb053044ebd77d84882afc57f66602e4874f2b7c8a8",
+      "crcVerified": true
+    },
+    {
+      "name": "CI21-playable.zip",
+      "id": 10584540642,
+      "bytes": 1283370,
+      "sha256": "b2fea749681f1632b6a57fb93b24ebbd6042d3696220fdb4e587a85b0024baca",
+      "crcVerified": true
+    },
+    {
+      "name": "CI21-art-review.zip",
+      "id": 10584330953,
+      "bytes": 314229,
+      "sha256": "56fb570b0a469c8a7f0ae7d4a08a985621fdf73532c703abe6865d8725eae553",
+      "crcVerified": true
+    },
+    {
+      "name": "CI21-witness-good.zip",
+      "id": 10583777208,
+      "bytes": 1649145,
+      "sha256": "9bbdf6feae5049dc3eb654ef4b48f268e22f8ea8abc4e6f02006f52bfed66d76",
+      "crcVerified": true
+    },
+    {
+      "name": "CI21-witness-bad.zip",
+      "id": 10583612838,
+      "bytes": 1605863,
+      "sha256": "131f18d6e6f5d3a7029e81652a241532111231f93afbdde25cebcdf171745675",
+      "crcVerified": true
+    },
+    {
+      "name": "Pages15-staged.zip",
+      "id": 10584320911,
+      "bytes": 1288739,
+      "sha256": "69ac43e6a04b3ccfa4ea2eb9cac1abb4a19b4f665195759b4ca4ad66324e81b6",
+      "crcVerified": true
+    }
+  ],
+  "limits": {
+    "fullHeldScenePublished": false,
+    "early90Approved": false,
+    "physicalDevicesApproved": false,
+    "touchTested": false,
+    "localBrowserRetried": false,
+    "blockedWriteRetried": false
+  },
+  "review": "docs/evidence/CI21_VISUAL_REVIEW.md",
+  "cloud": {
+    "fileId": "19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "name": "Chrono-CI21-Pages15-accepted-evidence.zip",
+    "bytes": 23987438,
+    "sha256": "1dbfbe5559ff4ae7ffbc51ad895ba765766e63790f8e9c1b3a60b93b94b4aa81",
+    "parentVerified": true,
+    "rawReadbackVerified": true,
+    "crcVerified": true,
+    "manifestEntriesVerified": 12
+  }
+}

@@ -1,25 +1,34 @@
-# Execution TODO — VQ01G / CI24, early comfort first
+# Execution TODO — VQ01H / CI25; early comfort first
 
-2026-09-19. Main only/non-force. Current authority STATUS and handoff/IMMEDIATE_CONTINUATION. No repository/history audit, parallel branch/PR, completed chapter rebuild or replay of unchanged accepted runs.
+2026-09-19 UTC. Main only/non-force. STATUS and IMMEDIATE_CONTINUATION are current authority. No repository audit, completed chapter rebuild, parallel candidate or unchanged accepted-run replay.
 
 ## Current exact work
 
-VQ01G source **1bf64db0200358895214605fe20430e264fa8c31**, tree **0ee6e96ab82fd80cf3102cc98fe78ee9ee010c52**. Fifteen tested files published/readback; eight browser-driver imports migrated in one batch. Actual native chooser interception, request-correlated diagnostics, rejection/reselection coverage, unmodified same-run positive files.719Node/32Python/assets/typecheck/build passed;297original assertions retained. Runtime0.9.6 unchanged byte-for-byte, no new scene version.
+Published0.9.7 source **afec069dfb6fe4fc169c4b7240ec1af270914cf5**, tree **1a8159a14119dd158d3d50cd4dca4abe26a4c43f**, ten tested paths. Pause-safe combat-effect transfer, same-map load transient cleanup, preserved feedback reading time and full-snapshot diagnostic paths implemented.729Node/35Python/typecheck/build passed; no local browser acceptance. Code and raw-verified Drive bundle saved, not dependent on temporary storage.
 
-- [x] Read current CI23 jobs/reports/first-save failures; retain all four original artifacts and terminal evidence.
-- [x] Migrate every remaining direct hidden-input assignment across the browser drivers, retaining existing gameplay/equipment/keyboard/negative assertions.
-- [x] Add per-attempt chooser/phase/focus/frozen-state receipts, empty/corrupt/oversize/same-file tests, exact historical export unit regressions and AST drift guard.
-- [x] Publish15testedpaths in one source commit; verify complete remote tests tree and Drive27entries/15deltas.
-- [ ] **Only active validation: CI24 35449183706**, push/attempt1, last observedin_progress. After user's E2E notice read this exact run once. Pending:freeze/report, no long polling. Failure:first actual same-run root with native-import-report attempt stage/sequence/context, driver report/log/failurePNG. Success:all3jobs; actual Enter/Space/tap and same-run saves, sevenfine/twocoarse equipment cases/44pxtargets/shortcuts/economy/ATB/IndexedDB/victory; allretainedjourneys, rawartifactretention, actualscreens and matchingPages.
+Only validation **CI25 35454492528**, push/attempt1, last observed **in_progress**. After E2E notice read exactrun once. Pending:freeze/report, do not wait/cancel/redispatch. Failure: first actual same-run root; native-import-report stage/sequence/freezeComparison paths+hashes, driver report/log/PNG. Success: all3jobs, native import and state/rejection/reselection/focus, actual new feedback/transient images, seven fine/two coarse menus and equipment/economy/ATB/victory, every existing journey, raw artifact retention and matching Pages. Do not run CI for [skip ci] docs.
 
-CI23 completedfailure is no longer active. Its keyboard/nativeEnter test passed, prologue and two witness routes failed before import success. Native cancellation is inferred from code/event-order reconstruction, not proven in the old trace. Equipment never ran, so CI22 equipment chooser is not closed yet. No unchanged CI23/CI22 rerun, manufactured saves, writableprogress hooks, removedassertions or timeout-only fix. Touch emulation is not physical evidence. See CI24_CHECKPOINT and CI23_TERMINAL.
+CI24 completedfailure: validate105913253190 failedstep11 snapshot equality after actual first Enter chooser, before selection. Good105913253430/bad105913253444 succeeded,20nativeimports total. Exact historical differing field was not captured. Baseline production draw mutation reproduced locally; no root-closure claim until CI25. No playable/newPages. CI23/CI22 are not active; skipped equipment is not CI22 closure. Do not rerun unchanged historical candidates.
 
-## Accepted — do not reopen
+Keep complete state comparison and original journey assertions. No writable testhook, fabricated positive save, removed assertion, exception swallowing or timeout-only fix. Pause/readability dwell tests are not higher timeout allowances. Unit ports and coarse-pointer emulation are not physical-device proof.
 
-CI21 35440863455/source69dc0524b593df6948c11397280bfcedc841236f and matchingPages15 35442701457 remain accepted0.9.4. All3jobs/23reports/actualsevenviewport menu images and selected deploymentbytes were already verified and retained in19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5. CI20/Pages14 and old chest/organ roots stay closed. New test-source does not silently replace lastaccepted game.
+## Accepted, not to reopen
 
-## Product priority and held work
+CI21/35440863455, source69dc0524b593df6948c11397280bfcedc841236f, all3jobs/23reports/seven fine-pointer views; Pages15/35442701457 and retained bundle19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5 remain the last accepted0.9.4. CI20/Pages14/chest/organ closed. New0.9.7 remains unaccepted.
 
-T05 first: evidence-backed comfortable early scenes, characters, animation, camera/occlusion and HUD, before later chapter expansion. Stored VQ01+B+C art must not be recreated. Renderer/localbrowser restrictions were not retried or bypassed. Recover A->B->C working-delta only as needed, per-file hashes in DELIVERY_INDEX, currentmain UI/docs win. No old independent-ui or incomplete staged tree publication.
+## Product priority and retained work
 
-Remaining scope unchanged: T03 full original hidden rules/version/map parity; T04 growth/rewards/shops/skills; T05 complete art/actions/clearedmusic; T06 all remaining eras/quests/endings; T07 overall>=90/eachdimension>=80%/zero critical/device/performance evidence; T08 continued verified cloud retention. No claim of whole-game or physical-device acceptance. Preserve existing home-to2300arrival chapters and v1–v8 saves.2300arrival is not fullfuture.
+First evidence-backed comfortable early scenes, characters, movement/actions, camera, occlusion, HUD and sound; later chapters/systems wait. No synthetic90. Repeated floor/paving, simplified scenes and geography remain. Use already implemented VQ01+B+C; do not repaint/rebuild. The restricted new prologue-renderer publication has no new permission. No retry/bypass or incomplete staging promotion. Baselineblob2711a74185aacf3c6bddf9db85ba99a2afbc507a unchanged.
+
+Held A1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k -> B1vkPuPN8HN46d1uHaJY9__OPrf455k3QV -> C16iHw_Py_RGLr819nPAEG6d5h98JuyLNe working-delta only as needed, per-file hashes in DELIVERY_INDEX/archive. Preserve currentUI/docs; merge lifetime changes. No old independent-ui; historical43/31 not currentcounts. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE node_modules only/hardlinks. ROM already private, no reupload.
+
+## Full scope retained
+
+T03 original hidden rules/version differences/full map-room topology/numeric fidelity.
+T04 growth/rewards/drops/full shops/consumables/accessories/roster/skills/dual-triple techs; retain accepted equipment framework.400G/prices/bonuses are authored, not originalbalance.
+T05 complete art/animation/assets/music; early90 first, Truce/castle/court details/geography/full directions/actions/clearedaudio remain.
+T06 remaining2300campaign/othereras/main-sidequests/endings; arrival is not completefuture.
+T07 overall>=90/eachdimension>=80%/zero critical/requiredassets/physicalinput/FPS/frame-time/loading/memory/background/saves. Old30 stale; no reduced denominator or syntheticproof.
+T08 every coherent batch actualcommit/non-force/readback, verified correct-folder cloud save, onefullCI; documentation[skip ci].
+
+Preserve home/fair/600/rescue/return/trial/twoverdicts/twoescapes/Fritz/three-parttank/reunion/Gate/2300arrival, Melchior/equipment/v1–v8. TypeScript/Babylon/esbuild/fixedATB/A*/InputBoundary, P1Crono/P2Lucca/autonomous third; noP3/ARPG/framework restart.

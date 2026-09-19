@@ -72,3 +72,9 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 ## 現有背包／裝備的獨立呈現層
 
 `src/equipment-ui.ts` 沿用 `src/equipment.ts`／core 裝備規則，呈現角色、買賣、換裝與可收合說明；說明展開狀態不進存檔。`src/modal-focus.ts` 管理既有 modal 的焦點、背景 inert、換裝同列焦點與背包 PageUp/PageDown/Home/End。`src/inventory.css` 由 build 接在 adventure.css 之後，將背包標頭、可捲動內容與回饋列分開；不更動場景 renderer。`tests/equipment_browser.py` 沿用同 run 真實 v6 匯出與原生選檔旅程，使用 `tests/inventory_comfort.py` 量測七種視窗；`inventory_comfort_test.py` 的合成幾何僅測量測斷言，不是遊玩證據。舊段落的批次數字與裝備未完成敘述只描述當時切片，不得據此重造框架；目前完成範圍與 exact CI 一律看 STATUS。
+
+## 呈現生命週期與原生匯入（VQ01H / 0.9.7）
+
+`src/presentation-state.ts` 的 `takeFrameEffects` 只由未暫停的 main-loop 交付效果，`World.draw` 接收 readonly effect batch，不再清除 `State.effects`。`FeedbackClock` 只計算未暫停閱讀時間。`src/render.ts` 在 state identity 或章節變更時清理自有傷害數字／揮擊 meshes、突進及姿勢歷史；不重建共用人物、場景或資產。`src/save-import.ts` 的原生請求／讀取／取消生命週期不變。
+
+`tests/native_import.py` 為八份實際旅程共用原生選檔 driver；保留完整 snapshot 相等斷言，失敗報告新增差異欄位路徑與完整 hash，不排除 effects 或 ticks。`tests/presentation-pause.test.mjs` 執行 production 方法配合事件／圖形 ports，屬單元測試，不是 WebGL 或真機證據。`keyboard_browser.py` 才驗證實際原生匯入後的 transient 清理及暫停時的提示閱讀時間；最新結果／來源／雲端收據只看 STATUS 和 CI25_CHECKPOINT。

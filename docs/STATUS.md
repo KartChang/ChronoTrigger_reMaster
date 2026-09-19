@@ -1,45 +1,45 @@
-# Current status — VQ01B early comfort implemented and retained / 2026-09-19
+# Current status — CI20 registered / independent input and menu comfort published
 
-**EARLY VISUAL QUALITY FIRST. New working version0.9.2 has actual camera/occlusion/grounding changes and fresh706Node/16Python validation. Runtime remains UNPUBLISHED; noCI20 and no90-point or hardware approval.**
+2026-09-19. **EARLY VISUAL COMFORT FIRST. Independent input/menu version0.9.3 is now published on main. CI20 is active. Full retained scene/model/camera changes are NOT published or visually accepted. No90-point/hardware/whole-game approval.**
 
-## Current authority
+## Current exact source and sole validation
 
-Observed main documentation HEAD `84f8b6b3282b15e4e6cf5b903cc4c3a18f3ac287`, tree `25ee4b64ed5ce02a520e5fa958af7f1f7d6115ec`. Published runtime remains0.9.0 source `16313037a0d1ab59358963014e797f7e11ea95d1`. This continuation's GitHub commit is documentation-only with [skip ci]. No incomplete runtime tree is promoted.
+Source **0e65066d2e1e54cfff9b9a7a4d5466a694a79484**, tree **aaef95965728d2eb068eaf3be6cb08e3b0215af9**, parent **b88f45a27021b4954f137255a3a7f785ffc612ab**. Commit creation, non-force main update and actual ref readback completed. The aggregate src/scripts/tests trees and index.html blob match the independently tested local objects. Assets/quality/workflow trees are unchanged. Later [skip ci] documentation is not a new game candidate.
 
-GitHub and the specified Drive were read successfully. The prior platform block on normal source publication has no new permission outcome. This continuation did NOT retry that blocked write, switch encoding/routes, or retry the administratively blocked browser. Instead it developed the independent early-comfort work below and preserved its explicit delta in Drive. The blocked `src/prologue-render.ts` remains byte-identical to retainedVQ01, SHA256 `e319e8fb786c3b6c5b3fc8467ad0126c93c830bc2ee96df9995b55d4b743f207`. This is not a missing connector or a newly observed rejection.
+**CI20 run35436087487, push/attempt1, created2026-09-19T09:57:27Z.** One exact-source run query and one jobs read returned:
 
-## New product work, not a repeated diagnostic-only pass
+| Job | ID | Saved observation |
+|---|---|---|
+| validate |105878862672|in_progress; npm check and host-input tests passed; keyboard browser step11 running|
+| Fresh story and hearing (bad) |105878862731|in_progress; build/browser installation passed; fresh journey step9 running|
+| Fresh story and hearing (good) |105878862753|in_progress; build/browser installation passed; fresh journey step9 running|
 
-Thirteen code/test/config files changed relative to retainedVQ01; the cumulative known unpublished delta versus the published runtime is35 files (30 prior files plus5 newly touched paths, not30+13). Exact before/after hashes and the35-file ledger are in the new archive's `evidence/VQ01B_LOCAL_VALIDATION.json`. GitHub index: `evidence/VQ01B_CHECKPOINT.json`; details: `VQ01B_COMFORT.md`.
+These are registration snapshots, not final/live results. **Source frozen; all three jobs required.** One new full push CI, no manual dispatch/rerun/cancellation/long polling or Pages restart. Exact authority: `evidence/CI20_CHECKPOINT.json`. Receive this same run after completion notice; do not repeat CI19 or invent another candidate because documentation HEAD changes.
 
-Bedroom/home/fair portrait framing now pans toward actual present actors instead of always reducing an entire room to a tiny view. Group separation and living enemies in battle determine required framing; top/bottom UI margins are reserved. Miniature overworld/later cameras and all gameplay coordinates remain unchanged.
+If pending, preserve/report without repeated waiting. On failure inspect its actual first failing step, same-run logs/report/lastObserved/focused/failure.png. Equipment report includes importAttempts and modal reports. On all-three success preserve five actual CI artifacts, inspect native chooser/equipment/menu/keyboard and actual scene evidence, then verify the Pages deployment selecting this exact source/playable/HTML hash. A CI20 pass would accept the independent UI increment, NOT the held scene/model/camera pass.
 
-Explicit table/curtain/per-stall canopy groups use parallel orthographic rays against actual triangles. Only the foreground group fades; shared material alpha, unrelated walls/stalls, actor state and collisions do not change. Group-aware mesh batching preserves those boundaries. Simulation-tick fades, clear hysteresis, pause, scene reset, hidden/disposed meshes and newly built geometry have regression coverage. Curtain transparency classification was corrected so partial mesh visibility can actually blend; other cutouts keep their modes.
+## What actually reached main
 
-Table contact shadow was below the rug and is now above it. Mother and first-fair witnesses share exact texture-foot anchoring; fair witness contact shadows added. Read-only view data reports actual projected sprite vertices separately from predicted framing. The existing same-run early browser helper now checks those real vertex bounds at desktop/650/390 widths; its browser execution is still pending.
+Fourteen input/UI/build/test files were applied to the previous published0.9.0 runtime16313037, independently checked, then normally published. Existing scene renderers, actor painters, core/save rules, assets, quality and workflow stay unchanged. In particular, published src/prologue-render.ts remains baseline blob2711a74185aacf3c6bddf9db85ba99a2afbc507a. No previously blocked new scene content was submitted through another route, and no old incomplete staging tree was promoted.
 
-## Fresh validation and its limits
+The published increment includes native Enter/Space utility activation and actual picker lifecycle/return focus, common public/test quiet-guide HUD, modal Tab/Shift+Tab containment and background inert, pause-over-menu focus restoration, stable equipment-row focus and scroll after trading, repeated Enter protection, sticky return/feedback, narrow/short viewport layout and reduced-motion CSS. All same-run picker, real-save/v8, wallet/stock/damage, story and co-op assertions remain. Details: `VQ01C_INPUT_COMFORT.md`.
 
-`npm run check`: **706 passed,0 failed,0 skipped**, including43 new tests. **16 Python tests**, typecheck/build/assets/compileall passed. Pinned dependencies unchanged. First development run699/701 retained: a test compared Vector3 private dirty flags instead of physical coordinates; real first-frame lazy-geometry discovery was also fixed without waiting or weakening assertions. Final log SHA256 `848766c4cf083553827dfbcc4dd72a42319ab0908544df1251d587571fa0a4cc`.
+**Independent candidate fresh local check:681 Node passed/0failed/0skipped,16 Python; typecheck/build/assets/compileall passed.** No local browser was retried. Browser validation is now actually running in CI20, not claimed complete. Local HTML5579064bytes/SHA2567f3246da5fae089320a4b6554971ffe726ada7c7a5249ffc7e4ee575369b45d2, sourceSha=null, not packaged as an accepted artifact. Full hashes: `evidence/CI20_LOCAL_VALIDATION.json` and its detailed Drive receipt.
 
-CPU geometry probe uses actual runtime builders and66 explicitly synthetic, walkable sample points:27 obstructed,39 clear. Its largest single-actor sample used99 mesh-ray tests; this is NOT a global workload/FPS bound. No game frame is rendered by this probe. Local build5594948bytes, SHA256 `1f10cc43ec1736a27759768d126f43daaac2a60b7bb00c0986d84de99544d490`, sourceSha=null. It is not an accepted CI artifact.
+## Separate retained visual work — do not conflate
 
-No new browser attempt, gameplay screenshot, user play feedback or physical-device measurement this continuation. Geometry, alpha classification, matrix and rule tests do not approve actual compositing, animation, perceived comfort or90. The old quality-script30 remains stale, not relabeled.
+VQ01C also developed a15-file delta over VQ01B: fixed-tick camera pan/zoom-in smoothing, immediate actor-safe zoom-out, pause/reset and reduced-motion behavior, plus the overlapping UI work. The full retained working chain freshly passed **763 Node/16 Python**, not the independent candidate's681 tests. Its geometry/DOM/matrix tests are not rendered gameplay, perceived comfort or accessibility certification.
 
-## Durable working-source chain
+Full working chain has43 distinct paths versus the old0.9.0 runtime; after the independent UI publication **31 paths still differ**, including scene/model/actor/camera files and full-working-only build/test wiring. Restore from explicit base+B+C hashes, never from incomplete old staging. New blocked prologue content remains unchanged and has not been retried; the prior platform block has no new permission outcome. Normal publication of that full visual increment remains subject to that boundary, not a lack of GitHub/Drive access.
 
-All retained in project folder `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`:
+## Durable delivery
 
-BaseVQ01: `1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k`,9771993bytes,SHA256 `1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3`,300records. This continuation checked its existing materialization and live Drive metadata; no duplicate base upload.
+All packages are in project folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. Latest **Chrono-VQ01C-0.9.3-ui-camera-deltas.zip**, file **16iHw_Py_RGLr819nPAEG6d5h98JuyLNe**,233959bytes,SHA256 **26548a1a9d6bf70899b8d002e97ebf8b6733bb0468b2326e02e4d28d9eea7ea2**. Correct parent, raw download/fullhash/CRC/all39manifest records verified. Contains independent-ui/14files, working-delta/15files, full source ledgers, genuine logs and restore notes; no blocked scene file/full HTML/ROM/original media/fonts/dependencies/credentials. Sealed before publication; later exact commit/run metadata lives on GitHub.
 
-NewVQ01B: **`1vkPuPN8HN46d1uHaJY9__OPrf455k3QV`**, `Chrono-VQ01B-0.9.2-comfort-delta.zip`, **107554bytes**, SHA256 **`084c472e69f4f44ed72fd8f9a9276f2756aa739ef592227a0d8f1f4d069871d8`**. Uploaded to correct parent, downloaded raw, and verified full bytehash, ZIPCRC and all22manifest records. Contains only13 independent delta files, fresh logs, CPU geometry/model manifest, full per-file receipt and restore notes. It does not re-upload the blocked source file, a full executable, ROM/media/font files or dependencies.
+Required held visual base: VQ01 file1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k (9771993bytes; SHA1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3;300records), then VQ01B file1vkPuPN8HN46d1uHaJY9__OPrf455k3QV (107554bytes; SHA084c472e69f4f44ed72fd8f9a9276f2756aa739ef592227a0d8f1f4d069871d8;22records), then latest working-delta. Keep current main documents; do not replace them with old package documents. Pinned dependencies remain in1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE; restore node_modules only.
 
-Recovery: originalVQ01 snapshot plus the13 VQ01B replacements, each guarded by base/target hashes. Current main documents remain authoritative; do not overwrite them with older bundled documents. The cumulative35-file ledger is a verification index, not a partial runtime candidate. Never restore the old incomplete staging tree or its erroneous sideboard color. Dependencies remain in earlier Drive1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE; node_modules only.
+## Acceptance and remaining priority
 
-## Existing CI and remaining priority
+CI19 remains failed first equipment native chooser; good/bad passed; four artifacts/no playable. Its repair is now published in the independent UI candidate but awaits genuine browser proof. Last accepted development preview remains0.8.2 source8c6f8fb97ef96718d542d1c1f29d44bade46d969, CI18 35344366293 / Pages12 35346462349. No0.9.3 Pages claim yet.
 
-CI19 `35355492232` is terminal failure: validate105633716808 first equipment native-chooser step13 failed; good105633716547/bad105633716751 succeeded; later validate skipped; four artifacts/no playable. The prior VQ01 picker repair remains pending genuine browser proof. Accepted0.8.2 CI18 `35344366293`/Pages12 `35346462349` remains unchanged; no repeated old acceptance or Pages dispatch.
-
-Normal source publication must become permitted before the complete retained working source can be committed/non-force published/read back and one full existing CI run. NoCI20 exists. Do not repeatedly retry the blocked operation or use another route to evade it. On genuine all-three-job success, retain exact artifacts, inspect actual early scenes/native import/keyboard/animation/occlusion/UI/performance and match Pages source/artifact/HTML hashes.
-
-Continue early visual comfort before later plot/system expansion. Truce/castle/court detail, complete character/NPC actions, original geography, rights-cleared audio and physical-device evidence remain open. FullT03–T08 and whole-game>=90 scope unchanged;2300 is arrival only.
+Continue early scenes/people/materials/models/animation/HUD/performance toward evidence-backed90 before later plot or system expansion. Full scene publication, real compositing/screens, Truce/castle/court detail, complete character/NPC actions, original geography, rights-cleared audio and physical devices remain open. Full T03–T08 and whole-game90 scope are unchanged;2300 is arrival only. Tests and old stale30 are not aesthetic scores.

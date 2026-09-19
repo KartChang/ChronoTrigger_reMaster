@@ -1,0 +1,23 @@
+{
+  "schemaVersion":1,
+  "date":"2026-09-19",
+  "repository":"KartChang/ChronoTrigger_reMaster",
+  "branch":"main",
+  "workVersion":"0.9.3",
+  "priority":"Early visual and play comfort before later story/system expansion; no90 claim",
+  "independentUI":{"published":true,"sourceSha":"0e65066d2e1e54cfff9b9a7a4d5466a694a79484","sourceTree":"aaef95965728d2eb068eaf3be6cb08e3b0215af9","changedFiles":14,"nodePassed":681,"pythonPassed":16,"ciRun":35436087487,"checkpoint":"CI20_CHECKPOINT.json","fullSceneContentIncluded":false},
+  "heldWorking":{"published":false,"changedFilesThisBatch":15,"cumulativePathsVersusOldRuntime":43,"remainingPathsVersusPublishedIndependentUI":31,"countBasis":"Exact per-file comparison; overlapping UI paths are not double-counted. Residual includes full-working-specific build/test wiring.","nodePassed":763,"nodeFailed":0,"nodeSkipped":0,"addedVersusVQ01B":57,"pythonPassed":16,"typecheck":"passed","build":"passed","assets":"passed","compileall":"passed","localBrowserAttempted":false,"fullLedger":"evidence/VQ01C_LOCAL_VALIDATION.json inside latest Drive ZIP"},
+  "implementedWorkingCamera":["Fixed-simulation-tick pan and zoom-in smoothing","Immediate safe zoom-out and actual present-actor framing constraints","Pause/no-time-progress, chapter/mode/viewport/clock reset","Reduced-motion preference uses immediate safe framing instead of smoothing"],
+  "cameraEvidence":{"actualBabylonProjectionUnitTests":true,"coordinatesSyntheticUnitFixtures":true,"rateComparison":"Fixed-target response at30/60/144 sampling","renderedGameplay":false,"screenshotProduced":false,"hardwareOrFPSEvidence":false},
+  "independentUIEvidence":{"modalFocusAndInertContractTests":true,"actualEquipmentPanelAndCoreWithExplicitUnitFixtures":true,"nativePickerAssertionRetained":true,"sameRunBrowserTabCyclesAndRowScrollCasesAdded":true,"domDoublesAreBrowserProof":false,"accessibilityAuditApproved":false},
+  "workingLogs":{"finalNode":{"bytes":160122,"sha256":"c8fa46446c534acf7a353fb538f4a09bb5d7db1380b881a866d5f03647cdb1c5"},"finalPython":{"sha256":"6508051d44078a986bbb87b1424ea7510c64abe4a4549be6c75a6e2edfd5fac9"},"initialDevelopmentRetained":true,"initialFailures":"757/758 obsolete close-focus expectation updated to safer row UX;759/763 new equipment-panel unit fixtures used ineligible legacy shop state, corrected fixtures only. Core rules unchanged."},
+  "localBuild":{"sourceSha":null,"bytes":5603377,"sha256":"b185c444d74031646b75d5d2c339f75a243d7b85b1c17133b26dae9f021244b1","includedInLatestDelta":false,"notCIArtifact":true},
+  "workingBase":{"vq01":{"driveFileId":"1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k","bytes":9771993,"sha256":"1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3","manifestRecords":300},"vq01b":{"driveFileId":"1vkPuPN8HN46d1uHaJY9__OPrf455k3QV","bytes":107554,"sha256":"084c472e69f4f44ed72fd8f9a9276f2756aa739ef592227a0d8f1f4d069871d8","manifestRecords":22}},
+  "drive":{"folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"16iHw_Py_RGLr819nPAEG6d5h98JuyLNe","name":"Chrono-VQ01C-0.9.3-ui-camera-deltas.zip","bytes":233959,"sha256":"26548a1a9d6bf70899b8d002e97ebf8b6733bb0468b2326e02e4d28d9eea7ea2","manifestRecords":39,"rawReadbackEqual":true,"allManifestRecordsVerified":true,"zipCRC":"passed","correctParent":true,"independentDirectory":"independent-ui/","heldWorkingDirectory":"working-delta/","fullExecutableOrBlockedSceneIncluded":false,"romOriginalMediaFontsCredentialsDependenciesIncluded":false},
+  "restore":"Published input/UI from currentmain. Held visuals: verified VQ01base then13B replacements then15C working-delta replacements, checking before/after hashes. Keep current main documents. Never promote old incomplete staging or use independent-ui/ as a replacement for the full held ledger.",
+  "priorPublicationBoundary":{"newScenePath":"src/prologue-render.ts","heldContentUnchanged":true,"heldSha256":"e319e8fb786c3b6c5b3fc8467ad0126c93c830bc2ee96df9995b55d4b743f207","blockedContentRetried":false,"alternateEncodingOrPublicationOfBlockedContent":false,"newScenePermissionOutcomeKnown":false,"publishedUIBaselineSceneBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a","earlierReceipt":"VQ01_RECHECK_20260919.json"},
+  "early90Approved":false,
+  "physicalDeviceApproved":false,
+  "wholeGameApproved":false,
+  "next":"Receive frozen independentUI CI20 first. Its eventual success does not approve held camera/scenes. Retain all residual visual changes and continue early comfort under normal publication permissions; no later chapter expansion before actual scene/play evidence."
+}

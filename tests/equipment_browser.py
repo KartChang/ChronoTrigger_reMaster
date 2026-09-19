@@ -6,6 +6,7 @@ from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
+from inventory_comfort import measure_inventory, assert_inventory_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'equipment'
@@ -170,19 +171,28 @@ try:
             activate(page,'equip-crono-bronze-mail')
             assert page.locator('#sell-bronze-mail').is_disabled()
             button(page,'sell-bronze-helm')
-            prior_scroll=page.locator('.inventory-dialog').evaluate('(p)=>p.scrollTop')
+            prior_scroll=page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')
             page.keyboard.press('Enter')
             assert snap(page)['equipment']['gold']==90
             assert page.locator('#sell-bronze-helm').is_disabled()
             assert focus(page)=='equipment-shop-row-bronze-helm'
-            assert abs(page.locator('.inventory-dialog').evaluate('(p)=>p.scrollTop')-prior_scroll)<=2
+            assert abs(page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')-prior_scroll)<=2
             protected=snap(page)['equipment']
             page.keyboard.press('Enter')
             assert page.locator('#inventory-screen').is_visible() and snap(page)['equipment']==protected
             assert snap(page)['ticks']==frozen
             assert snap(page)['prologue']['conduct']==facts
             record(page,'02-keyboard-trade-and-equipped')
-            for width,height in [(1200,900),(650,900),(390,700),(844,390)]:
+            # Disclosure uses real keys, keeps all authored-value caveats and cannot mutate the save.
+            protected= snap(page)
+            assert page.locator('#equipment-notes').is_hidden()
+            activate(page,'equipment-details-toggle')
+            assert page.locator('#equipment-details-toggle').get_attribute('aria-expanded')=='true'
+            assert page.locator('#equipment-notes').is_visible() and '400 G' in page.locator('#equipment-notes').inner_text()
+            assert snap(page)==protected
+            activate(page,'equipment-details-toggle')
+            assert page.locator('#equipment-notes').is_hidden() and snap(page)==protected
+            for width,height in [(1200,900),(650,900),(390,700),(844,390),(360,640),(320,568),(568,320)]:
                 page.set_viewport_size({'width':width,'height':height})
                 geometry=page.wait_for_function('''()=>{const p=document.querySelector('.inventory-dialog'),r=p.getBoundingClientRect();
                     return r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&p.scrollWidth<=p.clientWidth+1?
@@ -193,7 +203,23 @@ try:
                 assert close_rect and close_rect['y']>=0 and close_rect['y']+close_rect['height']<=height
                 record_modal_boundary(page,'inventory-screen',OUT,f'03-focus-{width}x{height}')
                 observations.append({'name':f'panel-{width}x{height}','geometry':geometry,'returnButton':close_rect})
+                layout=measure_inventory(page);assert_inventory_layout(layout)
+                observations.append({'name':f'comfort-{width}x{height}','layout':layout})
+                # Native page keys only: no setting DOM scrollTop or gameplay state in browser tests.
+                held=snap(page);anchor=focus(page)
+                page.keyboard.press('Home')
+                assert page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')==0
                 page.screenshot(path=str(OUT/f'03-menu-{width}x{height}.png'))
+                page.keyboard.press('PageDown')
+                down=measure_inventory(page);assert 0<down['scrollTop']<=down['scrollLimit']
+                page.keyboard.press('PageUp')
+                assert page.locator('#inventory-content').evaluate('(p)=>p.scrollTop')==0
+                page.keyboard.press('End')
+                bottom=measure_inventory(page);assert abs(bottom['scrollTop']-bottom['scrollLimit'])<=1
+                assert_inventory_layout(bottom)
+                page.screenshot(path=str(OUT/f'03-menu-bottom-{width}x{height}.png'))
+                assert focus(page)==anchor and snap(page)==held
+                observations.append({'name':f'page-keys-{width}x{height}','pageDown':down,'end':bottom,'focusRetained':anchor})
             page.set_viewport_size({'width':1200,'height':900})
             page.keyboard.press('i');assert focus(page)=='world'
             assert snap(page)['equipment']['owned']['bronze-helm']==0

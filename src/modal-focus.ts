@@ -23,7 +23,10 @@ export class ModalFocus {
  private redirecting=false;
  private disposed=false;
  private key=(event:KeyboardEvent)=>{
-  if(!this.root||event.key!=='Tab'||event.ctrlKey||event.altKey||event.metaKey||event.defaultPrevented)return;
+  if(!this.root||event.ctrlKey||event.altKey||event.metaKey||event.defaultPrevented)return;
+  const content=this.root.querySelector<HTMLElement>('#inventory-content');
+  if(content&&scrollInventory(content,event.key)){event.preventDefault();event.stopPropagation();return;}
+  if(event.key!=='Tab')return;
   const stops=modalTabStops(this.root),index=nextModalTabIndex(stops.length,stops.indexOf(this.doc.activeElement as HTMLElement),event.shiftKey);
   event.preventDefault();event.stopPropagation();
   (index<0?this.root:stops[index]!).focus();
@@ -74,7 +77,7 @@ export function retainPanelPosition(root:HTMLElement):()=>void{
  const owned=!!active&&root.contains(active);
  const id=owned?active!.id:null;
  const row=owned?active!.closest<HTMLElement>('[data-focus-row]')?.id:null;
- const scroller=root.closest<HTMLElement>('.inventory-dialog'),top=scroller?.scrollTop??0;
+ const scroller=root.closest<HTMLElement>('.inventory-content')??root.closest<HTMLElement>('.inventory-dialog'),top=scroller?.scrollTop??0;
  return ()=>{
   if(!owned)return;
   const exact=id?doc.getElementById(id):null;
@@ -83,4 +86,14 @@ export function retainPanelPosition(root:HTMLElement):()=>void{
   if(focusUsable(target))target.focus({preventScroll:true});
   if(scroller)scroller.scrollTop=top;
  };
+}
+
+/** Scroll the existing bag body without moving focus, animating or touching game state. */
+export function scrollInventory(content:HTMLElement,code:string):boolean{
+ if(!['PageUp','PageDown','Home','End'].includes(code))return false;
+ const limit=Math.max(0,content.scrollHeight-content.clientHeight);
+ const page=Math.max(1,Math.floor(content.clientHeight*.85));
+ const next=code==='Home'?0:code==='End'?limit:content.scrollTop+(code==='PageUp'?-page:page);
+ content.scrollTop=Math.min(limit,Math.max(0,next));
+ return true;
 }

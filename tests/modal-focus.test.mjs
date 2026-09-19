@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {equipmentPanel} from '../.test/equipment-ui.mjs';
 import * as core from '../.test/core.mjs';
 import {newConduct} from '../.test/fair-conduct-data.mjs';
-import {ModalFocus,nextModalTabIndex,retainPanelPosition,modalTabStops} from '../.test/modal-focus.mjs';
+import {ModalFocus,nextModalTabIndex,retainPanelPosition,modalTabStops,scrollInventory} from '../.test/modal-focus.mjs';
 // Minimal DOM contract double: no layout engine, browser, real input or assistive-technology certification.
 class Element {
  constructor(doc,id,tagName='DIV'){Object.assign(this,{ownerDocument:doc,id,tagName,children:[],parentElement:null,inert:false,hidden:false,disabled:false,tabIndex:tagName==='BUTTON'?0:-1,dataset:{},scrollTop:0,rect:true});}
@@ -15,9 +15,9 @@ class Element {
  contains(other){return this===other||this.children.some(c=>c.contains(other));}
  getClientRects(){return this.rect?[{}]:[];}
  matches(s){return s===':disabled'&&this.disabled;}
- closest(s){for(let e=this;e;e=e.parentElement){if(s==='[hidden],[inert]'&&(e.hidden||e.inert))return e;if(s==='[data-focus-row]'&&e.dataset.focusRow)return e;if(s==='.inventory-dialog'&&e.scroller)return e;}return null;}
+ closest(s){for(let e=this;e;e=e.parentElement){if(s==='[hidden],[inert]'&&(e.hidden||e.inert))return e;if(s==='[data-focus-row]'&&e.dataset.focusRow)return e;if(s==='.inventory-dialog'&&e.scroller)return e;if(s==='.inventory-content'&&e.contentScroller)return e;}return null;}
  querySelectorAll(selector){const out=[];for(const c of this.children){if(c.tagName==='BUTTON'||c.tabIndex>=0)out.push(c);out.push(...c.querySelectorAll(selector));}return out;}
- querySelector(selector){return this.ownerDocument.getElementById(selector.slice(1));}
+ querySelector(selector){const el=this.ownerDocument.getElementById(selector.slice(1));return el&&this.contains(el)?el:null;}
  focus(options){if(this.disabled||!this.isConnected||this.closest('[hidden],[inert]'))return;this.ownerDocument.activeElement=this;this.focusOptions=options;this.ownerDocument.emit('focusin',{});}
 }
 class Document {
@@ -77,3 +77,55 @@ test('DOM double using actual equipmentPanel and core: buy/equip/sell preserve f
 test('DOM double using actual equipmentPanel: selecting a member preserves selected section rather than jumping to close',()=>{const k=realPanel();try{press(k,'equipment-member-marle');assert.equal(k.d.activeElement.id,'equipment-members');assert.ok(k.d.getElementById('equipment-stats').textContent.includes('瑪兒'));assert.equal(k.state.equipment,null);}finally{k.done();}});
 test('DOM double using actual equipmentPanel: paused ownership prevents programmatic action with no partial mutation',()=>{const k=realPanel();try{k.setCanAct(false);const before=structuredClone(k.state);press(k,'buy-bronze-katana');assert.deepEqual(k.state,before);assert.equal(k.messages.length,0);}finally{k.done();}});
 test('DOM double using actual equipmentPanel: ordinary refresh keeps the same DOM and active button',()=>{const k=realPanel();try{const b=k.d.getElementById('buy-bronze-katana');b.focus();for(let i=0;i<20;i++)k.ui.refresh();assert.equal(k.d.getElementById('buy-bronze-katana'),b);assert.equal(k.d.activeElement,b);}finally{k.done();}});
+
+test('DOM double: dedicated content scrolling is retained, not the non-scrolling dialog shell',()=>{
+ const k=panel(),content=new Element(k.d,'inventory-content');content.contentScroller=true;content.scrollTop=320;
+ k.bag.children=k.bag.children.filter(c=>c!==k.r);k.bag.append(content);content.append(k.r);k.bag.scrollTop=0;
+ const restore=retainPanelPosition(k.r);content.scrollTop=0;k.b.disabled=true;restore();
+ assert.equal(content.scrollTop,320);assert.equal(k.bag.scrollTop,0);assert.equal(k.d.activeElement,k.row);k.m.dispose();
+});
+for(const [code,start,expected] of [['PageDown',0,170],['PageUp',400,230],['PageUp',20,0],['PageDown',760,800],['Home',400,0],['End',0,800]])test(`content ${code} scroll is bounded without moving focus: ${start}`,()=>{
+ const k=setup();Object.assign(k.bag,{scrollTop:start,clientHeight:200,scrollHeight:1000});k.close.focus();
+ assert.equal(scrollInventory(k.bag,code),true);assert.equal(k.bag.scrollTop,expected);assert.equal(k.d.activeElement,k.close);k.m.dispose();
+});
+test('non-scroll keys and a short content region do not produce negative scroll',()=>{
+ const content={scrollTop:0,clientHeight:400,scrollHeight:200};assert.equal(scrollInventory(content,'Tab'),false);assert.equal(scrollInventory(content,'End'),true);assert.equal(content.scrollTop,0);
+});
+test('actual equipmentPanel disclosure is collapsed, labelled, reversible and never changes a save',()=>{
+ const k=realPanel();try{
+  const before=structuredClone(k.state),toggle=k.d.getElementById('equipment-details-toggle'),note=k.d.getElementById('equipment-notes');
+  assert.equal(note.hidden,true);assert.equal(toggle['aria-expanded'],'false');assert.equal(toggle['aria-controls'],note.id);
+  press(k,toggle.id);assert.equal(note.hidden,false);assert.equal(toggle['aria-expanded'],'true');assert.equal(k.d.activeElement,toggle);
+  press(k,toggle.id);assert.equal(note.hidden,true);assert.deepEqual(k.state,before);assert.equal(k.messages.length,0);
+ }finally{k.done();}
+});
+test('actual equipmentPanel keeps disclosure choice across trades/member repaint, but clears it on state replacement',()=>{
+ const k=realPanel();try{
+  press(k,'equipment-details-toggle');press(k,'buy-bronze-katana');assert.equal(k.d.getElementById('equipment-notes').hidden,false);
+  press(k,'equipment-member-marle');assert.equal(k.d.getElementById('equipment-details-toggle')['aria-expanded'],'true');
+  k.ui.reset();k.ui.refresh();assert.equal(k.d.getElementById('equipment-notes').hidden,true);
+ }finally{k.done();}
+});
+test('paused disclosure cannot mutate presentation or game state',()=>{
+ const k=realPanel();try{k.setCanAct(false);const before=structuredClone(k.state);press(k,'equipment-details-toggle');assert.equal(k.d.getElementById('equipment-notes').hidden,true);assert.deepEqual(k.state,before);}finally{k.done();}
+});
+test('public inventory layout separates body from chrome and routes page keys only inside the bag',()=>{
+ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8'),css=readFileSync(new URL('../src/inventory.css',import.meta.url),'utf8'),focus=readFileSync(new URL('../src/modal-focus.ts',import.meta.url),'utf8'),build=readFileSync(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ assert.match(html,/id="inventory-content" class="inventory-content" role="region"/);
+ assert.match(html,/<\/div><p id="inventory-feedback" role="status"/);
+ assert.match(css,/\.inventory-content\{[^}]*min-height:0;overflow-y:auto/);
+ assert.doesNotMatch(css,/#inventory-feedback[^}]*position:sticky/);
+ assert.match(css,/#inventory-screen button,#inventory-screen #inventory-close\{min-height:44px/);
+ assert.match(focus,/this\.root\.querySelector<HTMLElement>\('#inventory-content'\)/);assert.match(build,/src\/inventory\.css/);
+});
+
+test('modal page keys scroll only an owned inventory and are consumed before world input',()=>{
+ const k=setup(),content=new Element(k.d,'inventory-content');k.bag.append(content);Object.assign(content,{clientHeight:200,scrollHeight:1000});k.m.set(k.bag,k.close);
+ const e={key:'PageDown',preventDefault(){this.prevented=true;},stopPropagation(){this.stopped=true;}};
+ k.d.emit('keydown',e);assert.equal(content.scrollTop,170);assert.equal(e.prevented,true);assert.equal(e.stopped,true);assert.equal(k.d.activeElement,k.close);
+ k.m.set(k.pause,k.resume);const other={...e,prevented:false,stopped:false};k.d.emit('keydown',other);assert.equal(content.scrollTop,170);assert.equal(other.prevented,false);k.m.dispose();
+});
+test('modal page scrolling leaves browser modifier shortcuts alone',()=>{
+ const k=setup(),content=new Element(k.d,'inventory-content');k.bag.append(content);Object.assign(content,{clientHeight:200,scrollHeight:1000});k.m.set(k.bag,k.close);
+ const e={key:'End',ctrlKey:true,preventDefault(){this.prevented=true;},stopPropagation(){}};k.d.emit('keydown',e);assert.equal(content.scrollTop,0);assert.equal(e.prevented,undefined);k.m.dispose();
+});

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-19",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "observedMain": "d6d49a4d548bee0697ff9a6e9b1f10cf4e27d661",
+  "observedMainTree": "2b3cd039ffe41e487eff7ecf77dc89f993acba44",
+  "publishedRuntimeSource": "16313037a0d1ab59358963014e797f7e11ea95d1",
+  "normalWriteAttempt": {
+    "tool": "GitHub.create_blob",
+    "path": "src/prologue-render.ts",
+    "encoding": "utf-8",
+    "newAttempts": 1,
+    "previousRecordedAttempts": 2,
+    "bytes": 6877,
+    "sha256": "e319e8fb786c3b6c5b3fc8467ad0126c93c830bc2ee96df9995b55d4b743f207",
+    "expectedGitBlob": "6d45010523e9f85eb8e028f130ab7793af68bde9",
+    "result": "blocked",
+    "message": "由於 OpenAI 無法確定要求的安全狀態，因此已將此工具調用封鎖。",
+    "alternatePublicationOrEncodingAttempted": false
+  },
+  "connectorReads": {
+    "githubStatusCheckpointMain": "success",
+    "driveWorkingPackageMetadata": "success",
+    "driveCorrectParent": true,
+    "missingConnectorOrRepoPermissionFailureEstablished": false
+  },
+  "workingPackageVerification": {
+    "fileId": "1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k",
+    "sha256": "1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3",
+    "bytes": 9771993,
+    "verifiedManifestRecords": 300,
+    "verifiedTestedDeltaBlobs": 30,
+    "crc": "passed",
+    "scope": "Existing local materialization checked against retained GitHub receipt and live Drive metadata; no duplicate raw package download/upload this continuation."
+  },
+  "normalLocalBrowserAttempt": {
+    "observedAt": "2026-09-19T06:38:19.017768+00:00",
+    "browser": "Chromium144.0.7559.96",
+    "url": "http://127.0.0.1:4188/?test=1",
+    "htmlSha256": "b0348efe350b59e6217ba9c91c29d6e87a6164d0732d8d57d107588119c10003",
+    "result": "ERR_BLOCKED_BY_ADMINISTRATOR before game load",
+    "policyBypassed": false,
+    "gameplayScreenshotProduced": false,
+    "browserAccepted": false
+  },
+  "currentChanges": {
+    "runtimeFilesModified": 0,
+    "runtimePublished": false,
+    "newCIRun": null,
+    "ciDispatched": false,
+    "pagesRestarted": false,
+    "fullTestSuiteRerun": false,
+    "previous663NodeAnd16PythonArePriorEvidence": true,
+    "documentationOnly": true
+  },
+  "diagnosticsDrive": {
+    "folder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileId": "19ANa4YINrG6VCw9G3AFCiPjV4Wd-xZG9",
+    "name": "Chrono-VQ01-20260919-publication-diagnostics.zip",
+    "bytes": 4117,
+    "sha256": "d3e8e626d32030d6b8fbb517d5069eef2584e188797fc53bbd06baadb185a8c4",
+    "manifestRecords": 4,
+    "rawReadbackHashMatches": true,
+    "allManifestRecordsMatch": true,
+    "zipCRC": "passed",
+    "correctParent": true,
+    "runtimeROMOriginalMediaFontsIncluded": false
+  },
+  "inEngineVisualApproved": false,
+  "early90Approved": false,
+  "wholeGameApproved": false,
+  "physicalDeviceApproved": false,
+  "originalCheckpoint": "VQ01_PUBLICATION_CHECKPOINT.json",
+  "next": "Normal authorized source publication remains the blocker. Preserve the complete tested VQ01 delta, do not bypass the block or start partial CI, and do not recreate assets or expand later story. No CI20 exists to await."
+}

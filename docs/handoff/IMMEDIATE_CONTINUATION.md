@@ -1,25 +1,23 @@
-# Immediate continuation — VQ01 publication checkpoint, not another planning task
+# Immediate continuation — 2026-09-19 VQ01 normal write remains blocked
 
-Read STATUS.md and evidence/VQ01_PUBLICATION_CHECKPOINT.json. GitHub and Google Drive were invoked and work; do not repeat the false claim that no connector is available. The user wants early visuals first, not later story growth or another task-list proposal.
+Read STATUS.md and `evidence/VQ01_RECHECK_20260919.json`; original full delta/staging details are in `evidence/VQ01_PUBLICATION_CHECKPOINT.json`. Early visual comfort first, not new story/system expansion, history audit or another planning-only asset list.
 
-## Exact current state
+Main observed before this docs-only checkpoint: `d6d49a4d548bee0697ff9a6e9b1f10cf4e27d661`,tree `2b3cd039ffe41e487eff7ecf77dc89f993acba44`. Published runtime remains0.9.0 `16313037a0d1ab59358963014e797f7e11ea95d1`. Later [skip ci] docs do not create a game candidate. No CI20 was started.
 
-Main runtime remains0.9.0 source **16313037a0d1ab59358963014e797f7e11ea95d1**. Pre-checkpoint main docsHEAD **fb9aa1bafe250f4fe49e4ee356ac5afd0faaf42f**,tree **cfb54507399b5ca41311bde9cec02bd42cbc395c**. This and subsequent checkpoint documentation use skip-ci. **No CI20 was started.** Do not ask the user to wait for or report CI20 completion.
+This continuation invoked GitHub reads and Drive metadata successfully, verified all300 entries and all30 tested code blobs in the existing working ZIP, then made ONE normal UTF-8 `GitHub.create_blob` attempt for `src/prologue-render.ts` (6877bytes;expected blob6d45010523e9f85eb8e028f130ab7793af68bde9). Platform returned the same safety-state block. No second attempt, alternate route/encoding, partial source commit or CI dispatch was made. No runtime file changed. This is not absent connector access or a demonstrated GitHub permission failure.
 
-CI19 **35355492232** was received: validate failed equipment native chooser step13;good/bad passed. Four raw artifacts are preserved, no playable. Keyboard/prologue passed, later validate steps skipped. No current CI is being polled. CI18/Pages12 remain accepted in their tested scope; don't repeat old chest/organ/history acceptance.
+One normal local Chromium144.0.7559.96 load of retained HTML SHA256b0348efe350b59e6217ba9c91c29d6e87a6164d0732d8d57d107588119c10003 also failed before game load with ERR_BLOCKED_BY_ADMINISTRATOR. No bypass, new gameplay image or browser approval.663Node/16Python are the prior working-batch results, not new tests this continuation.
 
-The complete0.9.1VQ01 working batch is implemented and tested:30code/config/test files,663Node/0failure/0skip,16Python,typecheck/build/assets/compileall. Actual early rooms/stalls/props/cloth models,63PNG,threeOBJkits,actors,mother,vendors,quiet/guide HUD and native chooser repair. Local browser is blocked before load by administrator policy; not a browser/90 pass. No later story/system expansion.
+## Durable source and diagnostic receipts
 
-## Why publication did not finish
+Project folder `1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb`.
+Complete unchanged VQ01 source/art/models/CI19 evidence: Drive `1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k`,9771993bytes,SHA2561901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3,300manifestrecords. Actual package contains tested sideboard color#b69b70; the prior unreferenced staged#b69b75 is not authority. Never promote that incomplete tree. Restore current main baseline plus only the exact documented30-file delta; no old source ZIP overlay or asset recreation.
+New diagnostics only: Drive `19ANa4YINrG6VCw9G3AFCiPjV4Wd-xZG9`,4117bytes,SHA256d3e8e626d32030d6b8fbb517d5069eef2584e188797fc53bbd06baadb185a8c4,all4records/fullhash/CRC/rawreadback verified. Does not replace the working package or contain runtime source.
 
-Two unreferenced trees and two code blobs were accepted. Then the platform blocked two identical `create_blob` requests for src/prologue-render.ts with 「由於 OpenAI 無法確定要求的安全狀態，因此已將此工具調用封鎖。」. No alternate path/encoding workaround was attempted. Do not bypass the block. No partial runtime commit/ref update was made. Resume normal authorized publication only when the operation is permitted; otherwise preserve this checkpoint, not a fabricated published candidate.
+CI19 terminal: validate chooser step13 failed;good/bad passed;fourartifacts/no playable. CI18/Pages12 remain last accepted0.8.2. Do not re-run accepted chest/organ/history or ask the user to await nonexistentCI20.
 
-Incomplete tree **7fdb23eec3e7e22e3fffdf9ff1a4f2d9c536fa00** (parent tree723bd18f4776364bd06ac67f4356cf7aceb6605b) holds11 files but is not aggregate-verified. Its home-interior.ts contains an unpublished transcription discrepancy: sideboard-top color #b69b75 instead of the tested #b69b70. Use the package's tested file, expected blob **d592a2903ce00cd26a96334cfe865f74c34fc3dc**, not the staged discrepancy. Separate accepted blobs: input.ts53a8b6709eae7287ce0bfffd53ac21a9397a477c;fair-render.ts768783ad5049f70de1021599f727f5bacd39583c. Full expected30-file map lives in the retained local-validation receipt. These staging objects may expire; they are an optimization, not source authority.
+## Execution boundary
 
-## Durable complete working source
+Normal source publication must be permitted before completing retained30files, correcting staged transcription, verifying objects, one source commit -> non-force main -> readback -> one full existingCI. Do not repeat the same blocked operation merely because another continue message arrives without a changed safety/permission outcome. Do not use alternate encodings/routes to bypass it. No ROM/token upload or new branch is needed.
 
-Folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**,file **1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k**,name **Chrono-VQ01-0.9.1-local-and-CI19-evidence.zip**,9771993bytes,SHA256 **1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3**. Raw download/fullhash/CRC/all300manifest records and correctparent verified.139source/selected-doc records,localplayable/art/models,logs,montage andfourCI19ZIPs. Restore only the known30-file batch over its documented main base; do not overwrite newer unrelated main documents or replay older recovery archives. No need to re-create assets or re-upload ROM. Toolchain already retained in1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE;restore node_modules only.
-
-When source publication is permitted: assemble the complete tested delta, correct the staged-only transcription, verify all tested source/test/build objects, create a commit on current main, non-force update and readback, then register its one existing full push CI. Preserve actual run/source/jobIDs. Do not manually dispatch another run. If queued/in_progress, freeze/report without long polling. Failure: actual first root/report/log/focused/PNG. All3success:fiveexactartifacts,actualearlyscene/HUD/nativeimport/combatreview,thenmatchingPagesdeployment/source/HTML. No new score until evidence supports it.
-
-Early visual comfort and90target remain first. Truce/castle/court detailed art, fuller animation, original-layout fidelity,audio and physical devices remain open. Full T03–T08 scope retained;2300arrival is not the future campaign. Main only/non-force; no parallelbranch,P3,ARPGrewrite,manufactured browser save or timeout-only fix.
+After actual all-three-job success, review same-source early screens/animation/occlusion/HUD/performance and matching Pages. Preserve unaccepted90target and completeT03–T08; Truce/castle/court/environment detail, fullNPC/party actions, originalgeography/audio/physicaldevices remain.2300 is arrival only. No laterchapter expansion before earlycomfort acceptance.

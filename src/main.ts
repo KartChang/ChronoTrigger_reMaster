@@ -1,4 +1,5 @@
-import {ModalFocus} from './modal-focus';
+import {ModalFocus,jumpInventorySection} from './modal-focus';
+import {bindSaveImport} from './save-import';
 import {equipmentPanel} from './equipment-ui';
 import {trialActive,trialHint,trialChoiceLabels,trialEvidence} from './trial-rules';
 import {trialMap,TRIAL_NAMES,TANK_PART_NAMES} from './trial-data';
@@ -78,6 +79,7 @@ function interact(slot:Slot):void{
   }
 }
 function command(slot:Slot,cmd:Command):void{
+  if(filePickerOpen)return; // No gamepad/utility command may change the world behind native import.
   if(cmd==='pause'){if(bagOpen)closeBag();else togglePause();return;}
   if(bagOpen){if(cmd==='interact'&&slot===0)closeBag();return;}
   if(cmd==='join'){
@@ -104,14 +106,14 @@ $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
 $('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.equipment?'chrono-equipment-save-v8.json':trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
-$('import').onclick=()=>{
- if(!started||halted()||cutsceneActive(state)||state.mode!=='explore'){announce('請在探索模式匯入存檔。');return;}
- const input=$<HTMLInputElement>('save-file');controls.clear();filePickerOpen=true;input.dataset.picker='open';
- try{if(typeof input.showPicker==='function')input.showPicker();else input.click();}
- catch(e){filePickerOpen=false;input.dataset.picker='error';announce('無法開啟檔案選擇：'+asError(e));focusWorld();}
-};
-$('save-file').onchange=async()=>{const input=$<HTMLInputElement>('save-file');const file=input.files?.[0];if(!file){filePickerOpen=false;input.dataset.picker='closed';focusWorld();return;}try{if(file.size>65536)throw new Error('存檔不得超過 64 KiB。');if(cutsceneActive(state))throw new Error('請等待演出結束。');replaceState(deserialize(await file.text()));updateHud();announce('存檔已匯入，請再按「存檔」保存到本機。');}catch(e){announce('匯入失敗：'+asError(e));}finally{input.value='';filePickerOpen=false;input.dataset.picker='closed';focusWorld();updateHud();}};
-$('save-file').addEventListener('cancel',()=>{controls.clear();focusWorld();filePickerOpen=false;$('save-file').dataset.picker='closed';last=performance.now();accumulator=0;updateHud();});
+const saveImport=bindSaveImport($<HTMLInputElement>('save-file'),{
+ canStart:()=>started&&!halted()&&!cutsceneActive(state)&&state.mode==='explore',
+ busy:value=>{filePickerOpen=value;controls.clear();inputBoundary.rebase(state);last=performance.now();accumulator=0;},
+ apply:raw=>{replaceState(deserialize(raw));updateHud();},
+ notice:announce,
+ released:()=>{updateHud();if(started&&!halted())focusWorld();}
+});
+$('import').onclick=()=>{saveImport.request();};
 function continueEncounter():void{if(state.mode!=='victory'&&state.mode!=='defeat')return;leaveBattle(state);$('result').hidden=true;syncModal();controls.clear();inputBoundary.rebase(state);last=performance.now();accumulator=0;focusWorld();updateHud();}
 $('continue').onclick=continueEncounter;
 document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button=>button.onclick=()=>command(Number(button.dataset.slot) as Slot,button.dataset.action as Command));
@@ -266,8 +268,8 @@ try{
     if(now>messageUntil)$('message').classList.remove('show');
     if(frame++%30===0){const fps=world.engine.getFps();$('fps').textContent=Number.isFinite(fps)?`WEBGL · ${Math.round(fps)} FPS`:'WEBGL · 準備中';}
   });
-  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>}};
-  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect()};
+  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};
+  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect(),importStatus:()=>saveImport.inspect()};
 }catch(error){const el=document.createElement('div');el.className='fatal';const title=document.createElement('h2');title.textContent='無法建立 3D 畫面';const p=document.createElement('p');p.textContent='請使用開啟硬體加速的近期 Chrome／Edge 瀏覽器。錯誤：'+asError(error);el.append(title,p);document.body.append(el);console.error(error);}
 
 function resolveChoice(yes:boolean):void{
@@ -292,6 +294,7 @@ function closeBag():void{bagOpen=false;$('inventory-screen').hidden=true;control
 function refreshBag():void{
  gearPanel.refresh();
  $('inventory-items-section').hidden=!trialActive(state);
+ $('inventory-jump-items').hidden=!trialActive(state);
  $('inventory-stock').hidden=!trialActive(state);$('inventory-actors').hidden=!trialActive(state);
  $('inventory-stock').textContent=`回復藥 ${state.rescue.tonics}　乙太 ${state.trial.ethers}　｜　本篇經驗 ${state.trial.experience}`;
  document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>{
@@ -311,6 +314,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-bag-item]').forEach(b=>b.onc
 
 /** UI confirmation is independent of temporary P2 story availability, never of world movement ownership. */
 function routeKeyboardUi(code:string,repeat:boolean):boolean|'native'{
+ if(filePickerOpen)return 'native'; // The OS picker owns keys; do not synthesize a game action.
  const confirm=['KeyE','Enter','Space'].includes(code),left=['ArrowLeft','KeyA','ArrowUp','KeyW'].includes(code),right=['ArrowRight','KeyD','ArrowDown','KeyS'].includes(code);
  const navigate=(root:string)=>{
   const buttons=[...$(root).querySelectorAll<HTMLButtonElement>('button')].filter(b=>!b.disabled&&!b.hidden&&b.getClientRects().length>0);
@@ -344,3 +348,8 @@ $('display').onclick=()=>{const guide=document.body.dataset.hud!=='guide';docume
 // Restore world focus after ordinary native utility clicks, but never steal focus from a chooser/modal.
 document.querySelector('.utility')?.addEventListener('click',()=>{if(started&&!halted())focusWorld();});
 $('world').addEventListener('pointerdown',()=>{if(started&&!dialogOpen&&!bagOpen)focusWorld();});
+
+// In-panel shortcuts move only focus/scroll; they never select a purchase or consume an item.
+for(const [button,target] of [['inventory-jump-items','inventory-items-section'],['inventory-jump-equipment','equipment-panel'],['inventory-jump-shop','equipment-shop']])$(button!).onclick=()=>{
+ if(bagOpen&&!manualPause&&!document.hidden)jumpInventorySection($('inventory-content'),target!);
+};

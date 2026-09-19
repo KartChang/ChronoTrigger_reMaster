@@ -91,12 +91,12 @@ def import_context(page):
       message:document.querySelector('#message').textContent,
       chapter:window.__CHRONO_TEST__.snapshot().chapter,
       ticks:window.__CHRONO_TEST__.snapshot().ticks,
-      userActivation:{active:navigator.userActivation?.isActive,ever:navigator.userActivation?.hasBeenActive}})""")
+      lifecycle:window.__CHRONO_TEST__.importStatus(),userActivation:{active:navigator.userActivation?.isActive,ever:navigator.userActivation?.hasBeenActive}})""")
 
 
-def imported(page, path):
+def imported(page, path, activation="Enter"):
     # Native activation is part of the assertion, not bypassed by set_input_files.
-    attempt={'file':path.name,'beforeTab':import_context(page)}
+    attempt={'file':path.name,'activation':activation,'beforeTab':import_context(page)}
     import_attempts.append(attempt)
     try:
         button(page,'import')
@@ -104,7 +104,8 @@ def imported(page, path):
         assert attempt['beforeEnter']['focused']=='import',attempt
         assert not attempt['beforeEnter']['paused'],attempt
         with page.expect_file_chooser() as event:
-            page.keyboard.press('Enter')
+            if activation=='tap':page.locator('#import').tap()
+            else:page.keyboard.press(activation)
         attempt['chooserOpen']=import_context(page)
         assert attempt['chooserOpen']['picker']=='open' and attempt['chooserOpen']['paused'],attempt
         event.value.set_files(str(path))
@@ -193,6 +194,13 @@ try:
             assert '沒有可售物品' in page.locator('#sell-bronze-helm').inner_text()
             assert '相較目前：普攻 -6' in page.locator('#equip-crono-wood-katana').inner_text()
             assert page.locator('#equipment-member-crono').get_attribute('aria-pressed')=='true'
+            # Real section shortcuts only move focus/scroll, never equip/trade or advance ticks.
+            protected=snap(page)
+            for shortcut,target in [('inventory-jump-shop','equipment-shop'),('inventory-jump-equipment','equipment-panel')]:
+                activate(page,shortcut)
+                assert focus(page)==target and snap(page)==protected
+                rect=page.locator('#'+target).bounding_box();body=page.locator('#inventory-content').bounding_box()
+                assert rect and body and rect['y']>=body['y']-1 and rect['y']<body['y']+body['height']
             record(page,'02-keyboard-trade-and-equipped')
             # Disclosure uses real keys, keeps all authored-value caveats and cannot mutate the save.
             protected= snap(page)
@@ -240,7 +248,7 @@ try:
             activate(page,'save')
             page.wait_for_function('document.querySelector("#message").textContent.includes("本機存檔完成")')
             saved,data=exported(page,'equipment-merchant-v8.json')
-            imported(page,saved)
+            imported(page,saved,activation='Space')
             assert snap(page)['equipment']==data['equipment']
             page.reload(wait_until='load')
             page.wait_for_function('window.__CHRONO_TEST__ && !document.querySelector("#start-story").disabled')

@@ -19,7 +19,7 @@ def record_touch_inventory(browser, source: Path, out: Path, imported, snap):
         page.wait_for_function('window.__CHRONO_TEST__ && !document.querySelector("#start-story").disabled')
         page.locator('#start-story').tap()
         page.wait_for_function('window.__CHRONO_TEST__.snapshot().prologue.stage==="home"',timeout=120000)
-        imported(page,source)
+        imported(page,source,activation="tap")
         saved=json.loads(source.read_text(encoding='utf-8'))
         assert snap(page)['equipment']==saved['equipment']
         page.locator('#bag').tap()
@@ -27,6 +27,10 @@ def record_touch_inventory(browser, source: Path, out: Path, imported, snap):
         frozen=snap(page)
         for width,height in [(390,700),(568,320)]:
             page.set_viewport_size({'width':width,'height':height})
+            page.keyboard.press('Home')
+            for shortcut,target in [('inventory-jump-shop','equipment-shop'),('inventory-jump-equipment','equipment-panel')]:
+                page.locator('#'+shortcut).tap()
+                assert page.evaluate('document.activeElement?.id')==target and snap(page)==frozen
             page.keyboard.press('Home')
             m=measure_inventory(page);assert m['coarse'],m
             assert_inventory_layout(m);readability=assert_inventory_readability(page)
@@ -49,7 +53,7 @@ def record_touch_inventory(browser, source: Path, out: Path, imported, snap):
     except Exception as exc:
         report.update(status='failed',failure=str(exc))
         try:
-            report.update(lastObserved=snap(page),focused=page.evaluate('document.activeElement?.id'))
+            report.update(lastObserved=snap(page),focused=page.evaluate('document.activeElement?.id'),importStatus=page.evaluate('window.__CHRONO_TEST__.importStatus()'))
             page.screenshot(path=str(out/'touch-failure.png'),timeout=15000)
         except Exception as diagnostic:report['observationError']=str(diagnostic)
         raise

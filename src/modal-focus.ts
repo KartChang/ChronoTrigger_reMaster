@@ -97,3 +97,13 @@ export function scrollInventory(content:HTMLElement,code:string):boolean{
  content.scrollTop=Math.min(limit,Math.max(0,next));
  return true;
 }
+
+/** Jump to a non-destructive section heading within this scroller, not a trade action. */
+export function jumpInventorySection(content:HTMLElement,id:string):boolean{
+ if(!['inventory-items-section','equipment-panel','equipment-shop'].includes(id))return false;
+ const target=content.ownerDocument.getElementById(id);
+ if(!target||!content.contains(target)||!focusUsable(target))return false;
+ const offset=target.getBoundingClientRect().top-content.getBoundingClientRect().top-8;
+ const next=Math.max(0,Math.min(content.scrollHeight-content.clientHeight,content.scrollTop+offset));
+ target.tabIndex=-1;target.focus({preventScroll:true});content.scrollTop=next;return true;
+}

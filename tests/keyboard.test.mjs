@@ -21,7 +21,7 @@ test('file chooser focus no longer discards all subsequent game keys',()=>{const
 test('physical code survives non-English key label; fallback only when code missing',()=>{assert.equal(physicalCode({code:'KeyW',key:'ㄊ'}),'KeyW');assert.equal(physicalCode({code:'',key:'w'}),'KeyW');assert.equal(physicalCode({code:'Unidentified',key:'Enter'}),'Enter');assert.equal(physicalCode({code:'',key:' '}),'Space');});
 test('opposing keys cancel; diagonal controls normalize to original movement speed',()=>{const h=harness();h.emit('KeyW');h.emit('ArrowUp');h.emit('KeyD');const v=h.control.poll()[0];assert(Math.abs(Math.hypot(v.x,v.z)-1)<1e-12);h.control.clear();for(const c of ['KeyW','KeyS','ArrowUp','ArrowDown'])h.emit(c);assert.deepEqual(h.control.poll()[0],{x:0,z:0});});
 test('keyup/default-prevented events do not trigger commands',()=>{const h=harness();h.emit('KeyJ',{defaultPrevented:true});h.up('KeyJ');assert.deepEqual(h.calls,[]);});
-test('production UI has result confirmation, context help and focus return; legacy controls kept',()=>{const s=readFileSync('src/main.ts','utf8'),html=readFileSync('index.html','utf8');assert.match(s,/solo:\(\)=>!state.joined/);assert.match(s,/if\(state.mode==='victory'\|\|state.mode==='defeat'\)\{if\(confirm&&!repeat\)continueEncounter\(\)/);assert.match(s,/function focusWorld/);assert.match(s,/save-file'\)\.addEventListener\('cancel',\(\)=>\{controls.clear\(\);focusWorld\(\);/ );assert.match(html,/<canvas(?=[^>]*id="world")(?=[^>]*tabindex="0")/);assert.match(s,/routeUi:routeKeyboardUi/);});
+test('production UI has result confirmation, context help and focus return; legacy controls kept',()=>{const s=readFileSync('src/main.ts','utf8'),html=readFileSync('index.html','utf8');assert.match(s,/solo:\(\)=>!state.joined/);assert.match(s,/if\(state.mode==='victory'\|\|state.mode==='defeat'\)\{if\(confirm&&!repeat\)continueEncounter\(\)/);assert.match(s,/function focusWorld/);assert.match(s,/released:\(\)=>\{updateHud\(\);if\(started&&!halted\(\)\)focusWorld\(\)/);assert.match(html,/<canvas(?=[^>]*id="world")(?=[^>]*tabindex="0")/);assert.match(s,/routeUi:routeKeyboardUi/);});
 
 test('ownership change clears held arrows instead of transferring P2 motion to P1',()=>{let solo=false;const h=harness(()=>solo);h.emit('ArrowUp');assert.equal(h.control.poll()[1].z,1);solo=true;assert.deepEqual(h.control.poll(),[{x:0,z:0},{x:0,z:0}]);h.emit('ArrowUp');assert.equal(h.control.poll()[0].z,1);});
 test('a new direction key after ownership change survives the next poll',()=>{let solo=false;const h=harness(()=>solo);h.emit('ArrowUp');solo=true;h.up('ArrowUp');h.emit('KeyD');assert.deepEqual(h.control.poll(),[{x:1,z:0},{x:0,z:0}]);});
@@ -40,7 +40,7 @@ test('native route neither synthesizes a click nor falls through to co-op intera
  const e=h.emit('Enter');assert.equal(activations,1);assert.equal(e.defaultPrevented,false);assert.deepEqual(h.calls,[]);
 });
 test('file chooser has explicit open/change/cancel/error lifecycle and native activation path',()=>{
- const s=readFileSync('src/main.ts','utf8');assert.match(s,/filePickerOpen/);assert.match(s,/input.showPicker\(\)/);
- assert.match(s,/input.dataset.picker='open'/);assert.match(s,/input.dataset.picker='error'/);
- assert.match(s,/return repeat\?true:'native'/);assert.match(s,/filePickerOpen=false/);
+ const s=readFileSync('src/main.ts','utf8');assert.match(s,/filePickerOpen/);const picker=readFileSync('src/save-import.ts','utf8');assert.match(s,/bindSaveImport/);assert.match(picker,/input\.click\(\)/);assert.doesNotMatch(picker,/\.showPicker\(/);
+ assert.match(picker,/set\('open'\)/);assert.match(picker,/input.addEventListener\('cancel',cancelled\)/);assert.match(picker,/activation-error/);assert.match(picker,/read-error/);
+ assert.match(s,/return repeat\?true:'native'/);assert.match(s,/filePickerOpen=value/);
 });

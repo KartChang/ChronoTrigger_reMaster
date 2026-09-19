@@ -1,0 +1,89 @@
+{
+  "schema": "chrono-ci-checkpoint-v1",
+  "recordedUtc": "2026-09-19T13:51:34.810882+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ01F-native-import-and-section-comfort",
+  "version": "0.9.6",
+  "sourceSha": "c7a154929ccf28be8ea3e0e0b724982c92be95bf",
+  "sourceTree": "7fe9c2b7facdbedd7cdaba823c32918a071a1b37",
+  "parentSha": "ff57415a67fc172617b619d81aa092f8294e9658",
+  "publication": {
+    "nonForceUpdate": true,
+    "mainRefReadbackMatched": true,
+    "changedFiles": 12,
+    "aheadBy": 1,
+    "behindBy": 0,
+    "allTestedBlobsMatched": true,
+    "verification": "Computed Git subtree objects from exact CI22 source plus the 12 tested deltas; matched remote src/scripts/tests and root index.html before commit. No incomplete staging was promoted.",
+    "matchingSubtrees": {
+      "src": "1fc07b5674ae800a3fc0b4b8d3e05fa1df31490d",
+      "scripts": "3bf67275e49576ad508a8f84ba97c02990f11f98",
+      "tests": "ad4b79d694cecfffa629e62465f64592cf531515",
+      ".github": "a0f174067a68184ca61d5eccd27f968194c999a9",
+      "assets": "28582cd73b879fde5e1e68306b3ea70afe25ab30"
+    },
+    "indexBlob": "00962520a09a007fee06387f4d55c8db04ffa73a"
+  },
+  "run": {
+    "id": 35446872657,
+    "number": 23,
+    "event": "push",
+    "attempt": 1,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "headSha": "c7a154929ccf28be8ea3e0e0b724982c92be95bf",
+    "observedStatus": "in_progress",
+    "observedConclusion": null,
+    "createdAt": "2026-09-19T13:48:59Z",
+    "updatedAtObservation": "2026-09-19T13:49:04Z",
+    "exactShaRunCount": 1,
+    "manuallyDispatched": false,
+    "longPolling": false,
+    "jobsAccepted": false
+  },
+  "cloud": {
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileId": "1IssbDq7z6ANc7CDG8OVR_zJg3xb5jxtu",
+    "name": "Chrono-CI22-terminal-VQ01F-native-import-comfort.zip",
+    "bytes": 8185379,
+    "sha256": "e0f617caf37c6d00f205cbe7c0f0387f233e96ef162845d9b1a170c36ef140a8",
+    "parentVerified": true,
+    "rawReadbackHashVerified": true,
+    "zipCrcVerified": true,
+    "manifestEntriesVerified": 26,
+    "deltaFilesVerified": 12
+  },
+  "local": {
+    "receipt": "docs/evidence/VQ01F_LOCAL_VALIDATION.json",
+    "npmRunCheck": "passed",
+    "nodeTests": 714,
+    "pythonUnitTests": 21,
+    "typecheck": "passed",
+    "build": "passed",
+    "pythonCompile": "passed",
+    "browser": "not run locally; no retry of prior administrative restriction"
+  },
+  "previousTerminal": {
+    "run": 35444592684,
+    "conclusion": "failure",
+    "root": "first-native-filechooser-no-event",
+    "receipt": "docs/evidence/CI22_TERMINAL.json",
+    "rootClosed": false
+  },
+  "lastAccepted": {
+    "sourceSha": "69dc0524b593df6948c11397280bfcedc841236f",
+    "ci": 35440863455,
+    "pages": 35442701457,
+    "closed": true
+  },
+  "limits": {
+    "newBrowserAccepted": false,
+    "newPagesAccepted": false,
+    "fullHeldScenePublished": false,
+    "early90Approved": false,
+    "physicalDevicesApproved": false,
+    "blockedRendererWriteRetried": false
+  },
+  "next": "After E2E completes, read exact CI23 once. Pending: freeze/report. Failure: first actual same-run root and import lifecycle trace, report/log/lastObserved/focused/failure PNG. Success: all three jobs, actual Enter/Space/tap chooser events with same-run v6/own v8, seven fine-pointer and two coarse-pointer cases, section shortcuts/state/focus, all retained journeys, artifact retention and matching Pages. No duplicate dispatch or unchanged CI22/CI21 rerun."
+}

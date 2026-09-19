@@ -1,0 +1,144 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ01F-native-import-and-section-comfort",
+  "version": "0.9.6",
+  "baseHead": "ff57415a67fc172617b619d81aa092f8294e9658",
+  "baseSource": "fe855253f18cc8134b5bae785c38d831c30f436b",
+  "files": [
+    {
+      "path": "index.html",
+      "before": "aa954996ea8286325377ca73c12c7fcfff259af797f75280ba00a92b41006884",
+      "after": "28569c88b5efe834d5ae533056d21f6e5ee917cc89c53079f7ad998b30f9d904",
+      "blob": "00962520a09a007fee06387f4d55c8db04ffa73a",
+      "bytes": 10225
+    },
+    {
+      "path": "tests/save-import.test.mjs",
+      "before": null,
+      "after": "dcded726b8575019e9583433dacb89866bb1bd8b609c0040244812c3042295a2",
+      "blob": "dc1c94e9080d54e2e4ef901469dc34ac94d5eae1",
+      "bytes": 6098
+    },
+    {
+      "path": "tests/equipment_browser.py",
+      "before": "6e751df5867851f9545323ceccadc7acd6a643819df9af248ea51b1a13afc498",
+      "after": "7a0ebfa5266632432bc17c243eaa802a8eb23b3cd47977dad776ea7d7b84c261",
+      "blob": "480278d9604434793508ce103f3d7cf41ddd2e52",
+      "bytes": 19854
+    },
+    {
+      "path": "tests/inventory-sections.test.mjs",
+      "before": null,
+      "after": "05d6895f19aed0e1bed174ad2c4b42e9d52f98b6355a1fa2708e1a2dd6737cbb",
+      "blob": "f04103b0ea5aabde6d379f474631944dff62d0f5",
+      "bytes": 2044
+    },
+    {
+      "path": "tests/keyboard.test.mjs",
+      "before": "b0354b0bbdbd9fb86c70a5a1b3ecd138ece33dfbf97ee02ea7337abc3938b971",
+      "after": "6a16ec641ae6d6d24e304411f3cc4c78a727cdcca6f11b4fb3b9caa971579d67",
+      "blob": "5d2b69a7a51923b12ebe9b577850dc386c625bc2",
+      "bytes": 7636
+    },
+    {
+      "path": "tests/inventory_touch.py",
+      "before": "4410c077f85582ae1a455cca202c2fec7a371aa85fd8e59cd16cc5c3bf1c399a",
+      "after": "3704d148a46d32619a2d86cb4ce3e93f1cece84a0ce2e1a2caf2cad738a5a0be",
+      "blob": "664c88dc23b9e606d468db5b5bdfa9ef3a490ee4",
+      "bytes": 3937
+    },
+    {
+      "path": "src/main.ts",
+      "before": "2772a51163240ca00400bcb10f831f03f9a19d4e71b8d76998e5998aae374d49",
+      "after": "130f0b095228051e6ecdbb4e09db036bb192934000a013b4bcad1dd9fd52753c",
+      "blob": "2a8f18b55e135f18bfff98820708e275a6aafa40",
+      "bytes": 39217
+    },
+    {
+      "path": "src/save-import.ts",
+      "before": null,
+      "after": "6245c30a8be557b94809329c43c48d736540b39cc458b54114e7b52dd28b98e6",
+      "blob": "d60809b178f55b2b8d66bf320ce49426b7b505b4",
+      "bytes": 2663
+    },
+    {
+      "path": "src/modal-focus.ts",
+      "before": "083f754334d0daaaf23ec862c4255b2353103be4e53a343d4c280026a0e4182f",
+      "after": "ad3c8f507a2329fea3a3fbe4db0dd19c89a19bd6af999615a56af24edc94bce1",
+      "blob": "d9b5d63d4b3b2f144b7b1f44548a5c154b1152f4",
+      "bytes": 6580
+    },
+    {
+      "path": "src/inventory.css",
+      "before": "c7e47852d0b94344eafac8c3b53f92e0974e522e79e0a5f21b3a46a0cc2980f9",
+      "after": "f5f98e8473042f142b37d6b4aafa709fc7fb8a0a22a07de2daa89ce2650bdf93",
+      "blob": "16caf12f72c0d585e7fe5f57638f4cb75e542f59",
+      "bytes": 5940
+    },
+    {
+      "path": "scripts/build.mjs",
+      "before": "4d8a089b3dc561e3b9cd08708438cf1eb0e4635bb753b3bfc89cea0abd1dc277",
+      "after": "3ff4e4cf4a8b9042cbf0c75f4e5f878a491c67ea98fae16fd276c4ba15432845",
+      "blob": "35e82ec362642c1a27a09bb273582ed7a6f0bd8b",
+      "bytes": 1841
+    },
+    {
+      "path": "scripts/test.mjs",
+      "before": "a192b9bc797f76c10477fe73f6f2bb3429d4560071e3d8ae7ea8b3a91240d446",
+      "after": "95b6dfe607d35f8b53e9f8ebb63165b430e7d7e62476262cc1c9987a7c9dfb88",
+      "blob": "aaed7a56955041cbd63188b30f411f844f28d5ab",
+      "bytes": 1833
+    }
+  ],
+  "validation": {
+    "npmRunCheck": "passed",
+    "nodeTests": 714,
+    "failed": 0,
+    "skipped": 0,
+    "pythonUnitTests": 21,
+    "pythonCompile": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "browser": "not run locally; previous administrative restriction not retried",
+    "newScreenshots": false,
+    "htmlBytes": 5589606,
+    "htmlSha256": "c8fada8b688647c2a584d846e0f00f0cd1773dcff26a69449e910123d962d600"
+  },
+  "implemented": [
+    "one synchronous native input.click() in original native button activation; no second picker retry or alternative route on failure",
+    "explicit requested/reading/error/cancel lifecycle, input reset for same-file selection, bounded non-sensitive read-only trace",
+    "hold controls and simulation while selection/read is pending; block gamepad/utility commands behind chooser; rebase clock on release",
+    "backpack items/equipment/shop shortcuts scroll inside existing content, focus safe section not a trade, no additional sticky header",
+    "retain original same-run v6/own v8 and real chooser tests; second v8 activated by Space; coarse context uses a real tap to activate import; section-key/tap checks"
+  ],
+  "unitLimits": "Node import tests use an event-port double and mock file reads. DOM geometry is synthetic. Neither proves browser chooser activation, real layout, physical devices, performance or art quality.",
+  "notChanged": {
+    "prologueRenderer": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "core": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4",
+    "save": "8ef4e85a13a949e3b29d8f594aad13b4287923ab",
+    "ciWorkflow": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf"
+  },
+  "references": [
+    {
+      "title": "HTML activation behavior",
+      "url": "https://html.spec.whatwg.org/multipage/interaction.html#activation-behavior"
+    },
+    {
+      "title": "HTML input file picker change/cancel behavior",
+      "url": "https://html.spec.whatwg.org/multipage/input.html"
+    },
+    {
+      "title": "Playwright FileChooser",
+      "url": "https://playwright.dev/python/docs/api/class-filechooser"
+    }
+  ],
+  "limits": {
+    "newCiAccepted": false,
+    "newPagesAccepted": false,
+    "early90Approved": false,
+    "fullScenePublished": false,
+    "physicalDevicesApproved": false,
+    "blockedWriteRetried": false
+  },
+  "note": "Prepublication record; later source/CI/Drive results belong to CI23_CHECKPOINT. Keep current main docs, not old tar docs."
+}

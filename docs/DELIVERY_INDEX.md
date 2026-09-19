@@ -1,47 +1,42 @@
-# Cloud delivery index — CI21/Pages15 accepted; VQ01E retained
+# Cloud delivery index — CI22 terminal and VQ01F / CI23
 
-Updated2026-09-19. Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/deletion/move changes. Current runtime0.9.5 sourcefe855253f18cc8134b5bae785c38d831c30f436b has CI22 checkpoint; last accepted game0.9.4 source69dc0524b593df6948c11397280bfcedc841236f is CI21/Pages15. Dynamic authority STATUS/IMMEDIATE_CONTINUATION. No new runtime acceptance inferred from cloud storage.
+Updated2026-09-19. Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**; no sharing/deletion/move changes. Current runtime0.9.6sourcec7a154929ccf28be8ea3e0e0b724982c92be95bf hasCI23 checkpoint. Lastaccepted remains0.9.4/CI21/Pages15. Currentauthority STATUS/handoff and evidence/CI23_CHECKPOINT.json. Cloud upload is not runtime acceptance.
 
-## VQ01E source and local validation
+## Current combined terminal and candidate delivery
 
-**Chrono-VQ01E-readability-coarse-input.zip**
-Drive **1VnDWBt6oKbpavPVHyuLMOfRUz09Ru1NP**
-https://drive.google.com/file/d/1VnDWBt6oKbpavPVHyuLMOfRUz09Ru1NP/view
-1334167bytes; SHA256 **d7e3f64a88260d3e0f48fbca9362734995a036eb8ce8af562a83328cee72459b**.
-Correct parent/rawDrive readback/hash/ZIPCRC/all18manifest entries verified.9guarded source/test deltas, local receipt and logs, clearly labelled local preview/notices. Fresh699Node/21Python/typecheck/assets/build/Pythoncompile pass. No new screenshots/browser/device approval. Prepublication local receipt predates commit/run; later outcomes in GitHub evidence/CI22_CHECKPOINT.json. Do not restore its deltas over newer main or overwrite current documents/heldart. No originalROM/media/fonts/dependencies/credentials.
+**Chrono-CI22-terminal-VQ01F-native-import-comfort.zip**
+Drive **1IssbDq7z6ANc7CDG8OVR_zJg3xb5jxtu**
+https://drive.google.com/file/d/1IssbDq7z6ANc7CDG8OVR_zJg3xb5jxtu/view
+**8185379bytes**, SHA256 **e0f617caf37c6d00f205cbe7c0f0387f233e96ef162845d9b1a170c36ef140a8**.
 
-## Accepted CI21 and matching Pages15
+Correctparent/rawDrive readback/wholehash/ZIPCRC/**26manifestentries/12tested deltas** verified. FourunmodifiedCI22artifacts,12before/after source/testdeltas, terminal/localJSON, npm/Pythonlogs andlabelledlocalpreview. Exactsourcefe855tar remainsinsidebrowserZIP. No newlyexecuted0.9.6 browserimages, originalROM/media/fonts/deps/credentials orblockedscene added. Prepublicationreceipts have no CI23approval; laterpublication/run/cloud verification atCI23_CHECKPOINT. CurrentGitHubdocs win over archive's oldsource docs.
 
-**Chrono-CI21-Pages15-accepted-evidence.zip**
-Drive **19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5**
-https://drive.google.com/file/d/19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5/view
-23987438bytes; SHA256 **1dbfbe5559ff4ae7ffbc51ad895ba765766e63790f8e9c1b3a60b93b94b4aa81**.
-Correct parent/rawDrive readback/hash/CRC/all12manifest entries verified.6unmodified artifactZIPs, acceptance/reportindex/review and3actual-screen contact sheets; browserZIP also has exact source69dc0524 tar. Original provider digests and CRC verified. Embedded initial acceptance predates DrivefileID; full cloud readback recorded in GitHub CI21_ACCEPTANCE.json.23actual reports pass;7fine-pointer viewports/actual top-bottom images inspected, not touch/fullscene/90 evidence.
-
-| Original artifact | ID | Bytes | SHA256 |
+| Original CI22 artifact | ID | Bytes | SHA256 |
 |---|---|---|---|
-| CI21 browser |10584670568|17454841|53fa499b3736ffdac1c58fb053044ebd77d84882afc57f66602e4874f2b7c8a8|
-| CI21 playable |10584540642|1283370|b2fea749681f1632b6a57fb93b24ebbd6042d3696220fdb4e587a85b0024baca|
-| CI21 art review |10584330953|314229|56fb570b0a469c8a7f0ae7d4a08a985621fdf73532c703abe6865d8725eae553|
-| CI21 witness good |10583777208|1649145|9bbdf6feae5049dc3eb654ef4b48f268e22f8ea8abc4e6f02006f52bfed66d76|
-| CI21 witness bad |10583612838|1605863|131f18d6e6f5d3a7029e81652a241532111231f93afbdde25cebcdf171745675|
-| Pages15 staged |10584320911|1288739|69ac43e6a04b3ccfa4ea2eb9cac1abb4a19b4f665195759b4ca4ad66324e81b6|
+| Browser |10584887410|3457086|d2cedaed3e03658fb6dc7d813a4eada3e736e242187d0d19613c71cf583daf5b|
+| Art review |10585416909|314229|ebfba389a1033fc44293e2abbe4d7e5c90fe40cba7af2e9252a730f0a4c3d901|
+| Witness good |10584383324|1471873|05663c5fdcd9c18144faa30b5dc519cdda0e69adceb218660a8dea0c27ecc4e5|
+| Witness bad |10584948075|1609991|32df8b071161de1c67cedf3226c12ef8f376e06af44aa87fdae089ab6b879a29|
 
-CI21run35440863455 all3jobs success; Pages15run35442701457 selected source69dc0524/CI21/playable10584540642. Staged/playableHTML identical5584230bytes/SHA2564a164c7ad33a6a5a13e7aa606fa85e6c16f7165a1aa630d9ee53fae426eac951. Deploy105896214810step3 publicHTTP metadata/game/launcher verification passed. Public preview https://kartchang.github.io/ChronoTrigger_reMaster/ . Source0.9.5 is not accepted by this receipt.
+Allfourproviderdigests/size/CRCmatched. CI22failedfirstnativechooser beforemerchant/menu/coarse, two witnessreports passed. No playable/newPages. ActualfailurePNG isbedroom, notnewmenu. FreshVQ01F714Node/21Python/typecheck/buildpassed; localHTML5589606bytes/SHAc8fada8b688647c2a584d846e0f00f0cd1773dcff26a69449e910123d962d600 remainsunaccepted.
 
-## Previous independent UI and accepted evidence — retain, do not repeat
+## Last accepted CI21 / Pages15 — closed
 
-VQ01D **1p58xW20eSNKpXzv4MkK0HTaPg-TpVobN**, Chrono-VQ01D-independent-menu-comfort.zip,1329483bytes/SHA256**64a8377b2dd3aee4642e2511bad2910b9f6ae8c49e266aa6eb3f7ffd65d3b6fb**.9delta files/local695Node20Python evidence; now accepted byCI21. Already on main, do not reapply.
-CI20/Pages14 accepted **1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n**, Chrono-CI20-Pages14-accepted-evidence.zip,23765122bytes/SHA256**f7f6dac2d86cf4fff172eae5728dfa3f5afb48508f367d0414542dc19bdd7d48**. Prior source0e65066d2e1e54cfff9b9a7a4d5466a694a79484, all3jobs and20reports accepted. Historical receipt remains CI20_ACCEPTANCE.json; do not reopen chooser/chest/organ roots.
+**Chrono-CI21-Pages15-accepted-evidence.zip**, Drive**19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5**,23987438bytes/SHA256**1dbfbe5559ff4ae7ffbc51ad895ba765766e63790f8e9c1b3a60b93b94b4aa81**.
+https://drive.google.com/file/d/19GRN41beDiTxDvZk_6LlYTYApXfmrfQ5/view
+Alreadyrawverified12manifestentries:6originalZIPs/receipt/reportindex/review/3actualscreencontact sheets. Source69dc0524b593df6948c11397280bfcedc841236f/CI21 35440863455/Pages15 35442701457 closed.23reports/sevenfinepointerimages accepted, nottouchhardware/fullscene90. CI21_ACCEPTANCE andCI21_VISUAL_REVIEW containfullprovenance; don'tdownload/reaccept beforeacting.
 
-## Held full visuals — exact restore chain only
+VQ01E **1VnDWBt6oKbpavPVHyuLMOfRUz09Ru1NP**,1334167bytes/SHAd7e3f64a88260d3e0f48fbca9362734995a036eb8ce8af562a83328cee72459b;18previouslyverifiedentries/9deltas/local0.9.5preview, NOTCI22accepted.
+VQ01D **1p58xW20eSNKpXzv4MkK0HTaPg-TpVobN**,1329483bytes/SHA64a8377b2dd3aee4642e2511bad2910b9f6ae8c49e266aa6eb3f7ffd65d3b6fb;9deltas, nowincludedinaccepted0.9.4.
+CI20/Pages14 **1vMhQbcd4wOBTdkFk28aDPutsyvIX-S1n**,23765122bytes/SHAf7f6dac2d86cf4fff172eae5728dfa3f5afb48508f367d0414542dc19bdd7d48 remainsclosedhistorical0.9.3. No filesdeleted.
 
-A **1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k**, Chrono-VQ01-0.9.1-local-and-CI19-evidence.zip,9771993bytes/SHA256**1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3**. Retained fullworking base, not current publishedscene.
-B **1vkPuPN8HN46d1uHaJY9__OPrf455k3QV**, Chrono-VQ01B-0.9.2-comfort-delta.zip,107554bytes/SHA256**084c472e69f4f44ed72fd8f9a9276f2756aa739ef592227a0d8f1f4d069871d8**,13before/after-guarded replacements.
-C **16iHw_Py_RGLr819nPAEG6d5h98JuyLNe**, Chrono-VQ01C-0.9.3-ui-camera-deltas.zip,233959bytes/SHA256**26548a1a9d6bf70899b8d002e97ebf8b6733bb0468b2326e02e4d28d9eea7ea2**. working-delta/15replacements afterB; independent-ui/14files already published, never reapply. C evidence/VQ01C_LOCAL_VALIDATION.json has43paths vsold0.9.0/31vsaccepted0.9.3, not counts against0.9.5.
+## Held full visual chain — not published; don't recreate
 
-Restore A->B->Cworking only when needed; check per-file hashes, preserve current GitHub documents and0.9.5 UI by merging overlaps. Never use incomplete old staging or repaint stored models/actors. Prior new prologue-render write remains specifically restricted; no retry/bypass/new permission result. UI publication is not approval for held fullscene. Baseline scene blob2711a74185aacf3c6bddf9db85ba99a2afbc507a unchanged.
+A VQ01base **1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k**,9771993bytes/SHA256**1901156c3be41f69208256db064fb913c6088b7e198042ba14c38d95172ff5d3**.
+B VQ01B **1vkPuPN8HN46d1uHaJY9__OPrf455k3QV**,107554bytes/SHA256**084c472e69f4f44ed72fd8f9a9276f2756aa739ef592227a0d8f1f4d069871d8**,13delta replacements.
+C VQ01C **16iHw_Py_RGLr819nPAEG6d5h98JuyLNe**,233959bytes/SHA256**26548a1a9d6bf70899b8d002e97ebf8b6733bb0468b2326e02e4d28d9eea7ea2**; useworking-delta/15files overB onlywhenneeded. independent-ui/14already main; neverreapply overcurrent. C evidence/VQ01C_LOCAL_VALIDATION.json preserves43cumulative/31residualledger against0.9.0/0.9.3; notcurrent0.9.6counts.
 
-## Toolchain, ROM and older retained receipts
+A->B->C hashguardedrecovery, currentmainUI/docswin;mergeoverlapping0.9.4–0.9.6 changes. Existingrooms/furniture/cloth/stalls/bell/telepod/actors/camera/occlusion/footcontact/easing nottoberepainted. Newprologue-rendererwrite remainsrestrictedwithoutnewpermission;no retry/bypass,incompleteoldstaging promotion orgeneratedevidence. Baselineblob2711a74185aacf3c6bddf9db85ba99a2afbc507a retained.
 
-Dependencies **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**: only node_modules, preserve esbuild hardlinks; never its oldsource/config, no bootstrapCI. PrivateROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM**: no re-upload/extraction/public redistribution or new fonts. All earlier artifactIDs/hashes remain in immutable prior index https://github.com/KartChang/ChronoTrigger_reMaster/blob/c4702c7ee99cb5d4b51da0c233b3d2a2847886b9/docs/DELIVERY_INDEX.md and its historical links. No files deleted. Temporary container is not the recovery authority.
+Toolchain **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**: onlynode_modules/preserveesbuildhardlinks;no oldsource/config/bootstrapCI. PrivateROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** staysprivate,no reupload/publicdistribution.
+Olderartifacttables/receipts/links remainaccessible atimmutablepreviousindex https://github.com/KartChang/ChronoTrigger_reMaster/blob/ff57415a67fc172617b619d81aa092f8294e9658/docs/DELIVERY_INDEX.md . Currentruntime/CI authority comesfromSTATUS, not thosehistoricalpendingnotes.

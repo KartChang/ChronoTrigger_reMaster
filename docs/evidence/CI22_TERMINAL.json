@@ -1,0 +1,132 @@
+{
+  "schema": "chrono-ci-terminal-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "runId": 35444592684,
+  "runNumber": 22,
+  "attempt": 1,
+  "event": "push",
+  "sourceSha": "fe855253f18cc8134b5bae785c38d831c30f436b",
+  "sourceTree": "ca907dd884590924cd02ad3f9e4dc801dc6173f6",
+  "status": "completed",
+  "conclusion": "failure",
+  "jobs": {
+    "validate": {
+      "id": 105901232597,
+      "conclusion": "failure",
+      "firstFailedStep": 13
+    },
+    "good": {
+      "id": 105901232529,
+      "conclusion": "success"
+    },
+    "bad": {
+      "id": 105901232646,
+      "conclusion": "success"
+    }
+  },
+  "firstRoot": {
+    "name": "first-native-filechooser-no-event",
+    "failure": "Timeout 30000ms exceeded while waiting for event \"filechooser\"\n=========================== logs ===========================\nwaiting for event \"filechooser\"\n============================================================",
+    "sourceSave": "test-results/prologue/prologue-companions-v6.json",
+    "sourceSaveSha256": "ca4a5a73365984d36e50f0cda4936b8e43f17d3b772726d27b8f91fd2332e82a",
+    "importAttempts": [
+      {
+        "file": "prologue-companions-v6.json",
+        "beforeTab": {
+          "focused": "world",
+          "picker": "unopened",
+          "importDisabled": false,
+          "paused": false,
+          "message": "母親：千年祭已經開始了，露卡不是邀你去看她的發明嗎？",
+          "chapter": "bedroom",
+          "ticks": 163,
+          "userActivation": {
+            "active": true,
+            "ever": true
+          }
+        },
+        "beforeEnter": {
+          "focused": "import",
+          "picker": "unopened",
+          "importDisabled": false,
+          "paused": false,
+          "message": "母親：千年祭已經開始了，露卡不是邀你去看她的發明嗎？",
+          "chapter": "bedroom",
+          "ticks": 163,
+          "userActivation": {
+            "active": true,
+            "ever": true
+          }
+        },
+        "result": "failed",
+        "failure": "Timeout 30000ms exceeded while waiting for event \"filechooser\"\n=========================== logs ===========================\nwaiting for event \"filechooser\"\n============================================================",
+        "after": {
+          "focused": "world",
+          "picker": "closed",
+          "importDisabled": false,
+          "paused": false,
+          "message": "母親：千年祭已經開始了，露卡不是邀你去看她的發明嗎？",
+          "chapter": "bedroom",
+          "ticks": 1076,
+          "userActivation": {
+            "active": true,
+            "ever": true
+          }
+        }
+      }
+    ],
+    "afterFailureChapter": "bedroom",
+    "afterFailureFocused": "world",
+    "browserVersion": "134.0.6998.35",
+    "report": "CI22-browser.zip/equipment/equipment-report.json",
+    "screenshot": "CI22-browser.zip/equipment/failure.png"
+  },
+  "interpretation": "Actual report: before Enter focus=import, picker=unopened, enabled and unpaused; after timeout focus=world, picker=closed, still bedroom. It did not reach merchant/menu/coarse tests. Cancellation/lost interception timing is not conclusively distinguishable without lifecycle traces. This is not a coarse-page navigation timeout. The new native-input activation is a candidate fix, not browser-proven closure.",
+  "scope": {
+    "steps11and12": "passed",
+    "steps14through21": "skipped",
+    "newReadabilityAccepted": false,
+    "touchAccepted": false,
+    "playableArtifact": null,
+    "pagesAcceptance": null,
+    "failureRootClosedByNewRun": false
+  },
+  "actualScreenReview": "Opened the actual 1200x900 failure PNG: bedroom, original repeated wood materials and baseline Crono, world tool strip visible; no inventory overlay. No full-scene art, touch device or 90 score claim.",
+  "artifacts": [
+    {
+      "name": "CI22-browser.zip",
+      "id": 10584887410,
+      "bytes": 3457086,
+      "sha256": "d2cedaed3e03658fb6dc7d813a4eada3e736e242187d0d19613c71cf583daf5b",
+      "crcVerified": true
+    },
+    {
+      "name": "CI22-art-review.zip",
+      "id": 10585416909,
+      "bytes": 314229,
+      "sha256": "ebfba389a1033fc44293e2abbe4d7e5c90fe40cba7af2e9252a730f0a4c3d901",
+      "crcVerified": true
+    },
+    {
+      "name": "CI22-witness-good.zip",
+      "id": 10584383324,
+      "bytes": 1471873,
+      "sha256": "05663c5fdcd9c18144faa30b5dc519cdda0e69adceb218660a8dea0c27ecc4e5",
+      "crcVerified": true
+    },
+    {
+      "name": "CI22-witness-bad.zip",
+      "id": 10584948075,
+      "bytes": 1609991,
+      "sha256": "32df8b071161de1c67cedf3226c12ef8f376e06af44aa87fdae089ab6b879a29",
+      "crcVerified": true
+    }
+  ],
+  "acceptedPrevious": {
+    "source": "69dc0524b593df6948c11397280bfcedc841236f",
+    "ci": 35440863455,
+    "pages": 35442701457,
+    "closed": true
+  },
+  "next": "Test the VQ01F candidate in one new full CI. Do not rerun CI22 or reopen CI21/Pages15."
+}

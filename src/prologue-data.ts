@@ -25,7 +25,16 @@ export function prologueHint(chapter:string,p:{x:number;z:number},q:Prologue):st
  if(chapter==='bedroom')return near(0,-4.1)?'往南走下樓梯':near(3.6,1.6,2.5)?'E · 床鋪':'往南走下樓，到鎮上看看。';
  if(chapter==='home')return near(0,-4.2)?'E · 出門':near(0,2)?'E · 母親':near(4.7,3.8)?'往北走上樓梯':'母親在窗邊；南方是家門。';
  if(chapter==='overworld1000')return near(WORLD_HOME.x,WORLD_HOME.z,1.25)?'克羅諾的家 · E 進入':near(WORLD_FAIR.x,WORLD_FAIR.z,1.25)?'莉妮廣場 · E 進入':'沿陸地向北前往千年祭。';
- if(chapter==='fair'&&q.stage!=='legacy'&&q.stage!=='companions')return q.stage==='fair'?'鐘台前有個匆忙的女孩。':!q.pendantPicked?'女孩與掉落的項鍊都在鐘台附近。':!q.pendantReturned?'靠近女孩，歸還項鍊。':'再和女孩說話，回應同行的邀請。';
+ if(chapter==='fair'&&q.stage!=='legacy'&&q.stage!=='companions'){
+  if(q.stage==='fair')return '鐘台前有個匆忙的女孩。';
+  if(q.stage==='collision'&&q.elapsed>=.6&&!q.choice&&!q.transition){
+   const marle=Math.hypot(p.x-MARLE_MEETING.x,p.z-MARLE_MEETING.z),pendant=Math.hypot(p.x-DROPPED_PENDANT.x,p.z-DROPPED_PENDANT.z);
+   // Mirror the existing interaction priority. This query never records an action.
+   if(!q.pendantPicked&&pendant<1.25&&pendant<marle)return 'E · 拾起項鍊';
+   if(marle<1.65)return !q.pendantPicked?'E · 查看女孩':!q.pendantReturned?'E · 歸還項鍊':'E · 回應同行邀請';
+  }
+  return !q.pendantPicked?'女孩與掉落的項鍊都在鐘台附近。':!q.pendantReturned?'靠近女孩，歸還項鍊。':'再和女孩說話，回應同行的邀請。';
+ }
  return '';
 }
 /** Persist only facts witnessed by this playthrough; no inferred trial verdict or legacy choices. */

@@ -6,6 +6,8 @@ import hashlib, json, math, subprocess, sys, time
 from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
+from meeting_approach import approach_first_meeting
+from early_comfort import record_early_comfort
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'prologue';OUT.mkdir(parents=True,exist_ok=True)
@@ -68,8 +70,7 @@ def to_fair(page,prefix):
     assert page.locator('#p1').is_hidden()
     page.screenshot(path=str(OUT/f'{prefix}-fair-entry.png'))
 def collide(page):
-    move(page,'z',-3.1);move(page,'x',-3.5)
-    trigger(page,'w',"s.prologue.stage==='collision'")
+    approach_first_meeting(page,waits)
     wait_game(page,"s.prologue.elapsed>=.6",100)
     assert snap(page)['prologue']['first']=='unknown'
 def pickup(page):
@@ -104,6 +105,7 @@ try:
     receipts=[]
     try:
         fresh(page);to_fair(page,'01');collide(page)
+        record_early_comfort(page,OUT,'01-meeting')
         page.screenshot(path=str(OUT/'02-collision.png'))
         talk(page,'女孩');assert snap(page)['prologue']['first']=='marle';pickup(page)
         choice(page,'return',False);assert not snap(page)['prologue']['pendantReturned']
@@ -127,7 +129,8 @@ try:
         receipts.append(save_reload(page,'prologue-canyon-v6.json'))
         passed('fresh new game reaches retained telepod disappearance and 600 AD; v6 facts survive old chapter logic')
         # Independent real playthrough: early P2 controls cannot act before the meeting.
-        fresh(page,True);to_fair(page,'05');collide(page);pickup(page)
+        fresh(page,True);to_fair(page,'05');collide(page)
+        record_early_comfort(page,OUT,'05-meeting-coop');pickup(page)
         assert snap(page)['prologue']['first']=='pendant'
         before=snap(page)['prologue'];page.keyboard.press('Enter');assert snap(page)['prologue']==before
         choice(page,'return',True);choice(page,'company',True)

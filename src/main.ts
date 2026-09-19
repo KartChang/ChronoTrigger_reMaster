@@ -60,7 +60,7 @@ function interact(slot:Slot):void{
   if(prologueMap(state.chapter)||(state.chapter==='fair'&&!['legacy','companions'].includes(state.prologue.stage))){const result=interactPrologue(state,slot);if(result)showDialog(result.title,result.text);updateHud();return;}
   if(rescueMap(state.chapter)){const result=interactRescue(state,slot);if(result){if(result.title==='管風琴')tone(262);showDialog(result.title,result.text);}else announce('靠近人物、物件或門口再按互動。');updateHud();return;}
   if(kingdomMap(state.chapter)){const result=interactKingdom(state,slot);if(result)showDialog(result.title,result.text);else announce(state.mode==='battle'?'請使用戰鬥指令。':'靠近人物、門口或小路盡頭，再按互動。');updateHud();return;}
-  if(state.chapter==='canyon'){const result=interactOpening(state,slot);if(result)showDialog(result.title,result.text);else announce(state.opening.canyonWon?'沿山道向南走，靠近出口按 E。':'山道前方有魔物，小心。');updateHud();return;}
+  if(state.chapter==='canyon'){const result=interactOpening(state,slot);if(result)showDialog(result.title,result.text);else announce(state.opening.canyonWon?'沿山道向南走，靠近出口按 E。':'山道前方有魔物的聲音。');updateHud();return;}
   if(state.chapter==='fair'){
     if(state.mode!=='explore'){announce('請使用戰鬥指令。');return;}
     const point=nearestFair(state.players[slot].x,state.players[slot].z);
@@ -241,6 +241,11 @@ function updateHud():void{
   const transition=state.prologue.transition;document.body.dataset.mapKind=state.chapter==='overworld1000'?'overworld':(prologueMap(state.chapter)||(trialMap(state.chapter)&&!['guardia1000','prisonbridge'].includes(state.chapter)))?'interior':'field';
   $('map-fade').style.opacity=transition?String(transition.elapsed<.22?transition.elapsed/.22:Math.max(0,1-(transition.elapsed-.22)/.26)):'0';
   if(state.trial.fade>0)$('map-fade').style.opacity=String(state.trial.fade/.32);$('map-fade').hidden=!transition&&state.trial.fade<=0;
+  const earlyMeeting=state.chapter==='fair'&&!['legacy','companions'].includes(state.prologue.stage);
+  document.body.dataset.earlyMeeting=String(earlyMeeting);
+  const cue=earlyMeeting&&!cutsceneActive(state)&&state.mode==='explore'?prologueHint(state.chapter,state.players[0],state.prologue):'';
+  $('interact-label').textContent=cue.startsWith('E · ')?cue.slice(4):'互動';
+  $('interact').setAttribute('aria-label',(cue.startsWith('E · ')?cue.slice(4):'互動')+(state.joined?'，E':'，E 或 Enter'));
   syncModal();layoutFeedback();
   const message=state.log[state.log.length-1]??'';if(started&&message!==previousLog){previousLog=message;announce(message);}
 }

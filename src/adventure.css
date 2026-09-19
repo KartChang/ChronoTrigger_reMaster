@@ -150,3 +150,14 @@ body[data-modal="pause-screen"] #pause-screen{background:#101c29b8}
 @media(max-height:560px){body[data-adventure="true"] .dialog-overlay{padding:8px 3vw}.inventory-dialog{padding:10px 18px}.inventory-heading h2{font-size:18px}}
 @media(pointer:coarse){.dialog button,#equipment-panel button{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.meter i,.message,button{transition:none!important}.dialog{scroll-behavior:auto}}
+
+/* VQ01I: first-meeting cues name the actual nearby action, not a generic button.
+   No controls are disabled, and the complete guide/party display is preserved. */
+body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] #interact-hint{font-size:16px;line-height:1.5;padding:8px 12px;background:#203544;max-width:min(620px,calc(100vw - 32px));white-space:normal;text-align:center;bottom:98px}
+body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] #interact{min-height:44px;font-size:16px;line-height:1.4;padding:8px 16px;max-width:90vw}
+body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] #interact:focus-visible{outline:3px solid #edcd8b;outline-offset:3px}
+body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] .message{bottom:185px;max-width:calc(100vw - 32px)}
+body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] .story-coop-note{top:58px;bottom:auto;left:18px;right:auto;max-width:calc(100vw - 36px);font-size:12px}
+body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #party{display:flex;justify-content:center}
+body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #party .player{display:none}
+@media(max-width:650px){body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] .story-coop-note{top:108px}}

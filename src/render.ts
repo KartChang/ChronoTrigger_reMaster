@@ -1,3 +1,8 @@
+import {EarlyCameraMotion} from './camera-motion';
+import {frameEarlyActors,EARLY_COMFORT} from './early-comfort';
+import type {CameraFrame} from './early-comfort';
+import {observeCameraSubjects,projectCameraSubjects} from './early-camera-view';
+import type {CameraSubject} from './early-camera-view';
 import {PixelPalettePass} from './pixel-presentation';
 import {MOTION_PROFILE} from './actor-motion';
 import {drawHDHero,HD_ART} from './hd-hero-art';
@@ -30,6 +35,11 @@ export class World {
   readonly engine:Engine;
   private scene:Scene;
   private camera:FreeCamera;
+  private cameraMotion=new EarlyCameraMotion();
+  private comfortFrame:CameraFrame|null=null;
+  private cameraSubjects:CameraSubject[]=[];
+  private cameraState:State|null=null;
+  private reducedMotion=typeof matchMedia==='function'?matchMedia('(prefers-reduced-motion: reduce)'):null;
   private grass:StandardMaterial;
   private stone:StandardMaterial;
   private leaf:StandardMaterial;
@@ -75,7 +85,7 @@ export class World {
   private palettePass=new PixelPalettePass();
   private actorShadows:Mesh[]=[];
   private presentationState:State|null=null;
-  inspect(){return {transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -340,13 +350,46 @@ export class World {
     if(kind)groundActor(this.guest.mesh,g.x,g.z);const gs=this.actorShadows[2]!;gs.setEnabled(!!kind);gs.position.set(g.x,.14,g.z);gs.scaling.x=as;gs.scaling.y=.52*as;
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
     const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
-    this.camera.position.set(tx,ART_PROFILE.camera.height,tz-ART_PROFILE.camera.back);this.camera.setTarget(new Vector3(tx,0,tz));
+    const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());
+    this.frameEarlyScene(s,ratio,{x:tx,z:tz,half:cameraHalf(s.chapter,ratio)});
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
     this.palettePass.apply(this.scene);
     this.scene.render();this.drawFrames++;
+  }
+  private inspectEarlyCamera(){
+    return {profile:EARLY_COMFORT.id,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
+      motion:this.cameraMotion.inspect(),rects:projectCameraSubjects(this.cameraSubjects,this.camera),fullScenePublished:false};
+  }
+  private frameEarlyScene(s:State,ratio:number,base:{x:number;z:number;half:number}):void {
+    // Reuse the preserved framing/filter independently of the held scenery work.
+    // Fresh state identity (including same-map import) must not interpolate an old camera.
+    if(this.cameraState!==s){this.cameraMotion.reset();this.cameraState=s;}
+    this.cameraSubjects=[];
+    const early=s.prologue.stage!=='waking'&&EARLY_COMFORT.chapters.includes(s.chapter);
+    if(early){
+      this.heroes.forEach((sprite,i)=>{if(activeSlot(s,i as 0|1))this.cameraSubjects.push({id:'p'+i,mesh:sprite.mesh});});
+      if(guestKind(s))this.cameraSubjects.push({id:'guest',mesh:this.guest.mesh});
+      const p=s.players[0];
+      // Use existing visible meshes, including their actual foot pivot and current lunge.
+      // Including a nearby conversation partner keeps the context readable without revealing distant scenery.
+      for(const name of ['prologue-home-mother','prologue-meeting-marle','prologue-meeting-pendant','lucca-handdrawn']){
+        const mesh=this.scene.getMeshByName(name);
+        if(mesh?.isEnabled()&&Math.hypot(mesh.position.x-p.x,mesh.position.z-p.z)<4)
+          this.cameraSubjects.push({id:name,mesh});
+      }
+      if(s.chapter==='fair'&&s.mode==='battle'){
+        const mesh=this.scene.getMeshByName('gato-handdrawn');
+        if(mesh?.isEnabled()&&s.enemies.some(e=>e.hp>0))this.cameraSubjects.push({id:'gato',mesh});
+      }
+    }
+    const target=frameEarlyActors(early?s.chapter:'outside-early',ratio,base,observeCameraSubjects(this.cameraSubjects),s.mode==='battle');
+    this.comfortFrame=this.cameraMotion.update(s.ticks,`${s.chapter}/${s.mode}/${s.prologue.stage==='waking'}`,target,this.reducedMotion?.matches??false);
+    const f=this.comfortFrame;
+    this.camera.orthoLeft=-f.half*ratio;this.camera.orthoRight=f.half*ratio;this.camera.orthoTop=f.half;this.camera.orthoBottom=-f.half;
+    this.camera.position.set(f.x,ART_PROFILE.camera.height,f.z-ART_PROFILE.camera.back);this.camera.setTarget(new Vector3(f.x,0,f.z));
   }
   start(loop:()=>void):void{this.engine.runRenderLoop(loop);}
 }

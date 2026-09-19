@@ -1,5 +1,6 @@
 """Actual first-meeting HUD geometry; resizing is not a physical-device certification."""
 import json
+from early_camera import observe_camera
 
 METRICS = """() => {
  const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
@@ -37,6 +38,7 @@ def record_early_comfort(page, out, prefix):
             page.set_viewport_size({'width': width, 'height': height})
             page.wait_for_function("([w,h])=>innerWidth===w&&innerHeight===h&&document.body.dataset.earlyMeeting==='true'&&document.querySelector('#interact-hint').textContent.startsWith('E · ')&&document.querySelector('#interact-label').textContent===document.querySelector('#interact-hint').textContent.slice(4)", arg=[width,height])
             m = page.evaluate(METRICS)
+            m['framing'] = observe_camera(page, readable_portrait=True)
             report['cases'].append({'name': label, **m})
             assert_geometry(m)
             assert page.evaluate('window.__CHRONO_TEST__.snapshot().prologue') == before

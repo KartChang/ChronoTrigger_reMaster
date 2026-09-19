@@ -8,6 +8,7 @@ from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
 from meeting_approach import approach_first_meeting
 from early_comfort import record_early_comfort
+from early_camera import record_camera_viewports, observe_camera
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'prologue';OUT.mkdir(parents=True,exist_ok=True)
@@ -53,9 +54,11 @@ def fresh(page,coop=False):
 def to_fair(page,prefix):
     record_hd_party(page,OUT,prefix+'-native-party')
     page.screenshot(path=str(OUT/f'{prefix}-bedroom.png'))
+    if prefix=='01':record_camera_viewports(page,OUT,prefix+'-bedroom',pause_probe=True)
     move(page,'x',0);trigger(page,'s',"s.chapter==='home'&&!s.prologue.transition")
     assert snap(page)['players'][0]['x']==4.5 and snap(page)['players'][0]['z']==2.2
     page.screenshot(path=str(OUT/f'{prefix}-home.png'))
+    if prefix=='01':record_camera_viewports(page,OUT,prefix+'-home')
     move(page,'x',0);talk(page,'母親');assert snap(page)['prologue']['motherTalked']
     move(page,'z',-4.2);page.keyboard.press('e');transition(page,'overworld1000')
     page.wait_for_function("window.__CHRONO_TEST__.view().mapKind==='overworld'")
@@ -95,6 +98,9 @@ def save_reload(page,name):
     now=snap(page);assert now['chapter']==before['chapter'];assert now['prologue']['first']==before['prologue']['first']
     for key in ['stage','checkedMarle','pendantPicked','pendantReturned','motherTalked']:assert now['prologue'][key]==before['prologue'][key]
     assert now['joined']==before['joined'];assert now['players'][0]['x']==before['players'][0]['x']
+    if now['chapter'] in ('bedroom','home','fair'):
+        observed=observe_camera(page)
+        (OUT/(name+'-camera-after-import.json')).write_text(json.dumps(observed,ensure_ascii=False,indent=2),encoding='utf-8')
     return {'file':name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size}
 
 try:

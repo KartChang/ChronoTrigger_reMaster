@@ -5,12 +5,14 @@ No manufactured save, writable test hook, clock acceleration or synthetic wallet
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
+from modal_browser import record_modal_boundary
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'equipment'
 SOURCE = ROOT / 'test-results' / 'prologue' / 'prologue-companions-v6.json'
 OUT.mkdir(parents=True, exist_ok=True)
 checks, observations, waits, errors, requests = [], [], [], [], []
+import_attempts = []
 server = subprocess.Popen([sys.executable, '-m', 'http.server', '4188', '--bind', '127.0.0.1'], cwd=ROOT/'dist', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
@@ -79,13 +81,39 @@ def exported(page, name):
     return path, data
 
 
+def import_context(page):
+    return page.evaluate("""() => ({focused:document.activeElement?.id,
+      picker:document.querySelector('#save-file')?.dataset.picker ?? 'unopened',
+      importDisabled:document.querySelector('#import').disabled,
+      paused:window.__CHRONO_TEST__.paused(),
+      message:document.querySelector('#message').textContent,
+      chapter:window.__CHRONO_TEST__.snapshot().chapter,
+      ticks:window.__CHRONO_TEST__.snapshot().ticks,
+      userActivation:{active:navigator.userActivation?.isActive,ever:navigator.userActivation?.hasBeenActive}})""")
+
+
 def imported(page, path):
-    button(page,'import')
-    with page.expect_file_chooser() as event:
-        page.keyboard.press('Enter')
-    event.value.set_files(str(path))
-    page.wait_for_function('document.activeElement?.id==="world" && document.querySelector("#message").textContent.includes("存檔已匯入")')
-    assert focus(page)=='world'
+    # Native activation is part of the assertion, not bypassed by set_input_files.
+    attempt={'file':path.name,'beforeTab':import_context(page)}
+    import_attempts.append(attempt)
+    try:
+        button(page,'import')
+        attempt['beforeEnter']=import_context(page)
+        assert attempt['beforeEnter']['focused']=='import',attempt
+        assert not attempt['beforeEnter']['paused'],attempt
+        with page.expect_file_chooser() as event:
+            page.keyboard.press('Enter')
+        attempt['chooserOpen']=import_context(page)
+        assert attempt['chooserOpen']['picker']=='open' and attempt['chooserOpen']['paused'],attempt
+        event.value.set_files(str(path))
+        page.wait_for_function('document.activeElement?.id==="world" && document.querySelector("#message").textContent.includes("存檔已匯入") && document.querySelector("#save-file").dataset.picker==="closed"')
+        assert focus(page)=='world'
+        attempt['result']='imported'
+    except Exception as exc:
+        attempt.update(result='failed',failure=str(exc))
+        raise
+    finally:
+        attempt['after']=import_context(page)
 
 
 def record(page, name):
@@ -131,6 +159,7 @@ try:
 
             page.keyboard.press('i')
             assert page.locator('#buy-bronze-katana').is_visible()
+            record_modal_boundary(page,'inventory-screen',OUT,'02-shop-focus')
             frozen=snap(page)['ticks']
             activate(page,'buy-bronze-katana');assert snap(page)['equipment']['gold']==250
             activate(page,'buy-bronze-mail');assert snap(page)['equipment']['gold']==130
@@ -140,20 +169,30 @@ try:
             assert page.locator('#sell-bronze-katana').is_disabled()
             activate(page,'equip-crono-bronze-mail')
             assert page.locator('#sell-bronze-mail').is_disabled()
-            activate(page,'sell-bronze-helm')
+            button(page,'sell-bronze-helm')
+            prior_scroll=page.locator('.inventory-dialog').evaluate('(p)=>p.scrollTop')
+            page.keyboard.press('Enter')
             assert snap(page)['equipment']['gold']==90
             assert page.locator('#sell-bronze-helm').is_disabled()
-            assert focus(page)=='inventory-close'
+            assert focus(page)=='equipment-shop-row-bronze-helm'
+            assert abs(page.locator('.inventory-dialog').evaluate('(p)=>p.scrollTop')-prior_scroll)<=2
+            protected=snap(page)['equipment']
+            page.keyboard.press('Enter')
+            assert page.locator('#inventory-screen').is_visible() and snap(page)['equipment']==protected
             assert snap(page)['ticks']==frozen
             assert snap(page)['prologue']['conduct']==facts
             record(page,'02-keyboard-trade-and-equipped')
-            for width,height in [(1200,900),(650,900),(390,700)]:
+            for width,height in [(1200,900),(650,900),(390,700),(844,390)]:
                 page.set_viewport_size({'width':width,'height':height})
                 geometry=page.wait_for_function('''()=>{const p=document.querySelector('.inventory-dialog'),r=p.getBoundingClientRect();
                     return r.top>=0&&r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight&&p.scrollWidth<=p.clientWidth+1?
                     {panel:r.toJSON(),clientWidth:p.clientWidth,scrollWidth:p.scrollWidth,scrollHeight:p.scrollHeight}:false;
                 }''',timeout=15000).json_value()
-                observations.append({'name':f'panel-{width}x{height}','geometry':geometry})
+                button(page,'inventory-close')
+                close_rect=page.locator('#inventory-close').bounding_box()
+                assert close_rect and close_rect['y']>=0 and close_rect['y']+close_rect['height']<=height
+                record_modal_boundary(page,'inventory-screen',OUT,f'03-focus-{width}x{height}')
+                observations.append({'name':f'panel-{width}x{height}','geometry':geometry,'returnButton':close_rect})
                 page.screenshot(path=str(OUT/f'03-menu-{width}x{height}.png'))
             page.set_viewport_size({'width':1200,'height':900})
             page.keyboard.press('i');assert focus(page)=='world'
@@ -229,7 +268,7 @@ try:
                 report['observationError']=str(observation)
             raise
         finally:
-            report.update(sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
+            report.update(importAttempts=import_attempts,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
             (OUT/'equipment-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:

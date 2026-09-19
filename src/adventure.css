@@ -94,3 +94,59 @@ body[data-map-kind="overworld"][data-mode="explore"] #party,body[data-map-kind="
 
 .inventory-dialog {max-width:760px;}
 #equipment-panel button {margin-top:0;padding:8px 10px;}
+
+/* VQ01: quiet gameplay is the default in BOTH public and test URLs.
+   The original controls remain native, visible, tabbable and labelled; no test-only HUD. */
+body[data-adventure="true"][data-started="true"] .location strong{font-size:18px;letter-spacing:1px;font-weight:500}
+body[data-adventure="true"] .glass{border:1px solid #a3adac;box-shadow:inset 0 0 0 2px #182a3b,0 5px 18px #101b2440;background:linear-gradient(120deg,#21384df2,#1c2c42ef);border-radius:5px}
+body[data-adventure="true"][data-hud="quiet"] .utility{background:#172a344d;border:1px solid #d4ccb12b;box-shadow:none;gap:2px;padding:3px;border-radius:7px;max-width:48%;right:92px}
+body[data-adventure="true"][data-hud="quiet"] .utility button{position:relative;min-width:34px;width:34px;height:32px;padding:0;border:0;background:transparent;color:#ded8bf;font-size:0;border-radius:4px}
+body[data-adventure="true"][data-hud="quiet"] .utility button::before{content:attr(data-icon);font-size:15px;line-height:32px}
+body[data-adventure="true"][data-hud="quiet"] .utility button kbd{display:none}
+body[data-adventure="true"][data-hud="quiet"] .utility button:hover,body[data-adventure="true"][data-hud="quiet"] .utility button:focus-visible{background:#51646299;color:#fff0cc}
+body[data-adventure="true"][data-hud="quiet"] .utility button:hover::after,body[data-adventure="true"][data-hud="quiet"] .utility button:focus-visible::after{content:attr(aria-label);position:absolute;right:0;top:calc(100% + 8px);white-space:nowrap;font-size:12px;line-height:1.4;padding:7px 10px;background:#1d3044;border:1px solid #b8ae8988;border-radius:4px;z-index:40}
+body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] .party-center>span{display:none}
+body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] #interact{font-size:12px;padding:7px 12px;background:#162b35a6;border-color:#d0c4a655}
+body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] .player-title strong{font-size:14px;font-weight:500}
+body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] .badge{border:0;color:#d4c092}
+body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] .story-caption{opacity:.82;font-size:13px;top:65px;background:#182d37aa;border:0;border-radius:4px}
+body[data-adventure="true"][data-hud="quiet"] .control-hint{font-size:10px;opacity:.6}
+body[data-adventure="true"][data-hud="quiet"] footer{opacity:.35}
+body[data-adventure="true"] .interact-hint{background:#203544de;border:1px solid #afaa8766;color:#ece3c7;border-radius:5px;box-shadow:0 3px 10px #17212530;max-width:80vw}
+body[data-adventure="true"] #dialog .dialog{border-radius:5px;padding:18px 24px;min-height:145px}
+body[data-adventure="true"] #dialog p{line-height:1.7;letter-spacing:.3px}
+body[data-adventure="true"] #battle-banner{border:1px solid #a9ab8d55;border-radius:5px;background:#1c3045d9}
+body[data-adventure="true"][data-mode="battle"] .player{background:linear-gradient(120deg,#223a4bed,#1c2e40e8);border-color:#c3bc9c88}
+body[data-adventure="true"][data-hud="quiet"] #world:focus-visible{outline:none}
+body[data-adventure="true"] .inventory-dialog{background:linear-gradient(125deg,#20374ff5,#1d2d40f5)}
+@media(max-width:650px){
+ body[data-adventure="true"][data-started="true"][data-hud="quiet"] .utility{top:56px;left:10px;right:10px;max-width:none;justify-content:center}
+ body[data-adventure="true"][data-hud="quiet"] .utility button{min-width:30px;width:30px}
+ body[data-adventure="true"][data-started="true"] .location strong{font-size:15px}
+ body[data-adventure="true"][data-hud="quiet"][data-mode="explore"] .story-caption{top:104px}
+}
+@media(pointer:coarse){body[data-adventure="true"][data-hud="quiet"] .utility button{min-width:42px;width:42px;height:42px}body[data-adventure="true"][data-hud="quiet"] .utility button::before{line-height:42px}}
+
+/* VQ01C: keep the active overlay usable without changing any game/save rules. */
+.overlay[data-active-modal="true"]{z-index:35}
+body[data-adventure="true"] .dialog-overlay[data-active-modal="true"]{background:#101c2926}
+.dialog{max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+body[data-adventure="true"] #inventory-screen{align-items:center;padding:12px}
+.inventory-dialog{scroll-padding-top:88px;scroll-padding-bottom:20px}
+.inventory-heading{position:sticky;top:-1px;z-index:2;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#20354a;padding:10px 0;border-bottom:1px solid #b2b79d55}
+.inventory-heading h2{margin:0;font-size:22px}
+.inventory-heading #inventory-close{margin:0;font-size:13px;padding:9px 13px;flex-shrink:0}
+.equipment-slot,.equipment-shop-row{border-bottom:1px solid #b6c2b026;padding:8px 0;scroll-margin-top:90px}
+.equipment-slot:focus-visible,.equipment-shop-row:focus-visible,.equipment-actions:focus-visible,#equipment-stats:focus-visible{outline:2px solid #edcd8b;outline-offset:3px;background:#65848125}
+#equipment-stats{white-space:pre-line;line-height:1.7}
+#inventory-feedback:not(:empty){position:sticky;bottom:-1px;background:#20354af5;border:1px solid #b1b29770;padding:10px 12px;border-radius:4px}
+body[data-modal="pause-screen"] #pause-screen{background:#101c29b8}
+@media(max-width:650px){
+ .inventory-heading{flex-wrap:wrap;gap:8px}.inventory-heading h2{font-size:19px}
+ body[data-adventure="true"] .inventory-dialog{width:100%;padding:12px 15px}
+ .equipment-shop-row span{flex-basis:100%}.equipment-shop-row button{flex:1}
+ body[data-adventure="true"] #dialog .dialog{max-height:calc(100dvh - 28px);min-height:0}
+}
+@media(max-height:560px){body[data-adventure="true"] .dialog-overlay{padding:8px 3vw}.inventory-dialog{padding:10px 18px}.inventory-heading h2{font-size:18px}}
+@media(pointer:coarse){.dialog button,#equipment-panel button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.meter i,.message,button{transition:none!important}.dialog{scroll-behavior:auto}}

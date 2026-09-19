@@ -28,3 +28,19 @@ test('a new direction key after ownership change survives the next poll',()=>{le
 test('entering co-op cannot reassign a held solo arrow to P2',()=>{let solo=true;const h=harness(()=>solo);h.emit('ArrowLeft');assert.equal(h.control.poll()[0].x,-1);solo=false;assert.deepEqual(h.control.poll(),[{x:0,z:0},{x:0,z:0}]);h.up('ArrowLeft');h.emit('ArrowLeft');assert.equal(h.control.poll()[1].x,-1);});
 
 test('physical auto-repeat after a mode change stays blocked until key release',()=>{let solo=false;const h=harness(()=>solo);h.emit('ArrowUp');solo=true;h.control.poll();h.emit('ArrowUp',{repeat:true});assert.deepEqual(h.control.poll()[0],{x:0,z:0});h.up('ArrowUp');h.emit('ArrowUp');assert.equal(h.control.poll()[0].z,1);});
+
+for(const key of ['Enter','Space'])test(`native utility ${key} keeps browser activation and clears gameplay ownership`,()=>{
+ let native=false;const h=harness(false,()=>native?'native':false);h.emit('KeyW');h.emit('ArrowUp');native=true;
+ const event=h.emit(key);assert.equal(event.defaultPrevented,false);
+ assert.deepEqual(h.calls,[]);assert.deepEqual(h.control.poll(),[{x:0,z:0},{x:0,z:0}]);
+ h.up(key);assert.deepEqual(h.calls,[]);
+});
+test('native route neither synthesizes a click nor falls through to co-op interaction',()=>{
+ let activations=0;const h=harness(false,()=>{activations++;return 'native';});
+ const e=h.emit('Enter');assert.equal(activations,1);assert.equal(e.defaultPrevented,false);assert.deepEqual(h.calls,[]);
+});
+test('file chooser has explicit open/change/cancel/error lifecycle and native activation path',()=>{
+ const s=readFileSync('src/main.ts','utf8');assert.match(s,/filePickerOpen/);assert.match(s,/input.showPicker\(\)/);
+ assert.match(s,/input.dataset.picker='open'/);assert.match(s,/input.dataset.picker='error'/);
+ assert.match(s,/return repeat\?true:'native'/);assert.match(s,/filePickerOpen=false/);
+});

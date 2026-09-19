@@ -1,7 +1,7 @@
 import {MOVEMENT_CODES,UI_CODES,physicalCode,editableTarget,keyboardVectors} from './keyboard-policy';
 import type { Input, Slot, Vec } from './core';
 export type Command='attack'|'skill'|'combo'|'interact'|'pause'|'join'|'targetPrevious'|'targetNext'|'tonic';
-export type KeyboardOptions={solo?:()=>boolean;routeUi?:(code:string,repeat:boolean)=>boolean};
+export type KeyboardOptions={solo?:()=>boolean;routeUi?:(code:string,repeat:boolean)=>boolean|'native'};
 export class Controls {
   private keys=new Set<string>();
   private observedSolo=false;
@@ -16,7 +16,9 @@ export class Controls {
       this.syncOwnership();
       const code=physicalCode(e);
       if(this.ownershipReleased.has(code)){if(e.repeat){e.preventDefault();return;}this.ownershipReleased.delete(code);}
-      if(this.keyboard.routeUi?.(code,e.repeat)){e.preventDefault();this.clear();return;}
+      const routed=this.keyboard.routeUi?.(code,e.repeat);
+      if(routed==='native'){this.clear();return;} // Browser owns button Enter/Space; never also route it as world input.
+      if(routed){e.preventDefault();this.clear();return;}
       const binding=code==='Space'?[0,'interact'] as [Slot,Command]:code==='Enter'&&this.keyboard.solo?.()?[0,'interact'] as [Slot,Command]:this.bindings[code];
       if(binding||MOVEMENT_CODES.includes(code as typeof MOVEMENT_CODES[number])||UI_CODES.includes(code as typeof UI_CODES[number]))e.preventDefault();
       this.keys.add(code);

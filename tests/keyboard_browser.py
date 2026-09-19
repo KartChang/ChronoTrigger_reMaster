@@ -4,6 +4,7 @@ Native import uses Playwright's file chooser with a save exported by this journe
 from pathlib import Path
 import json,math,subprocess,sys,time
 from playwright.sync_api import sync_playwright
+from modal_browser import record_modal_boundary
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'test-results'/'keyboard';OUT.mkdir(parents=True,exist_ok=True)
 server=subprocess.Popen([sys.executable,'-m','http.server','4186','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 checks=[];errors=[];observations=[]
@@ -59,7 +60,7 @@ try:
     p.keyboard.press('Enter');p.wait_for_selector('#dialog:not([hidden])');assert '母親' in p.locator('#dialog-title').inner_text()
     p.keyboard.press('Enter');p.wait_for_selector('#dialog[hidden]',state='attached');assert focus(p)=='world'
     move(p,'z',.7,'s');passed('keyboard title selection, solo arrows, stairs boundary, mother Enter and WASD resume; no doubled native click')
-    p.keyboard.press('h');p.wait_for_selector('#dialog:not([hidden])');assert '操作' in p.locator('#dialog-title').inner_text();p.keyboard.press('Space');assert focus(p)=='world'
+    p.keyboard.press('h');p.wait_for_selector('#dialog:not([hidden])');assert '操作' in p.locator('#dialog-title').inner_text();record_modal_boundary(p,'dialog',OUT,'01-help-focus');p.keyboard.press('Space');assert focus(p)=='world'
     record(p,'01-home-keyboard')
     move(p,'z',-4.2);p.keyboard.press('Enter');wait(p,'s.chapter==="overworld1000" && !s.prologue.transition',90)
     move(p,'x',.1);move(p,'z',5.1);move(p,'x',2);p.keyboard.press('Enter');wait(p,'s.chapter==="fair" && !s.prologue.transition',90)
@@ -83,7 +84,7 @@ try:
         wait(p,'s.mode!=="battle" || s.players[0].atb>=1',210,('battle','victory','defeat'))
         if snap(p)['mode']!='battle':break
         p.keyboard.press('k' if snap(p)['players'][0]['mp']>=3 else 'j')
-    assert snap(p)['mode']=='victory';p.keyboard.press('Enter');wait(p,'s.mode==="explore"',120)
+    assert snap(p)['mode']=='victory';record_modal_boundary(p,'result',OUT,'04-victory-focus');p.keyboard.press('Enter');wait(p,'s.mode==="explore"',120)
     assert focus(p)=='world';passed('keyboard starts real Gato ATB, ready stance, attacks, victory confirmation and return to exploration')
     ui_button(p,'export')
     with p.expect_download() as d:p.keyboard.press('Enter')

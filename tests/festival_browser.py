@@ -6,17 +6,19 @@ import json
 import math
 import traceback
 from actor_grounding import assert_contacts
+from fair_ground_browser import assert_ground,record_ground_views
 
 READ = """() => {const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return {
  source:'actual-festival-scene',chapter:s.chapter,tick:s.ticks,frame:v.frame,paused:t.paused(),
  viewport:{width:innerWidth,height:innerHeight},festival:v.fairMotion.festival,
  vendors:v.fairMotion.vendors,vendorContacts:v.fairMotion.vendorContacts,bell:v.fairMotion.bell,
- occlusion:v.festivalOcclusion,physicalDevice:false,artApproved:false};} """
+ ground:v.fairMotion.ground,occlusion:v.festivalOcclusion,physicalDevice:false,artApproved:false};} """
 
 
 def assert_festival(m, *, require_blocked=False, require_clear=False):
     assert m['source']=='actual-festival-scene' and m['chapter']=='fair',m
     assert m['physicalDevice'] is False and m['artApproved'] is False,m
+    assert_ground(m['ground'])
     f=m['festival'];g=f['geometry'];o=m['occlusion']
     assert f['profile']=='vq01-festival' and f['approved'] is False and f['collisionSource']=='FAIR_STALLS',f
     assert g['decorativeOnly'] and g['meshes']>0 and g['vertices']>0 and g['triangles']>0,g
@@ -60,6 +62,7 @@ def record_festival(page,out,name,*,require_blocked=False,require_clear=False,pa
         assert_festival(m,require_blocked=require_blocked,require_clear=require_clear)
         page.screenshot(path=str(out/(name+'.png')))
         if pause_probe:
+            record_ground_views(page,out,name+'-ground')
             page.keyboard.press('Escape');page.wait_for_selector('#pause-screen:not([hidden])');paused_here=True
             _frames(page)
             frozen=_state(page);first=page.evaluate(READ)
@@ -67,6 +70,7 @@ def record_festival(page,out,name,*,require_blocked=False,require_clear=False,pa
             assert first['paused'] and later['paused'],later
             assert _state(page)==frozen,{'failure':'full game state changed while paused'}
             assert first['occlusion']==later['occlusion'],{'before':first,'after':later}
+            assert first['ground']==later['ground'],{'before':first,'after':later}
             assert first['vendors']==later['vendors'] and first['bell']==later['bell'],{'before':first,'after':later}
             report['pauseProbe']={'before':first,'after':later,'fullStateUnchanged':True,
                 'stateSha256':hashlib.sha256(json.dumps(frozen,sort_keys=True).encode()).hexdigest()}

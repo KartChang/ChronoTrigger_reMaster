@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 from festival_browser import assert_festival
 from actor_grounding_test import example
+from fair_ground_browser_test import fixture as ground_fixture
 
 
 def fixture():
@@ -17,6 +18,7 @@ def fixture():
             'decorativeOnly':True,'meshes':161,'vertices':15817,'triangles':20440,'canopyGroups':groups,
             'awnings':[{'id':g+str(i),'group':g,'vertices':36,'triangles':32,'heightSpan':.36} for g in groups for i in range(8)]}},
         'vendors':{'actors':[{'name':a['id'],'kind':'shopper','frame':0} for a in contacts]},'vendorContacts':contacts,
+        'ground':ground_fixture(),
         'bell':{'parts':['leene-bell','bell-rim','bell-interior','bell-clapper'],'swing':0},
         'occlusion':{'method':'parallel-orthographic-triangle-rays','approved':False,'samples':18,'meshRayTests':400,
             'groups':[{'id':g,'meshes':11,'visibility':1,'blocked':False} for g in groups]}}

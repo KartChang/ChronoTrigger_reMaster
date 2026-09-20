@@ -1,3 +1,4 @@
+import {shadeFairGround,inspectFairGround} from './fair-ground';
 import {EarlyOcclusion} from './early-occlusion';
 import {fairOcclusionPoints} from './fair-occlusion-points';
 import type {CameraSubject} from './early-camera-view';
@@ -34,10 +35,10 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   };
   box('fair-plinth',0,-.55,1,27,1.05,21,'#67725b');
   // North is the top of the authored canvas; the old ground path was vertically reversed.
-  const t=new DynamicTexture('fair-ground-reference',{width:512,height:512},scene,false,Texture.NEAREST_SAMPLINGMODE);
-  drawSurface(t.getContext() as CanvasRenderingContext2D,512,512,'fair');t.update(true);
+  const t=new DynamicTexture('fair-ground-reference',{width:512,height:512},scene,true,Texture.NEAREST_NEAREST_MIPLINEAR);
+  drawSurface(t.getContext() as CanvasRenderingContext2D,512,512,'fair');t.anisotropicFilteringLevel=4;t.update(true);
   const groundMat=new StandardMaterial('fair-ground-material',scene);groundMat.diffuseTexture=t;groundMat.specularColor=Color3.Black();
-  const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;
+  const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8,subdivisions:32},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;shadeFairGround(ground);
   const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion();
   const contacts:(SpriteContact&{height:number})[]=[];
   // Stone bell arch, bronze bell and flower frieze follow the reference's landmarks.
@@ -124,7 +125,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     updateOcclusion(ticks:number,subjects:readonly CameraSubject[]){
       const camera=scene.activeCamera;
       occlusion.update(ticks,root.isEnabled()?'fair':'outside-festival',camera?.getDirection(Vector3.Forward())??Vector3.Zero(),root.isEnabled()?fairOcclusionPoints(subjects):[]);
-    },inspect:()=>({...conductView.inspect(),festival:festival.inspect(),vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,time:number){
+    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),festival:festival.inspect(),vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,time:number){
     conductView.draw(s);vendorMotion.draw(s.ticks);
     lucca.setEnabled(s.rescue.stage!=='returned');
     const up=scene.activeCamera?.getDirection(Vector3.Up());

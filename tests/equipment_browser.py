@@ -12,6 +12,7 @@ from inventory_comfort import measure_inventory, assert_inventory_layout, assert
 from inventory_touch import record_touch_inventory
 from actor_grounding import record_grounding
 from festival_browser import record_festival
+from equipment_route import walk_equipment_route
 from inventory_repaint import measure_merchant_repaint, assert_merchant_repaint
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -164,9 +165,9 @@ try:
             assert snap(page)['equipment'] is None
             page.keyboard.press('i');assert focus(page)=='world'
             # Walk behind the existing solid cloth stall, never into its collision footprint.
-            move(page,'z',-3.4);move(page,'x',-8);move(page,'z',-4.05)
+            walk_equipment_route(page,move,snap,observations,'to-canopy')
             record_festival(page,OUT,'00-cloth-canopy-occlusion',require_blocked=True,pause_probe=True)
-            move(page,'z',-3.4);move(page,'x',7.5);move(page,'z',-6.3)
+            walk_equipment_route(page,move,snap,observations,'to-merchant')
             page.wait_for_function('document.querySelector("#interact-hint").textContent.includes("裝備買賣")')
             record(page,'01-visible-merchant')
             passed('same-run unmodified v6 continues by walking to the actual merchant; viewing status does not create a save migration')
@@ -283,12 +284,12 @@ try:
             page.keyboard.press('Enter');activate(page,'load')
             page.wait_for_function('document.querySelector("#message").textContent.includes("讀檔完成") && window.__CHRONO_TEST__.snapshot().equipment?.gold===90')
             assert snap(page)['equipment']==data['equipment'] and focus(page)=='world'
-            move(page,'z',-3.4)
+            walk_equipment_route(page,move,snap,observations,'leave-merchant')
             page.keyboard.press('i');assert page.locator('#buy-bronze-katana').count()==0
             page.keyboard.press('i')
             passed('own v8 export/native import and actual browser reload/IndexedDB load preserve equipment, wallet and v6 adventure without resetting allowance')
 
-            move(page,'x',-7);move(page,'z',3.35)
+            walk_equipment_route(page,move,snap,observations,'to-gato')
             page.keyboard.press('c');assert snap(page)['joined']
             page.keyboard.press('e');page.wait_for_selector('#dialog:not([hidden])')
             assert '岡薩雷斯' in page.locator('#dialog-title').inner_text()

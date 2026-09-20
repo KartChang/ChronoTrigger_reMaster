@@ -1,4 +1,5 @@
 """Synthetic checker fixtures, not successful browser evidence or invented player saves."""
+import json
 import copy
 import unittest
 from pathlib import Path
@@ -50,7 +51,13 @@ class FestivalChecker(unittest.TestCase):
         with self.assertRaises(AssertionError):assert_festival(m)
     def test_actual_routes_and_no_writable_hook(self):
         root=Path(__file__).parent
-        text=(root/'equipment_browser.py').read_text();self.assertIn("move(page,'x',-8);move(page,'z',-4.05)",text)
+        text=(root/'equipment_browser.py').read_text()
+        self.assertIn("walk_equipment_route(page,move,snap,observations,'to-canopy')",text)
+        route=json.loads((root/'equipment-route.json').read_text())
+        self.assertEqual([(w['axis'],w['target']) for w in route['routes']['to-canopy']],
+                         [('z',-2.45),('x',-7.5),('z',-4.05)])
+        self.assertLess(text.index("observations,'to-canopy')"),text.index("'00-cloth-canopy-occlusion'"))
+        self.assertLess(text.index("'00-cloth-canopy-occlusion'"),text.index("observations,'to-merchant')"))
         self.assertIn("require_blocked=True,pause_probe=True",text);self.assertIn("'06-festival-import-reset',require_clear=True",text)
         helper=(root/'festival_browser.py').read_text()
         self.assertNotIn('force=True',helper);self.assertNotIn('set_input_files',helper);self.assertNotIn('dataset.',helper)

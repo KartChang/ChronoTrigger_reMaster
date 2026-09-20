@@ -14,6 +14,44 @@ METRICS = """() => {
 }"""
 
 
+TOOLBAR_METRICS = """() => {
+ const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height}};
+ const visible=e=>!e.hidden&&e.getClientRects().length>0&&getComputedStyle(e).visibility!=='hidden';
+ const note=document.querySelector('#story-coop-note');
+ const bands=[...document.querySelectorAll('header,.utility button')].filter(visible).map(rect);
+ const controls=[...document.querySelectorAll('header button,.utility button')].filter(e=>visible(e)&&!e.disabled).map(e=>{
+  const r=rect(e),hits=[];
+  for(const x of [.25,.5,.75])for(const y of [.25,.5,.75]){
+   const top=document.elementFromPoint(r.x+r.width*x,r.y+r.height*y);
+   hits.push({inside:!!top&&(top===e||e.contains(top)),top:top?.id||top?.className||top?.tagName||null});
+  }
+  return {id:e.id,rect:r,hits};
+ });
+ return {source:'actual-DOM-hit-testing',width:innerWidth,height:innerHeight,mode:document.body.dataset.hud,
+  note:{visible:visible(note),rect:rect(note),pointerEvents:getComputedStyle(note).pointerEvents,inToolbar:note.parentElement?.matches('.utility')===true},bands,controls};
+}"""
+
+
+def assert_toolbar(m):
+    assert m['source'] == 'actual-DOM-hit-testing' and m['controls'], m
+    assert any(c['id'] == 'display' for c in m['controls']), m
+    for c in m['controls']:
+        r = c['rect']
+        assert r['width'] > 0 and r['height'] > 0 and r['x'] >= 0 and r['y'] >= 0 and r['right'] <= m['width']+1 and r['bottom'] <= m['height']+1, c
+        assert len(c['hits']) == 9 and all(h['inside'] for h in c['hits']), c
+    if m['note']['visible']:
+        r = m['note']['rect']
+        assert m['note']['pointerEvents'] == 'none' and m['note']['inToolbar'], m
+        assert r['y'] >= max(b['bottom'] for b in m['bands'])+3, m
+        assert r['right'] <= m['width']+1 and r['bottom'] <= m['height']+1, m
+
+
+def record_toolbar(page, report, phase):
+    measured = page.evaluate(TOOLBAR_METRICS)
+    report['toolbarChecks'].append({'phase': phase, **measured})
+    assert_toolbar(measured)
+
+
 def assert_geometry(m):
     assert m['early'] == 'true' and m['source'] == 'actual-page-DOM', m
     for key in ('hint', 'button'):
@@ -49,7 +87,7 @@ def set_guide(page, mode):
 
 
 def record_early_comfort(page, out, prefix):
-    report = {'status': 'running', 'cases': [], 'quietCases': [], 'physicalDevice': False}
+    report = {'status': 'running', 'cases': [], 'quietCases': [], 'toolbarChecks': [], 'physicalDevice': False}
     original = page.viewport_size
     original_mode = page.evaluate('document.body.dataset.hud')
     before = page.evaluate('window.__CHRONO_TEST__.snapshot().prologue')
@@ -57,7 +95,9 @@ def record_early_comfort(page, out, prefix):
         for label, width, height in [('desktop', 1365, 900), ('portrait', 390, 844), ('short-landscape', 844, 390)]:
             page.set_viewport_size({'width': width, 'height': height})
             page.wait_for_function("([w,h])=>innerWidth===w&&innerHeight===h&&document.body.dataset.earlyMeeting==='true'&&document.querySelector('#interact-hint').textContent.startsWith('E · ')&&document.querySelector('#interact-label').textContent===document.querySelector('#interact-hint').textContent.slice(4)", arg=[width,height])
+            record_toolbar(page, report, label+'-before-guide')
             set_guide(page, 'guide')
+            record_toolbar(page, report, label+'-guide')
             m = page.evaluate(METRICS)
             m['hudMode'] = 'guide'
             m['framing'] = observe_camera(page, readable_portrait=True)
@@ -66,6 +106,7 @@ def record_early_comfort(page, out, prefix):
             assert page.evaluate('window.__CHRONO_TEST__.snapshot().prologue') == before
             page.screenshot(path=str(out / f'{prefix}-comfort-{label}.png'))
             set_guide(page, 'quiet')
+            record_toolbar(page, report, label+'-quiet')
             quiet = page.evaluate(METRICS)
             quiet['hudMode'] = 'quiet'
             quiet['framing'] = observe_camera(page, readable_portrait=True)

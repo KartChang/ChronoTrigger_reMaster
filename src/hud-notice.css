@@ -1,0 +1,4 @@
+/* VQ01N: passive P2 text is a full-width flex row after all utility controls.
+   Normal flow handles guide/quiet wrapping without guessed screen coordinates. */
+.story-coop-note{pointer-events:none}
+body[data-adventure="true"][data-started="true"] .utility>.story-coop-note{position:static;flex:1 0 100%;order:1;width:100%;max-width:100%;box-sizing:border-box;margin:4px 0 0;padding:6px 10px;text-align:left;white-space:normal}

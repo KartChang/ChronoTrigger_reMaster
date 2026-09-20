@@ -1,0 +1,100 @@
+{
+  "schema": "chrono-ci-terminal-v1",
+  "recordedUtc": "2026-09-20T10:07:07.032383+00:00",
+  "run": 35501489437,
+  "number": 30,
+  "sourceSha": "98a1800ff15f34823f907b8589873167fd778f8e",
+  "sourceTree": "3dc9b4a92585e4b098abd7a78f8f04a9018ca6be",
+  "conclusion": "failure",
+  "jobs": {
+    "validate": {
+      "id": 106053920037,
+      "conclusion": "failure",
+      "firstFailedStep": 12,
+      "keyboardStep11": "success",
+      "steps13to21": "skipped"
+    },
+    "good": {
+      "id": 106053919996,
+      "conclusion": "success"
+    },
+    "bad": {
+      "id": 106053920011,
+      "conclusion": "success"
+    }
+  },
+  "root": "portrait-coop-note-intercepts-display-toggle",
+  "failure": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#display\")\n  -     - locator resolved to <button id=\"display\" data-icon=\"字\" title=\"切換完整操作提示\" aria-pressed=\"true\" aria-label=\"切換完整操作提示\">完整提示</button>\n  -   - attempting click action\n  -     2 × waiting for element to be visible, enabled and stable\n  -       - element is visible, enabled and stable\n  -       - scrolling into view if needed\n  -       - done scrolling\n  -       - <div id=\"story-coop-note\" class=\"story-coop-note\">P2 等待中 · 初遇之前，克羅諾獨自行動。</div> intercepts pointer events\n  -     - retrying click action\n  -     - waiting 20ms\n  -     2 × waiting for element to be visible, enabled and stable\n  -       - element is visible, enabled and stable\n  -       - scrolling into view if needed\n  -       - done scrolling\n  -       - <div id=\"story-coop-note\" class=\"story-coop-note\">P2 等待中 · 初遇之前，克羅諾獨自行動。</div> intercepts pointer events\n  -     - retrying click action\n  -       - waiting 100ms\n  -     43 × waiting for element to be visible, enabled and stable\n  -        - element is visible, enabled and stable\n  -        - scrolling into view if needed\n  -        - done scrolling\n  -        - <div id=\"story-coop-note\" class=\"story-coop-note\">P2 等待中 · 初遇之前，克羅諾獨自行動。</div> intercepts pointer events\n  -      - retrying click action\n  -        - waiting 500ms\n",
+  "rawReport": "prologue/05-meeting-coop-comfort-report.json",
+  "observed": {
+    "viewport": [
+      390,
+      844
+    ],
+    "hud": "guide",
+    "noticeRect": {
+      "x": 18,
+      "y": 108,
+      "width": 240.6875,
+      "height": 29,
+      "right": 258.6875,
+      "bottom": 137
+    },
+    "blockedControl": "display",
+    "interceptor": "story-coop-note",
+    "quietCasesCompleted": 1,
+    "guideCasesCompleted": 2,
+    "exactToolbarRectangleRecorded": false
+  },
+  "nativeImportReports": {
+    "keyboard": 5,
+    "prologue": 4,
+    "witnessGood": 10,
+    "witnessBad": 10,
+    "allReportedPassed": true,
+    "note": "Counts are passed native-import test records, including expected rejection/reselection, not 29 distinct successful loaded saves."
+  },
+  "groundingReports": "Both prologue HD/grounding reports passed; equipment and later grounding checks skipped. Not whole actor acceptance.",
+  "picturesInspected": [
+    "prologue/05-meeting-coop-comfort-portrait.png",
+    "prologue/failure.png"
+  ],
+  "pictureNotes": "The portrait guide screenshot visibly puts P2 notice over the second utility row; final failure screenshot is desktop after cleanup. Do not use the latter as the failing viewport. Original simplified scene remains.",
+  "artifacts": [
+    {
+      "name": "CI30-browser.zip",
+      "id": 10602173481,
+      "bytes": 6073301,
+      "sha256": "15fe1688130c850cb89c8a5a9c682c540f426c7dddc314e3b1212f16c6151475"
+    },
+    {
+      "name": "CI30-art-review.zip",
+      "id": 10602243428,
+      "bytes": 324111,
+      "sha256": "3ed896ecc866af705c065d11aeb1c1804e6bcdbe42b5096499c8c6b54fd790d0"
+    },
+    {
+      "name": "CI30-witness-good.zip",
+      "id": 10602751993,
+      "bytes": 1486996,
+      "sha256": "19dca999ec65f0b629cfd9d5c16beb3d392f03c24f0c44c18a71bc00731e4c94"
+    },
+    {
+      "name": "CI30-witness-bad.zip",
+      "id": 10602133938,
+      "bytes": 1624644,
+      "sha256": "a1f73bba5f85db672009bdefbb1a0ec75b11e65f2df328df4a13cf62b6a571ad"
+    }
+  ],
+  "sourceArchiveTreeVerified": true,
+  "allArtifactDigestsAndCrcVerified": true,
+  "newPlayableOrPagesAccepted": false,
+  "nextSource": "071f6599a18c955ba64fad85b6a4ad4a66002c88",
+  "nextRun": 35504112738,
+  "limits": {
+    "rootFixBrowserAccepted": false,
+    "physicalDevices": false,
+    "fullScene": false,
+    "quality90": false
+  }
+}

@@ -1,106 +1,13 @@
 {
   "schema": "chrono-ci-checkpoint-v1",
-  "recordedUtc": "2026-09-20T09:13:55.288365+00:00",
-  "repository": "KartChang/ChronoTrigger_reMaster",
-  "branch": "main",
-  "batch": "VQ01M-native-subscription-and-quiet-cue",
-  "version": "0.9.12",
+  "run": 35501489437,
+  "number": 30,
   "sourceSha": "98a1800ff15f34823f907b8589873167fd778f8e",
-  "sourceTree": "3dc9b4a92585e4b098abd7a78f8f04a9018ca6be",
-  "parentSha": "2a52b5aac62377855ded6569591de60907aadf27",
-  "publication": {
-    "nonForceUpdate": true,
-    "mainRefReadbackMatched": true,
-    "changedFiles": 19,
-    "aheadBy": 1,
-    "behindBy": 0,
-    "allTestedBlobsMatched": true,
-    "matchingSubtrees": {
-      "src": "303901090c1831f9a9a4f3b22b7b8f5fb6823bb2",
-      "scripts": "1155d91a2cd3cbd95c5b7255a624f76c18b92ba6",
-      "tests": "5a67a6b39d79830f970a50393e5dd3285c84f8e4"
-    },
-    "indexBlob": "2c6f00186bb2b0781b22a3e870e4f18187c59bc1",
-    "retainedMainDocsTree": "e195efd8d98a8cbde67fbdc66401b53048f01208",
-    "verification": "Complete remote src/scripts/tests and index match locally tested files. Current main documents/assets/workflows retained; no old archive docs or held-scene promotion."
-  },
-  "run": {
-    "id": 35501489437,
-    "number": 30,
-    "event": "push",
-    "attempt": 1,
-    "workflowId": 360357259,
-    "path": ".github/workflows/ci.yml",
-    "headSha": "98a1800ff15f34823f907b8589873167fd778f8e",
-    "observedStatus": "in_progress",
-    "observedConclusion": null,
-    "createdAt": "2026-09-20T09:08:39Z",
-    "updatedAtObservation": "2026-09-20T09:08:42Z",
-    "exactShaRunCount": 1,
-    "manuallyDispatched": false,
-    "longPolling": false,
-    "jobsAccepted": false
-  },
-  "cloud": {
-    "name": "Chrono-CI29-terminal-VQ01M-native-hud.zip",
-    "bytes": 6131362,
-    "sha256": "fad84118937c30e1b757890bdf2a8574c11d172c3214ddfe0161305dabd4c395",
-    "manifestEntries": 32,
-    "deltaFiles": 19,
-    "fileId": "1_d45BE8o1cgTTLBI4v-ZdWcz_-dnMHCC",
-    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
-    "rawReadbackHashVerified": true,
-    "parentVerified": true,
-    "zipCrcVerified": true,
-    "allManifestEntriesVerified": true,
-    "allTestedDeltasVerified": true
-  },
-  "local": {
-    "receipt": "docs/evidence/VQ01M_LOCAL_VALIDATION.json",
-    "node": 812,
-    "python": 79,
-    "pythonBefore": 66,
-    "npmRunCheck": "passed",
-    "pythonCompile": "passed",
-    "allOriginalAssertNodesRetained": true,
-    "originalEquipmentAssertionsRetained": 83,
-    "originalKeyboardAssertionsRetained": 28,
-    "originalPrologueAssertionsRetained": 37,
-    "localBrowserRun": false,
-    "html": {
-      "bytes": 5603770,
-      "sha256": "e78464bfdd5b3a9fac3ab93fecd45347bc936120a45416438390fff0a539500d",
-      "status": "unaccepted local build"
-    }
-  },
-  "previousTerminal": {
-    "run": 35499591337,
-    "number": 29,
-    "conclusion": "failure",
-    "root": "keyboard-first-native-chooser-cancel-before-event",
-    "receipt": "docs/evidence/CI29_TERMINAL.json",
-    "historicalTransportRaceProven": false,
-    "rootClosed": false,
-    "witnessJobsSuccess": true
-  },
-  "lastAccepted": {
-    "version": "0.9.10",
-    "sourceSha": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
-    "ci": 35465946145,
-    "pages": 35468157318,
-    "pagesNumber": 22,
-    "closed": true,
-    "receipt": "docs/evidence/CI28_ACCEPTANCE.json",
-    "cloudFileId": "1l32PfQAB5H6co9k1pJvTfkncMvUmT1zf"
-  },
-  "limits": {
-    "newCiAccepted": false,
-    "newPagesAccepted": false,
-    "fullScenePublished": false,
-    "physicalDeviceEvidence": false,
-    "early90Approved": false,
-    "restrictedOperationsRetried": false,
-    "protocolModelIsBrowserEvidence": false
-  },
-  "next": "On E2E completion read exact CI30 once. Pending: preserve and report, no polling/cancel/retry/duplicate dispatch. Failure: first actual same-run root, native-import subscription counts/lifecycle/focus and actual report/image, not assumed transport causality. Success: all three jobs, exactly one native chooser per import on all pages; original keyboard/own-save/rejection/freeze/focus/equipment/economy/ATB/IndexedDB/journeys; six guide plus six quiet initial-meeting HUD cases; retained camera and actor-grounding/lunge/import-reset checks. Retain original artifacts, inspect images and match Pages/source/HTML. CI28 stays closed; continue early T05, not held-renderer retry or chapter expansion."
+  "status": "completed",
+  "conclusion": "failure",
+  "allJobsAccepted": false,
+  "terminalReceipt": "docs/evidence/CI30_TERMINAL.json",
+  "currentRun": 35504112738,
+  "currentReceipt": "docs/evidence/CI31_CHECKPOINT.json",
+  "note": "Not active; keyboard and witness jobs passed. First failure was the portrait co-op notice intercepting #display. Do not reopen CI29 picker diagnosis or reaccept CI28."
 }

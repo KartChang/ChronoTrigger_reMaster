@@ -1,0 +1,95 @@
+{
+  "schema": "chrono-ci-checkpoint-v1",
+  "recordedUtc": "2026-09-20T10:10:26.778371+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ01N-passive-coop-notice-flow",
+  "version": "0.9.13",
+  "sourceSha": "071f6599a18c955ba64fad85b6a4ad4a66002c88",
+  "sourceTree": "050f528eb229d3ec181a3f6a61df7d802dc26813",
+  "parentSha": "4f831e1728be56e230d9285d1318f2587dfafbfb",
+  "publication": {
+    "nonForceUpdate": true,
+    "mainRefReadbackMatched": true,
+    "changedFiles": 5,
+    "aheadBy": 1,
+    "behindBy": 0,
+    "allTestedBlobsMatched": true,
+    "verification": "Remote complete tree SHA matches exact locally calculated tree, using current main documentation and untouched root entries. Five-file compare matched.",
+    "matchingSubtrees": {
+      "src": "c0ed5a355f2be1334c3eba390fbf8ffe925dfd32",
+      "scripts": "e30335fef87d26eab0369b4bf2be7ddc4aa9a93b",
+      "tests": "82907af5513b4a838d49ce40bc2aece413816972"
+    },
+    "indexBlob": "a567a4cab2f969baec82132afdf9e7e844dd4630"
+  },
+  "run": {
+    "id": 35504112738,
+    "number": 31,
+    "headSha": "071f6599a18c955ba64fad85b6a4ad4a66002c88",
+    "event": "push",
+    "attempt": 1,
+    "workflowId": 360357259,
+    "observedStatus": "in_progress",
+    "observedConclusion": null,
+    "createdAt": "2026-09-20T10:06:02Z",
+    "updatedAtObservation": "2026-09-20T10:06:06Z",
+    "exactShaRunCount": 1,
+    "manuallyDispatched": false,
+    "longPolling": false,
+    "jobsAccepted": false
+  },
+  "cloud": {
+    "name": "Chrono-CI30-terminal-VQ01N-hud-handoff.zip",
+    "bytes": 11125946,
+    "sha256": "b09fdfe7d7ab77f1482efb96faeb89002353ee228e0d677c1f0a2267a4b39065",
+    "manifestEntries": 18,
+    "deltaFiles": 5,
+    "fileId": "1wpPu7wWh0o6sPfil7yxGd05RqcZ9Va9C",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "rawReadbackHashVerified": true,
+    "parentVerified": true,
+    "zipCrcVerified": true,
+    "allManifestEntriesVerified": true,
+    "allTestedDeltasVerified": true
+  },
+  "local": {
+    "receipt": "docs/evidence/VQ01N_LOCAL_VALIDATION.json",
+    "node": 812,
+    "python": 83,
+    "pythonAdded": 4,
+    "npmRunCheck": "passed",
+    "pythonCompile": "passed",
+    "allOriginalAssertNodesRetained": true,
+    "earlyComfortBefore": 18,
+    "earlyComfortAfter": 25,
+    "localBrowserRun": false
+  },
+  "previousTerminal": {
+    "run": 35501489437,
+    "number": 30,
+    "conclusion": "failure",
+    "root": "portrait-coop-note-intercepts-display-toggle",
+    "receipt": "docs/evidence/CI30_TERMINAL.json",
+    "rootFixBrowserAccepted": false
+  },
+  "lastAccepted": {
+    "sourceSha": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
+    "version": "0.9.10",
+    "ci": 35465946145,
+    "pages": 35468157318,
+    "pagesNumber": 22,
+    "closed": true,
+    "receipt": "docs/evidence/CI28_ACCEPTANCE.json",
+    "cloudFileId": "1l32PfQAB5H6co9k1pJvTfkncMvUmT1zf"
+  },
+  "limits": {
+    "newCiAccepted": false,
+    "newPagesAccepted": false,
+    "fullScenePublished": false,
+    "physicalDeviceEvidence": false,
+    "early90Approved": false,
+    "restrictedOperationsRetried": false
+  },
+  "next": "Read STATUS and immediate handoff, confirm main once, inspect exact CI31 once. Pending: save/report without polling or new dispatch. Failure: first same-run root using toolbarChecks/raw report/image, not old CI29 transport speculation. Success: all3jobs, guide/quiet actual hit tests and original camera/grounding/native-import/equipment/economy/ATB/full journeys; retain originals, inspect images, match Pages/source/HTML. Continue early T05 saved work, not chapter expansion or renderer/local-browser restriction retry."
+}

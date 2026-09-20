@@ -1,0 +1,77 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ01N-passive-coop-notice-flow",
+  "version": "0.9.13",
+  "sourceSha": "071f6599a18c955ba64fad85b6a4ad4a66002c88",
+  "sourceTree": "050f528eb229d3ec181a3f6a61df7d802dc26813",
+  "parentSha": "4f831e1728be56e230d9285d1318f2587dfafbfb",
+  "changedFiles": {
+    "src/hud-notice.css": {
+      "before": null,
+      "after": "1b82ea5d8aebb39a64ae3fb8cd6ccda223862a5b",
+      "sha256": "89997f9a81e8b21a384fd01cf5495e6aa11b35e7f4cc60ab048579e06c958932"
+    },
+    "scripts/build.mjs": {
+      "before": "5af1ca813339b4f2dd574a6c697c3aa7b8e35d0e",
+      "after": "e897af0e95f43edcbecc3b849f535ff34f784ea5",
+      "sha256": "953196bd4e5b6458b39b4f3aafffe019920e95c508aeba44e48b9caf866970f2"
+    },
+    "tests/early_comfort_test.py": {
+      "before": "d2bec30ab3b51155da844cdb24d0d82ed8dd8144",
+      "after": "31346fe7f6adc99599a7b928045057449d4d1884",
+      "sha256": "6e73e963b9645bc8f697c7e659b51fac393917b01b3bfc7704360a7a4f4ead4c"
+    },
+    "tests/early_comfort.py": {
+      "before": "6dbea8952ce186f711644cf89f593d6a9d2ecb07",
+      "after": "b7b183f4bb1b7775ffc57d2ecb0d508c59ad1bbe",
+      "sha256": "452d766f86d61cf18386fe8ab6af1072927d39f1f679f7ccb96d10a694c657fe"
+    },
+    "index.html": {
+      "before": "2c6f00186bb2b0781b22a3e870e4f18187c59bc1",
+      "after": "a567a4cab2f969baec82132afdf9e7e844dd4630",
+      "sha256": "b66791e480f1b6309be1f4df6a79fffe8a73e9217e9304f0f84db80a0387dc07"
+    }
+  },
+  "tests": {
+    "node": 812,
+    "python": 83,
+    "pythonAdded": 4,
+    "npmRunCheck": "passed",
+    "pythonCompile": "passed",
+    "earlyComfortOriginalAssertNodes": 18,
+    "earlyComfortCurrentAssertNodes": 25,
+    "allOriginalAssertNodesRetained": true,
+    "prologueOriginalAssertionsUnchanged": 37,
+    "keyboardOriginalAssertionsUnchanged": 28,
+    "equipmentOriginalAssertionsUnchanged": 83
+  },
+  "implementation": [
+    "Existing P2 notice moved, not duplicated, to a full-width flex row after the utility controls. Pure normal flow replaces absolute overlap; no new runtime JS.",
+    "New hud-notice.css loaded last; passive note does not intercept pointer events. Game rules, main/render/painter/importer and input ownership unchanged.",
+    "Read-only elementFromPoint samples nine interior positions of every visible enabled header/utility control. Report includes clearance, actual hit targets and phase before/after guide/quiet change.",
+    "Original real click, all old geometry/state/focus/guide/quiet checks retained; no force clicks, direct dataset writes or timeout changes."
+  ],
+  "html": {
+    "bytes": 5604200,
+    "sha256": "cc3c9849af0de8089f38d1dca06c69546e235c0b5ee373a11eb41e0401717443",
+    "status": "unaccepted local build"
+  },
+  "limits": {
+    "localBrowserRun": false,
+    "syntheticGeometryIsBrowserEvidence": false,
+    "newCiAccepted": false,
+    "physicalDevices": false,
+    "fullScene": false,
+    "quality90": false,
+    "restrictedOperationsRetried": false
+  },
+  "publication": {
+    "treeReadbackMatched": true,
+    "nonForce": true,
+    "refReadbackMatched": true,
+    "aheadBy": 1,
+    "behindBy": 0,
+    "actualChangedFiles": 5
+  },
+  "note": "Only final tested five-file implementation is delivered. No temporary observer alternative is part of this candidate."
+}

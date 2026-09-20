@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-20-vq01q-ci34-handoff。更新既有狀態與順序，不重新規劃。精確source、run與下一步只看STATUS及IMMEDIATE_CONTINUATION；新對話不必先重讀白皮書或歷史。前一版CI20歷史全文保留於Git commit4f831e1728be56e230d9285d1318f2587dfafbfb，不是當前待辦。
+版本：product-2026-09-20-vq01r-ci35-handoff。更新既有狀態與順序，不重新規劃。精確source、run與下一步只看STATUS及IMMEDIATE_CONTINUATION；新對話不必先重讀白皮書或歷史。前一版CI20歷史全文保留於Git commit4f831e1728be56e230d9285d1318f2587dfafbfb，不是當前待辦。
 
 ## 目標、順序與固定技術
 
@@ -32,19 +32,23 @@ IndexedDB與JSON白名單v1–v8保留：技術村落、千年祭、異變山道
 
 0.9.11人物接地、0.9.12持續選檔監聽／簡潔HUD與0.9.13被動P2提示整列都已發布，但完整新批次尚未驗收。CI30的雙人直向點擊攔截已實作修正；**CI31 35504112738**先在第二條雙人初遇1365×900 quiet遇到另一個header間距根因：提示頂端54小於header底64加3px，雖然10個按鈕90點命中全通過。不是原生選檔或人物接地失敗；雙人直向與後續裝備等未執行，不可宣告全數通過。原始報告、四份ZIP及實際清理後畫面已保存。
 
-VQ01O／0.9.14修正初遇HUD實際header高度定位，保留原提示整列與所有斷言。CI32／35505694703已確認provider success，非active；本次未建立其完整持久化產物／Pages／驗收閉環，不能把它重新當失敗，也不能憑綠勾臆造完成收據。
+VQ01O／0.9.14的初遇HUD實際header高度修正已發布。CI32／35505694703 provider success已知，非active；未在本接續建立完整雲端／Pages閉環，不重跑，也不臆造驗收收據。
 
-中斷前的 **VQ01P／0.9.15**已發布sourcef5fa18c3d092837b39edf97b6fe0d906aad43977，整合既存祭典曲面棚布、鐘、傳送器、貨物、接地販商及人物前方棚布淡化；相機／四主角／接地陰影／目前HUD保留。CI33／35510020718在validate45分鐘總上限取消最後審判步驟，前20步與兩條證人路線通過。13主旅程報告中12份完成，沒有最終trial-report.json；途中到達2300、另一越獄路線畫面與存檔不等於全部通過。不是旧HUD／選檔／人物接地失敗。
+VQ01P／0.9.15已整合保存的祭典曲面棚布、鐘、傳送器、貨物、接地販商及人物前方棚布淡化；保留原鏡頭／四主角／接地陰影／HUD。CI33的45分鐘serial validate上限已由VQ01Q原三job工作量分配處理：good保留證人→序章→裝備，bad保留證人→鍵盤，validate保留開場→王國→救援→審判的原生存檔依賴。所有13旅程與45分鐘限制保留，source/run/attempt/HTML完整報告檢查及明示incomplete審判進度檔仍在。
 
-本次 **VQ01Q**發布7份CI／驗證檔案，source61d03577b418f980f5e9413a05e73ddb5c7f9296，唯一 **CI34／35514835223**最後觀察in_progress。保留原三個45分鐘job，把鍵盤旅程放bad證人job、序章→裝備放goodjob，開場→王國→救援→審判仍同runner順序執行。所有原生匯出依賴與13旅程不刪，不延長timeout、不平行操控同一遊戲。新增source/run/attempt/HTML及最終／原生報告檢查；審判進度原子保存但永遠標示incomplete，不可替代完整報告。845Node／104Python、型別／資產／建置／compile／YAML通過，原53審判及其他全部斷言保留。無本機瀏覽器操作，runtime／素材／HTML完全未改；版本仍0.9.15、HTML5619402bytes與CI33同hash。測試數不是90分。
+CI34／35514835223 completed/failure。validate與bad成功，包含完整最終審判報告；good證人與序章成功，但裝備測試在棚布返回商店途中失敗。原本z>=-3.4的取樣已到z≈-3.0，再橫向向東碰到糖果攤，停於x≈5.4。碰撞是正確規則，不是舊HUD／原生匯入／人物接地失敗或45分鐘上限。先前棚布遮擋與暫停檢查通過，裝備交易／戰鬥／觸控尚未到達；12主報告通過／1失敗，完整證據檢查正確拒絕。原五份ZIP與實際失敗圖／完整trace已保存。
 
-CI34成功仍需三job、13主旅程、3lane收據、原生選檔／拒絕／重選／暫停／焦點、六guide／六quiet、12鏡頭、人物接地突進／匯入清理、祭典遮擋、裝備經濟ATB保存及原全部路線，保存原產物並核對Pages/source/HTML。good／bad原產物現在保留整個test-results，包含移動的序章／裝備／鍵盤證據；不可只找舊browserZIP或拿進度檔代替最終報告。
+本次 **VQ01R**發布8份測試／路線檔案，source28759aa7cb6d60a5649e169e483eb578b0f25a4e，tree804627e7e113db22e2be0c64dfbaac92f469b1f7；唯一 **CI35／35518793605**最後觀察in_progress。四段相關路線使用中央及南側走道，保留10段原生鍵盤操作與舊移動driver，記錄鬆鍵後位置／焦點／暫停／場景，實際商人／戰鬥入口距離仍須符合規則。12組取樣與鬆鍵延遲回歸涵蓋碰撞、實際棚布NullEngine幾何、交易、v8及Gato入口。精確CI34玩家匯出只供隔離Node測試，瀏覽器仍用同run自己的真實匯出，沒有假存檔、force click、state hook或重試。
+
+861Node／114Python、型別／資產／建置／compile通過。全部原equipment83／early25／keyboard28／prologue37／trial53／witness42瀏覽器斷言保留；單元舊路線字串檢查改為共享路線及呼叫順序檢查。runtime／素材／HTML／CSS／workflow完全未改，版本仍0.9.15；HTML5619402bytes及SHA256b54d4d25309dffc763ff21a2280c3de40242533bdcfbf83dfd78385f4ccdc4dd與CI34未驗收產物相同。沒有本機瀏覽器或90宣稱。
+
+CI35仍需三job、13主旅程、3lane收據、原生選檔／拒絕／重選／完整暫停／焦點、6guide／6quiet／12鏡頭、人物接地突進／匯入清理、祭典遮擋／裝備經濟ATB保存及全部路線，保存原产物並核對Pages/source/HTML。good／bad產物保留整個test-results，包含序章／裝備／鍵盤；不可只看舊browserZIP，不可用trial-progress替代最終報告。CI34的playable產物不因validate綠勾而接受。
 
 ## 未完成範圍與品質門檻
 
 T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內／迷宮拓樸及精確數值。T04：等級成長、技能、戰鬥報酬與掉落、完整商店消耗品飾品、角色與雙三人技。T05：完整美術、動畫及權利清楚的音樂音訊，先改善前段。T06：完整未來篇、其餘時代、主支線與結局。T07：整体90、裝置與效能證據。T08：每批GitHub與指定Drive閉環。
 
-仍可見的缺口包含重複地板、簡化家中家具／母親、人物輪廓重疊與前段構圖、壓縮法庭、完整動畫音樂及真機操作；已發布的鐘／攤位改善仍需整體畫面品質驗收，不重畫或重造。完整遊戲>=90、各面向>=80%、零critical、五項證據gate與必需素材通過才可release:check。不能改分母、隱藏缺口或只評已完成部分。舊quality30明確stale，不當作目前分數或重開舊功能依據。
+仍可見的缺口包含重複地板、簡化家中家具／母親、人物輪廓重疊、壓縮法庭、前段構圖、完整動畫音樂及真機操作；已發布鐘／攤位不重畫，仍需整體品質驗收。完整遊戲>=90、各面向>=80%、零critical、五項證據gate與必需素材通過才可release:check。不能改分母、隱藏缺口或只評已完成部分。舊quality30明確stale，不當作目前分數或重開舊功能依據。
 
 真實鍵盤／手把、FPS／frame-time、載入、記憶體、背景恢復與保存屬實體裝置門檻；Chromium觸控模擬、NullEngine、合成幾何、概念圖與軟體GPU不可冒充真機或成品畫面。Pages僅部署全CI通過的exact artifact；deployment.json綁source/run/artifact/HTML，文件或workflowHEAD與遊戲source不同不是重跑理由。file://與HTTP靠JSON搬移，不是雲端存檔同步。
 
@@ -52,7 +56,7 @@ T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內�
 
 GitHub main為source與進度權威，只有本AI流程使用，不建多人防撞／平行candidate／歷史審計。每批相关修改與測試後一次commit→非force更新→回讀→一次完整CI；文件用[skip ci]。CI仍排隊／執行時保存exact接續點，交由新對話或下次E2E通知，不長時間輪詢、取消或重派。失敗只修同run第一根因；成功仍須保存原產物、看真實畫面並匹配Pages。
 
-交付一律放 **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1VrLSq3tySJZV7e6GdG3ZXlinKjn5wptI**已回讀整包hash／CRC／23項清單／7份增量；原始四份CI33ZIP、含完整VQ01P的來源tar、修正及測試紀錄保存，細節在DELIVERY_INDEX、VQ01Q_CLOUD_RETENTION及CI34_CHECKPOINT。先讀STATUS與IMMEDIATE_CONTINUATION，再查當前CI34，不重貼ROM或token。CI33是已定位的取消紀錄，CI32成功但非active；CI28／Pages22不重開。currentmain文件高於封存舊文件，臨時容器不是永久記憶。
+交付一律放 **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1oGzKu1WleqeIn8HcuDpP8drFazdjJLX0**已下載回讀整包hash／CRC／24項清單／8份增量；細節在DELIVERY_INDEX、VQ01R_CLOUD_RETENTION及CI35_CHECKPOINT。五份CI34原始ZIP、原始報告／畫面與精確增量已保存，playable明示未驗收。先讀STATUS與IMMEDIATE_CONTINUATION，再查CI35；不重貼ROM或token。CI34是已定位失敗，CI33不是active；CI28／Pages22不重開。臨時容器不是永久記憶，當前GitHub文件永遠優先於恢復封存內的舊文件。
 
 受限的新src/prologue-render.ts寫入與本機瀏覽器操作沒有新允許結果，不得重送、改管道繞過或提升不完整staging。現有rendererblob2711a74185aacf3c6bddf9db85ba99a2afbc507a保留；其他已允許獨立工作可繼續，不把特定操作限制說成connector無法存取。
 

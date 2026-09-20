@@ -1,15 +1,15 @@
-# 功能快照 — VQ01P 保留／VQ01R／CI35 待驗證
+# 功能快照 — CI35／Pages29 已驗收，VQ01S／CI36 待驗證
 
-目前以STATUS／IMMEDIATE_CONTINUATION／CI35_CHECKPOINT為準；沒有新的完成百分比或品質分數。
+目前以STATUS／IMMEDIATE_CONTINUATION／CI36_CHECKPOINT為準；沒有新增完成百分比或美術分數。
 
-VQ01P／0.9.15祭典曲面棚布、鐘、傳送器、貨物、接地販商與人物前方棚布淡化已整合；四主角、鏡頭、接地陰影及目前HUD保留。完整房間／全NPC／所有動畫音樂仍未完成，不重畫已保存素材。
+**0.9.15／CI35 35518793605／Pages29 35520392818已完成既有可玩範圍驗收**，source28759aa7cb6d60a5649e169e483eb578b0f25a4e。三job、13主旅程、9份原生選檔紀錄與3份來源綁定ledger通過；報告bytes/hash、6guide／6quiet／18工具列觀察／12鏡頭案例及原生匯入、接地、真正ATB突進、棚布遮擋／暫停、装備經濟、v8、IndexedDB、勝利繼續與完整既有劇情已核對。12鏡頭是四個場景各三視窗，不當成額外獨立旅程。
 
-VQ01Q的三job分工与完整證據檢查保留。CI34／35514835223的validate及bad成功，包含完整審判最終報告；good完成證人與序章，但裝備旅程在棚布返回商店的橫越路線卡住。舊z>=-3.4取樣已到z≈-3.0，之後向東在x≈5.4碰到糖果攤。碰撞是正確規則，並非舊HUD、原生選檔或接地失敗。棚布遮擋／暫停檢查已先通過，後續裝備交易／戰鬥／觸控未驗收；12主報告通過、1失敗，整批不接受。
+Pages29的prepare/deploy均成功，來源／CI／playable ID與HTML一致；公開HTTP hash由實際成功deploy step驗證。本機獨立HTTP因DNS失敗，沒有第二份本機即時驗證。實際全尺寸圖片與25張原始圖的三份接觸表已看過；HUD、棚布、商店、窄視窗選單和戰鬥可見，但簡化家中／母親／家具、重複鋪面和初遇輪廓重疊仍存在。驗收不等於完整遊戲、美術90或真機通過。
 
-本次VQ01R發布8份測試／路線檔案，source28759aa7cb6d60a5649e169e483eb578b0f25a4e，唯一CI35／35518793605。四段相關路線改走中央及南側走道，保留10段真實鍵盤操作；每段記錄鬆鍵後位置、焦點、暫停與場景狀態，偏離走道或角色狀態改變立即停止，不重試。12組取樣／鬆鍵延遲回歸、實際棚布NullEngine幾何及既有規則碰撞／交易／v8／戰鬥入口測試通過。精確CI34玩家存檔只作隔離Node測試；瀏覽器仍用同run自己的原生匯出檔。
+**本批VQ01S／0.9.16已發布九份程式／測試**，source4029c82ec0568dff0f687be6fa0947256b63350c；唯一CI36／35525474467最後觀察queued。祭典地面增加靜態世界座標明暗，區分中央走道／鐘前景與外緣；原有鋪面畫筆完全保留，未重畫素材或修改碰撞。32細分地面為1089頂點／2048三角形；只地面採mipmap與anisotropy4，人物仍nearest。沒有額外覆蓋網格或紋理，也不每幀上傳地面資料；細分與mipmap增加幾何／儲存，不宣稱零成本或真機效能提升。
 
-861Node／114Python、型別／資產／建置／compile通過。原equipment83／early25／keyboard28／prologue37／trial53／witness42瀏覽器斷言保留；單元測試中的舊路線字串檢查改為共享路線與呼叫順序檢查，沒有刪除功能斷言。無本機瀏覽器操作，runtime／素材／HTML／CSS／workflow完全未改。HTML5619402bytes、SHA256b54d4d25309dffc763ff21a2280c3de40242533bdcfbf83dfd78385f4ccdc4dd與CI34相同，版本維持0.9.15；本批不是新美術或90分完成。
+實際buffer／checksum／取樣參數可由唯讀觀察讀取。既有棚布旅程加入1365×900、390×844、844×390的真實地面觀察與截圖、切換視窗不變及原生暫停不變檢查；失敗當下先留圖再清理，清理錯誤不掩蓋根因。873Node／125Python、資產／型別／建置／compile通過，新增12Node／11Python；所有原瀏覽器斷言保留。没有本機瀏覽器，視覺改善仍待CI36實際畫面，不能用數量或取樣常數當分數。
 
-Drive1oGzKu1WleqeIn8HcuDpP8drFazdjJLX0在指定folder，五份CI34原始ZIP、精確來源封存、八份增量、原始根因報告／畫面與測試紀錄已保存，整包／CRC／24清單／8增量回讀一致。CI35仍需三job、13主報告、3lane收據、原生選檔與所有既有實際畫面驗收、Pages來源／HTML核對。CI34 playable明示未驗收，不能部署。
+VQ01P祭典曲面棚布／鐘／傳送器／貨物／販商／遮擋、四主角／鏡頭／接地陰影／HUD、VQ01Q三job分工和VQ01R走道修正均保留；core/main/input/collision/camera/save/UI/畫筆及受限prologue-renderer未修改。新HTML5621452bytes，SHA256cda87f62f553247de4bad7430f196b1a8f19de92fd051e4a6fe616d7dceef25f尚未驗收。
 
-家中→2300抵達、裝備、v1–v8、固定ATB、P1克羅諾／P2露卡／自主第三同伴保留。CI32 provider success已知但未在此建立完整雲端／Pages閉環，不重跑；CI28／Pages22閉環不重開。完整T03–T08、實體裝置與前段90分未完成。
+兩個包均在指定folder且已回讀：CI35驗收1P-jRHa_BiTcAoETgQpPuizLTw9RhyuG9，14項清單；VQ01S接續1Tj2bjfoiAaBZ2NHCq_TMjIHFgPoduuam，18項清單／9增量。GitHub新文件優先於封存舊文件。CI35／Pages29、CI28／Pages22閉環不重開；T03–T08完整範圍、前段90和實體裝置仍未完成。家中→2300抵達、裝備、v1–v8、固定ATB、P1克羅諾／P2露卡／自主第三同伴保持；2300抵達不是完整未來篇。

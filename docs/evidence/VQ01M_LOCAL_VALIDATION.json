@@ -1,0 +1,255 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ01M-native-subscription-and-quiet-cue",
+  "version": "0.9.12",
+  "basedOnMain": "2a52b5aac62377855ded6569591de60907aadf27",
+  "basedOnGameSource": "caa53545062f974b4ea288d9d577e53f0be3864d",
+  "changes": [
+    {
+      "path": "index.html",
+      "beforeBlob": "7c682de31d5ad2edeebcd1546d0f29218c2a1d36",
+      "afterBlob": "2c6f00186bb2b0781b22a3e870e4f18187c59bc1",
+      "bytes": 10259,
+      "sha256": "78519fcf5f399e93ec07d33ed50d22d7a584931ca837ffecdbcec141d1868666"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "beforeBlob": "2f8f4bdec7439fde60f53665132511084d2e7987",
+      "afterBlob": "5af1ca813339b4f2dd574a6c697c3aa7b8e35d0e",
+      "bytes": 1842,
+      "sha256": "db048d2f054b071b2ca475808274bcb0160640ea897d845686882c87e8c7c9bf"
+    },
+    {
+      "path": "src/adventure.css",
+      "beforeBlob": "81412ee55d70bb3f9ed74264f406a89e64bc6614",
+      "afterBlob": "416676048ce62922a8f4d728cdbdbbea86f743a8",
+      "bytes": 17709,
+      "sha256": "179009b86374301b4f84cdfb2d5cacb771f0c2e0d37b374106aa17a2e5a0cc94"
+    },
+    {
+      "path": "tests/early_comfort.py",
+      "beforeBlob": "4efbab23046afc97a73a469c81c7627112d00de7",
+      "afterBlob": "6dbea8952ce186f711644cf89f593d6a9d2ecb07",
+      "bytes": 4737,
+      "sha256": "66cc64a28aba96e87b98be6948e81dd3c4484c614cf1a007c282abad7c6bfae8"
+    },
+    {
+      "path": "tests/early_comfort_test.py",
+      "beforeBlob": "3c3204d7484d7f335e74dab2e8f9f1c90e3feaf4",
+      "afterBlob": "d2bec30ab3b51155da844cdb24d0d82ed8dd8144",
+      "bytes": 3022,
+      "sha256": "d678f426ab928b1c97e462c2821136a6e3186485a39609fde78fe0d127be49d1"
+    },
+    {
+      "path": "tests/equipment_browser.py",
+      "beforeBlob": "996b9a56935b83726bcc03ccd6690437525b1790",
+      "afterBlob": "4650bb88dbeb03b45b422a422b3cf88e8242f84c",
+      "bytes": 21738,
+      "sha256": "8655e9db93837f299de00c9696c05a73bef336a2bdd44a59ee40b8db31fcb099"
+    },
+    {
+      "path": "tests/fair_browser.py",
+      "beforeBlob": "15ba90f7d5724efd3b648ebf0ab664b014f54b38",
+      "afterBlob": "b9646517f2d3667e24ba0717d0b0d7b130806007",
+      "bytes": 10066,
+      "sha256": "f4e20dcb18041942a3e7d9d95e44227800f8c316dc381f7233b5e66b3400161c"
+    },
+    {
+      "path": "tests/inventory_touch.py",
+      "beforeBlob": "664c88dc23b9e606d468db5b5bdfa9ef3a490ee4",
+      "afterBlob": "213932a6deefef5a008df34a9b136241ac005f84",
+      "bytes": 4049,
+      "sha256": "a05fb8bbe6a3ace90c682144f6aa008fbe9be5ed3180c9eddda29d838aad93d9"
+    },
+    {
+      "path": "tests/keyboard_browser.py",
+      "beforeBlob": "83ca679b716a8b9f40db474af7a1fe114fb01ec0",
+      "afterBlob": "2718c633691c7d55f249bea47668a3a6d2112b63",
+      "bytes": 10793,
+      "sha256": "cbdd09d058bda2bd1233689297f30e3f847e9d346c56297dc3fc6071722cb7f3"
+    },
+    {
+      "path": "tests/kingdom_browser.py",
+      "beforeBlob": "73c42c7bf0c1c8df14ef58fa0ed41c40a20be8b3",
+      "afterBlob": "ff4971f04b02a1debd9269134b3fd7dffa28859b",
+      "bytes": 10393,
+      "sha256": "6c5e30e617a8cdaee998c7d7e8d5163ebf0e19583267775f9ca4e4b6eec15e29"
+    },
+    {
+      "path": "tests/native_chooser.py",
+      "beforeBlob": null,
+      "afterBlob": "4c9d62f7c6d10e739b571a5f38110a8c3c02c9e9",
+      "bytes": 1618,
+      "sha256": "8573d71cfb551b3349448b5a40da41c407715ee620fae844a0ebd864d0779ba3"
+    },
+    {
+      "path": "tests/native_chooser_test.py",
+      "beforeBlob": null,
+      "afterBlob": "b935dedc7bc9d87c3e9cfc9b22df2ac45cdc25ea",
+      "bytes": 6082,
+      "sha256": "3c46012297cd95973460bfccc29ed6f7ac8fedeb1fa346ec68a1a4db59c8d4e7"
+    },
+    {
+      "path": "tests/native_import.py",
+      "beforeBlob": "3534e272db29e23f7364806f5beef0aa700500ea",
+      "afterBlob": "85d667be7db9ebf2dbc6690d8e73e665de57111e",
+      "bytes": 9079,
+      "sha256": "a55dc8fdb674863b6787ca26553b35a30dc8d7d82081757c98cfb2421a2aea8a"
+    },
+    {
+      "path": "tests/native_import_test.py",
+      "beforeBlob": "5585426ecd5d0b46f34bf5cac8b52978548924fb",
+      "afterBlob": "95e072230c86d5b4986afaafc9f061c2299e7ef7",
+      "bytes": 11333,
+      "sha256": "9b6ed84af903ab562f3c1fca2802d13d34c4474d7cc7f4018453742c380e9faa"
+    },
+    {
+      "path": "tests/opening_browser.py",
+      "beforeBlob": "a7b4576c1360641f2736e1622dfed2a6564ddb6a",
+      "afterBlob": "238e1d11985b1bf46f101c1cdf50a9e7735d3592",
+      "bytes": 10619,
+      "sha256": "a346ed4de479e074a378e80efb3c580f02cee7c2aa0003ad3b6fb32c9d426edb"
+    },
+    {
+      "path": "tests/prologue_browser.py",
+      "beforeBlob": "92d69df1d58a53b0986641607afc29002142f4fd",
+      "afterBlob": "547cba1aff65624934275db2ab2abe59a74690dd",
+      "bytes": 11628,
+      "sha256": "5aa80963d7905f8c3b8939a4ef8375b6a3892275a11abb766c15e6b1f22a7fea"
+    },
+    {
+      "path": "tests/rescue_browser.py",
+      "beforeBlob": "878659a7cbc551fb0e5cf9632bfabad12462d66b",
+      "afterBlob": "ce0ae5048405b306161c33bb9e2568a9f7798979",
+      "bytes": 16679,
+      "sha256": "16e5b0e085611dacbf33ad12d0ee9f703354912d4e7c3c096fd0fdbbba8840e0"
+    },
+    {
+      "path": "tests/trial_browser.py",
+      "beforeBlob": "5d636f3ca30e8c35c077aec223c4e39566cce2c0",
+      "afterBlob": "40179084e42ae7317df0ceeddd79796043674b43",
+      "bytes": 17039,
+      "sha256": "96e439bf4fa21d5bf211a2b3001a6bc4cf4b90dcc9dc26b2f752fa306850e3a4"
+    },
+    {
+      "path": "tests/witness_browser.py",
+      "beforeBlob": "270d8045f9ad794506bd6002845d5a9d68af38a7",
+      "afterBlob": "6af71c1a8728c1985642c9676cd2135d14d64297",
+      "bytes": 15224,
+      "sha256": "3fd664b783aa8077c4511c5bdc822883c1b5f8e370fe9050014d0bbdbee2c58f"
+    }
+  ],
+  "tests": {
+    "node": 812,
+    "python": 79,
+    "pythonBefore": 66,
+    "npmRunCheck": "passed",
+    "pythonCompile": "passed",
+    "assertionLedger": {
+      "tests/rescue_browser.py": {
+        "before": 47,
+        "after": 47,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/early_comfort.py": {
+        "before": 9,
+        "after": 18,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/trial_browser.py": {
+        "before": 53,
+        "after": 53,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/inventory_touch.py": {
+        "before": 9,
+        "after": 9,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/opening_browser.py": {
+        "before": 36,
+        "after": 36,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/equipment_browser.py": {
+        "before": 83,
+        "after": 83,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/native_import.py": {
+        "before": 14,
+        "after": 14,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/prologue_browser.py": {
+        "before": 37,
+        "after": 37,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/native_import_test.py": {
+        "before": 2,
+        "after": 2,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/fair_browser.py": {
+        "before": 34,
+        "after": 34,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/early_comfort_test.py": {
+        "before": 0,
+        "after": 0,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/witness_browser.py": {
+        "before": 42,
+        "after": 42,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/kingdom_browser.py": {
+        "before": 29,
+        "after": 29,
+        "allOriginalAssertNodesRetained": true
+      },
+      "tests/keyboard_browser.py": {
+        "before": 28,
+        "after": 28,
+        "allOriginalAssertNodesRetained": true
+      }
+    },
+    "scope": "Node production/unit tests; Python protocol models/checker geometry and source wiring. No local browser executed."
+  },
+  "implemented": [
+    "Arm a persistent public FileChooser listener on all ten import-capable pages before navigation; keep it across reloads and between temporary expect contexts.",
+    "Preserve native Enter/Space/click/tap and original chooser.set_files, full frozen-state comparisons, rejection/reselection and own-export file provenance. Count exactly one observed event per import without synthetic input or protocol hooks.",
+    "Early quiet HUD presents one named 44px action instead of duplicate text; original complete-guide geometry remains checked by actual guide-toggle clicks, plus six new quiet cases and focus/state restoration checks."
+  ],
+  "notChanged": {
+    "src/core.ts": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4",
+    "src/main.ts": "994afd9c3fef15248d5823568f249d272def67c6",
+    "src/render.ts": "4875c55c98aed2a75e795dd00b84f3d0d823f51a",
+    "src/save-import.ts": "d60809b178f55b2b8d66bf320ce49426b7b505b4",
+    "src/input.ts": "53a8b6709eae7287ce0bfffd53ac21a9397a477c",
+    "src/input-boundary.ts": "94ff56826809aebec55b9298769b8fc7e01ad986",
+    "src/prologue-render.ts": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    ".github/workflows/ci.yml": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf",
+    "tests/requirements.txt": "c4d4b5a9bc2643aa59a80e30f8002e30889d9409",
+    "src/hd-hero-art.ts": "68420a370f605d40ec7a35877d8b3c5fff9eebeb",
+    "src/sprite-contact.ts": "48fd07bf80ee04027699140835fcb0502caab6c1"
+  },
+  "html": {
+    "bytes": 5603770,
+    "sha256": "e78464bfdd5b3a9fac3ab93fecd45347bc936120a45416438390fff0a539500d",
+    "status": "unaccepted local build"
+  },
+  "limits": {
+    "localBrowserRun": false,
+    "newCiAccepted": false,
+    "newPagesAccepted": false,
+    "fullScenePublished": false,
+    "physicalDeviceEvidence": false,
+    "early90Approved": false,
+    "restrictedOperationsRetried": false
+  },
+  "note": "Prepublication receipt. Final GitHub checkpoint will record the actual source commit and single new CI. Main docs override archived old source docs."
+}

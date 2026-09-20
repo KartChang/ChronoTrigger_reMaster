@@ -96,3 +96,9 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 `src/hd-hero-art.ts` 採用保存的 VQ01A 四主角 painter，不是另畫素材。`src/sprite-contact.ts` 依實際 sprite scale 與 texture pivot 對齊畫面腳底和自有陰影；`World.groundActors` 使用呈現突進位移但不修改 core 座標，保留起床姿勢及大地圖縮放。`fair-conduct-render.ts` 將保存的可見 NPC 接地設計接上共用 placement，附近販商與主人沿用既有框景。適用目前無旋轉／單位縮放的角色根節點，不宣稱任意父變換支援。
 
 `inspectSpriteContacts` 由實際 mesh world matrix 量測腳底支點，回傳複製值；World 保留有上限的突進觀察，在換檔／場景時清除。`tests/actor_grounding.py` 接到既有 HD 人物與裝備旅程，記錄實際商店／戰鬥／匯入後接地與截圖。對應 NullEngine／合成幾何僅為方法及斷言測試，原版 painter hash 證明重用而非美術分數；瀏覽器、實體裝置與最終畫面接受狀態只看 STATUS。
+
+## 原生選檔監聽與簡潔提示（VQ01M / 0.9.12）
+
+`tests/native_chooser.py` 在新頁面 about:blank 時登記公開 FileChooser listener，跨導覽／reload 保留，回呼僅計數；`native_import.py` 與裝備旅程的既有匯入 driver 讀取複製計數並要求每次正好一個新事件。仍使用真正的按鍵／點擊／tap 及 FileChooser.set_files，不寫遊戲狀態，不呼叫 CDP 或私有協定；各頁關閉時釋放記錄。`native_chooser_test.py` 的延遲協定模型與 AST 接線檢查不是作業系統選檔證據。
+
+`adventure.css` 僅在初遇探索的 quiet 模式隱藏重複浮動文字；具體動作按鈕及 guide 模式保留。`early_comfort.py` 透過真正的 display 按鈕測試 guide／quiet，保留原幾何斷言，新增簡潔模式的可讀性／焦點／故事狀態檢查並恢復原偏好。實際來源／驗收只看 STATUS。

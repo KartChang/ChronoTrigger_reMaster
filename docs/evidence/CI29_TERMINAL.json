@@ -1,0 +1,115 @@
+{
+  "schema": "chrono-ci-terminal-v1",
+  "run": 35499591337,
+  "number": 29,
+  "sourceSha": "caa53545062f974b4ea288d9d577e53f0be3864d",
+  "sourceTree": "7cedb3bd3fa8e82fe26a2c2ad58edf21f1e7681e",
+  "conclusion": "failure",
+  "jobs": {
+    "validate": {
+      "id": 106048846056,
+      "conclusion": "failure",
+      "firstFailedStep": 11,
+      "skippedSteps": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ]
+    },
+    "good": {
+      "id": 106048846027,
+      "conclusion": "success"
+    },
+    "bad": {
+      "id": 106048845902,
+      "conclusion": "success"
+    }
+  },
+  "root": "keyboard-first-native-chooser-cancel-before-event",
+  "observed": {
+    "label": "keyboard-fair-v2.json",
+    "activation": "Enter",
+    "expected": "imported",
+    "status": "failed",
+    "selection": {
+      "file": "keyboard-fair-v2.json",
+      "bytes": 279,
+      "sha256": "5ab0abd802cc9f6e107cf2e058e6b3f6a6ffec01ce942c5edf3126c5be474364"
+    },
+    "stage": "before-activation",
+    "before": {
+      "focused": "import",
+      "picker": "closed",
+      "importDisabled": false,
+      "paused": false,
+      "message": "已匯出存檔。",
+      "chapter": "fair",
+      "ticks": 563,
+      "lifecycle": {
+        "phase": "closed",
+        "events": []
+      }
+    },
+    "failure": "Timeout 30000ms exceeded while waiting for event \"filechooser\"\n=========================== logs ===========================\nwaiting for event \"filechooser\"\n============================================================",
+    "failureType": "TimeoutError",
+    "after": {
+      "focused": "world",
+      "picker": "closed",
+      "importDisabled": false,
+      "paused": false,
+      "message": "已取消匯入，原進度不變。",
+      "chapter": "fair",
+      "ticks": 1174,
+      "lifecycle": {
+        "phase": "closed",
+        "events": [
+          {
+            "sequence": 1,
+            "event": "requested",
+            "phase": "open"
+          },
+          {
+            "sequence": 2,
+            "event": "activation-returned",
+            "phase": "open"
+          },
+          {
+            "sequence": 3,
+            "event": "cancelled",
+            "phase": "closed"
+          }
+        ]
+      }
+    }
+  },
+  "candidateExplanation": {
+    "risk": "Playwright1.51 first/last filechooser listeners send updateSubscription without awaiting its browser-interception reply; repeated expect contexts toggle it near user activation.",
+    "certainHistoricalTransportCause": false,
+    "notes": "Trace proves request -> activation-returned -> cancelled and no FileChooser received; it does not contain a timestamped wire-level interception trace. A delayed-protocol unit model is not historical Chromium evidence.",
+    "primarySources": [
+      "https://github.com/microsoft/playwright-python/blob/v1.51.0/playwright/_impl/_connection.py#L169-L187",
+      "https://github.com/microsoft/playwright/blob/v1.51.0/packages/playwright-core/src/server/dispatchers/pageDispatcher.ts#L230-L237"
+    ]
+  },
+  "rawArtifactIndex": "ARTIFACT_INDEX.json",
+  "allFourProviderDigestsAndCrcVerified": true,
+  "exactSourceArchiveTreeMatched": true,
+  "screenshotInspected": "keyboard/failure.png",
+  "visualObservation": "Current source shows party painter and grounded shadows in the fair, repeated stone paving and simplified props remain. Failure screenshot is not full VQ01L acceptance. New actor grounding checks were skipped.",
+  "twoWitnessNativeImportsPassed": 20,
+  "newPagesAccepted": false,
+  "lastAccepted": {
+    "version": "0.9.10",
+    "source": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
+    "ci": 35465946145,
+    "pages": 35468157318
+  },
+  "next": "VQ01M candidate page-lifetime chooser subscription and early quiet HUD; retain original functional assertions. Do not reaccept CI28."
+}

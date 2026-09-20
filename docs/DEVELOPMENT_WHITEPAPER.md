@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-20-vq01n-ci31-handoff。更新既有狀態與順序，不重新規劃。精確source、run與下一步只看STATUS及IMMEDIATE_CONTINUATION；新對話不必先重讀白皮書或歷史。前一版CI20歷史全文保留於Git commit4f831e1728be56e230d9285d1318f2587dfafbfb，不是當前待辦。
+版本：product-2026-09-20-vq01o-ci32-handoff。更新既有狀態與順序，不重新規劃。精確source、run與下一步只看STATUS及IMMEDIATE_CONTINUATION；新對話不必先重讀白皮書或歷史。前一版CI20歷史全文保留於Git commit4f831e1728be56e230d9285d1318f2587dfafbfb，不是當前待辦。
 
 ## 目標、順序與固定技術
 
@@ -30,9 +30,9 @@ IndexedDB與JSON白名單v1–v8保留：技術村落、千年祭、異變山道
 
 完整保留美術仍含房間材質、分件家具、陶器、曲面布料、祭典棚布／鐘／傳送器、母親與販商、三角面前景淡化等。A→B→C工作鏈已存在，不得重畫；已整合鏡頭／人物／接地與目前UI需合併保留。歷史43／31差異只對舊基線，不是現行未實作數。沒有通用外部OBJ自動回匯、全NPC方向動作或完整音樂完成的宣稱。
 
-0.9.11人物接地與0.9.12持續選檔監聽／簡潔HUD都已發布，但完整新批次尚未驗收。**CI30 35501489437**鍵盤與兩條證人路線成功，序章第二條雙人路線在390×844因P2提示攔截顯示按鈕而失敗。這不是原生選檔或人物接地失敗；後續裝備與其他旅程未執行，不可宣告全數通過。
+0.9.11人物接地、0.9.12持續選檔監聽／簡潔HUD與0.9.13被動P2提示整列都已發布，但完整新批次尚未驗收。CI30的雙人直向點擊攔截已實作修正；**CI31 35504112738**先在第二條雙人初遇1365×900 quiet遇到另一個header間距根因：提示頂端54小於header底64加3px，雖然10個按鈕90點命中全通過。不是原生選檔或人物接地失敗；雙人直向與後續裝備等未執行，不可宣告全數通過。原始報告、四份ZIP及實際清理後畫面已保存。
 
-本次 **VQ01N／0.9.13**已提交5份程式／測試檔案，source071f6599a18c955ba64fad85b6a4ad4a66002c88；P2提示移至工具列末端的正常排版整列，新增hud-notice.css，不新增runtime框架。純提示不攔截點擊；測試記錄工具按鈕9點真實命中與提示間距，原點擊與所有舊斷言保留。本機812Node／83Python通過；唯一新驗證 **CI31 35504112738**最後觀察in_progress，實際瀏覽器／畫面／部署尚待驗收。文件提交不再啟動CI。
+本次 **VQ01O／0.9.14**已提交5份程式／測試檔案，source2751a5386f440f90bc8d6c3aaa31a988daf03b39。初遇HUD由header真實高度建立工具列定位，不猜固定高度；保留0.9.13正常排版提示，不新增runtime JS。測試補記header／工具列／容器DOM，清理前保留失敗視窗與畫面，不蓋掉原始根因。新增6單元案例，舊25／28／37／83斷言保留。本機812Node／89Python、型別、資產、建置與compile通過；唯一新驗證 **CI32 35505694703**最後觀察in_progress。瀏覽器／畫面／部署仍待驗收，沒有本機瀏覽器操作或90分宣稱。
 
 ## 未完成範圍與品質門檻
 
@@ -46,7 +46,7 @@ T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內�
 
 GitHub main為source與進度權威，只有本AI流程使用，不建多人防撞／平行candidate／歷史審計。每批相关修改與測試後一次commit→非force更新→回讀→一次完整CI；文件用[skip ci]。CI仍排隊／執行時保存exact接續點，交由新對話或下次E2E通知，不長時間輪詢、取消或重派。失敗只修同run第一根因；成功仍須保存原產物、看真實畫面並匹配Pages。
 
-交付一律放 **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1wpPu7wWh0o6sPfil7yxGd05RqcZ9Va9C**已回讀整包hash／CRC／18項清單／5份增量；細節在DELIVERY_INDEX及CI31_CHECKPOINT。新對話只先讀STATUS與IMMEDIATE_CONTINUATION，再查當前CI31，不要求重貼ROM或token。臨時容器不是永久記憶。
+交付一律放 **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1RS0wZrCQF3ja6KtgxYUqcO0r8jzctKIc**已回讀整包hash／CRC／22項清單／5份增量；細節在DELIVERY_INDEX、VQ01O_CLOUD_RETENTION及CI32_CHECKPOINT。先讀STATUS與IMMEDIATE_CONTINUATION，再查當前CI32，不重貼ROM或token。CI31與CI30均是已定位的失敗紀錄，不是active驗證；CI28／Pages22不重開。臨時容器不是永久記憶。
 
 受限的新src/prologue-render.ts寫入與本機瀏覽器操作沒有新允許結果，不得重送、改管道繞過或提升不完整staging。現有rendererblob2711a74185aacf3c6bddf9db85ba99a2afbc507a保留；其他已允許獨立工作可繼續，不把特定操作限制說成connector無法存取。
 

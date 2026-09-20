@@ -1,6 +1,7 @@
 """Continue from the actual v3 export produced by opening_browser.py in this same CI run.
 Imports through the real UI; never edits a save, injects state, teleports or accelerates time.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import json, math, subprocess, sys, time
 from native_import import import_save, import_context
@@ -47,7 +48,7 @@ try:
     source=json.loads(SOURCE.read_text());assert source['version']==3 and source['opening']['phase']=='vista'
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-        page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True)
+        page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(page)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
         page.on('request',lambda r:requests.append(r.url))

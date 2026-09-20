@@ -161,3 +161,9 @@ body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] .sto
 body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #party{display:flex;justify-content:center}
 body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #party .player{display:none}
 @media(max-width:650px){body[data-adventure="true"][data-early-meeting="true"][data-mode="explore"] .story-coop-note{top:108px}}
+
+/* VQ01M: quiet first-contact UI has one actionable cue, not two copies.
+   Complete guide mode retains the original contextual prompt. The native action
+   button keeps the exact action name, accessible label and >=44px hit target. */
+body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #interact-hint{display:none}
+body[data-adventure="true"][data-early-meeting="true"][data-hud="quiet"][data-mode="explore"] #interact{max-width:min(620px,calc(100vw - 32px));white-space:normal}

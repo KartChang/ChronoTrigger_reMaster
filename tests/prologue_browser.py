@@ -1,6 +1,7 @@
 """Fresh UI-led prologue, separate from retained checkpoint journeys.
 Snapshot and view hooks are read-only. No injected game state, synthetic saves or clock changes.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import hashlib, json, math, subprocess, sys, time
 from native_import import import_save, import_context
@@ -106,7 +107,7 @@ def save_reload(page,name):
 try:
  with sync_playwright() as p:
     browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-    page=browser.new_page(viewport={'width':1365,'height':900},accept_downloads=True)
+    page=browser.new_page(viewport={'width':1365,'height':900},accept_downloads=True);arm_native_chooser(page)
     page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None);page.on('request',lambda r:requests.append(r.url))
     receipts=[]
     try:

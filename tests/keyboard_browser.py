@@ -1,6 +1,7 @@
 """Real keyboard-led regressions. Read-only game hooks; no fake saves/state/clocks.
 Native import uses Playwright's file chooser with a save exported by this journey.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import json,math,subprocess,sys,time
 from native_import import import_save
@@ -51,7 +52,7 @@ def record(p,name):
 try:
  with sync_playwright() as pw:
   b=pw.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-  p=b.new_page(viewport={'width':1200,'height':800},accept_downloads=True);p.on('pageerror',lambda e:errors.append(str(e)))
+  p=b.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(p);p.on('pageerror',lambda e:errors.append(str(e)))
   try:
     open_game(p,0);move(p,'x',0)
     p.keyboard.down('ArrowDown')

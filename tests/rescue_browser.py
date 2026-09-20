@@ -2,6 +2,7 @@
 Only keyboard, visible controls and public save/import UI mutate the game. No state hooks,
 constructed saves, teleports or accelerated clocks. Software GPU is not hardware certification.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from rescue_route import approach_supply_chest, approach_organ, input_context
@@ -95,7 +96,7 @@ try:
     assert source['version']==4 and source['chapter']=='castle' and source['kingdom']['phase']=='rescue'
     with sync_playwright() as p:
         browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-        page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True)
+        page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(page)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
         page.on('request',lambda r:requests.append(r.url))

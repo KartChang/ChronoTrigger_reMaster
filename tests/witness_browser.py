@@ -2,6 +2,7 @@
 No prior save import, generated test fixtures, writable hooks or accelerated clocks.
 All reloads consume only JSON this browser actually exported through the game UI.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from native_import import import_save, import_context
@@ -179,7 +180,7 @@ def hearing(p):
 try:
  with sync_playwright() as pw:
     browser=pw.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-    p=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True)
+    p=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(p)
     p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text) if m.type=='error' else None);p.on('request',lambda r:requests.append(r.url))
     try:
         fresh_company(p);fair_conduct(p);rescue_return(p);hearing(p)

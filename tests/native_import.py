@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 from typing import Any
+from native_chooser import chooser_observation, assert_one_chooser
 
 _ATTEMPTS: dict[Path, list[dict[str, Any]]] = {}
 _TERMINALS = ('imported', 'read-error', 'empty-selection', 'cancelled', 'activation-error', 'unavailable')
@@ -98,6 +99,8 @@ def import_save(page: Any, files: Any, out: Path, *, activation: str = 'click',
         'expected': expected, 'status': 'started', 'selection': receipt, 'stage': 'before-activation'}
     attempts.append(attempt)
     try:
+        subscription = chooser_observation(page)
+        attempt['subscriptionBefore'] = subscription
         before = import_context(page)
         attempt['before'] = before
         assert not before['paused'] and not before['importDisabled'], before
@@ -115,6 +118,7 @@ def import_save(page: Any, files: Any, out: Path, *, activation: str = 'click',
             else:
                 page.keyboard.press(activation)
         chooser = event.value
+        attempt['subscriptionAfterChooser'] = assert_one_chooser(page, subscription)
         assert chooser.element.get_attribute('id') == 'save-file'
         assert chooser.element.get_attribute('type') == 'file'
         assert not chooser.is_multiple()

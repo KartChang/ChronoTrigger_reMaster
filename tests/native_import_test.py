@@ -8,6 +8,7 @@ from types import SimpleNamespace
 import unittest
 
 from native_import import import_save, state_difference, _ATTEMPTS
+from native_chooser import arm_native_chooser
 
 
 class Handle:
@@ -18,6 +19,9 @@ class Handle:
 
 class PagePort:
     def __init__(self, outcome='imported'):
+        self.url = 'about:blank'
+        self.listeners = {}
+        arm_native_chooser(self)
         self.outcome = outcome
         self.order = []
         self.phase = 'closed'
@@ -30,6 +34,9 @@ class PagePort:
         self.element_id = 'save-file'
         self.keyboard = SimpleNamespace(press=self.activate)
         self.element = SimpleNamespace(get_attribute=lambda name: self.element_id if name == 'id' else 'file')
+
+    def on(self, event, handler): self.listeners.setdefault(event, []).append(handler)
+    def once(self, event, handler): self.on(event, handler)
 
     def context(self):
         return deepcopy({'focused': self.focus, 'picker': self.phase,
@@ -61,6 +68,8 @@ class PagePort:
         assert self.armed, 'native activation must not precede interception'
         self.order.append(kind)
         self.phase = 'open'
+        if self.fail_at != 'chooser':
+            for listener in self.listeners.get('filechooser', []): listener(self)
         self.events.append({'sequence': len(self.events)+1, 'event': 'requested', 'phase': 'open'})
 
     def is_multiple(self): return False

@@ -2,6 +2,7 @@
 Only genuine key presses, native file chooser and player exports change state.
 No manufactured save, writable test hook, clock acceleration or synthetic wallet.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import traceback
 import hashlib, json, math, os, subprocess, sys, time
@@ -103,12 +104,15 @@ def imported(page, path, activation="Enter"):
     import_attempts.append(attempt)
     try:
         button(page,'import')
+        subscription=chooser_observation(page)
+        attempt['subscriptionBefore']=subscription
         attempt['beforeEnter']=import_context(page)
         assert attempt['beforeEnter']['focused']=='import',attempt
         assert not attempt['beforeEnter']['paused'],attempt
         with page.expect_file_chooser() as event:
             if activation=='tap':page.locator('#import').tap()
             else:page.keyboard.press(activation)
+        attempt['subscriptionAfterChooser']=assert_one_chooser(page,subscription)
         attempt['chooserOpen']=import_context(page)
         assert attempt['chooserOpen']['picker']=='open' and attempt['chooserOpen']['paused'],attempt
         event.value.set_files(str(path))
@@ -140,7 +144,7 @@ try:
     assert source['prologue']['stage']=='companions'
     with sync_playwright() as pw:
         browser=pw.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
-        page=browser.new_page(viewport={'width':1200,'height':900},accept_downloads=True)
+        page=browser.new_page(viewport={'width':1200,'height':900},accept_downloads=True);arm_native_chooser(page)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
         page.on('request',lambda r:requests.append(r.url))

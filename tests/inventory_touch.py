@@ -1,6 +1,7 @@
 """Actual Chromium coarse-pointer/tap checks using the same run's unmodified v8.
 No physical-device claim, progress injection or fabricated save. Not a local runner.
 """
+from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import json
 from inventory_comfort import measure_inventory, assert_inventory_layout, assert_inventory_readability
@@ -8,7 +9,7 @@ from inventory_comfort import measure_inventory, assert_inventory_layout, assert
 
 def record_touch_inventory(browser, source: Path, out: Path, imported, snap):
     context=browser.new_context(viewport={'width':390,'height':700},has_touch=True,is_mobile=True,device_scale_factor=1,accept_downloads=True)
-    page=context.new_page()
+    page=context.new_page();arm_native_chooser(page)
     observations,errors,requests=[],[],[]
     page.on('pageerror',lambda e:errors.append(str(e)))
     page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)

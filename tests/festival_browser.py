@@ -7,6 +7,7 @@ import math
 import traceback
 from actor_grounding import assert_contacts
 from fair_ground_browser import assert_ground,record_ground_views
+from exploration_hud import record_dock_views
 
 READ = """() => {const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return {
  source:'actual-festival-scene',chapter:s.chapter,tick:s.ticks,frame:v.frame,paused:t.paused(),
@@ -63,6 +64,7 @@ def record_festival(page,out,name,*,require_blocked=False,require_clear=False,pa
         page.screenshot(path=str(out/(name+'.png')))
         if pause_probe:
             record_ground_views(page,out,name+'-ground')
+            record_dock_views(page,out,name+'-dock')
             page.keyboard.press('Escape');page.wait_for_selector('#pause-screen:not([hidden])');paused_here=True
             _frames(page)
             frozen=_state(page);first=page.evaluate(READ)

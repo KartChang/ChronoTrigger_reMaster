@@ -1,6 +1,7 @@
 """Actual first-meeting HUD geometry; resizing is not a physical-device certification."""
 import json
 from early_camera import observe_camera
+from exploration_hud import observe_dock
 
 METRICS = """() => {
  const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
@@ -122,6 +123,7 @@ def record_early_comfort(page, out, prefix):
             m = page.evaluate(METRICS)
             m['hudMode'] = 'guide'
             m['framing'] = observe_camera(page, readable_portrait=True)
+            m['dock'] = observe_dock(page)
             report['cases'].append({'name': label, **m})
             assert_geometry(m)
             assert page.evaluate('window.__CHRONO_TEST__.snapshot().prologue') == before
@@ -131,6 +133,7 @@ def record_early_comfort(page, out, prefix):
             quiet = page.evaluate(METRICS)
             quiet['hudMode'] = 'quiet'
             quiet['framing'] = observe_camera(page, readable_portrait=True)
+            quiet['dock'] = observe_dock(page)
             report['quietCases'].append({'name': label, **quiet})
             assert_quiet_geometry(quiet)
             assert page.evaluate('window.__CHRONO_TEST__.snapshot().prologue') == before

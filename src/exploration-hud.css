@@ -1,0 +1,30 @@
+/* VQ01T: exploration-only flow. Battle/start keep their original containing blocks.
+   Passive text cannot intercept world input; the real action button is the only dock target. */
+#exploration-dock{display:contents}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock{display:flex;flex-direction:column;position:absolute;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));bottom:max(8px,env(safe-area-inset-bottom));gap:6px;max-width:1200px;margin:0 auto;pointer-events:none;z-index:4}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock>#party{position:static;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);width:100%;max-width:none;margin:0;gap:8px;align-items:center;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #p0{grid-column:1;grid-row:1;min-width:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #p1{grid-column:3;grid-row:1;min-width:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .party-center{grid-column:2;grid-row:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .party-center>span{margin:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .player-title>div{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;min-width:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .player-title strong{font-size:14px;line-height:20px;overflow-wrap:anywhere}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .badge{margin:0;flex-shrink:0}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #interact{min-height:44px;max-width:100%;font-size:16px;line-height:1.4;padding:8px 12px;white-space:normal;overflow-wrap:anywhere;pointer-events:auto}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #interact-hint{position:static;transform:none;align-self:center;max-width:100%;margin:0;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #guest-panel{position:static;align-self:flex-start;max-width:100%;margin:0;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #control-hint{position:static;max-width:100%;font-size:11px;line-height:1.45;opacity:.86;text-align:center;overflow-wrap:anywhere;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock footer{position:static;min-height:12px;font-size:9px;line-height:12px;letter-spacing:.5px;justify-content:flex-end;margin:0;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] .message{bottom:var(--exploration-clearance,160px);max-width:calc(100vw - 24px);max-height:max(40px,calc(100dvh - var(--exploration-clearance,160px) - 115px));overflow:auto;z-index:5}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #touch{bottom:calc(var(--exploration-clearance,160px) + 8px)}
+
+@media(max-width:650px){
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock>#party{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock .party-center{grid-column:1/-1;grid-row:1}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #p0{grid-column:1;grid-row:2}
+body[data-adventure="true"][data-started="true"][data-mode="explore"] #exploration-dock #p1{grid-column:2;grid-row:2}
+}
+body[data-adventure="true"][data-started="true"][data-mode="explore"][data-early-meeting="true"][data-hud="quiet"] #exploration-dock>#party{display:flex;justify-content:center}
+body[data-adventure="true"][data-started="true"][data-mode="explore"][data-map-kind="overworld"] #exploration-dock>#party{display:flex;justify-content:center}
+body[data-adventure="true"][data-started="true"][data-mode="explore"][data-map-kind="interior"][data-inventory-items="false"] #exploration-dock>#party{display:flex;justify-content:center}
+body[data-adventure="true"][data-started="true"][data-mode="explore"][data-cinematic="true"] #exploration-dock{visibility:hidden}

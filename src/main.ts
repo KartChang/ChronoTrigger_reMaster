@@ -286,13 +286,20 @@ function resolveChoice(yes:boolean):void{
  if(result)showDialog(result.title,result.text);else closeDialog();updateHud();
 }
 $('choice-yes').onclick=()=>resolveChoice(true);$('choice-no').onclick=()=>resolveChoice(false);
-/** Content-sized battle panels, including tonics, must never cover feedback. */
+/** Measure presentation only: wrapped exploration text and battle panels must clear feedback. */
 function layoutFeedback():void{
- if(!started||state.mode!=='battle')return;
+ if(!started)return;
+ if(state.mode==='explore'){
+  const dock=$('exploration-dock').getBoundingClientRect();
+  document.documentElement.style.setProperty('--exploration-clearance',Math.ceil(window.innerHeight-dock.top+12)+'px');
+  return;
+ }
+ if(state.mode!=='battle')return;
  const box=$('party').getBoundingClientRect();
  document.documentElement.style.setProperty('--party-clearance',Math.ceil(window.innerHeight-box.top+12)+'px');
 }
-new ResizeObserver(layoutFeedback).observe($('party'));window.addEventListener('resize',layoutFeedback);
+new ResizeObserver(layoutFeedback).observe($('party'));
+new ResizeObserver(layoutFeedback).observe($('exploration-dock'));window.addEventListener('resize',layoutFeedback);
 
 function openBag():void{
  if(!started||halted()||cutsceneActive(state)||(state.mode!=='explore'&&state.mode!=='battle'))return;

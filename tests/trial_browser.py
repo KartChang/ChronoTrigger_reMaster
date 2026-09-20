@@ -8,13 +8,16 @@ import hashlib, json, math, subprocess, sys, time
 from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
+from journey_progress import write_progress
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'trial';OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'test-results'/'rescue'/'rescue-returned-v5.json'
 checks,errors,waits,requests=[],[],[],[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
-def passed(name):checks.append(name);print('PASS',name,flush=True)
+def passed(name):
+    checks.append(name);print('PASS',name,flush=True)
+    write_progress(OUT/'trial-progress.json',checks,waits,phase=name)
 def wait_game(page,expression,budget=240,modes=('explore',)):
     start=snap(page)['ticks'];began=time.monotonic()
     h=page.wait_for_function('''({start,budget,modes,expression})=>{
@@ -187,6 +190,7 @@ try:
             assert snap(page)['chapter']=='futuregate' and snap(page)['era']=='future'
             save_reload(page,'trial-future-v7.json');page.screenshot(path=str(OUT/'10-future-arrival.png'))
             passed('defeated tank unlocks castle reunion, Marle remains third ally, forest Gate and 2300 arrival persist in v7')
+            write_progress(OUT/'trial-progress.json',checks,waits,phase='alternate-wait-route-start')
             import_save(page,OUT/'trial-cell-v7.json',OUT)
             page.wait_for_function('window.__CHRONO_TEST__.snapshot().chapter==="cellblock"',timeout=30000);stable(page)
             move(page,'x',-3.1)
@@ -195,6 +199,7 @@ try:
             assert snap(page)['chapter']=='execution' and snap(page)['trial']['route']=='wait' and snap(page)['trial']['luccaJoined']
             page.screenshot(path=str(OUT/'11-lucca-execution-rescue.png'))
             save_reload(page,'trial-wait-route-v7.json')
+            write_progress(OUT/'trial-progress.json',checks,waits,phase='alternate-wait-route-saved')
             move(page,'z',-5.7);talk(page,'獨房');to_warden(page)
             assert snap(page)['trial']['experience']==30 and not snap(page)['trial']['fritzFreed']
             passed('same-browser real cell export also supports declining wait, three-day execution rescue and merged escape without false Fritz/XP flags')

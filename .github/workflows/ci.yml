@@ -32,12 +32,6 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - name: Test host input release and rescue approach contracts
         run: python -m unittest discover -s tests -p '*_test.py'
-      - name: Test real keyboard-only navigation, recovery and live actor presentation
-        run: python tests/keyboard_browser.py
-      - name: Test fresh home, overworld, first meeting and v6 saves
-        run: python tests/prologue_browser.py
-      - name: Test actual merchant, equipment, economy, v8 reload and equipped combat
-        run: python tests/equipment_browser.py
       - name: Test original file and HTTP browser journeys
         run: python tests/browser_smoke.py
       - name: Test fair exploration, co-op battle and versioned saves
@@ -54,6 +48,9 @@ jobs:
         run: python tests/rescue_browser.py
       - name: Test trial, both prison routes, Dragon Tank, inventory and v7 future arrival
         run: python tests/trial_browser.py
+      - name: Verify complete same-source validation evidence
+        if: always()
+        run: node scripts/ci-evidence.mjs validate
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -80,6 +77,8 @@ jobs:
             dist/QUALITY_STATUS.json
           if-no-files-found: warn
           retention-days: 30
+  # Balance CI33's 45-minute serial budget without relaxing any journey.
+  # Both independent export chains remain runner-local; no cross-run saves.
   fair-witness-journey:
     name: Fresh story and hearing (${{ matrix.route }})
     runs-on: ubuntu-latest
@@ -105,12 +104,24 @@ jobs:
         env:
           WITNESS_ROUTE: ${{ matrix.route }}
         run: python tests/witness_browser.py
+      - name: Test real keyboard-only navigation, recovery and live actor presentation
+        if: matrix.route == 'bad'
+        run: python tests/keyboard_browser.py
+      - name: Test fresh home, overworld, first meeting and v6 saves
+        if: matrix.route == 'good'
+        run: python tests/prologue_browser.py
+      - name: Test actual merchant, equipment, economy, v8 reload and equipped combat
+        if: matrix.route == 'good'
+        run: python tests/equipment_browser.py
+      - name: Verify complete same-source witness-lane evidence
+        if: always()
+        run: node scripts/ci-evidence.mjs ${{ matrix.route }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: chrono-witness-${{ matrix.route }}-evidence
           path: |
-            test-results/witness-${{ matrix.route }}/
+            test-results/
             dist/build-meta.json
           retention-days: 14
-          if-no-files-found: warn
+          if-no-files-found: error

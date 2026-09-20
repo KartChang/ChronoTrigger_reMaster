@@ -40,7 +40,10 @@ test('density is used at runtime for party, meeting and recruitment, not only ex
  for(const file of ['render','prologue-render','fair-render','kingdom-render','rescue-render','trial-render']){
   const text=readFileSync(`src/${file}.ts`,'utf8');assert.match(text,/drawHDHero/);assert.match(text,/HD_ART.width/);assert.match(text,/HD_ART.height/);
  }
- assert.match(readFileSync('src/fair-render.ts','utf8'),/tex.scaleTo\(24,32\);drawResident/);
+ // Vendor painter is now the retained native 48x64 witness, verified against real texture sizes/foot pivots in festival-integration.
+ // Keep the no-stretched-24px contract, rather than requiring the retired 24px downscale implementation.
+ assert.doesNotMatch(readFileSync('src/fair-render.ts','utf8'),/tex.scaleTo\(24,32\)/);
+ assert.match(readFileSync('src/fair-render.ts','utf8'),/drawWitness\(tex.getContext\(\) as CanvasRenderingContext2D,'shopper'\)/);
  const text=readFileSync('src/hd-hero-art.ts','utf8');assert.doesNotMatch(text,/drawImage\(|\.scale\(|drawReferenceHero\(/);assert.equal(HD_ART.approved,false);
 });
 

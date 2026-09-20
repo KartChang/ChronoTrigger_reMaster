@@ -7,6 +7,7 @@ import hashlib, json, math, subprocess, sys, time
 from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
+from festival_browser import record_festival
 from meeting_approach import approach_first_meeting
 from early_comfort import record_early_comfort
 from early_camera import record_camera_viewports, observe_camera
@@ -73,6 +74,7 @@ def to_fair(page,prefix):
     page.wait_for_function("window.__CHRONO_TEST__.view().prologue.marle")
     assert page.locator('#p1').is_hidden()
     page.screenshot(path=str(OUT/f'{prefix}-fair-entry.png'))
+    record_festival(page,OUT,prefix+'-festival-entry')
 def collide(page):
     approach_first_meeting(page,waits)
     wait_game(page,"s.prologue.elapsed>=.6",100)

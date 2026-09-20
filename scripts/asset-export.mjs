@@ -82,7 +82,7 @@ export async function exportAssets(root=process.cwd()){
   const prologue=modules['prologue-art'],trial=modules['trial-art'],materials=modules['material-art'],profile=modules['art-profile'].ART_PROFILE;
   await writeFile(resolve(out,'production-profile.json'),JSON.stringify(profile,null,2));
   const art=modules['pixel-art'],hero=modules['hero-art'],world=modules['world-art'],rescue=modules['rescue-art'];
-  const sources=['src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts','src/witness-art.ts','src/actor-motion.ts','src/npc-motion.ts','src/pixel-presentation.ts'];const hash=createHash('sha256');
+  const sources=['src/early-art.ts','src/surface-layout.ts','src/pixel-art.ts','src/hero-art.ts','src/world-art.ts','src/rescue-art.ts','src/prologue-art.ts','src/prologue-data.ts','src/trial-art.ts','src/trial-render.ts','src/trial-data.ts','src/art-profile.ts','src/material-art.ts','src/material-runtime.ts','src/hd-hero-art.ts','src/witness-art.ts','src/actor-motion.ts','src/npc-motion.ts','src/pixel-presentation.ts'];const hash=createHash('sha256');
   for(const source of sources){hash.update(source+'\0');hash.update(await readFile(resolve(root,source)));hash.update('\0');}
   const sourceSha256=hash.digest('hex');
   const inventory=[];

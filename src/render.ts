@@ -89,7 +89,7 @@ export class World {
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -283,6 +283,7 @@ export class World {
     }
     this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
     this.contacts=[];this.contactHistory=[];
+    this.fairWorld?.resetOcclusion?.();
     this.poseHistory.length=0;this.guestView={pose:'idle',frame:0};
     this.lunges.forEach(l=>{l.time=1;l.dx=0;l.dz=0;});
   }
@@ -354,6 +355,9 @@ export class World {
     const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
     const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());
     this.frameEarlyScene(s,ratio,{x:tx,z:tz,half:cameraHalf(s.chapter,ratio)});
+    // Use actual billboard vertices after framing, including the current attack lunge.
+    // Only tagged festival canopies participate; no material alpha or collision changes.
+    this.fairWorld.updateOcclusion(s.ticks,fair?this.cameraSubjects:[]);
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}

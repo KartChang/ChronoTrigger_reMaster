@@ -90,3 +90,90 @@ class ToolbarGeometry(unittest.TestCase):
         self.assertIn('id="story-coop-note"',nav)
         self.assertGreater(nav.index('id="story-coop-note"'),nav.index('id="display"'))
         self.assertEqual(html.count('id="story-coop-note"'),1)
+
+    def test_ci31_quiet_header_overlap_is_rejected_even_when_every_hit_passes(self):
+        # Focused regression using CI31 coordinates; this is NOT a fresh browser observation.
+        from early_comfort import assert_toolbar
+        m = self.sample(); m.update(width=1365, height=900)
+        m['note']['rect'].update(x=704.3125, y=54, right=1269, bottom=83)
+        m['bands'] = [dict(bottom=64), dict(bottom=48)]
+        c = m['controls'][0]
+        c['rect'] = dict(x=992.3125, y=16, right=1026.3125, bottom=48, width=34, height=32)
+        self.assertTrue(all(h['inside'] for h in c['hits']))
+        with self.assertRaises(AssertionError):
+            assert_toolbar(m)
+
+    def test_header_clearance_boundary_is_preserved(self):
+        from early_comfort import assert_toolbar
+        for header_bottom in (52, 64, 100):
+            m = self.sample(); m['bands'] = [dict(bottom=header_bottom), dict(bottom=48)]
+            m['note']['rect']['y'] = header_bottom + 3
+            assert_toolbar(m)
+            m['note']['rect']['y'] -= .01
+            with self.assertRaises(AssertionError):
+                assert_toolbar(m)
+
+    def test_header_drives_notice_container_only_during_first_contact(self):
+        from pathlib import Path
+        from html.parser import HTMLParser
+        class Parents(HTMLParser):
+            def __init__(self):
+                super().__init__(); self.stack = []; self.parents = {}; self.ids = []
+            def handle_starttag(self, tag, attrs):
+                a = dict(attrs); key = a.get('id') or a.get('class') or tag
+                if key in ('header', 'utility glass', 'story-coop-note'):
+                    self.parents[key] = self.stack[-1] if self.stack else None
+                if 'id' in a: self.ids.append(a['id'])
+                if tag not in ('meta', 'link', 'br', 'input', 'img', 'hr'):
+                    self.stack.append(key)
+            def handle_endtag(self, tag):
+                if self.stack: self.stack.pop()
+        root = Path(__file__).parents[1]
+        parser = Parents(); parser.feed((root/'index.html').read_text())
+        self.assertEqual(parser.parents['header'], 'hud-toolbar')
+        self.assertEqual(parser.parents['utility glass'], 'hud-toolbar')
+        self.assertEqual(parser.parents['story-coop-note'], 'utility glass')
+        self.assertEqual(len(parser.ids), len(set(parser.ids)))
+        css = (root/'src/hud-notice.css').read_text()
+        scope = 'body[data-adventure="true"][data-started="true"][data-early-meeting="true"] '
+        self.assertIn(scope+'.hud-toolbar{position:absolute;top:0;left:0;right:0;pointer-events:none}', css)
+        self.assertIn(scope+'.hud-toolbar>header{position:relative}', css)
+        self.assertIn(scope+'.hud-toolbar>.utility{top:calc(100% + 4px);pointer-events:auto}', css)
+
+
+class FailureCapture(unittest.TestCase):
+    def test_original_viewport_and_last_measurement_are_retained(self):
+        from pathlib import Path
+        from unittest.mock import Mock
+        from early_comfort import capture_comfort_failure, TOOLBAR_METRICS
+        page = Mock(); page.viewport_size = dict(width=390, height=844)
+        page.evaluate.return_value = {'source': 'synthetic-unit-test-only'}
+        report = {'toolbarChecks': [{'phase': 'portrait-before-guide'}]}
+        capture_comfort_failure(page, report, Path('/unit-only'), '05')
+        self.assertEqual(report['lastMeasuredPhase'], 'portrait-before-guide')
+        self.assertEqual(report['failureCapture']['viewport'], page.viewport_size)
+        self.assertFalse(report['failureCapture']['physicalDevice'])
+        page.evaluate.assert_called_once_with(TOOLBAR_METRICS)
+        page.screenshot.assert_called_once_with(path='/unit-only/05-comfort-failure.png')
+
+    def test_capture_errors_do_not_replace_the_original_failure(self):
+        from pathlib import Path
+        from unittest.mock import Mock
+        from early_comfort import capture_comfort_failure
+        page = Mock(); page.viewport_size = dict(width=1365, height=900)
+        page.evaluate.side_effect = RuntimeError('measurement unavailable')
+        page.screenshot.side_effect = RuntimeError('screenshot unavailable')
+        report = {'toolbarChecks': [], 'failure': 'original-clearance-root'}
+        capture_comfort_failure(page, report, Path('/unit-only'), '05')
+        self.assertEqual(report['failure'], 'original-clearance-root')
+        self.assertIn('measurement unavailable', report['failureCapture']['measurementError'])
+        self.assertIn('screenshot unavailable', report['failureCapture']['screenshotError'])
+        self.assertNotIn('screenshot', report['failureCapture'])
+
+    def test_capture_precedes_cleanup_and_existing_report_write(self):
+        import inspect
+        from early_comfort import record_early_comfort
+        source = inspect.getsource(record_early_comfort)
+        self.assertLess(source.index('capture_comfort_failure('), source.index('finally:'))
+        self.assertLess(source.index('finally:'), source.index('page.set_viewport_size(original)'))
+        self.assertLess(source.index('write_text('), source.index('page.set_viewport_size(original)'))

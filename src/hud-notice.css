@@ -2,3 +2,12 @@
    Normal flow handles guide/quiet wrapping without guessed screen coordinates. */
 .story-coop-note{pointer-events:none}
 body[data-adventure="true"][data-started="true"] .utility>.story-coop-note{position:static;flex:1 0 100%;order:1;width:100%;max-width:100%;box-sizing:border-box;margin:4px 0 0;padding:6px 10px;text-align:left;white-space:normal}
+
+/* VQ01O: during first contact the header supplies the real containing height.
+   CI31 quiet desktop: controls ended at 48px, but header ended at 64px;
+   a notice after controls alone was still inside the header band. The wrapper
+   stays transparent to world input; existing buttons keep native ownership.
+   Outside first contact these rules do not alter the retained HUD layout. */
+body[data-adventure="true"][data-started="true"][data-early-meeting="true"] .hud-toolbar{position:absolute;top:0;left:0;right:0;pointer-events:none}
+body[data-adventure="true"][data-started="true"][data-early-meeting="true"] .hud-toolbar>header{position:relative}
+body[data-adventure="true"][data-started="true"][data-early-meeting="true"] .hud-toolbar>.utility{top:calc(100% + 4px);pointer-events:auto}

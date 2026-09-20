@@ -28,7 +28,9 @@ TOOLBAR_METRICS = """() => {
   return {id:e.id,rect:r,hits};
  });
  return {source:'actual-DOM-hit-testing',width:innerWidth,height:innerHeight,mode:document.body.dataset.hud,
-  note:{visible:visible(note),rect:rect(note),pointerEvents:getComputedStyle(note).pointerEvents,inToolbar:note.parentElement?.matches('.utility')===true},bands,controls};
+  note:{visible:visible(note),rect:rect(note),pointerEvents:getComputedStyle(note).pointerEvents,inToolbar:note.parentElement?.matches('.utility')===true},bands,controls,
+  layout:{header:rect(document.querySelector('header')),toolbar:rect(document.querySelector('.utility')),
+   wrapper:rect(document.querySelector('.hud-toolbar'))}};
 }"""
 
 
@@ -86,6 +88,25 @@ def set_guide(page, mode):
     assert page.locator('#display').get_attribute('aria-pressed') == str(mode == 'guide').lower()
 
 
+
+def capture_comfort_failure(page, report, out, prefix):
+    """Retain the failing viewport before finally restores size/mode; never mask the root."""
+    last = report['toolbarChecks'][-1] if report['toolbarChecks'] else None
+    report['lastMeasuredPhase'] = last['phase'] if last else 'before-first-toolbar-check'
+    capture = {'viewport': page.viewport_size, 'physicalDevice': False}
+    report['failureCapture'] = capture
+    try:
+        capture['toolbar'] = page.evaluate(TOOLBAR_METRICS)
+    except Exception as exc:
+        capture['measurementError'] = str(exc)
+    try:
+        name = f'{prefix}-comfort-failure.png'
+        page.screenshot(path=str(out / name))
+        capture['screenshot'] = name
+    except Exception as exc:
+        capture['screenshotError'] = str(exc)
+
+
 def record_early_comfort(page, out, prefix):
     report = {'status': 'running', 'cases': [], 'quietCases': [], 'toolbarChecks': [], 'physicalDevice': False}
     original = page.viewport_size
@@ -118,6 +139,7 @@ def record_early_comfort(page, out, prefix):
         report['status'] = 'passed'
     except Exception as exc:
         report.update(status='failed', failure=str(exc))
+        capture_comfort_failure(page, report, out, prefix)
         raise
     finally:
         (out / f'{prefix}-comfort-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')

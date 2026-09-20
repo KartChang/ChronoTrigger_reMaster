@@ -1,15 +1,15 @@
-# 功能快照 — CI35／Pages29 已驗收，VQ01S／CI36 待驗證
+# 功能快照 — CI36／Pages30 已閉環，VQ01T／CI37 待驗證
 
-目前以STATUS／IMMEDIATE_CONTINUATION／CI36_CHECKPOINT為準；沒有新增完成百分比或美術分數。
+目前以 STATUS／IMMEDIATE_CONTINUATION／CI37_CHECKPOINT 為準，不新增完成百分比或品質分數。
 
-**0.9.15／CI35 35518793605／Pages29 35520392818已完成既有可玩範圍驗收**，source28759aa7cb6d60a5649e169e483eb578b0f25a4e。三job、13主旅程、9份原生選檔紀錄與3份來源綁定ledger通過；報告bytes/hash、6guide／6quiet／18工具列觀察／12鏡頭案例及原生匯入、接地、真正ATB突進、棚布遮擋／暫停、装備經濟、v8、IndexedDB、勝利繼續與完整既有劇情已核對。12鏡頭是四個場景各三視窗，不當成額外獨立旅程。
+CI36／35525474467、Pages30／35527138223、0.9.16 已完成既有可玩範圍與部署驗收：三job、13主旅程、9原生選檔紀錄、3來源驗證紀錄與報告雜湊一致；6guide／6quiet、18工具列觀察、12鏡頭、地面三視窗與暫停不變、人物接地及真正ATB突進、商店裝備經濟、v8／IndexedDB、完整審判及原有故事均保留。部署source4029c82ec0568dff0f687be6fa0947256b63350c與CI／playable／HTML一致，公開HTTP由成功deploy步驟驗證，不冒稱本機另做即時瀏覽器驗證。
 
-Pages29的prepare/deploy均成功，來源／CI／playable ID與HTML一致；公開HTTP hash由實際成功deploy step驗證。本機獨立HTTP因DNS失敗，沒有第二份本機即時驗證。實際全尺寸圖片與25張原始圖的三份接觸表已看過；HUD、棚布、商店、窄視窗選單和戰鬥可見，但簡化家中／母親／家具、重複鋪面和初遇輪廓重疊仍存在。驗收不等於完整遊戲、美術90或真機通過。
+前回合已檢查但未保存的六份原始ZIP及真實畫面檢查，現在已放入指定Drive並回讀，主驗收收據CI36_ACCEPTANCE.json隨本文件發布。CI36／Pages30與CI35／Pages29及更早閉環不重做。地面技術及静態畫面通過，不等於時間抖動、真機FPS、完整美術或90分通過。
 
-**本批VQ01S／0.9.16已發布九份程式／測試**，source4029c82ec0568dff0f687be6fa0947256b63350c；唯一CI36／35525474467最後觀察queued。祭典地面增加靜態世界座標明暗，區分中央走道／鐘前景與外緣；原有鋪面畫筆完全保留，未重畫素材或修改碰撞。32細分地面為1089頂點／2048三角形；只地面採mipmap與anisotropy4，人物仍nearest。沒有額外覆蓋網格或紋理，也不每幀上傳地面資料；細分與mipmap增加幾何／儲存，不宣稱零成本或真機效能提升。
+VQ01T／0.9.17的11份原有未發布增量已原樣恢復、重驗並正式寫入main。Source e2bc7e8b19d535ec4072fa5dd68ab4ff24e1929c，唯一CI37／35530142731最後觀察in_progress。探索底部以正常flow排列提示／按鈕／角色名稱／操作說明／頁尾，窄版換行及44px原生按鈕；依實際高度保留訊息與觸控間距。main.ts僅量測及ResizeObserver區塊修改；整份main正規化雜湊驗證其餘遊戲、輸入、存檔內容不变。戰鬥／開始畫面保留原有display:contents與間距規則。
 
-實際buffer／checksum／取樣參數可由唯讀觀察讀取。既有棚布旅程加入1365×900、390×844、844×390的真實地面觀察與截圖、切換視窗不變及原生暫停不變檢查；失敗當下先留圖再清理，清理錯誤不掩蓋根因。873Node／125Python、資產／型別／建置／compile通過，新增12Node／11Python；所有原瀏覽器斷言保留。没有本機瀏覽器，視覺改善仍待CI36實際畫面，不能用數量或取樣常數當分數。
+實際DOM文字範圍、裁切、重疊、按鈕九點命中檢查已加入既有序章及棚布旅程，包含五種視窗×guide／quiet；失敗先保存當下畫面，清理錯誤不掩蓋根因。881Node／139Python與資產／型別／建置／compile通過；原festival23／early25／equipment83／prologue37／keyboard28／trial53／witness42斷言保留。無本機瀏覽器、force click、假存檔、重試或timeout放寬。新版0.9.17仍待CI37，CI36的圖片不是新版證據。
 
-VQ01P祭典曲面棚布／鐘／傳送器／貨物／販商／遮擋、四主角／鏡頭／接地陰影／HUD、VQ01Q三job分工和VQ01R走道修正均保留；core/main/input/collision/camera/save/UI/畫筆及受限prologue-renderer未修改。新HTML5621452bytes，SHA256cda87f62f553247de4bad7430f196b1a8f19de92fd051e4a6fe616d7dceef25f尚未驗收。
+已保存VQ01A/B/C/P/S、四主角、祭典棚布／鐘／傳送器／販商／遮擋／地面、鏡頭／接地陰影均保留。家中家具與母親、重複鋪面、初遇輪廓重疊、完整動畫音樂與真機仍有缺口。受限prologue-render.ts未動，不由別的管道繞過；家中→2300抵達、裝備與v1–v8不重造。完整T03–T08、前段90與實體裝置未完成。
 
-兩個包均在指定folder且已回讀：CI35驗收1P-jRHa_BiTcAoETgQpPuizLTw9RhyuG9，14項清單；VQ01S接續1Tj2bjfoiAaBZ2NHCq_TMjIHFgPoduuam，18項清單／9增量。GitHub新文件優先於封存舊文件。CI35／Pages29、CI28／Pages22閉環不重開；T03–T08完整範圍、前段90和實體裝置仍未完成。家中→2300抵達、裝備、v1–v8、固定ATB、P1克羅諾／P2露卡／自主第三同伴保持；2300抵達不是完整未來篇。
+復原包Drive1BpCWHWw28QxZTfA9xNdI-URlc050ZYW9在正確資料夾，40manifest／11增量／6原始ZIP及整包hash／CRC／父資料夾回讀一致。檔案內UNPUBLISHED是前次封存的歷史標記，已由目前main覆蓋；最新發布包與收據見DELIVERY_INDEX及VQ01T_CLOUD_RETENTION.json。

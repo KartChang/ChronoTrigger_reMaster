@@ -1,0 +1,199 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ01L-retained-party-contact",
+  "version": "0.9.11",
+  "recordedUtc": "2026-09-20T08:12:49.027780+00:00",
+  "baseHead": "c4e10160b0419d9de7e288cb169f1f60d918d49e",
+  "baseSource": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
+  "baseSourceTree": "6245f95576631f01324c1708f7b5b3a1fc72a3a8",
+  "exactSourceArchiveTreeVerified": true,
+  "changes": [
+    {
+      "path": "index.html",
+      "bytes": 10259,
+      "before": "684cb12312bed4cd4a95b0ad115edb06c68ce2fc",
+      "after": "7c682de31d5ad2edeebcd1546d0f29218c2a1d36",
+      "sha256": "498b59b7d9f5ccdc8933f3df9c34276679f6084949c46c73dcbc7024c54af249"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 1842,
+      "before": "9ab24cadc164db89ba5cd8d62bdc08e484b56529",
+      "after": "2f8f4bdec7439fde60f53665132511084d2e7987",
+      "sha256": "17fa88a63f1f41b6cbd0cf5ffcef6f19f0e1924fc2f913cb6017ee3069c8b55f"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 2164,
+      "before": "f1979d5848023c8794baf587cf8b32b7fafbaf5d",
+      "after": "ed59fd723b35ad90d7582632654b62436ccb9648",
+      "sha256": "148e14cd6bf1f726956139bc36aab4cb2c9bcf892c63c4163bc3a86dcefa3bdf"
+    },
+    {
+      "path": "src/fair-conduct-render.ts",
+      "bytes": 4846,
+      "before": "83158da0ff8b10b683f7e5c7ce731ab168fb227f",
+      "after": "1e604f529409bbf6fea692edd53a64de35d17d9b",
+      "sha256": "56907ec0a785c3cb9cb0119372ac9bd3cb6a572330f458a75f44ee89f515849a"
+    },
+    {
+      "path": "src/hd-hero-art.ts",
+      "bytes": 13618,
+      "before": "640d91cbd8fa3e7decefe33811935ffcd08f38a3",
+      "after": "68420a370f605d40ec7a35877d8b3c5fff9eebeb",
+      "sha256": "5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 34231,
+      "before": "3ac318c4dec83ec58b139ee3bec40d933ee88269",
+      "after": "4875c55c98aed2a75e795dd00b84f3d0d823f51a",
+      "sha256": "b024b444acf441b870c40b08284b797a0e4664b5ae195fc9550150bd403dcf5a"
+    },
+    {
+      "path": "src/sprite-contact.ts",
+      "bytes": 2518,
+      "before": null,
+      "after": "48fd07bf80ee04027699140835fcb0502caab6c1",
+      "sha256": "52bf06b4245d85fdec9def280c504b6c9fc4ed57e8baafea9b8c9698deb8f0fa"
+    },
+    {
+      "path": "tests/actor_grounding.py",
+      "bytes": 2834,
+      "before": null,
+      "after": "735dc346d3c9f2a5d78f164a6bd037c5395f6e59",
+      "sha256": "8c2f1874e386aa04d609fd51886ab199fec201d4167d1605fb11894f8fd420b7"
+    },
+    {
+      "path": "tests/actor_grounding_test.py",
+      "bytes": 2372,
+      "before": null,
+      "after": "4c90bb8c841410e4c1d5ba84c2f5c177f64f2787",
+      "sha256": "156e6b2f6b522c0f3bdc69ced929c7a136e804a60da28322ac159a5d70ff0e0c"
+    },
+    {
+      "path": "tests/early-camera-view.test.mjs",
+      "bytes": 8338,
+      "before": "61c8e4f15a48816ac5243b17e471b0d2dd0dc414",
+      "after": "18c3764533c5e04d7d09943208ff395fc46c009f",
+      "sha256": "c806cc713ed9c553adbdb5809a0dbe0ad5aa2bafbcecc2b145aa0af7113a3ba0"
+    },
+    {
+      "path": "tests/equipment_browser.py",
+      "bytes": 21446,
+      "before": "00b9fa5d2f9c918933606d45c815ee0029178cd4",
+      "after": "996b9a56935b83726bcc03ccd6690437525b1790",
+      "sha256": "b5d797ebe5adc33a75d736fdca1bffce5ec69942fc5821c193cafab5a01a5c4d"
+    },
+    {
+      "path": "tests/hd_party_browser.py",
+      "bytes": 1126,
+      "before": "28afae13a10b92e81e5913c44e4fc3ac171cea75",
+      "after": "ccdd22ae1213b499eb6e100880b55f170854db5e",
+      "sha256": "056f55a00193f3e7ab2add73692644db125e379fc3ab0d18c306967c4907cf56"
+    },
+    {
+      "path": "tests/retained-party-art.test.mjs",
+      "bytes": 1474,
+      "before": null,
+      "after": "d76a8c0057d5eabc993e4114bdaea0feffa34316",
+      "sha256": "6d95c15636d5561596c4e457c77ecc0fc4a9f6ff279f84d4272cfa30d83b95f2"
+    },
+    {
+      "path": "tests/sprite-contact.test.mjs",
+      "bytes": 5902,
+      "before": null,
+      "after": "eb5cdf2fae63a26ec72ecd0ba28d562253937600",
+      "sha256": "d98f52f84418e1a3cfa0c4f4ed4a59007a1f9da6a0127fa57468babd10220de6"
+    }
+  ],
+  "provenance": {
+    "partyPainter": {
+      "origin": "VQ01 A/source/src/hd-hero-art.ts",
+      "cloudFileId": "1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k",
+      "sha256": "5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a",
+      "byteIdentical": true
+    },
+    "witnessContactDesign": {
+      "origin": "VQ01B/delta/src/fair-conduct-render.ts",
+      "cloudFileId": "1vkPuPN8HN46d1uHaJY9__OPrf455k3QV",
+      "note": "Reused saved witness foot/contact-shadow design, adapted to current camera and shared placement/readonly inspector. Not identical whole-file restore."
+    }
+  },
+  "tests": {
+    "nodeBefore": 794,
+    "node": 812,
+    "pythonBefore": 56,
+    "python": 66,
+    "npmRunCheck": "passed",
+    "assets": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "pythonCompile": "passed",
+    "assertionRetention": {
+      "tests/equipment_browser.py": {
+        "before": 82,
+        "after": 83,
+        "allOriginalAssertionsRetained": true
+      },
+      "tests/hd_party_browser.py": {
+        "before": 1,
+        "after": 1,
+        "allOriginalAssertionsRetained": true
+      },
+      "tests/prologue_browser.py": {
+        "before": 37,
+        "after": 37,
+        "allOriginalAssertionsRetained": true
+      }
+    },
+    "regression": {
+      "priorProductionGroundingFailures": 2,
+      "priorProductionNearbyMerchantFrameFailures": 1,
+      "correctedNewCasesPass": true,
+      "oldRendererLungeShadowDistance": 0.7211102550927979,
+      "oldRendererHalfScaleTextureFootDistanceApprox": 0.4335938,
+      "evidenceKind": "Actual production draw with NullEngine/ports; not historical CI28 browser geometry",
+      "logs": [
+        "logs/sprite-contact-before-final.log",
+        "logs/early-camera-view-before-final.log",
+        "logs/contact-after.log",
+        "logs/final-check-initial.log",
+        "logs/final-python.log"
+      ]
+    }
+  },
+  "implemented": [
+    "Reuse saved four-hero 48x64 redraw painter including directional silhouettes/costume/palette; no new repaint or original ROM media.",
+    "Align party texture foot and owned shadow to actual scaled/lunging presentation, without moving core actors; retain waking bed pose and overworld scale.",
+    "Reuse saved contact grounding for visible fair NPCs; include only nearby existing visible merchant/owners in existing early camera.",
+    "Expose copied actual mesh-pivot/shadow observations and bounded24 lunge samples; clear on state replacement.",
+    "Attach read-only grounding/screenshot checks to existing prologue/trial HD observations and real merchant/ATB/import journey; keep all original assertions and native save provenance."
+  ],
+  "notChanged": {
+    "src/core.ts": "2f262bc13e2103dccd2692a66b1b8f11e07f69d4",
+    "src/input.ts": "53a8b6709eae7287ce0bfffd53ac21a9397a477c",
+    "src/input-boundary.ts": "94ff56826809aebec55b9298769b8fc7e01ad986",
+    "src/save.ts": "8ef4e85a13a949e3b29d8f594aad13b4287923ab",
+    "src/save-import.ts": "d60809b178f55b2b8d66bf320ce49426b7b505b4",
+    "src/prologue-render.ts": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    ".github/workflows/ci.yml": "0d81fbed6f5c58d0c5235c7a7f1932ae62880adf",
+    "tests/keyboard_browser.py": "83ca679b716a8b9f40db474af7a1fe114fb01ec0"
+  },
+  "html": {
+    "bytes": 5603246,
+    "sha256": "13badc8cb527558ad5bee9f116054faf0c8d6164de7d168c6ac5c4a21f9c8c5f",
+    "status": "unaccepted local build"
+  },
+  "limits": {
+    "localBrowserRun": false,
+    "newCiAccepted": false,
+    "newPagesAccepted": false,
+    "fullScenePublished": false,
+    "early90Approved": false,
+    "physicalDeviceEvidence": false,
+    "restrictedOperationsRetried": false,
+    "nullEngineIsBrowserEvidence": false
+  },
+  "note": "Prepublication receipt. New GitHub checkpoint will record actual commit/run and verified cloud readback. Current main docs/assets/workflows must be preserved."
+}

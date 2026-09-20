@@ -1,96 +1,16 @@
 {
   "schema": "chrono-ci-checkpoint-v1",
-  "recordedUtc": "2026-09-19T20:01:04.508543+00:00",
-  "repository": "KartChang/ChronoTrigger_reMaster",
-  "branch": "main",
-  "batch": "VQ01K-retained-early-camera-integration",
-  "version": "0.9.10",
+  "run": 35465946145,
+  "number": 28,
   "sourceSha": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
-  "sourceTree": "6245f95576631f01324c1708f7b5b3a1fc72a3a8",
-  "parentSha": "858fb70ce67f41e5974161c15a7306194fb804f2",
-  "publication": {
-    "nonForceUpdate": true,
-    "mainRefReadbackMatched": true,
-    "changedFiles": 13,
-    "aheadBy": 1,
-    "behindBy": 0,
-    "allTestedBlobsMatched": true,
-    "matchingSubtrees": {
-      "src": "5cebf3712a761f4669300dea1aae734898c15a91",
-      "scripts": "9bb2dde0de20591187c10fc43f54b9ebee059c60",
-      "tests": "4f9d021fe934185186e255446241835138356204"
-    },
-    "indexBlob": "684cb12312bed4cd4a95b0ad115edb06c68ce2fc",
-    "retainedMainDocsTree": "df4c97b14963cf74cac12738e59eeea83a647ccb"
-  },
-  "run": {
-    "id": 35465946145,
-    "number": 28,
-    "event": "push",
-    "attempt": 1,
-    "workflowId": 360357259,
-    "path": ".github/workflows/ci.yml",
-    "headSha": "3ac8f3ca2b431c2f1373c8b26c298e4dfb39f1f3",
-    "observedStatus": "in_progress",
-    "observedConclusion": null,
-    "createdAt": "2026-09-19T19:58:12Z",
-    "updatedAtObservation": "2026-09-19T19:58:15Z",
-    "exactShaRunCount": 1,
-    "manuallyDispatched": false,
-    "longPolling": false,
-    "jobsAccepted": false
-  },
-  "cloud": {
-    "fileId": "12SU302hgToW8bz4NyLEQC8oZyLhVVEmb",
-    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
-    "name": "Chrono-VQ01K-0.9.10-early-camera-delta.zip",
-    "bytes": 1348516,
-    "sha256": "7a441b339b833953f123778a9266635320d229c5309102239d2268997f7bf699",
-    "manifestEntries": 20,
-    "deltaFiles": 13,
-    "rawReadbackHashVerified": true,
-    "parentVerified": true,
-    "zipCrcVerified": true,
-    "allManifestEntriesVerified": true,
-    "allTestedDeltasVerified": true
-  },
-  "local": {
-    "receipt": "docs/evidence/VQ01K_LOCAL_VALIDATION.json",
-    "node": 794,
-    "python": 56,
-    "npmRunCheck": "passed",
-    "pythonCompile": "passed",
-    "originalPrologueAssertionsRetained": 37,
-    "localBrowserRun": false
-  },
-  "lastAccepted": {
-    "sourceSha": "4f8273035bb39f82b38d09d1973e4a4f09f1c63c",
-    "ci": 35460638960,
-    "pages": 35462868241,
-    "pagesNumber": 21,
-    "version": "0.9.9",
-    "closed": true,
-    "receipt": "docs/evidence/CI27_ACCEPTANCE.json",
-    "cloud": {
-      "fileId": "1VDSfzRL3mIBRBbCRF4yklvI9hKWYDsKJ",
-      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
-      "name": "Chrono-CI27-Pages21-accepted-evidence.zip",
-      "bytes": 25112401,
-      "sha256": "64affd487889fcb0468f99c4aea1f6f02bffbc4d2270bc282ba9126e2f08eb62",
-      "manifestEntries": 12,
-      "rawReadbackHashVerified": true,
-      "parentVerified": true,
-      "zipCrcVerified": true,
-      "allManifestEntriesVerified": true
-    }
-  },
-  "limits": {
-    "newCiAccepted": false,
-    "newPagesAccepted": false,
-    "fullScenePublished": false,
-    "early90Approved": false,
-    "physicalDeviceEvidence": false,
-    "restrictedOperationsRetried": false
-  },
-  "next": "On E2E completion read exact CI28 once. Pending: freeze/save/report. Failure: first same-run root only, raw camera/prologue/keyboard report, state and actual image. Success: all three jobs, twelve early viewport camera checks (six retained meeting + six bedroom/home), pause/reduced-motion/import camera evidence, retained equipment/economy/native import/ATB/all original journeys; save original artifacts, inspect actual pictures, match Pages/source/HTML. Do not reaccept CI27 or replay old terminal roots. Continue early T05 from saved work, not chapter expansion or held-renderer retry."
+  "status": "completed",
+  "conclusion": "success",
+  "allJobsAccepted": true,
+  "pagesRun": 35468157318,
+  "pagesNumber": 22,
+  "acceptance": "docs/evidence/CI28_ACCEPTANCE.json",
+  "visualReview": "docs/evidence/CI28_VISUAL_REVIEW.md",
+  "cloudFileId": "1l32PfQAB5H6co9k1pJvTfkncMvUmT1zf",
+  "supersededBy": "docs/evidence/CI29_CHECKPOINT.json",
+  "note": "CI28/Pages22 closure is complete. Do not poll, rerun or reaccept this unchanged source. Full-scene, physical-device and final90 approval remain false."
 }

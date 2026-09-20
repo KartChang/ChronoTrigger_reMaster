@@ -90,3 +90,9 @@ CI 成功才產生 chrono-hd2d-playable；證據含 exact source tar、報告、
 `src/early-comfort.ts` 與 `src/camera-motion.ts` 分別沿用保存的 VQ01B 框景與 VQ01C 固定 tick 緩動，非重寫。`src/early-camera-view.ts` 唯讀觀察既有 sprite 的實際變換頂點，將腳底支點、縮放、突進納入框景，再透過 Babylon camera 投影輸出觀察矩形。`World.frameEarlyScene` 整合有效隊員、附近既有可見互動對象與加藤；依 state identity、章節／模式、視窗及 reduced-motion 重置或約束回應。起床鏡頭、大地圖及後段維持既有規則。`inspectEarlyCamera` 複製輸出，不提供寫入遊戲狀態或 live frame 的介面。
 
 `tests/early_camera.py` 接到原有序章旅程，觀察房間／家中／初遇視窗、真實暫停與原生匯入後取景；reduced-motion 是媒體模擬而非真機。相應 Node NullEngine 與 Python 合成幾何只測方法／斷言；實際接受狀態看 STATUS。沒有啟用保存中的 full-scene／occlusion renderer，沒有改 core、輸入、存檔或重畫素材。
+
+## 人物腳底與陰影（VQ01L / 0.9.11）
+
+`src/hd-hero-art.ts` 採用保存的 VQ01A 四主角 painter，不是另畫素材。`src/sprite-contact.ts` 依實際 sprite scale 與 texture pivot 對齊畫面腳底和自有陰影；`World.groundActors` 使用呈現突進位移但不修改 core 座標，保留起床姿勢及大地圖縮放。`fair-conduct-render.ts` 將保存的可見 NPC 接地設計接上共用 placement，附近販商與主人沿用既有框景。適用目前無旋轉／單位縮放的角色根節點，不宣稱任意父變換支援。
+
+`inspectSpriteContacts` 由實際 mesh world matrix 量測腳底支點，回傳複製值；World 保留有上限的突進觀察，在換檔／場景時清除。`tests/actor_grounding.py` 接到既有 HD 人物與裝備旅程，記錄實際商店／戰鬥／匯入後接地與截圖。對應 NullEngine／合成幾何僅為方法及斷言測試，原版 painter hash 證明重用而非美術分數；瀏覽器、實體裝置與最終畫面接受狀態只看 STATUS。

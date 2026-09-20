@@ -1,24 +1,26 @@
-# Execution TODO — VQ01O / CI32
+# Execution TODO — VQ01Q / CI34
 
-Current authority: STATUS and evidence/CI32_CHECKPOINT.json. Main only/non-force/one AI writer. No repository audit, historical branch inventory, old acceptance replay or completed chapter reconstruction.
+Only current authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md and evidence/CI34_CHECKPOINT.json. Main only/non-force, one writer; no repository/history audit or old acceptance replay.
 
 ## Immediate execution
 
-0.9.14 source2751a5386f440f90bc8d6c3aaa31a988daf03b39 is published. Only **CI32 35505694703** is current; last observedin_progress, push/attempt1. Inspect once at continuation. Pending: freeze/save/report, no polling/cancel/retry/duplicate dispatch. Failure: fix only first actual same-run root using raw report/toolbarChecks/layout/pre-cleanup comfort-failure.png. No assertion removal, force click, fake save, writable hook or timeout relaxation.
+Published source61d03577b418f980f5e9413a05e73ddb5c7f9296/treebf6177a72f96d188db05bde91556077374606577, VQ01Q/0.9.15. Only **CI34 35514835223**, push/attempt1, last observedin_progress. Inspect once. Pending: freeze/save/report; no waiting loop/dispatch/rerun/cancel. Failure: same-run first actual root, not a previous HUD/native-import diagnosis.
 
-CI31 is closed failure, not active: quiet co-op desktop note y54 vs header bottom64 +3; all90hit samples passed. VQ01O's header-height-relative first-contact toolbar and pre-cleanup diagnostic capture are ALREADY implemented in five files;812Node/89Python passed. Do not redo. Second co-op portrait and later equipment/actor-lunge acceptance were not reached by CI31; not accepted and not failed by a picker/actor root.
+Already implemented: VQ01P retained festival scenery/vendors/cloth/bell/telepod/occlusion; VQ01Q seven-file three-job balancing, source-bound evidence guard and incomplete trial checkpoints.845Node/104Python passed, original assertions retained; runtime/HTML unchanged this batch. Do not implement these again.
 
-CI32 success gates: all3jobs; six guide/six quiet initial-meeting cases with real hit/clearance;12originalcamera cases;grounding/lunge/import reset;native picker/rejection/reselection/frozen-state/focus;equipment/economy/ATB/IndexedDB/victory/every original journey. Preserve original artifacts, inspect actual images, verify matching Pages/source/HTML. CI28/Pages22 remain closed accepted baseline.
+CI33's terminal was45-minute validate budget at trial step21, with earlier steps and both witnesses passed. Final trial report missing, no full acceptance. CI32 provider success confirmed, not active; no full durable Pages/acceptance closure established in this continuation. CI28/Pages22 closed, do not reopen.
 
-## Product priority, unchanged full scope
+CI34 acceptance requires all3jobs,13main reports,3lane ledgers, native reports and actual pictures; preserve original6guide/6quiet/12camera/party-grounding/lunge/import-reset/festival-occlusion/pause/equipment/economy/ATB/victory/IndexedDB/allstory checks. Good artifact now contains prologue/equipment; bad contains keyboard, all under test-results/. Browser artifact contains core reports at root. Missing final trial report is never replaced by trial-progress.json. Save originals and match Pages/source/HTML before acceptance.
 
-Early T05 first: scenes/actors/materials/models/actions/camera/occlusion/HUD/comfortable play to evidence-supported>=90 before later chapters. Reuse savedVQ01+B+C; preserve integrated camera,painter,contacts,input/menu. Scene composition,repeated wood/stone,simplified furniture/mother,bell/stalls/court,completeanimation/audio,physicaldevices remain. No score from counts.
+## Product priority and full remaining scope
 
-T03: original hidden rules/version differences/full map-room topology/numeric fidelity.
-T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; do not rebuild accepted equipment; authored values stay labelled.
-T05: completeart/animation/clearedmusic;earlyqualityfirst.
-T06: fullfuture,othereras,main-sidequests/endings;2300arrival is not fullfuture.
-T07: overall>=90,eachdimension>=80%,zero critical,requiredassetgates and physicalinput/FPS/frame-time/loading/memory/background/saveevidence. Old30stale.
-T08: relatedtestedbatch->onecommit/nonforce/readback->onefullCI;correct-folderverifiedcloudretention;[skip ci]status/handoff. This batch cloud verification completed in VQ01O_CLOUD_RETENTION.json, not browser acceptance.
+EarlyT05 first: improve existing opening scenes/actors/material/model/animation/camera/occlusion/HUD/comfort to evidence-supported>=90 before later expansion. Preserve saved/current work, not a fresh redraw. Repeated paving, simplified home/furniture/mother, remaining composition/silhouette issues, complete animation/audio and physical devices remain. Published festival improvements are not full scene quality approval.
 
-Restricted renderer/local-browser operations have no new permission; no retry/bypass/incomplete staging/old independent-ui. Recovery only as needed via DELIVERY_INDEX. Retain TS/Babylon/esbuild/fixedATB/A*/InputBoundary,P1Crono/P2Lucca/autonomous third,home-to2300/v1–v8. No P3/ARPG/framework restart.
+T03: hidden rules/version differences/full map-room topology/numeric fidelity.
+T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual and triple techs; don't rebuild accepted equipment or mislabel authored values.
+T05: complete art/animation/cleared audio, early quality first.
+T06: full future campaign, remaining eras/main and side quests/endings;2300arrival is not full future.
+T07: overall>=90, each dimension>=80%, zero critical, asset gates and physical input/FPS/frame-time/loading/memory/background/save evidence; old30stale.
+T08: related batch -> tests -> one non-force source commit/readback -> one fullCI; correct-folder verified retention; [skip ci] current docs. Latest cloud1VrLSq3tySJZV7e6GdG3ZXlinKjn5wptI verified23manifest/7delta.
+
+Held prologue-renderer/local-browser operations have no new permission: no retry/bypass/incomplete staging. Keep TS/Babylon/esbuild/fixedATB/A*/InputBoundary, P1Crono/P2Lucca/autonomous third, home-to2300/equipment/v1–v8. NoP3/ARPG/framework restart. Recovery only as needed via DELIVERY_INDEX; current main docs win over old archives.

@@ -1,8 +1,18 @@
-# Cloud delivery index — CI31 terminal / VQ01O handoff
+# Cloud delivery index — CI33 terminal / VQ01Q / CI34
 
-Only project folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing, move or deletion changes. Current execution: STATUS / CI32_CHECKPOINT. Archive upload is not browser acceptance.
+Only project folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing, move or deletion changes. Current execution: STATUS / CI34_CHECKPOINT. Archive upload is not browser acceptance.
 
-## Current verified handoff
+## Current verified recovery
+
+**Chrono-CI33-terminal-VQ01Q-ci-balance.zip**
+Drive **1VrLSq3tySJZV7e6GdG3ZXlinKjn5wptI**
+https://drive.google.com/file/d/1VrLSq3tySJZV7e6GdG3ZXlinKjn5wptI/view?usp=drivesdk
+**23165477bytes**, SHA256 **cb4894932487617e8107c509588ec74f9586e278ae0ae0c0cbc96ea1acc4a11b**.
+Raw download/hash/CRC/correct parent/all23manifest entries/all7tested deltas verified. Four untouched originalCI33ZIPs, exact seven-file working-delta, terminal/local/checkpoint receipts, test logs, assertion preservation and explicitly analysis-only CI33 report regression retained. Original source tar includes the complete publishedVQ01P festival batch. No new runtime/HTML/art changes inVQ01Q, no local browser or90approval. Receipt evidence/VQ01Q_CLOUD_RETENTION.json.
+
+Recover exactf5fa18c3d092837b39edf97b6fe0d906aad43977 source tar inside raw/CI33-browser.zip, then seven working-delta files after hash checks. Source61d03577b418f980f5e9413a05e73ddb5c7f9296/treebf6177a72f96d188db05bde91556077374606577; onlyCI34/35514835223 pending. Current main docs supersede archived old docs, and the archive checkpoint predates final cloud receipt. No dependencies/ROM/originalmedia/fontfiles/credentials added. Earlier bundles retained, no re-download just to begin.
+
+## Previous verified VQ01O handoff
 
 **Chrono-CI31-terminal-VQ01O-header-handoff.zip**
 Drive **1RS0wZrCQF3ja6KtgxYUqcO0r8jzctKIc**
@@ -10,7 +20,7 @@ https://drive.google.com/file/d/1RS0wZrCQF3ja6KtgxYUqcO0r8jzctKIc/view?usp=drive
 **10486535bytes**, SHA256 **efabeb3f108c89a77f0a6d388f02d1b537ddef05b30f77af61c15172a797dac2**.
 Raw download/CRC/correct parent/all22manifest entries/all5tested deltas verified. Four originalCI31ZIPs, exact five-file source delta with before/after hashes, original co-op comfort report, terminal/local/checkpoint receipts, final logs, actual post-cleanup failure picture and UNACCEPTED local0.9.14 HTML with notices retained. Receipt **evidence/VQ01O_CLOUD_RETENTION.json**.
 
-Recover exact071f source tar inside raw/CI31-browser.zip, then apply working-delta after checking before/after hashes. Current main documents always win over archive documents. No dependencies/ROM/originalmedia/fontfiles/credentials added. Published source2751a5386f440f90bc8d6c3aaa31a988daf03b39, tree334b66cde2e7fb311cfc9a430b7bd1220a753e17; only CI32/35505694703, not yet accepted. Do not reopen old archives just to begin.
+Recover exact071f source tar inside raw/CI31-browser.zip, then apply working-delta after checking before/after hashes. Current main documents always win over archive documents. No dependencies/ROM/originalmedia/fontfiles/credentials added. Published source2751a5386f440f90bc8d6c3aaa31a988daf03b39, tree334b66cde2e7fb311cfc9a430b7bd1220a753e17; CI32/35505694703 provider success is now known, but this continuation did not establish its complete durable Pages/acceptance closure; it is not active. Do not reopen old archives just to begin.
 
 ## Immediately preceding verified handoff
 

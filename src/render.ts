@@ -1,3 +1,5 @@
+import {placeSpriteContact,inspectSpriteContacts} from './sprite-contact';
+import type {SpriteContact} from './sprite-contact';
 import {EarlyCameraMotion} from './camera-motion';
 import {frameEarlyActors,EARLY_COMFORT} from './early-comfort';
 import type {CameraFrame} from './early-comfort';
@@ -84,8 +86,10 @@ export class World {
   private drawFrames=0;
   private palettePass=new PixelPalettePass();
   private actorShadows:Mesh[]=[];
+  private contacts:SpriteContact[]=[];
+  private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
@@ -278,6 +282,7 @@ export class World {
       list.length=0;
     }
     this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
+    this.contacts=[];this.contactHistory=[];
     this.poseHistory.length=0;this.guestView={pose:'idle',frame:0};
     this.lunges.forEach(l=>{l.time=1;l.dx=0;l.dz=0;});
   }
@@ -344,10 +349,7 @@ export class World {
     this.yakra.mesh.setEnabled(!!boss);
     if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
     this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
-    const up=this.camera.getDirection(Vector3.Up()),as=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;
-    const groundActor=(mesh:Mesh,x:number,z:number)=>{mesh.position.set(x,0.14,z);mesh.position.addInPlace(up.scale(1.85*(HD_ART.pivot.y/HD_ART.height-.5)*as));};
-    s.players.forEach((p,i)=>{if(adventure&&s.prologue.stage!=='waking')groundActor(this.heroes[i]!.mesh,p.x+this.lunges[i]!.dx*Math.sin(Math.min(1,this.lunges[i]!.time/.42)*Math.PI),p.z+this.lunges[i]!.dz*Math.sin(Math.min(1,this.lunges[i]!.time/.42)*Math.PI));const sh=this.actorShadows[i]!;sh.setEnabled(adventure&&activeSlot(s,i as 0|1)&&s.prologue.stage!=='waking');sh.position.set(p.x,.14,p.z);sh.scaling.x=as;sh.scaling.y=.52*as;});
-    if(kind)groundActor(this.guest.mesh,g.x,g.z);const gs=this.actorShadows[2]!;gs.setEnabled(!!kind);gs.position.set(g.x,.14,g.z);gs.scaling.x=as;gs.scaling.y=.52*as;
+    this.groundActors(s);
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
     const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
     const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());
@@ -358,6 +360,28 @@ export class World {
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
     this.palettePass.apply(this.scene);
     this.scene.render();this.drawFrames++;
+  }
+  private groundActors(s:State):void {
+    const up=this.camera.getDirection(Vector3.Up()),awake=s.prologue.stage!=='waking',adventure=s.chapter!=='lab';
+    this.contacts=[];
+    s.players.forEach((p,i)=>{
+      const mesh=this.heroes[i]!.mesh,shadow=this.actorShadows[i]!,shown=adventure&&awake&&activeSlot(s,i as 0|1);
+      shadow.setEnabled(shown);if(!shown)return;
+      const l=this.lunges[i]!,push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
+      const foot={x:p.x+l.dx*push,y:.14,z:p.z+l.dz*push};
+      placeSpriteContact(mesh,shadow,foot,up,1.85,HD_ART.pivot.y,HD_ART.height);
+      this.contacts.push({id:'p'+i,mesh,shadow,foot,pivotY:HD_ART.pivot.y,cellHeight:HD_ART.height});
+      if(Math.hypot(foot.x-p.x,foot.z-p.z)>.001){
+        this.contactHistory.push(inspectSpriteContacts([this.contacts[this.contacts.length-1]!])[0]!);
+        if(this.contactHistory.length>24)this.contactHistory.shift();
+      }
+    });
+    const mesh=this.guest.mesh,shadow=this.actorShadows[2]!,kind=guestKind(s);
+    shadow.setEnabled(!!kind);if(kind){
+      const foot={x:s.rescue.guest.x,y:.14,z:s.rescue.guest.z};
+      placeSpriteContact(mesh,shadow,foot,up,1.85,HD_ART.pivot.y,HD_ART.height);
+      this.contacts.push({id:'guest',mesh,shadow,foot,pivotY:HD_ART.pivot.y,cellHeight:HD_ART.height});
+    }
   }
   private inspectEarlyCamera(){
     return {profile:EARLY_COMFORT.id,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
@@ -375,7 +399,7 @@ export class World {
       const p=s.players[0];
       // Use existing visible meshes, including their actual foot pivot and current lunge.
       // Including a nearby conversation partner keeps the context readable without revealing distant scenery.
-      for(const name of ['prologue-home-mother','prologue-meeting-marle','prologue-meeting-pendant','lucca-handdrawn']){
+      for(const name of ['prologue-home-mother','prologue-meeting-marle','prologue-meeting-pendant','lucca-handdrawn','fair-melchior','fair-cat-owner','fair-lunch-owner']){
         const mesh=this.scene.getMeshByName(name);
         if(mesh?.isEnabled()&&Math.hypot(mesh.position.x-p.x,mesh.position.z-p.z)<4)
           this.cameraSubjects.push({id:name,mesh});

@@ -4,13 +4,13 @@ import type {HeroPose,Ink} from './hero-art';
  */
 export type HDHero='crono'|'marle'|'lucca'|'frog';
 export const HD_HERO_IDS:readonly HDHero[]=['crono','marle','lucca','frog'];
-export const HD_ART=Object.freeze({id:'party-redraw-48x64-r2',width:48,height:64,padding:2,pivot:{x:24,y:62},sampling:'nearest',method:'native-integer-pixel-redraw',approved:false} as const);
+export const HD_ART=Object.freeze({id:'party-redraw-48x64-vq01',width:48,height:64,padding:2,pivot:{x:24,y:62},sampling:'nearest',method:'native-integer-pixel-redraw',approved:false} as const);
 type Palette={ink:string;skin:string;shade:string;light:string;hair:string;hairDark:string;hairLight:string;cloth:string;dark:string;bright:string;boot:string};
 const PALETTES:Record<HDHero,Palette>={
- crono:{ink:'#141825',skin:'#e8b37d',shade:'#a9664f',light:'#ffe0a8',hair:'#c84827',hairDark:'#762f29',hairLight:'#ff9a44',cloth:'#278f98',dark:'#245266',bright:'#72c7ba',boot:'#77503b'},
- marle:{ink:'#24202b',skin:'#edbe8b',shade:'#b87857',light:'#ffe4b4',hair:'#d89b42',hairDark:'#976331',hairLight:'#ffe190',cloth:'#e9edcf',dark:'#91aea0',bright:'#fffae4',boot:'#ad7544'},
- lucca:{ink:'#191624',skin:'#e6b789',shade:'#a77259',light:'#ffe0b4',hair:'#796185',hairDark:'#40334f',hairLight:'#b493bb',cloth:'#c89150',dark:'#785647',bright:'#f0d498',boot:'#715744'},
- frog:{ink:'#162329',skin:'#71a554',shade:'#38634d',light:'#b0cb70',hair:'#81b85e',hairDark:'#42654d',hairLight:'#c6d786',cloth:'#e4dcbb',dark:'#8e9c88',bright:'#faf1cd',boot:'#895940'},
+ crono:{ink:'#2b2930',skin:'#d9ad83',shade:'#aa775b',light:'#edd2a3',hair:'#b85b35',hairDark:'#754732',hairLight:'#e39b50',cloth:'#487f86',dark:'#354f5b',bright:'#88b4ab',boot:'#77503b'},
+ marle:{ink:'#34323a',skin:'#edbe8b',shade:'#b87857',light:'#ffe4b4',hair:'#bf9354',hairDark:'#896c45',hairLight:'#e0c88f',cloth:'#d4ddcc',dark:'#889f93',bright:'#ebead4',boot:'#ad7544'},
+ lucca:{ink:'#312b35',skin:'#e6b789',shade:'#a77259',light:'#ffe0b4',hair:'#796c85',hairDark:'#504257',hairLight:'#ab97b3',cloth:'#b38a5b',dark:'#796650',bright:'#d5bd8b',boot:'#715744'},
+ frog:{ink:'#273731',skin:'#799a63',shade:'#4b6c52',light:'#bccb8e',hair:'#81b85e',hairDark:'#42654d',hairLight:'#c6d786',cloth:'#d6d3b8',dark:'#86988a',bright:'#e8e3c5',boot:'#895940'},
 };
 const POSES:readonly string[]=['idle','ready','walk','attack','cast','hurt','down','victory'];
 export function drawHDHero(c:Ink,hero:HDHero,facing:number,frame:number,pose:HeroPose='idle'):void{
@@ -68,15 +68,15 @@ export function drawHDHero(c:Ink,hero:HDHero,facing:number,frame:number,pose:Her
  }
  const crouch=(pose==='attack'&&frame===0)||(pose==='hurt'&&frame===2)||(pose==='down')?2:0;
  const torsoY=32+crouch+(pose==='ready'?1:0);
- poly([[15,torsoY],[30,torsoY],[34,40],[32,48],[13,48],[11,40]],p.ink);
- poly([[16,torsoY+1],[29,torsoY+1],[31,40],[30,46],[15,46],[13,40]],p.cloth);
- poly([[14,38],[18,39],[18,45],[14,45]],p.dark);poly([[20,34+crouch],[27,35+crouch],[29,40],[21,39]],p.bright);
+ poly(side?[[20,torsoY],[29,torsoY],[32,40],[30,48],[18,48],[17,40]]:[[15,torsoY],[30,torsoY],[34,40],[32,48],[13,48],[11,40]],p.ink);
+ poly(side?[[21,torsoY+1],[28,torsoY+1],[30,40],[29,46],[19,46],[19,40]]:[[16,torsoY+1],[29,torsoY+1],[31,40],[30,46],[15,46],[13,40]],p.cloth);
+ poly(side?[[19,37],[22,39],[22,45],[19,45]]:[[14,38],[18,39],[18,45],[14,45]],p.dark);poly([[20,34+crouch],[27,35+crouch],[29,40],[21,39]],p.bright);
  line(20,42,28,43,p.dark);line(20,44,26,44,p.bright);pixel(29,38,p.dark);
- rect(14,46,17,3,hero==='crono'?'#605440':'#658477');rect(21,46,4,3,'#c5a45b');rect(22,47,2,1,'#f8dda0');
+ rect(side?18:14,46,side?13:17,3,hero==='crono'?'#605440':'#658477');rect(21,46,4,3,'#c5a45b');rect(22,47,2,1,'#f8dda0');
  if(back){line(22,35+crouch,23,44,p.dark);line(24,36+crouch,25,44,p.bright);}
  // Separate arm poses. Forearm movement does not move body coordinates or collision.
  const raise=pose==='cast'||pose==='victory';
- for(const [x,dir] of [[12,-1],[33,1]] as const){
+ for(const [x,dir] of (side?[[20,-1],[30,1]]:[[12,-1],[33,1]]) as [number,number][]){
   const ay=raise?22-frame%2*2:pose==='ready'?((dir===1?30:36)+(frame%2)):pose==='attack'&&dir===1?32:35+(dir===-1?stride:-stride);
   poly([[x,ay],[x+dir*5,ay+1],[x+dir*6,ay+8],[x+dir*3,ay+13],[x-dir,ay+9]],p.ink);
   poly([[x,ay+1],[x+dir*3,ay+2],[x+dir*4,ay+7],[x+dir*2,ay+10],[x,ay+8]],dir===-1?p.cloth:p.dark);
@@ -95,13 +95,13 @@ export function drawHDHero(c:Ink,hero:HDHero,facing:number,frame:number,pose:Her
   line(faceX-6,23,faceX-4,27,p.shade);line(faceX-4,29,faceX+2,30,p.shade);line(faceX-1,17,faceX+4,18,p.light);
   rect(faceX+7,23,2,3,p.shade);pixel(faceX+7,23,p.light);
   if(hero==='crono'){
-   poly([[11,18],[8,12],[14,12],[12,7],[19,9],[19,2],[24,6],[29,3],[30,8],[36,6],[35,12],[40,11],[35,19],[31,21],[15,20]],p.ink);
-   poly([[12,16],[11,13],[16,14],[15,9],[20,11],[20,5],[24,9],[28,6],[29,12],[34,9],[32,15],[36,14],[32,19],[15,18]],p.hair);
-   poly([[16,11],[20,14],[18,17],[14,15]],p.hairLight);poly([[22,6],[24,10],[23,15],[21,13]],p.hairLight);poly([[28,9],[29,13],[26,18],[25,16]],'#ec682f');line(32,12,30,17,p.hairLight);
-   rect(15,19,17,3,'#d9d5b6');rect(16,19,15,1,'#fff0c3');line(16,21,21,21,'#9ca99d');rect(32,20,3,2,'#bdb590');
-   poly([[15,30],[27,30],[32,32],[28,35],[17,34],[13,33]],'#b77b38');line(17,31,27,31,'#f1c66a');
+   poly(side?[[14,19],[12,14],[17,13],[15,8],[21,10],[22,3],[27,7],[30,5],[31,10],[36,10],[34,14],[39,15],[33,21],[21,21]]:[[11,18],[8,12],[14,12],[12,7],[19,9],[19,2],[24,6],[29,3],[30,8],[36,6],[35,12],[40,11],[35,19],[31,21],[15,20]],p.ink);
+   poly(side?[[16,17],[16,14],[20,14],[18,10],[23,12],[23,6],[28,11],[29,8],[30,13],[34,12],[32,17],[36,16],[31,19],[20,19]]:[[12,16],[11,13],[16,14],[15,9],[20,11],[20,5],[24,9],[28,6],[29,12],[34,9],[32,15],[36,14],[32,19],[15,18]],p.hair);
+   poly([[16,11],[20,14],[18,17],[14,15]],p.hairLight);poly([[22,6],[24,10],[23,15],[21,13]],p.hairLight);poly([[28,9],[29,13],[26,18],[25,16]],'#ce7c43');line(32,12,30,17,p.hairLight);
+   rect(15,19,17,3,'#d9d5b6');rect(16,19,15,1,'#e8dab5');line(16,21,21,21,'#9ca99d');rect(32,20,3,2,'#bdb590');
+   poly([[15,30],[27,30],[32,32],[28,35],[17,34],[13,33]],'#b77b38');line(17,31,27,31,'#d9b66d');
    poly([[back?16:29,34],[back?11:34,35],[back?13:36,42],[back?17:32,41],[back?18:31,37]],'#dba94c');
-   pixel(back?14:33,38,'#ffe094');if(resting&&frame===3){line(back?12:34,37,back?10:37,39,p.ink);line(back?13:33,37,back?11:36,38,'#efbc5b');}
+   pixel(back?14:33,38,'#e3c58b');if(resting&&frame===3){line(back?12:34,37,back?10:37,39,p.ink);line(back?13:33,37,back?11:36,38,'#efbc5b');}
   }else if(hero==='marle'){
    poly([[13,17],[14,10],[20,7],[28,9],[32,14],[32,21],[29,20],[25,15],[19,19],[13,22]],p.hairDark);
    poly([[15,15],[17,10],[23,9],[28,12],[30,17],[27,17],[24,12],[20,16]],p.hair);line(17,12,22,10,p.hairLight);line(24,10,28,14,p.hairLight);
@@ -124,6 +124,13 @@ export function drawHDHero(c:Ink,hero:HDHero,facing:number,frame:number,pose:Her
    const eyes=side?[30]:[19,28];for(const ex of eyes){rect(ex,23,2,3,p.ink);pixel(ex,23,p.light);pixel(ex+1,25,hero==='marle'?'#4c8f85':'#4f7886');}
    if(side){pixel(33,25,p.light);pixel(34,26,p.skin);}else{pixel(24,26,p.light);line(22,29,25,29,p.shade);}
   }
+ }
+ // Costume construction follows each silhouette; persistent foot pixels are untouched.
+ if(!back){
+  if(hero==='crono'){line(side?24:19,36,side?24:20,43,p.dark);rect(side?25:21,36,3,1,p.bright);}
+  if(hero==='marle'){line(side?25:18,39,side?27:20,44,'#b1c2ad');line(side?29:29,39,side?29:27,44,'#e3e5ca');}
+  if(hero==='lucca'){rect(side?24:17,38,5,4,'#8a7354');line(side?24:17,38,side?28:21,38,'#dec594');pixel(side?26:19,40,'#e6c998');}
+  if(hero==='frog'){poly(side?[[19,32],[24,33],[25,36],[19,37]]:[[13,32],[19,32],[20,36],[13,37]],'#839d8e');line(side?20:14,33,side?24:18,33,'#c1cbb1');line(25,36,27,44,'#9ca993');}
  }
  if(pose==='attack'||pose==='ready'||(pose==='victory'&&(hero==='crono'||hero==='frog'))){
   if(hero==='crono'||hero==='frog'){

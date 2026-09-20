@@ -75,3 +75,10 @@ test('production camera inspection cannot alter camera/filter/subject geometry',
   assert.deepEqual(k.port.comfortFrame,before);const after=World.prototype.inspectEarlyCamera.call(k.port);assert.notEqual(after.motion.reason,'forged');assert(after.rects[0].left<1);safe(k.port);
  }finally{k.dispose();}
 });
+
+// These are existing visible NPC planes, never newly created game characters.
+test('nearby grounded merchant joins the early framing without moving him or exposing distant witnesses',()=>{
+ const k=setup();try{const s=createState('fair'),p=s.players[0];const merchant=k.make('fair-melchior',p.x+.5,p.z),owner=k.make('fair-cat-owner',100,100),before=merchant.position.asArray();k.apply(s);
+ assert(k.port.cameraSubjects.some(x=>x.id==='fair-melchior'));assert(!k.port.cameraSubjects.some(x=>x.id==='fair-cat-owner'));assert.deepEqual(merchant.position.asArray(),before);assert(owner.isEnabled());safe(k.port);
+ }finally{k.dispose();}
+});

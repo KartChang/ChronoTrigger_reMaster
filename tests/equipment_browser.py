@@ -9,6 +9,7 @@ from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
 from inventory_comfort import measure_inventory, assert_inventory_layout, assert_inventory_readability
 from inventory_touch import record_touch_inventory
+from actor_grounding import record_grounding
 from inventory_repaint import measure_merchant_repaint, assert_merchant_repaint
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -217,6 +218,7 @@ try:
                 rect=page.locator('#'+target).bounding_box();body=page.locator('#inventory-content').bounding_box()
                 assert rect and body and rect['y']>=body['y']-1 and rect['y']<body['y']+body['height']
             record(page,'02-keyboard-trade-and-equipped')
+            record_grounding(page,OUT,'02-merchant-contact',require_witness=True)
             # Disclosure uses real keys, keeps all authored-value caveats and cannot mutate the save.
             protected= snap(page)
             assert page.locator('#equipment-notes').is_hidden()
@@ -308,6 +310,7 @@ try:
                 page.keyboard.press('j')
             assert snap(page)['mode']=='victory'
             record(page,'05-victory-before-enter')
+            record_grounding(page,OUT,'05-attack-contact-history',require_lunge=True)
             page.keyboard.press('Enter');wait_game(page,'s.mode==="explore"',60)
             assert focus(page)=='world' and snap(page)['equipment']==data['equipment']
             final,final_data=exported(page,'equipment-gato-v8.json')
@@ -315,6 +318,8 @@ try:
             imported(page,final)
             assert snap(page)['fair']['gatoWon'] and snap(page)['equipment']['gold']==90
             record(page,'06-final-import-focus')
+            m=record_grounding(page,OUT,'06-import-contact-reset')
+            assert m['grounding']['history']==[]
             passed('real enemy turn deals 9, normal Crono attack deals 36; battle gear locks, independent P2 ATB, victory Enter and final v8 import all remain functional')
             touch=record_touch_inventory(browser,saved,OUT,imported,snap)
             observations.append({'name':'coarse-touch-inventory','report':touch})

@@ -48,6 +48,11 @@ jobs:
         run: python tests/rescue_browser.py
       - name: Test trial, both prison routes, Dragon Tank, inventory and v7 future arrival
         run: python tests/trial_browser.py
+      - name: Test software WebGL and unavailable-context recovery
+        run: python tests/render_compatibility_browser.py
+      - name: Verify same-source rendering compatibility observations
+        if: always()
+        run: node scripts/render-evidence.mjs
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate

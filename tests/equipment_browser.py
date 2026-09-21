@@ -162,7 +162,7 @@ try:
             page.wait_for_function('window.__CHRONO_TEST__ && !document.querySelector("#start-story").disabled')
             page.keyboard.press('ArrowDown');assert focus(page)=='start-story'
             page.keyboard.press('Enter');wait_game(page,'s.prologue.stage==="home"',220)
-            audio_report=begin_audio_observation(page,activate)
+            audio_report=begin_audio_observation(page,activate,OUT)
             imported(page,SOURCE)
             audio_report=finish_audio_observation(page,activate,audio_report,import_attempts[0],OUT)
             passed('opt-in authored audio produces analyser energy; pause/dialog/inventory and original native import silence old voices; mute restores zero output')

@@ -1,0 +1,7 @@
+/* Backend status is independent of scene art, input ownership and game state. */
+.render-state{position:fixed;z-index:1000;inset:1rem 1rem auto;padding:1rem;background:#172c32;color:#fff;border:1px solid #a4bbbd;pointer-events:none}
+.render-state[hidden]{display:none}
+#render-unavailable{inset:clamp(12px,5vw,60px);max-width:52rem;margin:auto;padding:clamp(16px,3vw,30px);z-index:2000;overflow:auto;max-height:100dvh;box-sizing:border-box;text-align:left}
+#render-unavailable p{max-width:52rem;white-space:normal;overflow-wrap:anywhere;line-height:1.65}
+#render-unavailable button,#render-quality{font:inherit;padding:.55rem;min-height:40px}
+.render-help{font-size:.85rem}

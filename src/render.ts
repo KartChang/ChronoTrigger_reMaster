@@ -1,3 +1,4 @@
+import {RenderPolicy,backendHint,WEBGL_OPTIONS} from './render-capability';
 import {placeSpriteContact,inspectSpriteContacts} from './sprite-contact';
 import type {SpriteContact} from './sprite-contact';
 import {EarlyCameraMotion} from './camera-motion';
@@ -50,6 +51,7 @@ export class World {
   private lamp:StandardMaterial;
   private sun:DirectionalLight;
   private shadow:ShadowGenerator;
+  private rendering:RenderPolicy;
   private heroes:Sprite[]=[];
   private foes:Sprite[]=[];
   private markers:Mesh[]=[];
@@ -89,11 +91,15 @@ export class World {
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
-    this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);
-    this.engine.setHardwareScalingLevel(Math.max(1,window.devicePixelRatio/1.5));
+    // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
+    // chooses GPU/software; do not reject a usable slow context or force unsafe flags.
+    this.engine=new Engine(canvas,true,{...WEBGL_OPTIONS},true);
+    let renderer='';try{renderer=this.engine.getGlInfo().renderer;}catch{}
+    this.rendering=new RenderPolicy(backendHint(renderer));
+    this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
     this.scene=new Scene(this.engine);
     this.scene.clearColor=Color4.FromHexString('#15292fff');
     this.scene.fogMode=Scene.FOGMODE_EXP2;this.scene.fogDensity=0.010;this.scene.fogColor=color('#a7b2aa');
@@ -271,7 +277,13 @@ export class World {
     }
 
   }
+  inspectRenderer(){return {...this.rendering.inspect(),webglVersion:this.engine.webGLVersion,
+    width:this.engine.getRenderWidth(),height:this.engine.getRenderHeight(),scaling:this.engine.getHardwareScalingLevel()};}
+  setRenderMode(mode:string):void{this.rendering.setMode(mode);this.resize();}
+  observeRenderFrame(milliseconds:number,active:boolean):void{if(this.rendering.sample(milliseconds,active))this.resize();}
   resize():void {
+    const canvas=this.engine.getRenderingCanvas();
+    if(canvas)this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
     this.engine.resize();const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());const viewHalf=cameraHalf(this.chapter??'lab',ratio);
     this.camera.orthoLeft=-viewHalf*ratio;this.camera.orthoRight=viewHalf*ratio;this.camera.orthoTop=viewHalf;this.camera.orthoBottom=-viewHalf;
   }

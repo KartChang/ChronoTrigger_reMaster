@@ -1,3 +1,4 @@
+import {showRenderFailure} from './render-status';
 import {SceneAudio} from './scene-audio';
 import {takeFrameEffects,FeedbackClock} from './presentation-state';
 import {ModalFocus,jumpInventorySection} from './modal-focus';
@@ -22,7 +23,13 @@ import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
 let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,previousLog='';
-let filePickerOpen=false;
+let filePickerOpen=false,renderBlocked=false;
+// A lost rendering context is an input boundary, not a writable hidden menu.
+// Keep browser shortcuts and the fatal recovery dialog usable.
+for(const event of ['click','pointerdown','keydown'])document.addEventListener(event,e=>{
+ if(!renderBlocked||(e instanceof KeyboardEvent&&(e.ctrlKey||e.metaKey||e.altKey))||(e.target instanceof Element&&e.target.closest('#render-unavailable')))return;
+ e.preventDefault();e.stopImmediatePropagation();
+},true);
 const soundtrack=new SceneAudio();
 const feedbackClock=new FeedbackClock();
 const modalFocus=new ModalFocus(document);
@@ -35,7 +42,7 @@ function replaceState(next:State):void {
   last=performance.now();accumulator=0;
 }
 const gearPanel=equipmentPanel($('equipment-panel'),()=>state,message=>{$('inventory-feedback').textContent=message;},()=>bagOpen&&!manualPause&&!document.hidden);
-const halted=()=>!started||manualPause||dialogOpen||bagOpen||filePickerOpen||document.hidden;
+const halted=()=>!started||manualPause||dialogOpen||bagOpen||filePickerOpen||renderBlocked||document.hidden;
 const asError=(e:unknown)=>e instanceof Error?e.message:String(e);
 function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');feedbackClock.show();}
 function tone(frequency=440):void{soundtrack.effect(frequency);}
@@ -259,6 +266,15 @@ function updateHud():void{
 }
 try{
   const world=new World($<HTMLCanvasElement>('world'));
+  const renderStatus=$('render-state');
+  const contextHold=(blocked:boolean)=>{
+    renderBlocked=blocked;controls.clear();inputBoundary.rebase(state);accumulator=0;last=performance.now();
+    if(blocked)soundtrack.hold();
+    renderStatus.hidden=!blocked;renderStatus.textContent=blocked?'畫面暫時中斷，遊戲與音訊已暫停。瀏覽器正在嘗試恢復；尚未覆寫存檔。':'';
+  };
+  world.engine.onContextLostObservable.add(()=>contextHold(true));
+  world.engine.onContextRestoredObservable.add(()=>{world.resize();contextHold(false);});
+  const quality=$<HTMLSelectElement>('render-quality');quality.onchange=()=>world.setRenderMode(quality.value);
   world.draw(state,0,false);
   $<HTMLButtonElement>('start').disabled=false;$<HTMLButtonElement>('start-coop').disabled=false;$('start').textContent='技術村落 · 單人';
   $<HTMLButtonElement>('start-story').disabled=false;$<HTMLButtonElement>('start-story-coop').disabled=false;
@@ -266,10 +282,10 @@ try{
   let frame=0;
 
   world.start(()=>{
-    const now=performance.now(),dt=Math.min((now-last)/1000,.1);last=now;
+    const now=performance.now(),frameMs=now-last,dt=Math.min(frameMs/1000,.1);last=now;
     // Poll controller edges even while manually paused, so Start can resume. Movement is gated below.
-    const input=controls.poll();
-    if(!halted()){
+    const input=renderBlocked?null:controls.poll();
+    if(!halted()&&input){
       accumulator+=dt;
       while(accumulator>=1/60){
         step(state,input,1/60);accumulator-=1/60;
@@ -279,15 +295,16 @@ try{
       }
     }else accumulator=0;
     const running=!halted();
+    world.observeRenderFrame(frameMs,running);
     soundtrack.update(state,!running);
     world.draw(state,dt,running||!started,takeFrameEffects(state,running));
     hudTime+=dt;if(hudTime>.08){updateHud();hudTime=0;}
     if(!feedbackClock.advance(dt,halted()))$('message').classList.remove('show');
-    if(frame++%30===0){const fps=world.engine.getFps();$('fps').textContent=Number.isFinite(fps)?`WEBGL · ${Math.round(fps)} FPS`:'WEBGL · 準備中';}
+    if(frame++%30===0){const fps=world.engine.getFps(),r=world.inspectRenderer(),label=r.backendHint==='software'?'軟體 WebGL':'WebGL';$('fps').textContent=`${label} ${r.webglVersion} · ${r.reason==='browser-default'||r.reason==='user-quality'?'原畫質':'相容解析度'} · ${Number.isFinite(fps)?Math.round(fps):'—'} FPS`;}
   });
   const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;audio:()=>ReturnType<typeof soundtrack.inspect>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};
   if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect(),audio:()=>soundtrack.inspect(),importStatus:()=>saveImport.inspect()};
-}catch(error){const el=document.createElement('div');el.className='fatal';const title=document.createElement('h2');title.textContent='無法建立 3D 畫面';const p=document.createElement('p');p.textContent='請使用開啟硬體加速的近期 Chrome／Edge 瀏覽器。錯誤：'+asError(error);el.append(title,p);document.body.append(el);console.error(error);}
+}catch(error){renderBlocked=true;soundtrack.hold();controls.clear();const panel=showRenderFailure(document,error);modalFocus.set(panel,$('render-reload'));console.error(error);}
 
 function resolveChoice(yes:boolean):void{
  if(!dialogOpen||(!state.prologue.choice&&!state.trial.choice)||manualPause||document.hidden)return;

@@ -1,0 +1,28 @@
+{
+  "source": "b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+  "kind": "source fingerprint, not execution evidence",
+  "count": 17,
+  "methods": {
+    "mat": "0eb9e88384840df514d9aec081a6260e843de5fdc1c6e3c8acbdc3db497c0448",
+    "box": "0f82b2c0e67c095ffd9dd988a81b3bbb9f60be81020b05e6636710b336f5cc7b",
+    "groundTexture": "4bd7136647fe5566472a2ebe5d6f9744f06c3ccf1c52c0e85b77d424f1ae67b1",
+    "house": "b9979c65830232d57b921a9003d4e0f7bfdb3ad01febb585f59beab70b2a9aed",
+    "tree": "4623f4c1121cca2602c62e29ebc9e8ef4b5d922ff10c50dab238df761b75e696",
+    "lantern": "5e5ba91491d395b24449d99c9a400420bb2317cd7a88d50324c98dce1663ce14",
+    "sprite": "f10b2fd8eab219903966c6d5a6f368faf6bb0c63c1b88e89f6256cc391622948",
+    "drawHero": "e51cfdf8e54fd668680ae82b37a00b51743cf6d7351d8cae9eec01378afe1cb3",
+    "drawEnemy": "fa35bb1f98895d8bc7d3a1723b5b77e37c04686db077d9199a9af082bd924272",
+    "label": "9366637c69d631df53b55fa27d7378f61b6bdd5108d9c99d96a11ffec353f2ea",
+    "effect": "13f45e4d0685d822411b8017d592a0e1eac62ada335c546b733542fd5ad183ad",
+    "resetTransientPresentation": "953e282c2d6c3998b9a4c11e2131cb38ed0f12c39d86502c3f2f11a80f1cd3d4",
+    "draw": "5af250e78e8ed632a88026df43b32354bb0d920d5c7004ed33a850e300f362ba",
+    "groundActors": "404ed4aa7189288678dbe1625e163741b1caa361a1789842dd84ee27677e3e46",
+    "inspectEarlyCamera": "7689dce32f758c8e31e5077b301cd10c192cfce243890792455ff6ca6c4c9dd6",
+    "frameEarlyScene": "a7137b9d70bf4b92d928b60b334c21fa6db73caeeae4db725785146f964805d9",
+    "start": "8b368457b869c24cb75fd083d6976ae6ec6b170783ed8261d0dec0f8ff03d8e9"
+  },
+  "engineBootstrap": "    this.engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true},true);\n    this.engine.setHardwareScalingLevel(Math.max(1,window.devicePixelRatio/1.5));\n",
+  "constructorHash": "6d869050e3bc485b1c0dc04895819968d0a2382474891e94d8e8683bca14e929",
+  "resizeHash": "5d9445baf63507c3a9880da42f9627875e3af49cdb6013313f016be403ebee12",
+  "inspectHash": "43230b4512fd896b5b8925a8dc5b4a0b6f9d075e678af3713d8c896bb71ead2d"
+}

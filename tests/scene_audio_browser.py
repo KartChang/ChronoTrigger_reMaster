@@ -3,6 +3,7 @@ No AudioContext mock, clock acceleration, added import, or writable game hook.
 Software Chromium/analyser evidence is not listening or physical speaker evidence.
 """
 import json
+from pathlib import Path
 
 def audio(page):
     return page.evaluate('window.__CHRONO_TEST__.audio()')
@@ -24,7 +25,7 @@ def wait_silent(page):
     assert result['rms']<.000001,result
     return result
 
-def begin_audio_observation(page,activate):
+def begin_audio_observation(page,activate,out=None):
     initial=audio(page)
     assert initial['context']=='not-created' and initial['contextCount']==0 and not initial['enabled'],initial
     activate(page,'sound')
@@ -36,7 +37,21 @@ def begin_audio_observation(page,activate):
         page.keyboard.press(open_key)
         assert page.evaluate('window.__CHRONO_TEST__.paused()')
         frozen=page.evaluate('window.__CHRONO_TEST__.snapshot()')
-        held=wait_silent(page)
+        try:
+            held=wait_silent(page)
+        except Exception as exc:
+            failure={'status':'failed','phase':name,'error':str(exc),'partial':result,
+                     'kind':'actual failed observation; not a successful final report'}
+            try:
+                failure.update(lastAudio=audio(page),paused=page.evaluate('window.__CHRONO_TEST__.paused()'),
+                               snapshot=page.evaluate('window.__CHRONO_TEST__.snapshot()'),
+                               hidden=page.evaluate('document.hidden'),focused=page.evaluate('document.activeElement?.id'))
+            except Exception as observation_error:
+                failure['observationError']=str(observation_error)
+            if out is not None:
+                Path(out).mkdir(parents=True,exist_ok=True)
+                (Path(out)/'scene-audio-failure.json').write_text(json.dumps(failure,ensure_ascii=False,indent=2),encoding='utf-8')
+            raise
         assert held['blocked']
         # Read real frames; no writes, synthetic clicks or simulated time.
         page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')

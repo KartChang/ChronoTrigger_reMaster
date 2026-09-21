@@ -190,3 +190,28 @@ for(const [name,mutate] of [
 ])test('checker rejects '+name,()=>{const r=structuredClone(audioFixture);mutate(r);assert.throws(()=>assertAudioEvidence(r));});
 
 test('native Float32 AudioParam rounding is accepted without weakening mute or voice limits',()=>{const r=structuredClone(audioFixture);r.playing.masterGain=Math.fround(.55);assert(assertAudioEvidence(r));r.playing.masterGain=.54;assert.throws(()=>assertAudioEvidence(r));});
+
+// CI43 stopped in pause silence. This model deliberately does not render an
+// automation event into Param.value, unlike the eager legacy fake above.
+class DeferredParam extends Param {setValueAtTime(v,t){this.calls.push(['set',v,t]);}}
+test('master gate is immediate even when the last automated value is not rendered',()=>{
+ const ctx=new Context(),original=ctx.createGain.bind(ctx);
+ ctx.createGain=()=>{const n=original();if(ctx.gains.length===1)n.gain=new DeferredParam();return n;};
+ const a=new SceneAudio(()=>ctx),s=createState('fair');a.setEnabled(true);a.update(s,false);
+ assert.equal(a.inspect().masterGain,.55);assert(a.inspect().activeVoices>0);
+ ctx.currentTime=7;a.hold();assert.equal(a.inspect().masterGain,0);assert.equal(a.inspect().activeVoices,0);
+ assert(ctx.gains[0].gain.calls.every(c=>c[0]==='cancel'&&c[1]===0));
+ assert(ctx.gains.slice(1).some(g=>g.gain.calls.some(c=>c[0]==='ramp')),'note envelopes remain scheduled');
+ s.ticks+=15;a.update(s,false);assert.equal(a.inspect().masterGain,.55);a.setEnabled(false);assert.equal(a.inspect().masterGain,0);
+});
+test('master gate does not accumulate frame-rate automation events',()=>{
+ const {audio,ctx,s}=setup();for(let i=0;i<1000;i++)audio.update(s,false);
+ assert.equal(ctx.gains[0].gain.calls.filter(c=>c[0]==='set').length,0);assert.equal(audio.inspect().masterGain,.55);
+ audio.reset();assert.equal(audio.inspect().masterGain,0);assert.equal(audio.inspect().activeVoices,0);
+});
+test('paused audio inspector never manufactures zero analyser energy',()=>{
+ const ctx=new Context();ctx.createAnalyser=()=>{const n=new Node();n.fftSize=1024;n.getFloatTimeDomainData=a=>a.fill(.125);return n;};
+ const audio=new SceneAudio(()=>ctx),s=createState('fair');audio.setEnabled(true);audio.update(s,false);audio.hold();
+ const v=audio.inspect();assert.equal(v.rms,.125);assert.equal(v.masterGain,0);assert.equal(v.activeVoices,0);
+ assert.equal(v.contextTime,0);assert.equal(v.analyserSize,1024);
+});

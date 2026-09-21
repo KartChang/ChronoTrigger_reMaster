@@ -1,3 +1,5 @@
+// VQ02B explicitly advances only renderer/main pins for requested context/density wiring.
+// Original draw/camera/scene functions are verified in render-preserved.test.mjs.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -58,8 +60,8 @@ test('observations are copies and cannot modify actual banner geometry',()=>{
  const k=festivalTestScene();try{const f=buildFair(k.scene,k.shadow),s=createState('fair');f.draw(s,0);const a=f.inspect().scenery;a.banners[0].anchor[0]=900;assert.notEqual(f.inspect().scenery.banners[0].anchor[0],900);}finally{k.dispose();}
 });
 
-test('World camera/input/import implementation is entirely unchanged',()=>{
- const source=readFileSync('src/render.ts','utf8');assert.equal(sha(source),'0b01f8a83d251bdfeb1c9ff679e51e257ddc2258633a378fb03f51a0a91ef9a8');
+test('World is pinned to VQ02B context/density integration; retained methods are separately fingerprinted',()=>{
+ const source=readFileSync('src/render.ts','utf8');assert.equal(sha(source),'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811');
 });
 
 test('fair view reads live media preference without caller or global input changes',()=>{

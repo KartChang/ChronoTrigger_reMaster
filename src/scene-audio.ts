@@ -65,8 +65,7 @@ export class SceneAudio {
    this.lastTick=s.ticks;
    if(halted||!this.requested||this.context?.state!=='running'){this.hold();return;}
    this.blocked=false;
-   const ctx=this.context;
-   this.master!.gain.setValueAtTime(MASTER_LEVEL,ctx.currentTime);
+   this.setMaster(MASTER_LEVEL);
    this.reap();
    const score=SCORES[cue],step=Math.floor((s.ticks-this.anchor)/score.stepTicks);
    if(step<=this.cursor)return;
@@ -100,8 +99,15 @@ export class SceneAudio {
   try {p.gain.disconnect();}catch{}
  }
  private reap():void {for(const p of this.voices)if(p.end<=this.context!.currentTime)this.release(p,true);}
+ /** The master is an immediate gate, not a note envelope. Past automation events
+  * can retain the AudioParam value after its input is disconnected. Cancel the
+  * complete gate timeline and set the intrinsic value; note envelopes stay scheduled. */
+ private setMaster(value:number):void {
+  if(!this.master)return;
+  this.master.gain.cancelScheduledValues(0);this.master.gain.value=value;
+ }
  private silence():void {
-  if(this.context&&this.master)try {this.master.gain.cancelScheduledValues(this.context.currentTime);this.master.gain.setValueAtTime(0,this.context.currentTime);}catch{}
+  try {this.setMaster(0);}catch{}
   for(const p of [...this.voices])this.release(p,true);
  }
  private fail(error:unknown):void {this.requested=false;this.blocked=true;this.failure=error instanceof Error?error.message:String(error);this.silence();}
@@ -121,7 +127,7 @@ export class SceneAudio {
   }
   return {profile:MUSIC_PROFILE,enabled:this.requested,blocked:this.blocked,context:this.context?.state??'not-created',contextCount:this.contexts,
    cue:this.cue,step:this.cursor,epoch:this.epoch,notesStarted:this.total,activeVoices:this.voices.size,peakVoices:this.peak,voiceLimit:VOICE_LIMIT,
-   masterGain:this.master?.gain.value??0,rms,skippedSteps:this.skipped,error:this.failure,disposed:this.disposed,
+   masterGain:this.master?.gain.value??0,contextTime:this.context?.currentTime??null,analyserSize:this.analyser?.fftSize??0,rms,skippedSteps:this.skipped,error:this.failure,disposed:this.disposed,
    source:'live-web-audio-nodes-and-analyser',originalSoundtrack:false,physicalAudioVerified:false,approved:false};
  }
 }

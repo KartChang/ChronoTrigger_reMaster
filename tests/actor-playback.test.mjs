@@ -1,3 +1,4 @@
+import {runtimeBaselineBytes} from './helpers/runtime-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -11,7 +12,7 @@ const at=(x=0,z=0,scale=1,seed=0,reducedMotion=false)=>Object.freeze({x,z,scale,
 const hash=b=>createHash('sha256').update(b).digest('hex');
 test('C wiring reverses exactly to CI44, while native assets and gameplay source remain unchanged',()=>{
  assert.equal(hash(actorBaseline(readFileSync('src/render.ts','utf8'))),'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811');
- for(const [p,h] of Object.entries({'src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a','src/main.ts':'89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120','src/core.ts':'d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d'}))assert.equal(hash(readFileSync(p)),h,p);
+ for(const [p,h] of Object.entries({'src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a','src/main.ts':'89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120','src/core.ts':'d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d'}))assert.equal(hash(runtimeBaselineBytes(p,readFileSync(p))),h,p);
  assert.throws(()=>actorBaseline(readFileSync('src/render.ts','utf8').replace('private heroFrames=new HeroFrameCache(96,drawHDHero);','private heroFrames=null;')));
 });
 for(const hero of HD_HERO_IDS)test(`${hero}: all 128 retained native frames replay byte-exactly, including warm cache`,()=>{

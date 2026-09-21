@@ -149,6 +149,22 @@ def observe_home(page):
     case.update(status='passed', actualStairs=True, motherTalked=True, originalMapTransitions=True)
 
 
+def runtime_observation(page):
+    # Wait for real render-loop samples, never inject timings or game state.
+    page.wait_for_function("""()=>{const r=window.__CHRONO_TEST__.view().renderer;
+      return r.frames?.active && r.frames.samples>=60 && document.getElementById('fps').textContent.includes(' FPS');}""", timeout=15000)
+    observed = page.evaluate("""()=>({renderer:window.__CHRONO_TEST__.view().renderer,
+      label:document.getElementById('fps').textContent,title:document.getElementById('fps').title,
+      build:document.getElementById('build-info').textContent})""")
+    f = observed['renderer']['frames']
+    assert f['ready'] and f['active'] and 60 <= f['samples'] <= 120
+    assert f['meanMs'] > 0 and f['fps'] > 0 and f['p95Ms'] <= f['maxMs']
+    assert abs(f['fps'] * f['meanMs'] - 1000) < .000001
+    assert observed['label'].startswith('CPU／Canvas2D') and 'WebGL' not in observed['label']
+    assert meta['version'] in observed['build'] and meta['sourceSha'][:8] in observed['build']
+    return observed
+
+
 def observe_fair(page):
     case = {'name': 'fair-coop-combat-save', 'status': 'running', 'views': []}
     report['cases'].append(case)
@@ -170,6 +186,7 @@ def observe_fair(page):
     after_p2 = snap(page)
     assert after_p2['players'][0]['x'] == after_p1['players'][0]['x']
     case['ownership'] = {'before': before, 'afterP1': after_p1, 'afterP2': after_p2}
+    active_diagnostics = runtime_observation(page)
     page.keyboard.press('Escape')
     page.wait_for_function('window.__CHRONO_TEST__.paused()', timeout=10000)
     frozen = snap(page)
@@ -187,6 +204,18 @@ def observe_fair(page):
         case['views'].append({**observed(page), 'viewport': name, 'image': picture(page, 'cpu-'+name)})
         assert snap(page) == frozen
     page.set_viewport_size({'width': 960, 'height': 640})
+    presentation = {'active': active_diagnostics, 'before': frozen}
+    for mode in ['quality', 'compatibility']:
+        page.locator('#render-quality').select_option(mode)
+        page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+        presentation[mode] = {**observed(page), 'image': picture(page, 'cpu-'+mode)}
+        presentation[mode+'State'] = snap(page)
+        assert presentation[mode+'State'] == frozen
+        assert presentation[mode]['renderer']['mode'] == mode
+    q, c = presentation['quality']['renderer'], presentation['compatibility']['renderer']
+    assert c['width']*c['height'] < q['width']*q['height'] and c['scaling'] > q['scaling']
+    page.locator('#render-quality').select_option('auto')
+    case['presentation'] = presentation
     activate(page, '#resume')
     page.wait_for_function('!window.__CHRONO_TEST__.paused()', timeout=10000)
     case['pauseStateUnchanged'] = True

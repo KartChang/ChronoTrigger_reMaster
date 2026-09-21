@@ -1,0 +1,30 @@
+{
+  "baseSource": "f07a42bfa7357e1a9ddcebfa8a790855927051b4",
+  "baseMainSha256": "89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120",
+  "replacements": [
+    [
+      "import {showRenderFailure} from './render-status';",
+      "import {buildLabel,renderLabel} from './runtime-info';\nimport {showRenderFailure} from './render-status';"
+    ],
+    [
+      "  let frame=0;\n",
+      "  $('build-info').textContent=buildLabel();\n  let frame=0;\n"
+    ],
+    [
+      "    if(frame++%30===0){const fps=world.engine.getFps(),r=world.inspectRenderer(),label=r.backendHint==='software'?'軟體 WebGL':'WebGL';$('fps').textContent=`${label} ${r.webglVersion} · ${r.reason==='browser-default'||r.reason==='user-quality'?'原畫質':'相容解析度'} · ${Number.isFinite(fps)?Math.round(fps):'—'} FPS`;}",
+      "    if(frame++%30===0){const label=renderLabel(world.inspectRenderer());$('fps').textContent=label.text;$('fps').title=label.title;}"
+    ],
+    [
+      "開場篇 0.3 ·",
+      "開場篇 ·"
+    ],
+    [
+      "王國篇 0.4 ·",
+      "王國篇 ·"
+    ],
+    [
+      "救援篇 0.6 ·",
+      "救援篇 ·"
+    ]
+  ]
+}

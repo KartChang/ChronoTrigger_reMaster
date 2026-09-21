@@ -1,3 +1,4 @@
+import {runtimeBaselineBytes} from './helpers/runtime-baseline.mjs';
 // VQ02C reverses only declared actor wiring before preserving the original CI44 source pins.
 import {actorBaselineBytes} from './helpers/actor-baseline.mjs';
 // VQ02B explicitly advances only renderer/main pins for requested context/density wiring.
@@ -53,7 +54,7 @@ test('inspection exposes actual material damage and cannot mutate live state',()
  finally{k.dispose();}
 });
 test('tree and actor source pixels, global renderer and HUD remain byte-identical',()=>{
- for(const [p,h] of Object.entries({'src/render.ts':'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811','src/main.ts':'89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120','src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a'}))assert.equal(sha(actorBaselineBytes(p,readFileSync(p))),h);
+ for(const [p,h] of Object.entries({'src/render.ts':'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811','src/main.ts':'89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120','src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a'}))assert.equal(sha(actorBaselineBytes(p,runtimeBaselineBytes(p,readFileSync(p)))),h);
  const k=setup();try{for(const name of ['lucca-handdrawn','gato-handdrawn','fair-vendor-cloth','fair-tree']){const m=k.scene.getMeshByName(name).material;assert(m.disableLighting);assert.equal(m.diffuseTexture.samplingMode,1);}}
  finally{k.dispose();}
 });

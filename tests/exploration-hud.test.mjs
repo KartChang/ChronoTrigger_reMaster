@@ -1,8 +1,9 @@
+import {runtimeBaseline} from './helpers/runtime-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-const source=readFileSync('src/main.ts','utf8');
+const source=runtimeBaseline(readFileSync('src/main.ts','utf8')); // Declared diagnostics/text changes only.
 const begin=source.indexOf('function layoutFeedback():void{'),end=source.indexOf('\n}',begin)+2;
 // Production measurement logic with synthetic layout ports, not browser evidence.
 const code=source.slice(begin,end).replace('():void','()');

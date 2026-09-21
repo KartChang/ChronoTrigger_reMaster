@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {assertCpuEvidence,inspectCpuEvidence} from '../scripts/cpu-evidence.mjs';
 import {createHash} from 'node:crypto';import {mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';import {join} from 'node:path';import {tmpdir} from 'node:os';
 const sha=b=>createHash('sha256').update(b).digest('hex');
-const identity={sourceSha:'a'.repeat(40),runId:'123',runAttempt:'1',htmlSha256:sha('test-html'),htmlBytes:9};
+const identity={sourceSha:'a'.repeat(40),runId:'123',runAttempt:'1',version:'0.9.28',htmlSha256:sha('test-html'),htmlBytes:9};
 const png=Buffer.from('89504e470d0a1a0a00010203','hex'),saveRaw=JSON.stringify({version:2});
 // Synthetic rejection tests only. Never written to CI report output directories.
 function fixture(){
@@ -11,10 +11,13 @@ function fixture(){
  const before=state(),afterP1=state(),afterP2=state();afterP1.players[0].x=.5;afterP2.players[0].x=.5;afterP2.players[1].x=1.5;
  const save={sameRunExport:true,indexedDbReload:true,path:'cpu-own-fair-save.json',version:2,bytes:Buffer.byteLength(saveRaw),sha256:sha(saveRaw),before:state(),after:state()};
  save.nativeImport={status:'passed',expected:'imported',stage:'completed',terminal:{event:'imported'},frozenWhileSelecting:true,freezeComparison:{equal:true},selection:{bytes:save.bytes,sha256:save.sha256}};
- return {schema:'chrono-cpu-renderer-v1',status:'passed',...identity,physicalDevice:false,artApproved:false,wholeGameAccepted:false,errors:[],launchArgs:['--no-sandbox','--disable-webgl'],backendPreference:'auto',cases:[{name:'fresh-home-to-fair',status:'passed',loadMs:100,views:['bedroom','home','overworld1000','fair'].map(c=>observation('home-'+c,c)),actualStairs:true,motherTalked:true,originalMapTransitions:true},{name:'fair-coop-combat-save',status:'passed',loadMs:100,views:['desktop','portrait','short-landscape'].map(c=>observation(c)),pauseStateUnchanged:true,ownership:{before,afterP1,afterP2},victory:{...observation('victory'),state:{...state(),mode:'victory',enemies:[{hp:0}]}},afterImport:observation('after-import'),save}]};
+ const presentation={active:{renderer:{densityPolicy:'cpu-pixel-budget',frames:{profile:'vq02f-active-frame-window',active:true,ready:true,samples:60,capacity:120,meanMs:50,p95Ms:60,maxMs:70,fps:20}},label:'CPU／Canvas2D · 20 FPS',title:'P95；不是 GPU 時間',build:'開發試玩 0.9.28 · aaaaaaaa'},before:state(),qualityState:state(),compatibilityState:state(),quality:observation('cpu-quality'),compatibility:observation('cpu-compatibility')};
+ presentation.quality.renderer.mode='quality';presentation.quality.renderer.scaling=1;presentation.compatibility.renderer.mode='compatibility';presentation.compatibility.renderer.scaling=2;presentation.compatibility.renderer.width=16;presentation.compatibility.renderer.height=9;presentation.compatibility.pixels.width=16;presentation.compatibility.pixels.height=9;presentation.compatibility.pixels.opaque=144;
+ return {schema:'chrono-cpu-renderer-v1',status:'passed',...identity,physicalDevice:false,artApproved:false,wholeGameAccepted:false,errors:[],launchArgs:['--no-sandbox','--disable-webgl'],backendPreference:'auto',cases:[{name:'fresh-home-to-fair',status:'passed',loadMs:100,views:['bedroom','home','overworld1000','fair'].map(c=>observation('home-'+c,c)),actualStairs:true,motherTalked:true,originalMapTransitions:true},{name:'fair-coop-combat-save',status:'passed',loadMs:100,views:['desktop','portrait','short-landscape'].map(c=>observation(c)),pauseStateUnchanged:true,presentation,ownership:{before,afterP1,afterP2},victory:{...observation('victory'),state:{...state(),mode:'victory',enemies:[{hp:0}]}},afterImport:observation('after-import'),save}]};
 }
 test('synthetic CPU validator fixture is internally complete, not browser evidence',()=>assert(assertCpuEvidence(fixture(),identity)));
 for(const [label,mutate] of Object.entries({
+ missingFrames:r=>delete r.cases[1].presentation.active.renderer.frames,falseFrameFps:r=>r.cases[1].presentation.active.renderer.frames.fps=0,fakeBackendLabel:r=>r.cases[1].presentation.active.label='WebGL 0',wrongBuildLabel:r=>r.cases[1].presentation.active.build='old',unchangedCpuResolution:r=>r.cases[1].presentation.compatibility.renderer.width=1000,qualityChangesState:r=>r.cases[1].presentation.qualityState.players[0].x=2,
  missingWork:r=>delete r.cases[0].views[0].renderer.cpu.work,invalidWork:r=>r.cases[0].views[0].renderer.cpu.work.fastAccepted=NaN,inconsistentWork:r=>r.cases[0].views[0].renderer.cpu.work.submittedTriangles=100,overculled:r=>r.cases[0].views[0].renderer.cpu.work.culledSubmeshes=50,missingCpuNote:r=>r.cases[0].views[0].ui.cpuNotePresent=false,misleadingHelp:r=>r.cases[0].views[0].ui.help='WebGL only',
  failure:r=>r.status='failed',wrongSource:r=>r.sourceSha='b'.repeat(40),wrongRun:r=>r.runId='124',wrongHtml:r=>r.htmlSha256='0'.repeat(64),wrongAttempt:r=>r.runAttempt='2',errors:r=>r.errors.push('runtime'),fakeHardware:r=>r.cases[0].views[0].renderer.backend='webgl',api:r=>r.cases[0].views[0].renderer.webglVersion=2,emptyCanvas:r=>r.cases[0].views[0].pixels.max=10,
  rendererNoDraw:r=>r.cases[0].views[0].renderer.cpu.fragments=0,missingTexture:r=>r.cases[0].views[0].renderer.cpu.unsupportedResources=1,oversized:r=>r.cases[0].views[0].pixels.width=9999,memory:r=>r.cases[0].views[0].renderer.cpu.textureMemory.bytes=33554433,
@@ -24,10 +27,10 @@ for(const [label,mutate] of Object.entries({
 }))test('CPU evidence rejects '+label,()=>{const r=fixture();mutate(r);assert.throws(()=>assertCpuEvidence(r,identity));});
 test('read-only CPU ledger verifies raw PNG, same-run export and native record bytes',()=>{
  const root=mkdtempSync(join(tmpdir(),'cpu-ledger-unit-')),dir=join(root,'reports'),buildDir=join(root,'dist');mkdirSync(dir);mkdirSync(buildDir);const r=fixture();
- try{writeFileSync(join(buildDir,'index.html'),'test-html');writeFileSync(join(buildDir,'build-meta.json'),JSON.stringify({sourceSha:identity.sourceSha,bytes:9}));writeFileSync(join(dir,'report.json'),JSON.stringify(r));
- for(const c of r.cases)for(const o of [...c.views,c.victory,c.afterImport].filter(Boolean))writeFileSync(join(dir,o.image.path),png);
+ try{writeFileSync(join(buildDir,'index.html'),'test-html');writeFileSync(join(buildDir,'build-meta.json'),JSON.stringify({sourceSha:identity.sourceSha,version:identity.version,bytes:9}));writeFileSync(join(dir,'report.json'),JSON.stringify(r));
+ for(const c of r.cases)for(const o of [...c.views,c.victory,c.afterImport,c.presentation?.quality,c.presentation?.compatibility].filter(Boolean))writeFileSync(join(dir,o.image.path),png);
  writeFileSync(join(dir,r.cases[1].save.path),saveRaw);writeFileSync(join(dir,'native-import-report.json'),JSON.stringify({sourceSha:identity.sourceSha,status:'passed',attempts:[r.cases[1].save.nativeImport]}));
- assert.equal(inspectCpuEvidence({dir,buildDir,...identity}).files.length,12);
+ assert.equal(inspectCpuEvidence({dir,buildDir,...identity}).files.length,14);
  writeFileSync(join(dir,r.cases[1].save.path),'changed');assert.throws(()=>inspectCpuEvidence({dir,buildDir,...identity}),/own save/);
  }finally{rmSync(root,{recursive:true,force:true});}
 });

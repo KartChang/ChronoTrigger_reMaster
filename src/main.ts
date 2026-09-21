@@ -1,3 +1,4 @@
+import {buildLabel,renderLabel} from './runtime-info';
 import {showRenderFailure} from './render-status';
 import {SceneAudio} from './scene-audio';
 import {takeFrameEffects,FeedbackClock} from './presentation-state';
@@ -180,7 +181,7 @@ function updateHud():void{
     $('continue').textContent=state.mode==='victory'?'繼續前進':'重新整裝';
     $('result-title').textContent=state.mode==='victory'?'戰鬥勝利':'克羅諾倒下了';
     $('result-text').textContent=state.mode==='victory'?'山道安靜了下來。繼續尋找瑪兒。':'回到山道入口，重新嘗試。';
-    $('scene-note').textContent='開場篇 0.3 · 原創素材重建／山道配置與數值尚未精確還原';
+    $('scene-note').textContent='開場篇 · 原創素材重建／山道配置與數值尚未精確還原';
     $('enemy-hp').textContent=state.enemies.map((e,i)=>`魔物 ${i+1} · HP ${e.hp}/48`).join('　');
     $('party-mode').textContent=state.joined?'P2 暫時觀戰':'克羅諾獨自行動';
     $('combo-status').textContent='瑪兒不在隊伍中，暫時不能使用合技。';
@@ -196,7 +197,7 @@ function updateHud():void{
     const point=nearestKingdom(state.players[0].x,state.players[0].z,state.chapter,state.kingdom.phase);
     $('interact-hint').hidden=!started||dialogOpen||cutsceneActive(state)||state.mode!=='explore'||!point;
     $('interact-hint').textContent=point?'E · '+point.label:'';
-    $('scene-note').textContent='王國篇 0.4 · 重建地圖／原創素材與對話／非原作精確數值';
+    $('scene-note').textContent='王國篇 · 重建地圖／原創素材與對話／非原作精確數值';
     $('enemy-hp').textContent=state.enemies.map((e,i)=>`魔物 ${i+1} · HP ${e.hp}/48`).join('　');
     $('result-title').textContent=state.mode==='victory'?'戰鬥勝利':'重新整裝';$('result-text').textContent=state.mode==='victory'?'小路安靜下來。北方是加爾迪亞王城。':'回到森林入口，再試一次。';$('continue').textContent=state.mode==='victory'?'繼續前進':'回入口休息';
     if(!activeSlot(state,1))$('combo-status').textContent='此時只有克羅諾，無法使用合技。';
@@ -208,7 +209,7 @@ function updateHud():void{
   $('guest-stats').textContent=state.mode==='battle'?`HP ${g.hp}/${GUEST_HP} · MP ${g.mp}/${GUEST_MP} · ATB ${Math.floor(g.atb*100)}%`:'第三位同伴 · 自動跟隨';
   if(state.rescue.stage!=='none'){
     const text=rescueObjective(state.rescue);$('objective').textContent=text;$('story-caption').textContent=text;$('story-caption').hidden=!started||dialogOpen;
-    $('scene-note').textContent='救援篇 0.6 · 原版對照重畫／壓縮路線／暫定戰鬥數值';
+    $('scene-note').textContent='救援篇 · 原版對照重畫／壓縮路線／暫定戰鬥數值';
     $('party-mode').textContent=guest?(state.joined?'雙人操作 ＋ 同伴 AI':'單人 ＋ 同伴 AI'):(state.joined?'克羅諾 ＋ 露卡 · 雙人':'克羅諾 ＋ 露卡');
     if(rescueMap(state.chapter)){
       $('era').textContent='600 AD';$('location').textContent=RESCUE_NAMES[state.chapter];
@@ -279,6 +280,7 @@ try{
   $<HTMLButtonElement>('start').disabled=false;$<HTMLButtonElement>('start-coop').disabled=false;$('start').textContent='技術村落 · 單人';
   $<HTMLButtonElement>('start-story').disabled=false;$<HTMLButtonElement>('start-story-coop').disabled=false;
   $<HTMLButtonElement>('start-fair').disabled=false;$<HTMLButtonElement>('start-fair-coop').disabled=false;updateHud();
+  $('build-info').textContent=buildLabel();
   let frame=0;
 
   world.start(()=>{
@@ -300,7 +302,7 @@ try{
     world.draw(state,dt,running||!started,takeFrameEffects(state,running));
     hudTime+=dt;if(hudTime>.08){updateHud();hudTime=0;}
     if(!feedbackClock.advance(dt,halted()))$('message').classList.remove('show');
-    if(frame++%30===0){const fps=world.engine.getFps(),r=world.inspectRenderer(),label=r.backendHint==='software'?'軟體 WebGL':'WebGL';$('fps').textContent=`${label} ${r.webglVersion} · ${r.reason==='browser-default'||r.reason==='user-quality'?'原畫質':'相容解析度'} · ${Number.isFinite(fps)?Math.round(fps):'—'} FPS`;}
+    if(frame++%30===0){const label=renderLabel(world.inspectRenderer());$('fps').textContent=label.text;$('fps').title=label.title;}
   });
   const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;audio:()=>ReturnType<typeof soundtrack.inspect>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};
   if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect(),audio:()=>soundtrack.inspect(),importStatus:()=>saveImport.inspect()};

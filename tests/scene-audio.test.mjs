@@ -1,3 +1,4 @@
+import {runtimeBaseline} from './helpers/runtime-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -172,7 +173,7 @@ function gameplayFingerprints(source){
 }
 test('all retained gameplay functions match the exact accepted source after only explicit audio calls',()=>{
  assert.equal(Object.keys(functionFixture.functions).length,22);
- assert.deepEqual(gameplayFingerprints(readFileSync('src/main.ts','utf8')),functionFixture.functions);
+ assert.deepEqual(gameplayFingerprints(runtimeBaseline(readFileSync('src/main.ts','utf8'))),functionFixture.functions);
 });
 test('a mutation to old movement/action/save logic is not hidden by the explicit audio-call comparison',()=>{
  const source=readFileSync('src/main.ts','utf8');assert(source.includes('const raw=serialize(state)'));

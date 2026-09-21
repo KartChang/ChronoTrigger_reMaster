@@ -37,6 +37,17 @@ export function assertCpuEvidence(r,identity){
  need(b?.joined===true&&a?.joined===true&&c?.joined===true&&a.players[0].x>b.players[0].x+.3&&a.players[1].x===b.players[1].x&&a.players[1].z===b.players[1].z&&c.players[1].x>a.players[1].x+.3&&c.players[0].x===a.players[0].x&&c.players[0].z===a.players[0].z,'independent native P1/P2 not observed');
  observation(f.victory);observation(f.afterImport);
  need(f.victory.state?.mode==='victory'&&f.victory.state.fair.gatoWon===true&&f.victory.state.enemies?.length>0&&f.victory.state.enemies.every(e=>e.hp<=0),'real combat completion missing');
+ const d=f.presentation,frame=d?.active?.renderer?.frames;
+ need(d?.active?.renderer?.densityPolicy==='cpu-pixel-budget'&&frame?.profile==='vq02f-active-frame-window'&&frame.active===true&&frame.ready===true,'native frame observation missing');
+ need(Number.isInteger(frame.samples)&&frame.samples>=60&&frame.samples<=120&&frame.capacity===120,'invalid frame sample window');
+ need([frame.meanMs,frame.p95Ms,frame.maxMs,frame.fps].every(finite)&&frame.meanMs>0&&frame.fps>0&&frame.p95Ms>0&&frame.p95Ms<=frame.maxMs&&frame.meanMs<=frame.maxMs&&Math.abs(frame.fps*frame.meanMs-1000)<.000001,'frame measurements inconsistent');
+ need(typeof d.active.label==='string'&&d.active.label.startsWith('CPU／Canvas2D')&&d.active.label.includes(' FPS')&&!d.active.label.includes('WebGL'),'misleading backend label');
+ need(typeof identity.version==='string'&&d.active.build?.includes(identity.version)&&d.active.build.includes(identity.sourceSha.slice(0,8)),'bundle version/source label mismatch');
+ need(d.active.title?.includes('P95')&&d.active.title.includes('不是 GPU 時間'),'interval measurement not explained');
+ observation(d.quality);observation(d.compatibility);
+ const q=d.quality.renderer,k=d.compatibility.renderer;
+ need(q.mode==='quality'&&k.mode==='compatibility'&&k.width*k.height<q.width*q.height&&k.scaling>q.scaling,'CPU cap cancelled native resolution selection');
+ need(d.before?.players?.length===2&&equal(d.before,d.qualityState)&&equal(d.before,d.compatibilityState),'quality selection changed game state');
  const save=f.save,n=save?.nativeImport;
  need(save?.sameRunExport===true&&save.indexedDbReload===true&&save.version===2&&save.path==='cpu-own-fair-save.json'&&save.bytes>0&&/^[a-f0-9]{64}$/.test(save.sha256),'original player export missing');
  need(n?.status==='passed'&&n.expected==='imported'&&n.stage==='completed'&&n.terminal?.event==='imported'&&n.frozenWhileSelecting===true&&n.freezeComparison?.equal===true&&n.selection?.bytes===save.bytes&&n.selection.sha256===save.sha256,'native import not proven');
@@ -47,10 +58,10 @@ export function inspectCpuEvidence({dir,buildDir,sourceSha,runId,runAttempt}){
  need(/^[a-f0-9]{40}$/.test(sourceSha??'')&&/^[1-9][0-9]*$/.test(runId??'')&&/^[1-9][0-9]*$/.test(runAttempt??''),'exact CI identity missing');
  const html=readFileSync(join(buildDir,'index.html')),meta=JSON.parse(readFileSync(join(buildDir,'build-meta.json')));
  need(meta.sourceSha===sourceSha&&meta.bytes===html.length,'build identity mismatch');
- const identity={sourceSha,runId,runAttempt,htmlSha256:sha(html),htmlBytes:html.length},raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);
+ const identity={sourceSha,runId,runAttempt,htmlSha256:sha(html),htmlBytes:html.length,version:meta.version},raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);
  assertCpuEvidence(r,identity);
  const files=[{path:'report.json',bytes:raw.length,sha256:sha(raw)}];
- for(const c of r.cases)for(const o of [...c.views,c.victory,c.afterImport].filter(Boolean)){
+ for(const c of r.cases)for(const o of [...c.views,c.victory,c.afterImport,c.presentation?.quality,c.presentation?.compatibility].filter(Boolean)){
   const item=o.image,b=readFileSync(join(dir,item.path));need(b.length===item.bytes&&sha(b)===item.sha256&&b.subarray(0,8).toString('hex')==='89504e470d0a1a0a','original PNG mismatch');files.push({...item});
  }
  const save=r.cases[1].save,b=readFileSync(join(dir,save.path));need(b.length===save.bytes&&sha(b)===save.sha256&&JSON.parse(b).version===2,'unmodified own save mismatch');files.push({path:save.path,bytes:b.length,sha256:sha(b)});

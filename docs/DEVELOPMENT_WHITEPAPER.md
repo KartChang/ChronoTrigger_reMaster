@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-21-vq01w-ci40-handoff。更新既有進度，不重新規劃。精確source／run／接續點只看STATUS／IMMEDIATE_CONTINUATION。先前全文保留於093f7f122c9d9b2b5bc0c96091705f2db2ccdd78；舊CI38-only文字不再是目前執行位置。
+版本：product-2026-09-21-vq01x-ci41-handoff。更新既有進度，不重新規劃。精確source／run／接續點以STATUS／IMMEDIATE_CONTINUATION為準。前版全文保留於b795605fe4f40abd2b3f786f6ada90534a938b82，舊CI40-pending不是目前待辦。
 
 ## 目標、順序與固定技術
 
@@ -24,29 +24,27 @@ IndexedDB與JSON白名單v1–v8保留：技術村落、千年祭、異變山道
 
 ## 前段品質與使用者回饋
 
-使用者表示目前試玩仍看不出承諾的HD-2D精緻感。這是尚未解決的視覺交付落差，不應只回答「還沒到90分」而迴避。像素人物＋立體場景／選用Babylon是技術方向，不等於統一而成熟的美術成品。90分是完成後須由實際證據支持的驗收門檻，不是特效開關或測試數累積。沒有目前美術已達90分的有效證據；舊30分stale，不作新評分。
+使用者反映試玩缺乏承諾的HD-2D精緻感，這仍是視覺交付落差。像素人物＋立體引擎不等於統一成熟的成品；90是完成後的證據門檻，不是特效开關或測試累計。沒有目前美術90分的有效證據；舊30分stale，不作新評分。
 
-實際CI39祭典畫面仍有大面積重複石板主導構圖、平面像素樹木與立體道具間的風格落差、材質及光影區分不足。家中母親／家具仍簡化，人物輪廓、比例、完整方向與戰鬥動作、場景細節、動畫音樂與真機驗收仍未完成。先前HUD與測試生命週期修復有功能價值，但不能當成主要美術已完成。不能靠加模糊／光暈、換引擎或提高自評掩蓋素材與構圖缺口。
+本次CI40實際桌面、直向與短橫向圖可確認鐘與樹根接地、棚布淡化、探索提示分列和選單有界，但大片粗石板仍搶眼，陰影偏重、像素人物植物與立體道具仍有不一致。家中母親／家具、人物比例輪廓、完整動作與全動畫音訊、實體裝置仍未完成。HUD與可靠性進步不能當成主要美術完成；不靠全畫面模糊、換引擎或提高自評掩蓋。
 
 ## 最新已閉環與保留工作
 
-中斷前已發布VQ01V／0.9.18，source093f7f122c9d9b2b5bc0c96091705f2db2ccdd78、treee8aaf3f7c73232f28acb5b4c1d359d8b3311fd7b，祭典旗幟／鐘／傳送器等呈現依simulation ticks與減少動態偏好處理；不要重做。
+**CI40 35557960815／Pages34 35559566958／0.9.19**，source07dfac49893583d0e24f66b215f89ff6d8e8505a、tree39991e8835da9645b460a88ba5634f0889504bd1，三job／13主報告／9原生選檔／3來源ledger及報告bytes/hash皆通過。原HUD十案例、地面三視窗、場景正常／暫停／減少動態、W光源材質與6樹根／8柔邊陰影、桌面context關閉後觸控完整load2571.73ms／兩視窗／trace、裝備經濟／接地突進／存讀／勝利／完整審判均保留。不是用progress取代最終報告。
 
-**CI39 35552110336／Pages33 35553893970**已完成三job、13主旅程、9原生選檔、3source/run/attempt/HTML ledger及報告bytes/hash核對。保留HUD十案例、地面三視窗、場景正常／暫停／減少動態三視窗、真實桌面context退休後的觸控載入／兩視窗／trace、裝備經濟／存讀／接地突進／勝利／完整審判等全部既有旅程。觸控完整load為2487.34ms，30秒門檻未改。
+Pages34兩job成功；staged10621786578與playable10621601376/source/CI/HTML一致，5631661bytes/SHA256225ac627a4cedcfff0cbe8cca6b3a29f0c7f90cd7e9ebbfc3c0e163d2b5d3cc8。公開HTTP驗證歸屬實際成功deploy步驟，沒有本機獨立live-byte或瀏覽器宣稱。原始六ZIP已雲端回讀；CI40_ACCEPTANCE/CI40_VISUAL_REVIEW只接受既有可玩與部署，不是美術90／全作／硬體。CI39／Pages33、CI36／Pages30及更早閉環不重開。
 
-Pages33兩job成功；staged與CI原HTML逐byte一致：5627863bytes、SHA256fa038b63e8c6125fe20096e66e170a2a58c64d7d01da1593e04ad4c31fe1a9b7，source／CI／playable10619172331一致。公開HTTP來源與hash驗證歸屬成功deploy步驟，本機沒有獨立HTTP或瀏覽器結果。原始六份ZIP已指定Drive保存／回讀；CI39_ACCEPTANCE及CI39_VISUAL_REVIEW只接受既有可玩路線及部署，不是全作、美術90或硬體通過。CI39／Pages33、CI36／Pages30、CI35／Pages29及更早閉環不重開。
+VQ01A/B/C保存畫筆、四主角、鏡頭、接地與陰影，P祭典棚布／鐘／傳送器／攤位，S地面明暗／取樣，T探索HUD，U觸控生命週期，V固定tick動態，W獨立光照／銅件／樹根接觸全部保留。家中保存素材不重畫；受限renderer不能旁路替換。歷史43／31不是当前缺檔數。
 
-保存並整合的VQ01A/B/C四主角畫筆、鏡頭、接地與陰影、VQ01P祭典棚布／鐘／傳送器／攤位、VQ01S地面取樣／明暗、VQ01T探索HUD、VQ01U觸控生命週期皆保留。A→B→C保存的家中家具／材質／母親等不重畫；受限renderer整合不得用旁路替換。歷史43／31不是現在缺檔數。
+## 本批已發布 VQ01X／0.9.20
 
-## 本批已發布 VQ01W／0.9.19
+Source **a67178ae18c00bcfd552dff25174d6f14b759292**，tree **3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa**，13份程式／測試／建置檔案非force發布並匹配完整測試tree與blob，保留目前文件子樹。唯一 **CI41 35561161523**，push/attempt1，建立2026-09-21T04:29:12Z，最後觀察in_progress/null updated04:29:15Z。
 
-Source **07dfac49893583d0e24f66b215f89ff6d8e8505a**，tree **39991e8835da9645b460a88ba5634f0889504bd1**。11份相關程式／測試非force提交並匹配完整已測試tree／blob；唯一 **CI40 35557960815**，push/attempt1，建立2026-09-21T03:34:18Z，最後觀察in_progress/null updated03:34:21Z。
+保留原drawSurface／鋪面畫筆程式不變，透過虛擬2倍畫筆密度在同512×512紋理形成較小石板，降低石縫對比，並加入中央／南側暖色走道、鐘庭邊框及外緣。花園像素含原2×2邊界stamp全部逐byte保留；不改地圖方向、尺寸、地形碰撞或已整合素材。不新增runtime網格／圖檔／shadowmap，不逐幀紋理更新；CPU繪製成本增加，沒有真機速度宣稱。素材匯出fair-ground與runtime現在使用同一構圖。
 
-只改善允許獨立修改的祭典：lit fair mesh使用0.28冷色局部補光，排除不屬此場景的其他光源影響，保留原主光及shadow generator，不改其他地圖光值。鐘／傳送器銅件個別材質具金屬反光，布木／地面霧面保留。六棵既有樹圖用77/80像素樹根與相機方向校正實際接地，樹根與鐘柱合計八個不可變柔邊alpha接觸網格；不新增圖檔或shadowmap、不改碰撞。原畫筆／圖素、主角與NPC既有接地、場景尺寸、HUD／場景動作／全域render／main／核心皆保留。
+既有三視窗正常／暫停／減少動態旅程記錄六條16×1實際canvas像素，和明示為來源畫筆預期而非驗收證據的fixture比對。原九张實際截圖位置保留，所有舊瀏覽器斷言保留。938Node／186Python、資產／型別／建置／compile通過；初次兩項新增單元的舊1×1mock尺寸與Size原型比較已修正，沒有刪舊斷言或掩蓋runtime失敗。
 
-實際light/material/mesh矩陣／樹根誤差／陰影buffer觀察接入既有三視窗正常／暫停／減少動態旅程及原九張截圖，不另造成功存檔、不增重試或放寬timeout。923Node／178Python、資產／型別／建置／compile通過；全部原瀏覽器斷言保留。初次新增單元的Babylon陣列deep-equality格式化被終止，僅改該新增斷言為長度及物件身份比較，完整最終測試通過。沒有本機瀏覽器；NullEngine觀察只是單元證據。
-
-新版HTML5631661bytes／SHA256225ac627a4cedcfff0cbe8cca6b3a29f0c7f90cd7e9ebbfc3c0e163d2b5d3cc8仍待CI40。新光與網格有運算成本，沒有真機FPS／記憶體或已改善觀感的宣稱。本批不是完整精緻場景；主要構圖／素材／人物／動畫缺口仍需後續實作與畫面支持。
+新HTML5633660bytes/SHA2560a174c1b808dbd3d4dd20323f3a57b158d6ec607996fdf2e18147da61092dffb尚未取得瀏覽器結果。來源畫筆預覽不是遊戲畫面，本機瀏覽器未執行。實際細緻感、整體比例與效能仍需新CI原始圖片和裝置證據，不能將這批鋪面說成完整90分場景。
 
 ## 未完成範圍與門檻
 
@@ -54,8 +52,8 @@ T03：隱藏規則／版本差異／完整地圖室內迷宮拓樸及原作數�
 
 ## 雲端與限制
 
-指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1Z8tqDVg7lpcI3bCjw43UJeXjq-tYaXyz**，35627649bytes，SHA2569f6c7284950c5e1518aa71ee8e693a3c49910f90e07e5b4daa10dce3c7bf1a93，已下載回讀hash／CRC／27清單／11增量／正確父資料夾。CI39原始tar＋working-delta恢復程式；最新GitHub文件覆蓋封存中的prepublication狀態。臨時容器不作永久依據。
+只放folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **130yAJRxI1PTDCUOnKHHRsQQkrr-HMr_j**，36720011bytes/SHA25635a2d7a8ee1789515ce474ae3c4d9795313161acd1027803a108efd4dbfc2fed，已下載回讀整包hash／CRC／33清單／13增量／6原始ZIP與正確父資料夾。raw/CI40-browser.zip exact07df tar＋13working-delta恢復程式，最新main文件優先於封存prepublication狀態；補充發布包詳見DELIVERY_INDEX/VQ01X_CLOUD_RETENTION。臨時容器不是永久依據。
 
-main只有本AI流程，無branch／PR／多人防撞工程。每批整合測試後一次sourcecommit／非force／回讀／一次CI；文件[skip ci]。待CI排隊／執行則保存exact點，不密集輪詢、取消、重派。失敗處理同run第一根因；成功保存原產物、看實際畫面與核對Pages來源／HTML。
+main只有本AI流程，不建branch／PR／多人防撞。每批相關修改整合測試後一次sourcecommit／非force／回讀／一次完整CI；文件[skip ci]。CI排隊或執行即保存exact點不長輪詢、不取消重派，失敗只處理同run第一根因；成功仍保留原始產物、看實際畫面並核對Pages來源／HTML。
 
-受限src/prologue-render.ts及本機瀏覽器沒有新的允許結果；不可重送、改管道旁路或提升不完整staging。renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a保留。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules／esbuildhardlink，不覆蓋source/config／另開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不需重傳；原ROM、原圖音訊、字型檔或憑證不公開。
+受限prologue-render.ts及本機瀏覽器沒有新允許結果，不重送／改管道旁路／提升不完整staging；renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a保留。固定工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules並保留esbuildhardlink，不覆蓋source/config或另開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不需重傳；ROM、原圖音訊、字型檔、憑證不公开。

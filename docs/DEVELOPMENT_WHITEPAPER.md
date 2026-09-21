@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-21-vq01t-ci37-handoff。更新既有進度，不重新規劃。精確source／run／下一步以STATUS及IMMEDIATE_CONTINUATION為準，不必重讀歷史。前版完整白皮書保留於commit997a2a2d127150c68d9b7cfe0ef954185bc41a1c；舊pending與工具清單限制已非目前狀態。
+版本：product-2026-09-21-vq01u-ci38-handoff。更新既有進度，不重新規劃。精確source／run／下一步以STATUS及IMMEDIATE_CONTINUATION為準，不必重讀歷史。前版完整白皮書保留於commit997a2a2d127150c68d9b7cfe0ef954185bc41a1c；舊pending與工具清單限制已非目前狀態。
 
 ## 目標、順序與固定技術
 
@@ -34,21 +34,23 @@ Pages30 prepare106121155726／deploy106121189437成功；staged10609853342與pla
 
 VQ01S地面保留鋪面畫筆、尺寸／位置／碰撞；靜態頂點明暗區分走道／鐘前與外緣，32細分／1089頂點／2048三角形及不可變不透明buffer。地面mipmap／anisotropy4，人物仍nearest；沒有額外覆蓋網格、紋理、碰撞或逐幀地面上傳。幾何與mipmap成本仍待真機量測。完整保存美術還有房間材質、分件家具、陶器、布料、母親與前景淡化等，A→B→C工作鏈存在；家中整合仍部分受限，不重畫。歷史43／31差異不是目前缺少檔案數；沒有通用OBJ回匯、全NPC動作或完整音樂完成宣稱。圖集／模型／測試數不等於美術分數。
 
-## 本批已發布 VQ01T／0.9.17
+## 本批已發布 VQ01U／0.9.17
 
-十一份先前未發布的增量已原樣恢復、重新測試與正式非force發布，source **e2bc7e8b19d535ec4072fa5dd68ab4ff24e1929c**、tree **77f9c36c3749b7729e469445de52e10031531f23**。唯一 **CI37 35530142731**，push/attempt1，最後觀察in_progress/null，建立2026-09-20T18:46:29Z、updated18:46:32Z。前次未提供write工具的限制已解除，不能再把此批標為未發布，也不能重做。
+VQ01T探索HUD十一份增量已正式發布並保留：底部flow、44px按鈕、窄版換行、實際高度量測、五尺寸guide/quiet文字裁切／重疊／九點命中檢查。CI37／35530142731已completed/failure；validate106129172590及bad106129172662成功，good106129172476通過證人、序章、十組HUD及四项桌面裝備檢查，最後在equipment_browser.py:334→inventory_touch.py:19等待另一觸控context的Page.goto load超過30000ms。12主報告通過／1失敗；觸控觀察為空，不得以桌面成功接受整批。
 
-探索底部flow整合提示／原生互動按鈕／角色名稱／第三同伴／操作說明／頁尾，窄版換行，最小44px互動按鈕，純文字不接管pointer。開始與戰鬥保留display:contents及原本間距。main.ts只改layoutFeedback與ResizeObserver，以實際底部高度計算探索訊息／觸控間距；新測試正規化這段後比對整份原main雜湊，確定核心、輸入、存檔都未改。受限renderer、其他renderers／畫筆／相機不變。
+原始報告與實際touch-failure.png顯示診斷時為start-screen、bedroom/waking、ticks0、equipmentnull，並非HUD遮擋、舊走道或原生選檔失敗。程式確定在觸控新場景啟動時仍保留已完成的桌面context；資源壓力可能相關，但沒有CPU/GPU/網路量測或當時導航trace，不能宣告底層因果已證實。逾時後已有畫面不代表30秒內load成功。
 
-新增實際DOM文字Range範圍、裁切／重疊與原生按鈕九點命中驗證，接入既有初遇與棚布旅程。五尺寸1365×900／390×844／844×390／320×568／568×320各guide/quiet，用真正顯示按鈕；失敗先存當下画面再清理，清理錯誤不掩蓋原始失敗。恢復後881Node／139Python與資產／型別／建置／compile通過；先前CSS解析與patch測試保留。原festival23／early25／equipment83／prologue37／keyboard28／trial53／witness42瀏覽器斷言未刪；沒有本機瀏覽器、force click、假存檔、狀態寫入、重試或timeout放寬。
+本次VQ01U七份測試／證據檔一次發布，source **1e80bc4a5a2f3cff8e0bafd9ba291621078a3d0a**、tree **ccf86187e8354c25338601ba943b3ff681adec8f**。保存桌面最後實際狀態後只關閉自己context，要求剩餘context/page都為零再開始触控。保留完整load及30000ms，記錄階段、導航事件、HTTP與時間，保存Playwright trace及原子報告；缺hook不阻止截圖，trace／close錯誤不掩蓋原始失敗。同次真正v8匯出、原生tap匯入、兩組觸控選單斷言完全保留；good lane追加退休計數、source/run/attempt/HTML/存檔hash與完整觸控trace驗證。
 
-新版HTML5626292bytes、SHA256480e15b0c1cdf722de662731216bbfac8a87e769883ced531f5df5f641092658仍待CI37。除了原三job／13主旅程／9原生／3ledger與全部原有驗收，還需新dock五尺寸及初遇DOM觀察、原始產物、實際畫面與Pages來源／HTML核對後接受。單元模擬不能代替真正瀏覽器／真機，也不能因此宣告視覺90。
+唯一 **CI38 35548609338**，push/attempt1，建立2026-09-21T00:43:43Z，最後觀察in_progress/null、updated00:43:47Z。新鮮889Node／154Python、型別／資產／建置／compile通過，新增8Node／15Python。原equipment83與touch9斷言全部保留，現在86／10；early25／prologue37／keyboard28／trial53／witness42／festival23保留不變。沒有本機瀏覽器、force click、假存檔、狀態寫入、重試、放寬timeout或更改workflow。
+
+runtime、素材、HUD、CSS及HTML均未改；版本仍0.9.17、HTML5626292bytes、SHA256480e15b0c1cdf722de662731216bbfac8a87e769883ced531f5df5f641092658與CI37一致。CI38仍需原三job／13主旅程／9原生／3ledger與全部既有畫面／操作驗收，新增退休／load／trace／兩觸控視窗，保存原始產物、檢視實際畫面並匹配Pages/source/HTML才接受。單元mock及trace簽名fixture不是瀏覽器或真機證據，既有CI36／Pages30與更早閉環不重開。
 
 ## 未完成範圍與品質門檻
 
 T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內／迷宮拓樸及精確數值。T04：等級成長、技能、戰鬥報酬與掉落、完整商店消耗品飾品、角色與雙三人技。T05：完整美術、動畫及權利清楚的音樂音訊，先改善前段。T06：完整未來篇、其餘時代、主支線與結局。T07：整體90、裝置與效能證據。T08：每批GitHub與指定Drive閉環。
 
-仍可見缺口包括家中家具／母親簡化、重複地板、初遇輪廓重疊、壓縮法庭、構圖、完整動畫音樂及真機。新HUD尚未通過畫面，既有美術不重畫。完整遊戲>=90、各面向>=80%、零critical、五項證據gate與必需素材通過才可release:check。不能改分母、隱藏缺口或只評完成部分。舊quality30明確stale，不作目前分數或重開功能依據。
+仍可見缺口包括家中家具／母親簡化、重複地板、初遇輪廓重疊、壓縮法庭、構圖、完整動畫音樂及真機。HUD十組檢查已於CI37通過，但完整0.9.17與觸控驗收仍待CI38；既有美術不重畫。完整遊戲>=90、各面向>=80%、零critical、五項證據gate與必需素材通過才可release:check。不能改分母、隱藏缺口或只評完成部分。舊quality30明確stale，不作目前分數或重開功能依據。
 
 真實鍵盤／手把、FPS／frame-time、載入、記憶體、背景恢復與保存屬實體裝置門檻；Chromium觸控模擬、NullEngine、合成幾何、概念圖與軟體GPU不能冒充真機。Pages僅部署全CI通過的exact artifact；deployment.json綁source/run/artifact/HTML，文件HEAD與遊戲source不同不是重跑理由。file://與HTTP靠JSON搬移，不是雲端存檔同步。
 
@@ -56,7 +58,7 @@ T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內�
 
 GitHub main是程式與進度權威，只由本AI流程使用，不建立多人防撞／平行candidate／PR／歷史審計。相關修改整批測試後一次source commit→非force更新→回讀→一次完整CI；文件使用[skip ci]。CI仍排隊／執行時保存exact點並回報，不長時間輪詢、取消或重派；失敗只處理同run第一根因，成功保存原產物、看實際畫面及匹配Pages。
 
-所有檔案只放folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。恢復包 **1BpCWHWw28QxZTfA9xNdI-URlc050ZYW9**，28766764bytes，SHA256f72f04086b2b353d8470e0bd1b03b4524c4930a494ea325a6f5b2e716c7dc0ba，40manifest／11測試增量／6原始ZIP、CRC、父資料夾及完整回讀皆一致。包內UNPUBLISHED／尚未上傳標記是前次封存的歷史，現在由main正式收據覆蓋，沒有竄改原產物。最新發布包與回讀紀錄見DELIVERY_INDEX／VQ01T_CLOUD_RETENTION。由raw/CI36-browser.zip內exact4029tar加11delta恢復程式；文件必須另取當前main。不要為了開始重新下載舊包。
+所有檔案只放folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。本批 **Chrono-CI37-terminal-VQ01U-touch-handoff.zip**／**1f-6HSlFhLLEzORKkb0wI0jGguVzFMvMW**，28871898bytes、SHA2565e28a060d18cef5553f4b74b111e83f7554d427e3b1f6b4721618729b41b74ea。五份CI37原始ZIP、七份已測試增量、source.patch、報告與測試紀錄保存；完整下載回讀、CRC、21項清單、7增量及正確父資料夾皆一致。CI37 playable明示未驗收。由raw/CI37-browser.zip中exacte2bc來源tar加7delta恢復，文件另以當前main為準；最終雲端收據晚於封存。以前保存包與美術鏈在DELIVERY_INDEX，不為開始而重新下載所有歷史。
 
 受限的新src/prologue-render.ts寫入與本機瀏覽器操作沒有新允許結果，不得重送、改管道繞過或提升不完整staging。renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a保留；其他允許的獨立改善繼續，特定限制不等於connector無法存取。
 

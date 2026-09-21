@@ -86,6 +86,7 @@ def observed(page):
       let min=255,max=0,sum=0,opaque=0;for(let i=0;i<d.length;i++){
         if(i%4===3){if(d[i]===255)opaque++;}else{min=Math.min(min,d[i]);max=Math.max(max,d[i]);sum+=d[i];}}
       return {renderer:t.view().renderer,chapter:t.snapshot().chapter,tick:t.snapshot().ticks,
+        ui:{cpuNotePresent:!document.getElementById('cpu-render-note').hidden,help:document.querySelector('.render-help').textContent},
         pixels:{source:'actual-cpu-canvas',webgl2:c.getContext('webgl2')===null,webgl1:c.getContext('webgl')===null,
         context2d:!!ctx,width:c.width,height:c.height,min,max,sum,opaque}};}''')
     r, p = result['renderer'], result['pixels']
@@ -95,6 +96,12 @@ def observed(page):
     assert r['cpu']['textureMemory']['bytes'] <= r['cpu']['textureMemory']['budget'] == 33554432
     assert p['width']*p['height'] <= 640*480 and p['opaque'] == p['width']*p['height']
     assert p['webgl1'] and p['webgl2'] and p['context2d'] and p['max']-p['min'] > 16 and p['sum'] > 0, p
+    work = r['cpu']['work']
+    assert work['profile'] == 'vq02e-conservative-cpu-work'
+    assert work['consideredSubmeshes'] > 0 and 0 <= work['culledSubmeshes'] <= work['consideredSubmeshes']
+    assert work['shadedVertices'] > 0 and work['fastAccepted'] > 0
+    assert work['submittedTriangles'] == work['fastAccepted'] + work['trivialRejected'] + work['clipped']
+    assert result['ui']['cpuNotePresent'] and '預設嘗試 CPU 相容繪圖' in result['ui']['help']
     return result
 
 

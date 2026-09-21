@@ -24,6 +24,10 @@ export function assertCpuEvidence(r,identity){
   need(Number.isInteger(p.width)&&Number.isInteger(p.height)&&p.width>0&&p.height>0&&p.width*p.height<=640*480&&p.opaque===p.width*p.height&&p.width===v.width&&p.height===v.height,'invalid actual canvas dimensions');
   need(finite(p.min)&&finite(p.max)&&p.min>=0&&p.max<=255&&p.max-p.min>16&&p.sum>0,'blank or invalid canvas');
   need(image(o.image),'original image receipt missing');
+  const w=c.work;
+  need(w?.profile==='vq02e-conservative-cpu-work'&&['consideredSubmeshes','culledSubmeshes','shadedVertices','submittedTriangles','fastAccepted','trivialRejected','clipped'].every(k=>Number.isSafeInteger(w[k])&&w[k]>=0),'CPU work counters missing or invalid');
+  need(w.consideredSubmeshes>0&&w.culledSubmeshes<=w.consideredSubmeshes&&w.shadedVertices>0&&w.fastAccepted>0&&w.submittedTriangles===w.fastAccepted+w.trivialRejected+w.clipped,'CPU work accounting inconsistent');
+  need(o.ui?.cpuNotePresent===true&&o.ui.help.includes('預設嘗試 CPU 相容繪圖'),'CPU explanation absent');
  };
  for(const c of r.cases){need(c.status==='passed'&&finite(c.loadMs)&&c.loadMs>=0&&c.loadMs<30000,'case failed or load exceeded unchanged 30s bound');for(const o of c.views??[])observation(o);}
  const h=r.cases[0],f=r.cases[1];

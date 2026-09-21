@@ -1,4 +1,3 @@
-import {clipOutcode} from './cpu-visibility';
 /** Small CPU triangle rasterizer. Canvas2D only presents the completed RGBA buffer.
  * No WebGL, DOM, game state, textures created by a driver, or synthetic success path. */
 export type ClipVertex={x:number;y:number;z:number;w:number;u:number;v:number;r:number;g:number;b:number;a:number};
@@ -36,26 +35,18 @@ const topLeft=(a:Screen,b:Screen)=>b.sy<a.sy||(b.sy===a.sy&&b.sx>a.sx);
 const accepted=(e:number,t:boolean)=>e>1e-8||(Math.abs(e)<=1e-8&&t);
 export class CpuRaster {
  readonly rgba:Uint8ClampedArray;readonly depth:Float32Array;
- triangles=0;fragments=0;submitted=0;fastAccepted=0;trivialRejected=0;clipped=0;
+ triangles=0;fragments=0;
  constructor(readonly width:number,readonly height:number){
   if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width*height>640*480)throw Error('CPU raster size outside bounded pixel budget');
   this.rgba=new Uint8ClampedArray(width*height*4);this.depth=new Float32Array(width*height);
  }
  clear(color:readonly number[]):void{
   this.depth.fill(Infinity);this.triangles=0;this.fragments=0;
-  this.submitted=0;this.fastAccepted=0;this.trivialRejected=0;this.clipped=0;
   const r=Math.round(clamp(color[0]??0)*255),g=Math.round(clamp(color[1]??0)*255),b=Math.round(clamp(color[2]??0)*255);
   for(let i=0;i<this.rgba.length;i+=4){this.rgba[i]=r;this.rgba[i+1]=g;this.rgba[i+2]=b;this.rgba[i+3]=255;}
  }
  triangle(a:ClipVertex,b:ClipVertex,c:ClipVertex,material:CpuSurface):void{
-  this.submitted++;
-  const ca=clipOutcode(a.x,a.y,a.z,a.w),cb=clipOutcode(b.x,b.y,b.z,b.w),cc=clipOutcode(c.x,c.y,c.z,c.w);
-  const attributes=(v:ClipVertex)=>Number.isFinite(v.u)&&Number.isFinite(v.v)&&Number.isFinite(v.r)&&Number.isFinite(v.g)&&Number.isFinite(v.b)&&Number.isFinite(v.a);
-  if(ca===64||cb===64||cc===64||!attributes(a)||!attributes(b)||!attributes(c)||(ca&cb&cc)!==0){this.trivialRejected++;return;}
-  // Most visible triangles need no polygon lists or six clipping passes.
-  // Keep the original near-zero-w and crossing-plane path unchanged.
-  if((ca|cb|cc)===0&&a.w>1e-9&&b.w>1e-9&&c.w>1e-9){this.fastAccepted++;this.fill(a,b,c,material);return;}
-  this.clipped++;const p=clipTriangle(a,b,c);for(let i=1;i+1<p.length;i++)this.fill(p[0]!,p[i]!,p[i+1]!,material);
+  const p=clipTriangle(a,b,c);for(let i=1;i+1<p.length;i++)this.fill(p[0]!,p[i]!,p[i+1]!,material);
  }
  private fill(av:ClipVertex,bv:ClipVertex,cv:ClipVertex,m:CpuSurface):void{
   const project=(v:ClipVertex):Screen=>({...v,sx:(v.x/v.w*.5+.5)*this.width,sy:(.5-v.y/v.w*.5)*this.height,sz:v.z/v.w*.5+.5,iw:1/v.w});

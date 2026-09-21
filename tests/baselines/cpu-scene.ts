@@ -1,4 +1,3 @@
-import {outsideClipVolume} from './cpu-visibility';
 import {DirectionalLight,HemisphericLight,PointLight,Mesh,StandardMaterial,VertexBuffer,Vector3,Matrix} from '@babylonjs/core';
 import type {Engine,Scene,BaseTexture,AbstractMesh} from '@babylonjs/core';
 import {CpuEngine} from './cpu-engine';
@@ -10,7 +9,6 @@ const owned=new WeakMap<Engine,CpuScene>();
  * postprocess/glow and specular highlights are intentionally absent in CPU mode. */
 export class CpuScene {
  private raster:CpuRaster|null=null;private image:ImageData|null=null;
- private consideredSubmeshes=0;private culledSubmeshes=0;private shadedVertices=0;
  private draws=0;private meshes=0;private textured=0;private unsupported=0;private elapsed=0;
  private lastNames:string[]=[];private perFrameTextures=new Map<BaseTexture,CpuTexture|null>();
  constructor(private engine:CpuEngine){}
@@ -34,13 +32,10 @@ export class CpuScene {
   const width=this.engine.getRenderWidth(),height=this.engine.getRenderHeight();
   if(this.raster?.width!==width||this.raster?.height!==height){this.raster=new CpuRaster(width,height);this.image=this.engine.cpuContext.createImageData(width,height);}
   const raster=this.raster!;raster.clear(scene.clearColor.asArray());this.perFrameTextures.clear();this.meshes=0;this.textured=0;this.unsupported=0;this.lastNames=[];
-  this.consideredSubmeshes=0;this.culledSubmeshes=0;this.shadedVertices=0;
   // Render observers own existing light/visibility synchronization. No GPU render,
   // material mutation, gameplay tick, collision, save or input processing occurs here.
   scene.incrementRenderId();camera.update();scene.updateTransformMatrix(true);scene.onBeforeRenderObservable.notifyObservers(scene);
   const vp=scene.getTransformMatrix(),eye=camera.globalPosition,opaque:Packet[]=[],blended:Packet[]=[];
-  // Normalize each live directional light once per frame, after render observers.
-  const directions=new Map(scene.lights.filter(l=>l instanceof HemisphericLight||l instanceof DirectionalLight).map(l=>[l,(l as DirectionalLight|HemisphericLight).direction.clone().normalize()]));
   for(const mesh of scene.meshes){
    if(!(mesh instanceof Mesh)||!mesh.isEnabled()||!mesh.isVisible||mesh.visibility<=0||!mesh.material||(mesh.layerMask&camera.layerMask)===0)continue;
    const positions=mesh.getVerticesData(VertexBuffer.PositionKind),indices=mesh.getIndices();if(!positions||!indices?.length)continue;
@@ -49,9 +44,7 @@ export class CpuScene {
    const lights=scene.lights.filter(l=>l.isEnabled()&&l.canAffectMesh(mesh));let included=false;
    for(const sub of mesh.subMeshes??[]){
     const mat=sub.getMaterial();if(!(mat instanceof StandardMaterial)){this.unsupported++;continue;}
-    const surface=this.material(mat,mesh);this.consideredSubmeshes++;if(surface.texture)this.textured++;included=true;
-    if(outsideClipVolume(positions,clip,sub.verticesStart,sub.verticesCount)){this.culledSubmeshes++;continue;}
-    const vertices:ClipVertex[]=new Array(positions.length/3);this.shadedVertices+=sub.verticesCount;
+    const surface=this.material(mat,mesh),vertices:ClipVertex[]=new Array(positions.length/3);
     let depth=0;
     for(let i=sub.verticesStart;i<sub.verticesStart+sub.verticesCount;i++){
      const x=positions[i*3]!,y=positions[i*3+1]!,z=positions[i*3+2]!,p=Vector3.TransformCoordinates(new Vector3(x,y,z),world);
@@ -60,9 +53,9 @@ export class CpuScene {
       const n=normals?Vector3.TransformNormal(new Vector3(normals[i*3]!,normals[i*3+1]!,normals[i*3+2]!),normalMatrix).normalize():Vector3.Up();
       for(const light of lights){
        let intensity=0;
-       if(light instanceof HemisphericLight){const weight=(Vector3.Dot(n,directions.get(light)!)+1)/2;
+       if(light instanceof HemisphericLight){const weight=(Vector3.Dot(n,light.direction.clone().normalize())+1)/2;
         r+=(light.diffuse.r*weight+light.groundColor.r*(1-weight))*light.intensity;g+=(light.diffuse.g*weight+light.groundColor.g*(1-weight))*light.intensity;b+=(light.diffuse.b*weight+light.groundColor.b*(1-weight))*light.intensity;continue;}
-       if(light instanceof DirectionalLight)intensity=Math.max(0,-Vector3.Dot(n,directions.get(light)!))*light.intensity;
+       if(light instanceof DirectionalLight)intensity=Math.max(0,-Vector3.Dot(n,light.direction.clone().normalize()))*light.intensity;
        else if(light instanceof PointLight){const d=light.getAbsolutePosition().subtract(p),distance=d.length();intensity=Math.max(0,Vector3.Dot(n,d.normalize()))*light.intensity*Math.max(0,1-distance/Math.max(.001,light.range));}
        r+=light.diffuse.r*intensity;g+=light.diffuse.g*intensity;b+=light.diffuse.b*intensity;
       }
@@ -77,7 +70,7 @@ export class CpuScene {
      depth+=Vector3.DistanceSquared(p,eye);
     }
     const packet={vertices,indices,start:sub.indexStart,end:sub.indexStart+sub.indexCount,material:surface,depth:depth/Math.max(1,sub.verticesCount)};
-    (surface.blend?blended:opaque).push(packet);
+    (surface.blend?blended:opaque).push(packet);if(surface.texture)this.textured++;included=true;
    }
    if(included){this.meshes++;if(this.lastNames.length<64)this.lastNames.push(mesh.name);}
   }
@@ -93,7 +86,6 @@ export class CpuScene {
  }
  inspect(){return {profile:'vq02d-existing-scene-cpu-raster',draws:this.draws,meshes:this.meshes,texturedSurfaces:this.textured,unsupportedResources:this.unsupported,
   triangles:this.raster?.triangles??0,fragments:this.raster?.fragments??0,frameMs:this.elapsed,
-  work:{profile:'vq02e-conservative-cpu-work',consideredSubmeshes:this.consideredSubmeshes,culledSubmeshes:this.culledSubmeshes,shadedVertices:this.shadedVertices,submittedTriangles:this.raster?.submitted??0,fastAccepted:this.raster?.fastAccepted??0,trivialRejected:this.raster?.trivialRejected??0,clipped:this.raster?.clipped??0},
   bufferBytes:(this.raster?.rgba.byteLength??0)+(this.raster?.depth.byteLength??0)+(this.image?.data.byteLength??0),
   textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames],shadowMaps:false,postprocess:false,artApproved:false};}
 }

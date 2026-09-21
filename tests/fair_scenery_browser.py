@@ -6,6 +6,7 @@ import os
 import traceback
 from pathlib import Path
 from fair_finish_browser import capture_finish
+from fair_paving_browser import capture_paving
 
 READ_SCENERY = """() => {const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return {
  source:'actual-fair-scenery',chapter:s.chapter,tick:s.ticks,frame:v.frame,paused:t.paused(),mode:s.mode,
@@ -67,6 +68,7 @@ def record_scenery_views(page,out,name):
             before=page.evaluate(READ_SCENERY);case['before']=before;assert_scenery(before)
             assert not before['paused'] and not before['scenery']['reducedMotion'] and before['viewport']=={'width':w,'height':h},before
             case['finish']={'before':capture_finish(page)}
+            case['paving']={'before':capture_paving(page)}
             later=_advance(page,before);case['later']=later
             assert signature(before)!=signature(later),'Scenery did not advance with simulation ticks'
             page.screenshot(path=str(out/(name+'-'+label+'-moving.png')))
@@ -77,6 +79,8 @@ def record_scenery_views(page,out,name):
             assert page.evaluate('window.__CHRONO_TEST__.snapshot()')==frozen,'Paused game state changed'
             case['pause']={'before':first,'after':last,'fullStateUnchanged':True}
             case['finish']['paused']=capture_finish(page)
+            case['paving']['paused']=capture_paving(page)
+            assert case['paving']['paused']==case['paving']['before'],'Paused paving changed'
             assert case['finish']['before']['fill']==case['finish']['paused']['fill'],'Fair lighting changed during pause'
             page.screenshot(path=str(out/(name+'-'+label+'-paused.png')))
             page.keyboard.press('Escape');page.wait_for_function('!window.__CHRONO_TEST__.paused()',timeout=15000);paused_here=False
@@ -86,6 +90,8 @@ def record_scenery_views(page,out,name):
             assert signature(first)==signature(last),'Reduced-motion decorations still animate'
             page.screenshot(path=str(out/(name+'-'+label+'-reduced.png')))
             case['finish']['reduced']=capture_finish(page)
+            case['paving']['reduced']=capture_paving(page)
+            assert case['paving']['reduced']==case['paving']['before'],'Reduced-motion paving changed'
             case['status']='passed'
         report['status']='passed'
     except Exception as exc:

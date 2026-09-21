@@ -15,6 +15,7 @@ export const NATIVE_REPORTS=Object.freeze({
   good:['witness-good','prologue'],
   bad:['witness-bad','keyboard'],
 });
+const pavingExpected=JSON.parse(readFileSync(new URL('../tests/fixtures/fair-paving-unit.json',import.meta.url),'utf8'));
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const json=path=>JSON.parse(readFileSync(path,'utf8'));
 
@@ -77,6 +78,9 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
           if(f?.profile!=='vq01w-fair-light-and-contact'||f.approved!==false||f.fill?.onlyFair!==true||f.fill.enabled!==true||f.fill.intensity!==.28||f.key?.receivesKey!==true)throw new Error('Fair light isolation not certified');
           if(!Array.isArray(f.contacts)||f.contacts.length!==6||!f.contacts.every(p=>Number.isFinite(p.footError)&&p.footError<.0001&&p.shadow?.visible===true))throw new Error('Tree texture-foot contacts not certified');
           if(f.softShadows?.count!==8||f.softShadows.dynamic!==false||f.softShadows.alphaMin!==0)throw new Error('Soft contact geometry not certified');
+          const p=c.paving?.[phase];
+          if(p?.profile!=='vq01x-retained-plaza-composition'||p.source!=='actual-fair-paving-canvas'||p.approved!==false||p.width!==512||p.height!==512||p.texture!=='fair-ground-reference')throw new Error('Fair paving canvas not certified');
+          if(JSON.stringify(p.samples)!==JSON.stringify(pavingExpected.samples))throw new Error('Fair paving pixels do not match retained-source composition');
         }
         for(const phase of ['moving','paused','reduced']){
           const image=readFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`));

@@ -1,3 +1,4 @@
+import {drawFairPlaza,inspectFairPlaza} from './fair-paving';
 import {finishFair,FAIR_TREE_ROOTS} from './fair-finish';
 import {bannerPose,sceneryPose,FAIR_SCENERY_MOTION} from './fair-scenery-motion';
 import {shadeFairGround,inspectFairGround} from './fair-ground';
@@ -12,7 +13,6 @@ import type {SpriteContact} from './sprite-contact';
 import {buildFairConduct} from './fair-conduct-render';
 import {drawHDHero,HD_ART} from './hd-hero-art';
 import {drawTree,drawGato} from './pixel-art';
-import {drawSurface} from './world-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator,Vector3} from '@babylonjs/core';
 import {FAIR_STALLS} from './fair-data';
 import type {State} from './core';
@@ -39,7 +39,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   box('fair-plinth',0,-.55,1,27,1.05,21,'#67725b');
   // North is the top of the authored canvas; the old ground path was vertically reversed.
   const t=new DynamicTexture('fair-ground-reference',{width:512,height:512},scene,true,Texture.NEAREST_NEAREST_MIPLINEAR);
-  drawSurface(t.getContext() as CanvasRenderingContext2D,512,512,'fair');t.anisotropicFilteringLevel=4;t.update(true);
+  drawFairPlaza(t.getContext() as CanvasRenderingContext2D);t.anisotropicFilteringLevel=4;t.update(true);
   const groundMat=new StandardMaterial('fair-ground-material',scene);groundMat.diffuseTexture=t;groundMat.specularColor=Color3.Black();
   const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8,subdivisions:32},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;shadeFairGround(ground);
   const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion();
@@ -137,7 +137,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     updateOcclusion(ticks:number,subjects:readonly CameraSubject[]){
       const camera=scene.activeCamera;
       occlusion.update(ticks,root.isEnabled()?'fair':'outside-festival',camera?.getDirection(Vector3.Forward())??Vector3.Zero(),root.isEnabled()?fairOcclusionPoints(subjects):[]);
-    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),finish:finish.inspect(),festival:festival.inspect(),scenery:{profile:FAIR_SCENERY_MOTION,tick:scenery.tick,reducedMotion:scenery.reducedMotion,banners:banners.map(b=>({id:b.name,anchor:b.position.asArray(),rotation:b.rotation.asArray(),parts:b.getChildMeshes().map(m=>m.name)})),rotations:{gate:gate.rotation.z,pendant:pendant.rotation.y,ring:rings.map(r=>r.rotation.y),save:save.rotation.y,robotY:robot.position.y,bell:bell.rotation.z},approved:false},vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,_time:number,reducedMotion=reducedMedia?.matches??false){
+    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),paving:inspectFairPlaza(t),finish:finish.inspect(),festival:festival.inspect(),scenery:{profile:FAIR_SCENERY_MOTION,tick:scenery.tick,reducedMotion:scenery.reducedMotion,banners:banners.map(b=>({id:b.name,anchor:b.position.asArray(),rotation:b.rotation.asArray(),parts:b.getChildMeshes().map(m=>m.name)})),rotations:{gate:gate.rotation.z,pendant:pendant.rotation.y,ring:rings.map(r=>r.rotation.y),save:save.rotation.y,robotY:robot.position.y,bell:bell.rotation.z},approved:false},vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,_time:number,reducedMotion=reducedMedia?.matches??false){
     finish.draw();
     scenery=sceneryPose(s.ticks,reducedMotion);
     banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});

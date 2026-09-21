@@ -1,0 +1,36 @@
+{
+  "schema":1,
+  "batch":"VQ02B",
+  "version":"0.9.24",
+  "kind":"CI43-terminal-originals-and-tested-VQ02B-not-CI44-acceptance",
+  "source":"7b1537382467935ea37fe4cc6a2dc88d96a8d46c",
+  "sourceTree":"fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac",
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId":"17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD",
+  "name":"Chrono-CI43-terminal-VQ02B-tested-batch.zip",
+  "bytes":26323163,
+  "sha256":"4b42d2ff9e45b81e9987fc0c934eedfd075f00a35516192cae98955096356fcb",
+  "createdAt":"2026-09-21T09:04:04.989Z",
+  "verified":{
+    "metadataParent":true,"downloadedRawReadback":true,"bytes":true,"sha256":true,"zipCRC":true,
+    "manifestEntries":49,"allManifestBytesAndHashes":true,
+    "untouchedOriginalCI43Zips":5,"allFiveNestedRawZipCrc":true,
+    "all26ChangedBlobsMatchPublishedTestedSubtrees":true
+  },
+  "recovery":{
+    "path":"recovery/VQ02B-tested-program-snapshot.tar.gz",
+    "files":228,"kind":"assembled-program-snapshot",
+    "baseSource":"b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+    "changes":26,"publishedGitArchiveClaim":false,"heldZIncluded":false,
+    "currentDocuments":"Read latest GitHub main documents separately; never apply archived status or held Z over this source."
+  },
+  "contents":["26 changed program/test/workflow files","8 original local logs including initial findings","5 untouched CI43 artifact ZIPs","CI43 failure and read-only ledger review","rendering boundary research","unaccepted local HTML","228-file program recovery snapshot","49-entry hash manifest"],
+  "excludes":["node_modules","held Z implementation","private ROM","external original media","font files","credentials"],
+  "archivalState":"Uploaded before source publication. Null source in archived local evidence is accurate then. Verified published identity and current CI44 state are supplied by GitHub receipts; raw logs and ZIPs were not rewritten.",
+  "ci43Accepted":false,
+  "ci44":{"id":35583275426,"observedStatus":"queued","updatedAt":"2026-09-21T09:26:16Z","accepted":false},
+  "newRenderedAfterEvidencePresent":false,"newPagesAccepted":false,"artApproved":false,"listeningReview":false,"physicalDeviceApproved":false,
+  "previousAcceptedOriginalsRetained":"1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW",
+  "previousAudioLocalRetained":"1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu",
+  "heldZRetainedNotApplied":"1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9"
+}

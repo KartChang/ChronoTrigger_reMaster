@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "batch": "VQ02B",
+  "version": "0.9.24",
+  "baseMain": "88f3ee4aa7cb63bcc172bbeaf790ee477ba10760",
+  "baseSource": "b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+  "source": "7b1537382467935ea37fe4cc6a2dc88d96a8d46c",
+  "sourceTree": "fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac",
+  "status": "published-local-passed-CI44-pending",
+  "createdAt": "2026-09-21T09:03:30.430524+00:00",
+  "failureRoot": "CI43-audio-pause-silence-timeout",
+  "relatedWork": "User-requested browser-managed WebGL compatibility and context lifecycle",
+  "commands": [
+    {"command":"npm run check","exitCode":0,"node":{"passed":1046,"failed":0,"skipped":0},"assets":true,"typecheck":true,"build":true,"log":"logs/vq02b-check-final.log"},
+    {"command":"python -m unittest discover -s tests -p '*_test.py'","exitCode":0,"python":{"passed":214,"failed":0},"log":"logs/vq02b-python-final.log"}
+  ],
+  "changedFileCount": 26,
+  "changedBlobs": {
+    ".github/workflows/ci.yml":"497940abe7b4a2804fd589be19a3d567bf1f4ca2",
+    "index.html":"4be5de83652cb4377f15fb292f0e072afd95a636",
+    "scripts/build.mjs":"e279068913136f79c61fb4d6eb253c3b40541ddb",
+    "scripts/render-evidence.mjs":"47b691c86a58d53db5cd0aa41c47df267602b1aa",
+    "scripts/test.mjs":"85bb714bdd4a68c9ccf40aff80f8c598c0e924f1",
+    "src/main.ts":"3423b2c0d87b3a1dc21ac46e79b72e383baa2e05",
+    "src/render-capability.ts":"8dc430cfc3939cfc70a9f4a1717ab4b36999758e",
+    "src/render-status.css":"678ca3e03e47353f1b7aed015d72cb29bfa4d1f9",
+    "src/render-status.ts":"c5d0b21c8da97e8938bcd7c8a145667026bd5c82",
+    "src/render.ts":"8cebb54ad5faa91da0dea299821beb7a7bb07a7b",
+    "src/scene-audio.ts":"7f5fcdfb1b8567a67bac64da796f288072062868",
+    "tests/equipment_browser.py":"90e70f7d867454ecb4d8f1b6c467a3234caca58c",
+    "tests/exploration-hud.test.mjs":"cc061bac19a45cdfc680cdca98e0d27e6e16e580",
+    "tests/fair-cohesion.test.mjs":"2150ecf02b6c692ee78d257cab1f0c1581bded3b",
+    "tests/fair-finish.test.mjs":"9b6f18532bcc466bd7c50e7ba9b5f0479d1762f3",
+    "tests/fair-paving.test.mjs":"2e6f8562aade3512d1b21d0d32536a33b984aaf9",
+    "tests/fair-scenery-motion.test.mjs":"3ef7321f31a91bfa9446900d7d8a0e1de006a40a",
+    "tests/festival-integration.test.mjs":"441914762335b966509dffe40fb32293bd313d47",
+    "tests/fixtures/render-preserved-functions.json":"3407e870f059f819d253260cab64398182e18ba8",
+    "tests/render-capability.test.mjs":"dce50f09c45aab821d47e945dbe5796752787e67",
+    "tests/render-evidence.test.mjs":"a9c6e48a1e40f4d3280db797b06f692e384e0302",
+    "tests/render-preserved.test.mjs":"b0729f09e5d595ef1fed7cb540ccb855af95e225",
+    "tests/render_compatibility_browser.py":"24fbfdc42328d2364f813276659d04d6cd59244d",
+    "tests/render_compatibility_browser_test.py":"b4453754ea2e4b65ce834317e1989def435cc4e1",
+    "tests/scene-audio.test.mjs":"ed328dac7f145e355fc5eae545251e51fdd0447c",
+    "tests/scene_audio_browser.py":"357395f519927209e0c17a4732c5f70ba1a329bd"
+  },
+  "publication": {
+    "nonForce":true,"sourceCommitCount":1,"mainReadbackMatched":true,"allCompleteTestedSubtreesMatch":true,
+    "subtrees":{"src":"a8b5bf88a6ee28ef84603175844b89700c1ffc1c","tests":"4d025f4015c3fbc5b418576a2e1e89359cb92e9a","scripts":"af703730738e24657045ccada448154815507dcd",".github":"54813967593add1b8ba6365d005278b68c9a2c54"},
+    "retainedDocsTree":"c87fe7002ed5b9fbe312ddf8b99ec6d754723775",
+    "ci":{"id":35583275426,"number":44,"event":"push","attempt":1,"observedStatus":"queued","updatedAt":"2026-09-21T09:26:16Z","accepted":false}
+  },
+  "preserved": {
+    "worldMethods":17,"mainGameplayFunctions":22,
+    "heldZApplied":false,"heldRendererChanged":false,"heldPathsRetried":false,
+    "existingAssertionsRetained":true,"timeoutRelaxed":false,
+    "heldRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a"
+  },
+  "initialFindings": [
+    "Initial typecheck found one unused ctx after master-gate change; removed before final checks.",
+    "Six historical whole-file/normalized pins intentionally advanced for context/density wiring; 17 original World methods and 22 original gameplay functions independently fingerprinted. No original assertion removed or softened."
+  ],
+  "logs": {
+    "typecheck-vq02b.log":{"bytes":145,"sha256":"b4075582315923b6ffe981196d844e040cf3ae3ab7e06ea24eb4dfb32ecec8c2"},
+    "vq02b-python.log":{"bytes":308,"sha256":"6382fd9cce7c752eff37c23c938dd22958d3b86d2b8545da372d16da7b67b529"},
+    "vq02b-check-final.log":{"bytes":222584,"sha256":"659b541e44c6b0d869853f7503fe595dfe691a777dd549fd11e684ee4352f43d"},
+    "vq02b-preserved.log":{"bytes":1063,"sha256":"e9a1986fb59f2d8eac0e5ec546bf9e538ab670ab76f394655376bf999cc6f320"},
+    "vq02b-node-first.log":{"bytes":227022,"sha256":"4582a016c18978b4a5c7b857f8008f14723a4088fa90e8299fc66b447b280847"},
+    "typecheck-vq02b-final.log":{"bytes":57,"sha256":"6a71430bdf784afe094a223d1eafa5e2663041e0742a1ba98d948029863f782d"},
+    "vq02b-python-final.log":{"bytes":314,"sha256":"8b07cec92c9153d059b6888cef56c1cdd5c64634dcbf36d6e6194e7f6596f044"},
+    "vq02b-check.log":{"bytes":222570,"sha256":"0742b0c2860aa0f129b8339e26f91423d92e0151bfe0baaa29844f92ac9045f8"}
+  },
+  "localHtml":{"bytes":5649823,"sha256":"a6f7ecd69f5050b09ca5f6d0cc8937ea7fa4d5405852b808e6061df0beaa7103","sourceSha":null,"accepted":false},
+  "localBrowserRun":false,"actualNewAudioObserved":false,"actualNewSoftwareBrowserObserved":false,
+  "artApproved":false,"physicalDeviceApproved":false,"listeningReview":false,
+  "canvas2dPlayable":false,"forceBrowserSoftware":false,
+  "newBrowserDriver":"CI-only real software WebGL2/WebGL1, native context loss, no-WebGL UI; additional to every original journey and audio assertion.",
+  "cloud":{"fileId":"17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD","bytes":26323163,"sha256":"4b42d2ff9e45b81e9987fc0c934eedfd075f00a35516192cae98955096356fcb","manifestEntries":49,"archivalState":"Package predates source publication. Its null source/awaiting-publication status and local build are accurate packaging-time records. This receipt supplements them with verified GitHub identity without rewriting raw evidence."},
+  "remaining":"No browser-independent CPU/Canvas2D playable backend; browser may deny every WebGL context. Compatibility density is not forcing software. CI43 causal closure and listening/device/art90 remain unaccepted."
+}

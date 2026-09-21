@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "source": "b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+  "sourceTree": "e9fce47b7454f0a30bb389f3b96628b94c491cbb",
+  "ci": 35576672389,
+  "number": 43,
+  "attempt": 1,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "failure",
+  "updatedAt": "2026-09-21T08:39:15Z",
+  "jobs": {
+    "validate":{"id":106259969610,"conclusion":"success"},
+    "good":{"id":106259969846,"conclusion":"failure"},
+    "bad":{"id":106259969885,"conclusion":"success"}
+  },
+  "root": {
+    "owner": "tests/scene_audio_browser.py:wait_silent",
+    "step": "actual merchant/equipment/economy/v8 journey",
+    "phase": "pause",
+    "observed": "wait_silent did not observe activeVoices=0, masterGain=0 and rms<0.000001 inside original 10000ms",
+    "exception": "Page.wait_for_function: Timeout 10000ms exceeded.",
+    "focused": "resume",
+    "audioReport": null,
+    "pageErrors": [],
+    "screenshot": "raw/CI43-good.zip/test-results/equipment/failure.png",
+    "missingDiagnostic": "CI43 did not retain the last AudioParam/analyser sample. It does not prove which conjunct remained unsatisfied. This was not a renderer startup failure."
+  },
+  "repair": {
+    "source": "7b1537382467935ea37fe4cc6a2dc88d96a8d46c",
+    "implementation": "Clear complete master automation timeline and set intrinsic gain immediately. Stop/disconnect voices as before. Leave note envelopes scheduled. Retain raw analyser observations; add last-sample failure diagnostics.",
+    "causalConfidence": "Source-identified automation-gate hazard addressed; genuine browser closure awaits CI44. Do not claim verified CI fix yet.",
+    "timeoutChanged": false,
+    "thresholdChanged": false,
+    "syntheticPositiveEvidence": false
+  },
+  "rawArtifacts": [
+    {"name":"CI43-good.zip","id":10629820511,"bytes":7906908,"sha256":"da7e757c368ed7dd7aa731b8ef56f6c98f97432143b2b518531e4e91ab9530bf","crc":true},
+    {"name":"CI43-browser.zip","id":10629465148,"bytes":11584515,"sha256":"eaa63d4fb09058254267adc0dfb4dd22621feff6091c318c73ec4bd7aaf65bda","crc":true},
+    {"name":"CI43-playable.zip","id":10629305624,"bytes":1303392,"sha256":"d5e4dabc2426ff0fd3e00e07246471fef8470d70c67cee48fde4def4a01057bd","crc":true},
+    {"name":"CI43-art.zip","id":10629190925,"bytes":324934,"sha256":"2b265eedd14f496322bf6a11e9e6c720c2038816e968dffbb4e729b761504ab0","crc":true},
+    {"name":"CI43-bad.zip","id":10629151134,"bytes":3217129,"sha256":"254d27e46015a015c6dd20a77861aff5a8e4281755e701a06e074be3555d5ec4","crc":true}
+  ],
+  "readOnlyReview": {
+    "method": "Existing original artifact inspection; no browser rerun",
+    "validate": {"originalStatus":"passed","reproducedStatus":"passed","listedReports":13,"allListedBytesHashesMatch":true,"ledgerExact":true},
+    "good": {"originalStatus":"failed","reproducedStatus":"failed","listedReports":4,"allListedBytesHashesMatch":true,"ledgerExact":false,"firstError":"equipment/equipment-report.json: Missing successful completion status","note":"Missing-file error path differs by local mount; do not claim byte-identical failed ledger reproduction."},
+    "bad": {"originalStatus":"passed","reproducedStatus":"passed","listedReports":4,"allListedBytesHashesMatch":true,"ledgerExact":true}
+  },
+  "cloudFileId": "17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD",
+  "accepted": false,
+  "active": false,
+  "newPagesAccepted": false,
+  "previousAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "previousPages": 35571121776
+}

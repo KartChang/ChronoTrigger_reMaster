@@ -1,29 +1,23 @@
-# Early audio — VQ02A implementation contract
+# Early audio — retained VQ02A content, VQ02B repair
 
-Status and exact validation live in STATUS / evidence/CI43_CHECKPOINT.json. This is an independent T05 audio batch based on accepted VQ01Y, not an alternative implementation of blocked VQ01Z visual/camera code.
+Current source7b1537382467935ea37fe4cc6a2dc88d96a8d46c, version0.9.24; CI44 pending. Exact state: STATUS / CI44_CHECKPOINT. Original A contract remains at88f3ee4aa7cb63bcc172bbeaf790ee477ba10760. No held Z visual work is applied.
 
-## Ownership and content
+## Content and ownership retained
 
-src/music-score.ts owns seven short authored arrangements and read-only cue selection: hearth, fair, road, tension, battle, victory, defeat. Notes and accompaniment were authored in this project; no original-game soundtrack was extracted, transcribed or supplied. Multiple maps reuse road/tension. This is neither the full OST nor a claim of original musical fidelity. No sample files, external media, CDN or new dependency.
+src/music-score.ts owns seven short project-authored hearth/fair/road/tension/battle/victory/defeat arrangements and read-only cue selection. No original OST extraction/transcription, samples, external media/CDN or new dependency. Multiple maps share short cues; this is not full soundtrack production or original musical fidelity.
 
-src/scene-audio.ts owns one optional Web Audio graph, score transport and oscillator lifetimes. Native triangle/sine voices and gain envelopes produce lead, bass and harmony. Max16 active oscillator nodes. Master .55; no loudness/listening/device certification follows from that parameter.
+src/scene-audio.ts owns one optional WebAudio graph, transport and finite oscillator lifetimes. Native triangle/sine lead/bass/harmony, at most16 active voices, master.55; this is a code setting, not loudness/listening/device certification. main only forwards fixed ticks/halted state and real opt-in input, not game-rule mutation. Default off creates no context; real activation resumes, never a frame-loop resume timer.
 
-src/main.ts owns user opt-in and forwards existing fixed ticks and halted state. Existing game movement/ATB/save/input functions remain their own authorities; music never changes their state. The existing sound button changes labels/aria-pressed, not menu geometry. The test-only audio() inspector exposes copied live node/analyser observations, not a play/seek/write interface.
+Pause/dialog/inventory/background/native chooser/context loss silence voices. Cue/state change and tick rollback clear prior phrases. Late frames skip stale steps, victory/defeat are bounded one-shots, resume does not replay effects. Menu effects are intentionally suppressed. Ended/reap cleanup and async-resume races remain tested; failures do not modify gameplay/save state.
 
-## Lifecycle
+## CI43 actual root and B repair
 
-Default muted creates no AudioContext. Only real pointer/keyboard activation resumes an opted-in context; update does not call resume. Pause, dialog, inventory, background and native picker holds immediately remove voices and zero master gain. Menu effects are also suppressed. Resume waits for the next valid musical step without replaying stale notes. Late frames skip missed score steps. State identity/cue/tick rollback resets old phrases. Victory/defeat stop after their short nonlooping arrangement.
+CI43 35576672389 completed/failure: good equipment pause wait_silent did not observe activeVoices0/masterGain0/RMS<0.000001 within10000ms. Original audio report was null, and the last parameter/analyser sample was not retained. This establishes the failing observation, not the exact conjunct or a proven audio-driver cause. Validate/bad succeeded but do not accept the whole source. See CI43_FAILURE_ROOT and untouched originals.
 
-Each note has finite attack/decay/release and scheduled stop; ended callbacks disconnect oscillator and gain, while expired-note reaping bounds retention if host callbacks are delayed. Mute/reset/dispose release all current nodes. Async resume after mute/hold/dispose cannot bypass current state. Optional-audio failures fail closed and report UI state without mutating gameplay. No timers, network, original media or save-schema additions.
+B clears all scheduled master automation using cancelScheduledValues(0), then sets intrinsic gain.value. The master is an immediate gate; note gain envelopes remain separately scheduled. Silence still releases oscillator/gain connections. This addresses a source-visible automation hazard; browser repair acceptance is pending CI44, not inferred from unit fakes. Inspect returns true analyser RMS even when blocked, with contextTime/analyserSize; it never substitutes zero for a leak. On timeout, the existing equipment observation writes lastAudio/state/focus when available, then rethrows the original failure. Original10s/.000001 thresholds and all old assertions remain.
 
-## Verification layers
+## Verification and limitations
 
-Fresh local987Node/208Python plus asset/typecheck/build passed. Fake WebAudio ports test scheduling, opt-in allocation, one graph, upper voice bound, resume races, cue/reset/rollback/pauses, cleanup, optional failures and read-only observations. They do NOT prove emitted sound. A22-function accepted-source fingerprint comparison allows only enumerated audio calls; historical full-main pins explicitly advance to this source, not deleted assertions.
+Fresh B1046Node/214Python/assets/typecheck/build passed, including delayed-AudioParam and true-inspector model tests; models are not emitted-sound evidence. All22 retained game functions fingerprinted. Original equipment journey still uses real keyboard opt-in, analyser energy, pause/inventory/dialog silence/frozenstate, its same native v6 import/epoch reset and final mute. No extra positive save or writable hook. Final equipment.audio and scene-audio-report.json must be checked by the original source lane ledger in CI44.
 
-Existing equipment_browser.py performs actual keyboard opt-in and reads analyser RMS, pauses through existing Escape/I/H UI, checks zero voices/gain/output and unchanged frozen snapshots, resumes, then uses its original same-run prologue v6 native import. It observes immediate chooser silence and a new fair cue/epoch, then mutes. No extra import or fabricated save. The report is embedded as equipment-report.json.audio and retained as scene-audio-report.json. scripts/audio-evidence.mjs validates those actual observations through the existing lane ledger. All13 primary and9 native report owners remain unchanged.
-
-New source is awaiting CI43; no local browser or listening run occurred. Passing Chromium/analyser evidence later would establish a software graph/control result, NOT physical speakers/headphones, listening quality, mobile user-activation compatibility, final arrangement quality or complete T05. Those remain open. Existing device/performance/art gates and original timeout assertions are not loosened.
-
-## Recovery and boundaries
-
-Source b54ff3079c8d087bb1396229bc3adf718f2e8cd4 / tree e9fce47b7454f0a30bb389f3b96628b94c491cbb. Cloud originals and local logs in1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu; latest receipts in VQ02A_LOCAL_VALIDATION and VQ02A_CLOUD_RETENTION. Stored local build has nullsource and is unaccepted. No Z files were applied: held prologue-render/localbrowser and Z source-tree boundaries stay intact. Audio is not a replacement for the unresolved visual quality work.
+No local browser, listening review or speaker/device validation was performed. Software Chromium energy, even when passed later, does not prove physical sound, arrangement quality, mobile activation behavior or full T05. Rendering-context hold is separately tested through actual native WebGL fault in CI44. New failure and current source logs are retained in Drive17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD; the archive predates publication, and latest GitHub receipts supply the identity. No new soundtrack-complete/art90 claim.

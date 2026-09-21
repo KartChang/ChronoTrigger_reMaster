@@ -1,22 +1,22 @@
-# Execution TODO — T05 visual cohesion / CI42
+# Execution TODO — CI42 closed; VQ01Z publication held
 
-Authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md and evidence/CI42_CHECKPOINT.json. Main only/non-force/one writer; no history audit, parallel branches or PRs.
+Authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md and evidence/VQ01Z_CHECKPOINT.json. Main only/non-force/one writer; no history audit, branches or PRs.
 
-## Only immediate execution terminal — CI42-pending-full-validation
+## Current terminal — VQ01Z-source-tree-write-blocked
 
-VQ01Y0.9.21 source **3c2e03e02c7be0e5921fa689f32d674c68ae64f4**, tree **afd919fc37bbac025006fbdbad2e942757ea766d**. CI42 **35568827641**, push/attempt1, queued at2026-09-21T06:30:57Z, active=true/accepted=false. One source commit and one push-triggered complete CI; no separate dispatch. Later document HEAD does not justify another CI.
+Last accepted source **3c2e03e02c7be0e5921fa689f32d674c68ae64f4**, tree **afd919fc37bbac025006fbdbad2e942757ea766d**, VQ01Y0.9.21. CI42 **35568827641** / Pages36 **35571121776** now closed with three jobs, all13final/9native/3ledgers, actual images, source/HTML and downloaded Drive retention. Do not reopen it or CI41/Pages35 and earlier closures.
 
-Implemented as one related batch: fair-only shadow floor/restoration, caster-preserving static groups, twenty bounded actor-texel-scale stone chamfers, retained human-plane scale consistency, actual material/buffer/caster observations and mutation/regression tests. Fresh948Node/199Python/assets/typecheck/build passed; original assertions retained. No new rendered visual acceptance yet.
+**Z implementation is completed locally and saved, not published**:17 related program/test/build files, two retained-painter timber/stone textures with physical-scale UVs, fair portrait landmark pan constrained by original player/UI margins, and live observations on existing scenery captures. Fresh966Node/213Python/assets/typecheck/build passed.102 unaffected camera outputs match exact CI42 baseline; original functional assertions/timeouts retained. Existing early-comfort whole-file expected hash was deliberately advanced, not removed; other pins unchanged. No new actual browser/after-image evidence.
 
-Next read this exact run once. Pending: save/report, no wait loop/cancel/redispatch. Failure: first actual root of this same run. Success: check validate/good/bad, all13primary/9native/3ledgers and bytes/hashes, all original stories/touch/grounding/economy/ATB/input/save assertions, and actual three-view normal/pause/reduced screenshots including new cohesion observations. Preserve untouched raw artifacts and compare actual CI41/VQ01Y scene evidence; then match Pages/source/HTML. Do not accept progress files instead of final reports. Do not replace a failed assertion with a synthetic fixture, fake save, forceclick, retry or relaxed timeout.
+GitHub.create_tree source request was blocked by tool safety check, no tree SHA or source commit. Do not retry through another encoding/channel, indirectly replace it, publish only unblocked pieces or claim a candidate. No CI43, no currentValidation, no new Pages. Repeating continue does not clear this boundary. Retain tested Z without redoing it; separately permitted independent work may continue only without bypassing the held implementation. Do not launch CI on unchanged runtime.
 
-## Continue early T05 after evidence closure
+Cloud recovery **1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9**,2105945bytes/SHA256a0262e90f384569b8c7f6974f4c55d663870deaa14d3ce0503e0805f77258242,29manifest entries verified;226-file assembled program snapshot plus17changes/rawlogs. Latest main documents override archived docs; snapshot is not a published Git archive. See VQ01Z_LOCAL_VALIDATION/CLOUD_RETENTION/CHECKPOINT.
 
-The user's lack-of-refined-HD-2D objection remains valid. This shadow/form batch is not complete visual cohesion or art90. Remaining early gaps: pixel actor/plant versus solid-prop material language, overall scale/silhouette coherence, narrow-view landmark composition, held home furniture/mother integration, full animation and rights-cleared audio. Reuse saved assets, no repaint or old independent-ui reapplication. Preserve X paving/grass mask, W fill/metals/contacts, V tick/reduced motion, HUD/input/camera and completed chapters. Further related changes must again be tested together, one non-force source commit/full CI, real scene evidence and cloud retention.
+## Remaining early T05 — still open
 
-## Previous closures — do not reopen
+Material language and scale across pixel people/plants versus solid props, player-safe narrow-view composition, held home furniture/mother integration, full animation and rights-cleared audio. Z addresses a bounded wood/stone/composition subset in code only; it is not rendered acceptance or art90. Reuse saved assets. Keep X paving/grassmask, W fill/metals/contacts, V tick/reduced motion, Y shadow/caster/bevels, HUD/input/grounding/camera foundation and all completed chapters. Do not repeat saved A/B/C or apply old independent-ui.
 
-CI41 35561161523/Pages35 35563000350, VQ01X0.9.20 sourcea67178ae18c00bcfd552dff25174d6f14b759292/tree3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa remain accepted/inactive. CI40/Pages34 and all older closures remain closed. New CI42 validates changed source; it is not a replay of the previous acceptance.
+If a genuinely permitted future source is published, batch all related work and tests, one non-force source commit and one complete push CI. Pending: save exact checkpoint and report, no wait loop/cancel/redispatch. Failure: first actual same-run root. Success: inspect3jobs/all final reports/rawbytes/hash/actual images, preserve originals, then match Pages/source/HTML. No synthetic positive saves, forceclicks, assertion deletion or relaxed timeouts.
 
 ## Remaining full scope — unchanged
 
@@ -25,6 +25,6 @@ T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-trip
 T05: complete art/animation/rights-cleared music and sound; early scenes actual>=90 before later expansion.
 T06: fullfuture/remainingeras/main-sidequests/endings;2300arrival is not fullfuture.
 T07: overall>=90/eachdimension>=80%/zerocritical/requiredassets-and-fivegates/physical input-FPS-frame-time-loading-memory-background-save. No score inflation;old30stale.
-T08: every related batch -> tests -> one sourcecommit/CI -> correct-folder cloudreadback; [skip ci] progress.
+T08: each related batch and its evidence retained in GitHub or correct-folder Drive with readback; documents [skip ci].
 
-Recovery: new Drive1MO3Rsw1KKgaoU28J4AS-ZMCKUHPdDhWm,23manifest/10changedfiles/rawlocal logs/assembled program snapshot; VQ01Y_CLOUD_RETENTION. Accepted originals1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt retained. Latest main documents always authoritative. Heldrenderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser: no retry/bypass/indirect replacement/incomplete staging. Keep existinghome-to2300/equipment/v1–v8/fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third; noP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials.
+Accepted originals **1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW** with14manifest/sixrawZIPs and exactsource recovery. Full scope and held prologue-render/local-browser boundaries remain; noP3/ARPG/framework restart/publicROM/originalmedia/fonts/credentials. No extra user token, ROM upload or manual evidence required.

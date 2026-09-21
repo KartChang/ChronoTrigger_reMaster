@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "root": "T05-early-visual-cohesion",
+  "executionTerminal": "VQ01Z-source-tree-write-blocked",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "baseMain": "ed42d424da5f3637144809c247d557b9a13bc91b",
+  "acceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "acceptedSourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "acceptedBatch": "VQ01Y",
+  "acceptedVersion": "0.9.21",
+  "unpublishedBatch": "VQ01Z",
+  "unpublishedVersion": "0.9.22",
+  "source": null,
+  "sourceTree": null,
+  "candidate": null,
+  "activeValidation": false,
+  "currentValidation": null,
+  "ci43Exists": false,
+  "newSourceCommitCount": 0,
+  "publication": {
+    "operation": "GitHub.create_tree",
+    "baseTree": "81459a5086244b762bf3e5691b12af02752dbea5",
+    "attemptedPaths": [
+      "src/fair-surfaces.ts",
+      "src/fair-composition.ts",
+      "src/early-comfort.ts",
+      "src/festival-kit.ts"
+    ],
+    "outcome": "blocked by tool safety check; no tree SHA returned",
+    "message": "由於 OpenAI 無法確定要求的安全狀態，因此已將此工具調用封鎖。",
+    "sourceCommitCreated": false,
+    "sourceRefUpdated": false,
+    "retryAttempted": false,
+    "alternateEncodingOrChannelAttempted": false,
+    "partialSourcePromoted": false,
+    "newCiDispatched": false,
+    "connectorAccessUnavailableClaim": false
+  },
+  "localValidation": "VQ01Z_LOCAL_VALIDATION.json",
+  "cloudRetention": "VQ01Z_CLOUD_RETENTION.json",
+  "localPassed": {
+    "node": 966,
+    "python": 213,
+    "assets": true,
+    "typecheck": true,
+    "build": true
+  },
+  "localProgramSubtrees": {
+    "src": "ce0a75467a2d9ac936d60f4b0cea4fbf40eae726",
+    "tests": "49a889acebcbc9ae9772abec6841023b41247c75",
+    "scripts": "8298c048eca469f2a29f87c5bc6bf353e07d2161"
+  },
+  "heldRendererBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "localBrowserRun": false,
+  "afterImagesReviewed": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "previousAccepted": {
+    "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+    "ci": 35568827641,
+    "pages": 35571121776,
+    "active": false,
+    "accepted": true,
+    "reopen": false
+  },
+  "next": "Do not repeat blocked publication, change encoding/channel, indirectly replace the held implementation or promote a partial tree. Retain this tested batch without redoing it. Only separately permitted independent work may continue while this boundary is unresolved; a generic continue request is not a new allow result.",
+  "documents": "A later [skip ci] documentation-only HEAD does not change accepted game source and is not a new candidate or reason to rerun CI."
+}

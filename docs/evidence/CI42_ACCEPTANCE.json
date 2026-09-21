@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "sourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "ci": {
+    "id": 35568827641,
+    "number": 42,
+    "event": "push",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-09-21T07:03:07Z",
+    "jobs": {
+      "validate": 106235941306,
+      "good": 106235941564,
+      "bad": 106235941149
+    }
+  },
+  "pages": {
+    "id": 35571121776,
+    "number": 36,
+    "event": "workflow_run",
+    "workflowHead": "ed42d424da5f3637144809c247d557b9a13bc91b",
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-09-21T07:03:34Z",
+    "jobs": {
+      "prepare": 106242784918,
+      "deploy": 106242826082
+    },
+    "stagedArtifact": 10626077120,
+    "pagesArtifact": 10625752658,
+    "publicHttpEvidence": {
+      "source": "executed deploy step #3 / job106242826082 log",
+      "startedAt": "2026-09-21T07:03:31.7352603Z",
+      "stepSuccess": true,
+      "independentLocalLiveByteClaim": false,
+      "localBrowserRun": false
+    }
+  },
+  "html": {
+    "bytes": 5637348,
+    "sha256": "7760a26e592a17516836cd32a2f87cfa9d5fe2a3d6b2ae35083b71eec9d70a43",
+    "playableArtifact": 10626225622,
+    "stagedBytesMatch": true
+  },
+  "rawArtifacts": [
+    {
+      "name": "CI42-playable.zip",
+      "artifactId": 10626225622,
+      "bytes": 1301178,
+      "sha256": "4401c97ec63cc91593e39ccbdefbae901128d64366b15d5fcf3e12ca65dde034",
+      "crcPassed": true
+    },
+    {
+      "name": "CI42-browser.zip",
+      "artifactId": 10626195736,
+      "bytes": 11554781,
+      "sha256": "17c082a3ce464a5ba4b6a5c93351a4c4baaa4d62d96e09d660d8f4cfe5733457",
+      "crcPassed": true
+    },
+    {
+      "name": "CI42-good.zip",
+      "artifactId": 10626082071,
+      "bytes": 20419837,
+      "sha256": "263bc4a3ef9e0c2801a43a9b867edf7553698d1da73e44e7ef27ad81374a52a7",
+      "crcPassed": true
+    },
+    {
+      "name": "CI42-art.zip",
+      "artifactId": 10625672807,
+      "bytes": 324934,
+      "sha256": "44b4a9b48abb0bed6b55d6e741a42d3c1ed963665d9d6ad2617eaefbef5109d2",
+      "crcPassed": true
+    },
+    {
+      "name": "CI42-bad.zip",
+      "artifactId": 10624794604,
+      "bytes": 3218823,
+      "sha256": "82607d3a9e38caa60d73d26aa417a6daada9964dacad77d061de47eb06dd98a7",
+      "crcPassed": true
+    },
+    {
+      "name": "Pages36-staged.zip",
+      "artifactId": 10626077120,
+      "bytes": 1306544,
+      "sha256": "69946220c121e209926781961f9dd7ce25f9a67758b9e7056a01bc7b7da7cd31",
+      "crcPassed": true
+    }
+  ],
+  "allThreeLedgersReproduced": true,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "wholeGameAccepted": false,
+  "accepted": true,
+  "active": false,
+  "scope": "existing playable regression and source-matched deployment only",
+  "verification": {
+    "method": "Read-only original artifact inspection; no browser rerun",
+    "allJobsSucceeded": true,
+    "primaryFinalReports": 13,
+    "nativeChooserReports": 9,
+    "sourceLedgers": 3,
+    "sourceRunAttemptHtmlMatched": true,
+    "allListedReportBytesAndHashesMatched": true,
+    "threeLedgersReproducedExactly": true,
+    "nineFinishCohesionObservationAssertionsPassed": true,
+    "hudCases": 10,
+    "groundCases": 3,
+    "sceneryViews": 3,
+    "sceneryStates": [
+      "normal",
+      "paused",
+      "reduced"
+    ],
+    "allPriorJourneyAssertionsPreserved": true,
+    "touch": {
+      "desktopContextRetired": true,
+      "ownRunNativeV8Import": true,
+      "views": 2,
+      "loadMs": 4929.48,
+      "unchangedLimitMs": 30000,
+      "traceCrc": true,
+      "traceEntries": 122
+    }
+  },
+  "reports": "Drive 1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW review/report-verification.json; full untouched reports in raw ZIPs",
+  "visualReview": "CI42_VISUAL_REVIEW.md",
+  "cloudRetention": "CI42_CLOUD_RETENTION.json",
+  "notClaims": [
+    "new local browser execution",
+    "art90",
+    "physical-device performance",
+    "whole-game acceptance",
+    "VQ01Z acceptance"
+  ]
+}

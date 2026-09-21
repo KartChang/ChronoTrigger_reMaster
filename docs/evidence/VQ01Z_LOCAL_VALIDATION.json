@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "batch": "VQ01Z",
+  "version": "0.9.22",
+  "root": "T05-early-visual-cohesion",
+  "source": null,
+  "baseMain": "ed42d424da5f3637144809c247d557b9a13bc91b",
+  "baseAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "status": "tested-cloud-retained-source-write-blocked",
+  "createdAt": "2026-09-21T07:23:12.295316+00:00",
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "node": {
+        "passed": 966,
+        "failed": 0,
+        "skipped": 0
+      },
+      "assets": true,
+      "typecheck": true,
+      "build": true,
+      "log": "logs/vq01z-check-final.log"
+    },
+    {
+      "command": "python -m unittest discover -s tests -p '*_test.py'",
+      "exitCode": 0,
+      "python": {
+        "passed": 213,
+        "failed": 0
+      },
+      "log": "logs/vq01z-python-final.log"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 1949,
+      "sha256": "2b4cdab0ddb2328c114026d53e308da209a217972de5d175d85c0e7ca7da94d7",
+      "blob": "e2340855777f505f2535a05452eaed946345bfa8"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 2744,
+      "sha256": "2b45ed04113f147c269ce8824e8f8fbccb7f556731bfa19b52d1cd275ba44333",
+      "blob": "c7bd5956e9f7bbda515938e9a958b6e9eca929b2"
+    },
+    {
+      "path": "src/early-comfort.ts",
+      "bytes": 4620,
+      "sha256": "2f54f70cd5913909c77e62c1af54f9a20ac46b711866f370fb693a17ad97246f",
+      "blob": "371f94de5680d29e3975722e7864cc189f0d2f16"
+    },
+    {
+      "path": "src/fair-composition.ts",
+      "bytes": 1222,
+      "sha256": "b6d75d13c8fb24358771846a0ef7badbcfe8f706482330aed71f4f0411638959",
+      "blob": "e4601e814d77ce1a7b3a702e4de34e727db7254c"
+    },
+    {
+      "path": "src/fair-render.ts",
+      "bytes": 14370,
+      "sha256": "3c54fc4c6897e9e8b61110068af8f58eb053d5862c9d2530f9c27ca161a908f9",
+      "blob": "936b1f7b58a284cde9f1930dc21b07e261be48e1"
+    },
+    {
+      "path": "src/fair-surfaces.ts",
+      "bytes": 5938,
+      "sha256": "df5d4cb13df72fc094d2af33630cdd4a40c0d465a21dc139c917fcf50364bd5f",
+      "blob": "9f7ca45fd55c1f38dc4383e33511eb68030f692a"
+    },
+    {
+      "path": "src/festival-kit.ts",
+      "bytes": 5125,
+      "sha256": "3d29da561548c9c112117df08dde9aaac21524d550fa3f7871c798aa0595c6b1",
+      "blob": "5fe915755492019ab02a9c775d68e4c9f62857c8"
+    },
+    {
+      "path": "tests/fair-composition.test.mjs",
+      "bytes": 4771,
+      "sha256": "c04611a2f759fdc5ef2aa66b1b81d477a4dff2fced11902f900a390591bf5204",
+      "blob": "1484c1c0a20053bab4c0a414a4a1674cb484b777"
+    },
+    {
+      "path": "tests/fair-surfaces.test.mjs",
+      "bytes": 7889,
+      "sha256": "fcf84f5c28e9a53fbda45137e96f53397c154eadf5e044d2f51a724f3803a541",
+      "blob": "f13ab28c3202442cd73d873eb0b469aec0caded6"
+    },
+    {
+      "path": "tests/fair_finish_browser.py",
+      "bytes": 2477,
+      "sha256": "0dbf28b470287509988853921a11da7a004a5d20ca4329b5e3acd2bff73905af",
+      "blob": "de6fd586b8d76d683e2ea38deb9bd3155023843f"
+    },
+    {
+      "path": "tests/fair_scenery_browser.py",
+      "bytes": 7711,
+      "sha256": "fe090a90bf4d807151908225d6faf2d8654c08494834d923ea01d3b6bcf5e2a4",
+      "blob": "214d452572bd7262646367009c835cea85d0a2de"
+    },
+    {
+      "path": "tests/fair_surfaces_browser.py",
+      "bytes": 1865,
+      "sha256": "60c41fad8677b30a2415e0996a1416ebe761e01da4289f2a15b4b5c4d462509f",
+      "blob": "d8b2357afc062ee7828cee99fe9d8b6bb2a695ed"
+    },
+    {
+      "path": "tests/fair_surfaces_browser_test.py",
+      "bytes": 2828,
+      "sha256": "6d634dc636a90cf0437dbd2dac975e92c3637d76d343c08f9b01e8d23afa7873",
+      "blob": "da65e32a31f88c19e46dd5b9975b4adb4d8eaffe"
+    },
+    {
+      "path": "tests/festival-integration.test.mjs",
+      "bytes": 12348,
+      "sha256": "7c2ee1669868a97662bd13449bea950a445a082f66b728850b0b3f28ef5b6220",
+      "blob": "5b2a09de0f289aa66f2d449e1d719a6f2e3a1b97"
+    },
+    {
+      "path": "tests/fixtures/fair-composition-unit.json",
+      "bytes": 369,
+      "sha256": "caad73195148b87a2ecef2e374e260a07219399e7e3e7f6d8a7cb17a28174593",
+      "blob": "f72da2f1153080081242509565630b79c763d626"
+    },
+    {
+      "path": "tests/fixtures/fair-surfaces-unit.json",
+      "bytes": 6572,
+      "sha256": "2a91f2e98f3b693f15d25c6d3e8579e7d25c2762153561d5191d856c2e905b0e",
+      "blob": "fb109cac9c7b0063a7067343ccdb3ee9ec271904"
+    },
+    {
+      "path": "tests/fixtures/vq01z-preserved-unit.json",
+      "bytes": 1494,
+      "sha256": "f1c522ba5d8f4cdf991073896cf173825f605959b604ff05a5130927465f4466",
+      "blob": "375fd632cf9fb679616656657b27316306e20dd5"
+    }
+  ],
+  "completeProgramSubtrees": {
+    "src": "ce0a75467a2d9ac936d60f4b0cea4fbf40eae726",
+    "tests": "49a889acebcbc9ae9772abec6841023b41247c75",
+    "scripts": "8298c048eca469f2a29f87c5bc6bf353e07d2161"
+  },
+  "heldRendererBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "localHtml": {
+    "bytes": 5642078,
+    "sha256": "f1824317b197d4623dcca853aafc6572519b9470021aec025f46c67380a81754",
+    "sourceSha": null,
+    "accepted": false
+  },
+  "localBrowserRun": false,
+  "afterImagesReviewed": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "existingFunctionalAssertionsRetained": true,
+  "timeLimitsRelaxed": false,
+  "policyPin": {
+    "path": "src/early-comfort.ts",
+    "reason": "Intentional fair-only portrait horizontal pan; all original functional assertions retained. The same existing hash assertion advances to the new owned source, not deleted.",
+    "previousSha256": "1e0785e83acbe50490a40d2b18586de00649d9d3314ea63538af9b6217dfec1b",
+    "newSha256": "2f54f70cd5913909c77e62c1af54f9a20ac46b711866f370fb693a17ad97246f",
+    "unaffectedSerializedCameraCases": 102
+  },
+  "prePublicationFindings": [
+    "Prior immutable policy hash required an explicit expected-version advance for the intentional fair-only change, with 102 unaffected-case baseline comparisons.",
+    "A new JSON baseline test initially compared -0 with 0 using deepStrictEqual; comparison now uses canonical serialized camera observations on both sides. No runtime condition or timeout was weakened."
+  ],
+  "scope": "Reuse original material-art timber/plaster painter rectangles with neutral modulation; physical-scale immutable UVs on fair-only timber and bell limestone. Player-first horizontal portrait landmark bias; no zoom, collision, story, source renderer, home renderer, sprite, ATB or input rewrite.",
+  "publication": {
+    "operation": "GitHub.create_tree",
+    "baseTree": "81459a5086244b762bf3e5691b12af02752dbea5",
+    "attemptedPaths": [
+      "src/fair-surfaces.ts",
+      "src/fair-composition.ts",
+      "src/early-comfort.ts",
+      "src/festival-kit.ts"
+    ],
+    "outcome": "blocked by tool safety check; no tree SHA returned",
+    "message": "由於 OpenAI 無法確定要求的安全狀態，因此已將此工具調用封鎖。",
+    "sourceCommitCreated": false,
+    "sourceRefUpdated": false,
+    "retryAttempted": false,
+    "alternateEncodingOrChannelAttempted": false,
+    "partialSourcePromoted": false,
+    "newCiDispatched": false,
+    "connectorAccessUnavailableClaim": false
+  },
+  "cloud": {
+    "fileId": "1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9",
+    "bytes": 2105945,
+    "sha256": "a0262e90f384569b8c7f6974f4c55d663870deaa14d3ce0503e0805f77258242",
+    "verifiedManifestEntries": 29,
+    "packagingState": "Archive predates the blocked publication attempt; null source is correct. This is not a GitHub candidate."
+  },
+  "subtreeKind": "locally tested program subtrees, NOT published GitHub trees"
+}

@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "accepted": true,
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "sourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "ci": {
+    "id": 35568827641,
+    "number": 42,
+    "event": "push",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-09-21T07:03:07Z",
+    "jobs": {
+      "validate": 106235941306,
+      "good": 106235941564,
+      "bad": 106235941149
+    }
+  },
+  "id": 35571121776,
+  "number": 36,
+  "event": "workflow_run",
+  "workflowHead": "ed42d424da5f3637144809c247d557b9a13bc91b",
+  "status": "completed",
+  "conclusion": "success",
+  "updatedAt": "2026-09-21T07:03:34Z",
+  "jobs": {
+    "prepare": 106242784918,
+    "deploy": 106242826082
+  },
+  "stagedArtifact": 10626077120,
+  "pagesArtifact": 10625752658,
+  "publicHttpEvidence": {
+    "source": "executed deploy step #3 / job106242826082 log",
+    "startedAt": "2026-09-21T07:03:31.7352603Z",
+    "stepSuccess": true,
+    "independentLocalLiveByteClaim": false,
+    "localBrowserRun": false
+  },
+  "html": {
+    "bytes": 5637348,
+    "sha256": "7760a26e592a17516836cd32a2f87cfa9d5fe2a3d6b2ae35083b71eec9d70a43",
+    "playableArtifact": 10626225622,
+    "stagedBytesMatch": true
+  },
+  "sourceAndCiAndHtmlMatched": true,
+  "workflowHeadIsNotGameSource": true,
+  "rawArtifact": {
+    "name": "Pages36-staged.zip",
+    "artifactId": 10626077120,
+    "bytes": 1306544,
+    "sha256": "69946220c121e209926781961f9dd7ce25f9a67758b9e7056a01bc7b7da7cd31",
+    "crcPassed": true
+  },
+  "publicUrl": "https://kartchang.github.io/ChronoTrigger_reMaster/",
+  "cloudRetention": "CI42_CLOUD_RETENTION.json",
+  "artApproved": false,
+  "physicalDeviceApproved": false
+}

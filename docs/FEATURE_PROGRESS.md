@@ -1,15 +1,17 @@
-# 功能快照 — VQ01Y 開發已發布；CI42 待驗收
+# 功能快照 — CI42／Pages36 已驗收；VQ01Z 已測試、未發布
 
-以 STATUS／IMMEDIATE_CONTINUATION／CI42_CHECKPOINT 為準。沒有新增完成百分比或品質分數。
+以 STATUS／IMMEDIATE_CONTINUATION／VQ01Z_CHECKPOINT 為準，不增加完成百分比或美術分數。
 
-本批 VQ01Y／0.9.21 source **3c2e03e02c7be0e5921fa689f32d674c68ae64f4**／tree **afd919fc37bbac025006fbdbad2e942757ea766d** 已一次非 force 發布，10個程式／測試／建置檔與完整src/tests/scripts子樹匹配本機測試。**CI42 35568827641**，push／attempt1，2026-09-21T06:30:57Z觀察為queued；不是已驗收版本。
+**已閉環版本：VQ01Y／0.9.21**，source **3c2e03e02c7be0e5921fa689f32d674c68ae64f4**／tree **afd919fc37bbac025006fbdbad2e942757ea766d**。CI42 **35568827641** 的三個job、13份最終主報告、9份原生選檔、3份來源ledger及報告bytes/hash核對完成；三ledger為只讀原始產物精確重現，不是重跑瀏覽器。實際九張場景圖顯示投影較淺、鐘庭倒角存在，但平塗木料與直向地標裁切仍有缺口。
 
-已實作：祭典限定投影明度／離場還原；保留投影資格的靜態合併；20件原尺寸石材的像素人物尺度倒角／邊緣色階；原人物畫布尺度對齊；附加真實材質／頂點／caster觀察。沒有重畫保存素材或改遊戲規則。W補光／銅材質／六樹根與八接觸陰影、V動態、X鋪面grassmask、HUD／鏡頭／接地／所有權／存檔／碰撞與原旅程斷言保留。
+Pages36 **35571121776** 已匹配來源／CI／HTML5637348bytes，公開HTTP核對來自07:03:31.7352603Z實際成功deploy步驟。原HUD10、地面3、正常／暫停／減少動態、人物接地／ATB突進／匯入清理、觸控兩視窗與4929.48ms載入、商店裝備經濟／v8／勝利／完整審判與所有原旅程保留。不是全作、美術90或真機驗收。
 
-本批新跑948Node、199Python、assets／typecheck／build全通過。原始log已保存；synthetic checker fixture不是瀏覽器或GPU證據。本機沒有執行瀏覽器，新版實際畫面與完整CI原始報告尚待取得。這些改動不代表整體材質一致性已解決，也不是美術90。
+**新批 VQ01Z／0.9.22：已在本機整批完成並保存，尚未發布。** 重用既有木料／灰泥畫筆矩形，形成祭典限定木料與石材紋理；物理尺寸UV不隨長條木件任意拉伸，保留原色、燈光、投影、材質與離場清理。直向探索加入柔和地標水平偏移，之後仍套原角色／UI安全邊界，不縮小角色、不動戰鬥或其他地圖相機。
 
-上一已驗收版本維持VQ01X0.9.20／sourcea67178ae18c00bcfd552dff25174d6f14b759292／CI41 35561161523／Pages35 35563000350。三job、13主報告、9原生選檔、3來源ledger及部署已閉環；CI41／Pages35及更早閉環不重開。沒有Pages36驗收宣稱。
+17個程式／測試／建置檔，966Node／213Python、assets／typecheck／build通過。102組未受影響的相機觀察與CI42基準一致。因有意修改early-comfort.ts，前版整檔hash預期值有明確更新；原功能斷言、其餘受保護檔案與timeout保留。新增NullEngine／合成fixture不是瀏覽器或GPU實圖，本機沒有瀏覽器操作。
 
-待辦：先完成這次CI42三job／原始最終報告／實圖／雲端／Pages-source-HTML驗證，再續前段T05材質比例與窄視窗構圖。完整T03原作規則拓樸、T04成長報酬經濟技能、T05全美術動畫音樂、T06其餘時代主支線結局、T07整體90與實體裝置、T08每批雲端均保留。家中母親家具、完整動畫音樂未完成；完整遊戲不縮小，2300抵達不是完整未來篇。使用者精緻度回饋仍有效，舊30stale。
+GitHub.create_tree程式寫入被工具安全檢查封鎖，沒有回傳treeSHA、沒有sourcecommit／ref更新，沒有CI43／新Pages／after畫面。沒有换編碼管道重送、間接替換或提升不完整staging；不能把這項說成connector無法存取。精確狀態與恢復點已存VQ01Z_CHECKPOINT。
 
-新增Drive **1MO3Rsw1KKgaoU28J4AS-ZMCKUHPdDhWm**，2036670bytes／23manifest／下載hash與CRC、正確父資料夾已核對。見VQ01Y_CLOUD_RETENTION。已驗收原包1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt保留。受限renderer／本機browser邊界不變，不依賴臨時容器。
+指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb** 已保存並下載回讀兩包：已驗收原始證據 **1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW**，38906842bytes／14manifest／六原始ZIP；Z未發布程式與原始測試紀錄 **1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9**，2105945bytes／29manifest／226檔快照。舊CI41等閉環不重開。
+
+完整T03規則拓樸、T04成長報酬經濟技能、T05全美術動畫音樂、T06其餘時代主支線結局、T07整體90與實體裝置、T08每批雲端均保留。家中母親家具仍受既定renderer界線約束，完整动画音乐未完成，2300抵達不是完整未來篇。使用者的精緻度回饋仍有效，舊30分stale。

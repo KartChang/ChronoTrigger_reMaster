@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "batch": "VQ01Z",
+  "version": "0.9.22",
+  "kind": "tested-unpublished-program-not-CI-acceptance",
+  "source": null,
+  "baseAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "baseMain": "ed42d424da5f3637144809c247d557b9a13bc91b",
+  "driveFolder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId": "1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9",
+  "name": "Chrono-VQ01Z-tested-source-local-evidence.zip",
+  "bytes": 2105945,
+  "sha256": "a0262e90f384569b8c7f6974f4c55d663870deaa14d3ce0503e0805f77258242",
+  "createdAt": "2026-09-21T07:25:20.803Z",
+  "verified": {
+    "downloadedRawReadback": true,
+    "correctParent": true,
+    "bytes": true,
+    "sha256": true,
+    "zipCRC": true,
+    "manifestEntries": 29,
+    "allManifestBytesAndHashes": true
+  },
+  "recovery": {
+    "path": "recovery/VQ01Z-tested-program-snapshot.tar.gz",
+    "files": 226,
+    "kind": "assembled-program-snapshot",
+    "publishedGitArchiveClaim": false,
+    "changes": 17,
+    "baseAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+    "currentDocuments": "Latest GitHub main documents always take precedence."
+  },
+  "contents": [
+    "17 changed program/test/build files",
+    "fresh original local logs",
+    "local build with null source and no acceptance",
+    "unchanged CI42 baseline PNG",
+    "226-file assembled program recovery snapshot",
+    "hash manifest"
+  ],
+  "excludes": [
+    "node_modules",
+    "private ROM",
+    "external original media",
+    "font files",
+    "credentials"
+  ],
+  "sourcePublication": "Blocked by GitHub.create_tree tool safety check after this archive was uploaded. No retry, bypass or partial promotion. See VQ01Z_CHECKPOINT.json.",
+  "ci43Exists": false,
+  "afterImagesPresent": false,
+  "newPagesAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false
+}

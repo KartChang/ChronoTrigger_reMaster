@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "sourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "ci": 35568827641,
+  "pages": 35571121776,
+  "driveFolder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId": "1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW",
+  "name": "Chrono-CI42-Pages36-accepted-evidence.zip",
+  "bytes": 38906842,
+  "sha256": "5722a13f28ae55e02b720eefb5c96fdfdf4f8d2e2a001d4aa2fcc1ff13dff765",
+  "createdAt": "2026-09-21T07:12:22.989Z",
+  "verified": {
+    "downloadedRawReadback": true,
+    "correctParent": true,
+    "bytes": true,
+    "sha256": true,
+    "zipCRC": true,
+    "manifestEntries": 14,
+    "allManifestBytesAndHashes": true,
+    "untouchedRawZips": 6
+  },
+  "recovery": {
+    "rawZip": "raw/CI42-browser.zip",
+    "sourceTar": "source-3c2e03e02c7be0e5921fa689f32d674c68ae64f4.tar.gz",
+    "gitArchiveCommentMatched": true,
+    "currentDocuments": "Always obtain latest main documents separately; do not replace current progress from the source archive."
+  },
+  "acceptance": "existing playable and source deployment, not art90/fullgame/physical devices",
+  "priorAcceptedOriginalsRetained": "1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt"
+}

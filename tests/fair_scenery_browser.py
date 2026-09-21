@@ -5,6 +5,7 @@ import math
 import os
 import traceback
 from pathlib import Path
+from fair_finish_browser import capture_finish
 
 READ_SCENERY = """() => {const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return {
  source:'actual-fair-scenery',chapter:s.chapter,tick:s.ticks,frame:v.frame,paused:t.paused(),mode:s.mode,
@@ -65,6 +66,7 @@ def record_scenery_views(page,out,name):
             page.set_viewport_size({'width':w,'height':h});page.emulate_media(reduced_motion='no-preference');_frames(page)
             before=page.evaluate(READ_SCENERY);case['before']=before;assert_scenery(before)
             assert not before['paused'] and not before['scenery']['reducedMotion'] and before['viewport']=={'width':w,'height':h},before
+            case['finish']={'before':capture_finish(page)}
             later=_advance(page,before);case['later']=later
             assert signature(before)!=signature(later),'Scenery did not advance with simulation ticks'
             page.screenshot(path=str(out/(name+'-'+label+'-moving.png')))
@@ -74,6 +76,8 @@ def record_scenery_views(page,out,name):
             assert first['paused'] and last['paused'] and first['scenery']==last['scenery'],'Paused decorations changed'
             assert page.evaluate('window.__CHRONO_TEST__.snapshot()')==frozen,'Paused game state changed'
             case['pause']={'before':first,'after':last,'fullStateUnchanged':True}
+            case['finish']['paused']=capture_finish(page)
+            assert case['finish']['before']['fill']==case['finish']['paused']['fill'],'Fair lighting changed during pause'
             page.screenshot(path=str(out/(name+'-'+label+'-paused.png')))
             page.keyboard.press('Escape');page.wait_for_function('!window.__CHRONO_TEST__.paused()',timeout=15000);paused_here=False
             page.emulate_media(reduced_motion='reduce');_frames(page);first=page.evaluate(READ_SCENERY);assert_scenery(first)
@@ -81,6 +85,7 @@ def record_scenery_views(page,out,name):
             last=_advance(page,first);case['reduced']={'before':first,'after':last}
             assert signature(first)==signature(last),'Reduced-motion decorations still animate'
             page.screenshot(path=str(out/(name+'-'+label+'-reduced.png')))
+            case['finish']['reduced']=capture_finish(page)
             case['status']='passed'
         report['status']='passed'
     except Exception as exc:

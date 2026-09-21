@@ -72,6 +72,12 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
       for(const c of r.cases){
         if(c.status!=='passed'||c.pause?.fullStateUnchanged!==true||!advanced(c.before,c.later)||!advanced(c.reduced?.before,c.reduced?.after))throw new Error('Scenery timeline observations missing');
         if(c.before?.scenery?.reducedMotion!==false||c.reduced?.before?.scenery?.reducedMotion!==true||c.reduced?.after?.scenery?.reducedMotion!==true)throw new Error('Both motion preferences required');
+        for(const phase of ['before','paused','reduced']){
+          const f=c.finish?.[phase];
+          if(f?.profile!=='vq01w-fair-light-and-contact'||f.approved!==false||f.fill?.onlyFair!==true||f.fill.enabled!==true||f.fill.intensity!==.28||f.key?.receivesKey!==true)throw new Error('Fair light isolation not certified');
+          if(!Array.isArray(f.contacts)||f.contacts.length!==6||!f.contacts.every(p=>Number.isFinite(p.footError)&&p.footError<.0001&&p.shadow?.visible===true))throw new Error('Tree texture-foot contacts not certified');
+          if(f.softShadows?.count!==8||f.softShadows.dynamic!==false||f.softShadows.alphaMin!==0)throw new Error('Soft contact geometry not certified');
+        }
         for(const phase of ['moving','paused','reduced']){
           const image=readFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`));
           if(image.length<8||image.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw new Error('Original scenery screenshot missing');

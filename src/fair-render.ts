@@ -1,3 +1,4 @@
+import {finishFair,FAIR_TREE_ROOTS} from './fair-finish';
 import {bannerPose,sceneryPose,FAIR_SCENERY_MOTION} from './fair-scenery-motion';
 import {shadeFairGround,inspectFairGround} from './fair-ground';
 import {EarlyOcclusion} from './early-occlusion';
@@ -90,8 +91,9 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   // Pixel canopies retain crisp leaf clusters instead of low-poly green balls.
   const tt=new DynamicTexture('fair-tree',{width:64,height:80},scene,false,Texture.NEAREST_SAMPLINGMODE);tt.hasAlpha=true;drawTree(tt.getContext() as CanvasRenderingContext2D);tt.update();
   const tm=new StandardMaterial('fair-tree',scene);tm.diffuseTexture=tt;tm.emissiveTexture=tt;tm.disableLighting=true;tm.useAlphaFromDiffuseTexture=true;tm.transparencyMode=Material.MATERIAL_ALPHATEST;tm.backFaceCulling=false;
-  for(const [x,z]of [[-11.5,8],[11.5,-6],[-12.9,-5],[12.9,7],[-10.5,11],[8,11]]){
-    const tree=attach(MeshBuilder.CreatePlane('fair-tree',{width:4.2,height:5.25},scene),tm,false);tree.billboardMode=Mesh.BILLBOARDMODE_ALL;tree.position.set(x!,2.65,z!);
+  const trees:Mesh[]=[];
+  for(const [x,z]of FAIR_TREE_ROOTS){
+    const tree=attach(MeshBuilder.CreatePlane('fair-tree',{width:4.2,height:5.25},scene),tm,false);tree.billboardMode=Mesh.BILLBOARDMODE_ALL;tree.position.set(x!,2.65,z!);trees.push(tree);
   }
   for(const [x,z]of [[-5.5,-.5],[-1.5,-.5]]){
     box('bell-flowerbed',x!,.22,z!,1,.14,1.7,'#827b63');
@@ -129,12 +131,14 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     if(merged){merged.name='fair-static-batch';merged.parent=root;merged.receiveShadows=true;shadow.addShadowCaster(merged);}
   }
   const conductView=buildFairConduct(scene,root);
+  const finish=finishFair(scene,root,shadow.getLight(),trees);
   root.setEnabled(false);
   return {root,resetOcclusion:()=>occlusion.reset(),inspectOcclusion:()=>occlusion.inspect(),
     updateOcclusion(ticks:number,subjects:readonly CameraSubject[]){
       const camera=scene.activeCamera;
       occlusion.update(ticks,root.isEnabled()?'fair':'outside-festival',camera?.getDirection(Vector3.Forward())??Vector3.Zero(),root.isEnabled()?fairOcclusionPoints(subjects):[]);
-    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),festival:festival.inspect(),scenery:{profile:FAIR_SCENERY_MOTION,tick:scenery.tick,reducedMotion:scenery.reducedMotion,banners:banners.map(b=>({id:b.name,anchor:b.position.asArray(),rotation:b.rotation.asArray(),parts:b.getChildMeshes().map(m=>m.name)})),rotations:{gate:gate.rotation.z,pendant:pendant.rotation.y,ring:rings.map(r=>r.rotation.y),save:save.rotation.y,robotY:robot.position.y,bell:bell.rotation.z},approved:false},vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,_time:number,reducedMotion=reducedMedia?.matches??false){
+    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),finish:finish.inspect(),festival:festival.inspect(),scenery:{profile:FAIR_SCENERY_MOTION,tick:scenery.tick,reducedMotion:scenery.reducedMotion,banners:banners.map(b=>({id:b.name,anchor:b.position.asArray(),rotation:b.rotation.asArray(),parts:b.getChildMeshes().map(m=>m.name)})),rotations:{gate:gate.rotation.z,pendant:pendant.rotation.y,ring:rings.map(r=>r.rotation.y),save:save.rotation.y,robotY:robot.position.y,bell:bell.rotation.z},approved:false},vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,_time:number,reducedMotion=reducedMedia?.matches??false){
+    finish.draw();
     scenery=sceneryPose(s.ticks,reducedMotion);
     banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});
     conductView.draw(s);vendorMotion.draw(s.ticks);

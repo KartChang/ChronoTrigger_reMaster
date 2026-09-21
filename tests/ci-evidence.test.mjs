@@ -19,6 +19,7 @@ function fixture(t,lane='validate'){
   for(const p of NATIVE_REPORTS[lane])put(p+'/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[{status:'unit-only fixture'}]});
   if(lane==='good'){
     const sceneryCases=['desktop','portrait','short-landscape'].map(name=>({name,status:'passed',before:{tick:0,scenery:{reducedMotion:false}},later:{tick:12},pause:{fullStateUnchanged:true},reduced:{before:{tick:20,scenery:{reducedMotion:true}},after:{tick:32,scenery:{reducedMotion:true}}}}));
+    for(const c of sceneryCases)c.finish=Object.fromEntries(['before','paused','reduced'].map(p=>[p,{profile:'vq01w-fair-light-and-contact',approved:false,fill:{onlyFair:true,enabled:true,intensity:.28},key:{receivesKey:true},contacts:Array.from({length:6},()=>({footError:0,shadow:{visible:true}})),softShadows:{count:8,dynamic:false,alphaMin:0}}])); // Synthetic checker fixtures only.
     put('equipment/00-cloth-canopy-occlusion-motion-report.json',{status:'passed',physicalDevice:false,artApproved:false,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex'),runId:'123',runAttempt:'1',cases:sceneryCases});
     for(const c of sceneryCases)for(const phase of ['moving','paused','reduced'])writeFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`),Buffer.from('89504e470d0a1a0a','hex')); // Signature-only unit fixtures, not browser screenshots.
     put('equipment/equipment-report.json',{status:'passed',checks:['unit-only fixture'],errors:[],contextHandoff:handoff});
@@ -131,4 +132,13 @@ for(const defect of ['missing','stalled','missing-tick','wrong-source','missing-
  else if(defect==='missing-image')rmSync(join(f.args.resultsDir,'equipment/00-cloth-canopy-occlusion-motion-portrait-reduced.png'));
  else{if(defect==='stalled')r.cases[0].later.tick=0;if(defect==='missing-tick')delete r.cases[0].later.tick;if(defect==='wrong-source')r.sourceSha='b'.repeat(40);if(defect==='cleanup')r.cleanupErrors=['unit error'];f.put(path,r);}
  const result=inspectLane(f.args);assert.equal(result.status,'failed');assert(result.errors.some(e=>e.path===path));
+});
+
+for(const defect of ['missing-finish','leaking-light','floating-tree','dynamic-shadow'])test(`fair finish ledger rejects ${defect}`,t=>{
+ const f=fixture(t,'good'),path='equipment/00-cloth-canopy-occlusion-motion-report.json',r=JSON.parse(readFileSync(join(f.args.resultsDir,path),'utf8'));
+ if(defect==='missing-finish')delete r.cases[0].finish;
+ if(defect==='leaking-light')r.cases[0].finish.before.fill.onlyFair=false;
+ if(defect==='floating-tree')r.cases[0].finish.before.contacts[0].footError=.1;
+ if(defect==='dynamic-shadow')r.cases[0].finish.paused.softShadows.dynamic=true;
+ f.put(path,r);const result=inspectLane(f.args);assert.equal(result.status,'failed');assert(result.errors.some(e=>e.path===path));
 });

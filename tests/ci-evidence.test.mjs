@@ -9,6 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {LANE_REPORTS,NATIVE_REPORTS,inspectLane,writeLedger} from '../scripts/ci-evidence.mjs';
 const workflow=readFileSync(new URL('../.github/workflows/ci.yml',import.meta.url),'utf8');
 const pavingExpected=JSON.parse(readFileSync(new URL('./fixtures/fair-paving-unit.json',import.meta.url),'utf8'));
+const audioFixture=JSON.parse(readFileSync(new URL('./fixtures/scene-audio-evidence-unit.json',import.meta.url),'utf8')).report;
 const handoff={status:'passed',contextsBefore:1,pagesBefore:1,contextsAfter:0,pagesAfter:0,desktopClosed:true};
 const sha='a'.repeat(40),html=Buffer.from('unit-only report fixture, not a playable or browser observation');
 function fixture(t,lane='validate'){
@@ -24,7 +25,7 @@ function fixture(t,lane='validate'){
     for(const c of sceneryCases)c.paving=Object.fromEntries(['before','paused','reduced'].map(p=>[p,{profile:'vq01x-retained-plaza-composition',source:'actual-fair-paving-canvas',approved:false,texture:'fair-ground-reference',width:512,height:512,samples:structuredClone(pavingExpected.samples)}])); // Unit-only source-pixel expectations.
     put('equipment/00-cloth-canopy-occlusion-motion-report.json',{status:'passed',physicalDevice:false,artApproved:false,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex'),runId:'123',runAttempt:'1',cases:sceneryCases});
     for(const c of sceneryCases)for(const phase of ['moving','paused','reduced'])writeFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`),Buffer.from('89504e470d0a1a0a','hex')); // Signature-only unit fixtures, not browser screenshots.
-    put('equipment/equipment-report.json',{status:'passed',checks:['unit-only fixture'],errors:[],contextHandoff:handoff});
+    put('equipment/equipment-report.json',{status:'passed',checks:['unit-only fixture'],errors:[],audio:structuredClone(audioFixture),contextHandoff:handoff});
     put('equipment/equipment-merchant-v8.json',{fixture:'unit only, not a player save'});
     writeFileSync(join(resultsDir,'equipment/inventory-touch-trace.zip'),Buffer.from([0x50,0x4b,3,4,0])); // Unit signature only; not browser evidence.
     put('equipment/inventory-touch-report.json',{status:'passed',phase:'complete',closeFocus:'world',physicalDevice:false,
@@ -85,9 +86,9 @@ test('failed, empty or console-error reports fail closed',t=>{
 });
 test('wrong report source or HTML digest cannot satisfy provenance',t=>{
   const f=fixture(t,'good');for(const wrong of [{sourceSha:'b'.repeat(40)},{htmlSha256:'0'.repeat(64)}]){
-    f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],errors:[],...wrong});assert.equal(inspectLane(f.args).status,'failed');
+    f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],errors:[],audio:structuredClone(audioFixture),...wrong});assert.equal(inspectLane(f.args).status,'failed');
   }
-  f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],contextHandoff:handoff,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex')});assert.equal(inspectLane(f.args).status,'passed');
+  f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],audio:structuredClone(audioFixture),contextHandoff:handoff,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex')});assert.equal(inspectLane(f.args).status,'passed');
 });
 test('missing native observations fail even with all main reports green',t=>{
   const f=fixture(t,'bad');f.put('keyboard/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[]});assert.equal(inspectLane(f.args).status,'failed');

@@ -1,3 +1,4 @@
+import {assertAudioEvidence} from './audio-evidence.mjs';
 import {createHash} from 'node:crypto';
 import {mkdirSync,readFileSync,renameSync,writeFileSync} from 'node:fs';
 import {dirname,join,resolve} from 'node:path';
@@ -31,6 +32,7 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
     try{
       const bytes=readFileSync(join(resultsDir,path)),r=JSON.parse(bytes.toString('utf8'));
       if(!r||r.status!=='passed')throw new Error('Missing successful completion status');
+      if(path==='equipment/equipment-report.json')assertAudioEvidence(r.audio);
       if(r.errors!==undefined&&(!Array.isArray(r.errors)||r.errors.length))throw new Error('Report contains errors');
       const checks=r.passed??r.checks;
       if(!native&&(!Array.isArray(checks)||checks.length===0))throw new Error('Completed journey has no checks');

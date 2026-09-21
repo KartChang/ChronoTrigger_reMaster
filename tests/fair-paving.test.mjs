@@ -52,7 +52,7 @@ test('paving does not resize the atlas, add texture/ground mesh, change sampler 
  }finally{k.dispose();}
 });
 test('retained painter, topology, core/main and held home renderer remain exact blobs',()=>{
- for(const [p,sha] of Object.entries({'src/early-art.ts':'12b0f9db63ff3cf0e22bda3a758ca3d3a33995c6c74c4c7b431a8a94f38a4b10','src/surface-layout.ts':'5a0e6520e80dbd609b6e5ebaab93c78e5be1a67b5b3068261336a36d8d7fb995','src/main.ts':'f3ecdd267dbfa3725b9405e7d592639e852f8e713d8099838c628496bec2ca8c'}))assert.equal(hash(readFileSync(p)),sha);
+ for(const [p,sha] of Object.entries({'src/early-art.ts':'12b0f9db63ff3cf0e22bda3a758ca3d3a33995c6c74c4c7b431a8a94f38a4b10','src/surface-layout.ts':'5a0e6520e80dbd609b6e5ebaab93c78e5be1a67b5b3068261336a36d8d7fb995','src/main.ts':'ddc09e0026815725cead199d593badef06e3750fec44edd96db1eb1cef13670b'}))assert.equal(hash(readFileSync(p)),sha);
  const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.from(`blob ${b.length}\0`)).update(b).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');
 });
 

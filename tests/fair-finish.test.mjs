@@ -49,7 +49,7 @@ test('inspection exposes actual material damage and cannot mutate live state',()
  finally{k.dispose();}
 });
 test('tree and actor source pixels, global renderer and HUD remain byte-identical',()=>{
- for(const [p,h] of Object.entries({'src/render.ts':'0b01f8a83d251bdfeb1c9ff679e51e257ddc2258633a378fb03f51a0a91ef9a8','src/main.ts':'f3ecdd267dbfa3725b9405e7d592639e852f8e713d8099838c628496bec2ca8c','src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a'}))assert.equal(sha(readFileSync(p)),h);
+ for(const [p,h] of Object.entries({'src/render.ts':'0b01f8a83d251bdfeb1c9ff679e51e257ddc2258633a378fb03f51a0a91ef9a8','src/main.ts':'ddc09e0026815725cead199d593badef06e3750fec44edd96db1eb1cef13670b','src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a'}))assert.equal(sha(readFileSync(p)),h);
  const k=setup();try{for(const name of ['lucca-handdrawn','gato-handdrawn','fair-vendor-cloth','fair-tree']){const m=k.scene.getMeshByName(name).material;assert(m.disableLighting);assert.equal(m.diffuseTexture.samplingMode,1);}}
  finally{k.dispose();}
 });

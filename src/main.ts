@@ -1,3 +1,4 @@
+import {SceneAudio} from './scene-audio';
 import {takeFrameEffects,FeedbackClock} from './presentation-state';
 import {ModalFocus,jumpInventorySection} from './modal-focus';
 import {bindSaveImport} from './save-import';
@@ -21,12 +22,14 @@ import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};
 let state=createState('bedroom'),started=false,manualPause=false,dialogOpen=false,bagOpen=false,last=performance.now(),accumulator=0,hudTime=0,previousLog='';
-let soundEnabled=false,audio:AudioContext|undefined,filePickerOpen=false;
+let filePickerOpen=false;
+const soundtrack=new SceneAudio();
 const feedbackClock=new FeedbackClock();
 const modalFocus=new ModalFocus(document);
 const controls=new Controls(command,{solo:()=>!state.joined,routeUi:routeKeyboardUi});
 const inputBoundary=new InputBoundary(state);
 function replaceState(next:State):void {
+  soundtrack.reset();
   gearPanel.reset();
   state=next;controls.clear();if(started)focusWorld();inputBoundary.rebase(state);
   last=performance.now();accumulator=0;
@@ -35,13 +38,11 @@ const gearPanel=equipmentPanel($('equipment-panel'),()=>state,message=>{$('inven
 const halted=()=>!started||manualPause||dialogOpen||bagOpen||filePickerOpen||document.hidden;
 const asError=(e:unknown)=>e instanceof Error?e.message:String(e);
 function announce(text:string):void{$('message').textContent=text;$('message').classList.add('show');feedbackClock.show();}
-function tone(frequency=440):void{
-  if(!soundEnabled)return;
-  try{audio??=new AudioContext();void audio.resume().catch(()=>{});const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='triangle';oscillator.frequency.value=frequency;gain.gain.setValueAtTime(.04,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start();oscillator.stop(audio.currentTime+.13);}catch{soundEnabled=false;$('sound').textContent='音效不可用';}
-}
+function tone(frequency=440):void{soundtrack.effect(frequency);}
 function showDialog(title:string,text:string):void{dialogOpen=true;controls.clear();inputBoundary.rebase(state);$('dialog-title').textContent=title;$('dialog-text').textContent=text;$('dialog').hidden=false;const choice=!!state.prologue.choice||!!state.trial.choice;$('dialog-choices').hidden=!choice;$('dialog-close').hidden=choice;const labels=state.trial.choice?trialChoiceLabels(state):['是','不是現在'];$('choice-yes').textContent=labels[0]+' · 1';$('choice-no').textContent=labels[1]+' · 2';syncModal();(choice?$('choice-yes'):$('dialog-close')).focus();}
 function focusWorld():void{$('world').focus({preventScroll:true});}
 function syncModal():void{
+ if(halted())soundtrack.hold();
  const id=!started?'start-screen':manualPause?'pause-screen':dialogOpen?'dialog':bagOpen?'inventory-screen':state.mode==='victory'||state.mode==='defeat'?'result':null;
  const fallback=id==='start-screen'?'start-screen':id==='pause-screen'?'resume':id==='dialog'?(state.prologue.choice||state.trial.choice?'choice-yes':'dialog-close'):id==='inventory-screen'?'inventory-close':'continue';
  const changed=modalFocus.set(id?$(id):null,id?$(fallback):null);
@@ -106,11 +107,17 @@ $('pause').onclick=togglePause;$('resume').onclick=togglePause;$('dialog-close')
 $('coop').onclick=()=>command(1,'join');$('interact').onclick=()=>command(0,'interact');
 $('save').onclick=()=>{if(started&&!halted())void saveGame();};$('load').onclick=()=>{if(started&&!halted())void loadGame();};
 $('trial').onclick=()=>{if(!halted()&&!cutsceneActive(state)){if(beginBattle(state))announce('練習戰鬥開始。等待 ATB 充滿。');else announce('請先完成目前戰鬥。');updateHud();}};
-$('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent='音效：'+(soundEnabled?'開':'關');tone();};
+$('sound').onclick=()=>{soundtrack.setEnabled(!soundtrack.status().enabled);syncSoundButton();};
+function syncSoundButton():void{const a=soundtrack.status();$('sound').textContent=a.error?'音訊不可用':'音訊：'+(a.enabled?'開':'關');$('sound').setAttribute('aria-pressed',String(a.enabled));}
+// Only real user events may resume an opted-in AudioContext. No frame-loop resume.
+document.addEventListener('pointerdown',()=>{void soundtrack.unlock();});
+document.addEventListener('keydown',()=>{void soundtrack.unlock();});
+window.addEventListener('pagehide',()=>soundtrack.hold());
+window.addEventListener('beforeunload',()=>soundtrack.dispose());
 $('export').onclick=()=>{try{if(!started||halted())return;const blob=new Blob([serialize(state)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=state.equipment?'chrono-equipment-save-v8.json':trialActive(state)?'chrono-trial-save-v7.json':state.prologue.stage!=='legacy'?'chrono-prologue-save-v6.json':state.rescue.stage!=='none'?'chrono-rescue-save-v5.json':state.kingdom.phase!=='none'?'chrono-kingdom-save-v4.json':state.opening.phase!=='none'?'chrono-opening-save-v3.json':state.chapter==='fair'?'chrono-fair-save-v2.json':'chrono-hd2d-save-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);announce('已匯出存檔。');}catch(e){announce(asError(e));}};
 const saveImport=bindSaveImport($<HTMLInputElement>('save-file'),{
  canStart:()=>started&&!halted()&&!cutsceneActive(state)&&state.mode==='explore',
- busy:value=>{filePickerOpen=value;controls.clear();inputBoundary.rebase(state);last=performance.now();accumulator=0;},
+ busy:value=>{filePickerOpen=value;if(value)soundtrack.hold();controls.clear();inputBoundary.rebase(state);last=performance.now();accumulator=0;},
  apply:raw=>{replaceState(deserialize(raw));updateHud();},
  notice:announce,
  released:()=>{updateHud();if(started&&!halted())focusWorld();}
@@ -120,8 +127,9 @@ function continueEncounter():void{if(state.mode!=='victory'&&state.mode!=='defea
 $('continue').onclick=continueEncounter;
 document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button=>button.onclick=()=>command(Number(button.dataset.slot) as Slot,button.dataset.action as Command));
 document.querySelectorAll<HTMLButtonElement>('[data-target-slot]').forEach(b=>b.onclick=()=>command(Number(b.dataset.targetSlot) as Slot,b.dataset.direction==='previous'?'targetPrevious':'targetNext'));
-document.addEventListener('visibilitychange',()=>{controls.clear();if(document.hidden&&started&&!filePickerOpen){manualPause=true;$('pause-screen').hidden=false;syncModal();}last=performance.now();accumulator=0;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)soundtrack.hold();controls.clear();if(document.hidden&&started&&!filePickerOpen){manualPause=true;$('pause-screen').hidden=false;syncModal();}last=performance.now();accumulator=0;});
 function updateHud():void{
+  syncSoundButton();
   document.body.dataset.started=String(started);$('control-hint').textContent=state.joined?'P1 WASD／E · P2 方向鍵／Enter · H 操作':'WASD 或方向鍵移動 · E／Enter／空白鍵互動 · H 操作';document.body.dataset.adventure=String(state.chapter!=='lab');document.body.dataset.mode=state.mode;document.body.dataset.cinematic=String(cutsceneActive(state));
   $('p1').hidden=!activeSlot(state,1);
   const captions:Record<State['opening']['phase'],string>={none:'',approach:'瑪兒走上平台。',resonance:'項鍊發光了……！',lost:'瑪兒消失了。找回平台上的項鍊。',pendant:'握緊項鍊，回到左側平台，按 E 追上她。',crossing:'光芒吞沒了周遭的景色。',canyon:state.opening.canyonWon?'沿山道往南，尋找瑪兒的去向。':'陌生的山道。前方傳來魔物的聲音。',vista:'山下有一座城鎮。靠近出口，再按 E 前往托魯斯。'};
@@ -271,13 +279,14 @@ try{
       }
     }else accumulator=0;
     const running=!halted();
+    soundtrack.update(state,!running);
     world.draw(state,dt,running||!started,takeFrameEffects(state,running));
     hudTime+=dt;if(hudTime>.08){updateHud();hudTime=0;}
     if(!feedbackClock.advance(dt,halted()))$('message').classList.remove('show');
     if(frame++%30===0){const fps=world.engine.getFps();$('fps').textContent=Number.isFinite(fps)?`WEBGL · ${Math.round(fps)} FPS`:'WEBGL · 準備中';}
   });
-  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};
-  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect(),importStatus:()=>saveImport.inspect()};
+  const win=window as unknown as {__CHRONO_TEST__?:{snapshot:()=>State;paused:()=>boolean;view:()=>ReturnType<World['inspect']>;audio:()=>ReturnType<typeof soundtrack.inspect>;importStatus:()=>ReturnType<typeof saveImport.inspect>}};
+  if(new URLSearchParams(location.search).get('test')==='1'||document.documentElement.dataset.test==='1')win.__CHRONO_TEST__={snapshot:()=>structuredClone(state),paused:halted,view:()=>world.inspect(),audio:()=>soundtrack.inspect(),importStatus:()=>saveImport.inspect()};
 }catch(error){const el=document.createElement('div');el.className='fatal';const title=document.createElement('h2');title.textContent='無法建立 3D 畫面';const p=document.createElement('p');p.textContent='請使用開啟硬體加速的近期 Chrome／Edge 瀏覽器。錯誤：'+asError(error);el.append(title,p);document.body.append(el);console.error(error);}
 
 function resolveChoice(yes:boolean):void{

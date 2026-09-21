@@ -25,7 +25,7 @@ test('startup and noninteractive result modes never measure or write layout vari
 test('short viewport and fractional layout round outward rather than clipping one pixel',()=>{
  assert.deepEqual(run({height:320,top:180.25}).writes,[['--exploration-clearance','152px']]);
 });
-test('only the reviewed layout block changed in main; all game/input/save wiring remains exact',()=>{
+test('reviewed layout block stays pinned with the explicit VQ02A audio-only main version',()=>{
  const old=`/** Content-sized battle panels, including tonics, must never cover feedback. */
 function layoutFeedback():void{
  if(!started||state.mode!=='battle')return;
@@ -36,7 +36,7 @@ new ResizeObserver(layoutFeedback).observe($('party'));window.addEventListener('
  const first=source.indexOf('/** Measure presentation only:'),last=source.indexOf('\n\nfunction openBag()',first);
  assert(first>0&&last>first);
  const normalized=source.slice(0,first)+old+source.slice(last);
- assert.equal(createHash('sha256').update(normalized).digest('hex'),'949ba43447534e4a9d7139268f75ae8a8fd45ae9cb9cbe9d21a11a9a3e789e12');
+ assert.equal(createHash('sha256').update(normalized).digest('hex'),'2a1fe4df4137364b628416ae290d78424ef25cfc792ad7eb5900c8d19d73254b');
 });
 test('the dock never owns keyboard events, state writes, new timers or synthetic input',()=>{
  assert.doesNotMatch(code,/addEventListener|setTimeout|setInterval|requestAnimationFrame|\.focus\(|\.click\(/);

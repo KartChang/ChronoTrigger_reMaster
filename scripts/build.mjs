@@ -14,7 +14,7 @@ await mkdir('dist',{recursive:true});
 await writeFile('dist/THIRD_PARTY_LICENSE.txt',await readFile('node_modules/@babylonjs/core/license.md'));
 await writeFile('dist/THIRD_PARTY_NOTICES.md',await readFile('docs/THIRD_PARTY.md'));
 await writeFile('dist/index.html',template);
-await writeFile('dist/build-meta.json',JSON.stringify({version:'0.9.21',sourceSha:process.env.GITHUB_SHA??null,bundled:true,externalRequests:0,bytes:Buffer.byteLength(template)},null,2));
+await writeFile('dist/build-meta.json',JSON.stringify({version:'0.9.23',sourceSha:process.env.GITHUB_SHA??null,bundled:true,externalRequests:0,bytes:Buffer.byteLength(template)},null,2));
 console.log(`Built self-contained dist/index.html (${(Buffer.byteLength(template)/1024/1024).toFixed(2)} MiB). No CDN, server or ROM required to play.`);
 
 await exportAssets();

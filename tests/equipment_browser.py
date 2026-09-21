@@ -2,6 +2,7 @@
 Only genuine key presses, native file chooser and player exports change state.
 No manufactured save, writable test hook, clock acceleration or synthetic wallet.
 """
+from scene_audio_browser import begin_audio_observation, finish_audio_observation, audio
 from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import traceback
@@ -23,6 +24,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 checks, observations, waits, errors, requests = [], [], [], [], []
 import_attempts = []
 desktop_terminal = None
+audio_report = None
 handoff = {'status':'not-started'}
 server = subprocess.Popen([sys.executable, '-m', 'http.server', '4188', '--bind', '127.0.0.1'], cwd=ROOT/'dist', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -112,6 +114,7 @@ def imported(page, path, activation="Enter"):
         subscription=chooser_observation(page)
         attempt['subscriptionBefore']=subscription
         attempt['beforeEnter']=import_context(page)
+        attempt['audioBefore']=audio(page)
         assert attempt['beforeEnter']['focused']=='import',attempt
         assert not attempt['beforeEnter']['paused'],attempt
         with page.expect_file_chooser() as event:
@@ -119,6 +122,7 @@ def imported(page, path, activation="Enter"):
             else:page.keyboard.press(activation)
         attempt['subscriptionAfterChooser']=assert_one_chooser(page,subscription)
         attempt['chooserOpen']=import_context(page)
+        attempt['audioChooserOpen']=audio(page)
         assert attempt['chooserOpen']['picker']=='open' and attempt['chooserOpen']['paused'],attempt
         event.value.set_files(str(path))
         page.wait_for_function('document.activeElement?.id==="world" && document.querySelector("#message").textContent.includes("存檔已匯入") && document.querySelector("#save-file").dataset.picker==="closed"')
@@ -158,7 +162,10 @@ try:
             page.wait_for_function('window.__CHRONO_TEST__ && !document.querySelector("#start-story").disabled')
             page.keyboard.press('ArrowDown');assert focus(page)=='start-story'
             page.keyboard.press('Enter');wait_game(page,'s.prologue.stage==="home"',220)
+            audio_report=begin_audio_observation(page,activate)
             imported(page,SOURCE)
+            audio_report=finish_audio_observation(page,activate,audio_report,import_attempts[0],OUT)
+            passed('opt-in authored audio produces analyser energy; pause/dialog/inventory and original native import silence old voices; mute restores zero output')
             assert snap(page)['equipment'] is None
             facts=snap(page)['prologue']['conduct']
             page.keyboard.press('i')
@@ -361,7 +368,7 @@ try:
                 report['observationError']=str(observation)
             raise
         finally:
-            report.update(contextHandoff=handoff,importAttempts=import_attempts,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
+            report.update(audio=audio_report,contextHandoff=handoff,importAttempts=import_attempts,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
             (OUT/'equipment-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:

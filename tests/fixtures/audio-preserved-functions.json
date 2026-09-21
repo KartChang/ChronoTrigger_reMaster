@@ -1,0 +1,29 @@
+{
+  "kind": "exact accepted source function hashes; not runtime evidence",
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "mainSha256": "f3ecdd267dbfa3725b9405e7d592639e852f8e713d8099838c628496bec2ca8c",
+  "functions": {
+    "replaceState": "f722f4db3fb233aea465dcaa3784fac1f0132a9a95f70b712e64d021fe2e09c3",
+    "announce": "28e9bbe0f0aa51295bbe43ec04f556b8844133e48a26915b044047add93dc33b",
+    "showDialog": "008e4de479b4ea0ae4ff7981bbd7a2f98b33ff31b6b3f5829a4fc2b9e808c2f7",
+    "focusWorld": "696aaa6dc9a6ff4cc642f6aa8c7aee49b3d99b5df3ea71e63a3222341e462f55",
+    "syncModal": "d020bd77915eb1fa041ba6fa95e4112c0d9c49d180c551c4f455a5df01150992",
+    "closeDialog": "aabca486f9ef70495e1bf2679e5cd81500a095b4b8282bed257448b2b9fa7b8a",
+    "togglePause": "2c8a496d3f4cd577583ee8a0a48b1b0a23e35fb46e61905ba33def5f3f93a4ef",
+    "start": "743d55de86ceed488c73246394772ba09df7ba5fec9481d501a54b9fe42a62f9",
+    "nearest": "78026f6935d2588cd499066a57d8b9dcbc60932fdb78773166eac061e14ce994",
+    "interact": "05c8beef9c63a53f22d4458d55f2beea218e480f9fb679a817850dfc07723de5",
+    "command": "c24204754819accfaea28847e5dc1be9234655743d49de8518581f0af42b1391",
+    "saveGame": "eeb71dd7b5a2812490135030fa7b04b0cda9c5aa797c5e7b6084f030d99a8272",
+    "loadGame": "c492d220aa30f08304cec84274253d3499b140cd34cc3e1c454069cbcba11302",
+    "continueEncounter": "8547217383f99a9b5b5c1d828cd577549422c6165973bdcb0269a61b4119b876",
+    "updateHud": "362b52f1aed898014ca654478758f739a0e5de411c102896b4a816c225fb2319",
+    "resolveChoice": "554bfcb3626990b9df72442bfe6d9b12d97e42751af6cc789d160cd02911c537",
+    "layoutFeedback": "b7cdad1793fe43784bab56095f3263b75f50629405a33220f0d2ca42cffcd3e0",
+    "openBag": "00581c9e7eae6540e95d4b63ec2dcfb5215cf0a06f62c4332c288cae1a2c4d20",
+    "closeBag": "b77a8adbf7d2ccc5cd49bdcd3beae8d64bc347b2377c832d51dcc95e1ca092c4",
+    "refreshBag": "267d6089e0404d4a22db38f505798947c4df5d266fcadf93e29bc5298799d485",
+    "routeKeyboardUi": "69f37176cbc1a16bd46fd25123117212a738480b4f0f6bcb968ab1d87a9fb246",
+    "showControls": "e1cb5ab5f0b4d986b9bdee1da43d35b1121414cc0ae4f291736331d59637df36"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "batch": "VQ02A",
+  "version": "0.9.23",
+  "workstream": "independent-early-audio",
+  "kind": "tested-source-and-local-validation-not-CI-acceptance",
+  "source": "b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+  "sourceTree": "e9fce47b7454f0a30bb389f3b96628b94c491cbb",
+  "driveFolder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId": "1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu",
+  "name": "Chrono-VQ02A-tested-source-local-evidence.zip",
+  "bytes": 1928839,
+  "sha256": "fda53969d477b14dfb322b691b9a501e5d3a2c1db7d6005ecd7634fa284ad02d",
+  "createdAt": "2026-09-21T07:56:05.622Z",
+  "verified": {
+    "metadataParent": true,
+    "downloadedRawReadback": true,
+    "bytes": true,
+    "sha256": true,
+    "zipCRC": true,
+    "manifestEntries": 34,
+    "allManifestBytesAndHashes": true,
+    "nineteenChangedBlobsMatchPublishedTestedSubtrees": true
+  },
+  "recovery": {
+    "path": "recovery/VQ02A-tested-program-snapshot.tar.gz",
+    "files": 226,
+    "kind": "assembled-program-snapshot",
+    "baseAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+    "changedFiles": 19,
+    "publishedGitArchiveClaim": false,
+    "heldZIncluded": false,
+    "currentDocuments": "Read latest GitHub main execution documents separately. Never replace current progress with archived documents or apply the held Z snapshot over this source."
+  },
+  "completePublishedTestedSubtrees": {
+    "src": "d22f2379dd69af896b6bb9bd1122e66c1b9134bd",
+    "tests": "355512e1f2e17555ecada05106f9f2a3f66face0",
+    "scripts": "863f4402d04d25107c4542221645086dbd336bd5"
+  },
+  "contents": ["19 changed source/test/build files", "fresh original local test logs, including initial findings", "unaccepted local HTML with sourceSha null", "226-file assembled program recovery snapshot", "hash manifest"],
+  "excludes": ["node_modules", "held Z implementation", "private ROM", "external original images/audio", "font files", "credentials"],
+  "archivalState": "The package was made before source publication. Its null source describes that point, not another candidate. Complete locally tested src/tests/scripts subtrees and all19 changed blobs subsequently matched the published source. This final GitHub receipt supplements the archive without rewriting raw tests.",
+  "ci43": {"id":35576672389,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T08:12:24Z","accepted":false},
+  "actualBrowserAudioEvidencePresent": false,
+  "listeningReview": false,
+  "newPagesAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "priorAcceptedOriginalsRetained": "1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW",
+  "heldZRetainedButNotApplied": "1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9"
+}

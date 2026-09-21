@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "batch": "VQ02A",
+  "version": "0.9.23",
+  "root": "T05-early-visual-cohesion",
+  "workstream": "independent-early-audio",
+  "baseMain": "d089b25ad75d8aebea67c748aacaaa4e5c01fa74",
+  "baseAcceptedSource": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "source": "b54ff3079c8d087bb1396229bc3adf718f2e8cd4",
+  "sourceTree": "e9fce47b7454f0a30bb389f3b96628b94c491cbb",
+  "status": "published-local-passed-CI43-pending",
+  "createdAt": "2026-09-21T07:55:53.835444+00:00",
+  "commands": [
+    {"command":"npm run check","exitCode":0,"passedNode":987,"failedNode":0,"skippedNode":0,"assets":true,"typecheck":true,"build":true,"log":"logs/check-complete.log"},
+    {"command":"python -m unittest discover -s tests -p '*_test.py'","exitCode":0,"passedPython":208,"log":"logs/python-final.log"},
+    {"command":"ast.parse on changed Python drivers and tests","result":"passed"}
+  ],
+  "localBrowserRun": false,
+  "actualAudioObserved": false,
+  "listeningReview": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "localHtml": {"bytes":5643715,"sha256":"ba5114bf5879458c28cdd68a9ae7df4498939bb4bc0a8450541bca9ddf715ee9","sourceSha":null,"accepted":false},
+  "changedFiles": [
+    {"path":"index.html","bytes":10387,"sha256":"6e3ba791879301caf95fc36ebffb4c1f275e67a59a5c2081b80ef91b3e00622d","blob":"76d656c6f6bb9884eb84337f27fba78e0316067b","new":false},
+    {"path":"scripts/audio-evidence.mjs","bytes":2291,"sha256":"ab23345deca2c6c89752f828a21111dc97b1d63889296bebb4d5dfec876bd4e0","blob":"5b9ad209f8804c9aec9cd4c5fe234f1fb5737f72","new":true},
+    {"path":"scripts/build.mjs","bytes":1949,"sha256":"8ea3c6101ab03e0732e78048d5bfbc4c96999ea8949fa9b9c67f6f9ab2e4daf1","blob":"df07d0cf0861a13f067fbd73ca059eed06ee66db","new":false},
+    {"path":"scripts/ci-evidence.mjs","bytes":9824,"sha256":"ddbdca448578771c390913b428c9ab7e56fa10885ba9a33c7e35336b1bab4ab6","blob":"c6758c4078d2b856ac9bc6d19281fcceb487ab8f","new":false},
+    {"path":"scripts/test.mjs","bytes":2701,"sha256":"d266f844fe499864dff1efff4d5fdce582745e21cf8c5d05322ee4247ca2d731","blob":"e527b82642fe61f17e42d50d24258d0e4bf2edd2","new":false},
+    {"path":"src/main.ts","bytes":40525,"sha256":"ddc09e0026815725cead199d593badef06e3750fec44edd96db1eb1cef13670b","blob":"96aa98c9eb761c7b1253cb3c871e12092035b3a4","new":false},
+    {"path":"src/music-score.ts","bytes":3009,"sha256":"48f4cf1551da27dcd9ce80d3b4819168505c05fc4f90c460cc6aa9ea78f112cf","blob":"328b251d6b924d1e28385db8636f1f5fea5ccc1e","new":true},
+    {"path":"src/scene-audio.ts","bytes":6494,"sha256":"6a92b07f561f4f7bb85ff608afe9adbb7d86db827180d35cabb1a0b184cfd952","blob":"96cb4144f79a0a41ab4f1c4aafa4bffe57d82530","new":true},
+    {"path":"tests/ci-evidence.test.mjs","bytes":14442,"sha256":"80bdfcb66ac9e5d60a19224db0fd8ef82d9e79522ba5d94a08485669906631e5","blob":"eb1de576c40e5c4a9824100faae90cd38c7070b0","new":false},
+    {"path":"tests/equipment_browser.py","bytes":23854,"sha256":"dfdd36f3a6588cbf5b8f26098817004ebdcd4523e754a36a9d3009ec6495f832","blob":"72f577ffa51b0016e87235c19828f05fb897aebc","new":false},
+    {"path":"tests/exploration-hud.test.mjs","bytes":4299,"sha256":"92eb4ebb16e2331de206ccdb4f8f66be51b0148048234c3c0ce20b66c921d2fe","blob":"379b232879e6e7b114de2c9d12d014f9fac8594f","new":false},
+    {"path":"tests/fair-finish.test.mjs","bytes":6621,"sha256":"312917d8dcd7897fb630fdb5f2e8d1ad80d05aa64a25159f3f06ee71ef6f2cc4","blob":"4484446f49ed9c7fa4856669eebce829b403f69b","new":false},
+    {"path":"tests/fair-paving.test.mjs","bytes":5902,"sha256":"68c78fa213e2ac685a2ff97ab8e6f12a15a1887a2ff3fa6a962aeb453fc076b7","blob":"9c4ca518dca09f06c0fbec76ae41f92f63a36bbd","new":false},
+    {"path":"tests/festival-integration.test.mjs","bytes":12152,"sha256":"fc97c3e1b170dde61eb51f80e9abe413cb7c474d81f0e008d19dfe217191d1d3","blob":"3d4717f2f9e0e471a4403b1fbc4e92fa80b2dfde","new":false},
+    {"path":"tests/fixtures/audio-preserved-functions.json","bytes":2128,"sha256":"0188af979adde8709829424db3722249e99924d89d0f0d1fb83deb0ffb495a66","blob":"e90d3d245df2ed0532ff385d1370dd1ae6f7a8b7","new":true},
+    {"path":"tests/fixtures/scene-audio-evidence-unit.json","bytes":7122,"sha256":"431412ddd256b533959274da36d137bd7aaa63e4ce6fec196a0adf99a68a3f15","blob":"c6375e7a427c7bdd47a5ece918eba73e4a3f20d4","new":true},
+    {"path":"tests/scene-audio.test.mjs","bytes":15313,"sha256":"f012f232df7b44ae3a0d173133307b29cccbca76b8f16a9fa87c7c6c95b85dc5","blob":"251e96decd39633acc2117c6e7d679a8aca22bbe","new":true},
+    {"path":"tests/scene_audio_browser.py","bytes":3916,"sha256":"8aa0fc3717d5eafe5f65d21991b5063f7c24e04b6e01c210b7ede7523ae79867","blob":"498e6afbb4af93963ff3ac7af4e94084c81cc639","new":true},
+    {"path":"tests/scene_audio_browser_test.py","bytes":3853,"sha256":"95a79a83af7667f28eee7fc59035b76dacccede1ae62f9ba92414da43cef9abe","blob":"2423ddb0fde955fb9b876fc8e5993a62ae1e186c","new":true}
+  ],
+  "safetyBoundary": {
+    "heldZApplied":false,"heldZRetried":false,"heldZPublicationBypassed":false,
+    "heldHomeRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "unchanged":["src/fair-render.ts","src/festival-kit.ts","src/early-comfort.ts","src/prologue-render.ts"],
+    "stillAbsent":["src/fair-surfaces.ts","src/fair-composition.ts"]
+  },
+  "preservedFunctions": {"count":22,"fixture":"tests/fixtures/audio-preserved-functions.json","origin":"exact accepted CI42 source, source comparison not execution evidence"},
+  "initialFindings": [
+    "Four historical main-file pins failed after intentional audio wiring; deliberately advanced only main/normalized-main pins, and separately compared 22 retained gameplay functions to exact accepted source.",
+    "New fixture initially assumed >=25 retained functions; actual parsed source contains22, now pinned exactly.",
+    "Existing provenance-negative fixture needed the new synthetic audio field so it continued to test source/HTML mismatches rather than missing audio.",
+    "Native AudioParam float32 rounding is accepted at 1e-6 tolerance; zero-output, state, and voice-limit requirements were not relaxed."
+  ],
+  "logs": {
+    "python-final.log":{"bytes":308,"sha256":"4bb3bae0c28bee5cadb6faafc9db3c4e3fda1eb6fd130a77f4ba35e83660fdd0"},
+    "typecheck-first.log":{"bytes":57,"sha256":"6a71430bdf784afe094a223d1eafa5e2663041e0742a1ba98d948029863f782d"},
+    "check-exit.txt":{"bytes":2,"sha256":"9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"},
+    "check-final.log":{"bytes":212413,"sha256":"c39a1dca4382ee91ea8220bf8e498450c6fa9d3c34de9467147c0d9882466290"},
+    "node-first.log":{"bytes":213456,"sha256":"f3f53de70a21046f5fca70a024e7c1f5ff06e97c5a66ed76a473c3f08140cf87"},
+    "node-second.log":{"bytes":213308,"sha256":"d8e44d98cce8f77fc6f56e830908a2910348f8052b7a8bbb6848154bc5f5d9d9"},
+    "python-exit.txt":{"bytes":2,"sha256":"9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"},
+    "check-complete.log":{"bytes":212671,"sha256":"70f80251982cb4531f9a210bbeab39500b44ad1d8b4ce438c33d5d7d8b84f435"},
+    "python-first.log":{"bytes":299,"sha256":"d0a295b09720758ee7391dd99a6212edb2b72bedd4c7553db99033d1a3e4bac6"}
+  },
+  "publication": {
+    "parent":"d089b25ad75d8aebea67c748aacaaa4e5c01fa74",
+    "nonForce":true,"branch":"main","sourceCommitCount":1,"mainReadbackMatched":true,
+    "completeTestedSubtrees":{"src":"d22f2379dd69af896b6bb9bd1122e66c1b9134bd","tests":"355512e1f2e17555ecada05106f9f2a3f66face0","scripts":"863f4402d04d25107c4542221645086dbd336bd5"},
+    "allCompleteSubtreesMatch":true,
+    "sourceCommitRetainedDocTree":"3c92af3e2856b44cd021d3e9ba501a8cac84f93b",
+    "ci":{"id":35576672389,"number":43,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T08:12:24Z","accepted":false}
+  },
+  "cloud": {
+    "fileId":"1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu","bytes":1928839,
+    "sha256":"fda53969d477b14dfb322b691b9a501e5d3a2c1db7d6005ecd7634fa284ad02d",
+    "verifiedManifestEntries":34,
+    "archivalState":"Package predates publication. Its null source and tested-awaiting-publication status describe packaging time. This receipt adds verified publication identity without changing archived test logs or local HTML."
+  },
+  "quality":"Existing30 score is stale for an older runtime. Release remains blocked; no new score."
+}

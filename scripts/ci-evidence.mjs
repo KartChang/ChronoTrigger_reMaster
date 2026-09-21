@@ -61,6 +61,25 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
       reports.push({path:'equipment/'+r.trace,bytes:trace.length,sha256:sha256(trace),kind:'touch-trace'});
     }catch(e){errors.push({path,message:e.message});}
   }
+  if(lane==='good'){
+    const path='equipment/00-cloth-canopy-occlusion-motion-report.json';
+    try{
+      const bytes=readFileSync(join(resultsDir,path)),r=JSON.parse(bytes);
+      if(r.status!=='passed'||r.physicalDevice!==false||r.artApproved!==false||r.cleanupErrors?.length)throw new Error('Scenery motion report incomplete');
+      if(r.sourceSha!==sourceSha||r.htmlSha256!==htmlSha256||r.runId!==String(runId)||r.runAttempt!==String(runAttempt))throw new Error('Scenery source/run/HTML mismatch');
+      if(!Array.isArray(r.cases)||r.cases.length!==3||r.cases.map(c=>c.name).sort().join(',')!=='desktop,portrait,short-landscape')throw new Error('Three scenery viewports required');
+      const advanced=(a,b)=>Number.isSafeInteger(a?.tick)&&Number.isSafeInteger(b?.tick)&&a.tick>=0&&b.tick>=a.tick+12;
+      for(const c of r.cases){
+        if(c.status!=='passed'||c.pause?.fullStateUnchanged!==true||!advanced(c.before,c.later)||!advanced(c.reduced?.before,c.reduced?.after))throw new Error('Scenery timeline observations missing');
+        if(c.before?.scenery?.reducedMotion!==false||c.reduced?.before?.scenery?.reducedMotion!==true||c.reduced?.after?.scenery?.reducedMotion!==true)throw new Error('Both motion preferences required');
+        for(const phase of ['moving','paused','reduced']){
+          const image=readFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`));
+          if(image.length<8||image.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw new Error('Original scenery screenshot missing');
+        }
+      }
+      reports.push({path,bytes:bytes.length,sha256:sha256(bytes),kind:'scenery-motion'});
+    }catch(e){errors.push({path,message:e.message});}
+  }
   return {schema:'chrono-ci-lane-evidence-v1',lane,status:errors.length?'failed':'passed',sourceSha,runId:String(runId),runAttempt:String(runAttempt),version:meta.version,htmlSha256,htmlBytes:html.length,expectedJourneys:LANE_REPORTS[lane].length,reports,errors,physicalDeviceApproved:false,artApproved:false,fullGameAccepted:false};
 }
 

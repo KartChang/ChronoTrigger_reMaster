@@ -18,6 +18,9 @@ function fixture(t,lane='validate'){
   for(const p of LANE_REPORTS[lane])put(p,{status:'passed',passed:['unit-only fixture'],errors:[]});
   for(const p of NATIVE_REPORTS[lane])put(p+'/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[{status:'unit-only fixture'}]});
   if(lane==='good'){
+    const sceneryCases=['desktop','portrait','short-landscape'].map(name=>({name,status:'passed',before:{tick:0,scenery:{reducedMotion:false}},later:{tick:12},pause:{fullStateUnchanged:true},reduced:{before:{tick:20,scenery:{reducedMotion:true}},after:{tick:32,scenery:{reducedMotion:true}}}}));
+    put('equipment/00-cloth-canopy-occlusion-motion-report.json',{status:'passed',physicalDevice:false,artApproved:false,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex'),runId:'123',runAttempt:'1',cases:sceneryCases});
+    for(const c of sceneryCases)for(const phase of ['moving','paused','reduced'])writeFileSync(join(resultsDir,`equipment/00-cloth-canopy-occlusion-motion-${c.name}-${phase}.png`),Buffer.from('89504e470d0a1a0a','hex')); // Signature-only unit fixtures, not browser screenshots.
     put('equipment/equipment-report.json',{status:'passed',checks:['unit-only fixture'],errors:[],contextHandoff:handoff});
     put('equipment/equipment-merchant-v8.json',{fixture:'unit only, not a player save'});
     writeFileSync(join(resultsDir,'equipment/inventory-touch-trace.zip'),Buffer.from([0x50,0x4b,3,4,0])); // Unit signature only; not browser evidence.
@@ -119,4 +122,13 @@ for(const defect of ['missing','overlap','timeout','wrong-run','cleanup','change
 test('green touch report cannot conceal a missing desktop retirement',t=>{
   const f=fixture(t,'good');f.put('equipment/equipment-report.json',{status:'passed',checks:['unit']});
   assert.equal(inspectLane(f.args).status,'failed');
+});
+
+for(const defect of ['missing','stalled','missing-tick','wrong-source','missing-image','cleanup'])test(`scenery receipt fails closed: ${defect}`,t=>{
+ const f=fixture(t,'good'),path='equipment/00-cloth-canopy-occlusion-motion-report.json';
+ const r=JSON.parse(readFileSync(join(f.args.resultsDir,path),'utf8'));
+ if(defect==='missing')rmSync(join(f.args.resultsDir,path));
+ else if(defect==='missing-image')rmSync(join(f.args.resultsDir,'equipment/00-cloth-canopy-occlusion-motion-portrait-reduced.png'));
+ else{if(defect==='stalled')r.cases[0].later.tick=0;if(defect==='missing-tick')delete r.cases[0].later.tick;if(defect==='wrong-source')r.sourceSha='b'.repeat(40);if(defect==='cleanup')r.cleanupErrors=['unit error'];f.put(path,r);}
+ const result=inspectLane(f.args);assert.equal(result.status,'failed');assert(result.errors.some(e=>e.path===path));
 });

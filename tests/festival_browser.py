@@ -8,18 +8,20 @@ import traceback
 from actor_grounding import assert_contacts
 from fair_ground_browser import assert_ground,record_ground_views
 from exploration_hud import record_dock_views
+from fair_scenery_browser import assert_scenery,record_scenery_views
 
 READ = """() => {const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return {
  source:'actual-festival-scene',chapter:s.chapter,tick:s.ticks,frame:v.frame,paused:t.paused(),
  viewport:{width:innerWidth,height:innerHeight},festival:v.fairMotion.festival,
  vendors:v.fairMotion.vendors,vendorContacts:v.fairMotion.vendorContacts,bell:v.fairMotion.bell,
- ground:v.fairMotion.ground,occlusion:v.festivalOcclusion,physicalDevice:false,artApproved:false};} """
+ ground:v.fairMotion.ground,scenery:v.fairMotion.scenery,mode:s.mode,bellHeard:s.fair.bellHeard,occlusion:v.festivalOcclusion,physicalDevice:false,artApproved:false};} """
 
 
 def assert_festival(m, *, require_blocked=False, require_clear=False):
     assert m['source']=='actual-festival-scene' and m['chapter']=='fair',m
     assert m['physicalDevice'] is False and m['artApproved'] is False,m
     assert_ground(m['ground'])
+    assert_scenery({**m,'source':'actual-fair-scenery'})
     f=m['festival'];g=f['geometry'];o=m['occlusion']
     assert f['profile']=='vq01-festival' and f['approved'] is False and f['collisionSource']=='FAIR_STALLS',f
     assert g['decorativeOnly'] and g['meshes']>0 and g['vertices']>0 and g['triangles']>0,g
@@ -65,6 +67,7 @@ def record_festival(page,out,name,*,require_blocked=False,require_clear=False,pa
         if pause_probe:
             record_ground_views(page,out,name+'-ground')
             record_dock_views(page,out,name+'-dock')
+            record_scenery_views(page,out,name+'-motion')
             page.keyboard.press('Escape');page.wait_for_selector('#pause-screen:not([hidden])');paused_here=True
             _frames(page)
             frozen=_state(page);first=page.evaluate(READ)

@@ -1,3 +1,4 @@
+import {bannerPose,sceneryPose,FAIR_SCENERY_MOTION} from './fair-scenery-motion';
 import {shadeFairGround,inspectFairGround} from './fair-ground';
 import {EarlyOcclusion} from './early-occlusion';
 import {fairOcclusionPoints} from './fair-occlusion-points';
@@ -18,6 +19,7 @@ import type {State} from './core';
 /** Reference-aligned art pass, still a compact layout rather than the whole original map. */
 export function buildFair(scene:Scene,shadow:ShadowGenerator){
   const root=new TransformNode('millennial-fair',scene);
+  const reducedMedia=typeof matchMedia==='function'?matchMedia('(prefers-reduced-motion: reduce)'):null;
   const occlusion=new EarlyOcclusion(scene);
   scene.onDisposeObservable.add(()=>occlusion.dispose());
   const materials=new Map<string,StandardMaterial>();
@@ -98,13 +100,20 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   // The dropped pendant and gate are story-state visuals, never progression authorities.
   const pendant=attach(MeshBuilder.CreatePolyhedron('dropped-pendant',{type:1,size:.17},scene),material('#dcdfa6'),false);pendant.position.set(-2.4,.5,9);pendant.setEnabled(false);
   const gate=attach(MeshBuilder.CreateTorus('opening-gate',{diameter:2.2,thickness:.12,tessellation:48},scene),material('#6ca6dd'),false);gate.rotation.x=Math.PI/2;gate.position.set(-2.4,1.45,9);gate.setEnabled(false);
+  // Retain the four original cloth/sign meshes; only their top-fixed pivots move.
+  const banners:TransformNode[]=[];
+  let scenery=sceneryPose(0);
   // The reference uses vertical red banners; avoid decorative wires crossing character faces.
   for(const [x,z] of [[-9.9,-2.8],[9.8,2.5],[-9.8,7.8],[4.8,7.2]]){
     cylinder('banner-post',x!,1.5,z!,.065,.075,3,'#9f967b');
     const cloth=box('vertical-banner',x!+.26,2.32,z!,.55,1.10,.025,'#b84568');
     cloth.rotation.z=.04;
     box('banner-cross',x!+.26,2.9,z!,.73,.045,.04,'#c3b68b');
-    box('banner-gold-symbol',x!+.26,2.35,z!-.025,.08,.37,.025,'#e4bd64');
+    const emblem=box('banner-gold-symbol',x!+.26,2.35,z!-.025,.08,.37,.025,'#e4bd64');
+    const pivot=new TransformNode('fair-banner-pivot-'+banners.length,scene);pivot.parent=root;pivot.position.set(x!+.26,2.87,z!);
+    cloth.parent=pivot;cloth.position.set(0,-.55,0);emblem.parent=pivot;emblem.position.set(0,-.52,-.025);
+    for(const part of [cloth,emblem]){staticBoxes.splice(staticBoxes.indexOf(part),1);part.isPickable=false;part.checkCollisions=false;}
+    banners.push(pivot);
   }
   for(const stall of FAIR_STALLS){
     const vendor=makeSprite('fair-vendor-'+stall.id,stall.x,1.0,stall.z+.48,false,true);
@@ -125,17 +134,19 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     updateOcclusion(ticks:number,subjects:readonly CameraSubject[]){
       const camera=scene.activeCamera;
       occlusion.update(ticks,root.isEnabled()?'fair':'outside-festival',camera?.getDirection(Vector3.Forward())??Vector3.Zero(),root.isEnabled()?fairOcclusionPoints(subjects):[]);
-    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),festival:festival.inspect(),vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,time:number){
+    },inspect:()=>({...conductView.inspect(),ground:inspectFairGround(ground,t),festival:festival.inspect(),scenery:{profile:FAIR_SCENERY_MOTION,tick:scenery.tick,reducedMotion:scenery.reducedMotion,banners:banners.map(b=>({id:b.name,anchor:b.position.asArray(),rotation:b.rotation.asArray(),parts:b.getChildMeshes().map(m=>m.name)})),rotations:{gate:gate.rotation.z,pendant:pendant.rotation.y,ring:rings.map(r=>r.rotation.y),save:save.rotation.y,robotY:robot.position.y,bell:bell.rotation.z},approved:false},vendors:vendorMotion.inspect(),vendorContacts:inspectSpriteContacts(contacts),bell:{parts:bell.getChildMeshes().map(m=>m.name),swing:bell.rotation.z},groundingApproved:false}),draw(s:State,_time:number,reducedMotion=reducedMedia?.matches??false){
+    scenery=sceneryPose(s.ticks,reducedMotion);
+    banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});
     conductView.draw(s);vendorMotion.draw(s.ticks);
     lucca.setEnabled(s.rescue.stage!=='returned');
     const up=scene.activeCamera?.getDirection(Vector3.Up());
     for(const a of contacts){a.shadow.setEnabled(a.mesh.isEnabled());if(up&&a.mesh.isEnabled())placeSpriteContact(a.mesh,a.shadow,a.foot,up,a.height,a.pivotY,a.cellHeight,.86,.42);}
     pendant.setEnabled(s.opening.phase==='lost');
-    gate.setEnabled(['resonance','lost','pendant','crossing'].includes(s.opening.phase));gate.rotation.z=time*.5;pendant.rotation.y=time;
+    gate.setEnabled(['resonance','lost','pendant','crossing'].includes(s.opening.phase));gate.rotation.z=scenery.gate;pendant.rotation.y=scenery.pendant;
     robot.setEnabled(s.mode!=='victory'&&!(s.mode==='battle'&&s.enemies[0]?.hp===0));
-    robot.position.y=1.3+(s.mode==='battle'?Math.sin(time*4)*.035:0);
-    for(const ring of rings)ring.rotation.y=time*.18;
-    bell.rotation.z=s.fair.bellHeard?Math.sin(time*1.3)*.025:0;
-    save.rotation.y=time*.25;
+    robot.position.y=1.3+(s.mode==='battle'?scenery.robotLift:0);
+    for(const ring of rings)ring.rotation.y=scenery.ring;
+    bell.rotation.z=s.fair.bellHeard?scenery.bell:0;
+    save.rotation.y=scenery.save;
   }};
 }

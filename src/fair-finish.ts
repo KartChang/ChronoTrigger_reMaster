@@ -1,5 +1,6 @@
+import {fairShadowScope} from './fair-cohesion';
 import {Color3,HemisphericLight,Material,Mesh,Scene,StandardMaterial,TransformNode,Vector3,VertexBuffer,VertexData} from '@babylonjs/core';
-import type {Light} from '@babylonjs/core';
+import type {ShadowGenerator} from '@babylonjs/core';
 import {inspectSpriteContacts,placeSpriteContact} from './sprite-contact';
 import type {SpriteContact} from './sprite-contact';
 
@@ -22,7 +23,8 @@ export function contactGeometry(){
  const data=new VertexData();Object.assign(data,{positions,normals,colors,indices});return data;
 }
 
-export function finishFair(scene:Scene,root:TransformNode,key:Light,trees:readonly Mesh[]){
+export function finishFair(scene:Scene,root:TransformNode,shadow:ShadowGenerator,trees:readonly Mesh[]){
+ const key=shadow.getLight(),cohesion=fairShadowScope(scene,root,shadow);
  const lit=root.getChildMeshes().filter(m=>m.material instanceof StandardMaterial&&!m.material.disableLighting);
  const litSet=new Set(lit);
  // Keep the original key/shadow generator. Replace only this scene's generic fill;
@@ -55,13 +57,14 @@ export function finishFair(scene:Scene,root:TransformNode,key:Light,trees:readon
  for(const x of [-4.7,-2.3])shade('fair-bell-foot-contact',x,-.5,1.0,1.05);
  let disposed=false;
  function dispose(){
-  if(disposed)return;disposed=true;
+  if(disposed)return;disposed=true;cohesion.dispose();
   for(const {light,added} of exclusions)for(const m of added){const i=light.excludedMeshes.indexOf(m);if(i>=0)light.excludedMeshes.splice(i,1);}
   for(const {mesh,original,material} of finishes){if(!mesh.isDisposed()&&mesh.material===material)mesh.material=original;material.dispose();}
   fill.dispose();for(const m of shadows)m.dispose();shadowMaterial.dispose();
  }
  root.onDisposeObservable.add(dispose);
  return {dispose,draw(){
+  cohesion.sync();
   const up=scene.activeCamera?.getDirection(Vector3.Up());if(!up)return;
   for(const c of contacts)placeSpriteContact(c.mesh,c.shadow,c.foot,up,5.25,77,80,3.4,1.3);
  },inspect(){
@@ -72,6 +75,6 @@ export function finishFair(scene:Scene,root:TransformNode,key:Light,trees:readon
    key:{name:key.name,intensity:key.intensity,enabled:key.isEnabled(),receivesKey:lit.every(m=>key.canAffectMesh(m))},
    metals:finishes.map(({mesh})=>{const m=mesh.material as StandardMaterial;return {mesh:mesh.name,specular:m.specularColor.asArray(),power:m.specularPower};}),
    contacts:inspectSpriteContacts(contacts),softShadows:{count:shadows.length,vertices:shadows.reduce((n,m)=>n+m.getTotalVertices(),0),triangles:shadows.reduce((n,m)=>n+m.getTotalIndices()/3,0),alphaMin:Math.min(...alphas),alphaMax:Math.max(...alphas),dynamic:shadows.some(m=>m.getVertexBuffer(VertexBuffer.ColorKind)?.isUpdatable()),decorativeOnly:shadows.every(m=>!m.isPickable&&!m.checkCollisions)},
-   physicalDevice:false,artApproved:false};
+   cohesion:cohesion.inspect(),physicalDevice:false,artApproved:false};
  }};
 }

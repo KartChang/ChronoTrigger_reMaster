@@ -1,5 +1,6 @@
 """Read actual fair lighting/material/mesh data. Unit fixtures are not rendered evidence."""
 import math
+from fair_cohesion_browser import assert_cohesion
 
 READ_FINISH = '() => window.__CHRONO_TEST__.view().fairMotion.finish'
 ROOTS=((-11.5,8),(11.5,-6),(-12.9,-5),(12.9,7),(-10.5,11),(8,11))
@@ -28,4 +29,4 @@ def assert_finish(r):
 
 
 def capture_finish(page):
-    r=page.evaluate(READ_FINISH);assert_finish(r);return r
+    r=page.evaluate(READ_FINISH);assert_finish(r);assert_cohesion(r['cohesion']);return r

@@ -1,3 +1,4 @@
+import {fairStoneGeometry,fairStoneBevel,FAIR_HUMAN_WIDTH,FAIR_HUMAN_HEIGHT} from './fair-cohesion';
 import {drawFairPlaza,inspectFairPlaza} from './fair-paving';
 import {finishFair,FAIR_TREE_ROOTS} from './fair-finish';
 import {bannerPose,sceneryPose,FAIR_SCENERY_MOTION} from './fair-scenery-motion';
@@ -29,9 +30,13 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     let m=materials.get(hex);if(m)return m;
     m=new StandardMaterial('fair-'+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();materials.set(hex,m);return m;
   };
-  const attach=(m:Mesh,mat:StandardMaterial,cast=true)=>{m.parent=root;m.material=mat;m.receiveShadows=true;if(cast)shadow.addShadowCaster(m);return m;};
+  const attach=(m:Mesh,mat:StandardMaterial,cast=true)=>{m.parent=root;m.material=mat;m.receiveShadows=true;m.isPickable=false;m.metadata={...m.metadata,fairCastShadow:cast};if(cast)shadow.addShadowCaster(m);return m;};
+  const stoneForms=new Set(['bell-foot','bell-post','bell-capital','bell-arch-stone']);
   const box=(name:string,x:number,y:number,z:number,w:number,h:number,d:number,hex:string)=>{
-    const m=attach(MeshBuilder.CreateBox(name,{width:w,height:h,depth:d},scene),material(hex),h>.35);m.position.set(x,y,z);staticBoxes.push(m);return m;
+    const stone=stoneForms.has(name),geometry=stone?new Mesh(name,scene):MeshBuilder.CreateBox(name,{width:w,height:h,depth:d},scene);
+    if(stone){fairStoneGeometry(w,h,d).applyToMesh(geometry,false);geometry.useVertexColors=true;}
+    const m=attach(geometry,material(hex),(stone||name==='telepod-beam'||h>.35)&&name!=='fair-plinth');
+    m.metadata.fairBevel=stone?fairStoneBevel(w,h,d):null;m.position.set(x,y,z);staticBoxes.push(m);return m;
   };
   const cylinder=(name:string,x:number,y:number,z:number,top:number,bottom:number,h:number,hex:string)=>{
     const m=attach(MeshBuilder.CreateCylinder(name,{diameterTop:top,diameterBottom:bottom,height:h,tessellation:12},scene),material(hex));m.position.set(x,y,z);return m;
@@ -75,11 +80,12 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     const ctx=tex.getContext() as CanvasRenderingContext2D;
     if(robot)drawGato(ctx);else drawHDHero(ctx,'lucca',0,0);
     tex.update();const m=new StandardMaterial(name,scene);m.diffuseTexture=tex;m.emissiveTexture=tex;m.disableLighting=true;m.useAlphaFromDiffuseTexture=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.alphaCutOff=.4;m.backFaceCulling=false;
-    const mesh=attach(MeshBuilder.CreatePlane(name,{width:robot?2.8:1.35,height:robot?2.8:1.85},scene),m,false);mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);
+    const mesh=attach(MeshBuilder.CreatePlane(name,{width:robot?2.8:FAIR_HUMAN_WIDTH,height:robot?2.8:FAIR_HUMAN_HEIGHT},scene),m,false);mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);
     if(!robot){
+      mesh.metadata.fairHuman=true;
       const ground=MeshBuilder.CreateDisc(name+'-contact',{radius:.5,tessellation:24},scene);ground.parent=root;ground.rotation.x=Math.PI/2;ground.isPickable=false;
       const shade=new StandardMaterial(name+'-shade',scene);shade.disableLighting=true;shade.diffuseColor=Color3.Black();shade.alpha=.20;shade.backFaceCulling=false;ground.material=shade;
-      contacts.push({id:name,mesh,shadow:ground,foot:{x,y:.14,z},height:1.85,pivotY:witness?WITNESS_SIZE.pivot.y:HD_ART.pivot.y,cellHeight:witness?WITNESS_SIZE.h:HD_ART.height});
+      contacts.push({id:name,mesh,shadow:ground,foot:{x,y:.14,z},height:FAIR_HUMAN_HEIGHT,pivotY:witness?WITNESS_SIZE.pivot.y:HD_ART.pivot.y,cellHeight:witness?WITNESS_SIZE.h:HD_ART.height});
     }
     return mesh;
   };
@@ -124,14 +130,21 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     drawWitness(tex.getContext() as CanvasRenderingContext2D,'shopper');tex.update();vendorMotion.add(vendor,'shopper');
   }
   // Merge only immobile opaque boxes. Animated bell, sprites, rings and gate stay separate.
-  const groups=new Map<Material,Mesh[]>();
-  for(const mesh of staticBoxes){const mat=mesh.material!;const group=groups.get(mat)??[];group.push(mesh);groups.set(mat,group);shadow.removeShadowCaster(mesh);}
-  for(const group of groups.values()){
+  // Keep the original per-part caster decision after merging. Low seams, flowers,
+  // trim and plinth must not become casters just because they share a colour.
+  const groups=new Map<Material,Map<boolean,Mesh[]>>();
+  for(const mesh of staticBoxes){
+    const mat=mesh.material!,casts=mesh.metadata.fairCastShadow===true,byCast=groups.get(mat)??new Map<boolean,Mesh[]>();
+    const group=byCast.get(casts)??[];group.push(mesh);byCast.set(casts,group);groups.set(mat,byCast);shadow.removeShadowCaster(mesh);
+  }
+  for(const byCast of groups.values())for(const [casts,group] of byCast){
+    const parts=group.map(m=>({name:m.name,casts,bevel:m.metadata.fairBevel as number|null}));
     const merged=Mesh.MergeMeshes(group,true,true,undefined,false,false);
-    if(merged){merged.name='fair-static-batch';merged.parent=root;merged.receiveShadows=true;shadow.addShadowCaster(merged);}
+    if(merged){merged.name='fair-static-batch';merged.parent=root;merged.receiveShadows=true;merged.isPickable=false;
+      merged.metadata={fairParts:parts,gameCollision:false};if(casts)shadow.addShadowCaster(merged);}
   }
   const conductView=buildFairConduct(scene,root);
-  const finish=finishFair(scene,root,shadow.getLight(),trees);
+  const finish=finishFair(scene,root,shadow,trees);
   root.setEnabled(false);
   return {root,resetOcclusion:()=>occlusion.reset(),inspectOcclusion:()=>occlusion.inspect(),
     updateOcclusion(ticks:number,subjects:readonly CameraSubject[]){

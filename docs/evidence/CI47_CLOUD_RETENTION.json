@@ -1,0 +1,8 @@
+{
+  "schema":1,"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","ci":35615882220,"pages":35618506663,
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35","name":"Chrono-CI47-Pages41-accepted-evidence.zip","bytes":54510480,"sha256":"5d84469bfcf0681edcd5be641ed473184f6e8f6e48572d5fda2412ec1804dee9","createdAt":"2026-09-21T17:32:06.146Z",
+  "verified":{"downloadedRawReadback":true,"correctParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":14,"allManifestBytesHashes":true,"untouchedRawZips":6,"allNestedZipCRC":true},
+  "recovery":{"rawZip":"raw/CI47-browser.zip","sourceTar":"source-f07a42bfa7357e1a9ddcebfa8a790855927051b4.tar.gz","gitArchiveCommentMatched":true,"currentDocuments":"Read latest main separately. Archived source docs cannot replace current execution documents."},
+  "scope":"Existing WebGL regression and observed CPU opening/fair native journeys/work accounting plus matched deployment","artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,"cpuAllChaptersBrowserAccepted":false,"wholeGameAccepted":false,
+  "archivalState":"Cloud-pending wording in the archived review describes packaging time. This final receipt supplements completed cloud readback without rewriting any raw artifact."
+}

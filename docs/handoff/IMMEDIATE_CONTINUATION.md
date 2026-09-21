@@ -1,51 +1,51 @@
-# 立即接續 — CI46／Pages40閉環；唯一CI47待驗收
+# 立即接續 — CI47／Pages41已閉環；唯一CI48待驗收
 
-立即使用GitHub connector，必要時Drive接手KartChang/ChronoTrigger_reMaster。只有main，單一AI、非force；不建branch/PR/平行candidate，不盤點歷史，不要求token、ROM或手動證據。
+立即用GitHub connector，必要時Drive，接手KartChang/ChronoTrigger_reMaster。唯一main／單一AI／非force，不開branch、PR、平行candidate，不盤點歷史或重做章節，不要求token／ROM／手動證據。
 
-## 唯一當前位置
+## 唯一目前位置
 
-VQ02E／0.9.27 source **f07a42bfa7357e1a9ddcebfa8a790855927051b4**。
-Source root tree **00efc6b0ea450961739948a952bd2756ea7f2eb1**。
-Parent **54d46a47ca23791ee5579eb7cd027ee189711dfb**。
-16檔一次非force sourcecommit已發布，main回讀；完整src/tests/scripts與index匹配本機測試，.github不變。後續[skip ci]文件HEAD不是另一個source。
+VQ02F／0.9.28 source **38edba36ccd75a3ef8129aea62d21769d847f749**。
+Root tree **d5dbe994553244225992594452379ff38b49b9dd**。
+Parent **de92955eb4946ff766f8e2b6080ea340bb1e81a3**。
+19檔整批測試後一次非force發布，main回讀；完整src/tests/scripts與index匹配已測bytes，.github不變，最新文件子樹保留。後續[skip ci]文件HEAD不是另一個gamesource。
 
-唯一驗證 **CI47 35615882220**，push/attempt1；最後 **in_progress/null**，created2026-09-21T14:59:36Z，updated14:59:40Z（台灣22:59:40）。exactSHA全event/state count=1；沒有dispatch/rerun/cancel/waitloop。
-Machine checkpoint **docs/evidence/CI47_CHECKPOINT.json**；terminal **CI47-pending-full-validation**。
+唯一CI **CI48 35634970145**，push/attempt1，source如上；最後in_progress/null，created2026-09-21T17:54:32Z、updated17:54:36Z（台灣2026-09-22 01:54:36）。exactSHA全event/state count=1，無dispatch/rerun/cancel/waitloop。
+Checkpoint **docs/evidence/CI48_CHECKPOINT.json**，terminal **CI48-pending-full-validation**。
 
-先讀STATUS／本檔／CI47_CHECKPOINT，確認main一次，再接同run。queued/in_progress即保存回報，不長等；failure只查同run第一實際根因；success完成全部最終報告與實圖原包Pages閉環。不要因文件HEAD變動重開CI，不重跑CI46或回到CI45。
+開始只讀STATUS、本檔、CI48_CHECKPOINT，確認main一次並接同run。文件HEAD不同不重開CI；queued/in_progress保存回報不長等；failure查同run第一實際root；success完整報告實圖雲端Pages閉環。不要重跑CI47，也不要重看全部舊ZIP／歷史。
 
 ## 本批已完成，不重做
 
-CPU保守減負：畫面內三角形略過完整裁切、共用同一外側plane者快速排除；讀即時頂點與矩陣，只剔除確定在視野外的submesh，不使用陳舊bounds。原材質支援檢查保留，方向光每frame一次正規化。原像素填色、深度、透明、UV、場景geometry、解析度與規則不變。增加實際工作量觀察；暫停CPU說明HTML已修。沒有重畫角色／素材、沒有碰main/World/鏡頭/玩法/受限檔案。
+修正CPU解析度層級被640×480固定像素上限抵消的問題。先算原CPU基準cap再乘tier：auto0–3、原畫質基準0、相容tier2。起始auto保留原畫布尺寸，原WebGL密度／30warmup+90samples自動條件不變；不改場景、人物、鏡頭、ATB或存檔。
 
-新跑 **1141Node／220Python**、assets/typecheck/build全過，PythonAST與diff空白檢查通過。5000三角形新舊RGBA/depth一致，22既有場景×2單元視窗像素與state一致。測試canvas是矩形替身，未繪文字曲線，不是原生遊玩。CI46舊實作只是tests/baselines差分oracle，production不匯入。Node640×480、5warmup+15交错samples：祭典中位93.6771→54.3625ms，家中48.4115→45.9998，大地圖47.2071→46.8945；不是瀏覽器FPS或真機加速。本機未跑browser。
+120格活動影格間隔統計替代NullEngine FPS；排除啟動／恢復邊界與暫停，保留有效活動長幀，唯讀mean/P95/max/FPS。頁腳正確顯示CPU/Canvas2D或WebGL、取樣／暫停狀態與真正buffer尺寸；tooltip說明不是GPU時間或真機認證。build與runtime使用同一注入version/batch/source；暫停顯示身份，移除靜態0.9.17與舊章節版本字樣。
 
-## CI46／Pages40已驗收
+新跑 **1161Node／220Python**、assets/typecheck/build、PythonAST、diff檢查通過。六項明列main診斷／文字逆向比對，保留原hash預期及22遊戲函式檢查；World/core/input/save/camera/CPU scene/raster及held檔案原樣。初次6個舊pin失敗、中途1160通過與最終1161成功log均保留。未提交的測試blob傳輸多一引號，發布前修回已測內容，全樹匹配；沒有改測試掩蓋它。本機沒有browser，沒有F實圖／新真機結果。
 
-D0.9.26 source **54d46a47ca23791ee5579eb7cd027ee189711dfb**，tree **dd071fde6ad668995504b6882378fb3d9f88cb55**。
-CI46 **35609380108** success updated14:27:10Z；validate106364372337/good106364372099/bad106364372325均成功。13主、9原native加1CPU native，三lane+render+CPU五ledger及列入bytes/hash精確只讀重現。保留音訊、角色播放、HUD、地面、場景正常/暫停/減動態、接地ATB、商店裝備v8/IndexedDB/全審判與故事。觸控load4945.54ms、原30000ms不鬆、trace129項CRC。
+## CI47／Pages41實際已驗收
 
-**無WebGL可玩CPU已實作並有前段原生證據**。在--disable-webgl預設auto，真正由家中下樓、母親既有對話、大地圖到祭典；P1/P2獨立操作、岡薩雷斯ATB勝利、IndexedDB、自行匯出v2再原生匯入、九張CPU原PNG皆通過。不是只有錯誤畫面／NullEngine空跑，也不是強制SwiftShader。全章CPU原生旅程、裝置速度與畫質仍未驗收；光影簡化不等於WebGL畫面一致。
+E0.9.27 source **f07a42bfa7357e1a9ddcebfa8a790855927051b4**，tree **00efc6b0ea450961739948a952bd2756ea7f2eb1**。
+CI47 **35615882220** success updated2026-09-21T15:22:33Z；validate106386347752/good106386347748/bad106386347601全成功。13最終主報告、9原native加1CPU native、三lane+render+CPU共5ledger，列入bytes/hash核對並只讀精確重現。原audio/actor/HUD/場景/接地ATB/商店裝備v8/IndexedDB/完整審判與故事保留；觸控load4927.24ms、原30000ms不鬆、兩視窗、trace123項CRC。
 
-Pages40 **35612258615**，prepare106374039994/deploy106374133537成功。playable10645086075/staged10644058295/source/CI匹配，HTML **5673691bytes**／SHA256 **3493ec1fa7ef601950c1f8b8d9da43888b52bce705ff5437565f258fd1303c43**。公開HTTP來自14:27:40.1618415Z實際成功deploy步驟，無另一次本機live/browser。已看CPU、角色、九场景與render/recovery原圖衍生sheet；材質平塗與窄視窗仍有缺口，不是90分／聽感／真機／全作驗收。
+CPU原兩條旅程：家中下樓／母親既有對話／大地圖／祭典，P1/P2各自操作，岡薩雷斯ATB勝利，同run匯出v2與原生匯入。九CPU原PNG與work守恆通過，不是全章CPU／裝置速度認證。已看9CPU、9場景、4actor、5render圖；平塗材質、sprite/3D語言與直向鐘庭裁切仍在，不是90分。
 
-上一中斷只發布D，文件還是CI45；本次直接從最新main/CI46恢復並完成收據，不重新審計CI45、不補造其獨立acceptance。CI45舊pending已取消當前authority；CI44/Pages38及更早閉環不重開。
+Pages41 **35618506663** prepare106395338147/deploy106395411907成功。staged10647891482/playable10647046921/source/CI/HTML匹配：**5675518bytes／bbfdb7f259150ec583c4b86b71c8578cbaebce24257d87f0876274cc37979e56**。公開HTTP來自2026-09-21T15:26:48.2571224Z成功deploy步驟，不是另一次本機live-byte/browser；workflowHEADde929是文件HEAD不是runtime。CI47正式收據已閉環，不重跑CI47／CI46或更早。
 
-## CI47成功必查
+## CI48成功必查
 
-三job、13finalprimary、9原native、三lane、render與CPUledger，音訊/actor.playback及既有全部斷言。CPU原兩條native旅程、九PNG、同runv2匯出與原生import都保留；額外要求真實work計數守恆與CPU說明。檢視原圖、核對bytes/hash/source/run/attempt/HTML，完整原ZIP到指定Drive回讀，再匹配Pages。不得用progress/合成fixtures取代最終報告，不能把單元benchmark當CI/裝置FPS。
+三job、13finalprimary、9原native加CPU native、三lane/render/CPUledger，原audio與actor.playback及所有既有旅程。CPU仍是原兩條native路線與同runv2匯出／原生匯入；新增 **presentation.active** 至少60個真正活動sample、finite一致mean/P95/max/FPS、正確CPU與build/source標籤；原生quality/compatibility切換後實際buffer尺寸變小、完整pausedstate不變。CPU11PNG：原9張加 **cpu-quality.png／cpu-compatibility.png**；CPUledger14files。所有原bytes/hash及PNG要核對並看實圖，不以progress或syntheticfixture代替。
 
-## 快速恢復
+**F會把真正CI sourceSHA嵌入HTML**，故CI bytes/hash與source=null的localHTML不同是預期行為。以同run的build-meta／source/run/attempt／原HTML／Pages匹配，不用localhash造成假failure。完整原ZIP存指定Drive回讀後才close；不靠綠勾／計數認定美術、聽感、真機或全章CPU完成。
+
+## 雲端快速恢復
 
 唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
-已驗收包 **Chrono-CI46-Pages40-accepted-evidence.zip**：ID **14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9**，**55007154bytes**，SHA256 **5ef7c9f254ee1afd463569e5ad78ffb1af72b8f9758ea1937fdbb0e9d378eba0**；下載hash/CRC/15manifest/六原ZIP/parent均核對。raw/CI46-browser.zip內source-54d46a47ca23791ee5579eb7cd027ee189711dfb.tar.gz，Gitarchivecomment匹配。
+最新已驗收 **Chrono-CI47-Pages41-accepted-evidence.zip**：ID **1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35**，**54510480bytes**，SHA256 **5d84469bfcf0681edcd5be641ed473184f6e8f6e48572d5fda2412ec1804dee9**。下載hash/CRC/14manifest/六原ZIP/parent全核對。raw/CI47-browser.zip內 **source-f07a42bfa7357e1a9ddcebfa8a790855927051b4.tar.gz**，Gitarchivecomment匹配。
 
-E包 **Chrono-VQ02E-tested-source-local-evidence.zip**：ID **1JYsFtMMuNMwPmGEciEqp6rmvCo628868**，**1858994bytes**，SHA256 **2f4f81351162667c75f9998d7efb55fc8c11bb7d9a6d77b9e7f396fa8ef7dfee**；下載hash/CRC/28manifest/parent核對。16changes、原始local logs、benchmark原samples、未驗收HTML與 **recovery/VQ02E-tested-program-snapshot.tar.gz（263檔）**。這是assembled snapshot，不冒稱publishedGitarchive；封存nullsource正確，最新GitHub收據補足身份。最新文件永遠另外讀main，不用tar舊文件覆蓋。
+F測試包 **Chrono-VQ02F-tested-source-local-evidence.zip**：ID **1jDHFP8Mmd58iZNK5A-8spp_9KLphxjtG**，最終 **2026104bytes**，SHA256 **320e0aed8b00a6ab5dde31354f10103a030076c916099643fe05b1dacadfba22**。同ID於17:46:04.450Z更新後已下載核對hash/CRC/34manifest/parent；先前1981926bytes/32項版本不是最終包。19changes、11log/exit檔、local-validation、未驗收localHTML、**recovery/VQ02F-tested-program-snapshot.tar.gz（269檔）**。assembled非publishedGitarchive；封存nullsource正確，最終GitHub收據補身份。快照除THIRD_PARTY外不含docs，最新文件永遠另外讀main。
 
-## 保留限制與完整範圍
+## 限制與完整範圍
 
-Z0.9.22仍未發布受限，不重送、換編碼管道、間接替換或部分提升。prologue-render.ts **2711a74185aacf3c6bddf9db85ba99a2afbc507a** 及localbrowser限制不變。CPU使用原場景不是整合受限新母親／家具；既有對話通過不代表升級美術完成。此類限制不等於connector無法存取。
+無WebGL的可玩CPUfallback已存在並驗收前段，不重造；全章原生CPU與實體裝置仍未完成。Z仍未發布受限，不重送／換編碼管道／間接替換／部分提升；prologue-render.ts **2711a74185aacf3c6bddf9db85ba99a2afbc507a** 和localbrowser限制保留，不能把一般繼續當解除，也不能說connector因此不可用。
 
-完整T03規則版本拓樸、T04成長報酬經濟技能、T05全美術動畫音訊、T06其餘時代主支線結局、T07整體90各面向80%/實體裝置、T08每批雲端不縮小。先前段真品質，再擴後段。全章原生CPU/持續frame-time與装置、材質尺度窄視窗、升級母親家具、完整動畫音樂仍未完成；舊診斷/版本標籤尚有整理項。2300抵達不是全未來、舊30stale，不灌分。
-
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1克羅諾/P2露卡/自主第三同伴及home-to2300/equipment/v1-v8，不加P3不改ARPG不重造框架。固定工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlinks。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳，不公開ROM/原圖原音訊/字型/憑證。所有成果回存GitHub或正確Drive並回讀；文件[skip ci]，臨時容器不作權威。
+完整T03規則版本拓樸／T04成長報酬經濟技能／T05全美術動畫音訊／T06其餘時代主支線結局／T07整體90各面向80%及真機／T08每批雲端不縮小。先前段真品質再擴後段，材質比例／窄視窗／升級母親家具／完整動畫音樂仍未完成。2300抵達不是全未來，舊30stale。保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1克羅諾/P2露卡/自主第三同伴、home-to2300/equipment/v1-v8，不加P3不改ARPG不重造框架。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅node_modules保留esbuildhardlink；私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳，不公開ROM/原圖原音訊/字型/憑證。所有成果GitHub或指定Drive回讀，文件[skip ci]，臨時環境不是依據。

@@ -1,0 +1,19 @@
+{
+  "schema":1,"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","batch":"VQ02E","version":"0.9.27",
+  "ci":{"id":35615882220,"number":47,"event":"push","attempt":1,"status":"completed","conclusion":"success","updatedAt":"2026-09-21T15:22:33Z","jobs":{"validate":106386347752,"good":106386347748,"bad":106386347601}},
+  "pages":{"id":35618506663,"number":41,"event":"workflow_run","attempt":1,"workflowHead":"de92955eb4946ff766f8e2b6080ea340bb1e81a3","status":"completed","conclusion":"success","updatedAt":"2026-09-21T15:26:51Z","jobs":{"prepare":106395338147,"deploy":106395411907},"stagedArtifact":10647891482,"pagesArtifact":10647502172,"publicHttp":{"method":"GitHub connector read of successful executed deploy step #3","startedAt":"2026-09-21T15:26:48.2571224Z","stepSuccess":true,"independentLocalLiveByteClaim":false}},
+  "html":{"bytes":5675518,"sha256":"bbfdb7f259150ec583c4b86b71c8578cbaebce24257d87f0876274cc37979e56","playableArtifact":10647046921,"stagedBytesMatch":true},
+  "verification":{"method":"read-only original-source artifact inspection, no browser replay","primaryFinalReports":13,"nativeChooserReports":9,"additionalCpuNativeChooserReports":1,"threeLaneLedgersExact":true,"renderLedgerExact":true,"cpuLedgerExact":true,"listedReportBytesHashesMatch":true,"audioMatchesEquipment":true,"actorPlayback":true,"cpuCases":["fresh-home-to-fair","fair-coop-combat-save"],"cpuPngs":9,"cpuOriginalOwnSave":true,"cpuWorkAccounting":true,"softwareWebGL1and2":true,"contextLossRestoration":true,"touchLoadMs":4927.24,"touchLimitMs":30000,"touchViews":2,"traceCRC":true,"traceEntries":123},
+  "rawArtifacts":[
+    {"name":"CI47-browser.zip","artifactId":10646896922,"bytes":20028299,"sha256":"db226298af2db868971ad55e79691fcdaafc6fb4ccb608d534b09fd5f3a6561a","zipCRC":true},
+    {"name":"CI47-good.zip","artifactId":10647347291,"bytes":26548388,"sha256":"d2a7f5133af225769ff9a59e170450402719bad5a608353aa8e1718398ec5ad1","zipCRC":true},
+    {"name":"CI47-bad.zip","artifactId":10647285132,"bytes":4268730,"sha256":"9a2e287d3072207a7e9babcfe8c1c95313cf6c87bd1f066bce8af9799d055663","zipCRC":true},
+    {"name":"CI47-playable.zip","artifactId":10647046921,"bytes":1314783,"sha256":"12a5b8a21cd9fd3fadddced442629ff2530ca4775b053698d0a5ddbd7ffe9805","zipCRC":true},
+    {"name":"CI47-art.zip","artifactId":10646812054,"bytes":324934,"sha256":"54488f04e37ad6f9888a36ec1589da9a82e39aeab39fe19723539acc650f9de8","zipCRC":true},
+    {"name":"Pages41-staged.zip","artifactId":10647891482,"bytes":1320153,"sha256":"ed38b116e8fdc5a21f4758fe1d13f5946b3114132d18680c804fb7a8e0109964","zipCRC":true}
+  ],
+  "accepted":true,"active":false,"scope":"Existing WebGL regression and observed CPU opening/fair native journeys/work accounting plus matched deployment",
+  "localBrowserRun":false,"cpuAllChaptersBrowserAccepted":false,"artApproved":false,"listeningReview":false,"physicalDeviceApproved":false,"wholeGameAccepted":false,"performanceCertified":false,
+  "visualReview":"CI47_VISUAL_REVIEW.md","cloudRetention":"CI47_CLOUD_RETENTION.json",
+  "originals":"Drive 1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35: raw ZIPs and review/report-verification.json. Provider-status JSON is a transcription of authenticated responses, not a raw provider log."
+}

@@ -1,0 +1,40 @@
+{
+  "schema":1,"batch":"VQ02F","version":"0.9.28","root":"T05-early-visual-cohesion","workstream":"CPU-density-frame-observation-build-identity",
+  "source":"38edba36ccd75a3ef8129aea62d21769d847f749","sourceTree":"d5dbe994553244225992594452379ff38b49b9dd","parent":"de92955eb4946ff766f8e2b6080ea340bb1e81a3","baseAcceptedSource":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","status":"published-local-passed-CI48-pending",
+  "commands":[
+    {"command":"npm run check","exitCode":0,"node":{"passed":1161,"failed":0,"skipped":0},"assets":true,"typecheck":true,"build":true,"log":"logs/check-release.log","bytes":245033,"sha256":"d70b439038b9ca06cb8efd3cff859954d48893f6fce7efe2c9ae0ea8327c71d5"},
+    {"command":"python -m unittest discover -s tests -p '*_test.py'","exitCode":0,"python":{"passed":220,"failed":0},"log":"logs/python-final.log","bytes":320,"sha256":"20e3460ded3fe1427797ba6b827764a1bb5ed078f9e7afe55231693be192cb6f"}
+  ],
+  "additionalChecks":["Changed Python AST parse passed","git diff --cached --check passed","All19 changed blobs and complete tested subtrees match the published source tree"],
+  "changedFileCount":19,
+  "changedBlobs":{
+    "index.html":"4f484fc7d532b028a788ac3d9c21e91cd33716cd",
+    "scripts/build.mjs":"e6d9ae24fb926d3bb114900b5bf869b9eb138075",
+    "scripts/cpu-evidence.mjs":"4c3ee8ca28a9aaf354541bd85a2645f799a961c7",
+    "scripts/test.mjs":"5608afecb5ac9110e38985de2c3f6cc3e274eeae",
+    "src/frame-window.ts":"3665245a109a31576903c42bdcf8c8fa35b121b1",
+    "src/main.ts":"3b0d2079832ff6a6c7cf90ae3a69c709e7ed5c9f",
+    "src/render-capability.ts":"8a7520c96da9bacfec6ecd95c382d8ff229ffc68",
+    "src/runtime-info.ts":"af9fb22bd3c2e170e4b4d65eeb500764b338bf9a",
+    "tests/actor-playback.test.mjs":"307830315ddaeb9c057feab8b254eea241c92adf",
+    "tests/cpu-evidence.test.mjs":"cf8a81baad44fc6a8da34e67036fead482bb5f00",
+    "tests/cpu_renderer_browser.py":"67a4f819177e2624b61ab3101700b8a599a0555c",
+    "tests/exploration-hud.test.mjs":"d4b1c7bac6b5cf222c5365dae72ac5c651acf104",
+    "tests/fair-finish.test.mjs":"e17f1114b1f0552c0ee52881a5ef19b04b7cacdd",
+    "tests/fair-paving.test.mjs":"105e1c7cf1e3cee821f19723c3059e1602644f7a",
+    "tests/festival-integration.test.mjs":"a6ea86621352a8939dd52321d3ae59efa4b3ff88",
+    "tests/fixtures/runtime-info-integration.json":"488c979095ee1ec782b77528f41c9861c094ddff",
+    "tests/helpers/runtime-baseline.mjs":"079a7cd0a3942b8510d1c090afc891137bce4a63",
+    "tests/runtime-info.test.mjs":"742f578df7fc3fa7e0a9a8ee8bfd473ca54aa429",
+    "tests/scene-audio.test.mjs":"4eb3df1f51be3858b4558fe9c8c164dc9cff3d03"
+  },
+  "publication":{"nonForce":true,"sourceCommitCount":1,"mainReadbackMatched":true,"completeTestedSubtreesMatched":{"src":"2e20f2713b658609094ac86266510c2707b19494","tests":"e2bb308e920ca164e3b61a1f0ed859c0246a1fbe","scripts":"960fa1aa1514acba7d3206fb140cc29e3ed854fc",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},"retainedDocsTree":"d445f53b35c756ba1d82ecd01db3306fafbe4240"},
+  "sourcePreservation":{"fixture":"tests/fixtures/runtime-info-integration.json","exactMainReplacements":6,"originalExpectedHashesRetained":true,"sourceOnlyReverseNormalization":true,"original22GameplayFunctionChecksRetained":true,"worldUnchanged":true,"coreInputSaveCameraUnchanged":true,"heldZApplied":false,"heldPathsChanged":false,"heldRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a"},
+  "initialFindings":["Initial Node run1154/1148pass/6old-main-pin failures from declared diagnostics/text changes. Added strict six-replacement reverse normalization, keeping original expected hashes and gameplay assertions.","An intermediate full check passed1160. Final cleanup removed the static0.9.17 header badge and added one assertion; final full check passed1161. Both logs retained.","A manual unreferenced test-blob transfer had a stray quote. Corrected to the already-tested bytes before commit; final full root/subtree equality verified. No test expectation was changed to accommodate the transfer error."],
+  "localHtml":{"bytes":5686331,"sha256":"aa6f0169187cae3fc7634e28c1b5942a8c4a0dacab35d52b502bd4afeadf3217","sourceSha":null,"accepted":false,"ciHashExpectedToDiffer":true},
+  "buildIdentity":"CI embeds its sourceSha into runtime build identity; compare final same-run metadata, actual HTML and Pages. The local null-source HTML is not a CI byte baseline.",
+  "localBrowserRun":false,"newNativeMeasurementsObserved":false,"artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,"timeoutsRelaxed":false,
+  "ci":{"id":35634970145,"number":48,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T17:54:36Z","accepted":false},
+  "cloud":{"fileId":"1jDHFP8Mmd58iZNK5A-8spp_9KLphxjtG","bytes":2026104,"sha256":"320e0aed8b00a6ab5dde31354f10103a030076c916099643fe05b1dacadfba22","verifiedManifestEntries":34,"recoveryFiles":269,"archivalState":"Final package was updated and downloaded before publication; archived source=null is accurate packaging-time state. This receipt supplements verified GitHub identity without rewriting logs."},
+  "rawDetails":"All19 per-file bytes/SHA256/Git blobs and all11 original log/exit files remain in the hash-verified archive's local-validation.json, logs and manifest.json. Fake ports/synthetic reports are unit tests, not actual native measurements."
+}

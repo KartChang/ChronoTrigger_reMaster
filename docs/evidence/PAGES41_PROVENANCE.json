@@ -1,0 +1,6 @@
+{
+  "schema":1,"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","ci":{"id":35615882220,"number":47,"event":"push","attempt":1,"status":"completed","conclusion":"success"},
+  "pages":{"id":35618506663,"number":41,"event":"workflow_run","attempt":1,"workflowHead":"de92955eb4946ff766f8e2b6080ea340bb1e81a3","status":"completed","conclusion":"success","updatedAt":"2026-09-21T15:26:51Z","jobs":{"prepare":106395338147,"deploy":106395411907},"stagedArtifact":10647891482,"pagesArtifact":10647502172,"publicHttp":{"method":"Executed successful deploy step #3 read via GitHub connector","startedAt":"2026-09-21T15:26:48.2571224Z","stepSuccess":true,"independentLocalLiveByteClaim":false}},
+  "html":{"bytes":5675518,"sha256":"bbfdb7f259150ec583c4b86b71c8578cbaebce24257d87f0876274cc37979e56","playableArtifact":10647046921,"stagedBytesMatch":true},
+  "accepted":true,"workflowHeadIsNotGameSource":true,"localBrowserRun":false,"independentLocalLiveByteClaim":false,"cloudRetention":"CI47_CLOUD_RETENTION.json"
+}

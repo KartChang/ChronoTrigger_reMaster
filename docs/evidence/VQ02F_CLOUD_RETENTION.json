@@ -1,0 +1,12 @@
+{
+  "schema":1,"batch":"VQ02F","version":"0.9.28","source":"38edba36ccd75a3ef8129aea62d21769d847f749","sourceTree":"d5dbe994553244225992594452379ff38b49b9dd","kind":"tested-source-and-local-results-not-CI48-acceptance",
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1jDHFP8Mmd58iZNK5A-8spp_9KLphxjtG","name":"Chrono-VQ02F-tested-source-local-evidence.zip","bytes":2026104,"sha256":"320e0aed8b00a6ab5dde31354f10103a030076c916099643fe05b1dacadfba22","createdAt":"2026-09-21T17:33:58.202Z","modifiedAt":"2026-09-21T17:46:04.450Z",
+  "verified":{"downloadedRawReadback":true,"correctParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":34,"allManifestBytesHashes":true,"all19PublishedBlobsAndCompleteSubtreesMatch":true},
+  "recovery":{"path":"recovery/VQ02F-tested-program-snapshot.tar.gz","files":269,"kind":"assembled-program-snapshot","publishedGitArchiveClaim":false,"changedFiles":19,"currentDocuments":"Read latest main separately. Snapshot excludes docs except unchanged THIRD_PARTY.md; do not apply archived execution documents or held Z."},
+  "completeTestedSubtrees":{"src":"2e20f2713b658609094ac86266510c2707b19494","tests":"e2bb308e920ca164e3b61a1f0ed859c0246a1fbe","scripts":"960fa1aa1514acba7d3206fb140cc29e3ed854fc",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},
+  "contents":["19 changed source/test/build files","11 original log/exit files including initial failures and final1161Node/220Python success","local-validation.json","unaccepted null-source local HTML and build metadata","269-file program snapshot","34-entry manifest"],
+  "excludes":["node_modules","private ROM","external original media","font files","credentials","held Z"],
+  "archivalState":"The same Drive file was updated before source publication to include final stale-header cleanup and the final1161-test result. Earlier1981926-byte/32-entry packaging is superseded by this downloaded2026104-byte/34-entry revision. Archived source=null is accurate then; this final receipt supplies verified publication identity.",
+  "ci48":{"id":35634970145,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T17:54:36Z","accepted":false},
+  "newBrowserAcceptance":false,"newPagesAcceptance":false,"artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,"priorAcceptedOriginalsRetained":"1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35"
+}

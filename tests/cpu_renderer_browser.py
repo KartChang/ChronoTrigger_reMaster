@@ -5,13 +5,13 @@ Only normal buttons, keyboard and the shared native chooser change game state.
 from pathlib import Path
 import hashlib
 import json
-import math
 import os
 import subprocess
 import time
 from playwright.sync_api import sync_playwright
 from native_chooser import arm_native_chooser
 from native_import import import_save
+from cpu_native_route import move_axis
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'cpu-renderer'
@@ -53,23 +53,8 @@ def activate(page, selector):
 
 
 def move(page, axis, target, coop=False):
-    state = snap(page)
-    value = state['players'][0][axis]
-    if abs(target-value) < .12:
-        return
-    positive = target > value
-    key = ('d' if positive else 'a') if axis == 'x' else ('w' if positive else 's')
-    arrows = {'d': 'ArrowRight', 'a': 'ArrowLeft', 'w': 'ArrowUp', 's': 'ArrowDown'}
-    keys = [key, arrows[key]] if coop else [key]
-    for key in keys:
-        page.keyboard.down(key)
-    try:
-        speed = 2.4 if state['chapter'] == 'overworld1000' else 4
-        wait_game(page, f"s.players[0].{axis}{'>=' if positive else '<='}{target}",
-                  math.ceil((abs(target-value)/speed+2)*60))
-    finally:
-        for key in keys:
-            page.keyboard.up(key)
+    # Stop and observe the actual released-input position, not just target crossing.
+    return move_axis(page, axis, target, coop, report.setdefault('nativeRoutes', []))
 
 
 def picture(page, name):

@@ -1,0 +1,8 @@
+{
+  "schema":1,"source":"7b1537382467935ea37fe4cc6a2dc88d96a8d46c","sourceTree":"fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac",
+  "ci":{"id":35583275426,"number":44,"event":"push","attempt":1,"status":"completed","conclusion":"success","updatedAt":"2026-09-21T09:51:01Z","jobs":{"validate":106280729548,"good":106280729566,"bad":106280729438}},
+  "pages":{"id":35585552575,"number":38,"workflowHead":"a2492d881d6119e1737bc5ba734bafba35762782","jobs":{"prepare":106287936695,"deploy":106288021933},"status":"completed","conclusion":"success","updatedAt":"2026-09-21T09:55:39Z","publicHttp":{"method":"executed deploy step #3 read through GitHub job logs","startedAt":"2026-09-21T09:55:35.6538271Z","stepSuccess":true,"independentLocalLiveByteClaim":false},"event":"workflow_run","attempt":1,"stagedArtifact":10632176055,"pagesArtifact":10632865078},
+  "html":{"bytes":5649823,"sha256":"a6f7ecd69f5050b09ca5f6d0cc8937ea7fa4d5405852b808e6061df0beaa7103","playableArtifact":10632051389,"stagedArtifact":10632176055,"stagedBytesMatch":true},
+  "verified":{"stagedDeploymentMetadataMatchesCIAndSource":true,"stagedPlayableBytesEqual":true,"prepareAndDeploySucceeded":true,"executedPublicHttpStepSucceeded":true},
+  "accepted":true,"localBrowserRun":false,"independentLocalLiveByteClaim":false,"workflowHeadIsNotGameSource":true,"cloudRetention":"CI44_CLOUD_RETENTION.json"
+}

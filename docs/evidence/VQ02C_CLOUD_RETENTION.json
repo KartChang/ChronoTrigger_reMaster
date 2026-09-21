@@ -1,0 +1,15 @@
+{
+  "schema":1,"batch":"VQ02C","version":"0.9.25",
+  "source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","sourceTree":"045d553322ce68895a729d8b2f673b56611b22e4",
+  "kind":"tested-source-and-local-validation-not-CI45-acceptance",
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"14tfPggGAsfpJrZPv44yGDyX87RcLidji","name":"Chrono-VQ02C-tested-source-local-evidence.zip",
+  "bytes":1885136,"sha256":"64eb34511c4bb2afb6e139549057b388d633010d33ddce1703289bc7b685a222","createdAt":"2026-09-21T12:15:27.986Z",
+  "verified":{"metadataParent":true,"downloadedRawReadback":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":30,"allManifestBytesHashes":true,"all19ChangedBlobsMatchPublishedTestedSubtrees":true},
+  "recovery":{"path":"recovery/VQ02C-tested-program-snapshot.tar.gz","files":244,"kind":"assembled-program-snapshot","baseAcceptedSource":"7b1537382467935ea37fe4cc6a2dc88d96a8d46c","changedFiles":19,"publishedGitArchiveClaim":false,"heldZIncluded":false,"currentDocuments":"Read latest main separately. Do not apply stale archive documents or held Z."},
+  "completePublishedTestedSubtrees":{"src":"fd0904d1d48cc426da35542d5761b6efdc1192c9","tests":"bdae9fd9c0cdd81b256b4d8578fd83e728c279f5","scripts":"ab351599f5a5a3e5280a4b18557ed378b26a1a55",".github":"54813967593add1b8ba6365d005278b68c9a2c54"},
+  "contents":["19 changed program/test/build files","7 original local test log/exit files including initial failure","unaccepted local HTML and build metadata","244-file assembled program snapshot","30-entry manifest"],
+  "excludes":["node_modules","held Z","private ROM","external original media","font files","credentials"],
+  "archivalState":"Created before source publication. Archived source=null is accurate then; final GitHub receipts supplement identity without rewriting original logs.",
+  "ci45":{"id":35600568002,"number":45,"workflow":"Playable prototype CI","workflowId":360357259,"source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","event":"push","attempt":1,"observedStatus":"in_progress","conclusion":null,"createdAt":"2026-09-21T12:37:00Z","updatedAt":"2026-09-21T12:37:03Z","exactShaAllEventsAllStatesCount":1,"jobsObserved":false,"manualDispatch":false,"rerun":false,"cancellation":false,"waitLoop":false},
+  "newRenderedEvidencePresent":false,"newPagesAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"priorAcceptedOriginalsRetained":"1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl"
+}

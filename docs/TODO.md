@@ -1,34 +1,30 @@
-# Execution TODO — CI44 audio repair and requested rendering compatibility
+# Execution TODO — CI45 actor playback
 
-Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI44_CHECKPOINT.json. Main only, one AI, non-force. No audit, historical replay, branch or PR.
+Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI45_CHECKPOINT.json. Main only, one writer, non-force. No audit, extra branches/PRs or historical replay.
 
-## Only active execution terminal — CI44-pending-full-validation
+## Only current execution — CI45-pending-full-validation
 
-VQ02B0.9.24 source **7b1537382467935ea37fe4cc6a2dc88d96a8d46c**, tree **fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac**. CI44 **35583275426**, push/attempt1, observedqueued/null at2026-09-21T09:26:16Z. One complete source commit and one pushCI; document HEAD is not another candidate.
+VQ02C0.9.25 source **9b9a5721f47638ac25a272db6bd9491a5a9ba2d0**, tree **045d553322ce68895a729d8b2f673b56611b22e4**. CI45 **35600568002**, push/attempt1, last observedin_progress/null updated2026-09-21T12:37:03Z. One source commit, one complete CI; later documentation HEAD does not create another candidate.
 
-Completed related implementation: master-gate silence repair with raw failure diagnostics; browser-managed WebGL2/1 initialization, honest software hint, bounded automatic density, native quality override, context loss input/audio/simulation hold and restoration, actionable no-WebGL UI. All26files and4programsubtrees match local1046Node/214Python/assets/typecheck/build. Original17Worldmethods/22gamefunctions preserved. No localbrowser, new audio proof or rendered acceptance. Do not redo this batch.
+Completed related development: simulation-tick action playback, actual-distance/scaled gait, dephased/reduced decorative poses, bounded96-frame native-pixel CPU replay cache, and real reference-journey observation extensions.19changes; fresh1073Node/214Python/assets/typecheck/build passed;512native frames cold/warm byte-exact. Original art, state rules, camera, input/save/collision and all previous journey assertions/timeouts retained. This is not completed full animation or art90. Do not redo the saved batch.
 
-Read exact run once. Pending -> save/report without wait loop/cancel/dispatch. Failure -> first actual same-run root, unchanged thresholds/timeout/old and new assertions. Success -> validate/good/bad,13finalprimary/9native/3originalledgers and listedbytes/hash; include equipment.audio, scene-audio-report.json plus render-compatibility/report.json/source-ledger.json. New native cases must show real softwareWebGL2/WebGL1 canvas pixels, native resolution select, genuine context loss/restoration/frozenstate/inputclear, and no-WebGL error/reload. Retain original HUD/scenery normal-pause-reduced/grounding/ATB/touch/own-v8/economy/complete story observations. Inspect actual PNGs, save untouched originalZIPs to correctDrive/readback, then match Pages/source/HTML. No progress or synthetic fixture substitution.
+Read same run once. queued/in_progress -> save/report, no prolonged polling/cancel/rerun/dispatch. failure -> first actual same-run root. success -> verify3jobs,13finalprimary,9native,3source/run/attempt/HTML ledgers; retained audio and render compatibility reports/ledger/PNG hashes; new reference-report.json.playback includes three actual movement histories, bounded cache hits, unchanged pause and reduced victory. Retain original four new PNGs (02-walk-1/2/3 and08-reduced-victory) and all earlier screenshots. Inspect actual images, preserve untouched artifacts in specified Drive with readback, then match Pages/source/HTML. No synthetic save, writable hook, forceclick, missing assertion or relaxed timeout.
 
-## CI43 terminal and held work
+## Closed and held work
 
-CI43 35576672389 completed/failure, not accepted. Good equipment pause-silence observation exceeded original10s; validate/bad succeeded. B addresses a source-visible master automation hazard, but CI43 did not save lastAudio, so the exact failed zero-output conjunct remains unknown. See CI43_FAILURE_ROOT. Five originals saved; do not rerun CI43 or pretend green partial jobs are full acceptance.
+CI44/Pages38 now accepted/inactive for B0.9.24 source7b1537382467935ea37fe4cc6a2dc88d96a8d46c. Complete original reports, software audio/renderer observations, images and cloud/source deployment closed; no replay. CI43 remains historical failed, superseded; no retroactive claim about its unrecorded last audio conjunct. CI42 and older closures remain closed.
 
-VQ01Z0.9.22 remains safety-held/unpublished. Do not retry paths, use another encoding/channel, indirectly replace or promote partial Z. Saved17files/966Node213Python are historical local Z, not B. Prologue-render.ts and local-browser holds remain. No general continue clears them. B does not apply Z.
+Held Z0.9.22 remains tested/cloud-retained/unpublished. Do not retry its paths, change encoding/channel, indirectly replace it or promote partial Z. Held home renderer and local-browser restrictions remain. C includes neither Z nor a replacement scene renderer.
 
-## Explicit rendering requirement still open
+## Still open after CI45
 
-Automatic detection/adaptive resolution is implemented, but browser policy chooses whether software WebGL exists. Missing discreteGPU is not missingWebGL; private driver data is unverified. **Fully playable rendering when every WebGL context is unavailable remains NOT implemented.** Accessible failure UI is not a playable fallback. A true CPU/Canvas2D backend must cover the existing game without shrinking scope or bypassing held renderer work. Do not claim the user's complete software-fallback expectation is already delivered.
+EarlyT05: unified pixel/solid material language and scale/silhouette; narrow-view landmarks; held home furniture/mother; full animation/art and rights-cleared full soundtrack/listening/device evidence. Current C reuses existing drawings; no new art quality or FPS claim. Fully playable CPU/Canvas2D rendering when all WebGL is unavailable is still NOT implemented. Browser-managed software compatibility and error UI do not satisfy that complete fallback expectation.
 
-## Remaining early T05 and full scope
-
-Early T05: pixel actor/plant versus solid-prop materials, overall scale/silhouette, narrow-view landmarks, held home furniture/mother, fullanimation and rights-cleared soundtrack/listening/device evidence. Reuse saved assets. Seven short authored cues are not original OST fidelity or fullaudio. Compatibility settings do not close art90; no new score,old30stale.
-
-T03: hiddenrules/versiondifferences/fulltopology/numericfidelity.
-T04: growth/rewards/drops/fulleconomy/items/accessories/roster/skills/dual-triple techs; retain existing equipment and provisional-value disclosure.
-T05: completeart/animation/rights-clearedaudio; actual early-quality gates first.
+T03: original hiddenrules/versiondifferences/fulltopology/numericfidelity.
+T04: growth/rewards/drops/fulleconomy/items/accessories/roster/skills/dual-triple techs; retain accepted equipment and provisional values.
+T05: completeart/animation/rights-clearedaudio; early actual quality gates first.
 T06: fullfuture/remainingeras/main-sidequests/endings;2300arrival not fullfuture.
-T07: overall>=90/eachdimension>=80%/zerocritical/assets-and-fivegates/physical input-FPS-frame-time-loading-memory-background-save; include actual device rendering and sound, no software-run score inflation.
-T08: eachrelatedbatch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/readback; documents[skip ci].
+T07: overall>=90/eachdimension>=80%/zero-critical/assets-and-fivegates/physical input-FPS-frame-time-loading-memory-background-save/audio. No score inflation;old30stale.
+T08: relatedbatch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/readback; documents[skip ci].
 
-Latest recovery Drive17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD,49manifest/26changes/228fileprogram/5CI43originalZIPs; current main docs separately. Last acceptedYsource3c2e03e02c7be0e5921fa689f32d674c68ae64f4/CI42/Pages36 and older closures remain closed. Preserve TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300/equipment/v1-v8. No publicROM/originalmedia/fonts/credentials, no extra user token/ROM/manualevidence.
+Accepted originals1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl contain exactCI44source tar; current C snapshot14tfPggGAsfpJrZPv44yGDyX87RcLidji has19changes/7logs/244files/30manifest. Latestmain docs always separate. Keep TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300/equipment/v1-v8. NoP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials or extra user tokens/manualevidence.

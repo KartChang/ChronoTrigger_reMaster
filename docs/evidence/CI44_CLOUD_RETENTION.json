@@ -1,0 +1,12 @@
+{
+  "schema":1,"source":"7b1537382467935ea37fe4cc6a2dc88d96a8d46c","sourceTree":"fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac",
+  "ci":35583275426,"pages":35585552575,
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl",
+  "name":"Chrono-CI44-Pages38-accepted-evidence.zip","bytes":51552702,
+  "sha256":"743c04dfdd0d3a4eb934abd1b2d9fa36b940c6c4df14d983f064bfe045e612da","createdAt":"2026-09-21T12:02:43.241Z",
+  "verified":{"downloadedRawReadback":true,"metadataParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":12,"allManifestBytesHashes":true,"untouchedRawZips":6,"allNestedRawZipCRC":true},
+  "recovery":{"rawZip":"raw/CI44-browser.zip","sourceTar":"source-7b1537382467935ea37fe4cc6a2dc88d96a8d46c.tar.gz","gitArchiveCommentMatched":true,"currentDocuments":"Read latest GitHub main separately; archived source documents must not overwrite current progress."},
+  "scope":"existing playable regression, software audio/control and browser-managed WebGL compatibility plus source-matched deployment",
+  "artApproved":false,"physicalDeviceApproved":false,"listeningReview":false,"noWebglPlayable":false,
+  "archivalState":"The archived cloud-pending sentence describes packaging time. This final receipt supplements it without altering original ZIPs."
+}

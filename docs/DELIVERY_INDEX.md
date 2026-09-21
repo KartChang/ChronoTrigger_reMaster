@@ -1,29 +1,23 @@
-# Cloud delivery index — CI43 terminal originals / VQ02B / CI44
+# Cloud delivery index — CI44 / Pages38 closed; C / CI45 active
 
-Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/move/deletion changes. Execution STATUS / IMMEDIATE_CONTINUATION / CI44_CHECKPOINT. B is the only active candidate; CI43 failed, Z remains held, Y/CI42/Pages36 remains last accepted.
+Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/move/deletion changes. Current execution STATUS / IMMEDIATE_CONTINUATION / CI45_CHECKPOINT. One active source, no parallel candidate.
 
-## Latest tested source and failed-run originals
+## Latest accepted originals and exact source recovery
 
-**Chrono-CI43-terminal-VQ02B-tested-batch.zip**, ID **17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD**, **26323163bytes**, SHA256 **4b42d2ff9e45b81e9987fc0c934eedfd075f00a35516192cae98955096356fcb**. Created2026-09-21T09:04:04.989Z. Downloaded rawreadback/hash/ZIPCRC/all49manifest entries/correctparent verified. Five untouched nested CI43 ZIPs also verified. See VQ02B_CLOUD_RETENTION / VQ02B_LOCAL_VALIDATION / CI43_FAILURE_ROOT.
+**Chrono-CI44-Pages38-accepted-evidence.zip**, ID **1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl**, **51552702bytes**, SHA256 **743c04dfdd0d3a4eb934abd1b2d9fa36b940c6c4df14d983f064bfe045e612da**. Created2026-09-21T12:02:43.241Z. Parent/downloaded raw bytes/hash/CRC/all12manifest/six untouched nested ZIPs verified. Contains originalCI44 browser/good/bad/playable/art and Pages38 staged, read-only report/ledger review, visual review and two labelled contact-sheet derivatives. Final cloud receipt supplements the archived packaging-time cloud-pending sentence.
 
-Contains26 changed source/test/workflow files,8 fresh rawlocal logs including initial findings,5 original CI43 artifacts(browser/good/bad/playable/art),failure/read-only ledger review, rendering reference boundaries, local unacceptedHTML, **recovery/VQ02B-tested-program-snapshot.tar.gz** with228 program/config files. Snapshot assembled from exactb54ff plusB; not a Git archive of the later published commit. No held Z, node_modules, ROM, original external media, font files or credentials. Current main documents must be read separately.
+AcceptedB0.9.24 source7b1537382467935ea37fe4cc6a2dc88d96a8d46c/treefe2791e0d0fc0c4a12f6d01e8fe04c90855834ac, CI44 35583275426 / Pages38 35585552575. Recovery: raw/CI44-browser.zip -> source-7b1537382467935ea37fe4cc6a2dc88d96a8d46c.tar.gz, Git archive comment matched. Read latest main docs separately. Acceptance is existing playable/software audio/WebGL compatibility/source deployment, NOT art90/listening/physicaldevices/no-WebGL gameplay. Receipts CI44_ACCEPTANCE/CLOUD_RETENTION/VISUAL_REVIEW/PAGES38_PROVENANCE.
 
-Published Bsource **7b1537382467935ea37fe4cc6a2dc88d96a8d46c**, tree **fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac**. All26blobs and4complete program subtrees match locally tested bytes. Archive predates publication, so its nullsource/awaiting-publication fields are historical state, supplemented by final GitHub receipts without rewriting rawlogs. **CI44 35583275426**, push/attempt1, observedqueued/null at09:26:16Z. No CI44 browser/render/audio/Pages acceptance is in this package.
+## New C tested-source recovery — not CI45 acceptance
 
-CI43 **35576672389** completed/failure, not acceptance. Its five originalZIPs must not be described as an accepted game. Validate/bad ledger read-only reproductions are exact; good remainsfailed with mount-dependent missing-file error differences. Original failure information retained, no browser replay.
+**Chrono-VQ02C-tested-source-local-evidence.zip**, ID **14tfPggGAsfpJrZPv44yGDyX87RcLidji**, **1885136bytes**, SHA256 **64eb34511c4bb2afb6e139549057b388d633010d33ddce1703289bc7b685a222**. Created2026-09-21T12:15:27.986Z. Parent/downloaded raw bytes/hash/CRC/all30manifest verified.19changes,7rawtest logs/exit files including initial failure, unaccepted localHTML/buildmeta, local receipt and recovery/VQ02C-tested-program-snapshot.tar.gz244files. No node_modules/heldZ/ROM/originalmedia/fonts/credentials.
 
-## Last accepted originals — retained, not reopened
+Publishedsource9b9a5721f47638ac25a272db6bd9491a5a9ba2d0/tree045d553322ce68895a729d8b2f673b56611b22e4; all19blobs/complete program subtrees match1073Node/214Python tested bytes. CI45 35600568002 push/attempt1 in_progress at12:37:03Z. Snapshot is assembled fromCI44 plus C, NOT a publishedGitarchive. Archivednullsource is prepublication state; latestGitHubreceipt adds identity without altering rawlogs. Always obtain latestmain docs; no C after-image/Pages/device acceptance in this package.
 
-**Chrono-CI42-Pages36-accepted-evidence.zip**, ID **1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW**,38906842bytes/SHA256 **5722a13f28ae55e02b720eefb5c96fdfdf4f8d2e2a001d4aa2fcc1ff13dff765**. Previously downloaded14manifest/sixoriginalZIPs/hash/CRC/parent verified. Source3c2e03e02c7be0e5921fa689f32d674c68ae64f4/treeafd919fc37bbac025006fbdbad2e942757ea766d/Y0.9.21, CI42 35568827641/Pages36 35571121776. raw/CI42-browser.zip -> source-3c2e03e02c7be0e5921fa689f32d674c68ae64f4.tar.gz, exactGitarchivecomment matched. Existing playable/deployment only, notart90/fullgame/devices. Receipts unchanged; CI42/CI41/earlier closures not reopened.
+## Retained older originals and holds
 
-## A local and held Z — retained separately
+B implementation/CI43 failure originals **17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD**,26323163bytes/SHA2564b42d2ff9e45b81e9987fc0c934eedfd075f00a35516192cae98955096356fcb; its oldCI44pending is superseded. CI43 remains a failed run, not retroactively accepted. Y/CI42/Pages36 originals **1wlMzDYoWV7a9fHnrBQQ9KjyHMl-1FqjW** retained. A audio local **1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu** retained.
 
-A: **1_JwcNmG7FmSnNKcAQ-dYhtv7x4jN_DLu**,1928839bytes/SHA256fda53969d477b14dfb322b691b9a501e5d3a2c1db7d6005ecd7634fa284ad02d;34manifest/19changes/226file snapshot. Historical CI43-pending superseded by terminalfailure. No acceptance inferred from its987Node/208Python local results.
+HeldZ **1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9** remains unpublished after actual safety denial. No retry/alternateencoding/channel/indirect replacement/partial promotion; never apply it over C. Prior full index and hashes preserved at immutable **a2492d881d6119e1737bc5ba734bafba35762782**; it links older Y/A/Z/CI41/X/W/U/T/S tables. No package/source deleted, no historical pending becomes currentTODO.
 
-Z: **1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9**,2105945bytes/SHA256a0262e90f384569b8c7f6974f4c55d663870deaa14d3ce0503e0805f77258242;29manifest/17changes/966Node213Python/226file snapshot. Stillunpublished after actual tool safety denial. No retry/alternativeencoding/channel/indirectreplacement/partialpromotion. Never applyZsnapshot overB; original Zcheckpoint remains historical authority for that boundary, not the active CI44.
-
-## Older packages, assets and fixed recovery
-
-Complete previous index at immutable **88f3ee4aa7cb63bcc172bbeaf790ee477ba10760** retains earlier Ylocal/CI41/X/W/U/T/S and links d089b25ad75d8aebea67c748aacaaa4e5c01fa74,ed42d424da5f3637144809c247d557b9a13bc91b,93dde6539f64bbc155af01ef2b222035802c6664,b795605fe4f40abd2b3f786f6ada90534a938b82. No package/source deleted; historical pending/failure is never reopened as currentTODO.
-
-Saved A1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k/B1vkPuPN8HN46d1uHaJY9__OPrf455k3QV/C16iHw_Py_RGLr819nPAEG6d5h98JuyLNe and verifiedhashes remain there; recoveronlyneeded/no repaint/no oldindependent-ui. Toolchain **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** onlynode_modules/esbuildhardlinks, not oldsource/config/bootstrapCI. PrivateROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** staysprivate. Heldhome renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser/Z intact. Temporarycontainers are not authority.
+SavedartA1md7mdOBVL0xLlIU6H10LyA8GuUCxXz1k/B1vkPuPN8HN46d1uHaJY9__OPrf455k3QV/C16iHw_Py_RGLr819nPAEG6d5h98JuyLNe and verifiedhashes remain in previous index; recoveronlywhenneeded, no repaint/oldindependent-ui. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE onlynode_modules/esbuildhardlinks, notoldsource/config/bootstrapCI. PrivateROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM staysprivate. Heldhome renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser unchanged. Containers are not authority.

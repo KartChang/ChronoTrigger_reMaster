@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "source": "7b1537382467935ea37fe4cc6a2dc88d96a8d46c",
+  "sourceTree": "fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac",
+  "version": "0.9.24",
+  "batch": "VQ02B",
+  "ci": {"id":35583275426,"number":44,"event":"push","attempt":1,"status":"completed","conclusion":"success","updatedAt":"2026-09-21T09:51:01Z","jobs":{"validate":106280729548,"good":106280729566,"bad":106280729438}},
+  "pages": {"id":35585552575,"number":38,"workflowHead":"a2492d881d6119e1737bc5ba734bafba35762782","jobs":{"prepare":106287936695,"deploy":106288021933},"status":"completed","conclusion":"success","updatedAt":"2026-09-21T09:55:39Z","publicHttp":{"method":"executed deploy step #3 read through GitHub job logs","startedAt":"2026-09-21T09:55:35.6538271Z","stepSuccess":true,"independentLocalLiveByteClaim":false}},
+  "html": {"bytes":5649823,"sha256":"a6f7ecd69f5050b09ca5f6d0cc8937ea7fa4d5405852b808e6061df0beaa7103","playableArtifact":10632051389,"stagedArtifact":10632176055,"stagedBytesMatch":true},
+  "verification": {
+    "method":"read-only original artifacts, no browser replay",
+    "primaryFinalReports":13,"nativeChooserReports":9,
+    "threeLaneLedgersReproducedExactly":true,"allListedBytesHashesMatch":true,
+    "renderLedgerReproducedExactly":true,
+    "renderCases":["software-webgl2","software-webgl1","webgl-unavailable"],
+    "nativeContextLossRestoration":true,"renderPngs":5,
+    "audioReportMatchesEquipment":true,
+    "audioPauseInventoryDialog":{"activeVoices":0,"masterGain":0,"rms":0},
+    "audioInitialContextNotCreated":true,"audioNativeImportAndFinalMute":true,
+    "finishCohesionAssertions":9,"touchLoadMs":3575.88,"touchLimitMs":30000,"touchViews":2,"traceCRC":true,"traceEntries":124
+  },
+  "rawArtifacts": [
+    {"name":"CI44-browser.zip","artifactId":10631978863,"bytes":16759770,"sha256":"06e1cd1fb38178b93beb0fab190243dec6e828f0e871d414175bcae9599a131b","zipCRC":true},
+    {"name":"CI44-good.zip","artifactId":10631953297,"bytes":26670992,"sha256":"bd13ca85c9b5930ac3c78595b15897a834a45822eab45bb9ac416b24243fc7f7","zipCRC":true},
+    {"name":"CI44-bad.zip","artifactId":10631313915,"bytes":4262644,"sha256":"a430f735ce749adcb3323c12b746adddbba0162c8354afb0b275e7a7b67fab53","zipCRC":true},
+    {"name":"CI44-playable.zip","artifactId":10632051389,"bytes":1306016,"sha256":"8ce9061aacada6721c5f674ac04e87a9a08c5ea3a1c37fe92efbce52310892e2","zipCRC":true},
+    {"name":"CI44-art.zip","artifactId":10632221029,"bytes":324934,"sha256":"3281c1b9e31d1d4178a15fde265222fc7db3e7d73e66cf157f888c7b3842f347","zipCRC":true},
+    {"name":"Pages38-staged.zip","artifactId":10632176055,"bytes":1311380,"sha256":"03fb9133ee600c185871da1ec44a7dafaee2d602145737873717110645ec39d9","zipCRC":true}
+  ],
+  "accepted":true,"active":false,
+  "scope":"existing playable regression, software audio/control and browser-managed WebGL compatibility plus source-matched deployment",
+  "artApproved":false,"listeningReview":false,"physicalDeviceApproved":false,"wholeGameAccepted":false,"noWebglPlayable":false,
+  "sourceRecovery":"raw/CI44-browser.zip -> source-7b1537382467935ea37fe4cc6a2dc88d96a8d46c.tar.gz; Git archive comment matched",
+  "cloud":"CI44_CLOUD_RETENTION.json",
+  "visualReview":"CI44_VISUAL_REVIEW.md",
+  "reports":"Drive 1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl / review/report-verification.json and untouched raw ZIPs"
+}

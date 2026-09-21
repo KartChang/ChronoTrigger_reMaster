@@ -1,33 +1,27 @@
-# Rendering compatibility — VQ02B / 0.9.24
+# Rendering compatibility — CI44 accepted software evidence, no-WebGL gameplay still open
 
-Exact source 7b1537382467935ea37fe4cc6a2dc88d96a8d46c; full validation is pending CI44 35583275426. This implements browser-managed WebGL detection, adaptive drawing-buffer density and recovery UI. It does NOT implement a browser-independent CPU/Canvas2D game renderer or let the web page force a browser-disabled software backend.
+B0.9.24 source7b1537382467935ea37fe4cc6a2dc88d96a8d46c / CI44 35583275426 / Pages38 35585552575 completed software compatibility/source deployment acceptance. C actor source9b9a5721f47638ac25a272db6bd9491a5a9ba2d0 is separately awaitingCI45 and leaves compatibility policy unchanged. STATUS/CI45_CHECKPOINT owns current execution. Full previous B contract is retained at a2492d881d6119e1737bc5ba734bafba35762782.
 
-## Capability contract
+## Capability policy retained
 
-Lack of a discrete GPU is not the same as lack of hardware rendering; an integrated graphics driver can expose WebGL. Babylon keeps its existing WebGL2-to-WebGL1 initialization. failIfMajorPerformanceCaveat=false avoids deliberately rejecting a slow context; it cannot override browser security/enterprise policy. The browser chooses hardware or software. No unsafe browser option, driver installation, browser relaunch or external dependency is requested by the production page.
+Babylon attempts WebGL2 then1. failIfMajorPerformanceCaveat=false avoids deliberately rejecting slow contexts; the page does not force browser backend selection or override browser/security/enterprise policy. No production unsafe flags, driver installation or browser relaunch. An integrated GPU can expose hardware WebGL; no discrete GPU is not automatically noWebGL.
 
-An available renderer string matching SwiftShader, llvmpipe, softpipe, Software Rasterizer or Microsoft Basic Render Driver is only a software hint. Other or private strings remain unverified, never a claim of hardware acceleration. No renderer string is saved or transmitted. A sustained frame-budget miss also enables adaptation when the driver information is unavailable.
+Known renderer strings SwiftShader/llvmpipe/softpipe/Software Rasterizer/Microsoft Basic Render Driver are hints only. Private/other strings remain unverified, never hardware proof; driver strings are not saved or transmitted. Auto also observes sustained frame times.
 
-src/render-capability.ts owns auto/quality/compatibility policy. Original quality retains max(1,DPR/1.5). Auto software and manual compatibility use a 960x720 pixel budget with at least1.25 hardware-scaling level. After30 active warmup frames and90 valid samples, mean>45ms and90th-percentile>55ms permit one of at most3 further reductions. Paused/hidden/context-lost intervals are excluded; nonfinite/large isolated stalls do not establish a backend. This is one-way bounded degradation until the user changes mode; it is not a performance guarantee or full adaptive scene-LOD system.
+RenderPolicy keeps original quality max(1,DPR/1.5), software/manual compatibility960x720 pixel budget and minimumscaling1.25. After30 active warmup frames and90 valid samples, mean>45ms andp90>55ms allow at most3 further reductions. Hidden/paused/context-lost intervals and invalid/isolated large stalls are excluded. Bounded one-way reduction resets when user changes mode; not a performance guarantee. Only drawing-buffer density changes, not scene composition/actor scale/ATB. Native pause select can restore original quality; subpixel rounding can affect crispness.
 
-Only the drawing buffer changes. Original17 World scene/actor/camera/contact/effect methods are fingerprinted; no shadow filters, materials, scene composition, actor scale, collisions, input ownership, saves or ATB rules are replaced. Changing density can reduce crispness; the pause menu includes original-quality override. Browser resolution rounding can introduce subpixel differences, so the actual CI view checks still matter.
+Context loss freezes simulation/audio, clears input and accumulation. Restoration resizes/rebases without catch-up or auto-save. TotalWebGL failure shows accessible escaped-text error and native Reload with Start disabled, not a playable replacement. Reload does not promise unsaved-state preservation.
 
-## Startup and context lifecycle
+## Verified CI44 observations
 
-A caught WebGL initialization failure opens an accessible text-only alert with native Reload and safely escaped diagnostic text. Start remains disabled. This is recovery UI, NOT a playable fallback or evidence the user lacks a GPU. A native WebGL context loss freezes simulation and audio, clears controls and accumulated time, and shows status. Restoration resizes and rebases time without replaying hidden inputs or writing a save. Graphics events do not auto-save or claim unsaved-progress persistence across reload.
+Controlled software Chromium rendered real WebGL2 andWebGL1 canvas content, responded toP1, and used the native quality select. Observed auto1.3331705629813464 with1023x675buffer, quality1 with1365x900, then compatibility restoration. Native WEBGL_lose_context produced frozenstate/inputclear and successful scene restoration. DisabledWebGL produced actionable failure/reloadUI. The extra source-ledger and all5originalPNG bytes/hashes were reproduced/verified read-only, alongside the existing13primary/9native/3lane ledgers and all prior journeys. Actual5render and9scenery images reviewed; pause selector fits3views.
 
-src/render-status.ts/CSS owns recovery presentation; src/main.ts wires native context lifecycle, input boundary and the pause select. These are independent from held Z material/portrait changes and the held home renderer. No local browser operation was performed.
+This is controlled runner software rendering, NOT proof that every production browser automatically permits software WebGL. Canvas2D was used only for original-canvas pixel sampling. **Fully playable CPU/Canvas2D operation with every WebGL context unavailable remains NOT implemented.** ErrorUI/adaptive resolution/NullEngine do not close that requirement. No physicalGPU/device/FPS/listening/art90 approval. No local browser replay. C preserves this policy and keeps the same real compatibility suite required.
 
-## Evidence and open work
+Originals: Drive1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl; CI44_ACCEPTANCE/CLOUD_RETENTION/PAGES38_PROVENANCE. Actual publicHTTP evidence comes from the successful deploy step at09:55:35.6538271Z, not a new local live-byte check. Held Z/home/localbrowser boundaries stay unchanged; complete future backend must not bypass them or shrink existing game coverage.
 
-CI-only tests add controlled software WebGL2 and WebGL1, original canvas pixel observations, P1 ownership, native quality-select actions, native WEBGL_lose_context loss/restoration, and disabled-WebGL recovery/reload. Browser command-line selection in the test runner is not automatic fallback by a normal user's browser. Canvas2D is used only to sample the real WebGL canvas, not to implement a game backend. Original13 primary/9 native/3 provenance ledgers remain, with a separate render report/source ledger and exact PNG hashes.
+## Retained primary references from B research
 
-1046Node/214Python/typecheck/assets/build passed locally. All real new browser observations remain pending. No GPU/device/FPS/art90/listening approval. Fully playable operation with no WebGL at all remains an explicit unimplemented requirement; no fake no-WebGL success or NullEngine rendering claim. Completing that backend must preserve all existing scenes, rules, input and saves without bypassing held renderer boundaries.
+Chromium Using SwiftShader: https://chromium.googlesource.com/chromium/src/+/HEAD/docs/gpu/swiftshader.md . Software configurations, deprecation of automatic WebGL fallback and handling context-creation failure.
 
-## Primary references checked 2026-09-21
-
-Chromium, Using SwiftShader: https://chromium.googlesource.com/chromium/src/+/HEAD/docs/gpu/swiftshader.md . Documents software rendering configurations, deprecation of automatic WebGL fallback, and the need to handle failed context creation.
-
-MDN, WEBGL_debug_renderer_info: https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info . Driver strings can be restricted by privacy settings; missing information is not hardware proof.
-
-Runtime behavior above is the tested project policy, not a promise that every browser/driver/enterprise environment exposes software WebGL. Latest checkpoint and final evidence, not these design descriptions, determine acceptance.
+MDN WEBGL_debug_renderer_info: https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info . Privacy may hide driver information. These references do not replace current exact-run project evidence.

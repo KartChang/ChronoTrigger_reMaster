@@ -1,23 +1,21 @@
-# Early audio — retained VQ02A content, VQ02B repair
+# Early audio — CI44 software evidence accepted; content retained
 
-Current source7b1537382467935ea37fe4cc6a2dc88d96a8d46c, version0.9.24; CI44 pending. Exact state: STATUS / CI44_CHECKPOINT. Original A contract remains at88f3ee4aa7cb63bcc172bbeaf790ee477ba10760. No held Z visual work is applied.
+Audio implementation remains B0.9.24 source7b1537382467935ea37fe4cc6a2dc88d96a8d46c. CI44 35583275426 / Pages38 35585552575 now accepted for software graph/control and source deployment. Current independent actor sourceC9b9a5721f47638ac25a272db6bd9491a5a9ba2d0 is awaitingCI45; it changes no audio source. Exact execution: STATUS / CI45_CHECKPOINT. Original complete B contract is retained at a2492d881d6119e1737bc5ba734bafba35762782.
 
-## Content and ownership retained
+## Retained production contract
 
-src/music-score.ts owns seven short project-authored hearth/fair/road/tension/battle/victory/defeat arrangements and read-only cue selection. No original OST extraction/transcription, samples, external media/CDN or new dependency. Multiple maps share short cues; this is not full soundtrack production or original musical fidelity.
+music-score.ts owns seven short project-authored hearth/fair/road/tension/battle/victory/defeat arrangements. No original OST extracts/transcriptions, samples/CDN/new dependency; multiple maps share cues. This is not full soundtrack or original musical fidelity.
 
-src/scene-audio.ts owns one optional WebAudio graph, transport and finite oscillator lifetimes. Native triangle/sine lead/bass/harmony, at most16 active voices, master.55; this is a code setting, not loudness/listening/device certification. main only forwards fixed ticks/halted state and real opt-in input, not game-rule mutation. Default off creates no context; real activation resumes, never a frame-loop resume timer.
+scene-audio.ts owns optional WebAudio, finite triangle/sine lead/bass/harmony voices, max16 and master.55. Default off creates no context. Only real activation resumes; fixed ticks choose score steps, missed steps are skipped. main forwards existing state/halted input without changing rules. No audio preferences in saves.
 
-Pause/dialog/inventory/background/native chooser/context loss silence voices. Cue/state change and tick rollback clear prior phrases. Late frames skip stale steps, victory/defeat are bounded one-shots, resume does not replay effects. Menu effects are intentionally suppressed. Ended/reap cleanup and async-resume races remain tested; failures do not modify gameplay/save state.
+Pause/dialog/inventory/background/native chooser/context loss silence voices. State/cue change and rollback clear old phrases; result cues are bounded one-shots. Menu effects suppressed; resume never replays stale effects. Ended/reap cleanup, late async resume, mute and disposal remain guarded; audio failures do not change gameplay.
 
-## CI43 actual root and B repair
+B clears master automation with cancelScheduledValues(0), then intrinsic gain.value. Note envelopes remain separately scheduled; stopped voices disconnect. Inspector reports real analyser RMS/contextTime/analyserSize, not a manufactured silence value. Failed observations preserve lastAudio/state/focus when possible and rethrow. Original10000ms/RMS<0.000001 assertions remain.
 
-CI43 35576672389 completed/failure: good equipment pause wait_silent did not observe activeVoices0/masterGain0/RMS<0.000001 within10000ms. Original audio report was null, and the last parameter/analyser sample was not retained. This establishes the failing observation, not the exact conjunct or a proven audio-driver cause. Validate/bad succeeded but do not accept the whole source. See CI43_FAILURE_ROOT and untouched originals.
+## Actual evidence and limits
 
-B clears all scheduled master automation using cancelScheduledValues(0), then sets intrinsic gain.value. The master is an immediate gate; note gain envelopes remain separately scheduled. Silence still releases oscillator/gain connections. This addresses a source-visible automation hazard; browser repair acceptance is pending CI44, not inferred from unit fakes. Inspect returns true analyser RMS even when blocked, with contextTime/analyserSize; it never substitutes zero for a leak. On timeout, the existing equipment observation writes lastAudio/state/focus when available, then rethrows the original failure. Original10s/.000001 thresholds and all old assertions remain.
+CI43 failed at the first equipment pause-silence observation and lacked the last parameter sample. Its exact failed conjunct remains unproven; that old run is not retroactively accepted.
 
-## Verification and limitations
+CI44 original equipment.audio exactly matches scene-audio-report.json. Real keyboard opt-in produced analyser energy; pause/inventory/dialog each had activeVoices=0, masterGain=0 and rms=0. The original same-run nativev6 import/epoch reset and final mute passed; full13primary/9native/3lane reports and hashes retained. This closes the observed regression on B's changed source. Three lane ledgers and the render ledger were reproduced read-only, not a browser rerun.
 
-Fresh B1046Node/214Python/assets/typecheck/build passed, including delayed-AudioParam and true-inspector model tests; models are not emitted-sound evidence. All22 retained game functions fingerprinted. Original equipment journey still uses real keyboard opt-in, analyser energy, pause/inventory/dialog silence/frozenstate, its same native v6 import/epoch reset and final mute. No extra positive save or writable hook. Final equipment.audio and scene-audio-report.json must be checked by the original source lane ledger in CI44.
-
-No local browser, listening review or speaker/device validation was performed. Software Chromium energy, even when passed later, does not prove physical sound, arrangement quality, mobile activation behavior or full T05. Rendering-context hold is separately tested through actual native WebGL fault in CI44. New failure and current source logs are retained in Drive17SEnE-8kzSYX2zRcHmbYf_yGKUSHaNFD; the archive predates publication, and latest GitHub receipts supply the identity. No new soundtrack-complete/art90 claim.
+Untouched originals: Drive1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl, CI44_ACCEPTANCE/CLOUD_RETENTION. Previous local1046Node/214Python remain B's recorded local result, not a new execution in this document update. No local browser, speaker/headphone listening review, device/mobile activation certification or fullsoundtrack/art90 approval. Software analyser energy is not listening quality. All original audio assertions remain required in CI45.

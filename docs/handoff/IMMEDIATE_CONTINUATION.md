@@ -1,15 +1,52 @@
-# Immediate continuation — VQ01X / CI41
+# 立即接續 — CI41／Pages35 已閉環，下一項前段 T05
 
-KartChang/ChronoTrigger_reMaster, main only/non-force/one writer. Read STATUS and this; confirm main once and exact CI41 once. No audit/replay, branches/PRs, token/ROM/manual evidence requests. Verified cloud/main, not the temporary container, is authority.
+請立即使用 GitHub connector 接手 KartChang/ChronoTrigger_reMaster，必要時使用 Google Drive connector。唯一分支main，只有此AI流程使用，非force；不建立多人防撞、平行candidate或PR。這是立即執行交接，不是盤點／歷史審計／重做章節。不要要求token、重傳ROM或手動製造證據。
 
-Source **a67178ae18c00bcfd552dff25174d6f14b759292**, tree **3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa**, parent **b795605fe4f40abd2b3f786f6ada90534a938b82**, VQ01X/0.9.20.13tested paths/fulltree/allblobs/ref/nonforce/ahead1behind0 matched. Later [skip ci] docs do not need CI. Only **CI41 35561161523**,push/attempt1/workflow360357259/.github/workflows/ci.yml,created2026-09-21T04:29:12Z,observed **in_progress/null** updated04:29:15Z,exactsource count1. **docs/evidence/CI41_CHECKPOINT.json**. Pending freeze/save/report, no wait/dispatch/rerun/cancel. Failure same-run first actual root. Success full evidence, not green alone.
+## 一、唯一目前位置
 
-**CI40 35557960815/Pages34 35559566958/0.9.19/source07dfac49893583d0e24f66b215f89ff6d8e8505a** is closed.3jobs/13primary/9native/3ledgers and report bytes passed; dock10/ground3/scenery3/finish6tree8shadow/native touch retirement/load2571.73ms/two views/trace/all original gameplay retained. Staged10621786578/playable10621601376/source/CI/HTML match:5631661bytes/SHA256225ac627a4cedcfff0cbe8cca6b3a29f0c7f90cd7e9ebbfc3c0e163d2b5d3cc8. HTTP verification belongs to successful deploy step, not independent local browsing. Six originals saved/readback. CI40_ACCEPTANCE closes existing-playable/deployment, not art90/fullgame/hardware. CI39/Pages33 and earlier closures are not reopened.
+已驗收遊戲：VQ01X／0.9.20。
+Source：a67178ae18c00bcfd552dff25174d6f14b759292。
+Source tree：3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa。
+最新文件提交以GitHub main為準；本次只有[skip ci]文件與證據更新，沒有新runtime／candidate／active validation／CI42。文件HEAD與source不同不是重跑CI的理由。
+機器可讀點：docs/evidence/CI41_CHECKPOINT.json，active=false、accepted=true、currentValidation=null。
 
-VQ01X already done: source-identical retained painter, virtual2x stone density on same512texture, softer joints/central-south promenade/bell apron-border/edge course, original garden pixels and map geometry preserved. Actual six16x1 canvas probes in normal/paused/reduced scenery views, same runtime/export pixels, all old assertions intact.938Node/186Python/assets/type/build/compile passed; no localbrowser. New HTML5633660bytes/SHA2560a174c1b808dbd3d4dd20323f3a57b158d6ec607996fdf2e18147da61092dffb not accepted. No added mesh/texture/shadowmap/per-frame update; CPU painting cost not measured hardware performance. Do not implement again.
+## 二、開始只做最少讀取
 
-Evidence: browser ZIP core reports/ci/validate.json/exacttar; good test-results/prologue,equipment,witness-good,ci/good.json plus dist/build-meta.json; bad keyboard,witness-bad,ci/bad.json. New **equipment/00-cloth-canopy-occlusion-motion-report.json cases[].paving.before/paused/reduced**, six live strips compared with clearly labelled source-art expectations, existing3sizes x moving/paused/reduced PNGs. Need all previous touch load30s/native taps/trace, dock10,ground3,finish,scenery,camera,grounding/lunge,imports,economy,v8/IndexedDB/victory/fulltrial. No progress file or unit fixture substitutes for browser evidence. Retain originals, inspect actual visuals, match Pages/source/HTML before the next related earlyT05 batch.
+讀docs/STATUS.md及本檔，確認main一次。若仍是本次文件位置，直接依docs/TODO.md接續T05-early-visual-cohesion，不重查或重驗已關閉的CI41／Pages35，也不下載全部旧ZIP／白皮書／所有workflow。若main確有更新，只接較新提交的current checkpoint；不要回到舊CI失敗。
 
-Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. Current **Chrono-CI40-Pages34-VQ01X-recovery.zip**, **130yAJRxI1PTDCUOnKHHRsQQkrr-HMr_j**,36720011bytes/SHA25635a2d7a8ee1789515ce474ae3c4d9795313161acd1027803a108efd4dbfc2fed; rawreadback/CRC/parent/33manifest/13delta/6rawZIPs verified. Recover exact07df tar from raw/CI40-browser.zip plus13delta with before/after hashes. Current main docs override archived prepublication receipts; see DELIVERY_INDEX/VQ01X_CLOUD_RETENTION for final supplement. Do not download old archives merely to start.
+## 三、已完成，不要重做
 
-The user's missing-refined-HD-2D concern is still open. New paving is not a90 score. Preserve saved assets; next coherent scene/actor scale/silhouette/material-animation work before chapter expansion. FullT03rules/topology,T04growth/economy/skills,T05art/audio,T06eras/quests/endings,T07quality/devices,T08cloud remain. Home/furniture/mother integration still partly held. Do not retry/bypass prologue-render.ts/local-browser restrictions; renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a retained. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE node_modules only/esbuildhardlinks. No publicROM/originalmedia/fonts/credentials. Keep fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third, existinghome-to2300/equipment/v1–v8. NoP3/ARPG/frameworkrestart;2300arrival not fullfuture;old30stale.
+CI41：35561161523，push／attempt1，completed／success，updated2026-09-21T05:01:23Z。
+validate106214169832、good106214169748、bad106214169911全部成功。
+13主旅程、9原生選檔、3來源ledger及列入的報告bytes/hash一致；三ledger已只讀精確重現，沒有瀏覽器重跑。HUD10、地面3、場景3視窗×正常／暫停／減少動態、X各階段六條16×1canvas、W材質6樹根8陰影、6guide6quiet18toolbar12camera、真正ATB突進／接地／匯入清理、商店裝備金幣庫存／v8／IndexedDB／勝利／完整審判及既有故事均保留。觸控context正確關閉、同run自產v8原生匯入、兩視窗／traceCRC通過；完整load4884.01ms，原30秒未放寬。
+
+Pages35：35563000350，prepare106219285318／deploy106219320868成功。staged10622877567及playable10622413321/source/CI/HTML匹配：5633660bytes，SHA2560a174c1b808dbd3d4dd20323f3a57b158d6ec607996fdf2e18147da61092dffb。公開HTTP驗證來自05:01:49Z實際deploy log；沒有另一次本機live-byte或瀏覽器宣稱。CI41_ACCEPTANCE／PAGES35_PROVENANCE／CI41_VISUAL_REVIEW已記錄。CI41／Pages35、CI40／Pages34及更早閉環都不重開。
+
+VQ01V固定tick動態、W局部光照銅材質與樹根、X細石板石縫走道鐘庭、T探索HUD、U觸控生命週期及更早已保存人物鏡頭接地均存在。原938Node／186Python只是source已記錄結果，本文件交接沒有重跑build／unit／browser。
+
+## 四、直接續作既有T05
+
+本次實際圖已看，細鋪面已進遊戲，但偏黑投影、像素人物植物與立體道具的材質／尺度／輪廓、窄視窗地標構圖仍不一致。使用者說沒有精緻HD-2D感是尚未解決的交付缺口，不能拿綠勾／像素尺寸／模型數替代，也沒有有效90分評分。
+
+下一root：T05-early-visual-cohesion。整批處理投影明暗／閱讀性與人物場景尺度輪廓一致性，使用保存素材；先讀擁有實作的src/fair-render.ts、src/fair-finish.ts、src/fair-ground.ts及必要的直接人物／contact／camera測試，不先盤點全repo。不重畫X鋪面／草地mask、不重建HUD／光照框架、不重做既有章節。保留碰撞、角色所有權、固定ATB、所有原斷言，完成相關修改與測試後才一次非force sourcecommit＋一次完整CI。
+
+未來CI仍queued／in_progress就保存exact點並回報，不長等、密集輪詢、重派或取消；failure處理同run第一根因；success保存原始產物、實際畫面及Pages/source/HTML，不能只看綠勾。
+
+## 五、雲端與恢復
+
+唯一folder：1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。
+最新已驗收原始包：Chrono-CI41-Pages35-accepted-evidence.zip。
+File ID：1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt。
+Bytes：38905599。
+SHA256：4e72ec1f1d0264e3b38fc652b7d5b766e49b5799cc5e226b63e2def068c785d5。
+已下載回讀hash／CRC／13項manifest／六份未修改原始ZIP及父資料夾。
+直接恢復raw/CI41-browser.zip內source-a67178ae18c00bcfd552dff25174d6f14b759292.tar.gz，Git archive comment已匹配，不需舊增量鏈。文件永遠另讀最新main；包內technical-review的cloud-pending是封存當時狀態，最終CI41_CLOUD_RETENTION為準。臨時容器可能隨時清除，不是權威。
+
+## 六、不可丟失的範圍與限制
+
+完整T03規則／版本／拓樸，T04成長報酬經濟技能，T05全美術動畫音樂，T06其餘時代主支線結局，T07整體90與實體裝置，T08每批雲端均保留。先前段實際>=90再擴後段；完整遊戲目標不縮小，2300抵達不是完整未來篇，舊30分stale。
+
+保留TS＋Babylon.js＋esbuild、固定ATB、A*、InputBoundary、P1克羅諾／P2露卡與自主第三同伴、家中至2300／裝備／v1–v8；不新增P3、不改ARPG、不重造框架。
+已保存A/B/C及P/S/T/U/V/W/X不重畫、不套舊independent-ui。受限src/prologue-render.ts與本機瀏覽器沒有新允許結果，不重送／旁路／間接替換／提升不完整staging；原renderer blob2711a74185aacf3c6bddf9db85ba99a2afbc507a保留。
+工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules並保留esbuildhardlink，不覆蓋舊source/config、不另開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不需重傳；ROM／原圖音訊／字型／憑證不公開。
+所有程式、進度、證據都寫回GitHub或指定Drive並回讀，不能只貼聊天或留sandbox。

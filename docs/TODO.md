@@ -1,24 +1,24 @@
-# Execution TODO — VQ01X / CI41
+# Execution TODO — CI41 closed; early T05 visual cohesion
 
-Authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md, evidence/CI41_CHECKPOINT.json. Main only/non-force/one writer. No historical audit, replay, branches or PRs.
+Authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md and evidence/CI41_CHECKPOINT.json. Main only/non-force/one writer. No audit, historical replay, extra branch or PR.
 
-## Immediate execution
+## Immediate execution — T05-early-visual-cohesion
 
-Published **a67178ae18c00bcfd552dff25174d6f14b759292** /tree **3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa**, VQ01X/0.9.20.13related source/test/build files verified. Only **CI41 35561161523**,push/attempt1,observedin_progress/null updated2026-09-21T04:29:15Z. Pending freeze/save/report without waiting or extraCI. Failure same-run first actual root. Success3jobs/13primary/9native/3ledgers, all originals, actual pictures and Pages/source/HTML before next batch.
+CI41 35561161523 / Pages35 35563000350 / VQ01X0.9.20 / sourcea67178ae18c00bcfd552dff25174d6f14b759292 / tree3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa is accepted for existing playable/deployment with reports, original images, source/HTML and cloud readback closed. No current validation, candidate or CI42. Do not repeat this acceptance or rerun because document HEAD differs from source.
 
-Already done, not new TODO: VQ01V tick-safe scenery/reduced-motion; W local lighting/bronze/6tree contacts/8soft shadows; X smaller-scale retained paving, muted joints and promenade/bell-apron/border, actual canvas probes and runtime/export consistency.938Node/186Python passed; all previous browser assertions retained. No local browser or final new visual approval. CI40/Pages34/0.9.19 is now closed existing-playable/deployment; do not replay CI39 or earlier closures.
+Continue the existing early T05 visual-quality work. The actual CI41 images show finer paving, but near-black cast shadows, flat-sprite/solid-prop inconsistency, actor/environment scale/silhouette and narrow-view framing still need work. Address the related shadow/readability and scale/silhouette subset using saved assets; inspect owning sources fair-render.ts/fair-finish.ts/fair-ground.ts and immediate actor/contact/camera tests only as needed. No generic framework, new chapter, asset repaint or indirect replacement of the held home renderer.
 
-CI41 needs good/equipment/00-cloth-canopy-occlusion-motion-report.json **cases[].paving.before/paused/reduced** (six16x1 live canvas strips), existing nine motion pictures, preserved finish/scenery/pause/reduced states and all original touch/native/dock10/ground3/camera/grounding/lunge/economy/v8/IndexedDB/victory/fulltrial checks. Unit pixel expectations and source-preview PNG are not browser evidence. No fake saves/forceclicks/deleted assertions/retries/timeout changes.
+Preserve accepted X paving/grass mask, W fill/metals/contacts, V tick/reduced motion, earlier HUD/grounding/input and all thirteen journey assertions. Batch related implementation and tests, publish one non-force source commit, run one complete CI, retain exact original reports/screens and match Pages/source/HTML. No fake saves, forceclicks, deleted assertions, retries or timeout relaxation. Pending CI: save/report, no wait loop. Failure: first actual same-run root. Successful CI is not art approval.
 
-## Product priority — actual visible quality
+CI41 acceptance includes3jobs/13main/9native/3ledgers, dock10/ground3/scenery3, paving before/paused/reduced, finish, camera, grounding/lunge/importreset, touch context retirement/load30s/native taps/two views/trace, economy/v8/IndexedDB/victory/finaltrial. These completed requirements stay closed for this source; future changed source still requires its normal full CI. CI40/Pages34 and older closures are not reopened.
 
-The user still lacks the promised refinedHD-2D feel;90 is an evidence-supported outcome, not a switch. Do not replace art progress with more test counts. After CI41 acceptance, inspect the new paving in actual scene images before further composition/scale/silhouette/material-animation work. Save existing painters and integrated assets; no redraw or replacement of held home renderer. CI40 still shows dark shadows, sprite/solid-prop mismatch and incomplete home/furniture/mother/actors/full animation/audio. X addresses paving only; do not declare these other gaps solved.
+## Remaining full scope — unchanged
 
-T03: original hidden rules/version differences/full topology/numeric fidelity.
-T04: growth/rewards/drops/economy/items/accessories/roster/skills/dual-triple techs; do not rebuild accepted equipment or call authored values original.
-T05: complete art/animation/cleared music and sound; early scenes to actual>=90 before later expansion.
-T06: full future and remainingeras/main-sidequests/endings;2300arrival not fullfuture.
-T07: overall>=90/eachdimension>=80%/zerocritical/asset-and-evidence gates/physical input-FPS-frame-time-loading-memory-background-save. No score inflation;old30stale.
-T08: relatedbatch->tests->one nonforce sourcecommit/readback->one fullCI; correctfolder/cloudreadback; [skip ci] progress. Current batch is already CI41, not permission to open a second pendingCI.
+T03: hidden rules/version differences/full topology/numeric fidelity.
+T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; do not rebuild accepted equipment or call authored values original.
+T05: complete art/animation/cleared music and sound; early scenes actual>=90 before later expansion.
+T06: fullfuture/remainingeras/main-sidequests/endings;2300arrival is not fullfuture.
+T07: overall>=90/eachdimension>=80%/zerocritical/requiredassets-and-fivegates/physical input-FPS-frame-time-loading-memory-background-save. No score inflation;old30stale.
+T08: each relatedbatch->tests->one sourcecommit/CI->correctfolder cloudreadback; [skip ci] progress.
 
-Recovery **130yAJRxI1PTDCUOnKHHRsQQkrr-HMr_j**, verified33manifest/13delta/6originalZIPs, exact07df tar+delta; current main docs win. Keep TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third/home-to2300/equipment/v1–v8. Held prologue-render.ts/local-browser restrictions: no retry/bypass/incomplete staging. NoP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials.
+Current originals/recovery Drive1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt, verified13manifest/sixrawZIPs; raw/CI41-browser.zip contains exacta671 source tar, no olddelta needed. Current main documents override archive documents. Heldrenderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser: no retry/bypass/incomplete staging. Keep existinghome-to2300/equipment/v1–v8/fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third; noP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials.

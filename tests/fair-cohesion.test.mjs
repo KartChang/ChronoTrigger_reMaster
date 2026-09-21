@@ -1,3 +1,5 @@
+// VQ02C reverses only declared actor wiring before preserving the original CI44 source pins.
+import {actorBaselineBytes} from './helpers/actor-baseline.mjs';
 // VQ02B explicitly advances only renderer/main pins for requested context/density wiring.
 // Original draw/camera/scene functions are verified in render-preserved.test.mjs.
 import test from 'node:test';
@@ -71,6 +73,6 @@ test('pause, reduced motion, tick rollback and camera changes allocate no new ge
 });
 test('party painter, field ground, original motion, held renderer and input stay byte-identical',()=>{
  const expected={'src/hd-hero-art.ts':'5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a','src/render.ts':'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811','src/input.ts':'f4e49695188d941194c2bcdbc737fa7e0bc9f8d5f1d7d04ca6a325c50d2dded8'};
- for(const [p,h] of Object.entries(expected))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),h);
+ for(const [p,h] of Object.entries(expected))assert.equal(createHash('sha256').update(actorBaselineBytes(p,readFileSync(p))).digest('hex'),h);
  const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.from(`blob ${b.length}\0`)).update(b).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');
 });

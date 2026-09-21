@@ -1,3 +1,5 @@
+// VQ02C source comparison only: original methods remain checked after explicit actor wiring.
+import {actorBaseline} from './helpers/actor-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -5,7 +7,7 @@ import {createHash} from 'node:crypto';
 import ts from 'typescript';
 const digest=s=>createHash('sha256').update(s).digest('hex');
 const fixture=JSON.parse(readFileSync('tests/fixtures/render-preserved-functions.json','utf8'));
-const source=readFileSync('src/render.ts','utf8'),tree=ts.createSourceFile('render.ts',source,ts.ScriptTarget.Latest,true);
+const source=actorBaseline(readFileSync('src/render.ts','utf8')),tree=ts.createSourceFile('render.ts',source,ts.ScriptTarget.Latest,true);
 const cls=tree.statements.find(n=>ts.isClassDeclaration(n)&&n.name.text==='World');
 test('render compatibility does not rewrite original draw, camera, sprite, contact or effects methods',()=>{
  const found={};for(const n of cls.members)if(ts.isMethodDeclaration(n)&&Object.hasOwn(fixture.methods,n.name.getText(tree)))found[n.name.getText(tree)]=digest(n.getText(tree));

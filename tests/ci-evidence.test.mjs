@@ -1,3 +1,4 @@
+import {actorPlaybackFixture} from './helpers/actor-playback-fixture.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
@@ -18,6 +19,10 @@ function fixture(t,lane='validate'){
   writeFileSync(join(buildDir,'index.html'),html);writeFileSync(join(buildDir,'build-meta.json'),JSON.stringify({sourceSha:sha,version:'unit',bytes:html.length,bundled:true}));
   const put=(path,report)=>{const f=join(resultsDir,path);mkdirSync(dirname(f),{recursive:true});writeFileSync(f,JSON.stringify(report));};
   for(const p of LANE_REPORTS[lane])put(p,{status:'passed',passed:['unit-only fixture'],errors:[]});
+  if(lane==='validate'){
+    put('reference/reference-report.json',{status:'passed',passed:['unit-only fixture'],errors:[],playback:actorPlaybackFixture()});
+    for(const name of ['02-walk-1.png','02-walk-2.png','02-walk-3.png','08-reduced-victory.png'])writeFileSync(join(resultsDir,'reference',name),Buffer.from('89504e470d0a1a0a','hex')); // Signature-only unit fixtures, not screenshots.
+  }
   for(const p of NATIVE_REPORTS[lane])put(p+'/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[{status:'unit-only fixture'}]});
   if(lane==='good'){
     const sceneryCases=['desktop','portrait','short-landscape'].map(name=>({name,status:'passed',before:{tick:0,scenery:{reducedMotion:false}},later:{tick:12},pause:{fullStateUnchanged:true},reduced:{before:{tick:20,scenery:{reducedMotion:true}},after:{tick:32,scenery:{reducedMotion:true}}}}));

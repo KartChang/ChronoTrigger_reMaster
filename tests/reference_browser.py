@@ -9,6 +9,9 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-results'/'reference'
 OUT.mkdir(parents=True,exist_ok=True)
 checks,errors,waits,requests=[],[],[],[]
+playback={'profile':'vq02c-tick-and-distance-playback','source':'actual-reference-journey-renderer','moves':[],'artApproved':False,'physicalDevice':False}
+def read_playback(page):
+    return page.evaluate('''()=>{const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view();return{tick:s.ticks,poses:v.poses,playback:v.actorPlayback};}''')
 server=subprocess.Popen([sys.executable,'-m','http.server','4179','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def view(page):return page.evaluate('window.__CHRONO_TEST__.view()')
@@ -29,6 +32,8 @@ def move(page,axis,target,keys,greater=True):
     try:wait_game(page,f's.players[0].{axis}{">=" if greater else "<="}{target}',budget=math.ceil((distance/4+2)*60))
     finally:
         for key in keys:page.keyboard.up(key)
+    playback['moves'].append(read_playback(page))
+    page.screenshot(path=str(OUT/('02-walk-'+str(len(playback['moves']))+'.png')))
 
 def start(page,selector):
     page.goto('http://127.0.0.1:4179/?test=1',wait_until='load')
@@ -85,8 +90,10 @@ try:
             page.screenshot(path=str(OUT/'05-actual-hit.png'))
             passed('enemy damage produces a real hit reaction without altering combat rules')
             page.keyboard.press('Escape');page.wait_for_function('window.__CHRONO_TEST__.paused()')
-            frozen=view(page)['poses'];ticks=snap(page)['ticks'];page.wait_for_timeout(350)
+            frozen=view(page)['poses'];ticks=snap(page)['ticks'];playback_before=read_playback(page);page.wait_for_timeout(350)
             assert view(page)['poses']==frozen and snap(page)['ticks']==ticks
+            playback_after=read_playback(page);assert playback_before==playback_after
+            playback['pause']={'before':playback_before,'after':playback_after,'stateUnchanged':True}
             page.keyboard.press('Escape');page.wait_for_function('!window.__CHRONO_TEST__.paused()')
             wait_game(page,'s.players[0].atb>=1',mode='battle',budget=180)
             began=snap(page)['ticks'];page.click('[data-slot="0"][data-action="skill"]')
@@ -97,12 +104,17 @@ try:
             page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(200)
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
             page.screenshot(path=str(OUT/'07-phone-hud.png'))
+            page.emulate_media(reduced_motion='reduce')
+            page.wait_for_function("()=>{const v=window.__CHRONO_TEST__.view();return v.poses.every(p=>p.pose==='victory'&&p.frame===0)&&v.actorPlayback.actors.every(a=>a.reducedMotion);}",timeout=10000,polling=100)
+            playback['reduced']=read_playback(page)
+            page.screenshot(path=str(OUT/'08-reduced-victory.png'))
+            page.emulate_media(reduced_motion='no-preference')
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4179/','data:','blob:'))],requests
             passed('new texture/target/animation integration has no runtime errors or external requests')
-            report={'status':'passed','checks':len(checks),'passed':checks,'waits':waits,'errors':errors,'view':view(page),'limitations':['Reference-informed redraw, not pixel-identical original assets.','Pose history records actual renderer selections, not guaranteed screenshot timing.','Software WebGL is not physical GPU/controller or mobile certification.','No whole-game or 90-point quality acceptance implied.']}
+            report={'status':'passed','checks':len(checks),'passed':checks,'waits':waits,'errors':errors,'view':view(page),'playback':playback,'limitations':['Reference-informed redraw, not pixel-identical original assets.','Pose history records actual renderer selections, not guaranteed screenshot timing.','Software WebGL is not physical GPU/controller or mobile certification.','No whole-game or 90-point quality acceptance implied.']}
         except Exception as exc:
-            report={'status':'failed','passed':checks,'waits':waits,'errors':errors,'failure':str(exc)}
+            report={'status':'failed','passed':checks,'waits':waits,'errors':errors,'failure':str(exc),'playback':playback}
             try:report['state']=snap(page);report['view']=view(page);page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as e:report['observationError']=str(e)
             raise

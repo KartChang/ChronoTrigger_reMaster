@@ -1,0 +1,70 @@
+{
+  "kind": "explicit-source-normalization-only-not-gameplay-evidence",
+  "baseSource": "7b1537382467935ea37fe4cc6a2dc88d96a8d46c",
+  "replacements": [
+    [
+      "import {drawHDHero,HD_ART} from './hd-hero-art';",
+      "import {drawHDHero,HD_ART} from './hd-hero-art';\nimport {HeroFrameCache} from './hero-frame-cache';"
+    ],
+    [
+      "import {PosePlayer} from './pose-player';",
+      "import {ActorTimeline,victoryFrame} from './actor-timeline';"
+    ],
+    [
+      "new PosePlayer()",
+      "new ActorTimeline()"
+    ],
+    [
+      "  private heroes:Sprite[]=[];",
+      "  private heroes:Sprite[]=[];\n  private heroFrames=new HeroFrameCache(96,drawHDHero);"
+    ],
+    [
+      "    this.scene=new Scene(this.engine);",
+      "    this.scene=new Scene(this.engine);\n    this.scene.onDisposeObservable.add(()=>this.heroFrames.clear());"
+    ],
+    [
+      "inspect(){return {renderer:",
+      "inspect(){return {actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:"
+    ],
+    [
+      "drawHDHero(c as CanvasRenderingContext2D,",
+      "this.heroFrames.draw(c as CanvasRenderingContext2D,"
+    ],
+    [
+      "drawHDHero(c,kind,",
+      "this.heroFrames.draw(c,kind,"
+    ],
+    [
+      "this.guestPose.trigger(e.kind==='heal'?'cast':'attack',this.time)",
+      "this.guestPose.trigger(e.kind==='heal'?'cast':'attack',s.ticks)"
+    ],
+    [
+      "this.guestPose.trigger('hurt',this.time)",
+      "this.guestPose.trigger('hurt',s.ticks)"
+    ],
+    [
+      "this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',this.time)",
+      "this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',s.ticks)"
+    ],
+    [
+      "player.trigger('cast',this.time)",
+      "player.trigger('cast',s.ticks)"
+    ],
+    [
+      "this.posePlayers[i]!.trigger('hurt',this.time)",
+      "this.posePlayers[i]!.trigger('hurt',s.ticks)"
+    ],
+    [
+      "this.posePlayers[i]!.sample(this.time,p.walking,s.mode==='battle')",
+      "this.posePlayers[i]!.sample(s.ticks,p.walking,s.mode==='battle',{x:p.x,z:p.z,scale:s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale,seed:i,reducedMotion:this.reducedMotion?.matches??false})"
+    ],
+    [
+      "this.guestPose.sample(this.time,g.walking,s.mode==='battle')",
+      "this.guestPose.sample(s.ticks,g.walking,s.mode==='battle',{x:g.x,z:g.z,scale:s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale,seed:2,reducedMotion:this.reducedMotion?.matches??false})"
+    ],
+    [
+      "Math.floor(this.time*4)%4",
+      "victoryFrame(s.ticks,this.reducedMotion?.matches??false)"
+    ]
+  ]
+}

@@ -1,3 +1,4 @@
+import {assertActorPlaybackEvidence} from './actor-playback-evidence.mjs';
 import {assertAudioEvidence} from './audio-evidence.mjs';
 import {createHash} from 'node:crypto';
 import {mkdirSync,readFileSync,renameSync,writeFileSync} from 'node:fs';
@@ -33,6 +34,10 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
       const bytes=readFileSync(join(resultsDir,path)),r=JSON.parse(bytes.toString('utf8'));
       if(!r||r.status!=='passed')throw new Error('Missing successful completion status');
       if(path==='equipment/equipment-report.json')assertAudioEvidence(r.audio);
+      if(path==='reference/reference-report.json'){
+        assertActorPlaybackEvidence(r.playback);
+        for(const name of ['02-walk-1.png','02-walk-2.png','02-walk-3.png','08-reduced-victory.png']){const image=readFileSync(join(resultsDir,'reference',name));if(image.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('Actor playback screenshot missing');reports.push({path:'reference/'+name,bytes:image.length,sha256:sha256(image),kind:'actor-playback-image'});}
+      }
       if(r.errors!==undefined&&(!Array.isArray(r.errors)||r.errors.length))throw new Error('Report contains errors');
       const checks=r.passed??r.checks;
       if(!native&&(!Array.isArray(checks)||checks.length===0))throw new Error('Completed journey has no checks');

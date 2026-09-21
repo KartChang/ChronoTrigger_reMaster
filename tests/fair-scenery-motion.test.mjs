@@ -1,3 +1,5 @@
+// VQ02C source comparison only: original methods remain checked after explicit actor wiring.
+import {actorBaseline} from './helpers/actor-baseline.mjs';
 // VQ02B explicitly advances only renderer/main pins for requested context/density wiring.
 // Original draw/camera/scene functions are verified in render-preserved.test.mjs.
 import test from 'node:test';
@@ -61,7 +63,7 @@ test('observations are copies and cannot modify actual banner geometry',()=>{
 });
 
 test('World is pinned to VQ02B context/density integration; retained methods are separately fingerprinted',()=>{
- const source=readFileSync('src/render.ts','utf8');assert.equal(sha(source),'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811');
+ const source=actorBaseline(readFileSync('src/render.ts','utf8'));assert.equal(sha(source),'e1e49124a8c47af7580e4a386c9bc43182035dec34b79a875eb90a06fdef7811');
 });
 
 test('fair view reads live media preference without caller or global input changes',()=>{

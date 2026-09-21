@@ -1,15 +1,17 @@
-# 功能快照 — CI47／Pages41已驗收；VQ02F／CI48待驗收
+# 功能快照 — CI48失敗；G修正發布／CI49待驗收
 
-精確位置依STATUS／IMMEDIATE_CONTINUATION／CI48_CHECKPOINT，不新增完成百分比或美術分數。
+Authority：STATUS／IMMEDIATE_CONTINUATION／CI49_CHECKPOINT。沒有新增完成百分比、美術分數或全作接近完成的認證。
 
-最新已驗收 **VQ02E0.9.27**，source **f07a42bfa7357e1a9ddcebfa8a790855927051b4**，CI47 **35615882220**／Pages41 **35618506663**。三job、13最終主報告、9原native加1CPU native、三lane/render/CPU共五ledger精確只讀重現，報告bytes/hash、實圖、六原ZIP與部署匹配完成。CPU原家中→祭典、P1/P2、ATB勝利、同runv2匯出與原生匯入以及實際work計數通過。既有audio/actor、商店裝備v8、審判故事與觸控不變；touch4927.24ms／原30000ms、trace123项CRC。單次CPUframeMs不是持續FPS或真機加速證明。
+**VQ02G0.9.29** source **8c9f8a26ad1e7e8a5683936604165a799f8acbec**，tree **3d6df6621fc91ce7dcc9590db4ada2cef85eb308**。4檔一次非force發布回讀：CPU原生走位helper／12Python測試／原driver接線／build版本。全部src、index與workflow不變；不是新增人物、美術、關卡或第二套renderer。
 
-新批 **VQ02F0.9.28** source **38edba36ccd75a3ef8129aea62d21769d847f749**，tree **d5dbe994553244225992594452379ff38b49b9dd**。19檔整批發布回讀，完整子樹匹配本機 **1161Node／220Python** 與assets/typecheck/build。唯一 **CI48 35634970145** push/attempt1，最後in_progress/null，updated2026-09-21T17:54:36Z。
+修正原生鍵盤越過目標後被誤判抵達：每次釋放全部按鍵後讀snapshot、以一般按鍵修正到原.12誤差，沿用原每腿tick和30秒預算。Co-op部分按鍵錯誤仍cleanup；nativeRoutes記錄真before/afterRelease。Driver其餘9函式、原路線、assertions及timeouts保留。新跑 **1161Node／232Python／assets／typecheck／build** 通過，包含36方向/軸/延遲子案例；是本機port證據，不是原生browser修復結果。
 
-本批修正CPU固定像素cap抵消自動降級的問題：在基準cap之後套用CPU層級，初始auto保留舊尺寸、原生quality/compatibility才切換不同buffer；不改場景、人物或ATB。新增120格活動影格mean/P95/max/FPS，頁腳正確顯示CPU/Canvas2D與取樣／暫停狀態；runtime及build-meta共用version/batch/source身份，清除靜態0.9.17和舊章節版本。六項明列main文字／診斷逆向比對保留原hash與22遊戲函式斷言，World/core/input/save/camera/held檔不變。
+唯一 **CI49 35641527652** push/attempt1，最後in_progress/null updated2026-09-21T18:55:29Z。尚未接受；需核對原三job、全finalreports/fiveledgers、F實際CPU品質切換/60sample/11PNG及GafterRelease路線，再原包雲端與Pages閉環。不密集等待或另开CI。
 
-CPU原兩native旅程追加真實>=60sample、backend/build/source文字、原生解析度切換與完整pausedstate相同；兩新PNG加原九張共11張，CPUledger14檔。F本機未操作browser，沒有新版after圖／持續FPS／聽感／真機或美術90結論。CI嵌入SHA後HTML與nullsource本機不同是預期，不得拿本機hash當CI基準。
+CI48 **35634970145** completed/failure：validate106450040224在CPU家中路線錯過樓梯，最後x=-.9不在原.65trigger內，原250tick條件失敗；good106450040254／bad106450040327成功。原lane/render報告hash核對，但沒有重跑verifier。無playable／新Pages，不能用partial成功宣稱完整F驗收。原因與四原ZIP保存。
 
-指定folder兩包已下載回讀：CI47原始 **1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35**，54510480bytes/14manifest/六原ZIP；F最終 **1jDHFP8Mmd58iZNK5A-8spp_9KLphxjtG**，2026104bytes/34manifest/269檔快照。最新GitHub收據記錄最終hash與發布身份；歷史nullsource不改寫成假CI證據。
+最後已驗收仍 **E0.9.27／sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4／CI47 35615882220／Pages41 35618506663**；閉環不重開。無WebGL的CPU可玩後端與前段home/fair/co-op/ATB/ownsave已有真證據。F的CPUtiers、FrameWindow及runtime版本身份保留於G全部src，但全章CPU、真機及F完整新增native結果仍待驗收。
 
-無WebGL可玩CPU後端已存在；全章原生CPU／實體裝置仍未驗收。完整T03-T08不縮小，材質語言比例／窄視窗／升級母親家具／完整動畫配樂仍有缺口。Z/prologue-render/localbrowser限制保留，不能繞過。沒有90分新證據，2300抵達不是完整未來篇，舊30stale。
+指定folder已保存 **1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi**：51526156bytes／23manifest／4原ZIP／4改檔／7原始log與271檔快照，下載hash/CRC/parent核對。VQ02G_CLOUD_RETENTION供恢復；最新GitHub文件另讀，不依賴容器或用舊tar覆蓋進度。
+
+完整T03-T08保留；人物植物/道具材質、尺度輪廓、窄視窗地標、升級母親家具、全動畫配樂、成長經濟技能與剩餘時代結局、實體裝置和整體90仍未全完成。Z/prologue-render/localbrowser限制不變、不可旁路。2300抵達非全未來、舊30stale，診斷與測試數不替代美術交付。

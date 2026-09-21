@@ -1,0 +1,23 @@
+{
+  "schema":1,"batch":"VQ02G","version":"0.9.29","kind":"CI48-native-route-repair","baseMain":"526684e957436f05a95813750793ba2aa3035a6e","baseSource":"38edba36ccd75a3ef8129aea62d21769d847f749",
+  "source":"8c9f8a26ad1e7e8a5683936604165a799f8acbec","sourceTree":"3d6df6621fc91ce7dcc9590db4ada2cef85eb308","status":"published-local-passed-CI49-pending",
+  "localPassed":{"node":1161,"python":232,"assets":true,"typecheck":true,"build":true},
+  "commands":[{"command":"npm run check","exitCode":0,"log":"logs/check-final.log","nodeFailed":0,"nodeSkipped":0},{"command":"python -m unittest discover -s tests -p '*_test.py'","exitCode":0,"log":"logs/python-final.log"}],
+  "additionalChecks":["git diff --check passed","All four changed blobs and complete tested subtrees match published source root; latest existing docs tree retained"],
+  "changes":[
+    {"path":"scripts/build.mjs","bytes":2211,"sha256":"43e3022114361e1c8b4a470cc985a30eb42ef4b25933804780f59ad977094bba","blob":"bd18e277e8db155c50403b7382ee890387f9936b"},
+    {"path":"tests/cpu_renderer_browser.py","bytes":14782,"sha256":"7b512da87e15a75ae11217f782ac74d43744e3018a23d379ac047924086a7779","blob":"bf445576656920cc3a082b4302b7aabb36f088d7"},
+    {"path":"tests/cpu_native_route.py","bytes":4465,"sha256":"4ef5e5f79e054ae91be066f00d6c418dc612fac991ba081c8c6cba925a5e9299","blob":"8a7c48c102bc6ed9752881b2b3e42aae9c28b4cd"},
+    {"path":"tests/cpu_native_route_test.py","bytes":8641,"sha256":"ecedb4eb3eb8355f0eb902514b42f55f1fe04be1ac7654850355a5040b222019","blob":"ca2c1e1f76d616e71079a6923dff58332fc5a05d"}
+  ],
+  "publication":{"nonForce":true,"sourceCommitCount":1,"mainReadbackMatched":true,"completeTestedSubtreesMatched":{"src":"2e20f2713b658609094ac86266510c2707b19494","tests":"a15335b93039c15b6ae709222432125370e780f8","scripts":"8678cba75018004ca774f826c895c798410a617f",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},"retainedCurrentDocsTree":"5921d1091e0f4c278c5f9921ee3ecccc059b2150"},
+  "preservation":{"unchangedDriverFunctions":9,"allOriginalRouteGoalsAndAssertionsUnchanged":true,"stairRadius":0.65,"moveArrivalTolerance":0.12,"perLegTickBudgetUnchanged":true,"deadlineMs":30000,"srcUnchanged":true,"heldPathsChanged":false,"workflowUnchanged":true},
+  "testsScope":"12 deterministic Python port tests, including CI48 x=-.9 release overshoot, 36 direction/axis/latency subcases, co-op cleanup and blocked/pause/transition/deadline failures. Models are not native browser or performance evidence.",
+  "initialFindings":["First local route tests exposed delayed-release oscillation and one mistyped new source-token assertion. Corrected the helper and new test token, without weakening original assertions/budgets; initial log retained.","First foreground full-check tool timed out during typecheck after Node passed. A subsequent complete check reached exit 0; interrupted log remains separate.","An unreferenced manual build-script transfer had an escaping mismatch. Corrected to already-tested bytes before commit; final complete source root matches. No incorrect tree was published."],
+  "recovery":{"path":"recovery/VQ02G-tested-program-snapshot.tar.gz","files":271,"publishedGitArchiveClaim":false,"currentDocuments":"Read latest main separately; snapshot has no execution docs."},
+  "html":{"bytes":5686331,"sha256":"761ba19a240fd779d6f9e872c04bdd5f931de99e765556af268329a9d9f6af88","sourceSha":null,"accepted":false},
+  "ci":{"id":35641527652,"number":49,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T18:55:29Z","accepted":false},
+  "cloud":{"fileId":"1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi","bytes":51526156,"sha256":"f941eccb3bfaa7147eb3485ef34322f5a7f484dff2593e10d8e6d857099f8275","manifestEntries":23,"archivalState":"Package predates publication. Its null source/local HTML are accurate packaging-time records; this receipt supplies verified published identity without rewriting raw logs."},
+  "localBrowserRun":false,"nativeRepairAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"fullGameAccepted":false,
+  "rawDetails":"Four untouched CI48 ZIPs, complete failure review, seven original local log/exit files and their hashes are retained in the designated Drive package. No historical results substituted for this batch's local executions. Old quality30 output explicitly applies to an older runtime and is not a current score."
+}

@@ -1,0 +1,12 @@
+{
+  "schema":1,"batch":"VQ02G","version":"0.9.29","source":"8c9f8a26ad1e7e8a5683936604165a799f8acbec","sourceTree":"3d6df6621fc91ce7dcc9590db4ada2cef85eb308","kind":"CI48-failure-originals-and-tested-G-source-not-CI49-acceptance",
+  "fileId":"1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi","name":"Chrono-CI48-terminal-VQ02G-tested-batch.zip","driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":51526156,"sha256":"f941eccb3bfaa7147eb3485ef34322f5a7f484dff2593e10d8e6d857099f8275","createdAt":"2026-09-21T18:51:19.811Z",
+  "verified":{"downloadedRawReadback":true,"correctParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":23,"allManifestBytesHashes":true,"untouchedRawZips":4,"allNestedZipCRC":true,"completeTestedSubtreesMatchPublishedSource":true},
+  "recovery":{"path":"recovery/VQ02G-tested-program-snapshot.tar.gz","files":271,"kind":"assembled-program-snapshot","baseSource":"38edba36ccd75a3ef8129aea62d21769d847f749","changedFiles":4,"publishedGitArchiveClaim":false,"baseArchive":"raw/CI48-browser.zip -> source-38edba36ccd75a3ef8129aea62d21769d847f749.tar.gz","baseGitArchiveCommentMatched":true,"currentDocuments":"Snapshot excludes docs except unchanged THIRD_PARTY.md. Read latest GitHub main execution documents separately; do not apply archived documents or held Z."},
+  "completeTestedSubtrees":{"src":"2e20f2713b658609094ac86266510c2707b19494","tests":"a15335b93039c15b6ae709222432125370e780f8","scripts":"8678cba75018004ca774f826c895c798410a617f",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},
+  "contents":["four untouched CI48 browser/good/bad/art ZIPs","CI48 actual failure and read-only byte/hash review","four tested code/test/build changes","seven raw local log/exit files","local-validation.json","unaccepted null-source local HTML and metadata","271-file recovery snapshot","23-entry manifest"],
+  "excludes":["node_modules","private ROM","external original media","font files","credentials","held Z"],
+  "archivalState":"Uploaded and downloaded before publication. Archived source=null is accurate then. Latest GitHub receipts supplement published identity, without rewriting originals.",
+  "ci48Accepted":false,"ci49":{"id":35641527652,"event":"push","attempt":1,"observedStatus":"in_progress","updatedAt":"2026-09-21T18:55:29Z","accepted":false},
+  "lastAcceptedOriginalsRetained":"1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35","newPagesAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"nativeRepairAccepted":false
+}

@@ -1,27 +1,17 @@
-# Rendering compatibility — accepted CPU fallback; F quality controls pending
+# Rendering compatibility — CI49 route repair; accepted CPU fallback retained
 
-Authority STATUS / CI48_CHECKPOINT. CI47/Pages41 acceptedE0.9.27; F0.9.28 source38edba36ccd75a3ef8129aea62d21769d847f749 pendingCI48. Earlier project statements that no playable no-WebGL backend exists are superseded by D/E source and native evidence, not retrospectively changed for older versions.
+Authority: STATUS / CI49_CHECKPOINT. Current G0.9.29 source 8c9f8a26ad1e7e8a5683936604165a799f8acbec awaits CI49. Last accepted E0.9.27 remains CI47 / Pages41. CI48 completed with a CPU-native test-route failure, not absence of the backend or full acceptance of F.
 
-## Selection and preservation
+## Existing production selection and limits
 
-Existing WebGL2→WebGL1 and browser-selected hardware/software remain. Driver names are hints; unavailable metadata is not hardware proof. The page does not force browser software policies. Defaultauto now falls back to the project's CPU triangle/texture rasterizer and Canvas2D when WebGL cannot be created. Explicitrenderer=webgl remains diagnosticopt-out with recoveryUI. CPU availability/performance on every possible browser/device is not guaranteed.
+WebGL2-to-WebGL1 and browser-selected hardware/software behavior remain. Driver names are hints; unavailable metadata is not hardware proof. The page does not force browser policy. Default auto falls back to the project's CPU vertex/texture/pixel rasterizer and Canvas2D when WebGL cannot be created. Explicit renderer=webgl is a diagnostic opt-out with recovery UI. Not every possible browser/device is guaranteed to permit Canvas2D or meet performance targets.
 
-NativeWebGL contextloss still freezes rules/audio, clearsinput/timing and restores without catch-up or automatic save. CPU reuses existing scene/actors/camera/ATB/save/input paths, but simplifies shadow maps/glow/specular; it is not WebGL visual parity.640×480buffer/32MiBtextures remain bounded. F does not change backend creation, World, CPUraster/scene, gameplay or held assets.
+Native WebGL context loss still freezes rules/audio, clears input/timing, and restores without catch-up or automatic saves. CPU reuses existing geometry, actors, camera, fixed ATB, inputs and saves, but simplifies shadow maps/glow/specular. Baseline 640x480 and the 32 MiB texture budget remain bounded. F's tiers apply after that cap: quality 0, compatibility 2 and auto 0–3 affect only drawing-buffer density. FrameWindow reports bounded active intervals and correct CPU/build identity, not GPU or device certification.
 
-## Related F improvements
+## What this batch changes
 
-Known internal CPU identity selects CPU-specific density tiers applied after the fixed cap; originalauto dimensions remain, quality/compatibility now produce effective changes even on large viewports. OriginalWebGL density and automatic thresholds stay intact. This can lower crispness to reduce load; manualquality remains available. It is not a frame-rate guarantee.
+G has zero src, index or workflow changes. Only CPU test movement, its new native-pulse helper/unit tests and build version changed. CI48 recorded x=-.9 outside the original .65 stairs radius after target crossing was accepted prematurely. G requires released-input arrival within the original .12 tolerance and unchanged per-leg tick/30-second budgets. No collision/state/save mutation, synthetic input, clock injection or local browser run is used. Full failure originals are retained in Drive 1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi.
 
-A120-sample activeinterval window replaces misleadingNullEngineFPS, with sampled/paused state and mean/P95/max explanatory tooltip. CPU is labelledCPU/Canvas2D rather thanWebGL0. Runtimeversion/batch/source and build-meta share one injected object. No private driver string is saved or transmitted; no devicecertification claim. See RUNTIME_DIAGNOSTICS_T05.md.
+Fresh 1161 Node / 232 Python tests, assets, typecheck and build passed locally. Actual G route and F presentation closure await CI49. All three jobs, final reports, five ledgers, F's >=60 active samples, native quality dimensions, complete paused-state equality, 11 CPU images and own native import remain mandatory. CI embeds its actual source SHA; compare its own metadata/HTML/Pages, not the null-source local artifact.
 
-## Verified versus pending
-
-CI47 retained realCPU home→fair/co-opbattle/ownsave,9CPUimages/workaccounting, softwareWebGL1/2/nativecontextrecovery and original13primary/9native plusCPUchooser/audio/actor/fiveledgers. Raw source andPages41 matched. These are softwareobservations, not fullCPUchapter/device/listening/fullgame/art90 acceptance.
-
-F local1161Node/220Python/assets/typecheck/build passed; actualFframes/labels/nativequalitydimensions and two addedCPUimages awaitCI48. No localbrowser launched. CI embeds its actualsourceSHA, so localnull-sourceHTML is not an exact-byteCI baseline. Preserve alloriginalreportowners/timeouts and reviewactualimages before closure.
-
-## Retained primary references
-
-Chromium SwiftShader boundaries: https://chromium.googlesource.com/chromium/src/+/HEAD/docs/gpu/swiftshader.md
-MDN driver privacy: https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_debug_renderer_info
-These were checked in the prior B batch; no new external verification is claimed in this documentation update. The project CPU renderer is distinct from browser softwareWebGL. Exact source and native evidence determine current capability.
+E's real no-WebGL opening/fair/co-op/ATB/own-save evidence remains accepted. Full CPU chapter walkthroughs, physical-device FPS/thermal behavior, listening, full-game and art90 acceptance are not established. Reuse saved assets; do not bypass held Z/prologue-render/local-browser boundaries. The complete prior contract and Chromium SwiftShader / MDN driver-privacy references remain at commit 526684e957436f05a95813750793ba2aa3035a6e. No new external verification is claimed by this progress update.

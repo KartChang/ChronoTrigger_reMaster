@@ -1,0 +1,18 @@
+{
+  "schema":1,"source":"38edba36ccd75a3ef8129aea62d21769d847f749","sourceTree":"d5dbe994553244225992594452379ff38b49b9dd","ci":35634970145,"number":48,"event":"push","attempt":1,"status":"completed","conclusion":"failure","updatedAt":"2026-09-21T18:19:17Z",
+  "jobs":{"validate":{"id":106450040224,"conclusion":"failure"},"good":{"id":106450040254,"conclusion":"success"},"bad":{"id":106450040327,"conclusion":"success"}},
+  "root":{"id":"CI48-cpu-stairs-post-release-overshoot","owner":"tests/cpu_renderer_browser.py:observe_home / move","firstStep":21,"predicate":"s.chapter==='home'&&!s.prologue.transition","tickBudget":250,"wallTimeoutMs":30000,"observedChapter":"bedroom","observedPlayer":{"x":-0.8999999999999996,"z":-4.533333333333337},"observedTicks":497,"unchangedStairTrigger":{"x":0,"z":-4.1,"radius":0.65},"sourceFinding":"Old move() accepted target crossing while input was held, then returned after release without requiring arrival. Final x=-.9 is outside the unchanged .65 stair radius. G observes actual released positions and corrects ordinary native-key overshoot within .12.","causalBoundary":"Source-visible route-driver defect and real missed staircase; new native closure awaits CI49. No claim of a renderer startup failure or retrospectively proven release scheduling timeline."},
+  "repair":{"source":"8c9f8a26ad1e7e8a5683936604165a799f8acbec","sourceTree":"3d6df6621fc91ce7dcc9590db4ada2cef85eb308","changedFiles":4,"srcUnchanged":true,"originalTickBudgetsAndTimeoutsRetained":true,"newNativeAcceptance":false},
+  "htmlFromOriginalReports":{"bytes":5686369,"sha256":"46b3edd915389caf0ca6f00749e795555c85c0a5c7ec8477b20c1e38d433bc44"},
+  "rawArtifacts":[
+    {"name":"CI48-browser.zip","artifactId":10656129853,"bytes":18381507,"sha256":"acc9ee41119268c3efe6ad70003b342a7161310737a31adf162d5ac947a1823d","crc":true},
+    {"name":"CI48-good.zip","artifactId":10655879930,"bytes":26694397,"sha256":"e87d60e996449ce3cab7ccdd12cebd9e7da4f0cefa48a1f5d0b57b417678ea7e","crc":true},
+    {"name":"CI48-bad.zip","artifactId":10656447654,"bytes":4266018,"sha256":"b495573ead837dc43655aec2049f5e8ebebf963af0a8de4f1b88e36925bddd24","crc":true},
+    {"name":"CI48-art.zip","artifactId":10657195378,"bytes":324934,"sha256":"46e45b4d4bbd6421755f0b4a800afbd3888da61099125cd1bd023551a94cb1cc","crc":true}
+  ],
+  "readOnlyReportReview":[{"lane":"validate","originalStatus":"passed","listedFiles":17,"listedBytesHashesMatched":true,"verifierReexecuted":false},{"lane":"good","originalStatus":"passed","listedFiles":8,"listedBytesHashesMatched":true,"verifierReexecuted":false},{"lane":"bad","originalStatus":"passed","listedFiles":4,"listedBytesHashesMatched":true,"verifierReexecuted":false},{"lane":"render","originalStatus":"passed","listedFiles":6,"listedBytesHashesMatched":true,"verifierReexecuted":false}],
+  "actualFailureImage":{"path":"cpu-renderer/failure.png","bytes":148179,"sha256":"2b8ebf0271dac75f797e033d4949be2911676913d536f0050123a2e7041f96ba","reviewed":true},
+  "playableArtifactProduced":false,"newPagesAccepted":false,"nativeCPUCompletion":false,"accepted":false,"active":false,"localBrowserRun":false,"artApproved":false,"physicalDeviceApproved":false,
+  "cloudFileId":"1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi","fullRawReview":"review/CI48_FAILURE_ROOT.json and review/report-byte-verification.json in retained package. Original report bytes were checked; no claim that verifiers were rerun or ledgers reproduced this turn.",
+  "lastAcceptedSource":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","lastAcceptedCI":35615882220,"lastAcceptedPages":35618506663
+}

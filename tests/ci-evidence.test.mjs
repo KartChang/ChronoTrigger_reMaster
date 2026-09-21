@@ -8,6 +8,7 @@ import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {LANE_REPORTS,NATIVE_REPORTS,inspectLane,writeLedger} from '../scripts/ci-evidence.mjs';
 const workflow=readFileSync(new URL('../.github/workflows/ci.yml',import.meta.url),'utf8');
+const handoff={status:'passed',contextsBefore:1,pagesBefore:1,contextsAfter:0,pagesAfter:0,desktopClosed:true};
 const sha='a'.repeat(40),html=Buffer.from('unit-only report fixture, not a playable or browser observation');
 function fixture(t,lane='validate'){
   const root=mkdtempSync(join(tmpdir(),'chrono-ci-unit-'));t.after(()=>rmSync(root,{recursive:true,force:true}));
@@ -16,6 +17,16 @@ function fixture(t,lane='validate'){
   const put=(path,report)=>{const f=join(resultsDir,path);mkdirSync(dirname(f),{recursive:true});writeFileSync(f,JSON.stringify(report));};
   for(const p of LANE_REPORTS[lane])put(p,{status:'passed',passed:['unit-only fixture'],errors:[]});
   for(const p of NATIVE_REPORTS[lane])put(p+'/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[{status:'unit-only fixture'}]});
+  if(lane==='good'){
+    put('equipment/equipment-report.json',{status:'passed',checks:['unit-only fixture'],errors:[],contextHandoff:handoff});
+    put('equipment/equipment-merchant-v8.json',{fixture:'unit only, not a player save'});
+    writeFileSync(join(resultsDir,'equipment/inventory-touch-trace.zip'),Buffer.from([0x50,0x4b,3,4,0])); // Unit signature only; not browser evidence.
+    put('equipment/inventory-touch-report.json',{status:'passed',phase:'complete',closeFocus:'world',physicalDevice:false,
+      sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex'),runId:'123',runAttempt:'1',
+      browserBeforeTouch:{contexts:0,pages:0},navigation:{status:'loaded',waitUntil:'load',timeoutMs:30000,httpStatus:200,failed:[]},
+      navigationState:{readyState:'complete'},errors:[],observations:[1,2].map(()=>({disclosureTapPassed:true,stateUnchanged:true})),
+      sourceSave:'equipment-merchant-v8.json',sourceSaveSha256:createHash('sha256').update(readFileSync(join(resultsDir,'equipment/equipment-merchant-v8.json'))).digest('hex'),trace:'inventory-touch-trace.zip'});
+  }
   return {root,put,args:{lane,resultsDir,buildDir,sourceSha:sha,runId:'123',runAttempt:'1'}};
 }
 test('all thirteen existing browser journeys have exactly one evidence owner',()=>{
@@ -36,7 +47,7 @@ test('same-run exported save dependencies remain ordered and runner-local',()=>{
     if(i)assert.ok(pos>validate.indexOf(`run: python tests/${chain[i-1]}_browser.py`));
   }
   assert.doesNotMatch(validate,/run: python tests\/(keyboard|prologue|equipment)_browser.py/);
-  for(const name of ['prologue','equipment'])assert.match(witness,new RegExp(`if: matrix.route == 'good'\\n        run: python tests/${name}_browser.py`));
+  for(const name of ['prologue','equipment'])assert.match(witness,new RegExp(`if: matrix.route == 'good'\n        run: python tests/${name}_browser.py`));
   assert.ok(witness.indexOf('tests/prologue_browser.py')<witness.indexOf('tests/equipment_browser.py'));
   assert.match(witness,/if: matrix.route == 'bad'\n        run: python tests\/keyboard_browser.py/);
 });
@@ -62,7 +73,7 @@ test('missing trial final report fails even when an incomplete progress checkpoi
   const r=inspectLane(f.args);assert.equal(r.status,'failed');assert.equal(r.errors[0].path,'trial/trial-report.json');
 });
 test('failed, empty or console-error reports fail closed',t=>{
-  const f=fixture(t);for(const report of [{status:'failed',passed:['x']},{status:'passed',passed:[]},{status:'passed',checks:['x'],errors:['error']}]){
+  const f=fixture(t);for(const report of [{status:'failed',passed:['x']},{status:'passed',passed:[]},{status:'passed',checks:['x'],errors:['error']}] ){
     f.put('trial/trial-report.json',report);assert.equal(inspectLane(f.args).status,'failed');
   }
 });
@@ -70,7 +81,7 @@ test('wrong report source or HTML digest cannot satisfy provenance',t=>{
   const f=fixture(t,'good');for(const wrong of [{sourceSha:'b'.repeat(40)},{htmlSha256:'0'.repeat(64)}]){
     f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],errors:[],...wrong});assert.equal(inspectLane(f.args).status,'failed');
   }
-  f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex')});assert.equal(inspectLane(f.args).status,'passed');
+  f.put('equipment/equipment-report.json',{status:'passed',checks:['unit'],contextHandoff:handoff,sourceSha:sha,htmlSha256:createHash('sha256').update(html).digest('hex')});assert.equal(inspectLane(f.args).status,'passed');
 });
 test('missing native observations fail even with all main reports green',t=>{
   const f=fixture(t,'bad');f.put('keyboard/native-import-report.json',{status:'passed',sourceSha:sha,attempts:[]});assert.equal(inspectLane(f.args).status,'failed');
@@ -88,4 +99,24 @@ test('failed CLI emits a durable failed ledger and nonzero exit without invoking
 test('ledger publication replaces complete bytes without leaving a temporary file',t=>{
   const f=fixture(t),path=join(f.root,'ledger/result.json');writeLedger(path,{status:'failed'});writeLedger(path,{status:'passed',fixture:true});
   assert.deepEqual(JSON.parse(readFileSync(path,'utf8')),{status:'passed',fixture:true});assert.equal(existsSync(path+'.tmp'),false);
+});
+
+for(const defect of ['missing','overlap','timeout','wrong-run','cleanup','changed-export','trace'])test(`touch receipt fails closed: ${defect}`,t=>{
+  const f=fixture(t,'good'),path='equipment/inventory-touch-report.json';
+  const r=JSON.parse(readFileSync(join(f.args.resultsDir,path),'utf8'));
+  if(defect==='missing')rmSync(join(f.args.resultsDir,path));
+  else if(defect==='changed-export')f.put('equipment/equipment-merchant-v8.json',{tampered:true});
+  else if(defect==='trace')rmSync(join(f.args.resultsDir,'equipment/inventory-touch-trace.zip'));
+  else{
+    if(defect==='overlap')r.browserBeforeTouch.contexts=1;
+    if(defect==='timeout')r.navigation.status='failed';
+    if(defect==='wrong-run')r.runId='999';
+    if(defect==='cleanup')r.cleanupError='context did not close';
+    f.put(path,r);
+  }
+  const result=inspectLane(f.args);assert.equal(result.status,'failed');assert.ok(result.errors.some(e=>e.path===path));
+});
+test('green touch report cannot conceal a missing desktop retirement',t=>{
+  const f=fixture(t,'good');f.put('equipment/equipment-report.json',{status:'passed',checks:['unit']});
+  assert.equal(inspectLane(f.args).status,'failed');
 });

@@ -10,6 +10,7 @@ from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
 from inventory_comfort import measure_inventory, assert_inventory_layout, assert_inventory_readability
 from inventory_touch import record_touch_inventory
+from touch_lifecycle import retire_desktop
 from actor_grounding import record_grounding
 from festival_browser import record_festival
 from equipment_route import walk_equipment_route
@@ -21,6 +22,8 @@ SOURCE = ROOT / 'test-results' / 'prologue' / 'prologue-companions-v6.json'
 OUT.mkdir(parents=True, exist_ok=True)
 checks, observations, waits, errors, requests = [], [], [], [], []
 import_attempts = []
+desktop_terminal = None
+handoff = {'status':'not-started'}
 server = subprocess.Popen([sys.executable, '-m', 'http.server', '4188', '--bind', '127.0.0.1'], cwd=ROOT/'dist', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
@@ -331,6 +334,14 @@ try:
             assert m['grounding']['history']==[]
             record_festival(page,OUT,'06-festival-import-reset',require_clear=True)
             passed('real enemy turn deals 9, normal Crono attack deals 36; battle gear locks, independent P2 ATB, victory Enter and final v8 import all remain functional')
+            # All desktop gameplay is complete. Retire its GPU context before touch startup.
+            # Preserve real desktop observations for failures in the separate touch context.
+            desktop_terminal={'lastObserved':snap(page),'focused':focus(page),'view':page.evaluate('window.__CHRONO_TEST__.view()')}
+            observations.append({'name':'desktop-before-touch-retirement',**desktop_terminal})
+            assert SOURCE.read_bytes()==source_bytes
+            assert not errors,errors
+            assert all(u.startswith(('http://127.0.0.1:4188/','data:','blob:')) for u in requests),requests
+            retire_desktop(browser,page,handoff)
             touch=record_touch_inventory(browser,saved,OUT,imported,snap)
             observations.append({'name':'coarse-touch-inventory','report':touch})
             passed('coarse-pointer portrait/landscape use 44px targets, real taps and own v8 with no progress/gear mutation')
@@ -341,13 +352,16 @@ try:
         except Exception as exc:
             report={'status':'failed','failure':str(exc),'exceptionType':type(exc).__name__,'traceback':traceback.format_exc(),'checks':checks,'waits':waits,'observations':observations,'errors':errors}
             try:
-                report.update(lastObserved=snap(page),focused=focus(page),view=page.evaluate('window.__CHRONO_TEST__.view()'))
-                page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+                if page.is_closed() and desktop_terminal is not None:
+                    report.update(**desktop_terminal,observationContext='desktop-before-touch-retirement',touchFailureReport='inventory-touch-report.json')
+                else:
+                    report.update(lastObserved=snap(page),focused=focus(page),view=page.evaluate('window.__CHRONO_TEST__.view()'))
+                    page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
             except Exception as observation:
                 report['observationError']=str(observation)
             raise
         finally:
-            report.update(importAttempts=import_attempts,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
+            report.update(contextHandoff=handoff,importAttempts=import_attempts,sourceSha=os.environ.get('GITHUB_SHA'),htmlSha256=hashlib.sha256((ROOT/'dist/index.html').read_bytes()).hexdigest(),sourceSave=str(SOURCE.relative_to(ROOT)),sourceSaveSha256=hashlib.sha256(source_bytes).hexdigest(),browserVersion=browser.version,limits=['Author-defined starter allowance, prices and additive bonuses; not original balance or a growth/skill system.','Software Chromium, not physical-keyboard, gamepad, whole-game or final-art acceptance.'])
             (OUT/'equipment-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:

@@ -41,6 +41,26 @@ export function inspectLane({lane,resultsDir,buildDir,sourceSha,runId,runAttempt
   };
   for(const path of LANE_REPORTS[lane])check(path);
   for(const folder of NATIVE_REPORTS[lane])check(folder+'/native-import-report.json',true);
+  if(lane==='good'){
+    const path='equipment/inventory-touch-report.json';
+    try{
+      const bytes=readFileSync(join(resultsDir,path)),r=JSON.parse(bytes),desktop=json(join(resultsDir,'equipment/equipment-report.json'));
+      const h=desktop.contextHandoff;
+      if(!h||h.status!=='passed'||h.contextsBefore!==1||h.pagesBefore!==1||h.contextsAfter!==0||h.pagesAfter!==0||h.desktopClosed!==true)throw new Error('Desktop context retirement not certified');
+      if(r.status!=='passed'||r.phase!=='complete'||r.closeFocus!=='world'||r.physicalDevice!==false)throw new Error('Touch journey incomplete');
+      if(r.sourceSha!==sourceSha||r.htmlSha256!==htmlSha256||r.runId!==String(runId)||r.runAttempt!==String(runAttempt))throw new Error('Touch source/run/HTML mismatch');
+      if(r.browserBeforeTouch?.contexts!==0||r.browserBeforeTouch?.pages!==0)throw new Error('Overlapping desktop/touch contexts');
+      if(r.navigation?.status!=='loaded'||r.navigation.waitUntil!=='load'||r.navigation.timeoutMs!==30000||r.navigation.httpStatus!==200||r.navigationState?.readyState!=='complete')throw new Error('Full touch document load not certified');
+      if(!Array.isArray(r.errors)||r.errors.length||r.navigation.failed?.length||r.traceError||r.cleanupError)throw new Error('Touch diagnostics contain errors');
+      if(!Array.isArray(r.observations)||r.observations.length!==2||!r.observations.every(o=>o.disclosureTapPassed===true&&o.stateUnchanged===true))throw new Error('Both touch viewport observations required');
+      if(r.sourceSave!=='equipment-merchant-v8.json'||sha256(readFileSync(join(resultsDir,'equipment',r.sourceSave)))!==r.sourceSaveSha256)throw new Error('Touch input is not the retained own merchant export');
+      if(r.trace!=='inventory-touch-trace.zip')throw new Error('Touch trace missing');
+      const trace=readFileSync(join(resultsDir,'equipment',r.trace));
+      if(trace.length<4||trace.readUInt32LE(0)!==0x04034b50)throw new Error('Touch trace archive missing');
+      reports.push({path,bytes:bytes.length,sha256:sha256(bytes),kind:'touch-lifecycle'});
+      reports.push({path:'equipment/'+r.trace,bytes:trace.length,sha256:sha256(trace),kind:'touch-trace'});
+    }catch(e){errors.push({path,message:e.message});}
+  }
   return {schema:'chrono-ci-lane-evidence-v1',lane,status:errors.length?'failed':'passed',sourceSha,runId:String(runId),runAttempt:String(runAttempt),version:meta.version,htmlSha256,htmlBytes:html.length,expectedJourneys:LANE_REPORTS[lane].length,reports,errors,physicalDeviceApproved:false,artApproved:false,fullGameAccepted:false};
 }
 

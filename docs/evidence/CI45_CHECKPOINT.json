@@ -1,20 +1,6 @@
 {
-  "schema":1,"repository":"KartChang/ChronoTrigger_reMaster","branch":"main",
-  "root":"T05-early-visual-cohesion","workstream":"independent-actor-playback","executionTerminal":"CI45-pending-full-validation",
-  "batch":"VQ02C","version":"0.9.25",
-  "source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","sourceTree":"045d553322ce68895a729d8b2f673b56611b22e4","parent":"a2492d881d6119e1737bc5ba734bafba35762782",
-  "active":true,"accepted":false,"candidate":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0",
-  "currentValidation":{"id":35600568002,"number":45,"workflow":"Playable prototype CI","workflowId":360357259,"source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","event":"push","attempt":1,"observedStatus":"in_progress","conclusion":null,"createdAt":"2026-09-21T12:37:00Z","updatedAt":"2026-09-21T12:37:03Z","exactShaAllEventsAllStatesCount":1,"jobsObserved":false,"manualDispatch":false,"rerun":false,"cancellation":false,"waitLoop":false},
-  "publication":{"source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","sourceTree":"045d553322ce68895a729d8b2f673b56611b22e4","parent":"a2492d881d6119e1737bc5ba734bafba35762782","branch":"main","nonForce":true,"sourceCommitCount":1,"changedFileCount":19,"mainReadbackMatched":true,"allCompleteTestedSubtreesMatch":true,"subtrees":{"src":"fd0904d1d48cc426da35542d5761b6efdc1192c9","tests":"bdae9fd9c0cdd81b256b4d8578fd83e728c279f5","scripts":"ab351599f5a5a3e5280a4b18557ed378b26a1a55",".github":"54813967593add1b8ba6365d005278b68c9a2c54"},"retainedCurrentDocsTree":"7eec662051510f03cfde0493373ccfe06b94c110","rendererBlob":"5e07a56b7e1b4cc9a576cdc436aa2df5c165bd43"},
-  "localValidation":"VQ02C_LOCAL_VALIDATION.json","cloudRetention":"VQ02C_CLOUD_RETENTION.json",
-  "localPassed":{"node":1073,"python":214,"assets":true,"typecheck":true,"build":true,"nativeFramesColdWarmByteExact":512},
-  "localBrowserRun":false,"afterImagesReviewed":false,"artApproved":false,"physicalDeviceApproved":false,"newPagesAccepted":false,"noWebglPlayable":false,
-  "lastAccepted":{"batch":"VQ02B","version":"0.9.24","source":"7b1537382467935ea37fe4cc6a2dc88d96a8d46c","sourceTree":"fe2791e0d0fc0c4a12f6d01e8fe04c90855834ac","ci":35583275426,"pages":35585552575,"accepted":true,"active":false,"reopen":false},
-  "next":{
-    "pending":"Read this exact run once; queued/in_progress means save/report, no wait loop, cancellation, rerun or dispatch.",
-    "failure":"Inspect first actual root of this same run. Preserve every original/new assertion, timeout and report ownership.",
-    "success":"Verify all three jobs, 13 final primary reports, 9 native records, 3 source/run/attempt/HTML ledgers plus original audio/render reports and render source ledger. Include reference-report.json.playback: three actual movement records, bounded cache replay, unchanged pause and reduced victory; four new original PNG bytes/hashes. Inspect actual images, preserve untouched raw artifacts in specified Drive with readback, then match Pages/source/HTML. No progress/synthetic fixture substitution or art90/device claim."
-  },
-  "restrictions":{"heldZApplied":false,"heldPathsRetried":false,"heldRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a","note":"Do not retry, bypass, indirectly replace or partially promote held Z, prologue renderer or local-browser operations. No public ROM/original media/fonts/credentials. Full T03-T08 retained."},
-  "documents":"Later [skip ci] documentation HEAD is not another source/candidate or reason to rerun CI."
+  "schema":1,"repository":"KartChang/ChronoTrigger_reMaster","branch":"main","source":"9b9a5721f47638ac25a272db6bd9491a5a9ba2d0","sourceTree":"045d553322ce68895a729d8b2f673b56611b22e4","batch":"VQ02C","version":"0.9.25",
+  "executionTerminal":"superseded-by-published-CI46-and-current-CI47","active":false,"accepted":null,"candidate":null,"currentValidation":null,"historicalRunId":35600568002,
+  "nextCheckpoint":"CI47_CHECKPOINT.json","latestAcceptedCheckpoint":"CI46_CHECKPOINT.json",
+  "note":"Old pending checkpoint was left stale by interrupted VQ02D source publication. This update only removes stale active authority; it does not retroactively accept/re-run CI45. Retained actor functionality was directly validated in CI46. Earlier checkpoint content is preserved in immutable commit54d46a47ca23791ee5579eb7cd027ee189711dfb."
 }

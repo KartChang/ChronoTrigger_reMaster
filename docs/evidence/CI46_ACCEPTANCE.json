@@ -1,0 +1,20 @@
+{
+  "schema":1,"source":"54d46a47ca23791ee5579eb7cd027ee189711dfb","sourceTree":"dd071fde6ad668995504b6882378fb3d9f88cb55","batch":"VQ02D","version":"0.9.26",
+  "ci":{"id":35609380108,"number":46,"event":"push","attempt":1,"status":"completed","conclusion":"success","updatedAt":"2026-09-21T14:27:10Z","jobs":{"validate":106364372337,"good":106364372099,"bad":106364372325}},
+  "pages":{"id":35612258615,"number":40,"event":"workflow_run","attempt":1,"workflowHead":"54d46a47ca23791ee5579eb7cd027ee189711dfb","status":"completed","conclusion":"success","updatedAt":"2026-09-21T14:27:42Z","jobs":{"prepare":106374039994,"deploy":106374133537},"stagedArtifact":10644058295,"pagesArtifact":10644382989,"publicHttp":{"method":"Executed successful deploy step #3 via GitHub logs","startedAt":"2026-09-21T14:27:40.1618415Z","stepSuccess":true,"independentLocalLiveByteClaim":false}},
+  "html":{"bytes":5673691,"sha256":"3493ec1fa7ef601950c1f8b8d9da43888b52bce705ff5437565f258fd1303c43","playableArtifact":10645086075,"stagedBytesMatch":true},
+  "rawArtifacts":[
+    {"name":"CI46-browser.zip","artifactId":10645220810,"bytes":20025279,"sha256":"e0271c4aa06466c27805a1aa32ce74f86db6c836797a208dba5ea11b9df4da07","zipCRC":true},
+    {"name":"CI46-good.zip","artifactId":10644955698,"bytes":26777224,"sha256":"17cacc386943c19df6c3cf666798f6629ee7c65c9016d21367d158f7315ad863","zipCRC":true},
+    {"name":"CI46-bad.zip","artifactId":10643439179,"bytes":4262850,"sha256":"98016e9d5d1a97159ccd95e547610f9ad96ce2d38805745d83d15e6e9ad7468c","zipCRC":true},
+    {"name":"CI46-playable.zip","artifactId":10645086075,"bytes":1314250,"sha256":"c0c7cef403214057f6210833d84db2ad972f85b572bf956143aa3d37c8231eb4","zipCRC":true},
+    {"name":"CI46-art.zip","artifactId":10644826218,"bytes":324934,"sha256":"82127277a434f28c03abfd44aa4b14080fd5f1147e46026d5c85f3c568105d5a","zipCRC":true},
+    {"name":"Pages40-staged.zip","artifactId":10644058295,"bytes":1319619,"sha256":"b784ec93544fe2ce1c39995c16b34d0113e16d6f9dad6cde7fa9bd98376e3d3b","zipCRC":true}
+  ],
+  "accepted":true,"active":false,
+  "scope":"Existing WebGL regression plus observed no-WebGL CPU opening/fair journeys and source-matched deployment",
+  "verification":{"primaryFinalReports":13,"nativeChooserReports":9,"additionalCpuNativeChooserReports":1,"threeLaneLedgersExact":true,"renderLedgerExact":true,"cpuLedgerExact":true,"listedReportBytesHashesMatch":true,"audioMatchesEquipment":true,"actorPlayback":true,"cpuCases":["fresh-home-to-fair","fair-coop-combat-save"],"cpuPngs":9,"cpuOriginalOwnSave":true,"softwareWebGL1and2":true,"contextLossRestoration":true,"touchLoadMs":4945.54,"touchLimitMs":30000,"traceCRC":true,"traceEntries":129},
+  "noWebglPlayableObserved":true,"cpuAllChaptersBrowserAccepted":false,"artApproved":false,"listeningReview":false,"physicalDeviceApproved":false,"wholeGameAccepted":false,"localBrowserRun":false,
+  "documentsRecovered":"Main still held CI45 text after an interrupted source-only VQ02D publication. Current CI46 verified directly; no previous-run acceptance fabricated.",
+  "visualReview":"CI46_VISUAL_REVIEW.md","cloudRetention":"CI46_CLOUD_RETENTION.json","rawReportIndex":"Drive 14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9 review/report-verification.json"
+}

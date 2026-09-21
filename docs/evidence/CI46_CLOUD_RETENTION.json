@@ -1,0 +1,7 @@
+{
+  "schema":1,"source":"54d46a47ca23791ee5579eb7cd027ee189711dfb","sourceTree":"dd071fde6ad668995504b6882378fb3d9f88cb55","ci":35609380108,"pages":35612258615,
+  "driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9","name":"Chrono-CI46-Pages40-accepted-evidence.zip","bytes":55007154,"sha256":"5ef7c9f254ee1afd463569e5ad78ffb1af72b8f9758ea1937fdbb0e9d378eba0","createdAt":"2026-09-21T14:39:18.929Z",
+  "verified":{"downloadedRawReadback":true,"correctParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":15,"allManifestBytesHashes":true,"untouchedRawZips":6,"allNestedZipCRC":true},
+  "recovery":{"rawZip":"raw/CI46-browser.zip","sourceTar":"source-54d46a47ca23791ee5579eb7cd027ee189711dfb.tar.gz","gitArchiveCommentMatched":true,"currentDocuments":"Latest main docs take precedence over archived source docs."},
+  "scope":"Existing WebGL regression plus observed no-WebGL CPU opening/fair journeys and source-matched deployment","artApproved":false,"cpuAllChaptersBrowserAccepted":false,"physicalDeviceApproved":false,"wholeGameAccepted":false
+}

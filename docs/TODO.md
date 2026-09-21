@@ -1,30 +1,30 @@
-# Execution TODO — CI45 actor playback
+# Execution TODO — CI47 CPU work reduction
 
-Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI45_CHECKPOINT.json. Main only, one writer, non-force. No audit, extra branches/PRs or historical replay.
+Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI47_CHECKPOINT.json. Main only, non-force, one AI; no history audit, branches, PRs or reruns of closed acceptance.
 
-## Only current execution — CI45-pending-full-validation
+## Only active terminal — CI47-pending-full-validation
 
-VQ02C0.9.25 source **9b9a5721f47638ac25a272db6bd9491a5a9ba2d0**, tree **045d553322ce68895a729d8b2f673b56611b22e4**. CI45 **35600568002**, push/attempt1, last observedin_progress/null updated2026-09-21T12:37:03Z. One source commit, one complete CI; later documentation HEAD does not create another candidate.
+VQ02E0.9.27 source **f07a42bfa7357e1a9ddcebfa8a790855927051b4**, tree **00efc6b0ea450961739948a952bd2756ea7f2eb1**. CI47 **35615882220**, push/attempt1, last observedin_progress/null at2026-09-21T14:59:40Z. One complete source commit and full push CI; later document HEAD is not another candidate.
 
-Completed related development: simulation-tick action playback, actual-distance/scaled gait, dephased/reduced decorative poses, bounded96-frame native-pixel CPU replay cache, and real reference-journey observation extensions.19changes; fresh1073Node/214Python/assets/typecheck/build passed;512native frames cold/warm byte-exact. Original art, state rules, camera, input/save/collision and all previous journey assertions/timeouts retained. This is not completed full animation or art90. Do not redo the saved batch.
+Done this batch: conservative live-vertex offscreen rejection, inside-triangle clipping shortcut, once-per-frame directional normalization, real work counters, valid pause paragraphs and CPU explanation.16 changed files;1141Node/220Python/assets/typecheck/build passed;5000 triangle differential cases and22 chapter graphs ×2 unit views pixel-exact. Local Node fair median93.6771→54.3625ms is a unit-port microbenchmark, not browser/device FPS. Do not redo the saved batch.
 
-Read same run once. queued/in_progress -> save/report, no prolonged polling/cancel/rerun/dispatch. failure -> first actual same-run root. success -> verify3jobs,13finalprimary,9native,3source/run/attempt/HTML ledgers; retained audio and render compatibility reports/ledger/PNG hashes; new reference-report.json.playback includes three actual movement histories, bounded cache hits, unchanged pause and reduced victory. Retain original four new PNGs (02-walk-1/2/3 and08-reduced-victory) and all earlier screenshots. Inspect actual images, preserve untouched artifacts in specified Drive with readback, then match Pages/source/HTML. No synthetic save, writable hook, forceclick, missing assertion or relaxed timeout.
+Read same run once. Pending -> save/report without wait loop/cancel/dispatch. Failure -> first actual root with all original/new assertions, timeouts and report owners intact. Success ->3jobs,13final primary,9original native,3lane plus render/CPU ledgers and listedbytes/hash. Include audio, retained reference.playback, CPU two native journeys with9PNG and same-run own v2 export/native import; CPU observations must contain valid work accounting and the CPU explanation. Review real images, save untouched artifacts in specified Drive/readback, then match Pages/source/HTML. Never substitute fixtures or progress for final reports.
 
-## Closed and held work
+## Closed current baseline, not stale CI45
 
-CI44/Pages38 now accepted/inactive for B0.9.24 source7b1537382467935ea37fe4cc6a2dc88d96a8d46c. Complete original reports, software audio/renderer observations, images and cloud/source deployment closed; no replay. CI43 remains historical failed, superseded; no retroactive claim about its unrecorded last audio conjunct. CI42 and older closures remain closed.
+VQ02D0.9.26 source54d46a47ca23791ee5579eb7cd027ee189711dfb, CI46 35609380108 / Pages40 35612258615 accepted/inactive. Original reports, five ledgers, actual images, source/HTML and cloud closed in CI46_ACCEPTANCE/CLOUD_RETENTION/PAGES40_PROVENANCE. CI45 pending docs were left behind by source-only interrupted publication; they are superseded, not an instruction to revalidate it. CI44/Pages38 and earlier closures remain closed. Held Z stays unpublished, no retry/channel or encoding change/indirect replacement/partial promotion. Held prologue-render/local-browser boundaries remain.
 
-Held Z0.9.22 remains tested/cloud-retained/unpublished. Do not retry its paths, change encoding/channel, indirectly replace it or promote partial Z. Held home renderer and local-browser restrictions remain. C includes neither Z nor a replacement scene renderer.
+## Next permitted related work after CI47 closure
 
-## Still open after CI45
+CPU default no-WebGL gameplay exists for observed home/fair/combat/save journeys. Remaining: sustained frame-time and device acceptance, full existing chapter native CPU journeys, remaining resource/quality gaps, and misleading legacy diagnostic/build labels (some retain old wording). Unit construction of all22 scene graphs is not their native walkthrough. Do not reimplement the CPU backend or call it still nonexistent. Do not claim full performance acceptance from reduced-work counters alone.
 
-EarlyT05: unified pixel/solid material language and scale/silhouette; narrow-view landmarks; held home furniture/mother; full animation/art and rights-cleared full soundtrack/listening/device evidence. Current C reuses existing drawings; no new art quality or FPS claim. Fully playable CPU/Canvas2D rendering when all WebGL is unavailable is still NOT implemented. Browser-managed software compatibility and error UI do not satisfy that complete fallback expectation.
+Early T05 remains: actor/plant versus solid-prop material language, scale/silhouette, narrow landmarks, held upgraded home furniture/mother art, fullanimation and soundtrack/listening. Existing mother conversation works but upgraded visual assets remain held. Reuse saved art; no old independent-ui or repaint; no bypass of Z visual/camera work. Audio or CPU compatibility does not close HD-2D art90.
 
-T03: original hiddenrules/versiondifferences/fulltopology/numericfidelity.
-T04: growth/rewards/drops/fulleconomy/items/accessories/roster/skills/dual-triple techs; retain accepted equipment and provisional values.
-T05: completeart/animation/rights-clearedaudio; early actual quality gates first.
+T03: hidden rules/version differences/full topology/numeric fidelity.
+T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; preserve equipment and provisional values.
+T05: complete art/animation/rights-cleared audio; actual early quality first.
 T06: fullfuture/remainingeras/main-sidequests/endings;2300arrival not fullfuture.
-T07: overall>=90/eachdimension>=80%/zero-critical/assets-and-fivegates/physical input-FPS-frame-time-loading-memory-background-save/audio. No score inflation;old30stale.
-T08: relatedbatch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/readback; documents[skip ci].
+T07: overall>=90/eachdimension>=80%/zerocritical/requiredassets/fivegates/physical input-FPS-frame-time-loading-memory-background-save/audio and CPU coverage; no new score,old30stale.
+T08: each related batch -> tests -> one non-force sourcecommit/fullCI -> proper Drive/readback; documents[skip ci].
 
-Accepted originals1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl contain exactCI44source tar; current C snapshot14tfPggGAsfpJrZPv44yGDyX87RcLidji has19changes/7logs/244files/30manifest. Latestmain docs always separate. Keep TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300/equipment/v1-v8. NoP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials or extra user tokens/manualevidence.
+E recovery1JYsFtMMuNMwPmGEciEqp6rmvCo628868,28manifest/16changes/263programfiles. Accepted originals14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9,15manifest/sixZIPs/exactDsource. Latest main docs separately. Fullscope retained, noP3/ARPG/frameworkrestart or publicROM/originalmedia/fonts/credentials. No extra user token/ROM/manual evidence.

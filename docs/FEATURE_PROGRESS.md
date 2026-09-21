@@ -1,15 +1,17 @@
-# 功能快照 — CI44／Pages38 已閉環；VQ02C／CI45 待驗收
+# 功能快照 — CI46／Pages40 已驗收；VQ02E／CI47 待驗收
 
-以STATUS／IMMEDIATE_CONTINUATION／CI45_CHECKPOINT為準，不增加完成百分比或品質分數。
+精確位置以 STATUS／IMMEDIATE_CONTINUATION／CI47_CHECKPOINT 為準，不新增完成百分比或美術分數。
 
-**最新開發版本VQ02C／0.9.25**，source9b9a5721f47638ac25a272db6bd9491a5a9ba2d0／tree045d553322ce68895a729d8b2f673b56611b22e4。19檔一次非force發布並回讀，完整程式子樹匹配本機測試。唯一CI45 35600568002，push/attempt1，最後12:37:03Z觀察in_progress，未驗收。
+最新已驗收是 **VQ02D0.9.26**，source **54d46a47ca23791ee5579eb7cd027ee189711dfb**，CI46 **35609380108**／Pages40 **35612258615**。三job、13主報告、9既有native＋1CPU native、三lane及render/CPU共五ledger、列入bytes/hash、實圖、原始包與部署匹配已完成。不是重新接受舊CI45；前次中斷遺留的CI45文件已停止作為當前authority。
 
-本批完成角色播放時序：動作按固定遊戲tick，走路按實際位移及大地圖縮放比例換步；停止、位置重置與換場不延續舊步伐。待機／備戰錯開相位，減少動態保留必要行走施法受擊、抑制裝飾動作。加入96影格上限的CPU像素區段快取，回放到既有紋理，無新GPU紋理。四角色共512既有影格的冷／熱快取RGBA逐byte一致，原畫筆未修改。
+**無WebGL可玩CPU後端已存在且有前段真實證據**：預設auto在停用WebGL的瀏覽器，走完家中樓梯／既有母親對話／大地圖／祭典、雙人各自操作、岡薩雷斯ATB勝利、IndexedDB與同run自己匯出的v2檔原生匯入。九張CPU原圖與save來源均核對。既有WebGL故事／商店裝備v8／音訊／C角色播放／context恢復／觸控保留。CPU不是強制開啟瀏覽器的SwiftShader；全章CPU原生旅程與實體裝置尚未驗收，光影仍簡化。
 
-新跑1073Node／214Python及assets/typecheck/build通過；原始成功與中途失敗log保留。原source pin透過16項明列接線逆向比對仍成立，不刪舊斷言。原reference旅程追加真移動、暫停、減少動態勝利與四張PNG；本機無browser，新版實際播放效果待CI45。這不是新美術、全動畫完成或FPS提升證據。
+**新批VQ02E0.9.27** source **f07a42bfa7357e1a9ddcebfa8a790855927051b4**，tree **00efc6b0ea450961739948a952bd2756ea7f2eb1**，16檔一次非force發布並回讀。CI47 **35615882220**，push/attempt1，14:59:40Z最後in_progress/null，尚未驗收。
 
-**最新已驗收版本B0.9.24／source7b1537382467935ea37fe4cc6a2dc88d96a8d46c／CI44 35583275426／Pages38 35585552575**。三job、13最終主報告、9native、3lane與額外render ledger及列入hash完成核對；音訊暫停／背包／對話零輸出，原v6匯入／靜音、軟體WebGL1/2、原生context中斷恢復與解析度選擇均通過。原HUD／鋪面／接地／ATB／所有權／商店裝備／v8／審判及觸控兩視窗保留；觸控load3575.88ms，原30秒不變。看過九場景及五相容畫面，仍有材質與直向裁切缺口，非美術90／真機／聽感。
+本批減少CPU無效計算：完全畫面內三角形略過多餘裁切；讀取即時頂點，只剔除確定完全畫面外的submesh；光線方向每frame算一次。原解析度、像素填色／深度／透明、素材場景與規則不變。附加實際工作量觀察並修復暫停說明的HTML段落。
 
-CI44/Pages38原包1g_tlqBUKwknUzdTQPrNbj_18xHFzkOvl：51552702bytes、12manifest、六原始ZIP；C本機包14tfPggGAsfpJrZPv44yGDyX87RcLidji：1885136bytes、30manifest、19改檔／7logs／244檔快照。均在指定folder下載回讀hash／CRC／parent通過。CI44及更早驗收不重開，CI43不改稱成功。
+新跑1141Node／220Python與assets/typecheck/build通過；5000三角形差分及22場景×2單元視窗像素一致。Node矩形canvas替身基準的祭典中位93.6771→54.3625ms，家中與大地圖改善較小；不是瀏覽器FPS或真機成果。本機未操作browser，合成fixture不能替代CI47原始報告。
 
-完整T03–T08保留。未完成：整體材質比例／窄視窗／家中母親家具／全美術動畫音樂／實體裝置，以及完全無WebGL仍可玩的後端。Z仍受限未發布，未重送或間接套用；home renderer與localbrowser限制不變。2300抵達不是全未來，舊30stale，音訊與快取不能替代精緻HD-2D交付。
+指定folder已保存並下载回讀：CI46原始包 **14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9**（55007154bytes／15manifest／六原ZIP），E測試包 **1JYsFtMMuNMwPmGEciEqp6rmvCo628868**（1858994bytes／28manifest／263檔快照）。封存source=null是發布前狀態，GitHub收據補足身份，不覆寫原logs。
+
+完整T03-T08仍未全部完成。材質比例、窄視窗、家中升級家具／母親視覺、完整動畫音樂與真機品質仍有缺口；既有母親對話不等於新美術整合。Z與prologue-render/localbrowser限制不變。沒有90分新證據，2300抵達不是完整未來篇，舊30stale。

@@ -1,0 +1,8 @@
+{
+  "schema":1,"root":"T05-early-visual-cohesion","executionTerminal":"CI46-Pages40-accepted-inactive","batch":"VQ02D","version":"0.9.26","source":"54d46a47ca23791ee5579eb7cd027ee189711dfb","sourceTree":"dd071fde6ad668995504b6882378fb3d9f88cb55",
+  "active":false,"accepted":true,"candidate":null,"currentValidation":null,
+  "ci":{"id":35609380108,"number":46,"event":"push","attempt":1,"status":"completed","conclusion":"success","updatedAt":"2026-09-21T14:27:10Z","jobs":{"validate":106364372337,"good":106364372099,"bad":106364372325}},
+  "pages":{"id":35612258615,"number":40,"event":"workflow_run","attempt":1,"workflowHead":"54d46a47ca23791ee5579eb7cd027ee189711dfb","status":"completed","conclusion":"success","updatedAt":"2026-09-21T14:27:42Z","jobs":{"prepare":106374039994,"deploy":106374133537},"stagedArtifact":10644058295,"pagesArtifact":10644382989,"publicHttp":{"method":"Executed successful deploy step #3 via GitHub logs","startedAt":"2026-09-21T14:27:40.1618415Z","stepSuccess":true,"independentLocalLiveByteClaim":false}},
+  "acceptance":"CI46_ACCEPTANCE.json","cloudRetention":"CI46_CLOUD_RETENTION.json","nextCheckpoint":"CI47_CHECKPOINT.json","nextRun":35615882220,
+  "note":"Observed CPU opening/fair gameplay is accepted; full CPU chapter journey/device/art90 are not. Prior stale CI45 docs do not reopen historical runs."
+}

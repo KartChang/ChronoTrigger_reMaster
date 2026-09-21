@@ -1,0 +1,12 @@
+{
+  "schema":1,"batch":"VQ02E","version":"0.9.27","source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","kind":"tested-source-local-results-not-CI47-acceptance",
+  "fileId":"1JYsFtMMuNMwPmGEciEqp6rmvCo628868","name":"Chrono-VQ02E-tested-source-local-evidence.zip","driveFolder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":1858994,"sha256":"2f4f81351162667c75f9998d7efb55fc8c11bb7d9a6d77b9e7f396fa8ef7dfee","createdAt":"2026-09-21T14:48:07.654Z",
+  "verified":{"downloadedRawReadback":true,"correctParent":true,"bytes":true,"sha256":true,"zipCRC":true,"manifestEntries":28,"allManifestBytesHashes":true,"completeTestedSubtreesMatched":true},
+  "recovery":{"path":"recovery/VQ02E-tested-program-snapshot.tar.gz","files":263,"kind":"assembled-program-snapshot","publishedGitArchiveClaim":false,"changedFiles":16,"currentDocuments":"Always read latest main separately; never apply archived execution docs or held Z."},
+  "completeTestedSubtrees":{"src":"6c81bdeee61b5853cf011b2dd882637a3a434ecd","tests":"7830d276fe24b25489a554a2db614f8dee089b14","scripts":"21a3383c821318295e9c2e2e16dfa711da383c69",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},
+  "contents":["16 changed source/test/build files","original local check/Python/benchmark logs and exit codes","local-validation.json","unaccepted local HTML and metadata","263-file program snapshot","28-entry manifest"],
+  "excludes":["node_modules","private ROM","external original media","font files","credentials","held Z"],
+  "archivalState":"Archive was created before publication; null source/local build correctly describes that point. This final receipt supplements identity, not rewritten logs.",
+  "ci47":{"id":35615882220,"number":47,"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","workflow":"Playable prototype CI","workflowId":360357259,"event":"push","attempt":1,"observedStatus":"in_progress","conclusion":null,"createdAt":"2026-09-21T14:59:36Z","updatedAt":"2026-09-21T14:59:40Z","exactShaAllEventsAllStatesCount":1,"rerun":false,"dispatch":false,"cancellation":false,"waitLoop":false},
+  "newBrowserAcceptance":false,"newPagesAcceptance":false,"artApproved":false,"physicalDeviceApproved":false
+}

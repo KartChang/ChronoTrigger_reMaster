@@ -1,0 +1,41 @@
+{
+  "schema":1,"batch":"VQ02E","version":"0.9.27","root":"T05-early-visual-cohesion","workstream":"CPU-fallback-performance",
+  "source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","parent":"54d46a47ca23791ee5579eb7cd027ee189711dfb","status":"published-local-passed-CI47-pending",
+  "commands":[
+    {"command":"npm run check","exitCode":0,"node":{"passed":1141,"failed":0,"skipped":0},"assets":true,"typecheck":true,"build":true,"log":"logs/check-first.log"},
+    {"command":"python -m unittest discover -s tests -p '*_test.py'","exitCode":0,"python":{"passed":220,"failed":0},"log":"logs/python-final.log"},
+    {"command":"node scripts/bench-cpu-work.mjs","exitCode":0,"kind":"Node unit-port microbenchmark, not browser/device FPS","log":"logs/benchmark-raw.log"}
+  ],
+  "additionalChecks":["Python ast.parse tests/cpu_renderer_browser.py passed","git diff --check and git diff --cached --check passed"],
+  "changedFileCount":16,
+  "changedBlobs":{
+    "index.html":"aee81f7cb9ace94e318023f5d2a479e0c82f6561",
+    "scripts/bench-cpu-work.mjs":"ee5725cdce76d7ac59974743d908ef831e0c5348",
+    "scripts/build.mjs":"e425626ce00647094199c095072315c5ef9e874b",
+    "scripts/cpu-evidence.mjs":"b336e795d27ccb2896b2d2c7bdcd1e3e379f845e",
+    "scripts/test.mjs":"b2533d7f53f2c70ef00d496757b7831805dd89ee",
+    "src/cpu-raster.ts":"f1433ef5c669c8957d107285604c6396eb7fbf09",
+    "src/cpu-scene.ts":"526cd39bb68fbc2f0bdcf06b4a95de54017a2d8f",
+    "src/cpu-visibility.ts":"8031d04410dd44f21ec2ee2ffbdcdfb458051874",
+    "tests/baselines/CI46.json":"c94d6256d2e91920e48ad24f5bd7a3c0909a6a38",
+    "tests/baselines/cpu-engine.ts":"23ed2b7ba398995a61cd9d786530f9e46d31c599",
+    "tests/baselines/cpu-raster.ts":"5d33bf693a66e5f0f51b1b90028602a81d6810d7",
+    "tests/baselines/cpu-scene.ts":"d14135760fa39f403560b85fae4496d10675f1c5",
+    "tests/cpu-entry.ts":"8d47e2cd09bcb99ae7a57c7fbb219f322e4049da",
+    "tests/cpu-evidence.test.mjs":"58514c25a19ff940e6085d45accebb5550eeb9ef",
+    "tests/cpu-optimization.test.mjs":"d25d46ca15a853dc85b771f34b9f5ced6d6188be",
+    "tests/cpu_renderer_browser.py":"53b3214511f09af93725064460ededdc60638eff"
+  },
+  "publication":{"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","sourceTree":"00efc6b0ea450961739948a952bd2756ea7f2eb1","parent":"54d46a47ca23791ee5579eb7cd027ee189711dfb","branch":"main","nonForce":true,"sourceCommitCount":1,"changedFiles":16,"mainReadbackMatched":true,"completeTestedSubtreesMatched":{"src":"6c81bdeee61b5853cf011b2dd882637a3a434ecd","tests":"7830d276fe24b25489a554a2db614f8dee089b14","scripts":"21a3383c821318295e9c2e2e16dfa711da383c69",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},"indexBlob":"aee81f7cb9ace94e318023f5d2a479e0c82f6561","retainedDocsTree":"9f0e6bb5585be4955c399e653262787795f400a2"},
+  "differential":{"randomTriangles":5000,"sceneGraphs":22,"unitViewports":2,"rgbaAndDepthExact":true,"unitPort":"rect-only; text/curves not rasterized; no browser","baselineSource":"54d46a47ca23791ee5579eb7cd027ee189711dfb"},
+  "benchmark":{"kind":"Node CPU microbenchmark on rect-only canvas unit port; not browser or physical-device evidence","referenceSource":"54d46a47ca23791ee5579eb7cd027ee189711dfb","warmupsPerImplementation":5,"samplesPerImplementation":15,"order":"interleaved alternating baseline/current","rawSamples":"logs/benchmark-raw.log in retained Drive archive","cases":[
+    {"chapter":"bedroom","width":640,"height":480,"rgbaExact":true,"baselineMedianMs":48.41154299999971,"currentMedianMs":45.99982099999988,"baselineP95Ms":50.84874600000012,"currentP95Ms":49.340090000000146},
+    {"chapter":"overworld1000","width":640,"height":480,"rgbaExact":true,"baselineMedianMs":47.207108999999946,"currentMedianMs":46.89453599999979,"baselineP95Ms":51.8444300000001,"currentP95Ms":48.4067670000004},
+    {"chapter":"fair","width":640,"height":480,"rgbaExact":true,"baselineMedianMs":93.67710499999885,"currentMedianMs":54.36247099999946,"baselineP95Ms":100.79218800000035,"currentP95Ms":59.01589700000022,"work":{"profile":"vq02e-conservative-cpu-work","consideredSubmeshes":247,"culledSubmeshes":143,"shadedVertices":12042,"submittedTriangles":12320,"fastAccepted":8827,"trivialRejected":2884,"clipped":609}}
+  ]},
+  "heldPathsChanged":false,"heldRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a","localBrowserRun":false,"newActualBrowserWorkObserved":false,"artApproved":false,"physicalDeviceApproved":false,"originalAssertionsRetained":true,"timeoutsRelaxed":false,
+  "html":{"bytes":5675518,"sha256":"bbfdb7f259150ec583c4b86b71c8578cbaebce24257d87f0876274cc37979e56","sourceSha":null,"accepted":false},
+  "ci":{"id":35615882220,"number":47,"source":"f07a42bfa7357e1a9ddcebfa8a790855927051b4","workflow":"Playable prototype CI","workflowId":360357259,"event":"push","attempt":1,"observedStatus":"in_progress","conclusion":null,"createdAt":"2026-09-21T14:59:36Z","updatedAt":"2026-09-21T14:59:40Z","exactShaAllEventsAllStatesCount":1,"rerun":false,"dispatch":false,"cancellation":false,"waitLoop":false},
+  "cloud":{"fileId":"1JYsFtMMuNMwPmGEciEqp6rmvCo628868","bytes":1858994,"sha256":"2f4f81351162667c75f9998d7efb55fc8c11bb7d9a6d77b9e7f396fa8ef7dfee","verifiedManifestEntries":28,"packagingState":"Archive was created before publication; null source/local build correctly describes that point. This final receipt supplements identity, not rewritten logs."},
+  "rawEvidence":"All per-file bytes/SHA256, initial typecheck/optimization output, full successful check/Python logs and raw benchmark samples remain unmodified in the hash-verified archive's local-validation.json, logs and manifest.json. These are local executions, not CI47 results."
+}

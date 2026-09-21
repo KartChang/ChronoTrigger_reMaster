@@ -1,3 +1,9 @@
+# Current validation note — CI46 accepted; CI47 pending
+
+The contract below is retained historical implementation detail, not current pending authority. Accepted D source54d46a47ca23791ee5579eb7cd027ee189711dfb / CI46 35609380108 / Pages40 35612258615 includes this unchanged functionality. This turn checked its final native reports through exact CI46 original ledgers and inspected actual images. No listening, device, fullgame or art90 claim. Current E sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4 / CI47 35615882220 changes CPU work only; it does not redo audio or actor playback. STATUS / CI47_CHECKPOINT take precedence over any historical CI44/45 pending sentence below. Held Z/home/local-browser boundaries remain.
+
+---
+
 # Actor playback — VQ02C / 0.9.25
 
 Source9b9a5721f47638ac25a272db6bd9491a5a9ba2d0/tree045d553322ce68895a729d8b2f673b56611b22e4. CI45 pending. Independent presentation work, not the held Z material/composition implementation.

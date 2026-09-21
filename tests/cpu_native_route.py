@@ -11,6 +11,7 @@ import time
 ARRIVAL_EPSILON = .12
 TIMEOUT_SECONDS = 30
 MAX_PULSES = 256
+COARSE_HOLD_MS = 250
 OBSERVATION = """()=>({state:window.__CHRONO_TEST__.snapshot(),
   paused:window.__CHRONO_TEST__.paused()})"""
 
@@ -51,7 +52,8 @@ def move_axis(page, axis, target, coop=False, evidence=None, clock=time.monotoni
     deadline = clock()+TIMEOUT_SECONDS
     trace = {'axis': axis, 'target': target, 'coop': coop, 'status': 'moving',
              'epsilon': ARRIVAL_EPSILON, 'budget': budget, 'timeoutMs': 30000,
-             'before': before, 'pulses': []}
+             'before': before, 'pulses': [],
+             'policy': 'vq02h-distance-scaled-native-pulses', 'maxHoldMs': COARSE_HOLD_MS}
     if evidence is not None:
         evidence.append(trace)
     current = before
@@ -76,13 +78,16 @@ def move_axis(page, axis, target, coop=False, evidence=None, clock=time.monotoni
             key = ('d' if error > 0 else 'a') if axis == 'x' else ('w' if error > 0 else 's')
             arrows = {'d': 'ArrowRight', 'a': 'ArrowLeft', 'w': 'ArrowUp', 's': 'ArrowDown'}
             keys = [key, arrows[key]] if coop else [key]
-            # Shorten the hold near the target; never inspect while leaving input held.
-            milliseconds = min(100, max(0, int((abs(error)-release_distance)/speed*1000)))
+            # Long legs amortize real key-up/snapshot cost with a bounded coarse
+            # hold. A 100ms cap spent CI49's original budget on 29 observations.
+            # Still shorten at the target and account for observed release drift.
+            # All unheld observation ticks remain charged to the SAME leg budget.
+            milliseconds = min(COARSE_HOLD_MS, max(0, int((abs(error)-release_distance)/speed*1000)))
             reversals = reversals+1 if previous_error is not None and error*previous_error < 0 else 0
             if reversals >= 2:
                 # A minimum native release interval can straddle a narrow target.
                 # Vary one real hold by a tick-sized interval instead of oscillating.
-                milliseconds = min(100, milliseconds+17)
+                milliseconds = min(COARSE_HOLD_MS, milliseconds+17)
                 reversals = 0
             previous_error = error
             pulse = {'keys': keys, 'holdMs': milliseconds, 'before': current}

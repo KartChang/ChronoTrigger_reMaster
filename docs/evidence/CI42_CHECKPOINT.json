@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "root": "T05-early-visual-cohesion",
+  "executionTerminal": "CI42-pending-full-validation",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "version": "0.9.21",
+  "batch": "VQ01Y",
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "sourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "parent": "4f428d5f7d9640a134a0510807d0f3f98506aebc",
+  "active": true,
+  "accepted": false,
+  "candidate": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "currentValidation": {
+    "id": 35568827641,
+    "number": 42,
+    "workflow": "Playable prototype CI",
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+    "event": "push",
+    "attempt": 1,
+    "observedStatus": "queued",
+    "conclusion": null,
+    "createdAt": "2026-09-21T06:30:57Z",
+    "updatedAt": "2026-09-21T06:30:57Z",
+    "exactShaAllEventsAllStatesCount": 1,
+    "jobsObserved": false
+  },
+  "sourceReadback": {
+    "mainMatched": true,
+    "nonForce": true,
+    "sourceCommitCount": 1,
+    "changedFileCount": 10,
+    "completeLocallyTestedSubtreesMatched": {
+      "src": "0259c5ece419fb2b1fb5114e74d5524145cde82d",
+      "tests": "dc8093d93d38a81b2a4e871626960f738cf24cef",
+      "scripts": "8d64d1079588eb9ff88446954a740a41a97f5245"
+    },
+    "heldRendererBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a"
+  },
+  "localValidation": "docs/evidence/VQ01Y_LOCAL_VALIDATION.json",
+  "cloudRetention": "docs/evidence/VQ01Y_CLOUD_RETENTION.json",
+  "localPassed": {"node": 948, "python": 199, "assets": true, "typecheck": true, "build": true},
+  "localBrowserRun": false,
+  "afterImagesReviewed": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "newPagesAccepted": false,
+  "previousAccepted": {
+    "source": "a67178ae18c00bcfd552dff25174d6f14b759292",
+    "tree": "3662cd550ba6ad9a990ca24ab6d14d52c16f7bfa",
+    "ci": 35561161523,
+    "pages": 35563000350,
+    "active": false,
+    "accepted": true,
+    "reopen": false
+  },
+  "next": {
+    "pending": "Read this exact run once; queued/in_progress means save and report, without a wait loop, cancellation, rerun or redispatch.",
+    "failure": "Inspect the same run's first actual root; preserve all assertions and unchanged timeouts.",
+    "success": "Verify validate/good/bad, 13 final primary reports, 9 native chooser records, 3 source ledgers and bytes/hashes; review actual scene images and preserved journeys; retain untouched originals in the specified Drive, then match Pages/source/HTML. No green-tick art approval."
+  },
+  "documents": "Later [skip ci] document HEAD is not a new source/candidate and must not trigger another CI.",
+  "restrictions": "No held prologue-render.ts write or local browser retry/bypass/indirect replacement/incomplete staging. No public ROM/original media/fonts/credentials. Full T03-T08 retained."
+}

@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "batch": "VQ01Y",
+  "kind": "tested-source-and-local-validation-not-CI-acceptance",
+  "source": "3c2e03e02c7be0e5921fa689f32d674c68ae64f4",
+  "sourceTree": "afd919fc37bbac025006fbdbad2e942757ea766d",
+  "driveFolder": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId": "1MO3Rsw1KKgaoU28J4AS-ZMCKUHPdDhWm",
+  "name": "Chrono-VQ01Y-tested-source-local-evidence.zip",
+  "bytes": 2036670,
+  "sha256": "bdcf8bc8b99c69c4b8f1cebdefefbf15e61ea345f720bf229cc472340df69015",
+  "createdAt": "2026-09-21T06:26:34.727Z",
+  "verified": {
+    "metadataParent": true,
+    "downloadedRawReadback": true,
+    "bytes": true,
+    "sha256": true,
+    "zipCRC": true,
+    "manifestEntryCount": 23,
+    "allManifestBytesAndHashes": true,
+    "tenChangedBlobsMatchPublishedTestedSubtrees": true
+  },
+  "recovery": {
+    "path": "recovery/VQ01Y-tested-program-snapshot.tar.gz",
+    "files": 218,
+    "kind": "assembled-program-snapshot",
+    "baseAcceptedGitArchive": "a67178ae18c00bcfd552dff25174d6f14b759292",
+    "changedFiles": 10,
+    "publishedGitArchiveClaim": false,
+    "currentDocuments": "Always read current GitHub main execution documents separately."
+  },
+  "contents": ["ten changed source/test/build files", "unmodified fresh local test logs", "local HTML explicitly unaccepted with sourceSha null", "unchanged CI41 baseline PNG", "assembled program recovery snapshot", "hash manifest"],
+  "excludes": ["node_modules", "private ROM", "external original images/audio", "font files", "credentials"],
+  "archivalState": "The package predates source publication; null sourceSha in its local receipt/build metadata is the packaging-time state. Published source and all complete src/tests/scripts subtrees were subsequently verified; this GitHub receipt is authoritative.",
+  "ci42Accepted": false,
+  "afterImagesPresent": false,
+  "newPagesAccepted": false,
+  "artApproved": false,
+  "priorAcceptedOriginalsRetained": "1XBi5NQWZznGrtT1Zs1nhzmgTmLt-NCCt"
+}

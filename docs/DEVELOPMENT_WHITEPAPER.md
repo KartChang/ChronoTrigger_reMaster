@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-21-vq01u-ci38-handoff。更新既有進度，不重新規劃。精確source／run／下一步以STATUS及IMMEDIATE_CONTINUATION為準，不必重讀歷史。前版完整白皮書保留於commit997a2a2d127150c68d9b7cfe0ef954185bc41a1c；舊pending與工具清單限制已非目前狀態。
+版本：product-2026-09-21-vq01w-ci40-handoff。更新既有進度，不重新規劃。精確source／run／接續點只看STATUS／IMMEDIATE_CONTINUATION。先前全文保留於093f7f122c9d9b2b5bc0c96091705f2db2ccdd78；舊CI38-only文字不再是目前執行位置。
 
 ## 目標、順序與固定技術
 
@@ -22,44 +22,40 @@ P1克羅諾／P2露卡及依劇情加入離隊的控制權保留；青蛙或瑪�
 
 IndexedDB與JSON白名單v1–v8保留：技術村落、千年祭、異變山道、王國、救援、序章、審判越獄與裝備外層。舊檔沒有的行為仍未知，不補造證詞；僅查看不強迫改寫存檔。守恆不是簽章防作弊，匯入自己的舊檔是合法回溯。驗收snapshot／paused／view僅供讀取，不得設通關旗標、修改進度或製造正向存檔。
 
-## 前段品質工作與目前驗收邊界
+## 前段品質與使用者回饋
 
-最新閉環為 **0.9.16／CI36 35525474467／Pages30 35527138223**，source4029c82ec0568dff0f687be6fa0947256b63350c、tree3dd6c5d2f8b912ad7a3ed0386562ff9c156c1651。三job、13主旅程、9原生選檔紀錄、3來源驗證紀錄與報告bytes/hash通過。6guide／6quiet、18工具列、12鏡頭及地面三視窗通過；靜態地面checksum c0d62fe9與完整暫停不變，人物接地／真正ATB突進／原生匯入清理、裝備經濟／v8／IndexedDB／勝利／完整trial-report和既有劇情都保留。12鏡頭與guide/quiet部分覆蓋重疊，不灌成額外獨立旅程。
+使用者表示目前試玩仍看不出承諾的HD-2D精緻感。這是尚未解決的視覺交付落差，不應只回答「還沒到90分」而迴避。像素人物＋立體場景／選用Babylon是技術方向，不等於統一而成熟的美術成品。90分是完成後須由實際證據支持的驗收門檻，不是特效開關或測試數累積。沒有目前美術已達90分的有效證據；舊30分stale，不作新評分。
 
-Pages30 prepare106121155726／deploy106121189437成功；staged10609853342與playable10609747917、來源／CI36一致。HTML5621452bytes、SHA256cda87f62f553247de4bad7430f196b1a8f19de92fd051e4a6fe616d7dceef25f逐byte一致。公開HTTP由成功deploy步驟於2026-09-20T17:50:53Z檢查；沒有第二次本機即時瀏覽器驗證。Pages工作流HEAD997a是文件來源，不是遊戲source，兩者不同不需重跑。
+實際CI39祭典畫面仍有大面積重複石板主導構圖、平面像素樹木與立體道具間的風格落差、材質及光影區分不足。家中母親／家具仍簡化，人物輪廓、比例、完整方向與戰鬥動作、場景細節、動畫音樂與真機驗收仍未完成。先前HUD與測試生命週期修復有功能價值，但不能當成主要美術已完成。不能靠加模糊／光暈、換引擎或提高自評掩蓋素材與構圖缺口。
 
-前次已完成的原始畫面與技術檢查本次补齊指定Drive保存、回讀與main收據，見CI36_ACCEPTANCE.json／CI36_VISUAL_REVIEW.md／PAGES30_PROVENANCE.json。三張全尺寸地面與六張其他畫面可見地面、透明棚布與人物保留；靜態圖不證明時間抖動、FPS、記憶體或原汁原味分數。直向探索底部角色名稱與操作提示擁擠是已知畫面缺口，非當時已有DOM量測；CI36圖片沒有VQ01T新排版。閉環只接受既有可玩路線與source部署，不是全作、美術90或真機驗收。CI35／Pages29、CI28／Pages22及更早已關閉工作不重開。
+## 最新已閉環與保留工作
 
-已保存並整合的VQ01A/B/C四主角48×64畫筆、固定tick鏡頭、腳底支點／突進陰影、祭典NPC接地、獨立輸入／modal／選單／交易舒適度保留。VQ01P祭典曲面棚布、鐘、傳送器、貨物、販商與人物前方棚布淡化已存在；VQ01Q三job工作量平衡、來源完整報告檢查與VQ01R安全走道／鬆鍵診斷不重做。
+中斷前已發布VQ01V／0.9.18，source093f7f122c9d9b2b5bc0c96091705f2db2ccdd78、treee8aaf3f7c73232f28acb5b4c1d359d8b3311fd7b，祭典旗幟／鐘／傳送器等呈現依simulation ticks與減少動態偏好處理；不要重做。
 
-VQ01S地面保留鋪面畫筆、尺寸／位置／碰撞；靜態頂點明暗區分走道／鐘前與外緣，32細分／1089頂點／2048三角形及不可變不透明buffer。地面mipmap／anisotropy4，人物仍nearest；沒有額外覆蓋網格、紋理、碰撞或逐幀地面上傳。幾何與mipmap成本仍待真機量測。完整保存美術還有房間材質、分件家具、陶器、布料、母親與前景淡化等，A→B→C工作鏈存在；家中整合仍部分受限，不重畫。歷史43／31差異不是目前缺少檔案數；沒有通用OBJ回匯、全NPC動作或完整音樂完成宣稱。圖集／模型／測試數不等於美術分數。
+**CI39 35552110336／Pages33 35553893970**已完成三job、13主旅程、9原生選檔、3source/run/attempt/HTML ledger及報告bytes/hash核對。保留HUD十案例、地面三視窗、場景正常／暫停／減少動態三視窗、真實桌面context退休後的觸控載入／兩視窗／trace、裝備經濟／存讀／接地突進／勝利／完整審判等全部既有旅程。觸控完整load為2487.34ms，30秒門檻未改。
 
-## 本批已發布 VQ01U／0.9.17
+Pages33兩job成功；staged與CI原HTML逐byte一致：5627863bytes、SHA256fa038b63e8c6125fe20096e66e170a2a58c64d7d01da1593e04ad4c31fe1a9b7，source／CI／playable10619172331一致。公開HTTP來源與hash驗證歸屬成功deploy步驟，本機沒有獨立HTTP或瀏覽器結果。原始六份ZIP已指定Drive保存／回讀；CI39_ACCEPTANCE及CI39_VISUAL_REVIEW只接受既有可玩路線及部署，不是全作、美術90或硬體通過。CI39／Pages33、CI36／Pages30、CI35／Pages29及更早閉環不重開。
 
-VQ01T探索HUD十一份增量已正式發布並保留：底部flow、44px按鈕、窄版換行、實際高度量測、五尺寸guide/quiet文字裁切／重疊／九點命中檢查。CI37／35530142731已completed/failure；validate106129172590及bad106129172662成功，good106129172476通過證人、序章、十組HUD及四项桌面裝備檢查，最後在equipment_browser.py:334→inventory_touch.py:19等待另一觸控context的Page.goto load超過30000ms。12主報告通過／1失敗；觸控觀察為空，不得以桌面成功接受整批。
+保存並整合的VQ01A/B/C四主角畫筆、鏡頭、接地與陰影、VQ01P祭典棚布／鐘／傳送器／攤位、VQ01S地面取樣／明暗、VQ01T探索HUD、VQ01U觸控生命週期皆保留。A→B→C保存的家中家具／材質／母親等不重畫；受限renderer整合不得用旁路替換。歷史43／31不是現在缺檔數。
 
-原始報告與實際touch-failure.png顯示診斷時為start-screen、bedroom/waking、ticks0、equipmentnull，並非HUD遮擋、舊走道或原生選檔失敗。程式確定在觸控新場景啟動時仍保留已完成的桌面context；資源壓力可能相關，但沒有CPU/GPU/網路量測或當時導航trace，不能宣告底層因果已證實。逾時後已有畫面不代表30秒內load成功。
+## 本批已發布 VQ01W／0.9.19
 
-本次VQ01U七份測試／證據檔一次發布，source **1e80bc4a5a2f3cff8e0bafd9ba291621078a3d0a**、tree **ccf86187e8354c25338601ba943b3ff681adec8f**。保存桌面最後實際狀態後只關閉自己context，要求剩餘context/page都為零再開始触控。保留完整load及30000ms，記錄階段、導航事件、HTTP與時間，保存Playwright trace及原子報告；缺hook不阻止截圖，trace／close錯誤不掩蓋原始失敗。同次真正v8匯出、原生tap匯入、兩組觸控選單斷言完全保留；good lane追加退休計數、source/run/attempt/HTML/存檔hash與完整觸控trace驗證。
+Source **07dfac49893583d0e24f66b215f89ff6d8e8505a**，tree **39991e8835da9645b460a88ba5634f0889504bd1**。11份相關程式／測試非force提交並匹配完整已測試tree／blob；唯一 **CI40 35557960815**，push/attempt1，建立2026-09-21T03:34:18Z，最後觀察in_progress/null updated03:34:21Z。
 
-唯一 **CI38 35548609338**，push/attempt1，建立2026-09-21T00:43:43Z，最後觀察in_progress/null、updated00:43:47Z。新鮮889Node／154Python、型別／資產／建置／compile通過，新增8Node／15Python。原equipment83與touch9斷言全部保留，現在86／10；early25／prologue37／keyboard28／trial53／witness42／festival23保留不變。沒有本機瀏覽器、force click、假存檔、狀態寫入、重試、放寬timeout或更改workflow。
+只改善允許獨立修改的祭典：lit fair mesh使用0.28冷色局部補光，排除不屬此場景的其他光源影響，保留原主光及shadow generator，不改其他地圖光值。鐘／傳送器銅件個別材質具金屬反光，布木／地面霧面保留。六棵既有樹圖用77/80像素樹根與相機方向校正實際接地，樹根與鐘柱合計八個不可變柔邊alpha接觸網格；不新增圖檔或shadowmap、不改碰撞。原畫筆／圖素、主角與NPC既有接地、場景尺寸、HUD／場景動作／全域render／main／核心皆保留。
 
-runtime、素材、HUD、CSS及HTML均未改；版本仍0.9.17、HTML5626292bytes、SHA256480e15b0c1cdf722de662731216bbfac8a87e769883ced531f5df5f641092658與CI37一致。CI38仍需原三job／13主旅程／9原生／3ledger與全部既有畫面／操作驗收，新增退休／load／trace／兩觸控視窗，保存原始產物、檢視實際畫面並匹配Pages/source/HTML才接受。單元mock及trace簽名fixture不是瀏覽器或真機證據，既有CI36／Pages30與更早閉環不重開。
+實際light/material/mesh矩陣／樹根誤差／陰影buffer觀察接入既有三視窗正常／暫停／減少動態旅程及原九張截圖，不另造成功存檔、不增重試或放寬timeout。923Node／178Python、資產／型別／建置／compile通過；全部原瀏覽器斷言保留。初次新增單元的Babylon陣列deep-equality格式化被終止，僅改該新增斷言為長度及物件身份比較，完整最終測試通過。沒有本機瀏覽器；NullEngine觀察只是單元證據。
 
-## 未完成範圍與品質門檻
+新版HTML5631661bytes／SHA256225ac627a4cedcfff0cbe8cca6b3a29f0c7f90cd7e9ebbfc3c0e163d2b5d3cc8仍待CI40。新光與網格有運算成本，沒有真機FPS／記憶體或已改善觀感的宣稱。本批不是完整精緻場景；主要構圖／素材／人物／動畫缺口仍需後續實作與畫面支持。
 
-T03：原作隱藏規則、版本／補丁差異、完整地圖／城鎮室內／迷宮拓樸及精確數值。T04：等級成長、技能、戰鬥報酬與掉落、完整商店消耗品飾品、角色與雙三人技。T05：完整美術、動畫及權利清楚的音樂音訊，先改善前段。T06：完整未來篇、其餘時代、主支線與結局。T07：整體90、裝置與效能證據。T08：每批GitHub與指定Drive閉環。
+## 未完成範圍與門檻
 
-仍可見缺口包括家中家具／母親簡化、重複地板、初遇輪廓重疊、壓縮法庭、構圖、完整動畫音樂及真機。HUD十組檢查已於CI37通過，但完整0.9.17與觸控驗收仍待CI38；既有美術不重畫。完整遊戲>=90、各面向>=80%、零critical、五項證據gate與必需素材通過才可release:check。不能改分母、隱藏缺口或只評完成部分。舊quality30明確stale，不作目前分數或重開功能依據。
+T03：隱藏規則／版本差異／完整地圖室內迷宮拓樸及原作數值。T04：成長／技能／報酬掉落／完整經濟消耗品飾品／角色雙三人技。T05：完整美術動畫及權利清楚的音訊，先做前段整體品質。T06：完整未來篇及其餘時代、主支線與結局；2300抵達不是完整未來篇。T07：整體90與每面向80%、零critical、必需素材及五項證據gate、實體裝置輸入／FPS／frame-time／載入／記憶體／背景恢复／存檔。T08：每批GitHub／指定Drive閉環。完整遊戲目標不縮小；不改分母、不只評已完成功能、不用測試或模型數自評灌分。
 
-真實鍵盤／手把、FPS／frame-time、載入、記憶體、背景恢復與保存屬實體裝置門檻；Chromium觸控模擬、NullEngine、合成幾何、概念圖與軟體GPU不能冒充真機。Pages僅部署全CI通過的exact artifact；deployment.json綁source/run/artifact/HTML，文件HEAD與遊戲source不同不是重跑理由。file://與HTTP靠JSON搬移，不是雲端存檔同步。
+## 雲端與限制
 
-## 雲端、限制與立即接續
+指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。本批 **1Z8tqDVg7lpcI3bCjw43UJeXjq-tYaXyz**，35627649bytes，SHA2569f6c7284950c5e1518aa71ee8e693a3c49910f90e07e5b4daa10dce3c7bf1a93，已下載回讀hash／CRC／27清單／11增量／正確父資料夾。CI39原始tar＋working-delta恢復程式；最新GitHub文件覆蓋封存中的prepublication狀態。臨時容器不作永久依據。
 
-GitHub main是程式與進度權威，只由本AI流程使用，不建立多人防撞／平行candidate／PR／歷史審計。相關修改整批測試後一次source commit→非force更新→回讀→一次完整CI；文件使用[skip ci]。CI仍排隊／執行時保存exact點並回報，不長時間輪詢、取消或重派；失敗只處理同run第一根因，成功保存原產物、看實際畫面及匹配Pages。
+main只有本AI流程，無branch／PR／多人防撞工程。每批整合測試後一次sourcecommit／非force／回讀／一次CI；文件[skip ci]。待CI排隊／執行則保存exact點，不密集輪詢、取消、重派。失敗處理同run第一根因；成功保存原產物、看實際畫面與核對Pages來源／HTML。
 
-所有檔案只放folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。本批 **Chrono-CI37-terminal-VQ01U-touch-handoff.zip**／**1f-6HSlFhLLEzORKkb0wI0jGguVzFMvMW**，28871898bytes、SHA2565e28a060d18cef5553f4b74b111e83f7554d427e3b1f6b4721618729b41b74ea。五份CI37原始ZIP、七份已測試增量、source.patch、報告與測試紀錄保存；完整下載回讀、CRC、21項清單、7增量及正確父資料夾皆一致。CI37 playable明示未驗收。由raw/CI37-browser.zip中exacte2bc來源tar加7delta恢復，文件另以當前main為準；最終雲端收據晚於封存。以前保存包與美術鏈在DELIVERY_INDEX，不為開始而重新下載所有歷史。
-
-受限的新src/prologue-render.ts寫入與本機瀏覽器操作沒有新允許結果，不得重送、改管道繞過或提升不完整staging。renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a保留；其他允許的獨立改善繼續，特定限制不等於connector無法存取。
-
-ROM私人保存在Drive1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM，不需重傳。HiROM／checksum不能證實原版或補丁身份；不能把未核實解析當原作規則。ROM、原圖、原音訊、字型檔與憑證不進公開repo／CI／Pages／試玩包。固定工具鏈只恢復node_modules並保留esbuild hardlink，不還原舊source／config，不另開bootstrapCI。
+受限src/prologue-render.ts及本機瀏覽器沒有新的允許結果；不可重送、改管道旁路或提升不完整staging。renderer2711a74185aacf3c6bddf9db85ba99a2afbc507a保留。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules／esbuildhardlink，不覆蓋source/config／另開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不需重傳；原ROM、原圖音訊、字型檔或憑證不公開。

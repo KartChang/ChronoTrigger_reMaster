@@ -1,26 +1,24 @@
-# Execution TODO — VQ01U / CI38
+# Execution TODO — VQ01W / CI40
 
-Only current authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md and evidence/CI38_CHECKPOINT.json. Main only/non-force/one writer; no audit/old replay/branch/PR flow.
+Authority: STATUS, handoff/IMMEDIATE_CONTINUATION.md, evidence/CI40_CHECKPOINT.json. Main only/non-force/one writer. No history audit or replay.
 
 ## Immediate execution
 
-Published VQ01U/0.9.17 source1e80bc4a5a2f3cff8e0bafd9ba291621078a3d0a/treeccf86187e8354c25338601ba943b3ff681adec8f. Seven test/evidence files,889Node/154Python passed; runtime/HTML/CSS/workflow unchanged. Only CI38 **35548609338**, push/attempt1, last observedin_progress/null updated2026-09-21T00:43:47Z. Pending freeze/save/report; no dispatch/rerun/cancel/poll loop. Failure first same-run root; success full evidence/Pages closure then earlyT05.
+Published source07dfac49893583d0e24f66b215f89ff6d8e8505a/tree39991e8835da9645b460a88ba5634f0889504bd1,VQ01W/0.9.19. Only **CI40 35557960815**,push/attempt1,observedin_progress/null updated2026-09-21T03:34:21Z. Pending freeze/save/report without waiting. Failure same-run first actual root; success all3jobs/13primary/9native/3ledgers, original reports/screens/Pages-source-HTML. No extra CI while pending.
 
-CI37 completed/failure at touch-context Page.goto full-load30000ms after all four desktop equipment checks and HUD10cases. Validate/bad succeeded;12primary passed/1equipment failed. Touch observations0. Desktop context was still alive; pressure as underlying cause remains unproven. No retroactive acceptance and no old HUD/route/picker diagnosis.
+Already done: retained VQ01V tick-safe scenery/reduced-motion (interrupted turn's actual published work); VQ01W fair-only fill isolation, bronze finish,6tree contacts,8softshadow meshes and actual-data verification.923Node/178Python passed; all prior browser asserts retained. Do not reimplement. CI39/Pages33 now closed existing-playable/deployment, not full art. CI38-only documents are stale; do not restart from them.
 
-Already implemented VQ01U: save completed desktop observations, retire owned context, require zero contexts/pages, retain original load/30s and native own-v8/taps, collect navigation phases/timing/trace and atomic failure report, keep original errors through cleanup. Good lane now rejects absent retirement/touch/source-run-HTML/save/trace evidence. All original assertions retained; no local browser. Do not repeat this repair.
+CI40: inspect good/equipment/00-cloth-canopy-occlusion-motion-report.json cases[].finish.before/paused/reduced and9 existing motion screenshots. Need actual fair-only fill and key, selective materials,6groundedtree roots, immutable soft-alpha geometry plus retained dock10/ground3/scenery3/pause/reduced/guide-quiet/camera/partygrounding/lunge/nativechooser/touchretirement/load/taps/trace/economy/v8/IndexedDB/victory/fulltrial. No fake saves/forceclicks/deleted assertions/retries/timeout changes.
 
-CI38 requires all3jobs/13primary/9native/3lane ledgers, unchanged10dock/6guide/6quiet/12camera/3ground/grounding/lunge/native-import/canopy/pause/economy/v8/IndexedDB/victory/finaltrial/allstory, new load/retirement/trace/two coarse-touch views, untouched original artifacts, actual images and Pages/source/HTML. Good ZIP contains the new touch files. Mocks and progress are not final acceptance. CI36/Pages30 and earlier closures stay closed.
+## Product priority — visible art first
 
-## Product priority and remaining full scope
+User reports the playable lacks the promised refinedHD-2D look. Treat this as an unresolved visual-delivery gap.90 is the target outcome, not a switch. Current evidence does not establish90; tests and engine choice cannot substitute. Continue related permitted earlyT05 composition, scale, coherent materials/lighting, silhouettes and full animation; reuse saved assets. Dominant repeated paving, flat vegetation/solid-prop mismatch, simplified home/furniture/mother, actor overlap and missing complete audio remain. New W is a limited fair finish, not a complete scene redo or approved90.
 
-EarlyT05 first: existing scene/actors/materials/models/animations/camera/occlusion/HUD/comfort to evidence-supported>=90 before later chapters. Preserve saved assets and published ground/festival/actors. Remaining observable gaps: simplified home/mother/furniture, repeated paving, first-meeting silhouette overlap, composition, complete animation/audio and hardware evidence. After CI38 closure choose the next permissible related visual/comfort batch without replacing held prologue-renderer indirectly.
+T03: original hidden rules/version differences/full topology/numeric fidelity.
+T04: growth/rewards/drops/economy/items/accessories/roster/skills/dual-triple techs; don't rebuild accepted equipment or call authored values original.
+T05: complete art/animation/cleared music and sound; early scenes before expansion.
+T06: full future and remainingeras/main-sidequests/endings;2300arrival not fullfuture.
+T07: overall>=90/eachdimension>=80%/zerocritical/asset-and-evidence gates/physical input-FPS-frame-time-loading-memory-background-save. No score inflation;old30stale.
+T08: relatedbatch->tests->one nonforce sourcecommit/readback->one fullCI; correctfolder/cloudreadback; [skip ci] progress.
 
-T03: hidden rules/version differences/full map-room topology/numeric fidelity.
-T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual and triple techs; accepted equipment is not redone and authored values are not original facts.
-T05: complete art/animation/cleared music and sound, early quality first.
-T06: complete future campaign, remainingeras/main-sidequests/endings;2300arrival is not fullfuture.
-T07: overall>=90/eachdimension>=80%/zerocritical/requiredassets-and-evidence gates; physical input/FPS/frame-time/loading/memory/background/save checks. Old30stale, no self-score inflation.
-T08: relatedbatch->tests->one nonforce sourcecommit/readback->one fullCI; correct-folder retention/readback; [skip ci] currentdocs. This source batch is already at CI38, not permission to open a second CI while pending.
-
-Recovery: current bundle1f-6HSlFhLLEzORKkb0wI0jGguVzFMvMW,28871898bytes/21manifest/7deltas/five raw CI37 ZIPs,verified hash/CRC/parent/readback. Exacte2bc tar+delta, currentmain docs separately. Full details VQ01U_CLOUD_RETENTION. Preserve original constraints, heldrenderer/localbrowser; no token/ROM/manualevidence requests.
+Keep held prologue-render.ts and local-browser restrictions; no indirect workaround or incomplete staging. Existing TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1Crono/P2Lucca/autonomous third/home-to2300/equipment/v1–v8 remain; noP3/ARPG/frameworkrestart. No publicROM/originalmedia/fonts/credentials.

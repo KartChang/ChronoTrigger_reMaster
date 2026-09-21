@@ -1,14 +1,20 @@
-# Cloud delivery index — CI36 / Pages30 closed; VQ01U / CI38 pending
+# Cloud delivery index — CI39 / Pages33 closed; VQ01W / CI40 pending
 
-Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/move/deletion changes. Current execution STATUS / CI38_CHECKPOINT. Source publication and archive retention are not new browser acceptance.
+Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/move/deletion changes. Current execution STATUS / CI40_CHECKPOINT. Archive retention is not new-version art acceptance.
 
-## Current verified CI37 terminal and VQ01U recovery
+## Current verified recovery and CI39 originals
 
-**Chrono-CI37-terminal-VQ01U-touch-handoff.zip**, Drive **1f-6HSlFhLLEzORKkb0wI0jGguVzFMvMW**.
-**28871898bytes**, SHA256 **5e28a060d18cef5553f4b74b111e83f7554d427e3b1f6b4721618729b41b74ea**.
-Raw download/readback/CRC/correct parent/all21manifest entries/all7tested deltas verified. Five unchanged CI37 ZIPs, terminal/raw report index, seven-file delta, exact source patch and local logs retained. CI37 playable remains UNACCEPTED. Actual touch failure picture is in raw/CI37-good.zip; no new browser evidence is claimed for unit tests.
+**Chrono-CI39-Pages33-VQ01W-recovery.zip**, Drive **1Z8tqDVg7lpcI3bCjw43UJeXjq-tYaXyz**. **35627649bytes**, SHA256 **9f6c7284950c5e1518aa71ee8e693a3c49910f90e07e5b4daa10dce3c7bf1a93**. Rawdownload/CRC/parent/all27manifest/all11tested deltas verified. Six original CI39 browser/good/bad/playable/art and Pages33 staged archives remain unchanged; verified report index, visual review, exact source patch, tests and11delta files retained.
 
-Published source **1e80bc4a5a2f3cff8e0bafd9ba291621078a3d0a**, tree **ccf86187e8354c25338601ba943b3ff681adec8f**, VQ01U/0.9.17. Only **CI38 35548609338** pending at observation. Recover exacte2bc source tar from raw/CI37-browser.zip, then seven working-delta files using before/after hashes. Source patch reverse-apply check passed. Current main docs override archive docs; final cloud receipt postdates archive. Full records: **evidence/VQ01U_CLOUD_RETENTION.json / VQ01U_LOCAL_VALIDATION.json / CI37_TERMINAL.json / CI38_CHECKPOINT.json**. No dependencies/ROM/originalmedia/fonts/credentials, sharing changes or old-file deletions.
+CI39source093f7f122c9d9b2b5bc0c96091705f2db2ccdd78 / Pages33 closed for existing playable/deployment only. New VQ01Wsource07dfac49893583d0e24f66b215f89ff6d8e8505a/tree39991e8835da9645b460a88ba5634f0889504bd1 / CI40 35557960815 remains pending. Recover raw/CI39-browser.zip exact093tar then working-delta11 after before/after hashes; latest main documents separately override archived prepublication receipts. CI39 screenshots are not W screenshots. Receipt evidence/VQ01W_CLOUD_RETENTION.json.
+
+## Published handoff supplement
+
+**Chrono-VQ01W-CI40-published-handoff.zip**, Drive **1fgrqWzf1Z3kNC93Lo2YKw0iPgHp6kaXb**;103178bytes/SHA25664a406bbb845f95fa3dac716f24c99bfe579041e3bbb1663f7d97779562f832c. Rawreadback/CRC/parent/27manifest/11deltas verified. Contains13 current progress documents, exactdelta/sourcepatch and finaltestlogs. Final cloudreceipt postdates archiveddocuments.
+
+## Retained CI37 terminal / VQ01U package — inactive
+
+Drive **1f-6HSlFhLLEzORKkb0wI0jGguVzFMvMW**, Chrono-CI37-terminal-VQ01U-touch-handoff.zip,28871898bytes/SHA2565e28a060d18cef5553f4b74b111e83f7554d427e3b1f6b4721618729b41b74ea. Previously verified21manifest/7deltas/5originalZIPs. No history replay or retroactive acceptance of CI37.
 
 ## Previous verified raw recovery and baseline evidence
 
@@ -16,7 +22,7 @@ Published source **1e80bc4a5a2f3cff8e0bafd9ba291621078a3d0a**, tree **ccf86187e8
 **28766764bytes**, SHA256 **f72f04086b2b353d8470e0bd1b03b4524c4930a494ea325a6f5b2e716c7dc0ba**.
 Raw download/hash/CRC/parent/all40manifest entries/all11tested deltas and six unchanged originalCI36/Pages30ZIPs verified. Includes exact4029source tar in raw/CI36-browser.zip, working-delta11, testedsource patch, before/afterblobs, old local logs, original CI36 reports/screens, technical-review and six prepared doc patches. The archive UNPUBLISHED/no-cloud/write-inventory labels describe the earlier packaging time only; current main receipts supersede them. The bytes are intentionally unchanged.
 
-VQ01T source **e2bc7e8b19d535ec4072fa5dd68ab4ff24e1929c**, tree **77f9c36c3749b7729e469445de52e10031531f23** is now published non-force/readback, exacttested11paths, fresh881Node/139Python passed. CI37 **35530142731** is now inactive/failure; current CI38 supersedes that old pending state. Recovery uses exact4029tar+working-delta11; current main documents always override archived olddocs. Original CI36/Pages30 evidence now has its formal main closure **evidence/CI36_ACCEPTANCE.json**. It covers0.9.16existingplayable/deployment, not VQ01T/90/fullgame/hardware.
+VQ01T source **e2bc7e8b19d535ec4072fa5dd68ab4ff24e1929c**, tree **77f9c36c3749b7729e469445de52e10031531f23** is now published non-force/readback, exacttested11paths, fresh881Node/139Python passed. CI37 **35530142731** is now inactive/failure; CI39/Pages33 is the newer accepted baseline; CI40 is current validation. Recovery uses exact4029tar+working-delta11; current main documents always override archived olddocs. Original CI36/Pages30 evidence now has its formal main closure **evidence/CI36_ACCEPTANCE.json**. It covers0.9.16existingplayable/deployment, not VQ01T/90/fullgame/hardware.
 
 ## Published handoff supplement
 

@@ -215,7 +215,7 @@ class NativeImportProtocolTest(unittest.TestCase):
 
     def test_all_importing_journeys_use_shared_real_chooser_contract(self):
         root = Path(__file__).parent
-        expected = {'prologue_browser.py','witness_browser.py','kingdom_browser.py','rescue_browser.py','trial_browser.py','fair_browser.py','opening_browser.py','keyboard_browser.py'}
+        expected = {'cpu_renderer_browser.py','prologue_browser.py','witness_browser.py','kingdom_browser.py','rescue_browser.py','trial_browser.py','fair_browser.py','opening_browser.py','keyboard_browser.py'}
         found = set()
         for path in root.glob('*_browser.py'):
             nodes = list(ast.walk(ast.parse(path.read_text())))

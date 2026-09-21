@@ -60,7 +60,7 @@ test('failure UI is actionable and safely renders arbitrary error as text, never
  const bad='<img src=x onerror=alert(1)>',panel=showRenderFailure(doc,Error(bad));
  assert.equal(panel.attributes.role,'alertdialog');assert.equal(panel.attributes['aria-modal'],'true');assert.equal(panel.id,'render-unavailable');
  assert.equal(panel.children[3].children[1].textContent,bad);assert.equal(panel.innerHTML,undefined);
- assert.match(panel.children[2].textContent,/尚未提供完全不依賴 WebGL/);assert.equal(doc.body.children[0],panel);
+ assert.match(panel.children[2].textContent,/CPU／Canvas2D 相容繪圖/);assert.equal(doc.body.children[0],panel);
  panel.children[4].onclick();assert.equal(reloads,1);
 });
 test('host freezes on actual context loss and restores the existing simulation clock',()=>{
@@ -68,7 +68,8 @@ test('host freezes on actual context loss and restores the existing simulation c
  assert.match(main,/renderBlocked\|\|document.hidden/);assert.match(main,/onContextLostObservable.add\(\(\)=>contextHold\(true\)\)/);
  assert.match(main,/onContextRestoredObservable.add/);assert.match(main,/accumulator=0;last=performance.now\(\)/);
  assert.match(main,/observeRenderFrame\(frameMs,running\)/);assert.match(main,/showRenderFailure\(document,error\)/);
- assert.match(renderer,/new Engine\(canvas,true,\{\.\.\.WEBGL_OPTIONS\},true\)/);
+ assert.match(readFileSync('src/cpu-engine.ts','utf8'),/new Engine\(canvas,true,\{\.\.\.WEBGL_OPTIONS\},true\)/);
+ assert.match(renderer,/createRenderEngine\(canvas\)/);
  assert.doesNotMatch(renderer,/NullEngine|fair-surfaces|fair-composition/);
  const capability=readFileSync('src/render-capability.ts','utf8');assert.doesNotMatch(capability,/userAgent|fetch\(|setTimeout|setInterval|localStorage/);
 });

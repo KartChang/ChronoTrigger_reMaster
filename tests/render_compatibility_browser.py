@@ -154,10 +154,12 @@ def observe_unavailable(playwright):
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda e: errors.append(str(e)))
-    case = {'name': 'webgl-unavailable', 'status': 'running', 'browser': browser.version, 'errors': errors}
+    case = {'name': 'webgl-unavailable', 'requestedBackend': 'webgl', 'status': 'running', 'browser': browser.version, 'errors': errors}
     report['cases'].append(case)
     try:
-        page.goto(BASE, wait_until='load', timeout=30000)
+        # Real opt-out preference preserves the unavailable/reload contract.
+        # Default auto without this query is exercised by cpu_renderer_browser.py.
+        page.goto(BASE + '&renderer=webgl', wait_until='load', timeout=30000)
         page.wait_for_selector('#render-unavailable', timeout=30000)
         assert page.locator('#render-unavailable').get_attribute('role') == 'alertdialog'
         assert page.locator('#render-reload').is_visible()

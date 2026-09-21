@@ -1,4 +1,6 @@
-import {RenderPolicy,backendHint,WEBGL_OPTIONS} from './render-capability';
+import {RenderPolicy,backendHint} from './render-capability';
+import {createRenderEngine} from './cpu-engine';
+import {renderCompatibleScene,inspectCpuRendering} from './cpu-scene';
 import {placeSpriteContact,inspectSpriteContacts} from './sprite-contact';
 import type {SpriteContact} from './sprite-contact';
 import {EarlyCameraMotion} from './camera-motion';
@@ -98,7 +100,7 @@ export class World {
   constructor(canvas:HTMLCanvasElement){
     // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
     // chooses GPU/software; do not reject a usable slow context or force unsafe flags.
-    this.engine=new Engine(canvas,true,{...WEBGL_OPTIONS},true);
+    this.engine=createRenderEngine(canvas);
     let renderer='';try{renderer=this.engine.getGlInfo().renderer;}catch{}
     this.rendering=new RenderPolicy(backendHint(renderer));
     this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
@@ -280,7 +282,7 @@ export class World {
     }
 
   }
-  inspectRenderer(){return {...this.rendering.inspect(),webglVersion:this.engine.webGLVersion,
+  inspectRenderer(){return {...this.rendering.inspect(),...inspectCpuRendering(this.engine),webglVersion:this.engine.webGLVersion,
     width:this.engine.getRenderWidth(),height:this.engine.getRenderHeight(),scaling:this.engine.getHardwareScalingLevel()};}
   setRenderMode(mode:string):void{this.rendering.setMode(mode);this.resize();}
   observeRenderFrame(milliseconds:number,active:boolean):void{if(this.rendering.sample(milliseconds,active))this.resize();}
@@ -378,7 +380,7 @@ export class World {
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
     for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
     this.palettePass.apply(this.scene);
-    this.scene.render();this.drawFrames++;
+    renderCompatibleScene(this.engine,this.scene);this.drawFrames++;
   }
   private groundActors(s:State):void {
     const up=this.camera.getDirection(Vector3.Up()),awake=s.prologue.stage!=='waking',adventure=s.chapter!=='lab';

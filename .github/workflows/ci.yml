@@ -53,6 +53,11 @@ jobs:
       - name: Verify same-source rendering compatibility observations
         if: always()
         run: node scripts/render-evidence.mjs
+      - name: Test playable CPU fallback without WebGL
+        run: python tests/cpu_renderer_browser.py
+      - name: Verify same-source CPU pixels and native gameplay
+        if: always()
+        run: node scripts/cpu-evidence.mjs
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate

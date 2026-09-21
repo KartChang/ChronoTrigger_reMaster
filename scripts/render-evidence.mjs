@@ -16,6 +16,7 @@ export function assertRenderEvidence(r,identity){
   need(c.status==='passed'&&Array.isArray(c.errors)&&!c.errors.length,'case not completed');
   need(c.image?.bytes>8&&/^[a-f0-9]{64}$/.test(c.image.sha256),'original screenshot missing');
   if(c.name==='webgl-unavailable'){
+   need(c.requestedBackend==='webgl','unavailable precondition must explicitly opt out of CPU');
    need(c.caughtFailure===true&&c.focused==='render-reload'&&c.startDisabled===true&&c.testStateUnavailable===true&&c.nativeReloadWorked===true,'no-WebGL UI/reload not observed');continue;
   }
   const v=c.renderer;

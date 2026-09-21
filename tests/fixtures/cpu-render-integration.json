@@ -1,0 +1,20 @@
+{
+  "replacements": [
+    [
+      "import {RenderPolicy,backendHint,WEBGL_OPTIONS} from './render-capability';",
+      "import {RenderPolicy,backendHint} from './render-capability';\nimport {createRenderEngine} from './cpu-engine';\nimport {renderCompatibleScene,inspectCpuRendering} from './cpu-scene';"
+    ],
+    [
+      "this.engine=new Engine(canvas,true,{...WEBGL_OPTIONS},true);",
+      "this.engine=createRenderEngine(canvas);"
+    ],
+    [
+      "return {...this.rendering.inspect(),webglVersion:this.engine.webGLVersion,",
+      "return {...this.rendering.inspect(),...inspectCpuRendering(this.engine),webglVersion:this.engine.webGLVersion,"
+    ],
+    [
+      "this.scene.render();this.drawFrames++;",
+      "renderCompatibleScene(this.engine,this.scene);this.drawFrames++;"
+    ]
+  ]
+}

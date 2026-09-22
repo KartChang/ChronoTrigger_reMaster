@@ -1,0 +1,21 @@
+{
+  "schema":1,"batch":"VQ02H","version":"0.9.30",
+  "source":"840ffe01882c8248f11603ee1c4da246f5aa2ccc",
+  "sourceTree":"205bc73a075b92a5efd5ac072f45f6857b037b4a",
+  "parent":"3c3c1909f03df9a839c7569860e0506d6c05ac2c",
+  "publication":{"nonForce":true,"sourceCommitCount":1,"mainReadbackMatched":true,"changedFiles":3,"retainedCurrentDocsTree":"b298d112a1348b9be7abcfab0a22dd21d4dca746"},
+  "testedSubtreesMatched":{"src":"2e20f2713b658609094ac86266510c2707b19494","tests":"cf888340ab5528d7d29bfdb8efc16c9f40dca472","scripts":"ec009ade6c6b2f3801ce382aaeecf15653fed9bb",".github":"20c7b1aa55d517ebc3b296e300b7c9d6054c895d"},
+  "changedBlobs":{"scripts/build.mjs":"68dc640142b68e0c217cf828d07380af42710798","tests/cpu_native_route.py":"cff950eb1bd468b23aba912d22ba70c960f7dc03","tests/cpu_native_route_cost_test.py":"7ff722fe57db09fc9774a8f4aa7837126cf362b3"},
+  "passed":{"node":1161,"python":240,"assets":true,"typecheck":true,"build":true,"npmRunCheckFinalExit":0,"pythonFinalExit":0},
+  "logs":{"completeCheck":"logs/vq02h-check-final.log","completeCheckExit":"logs/vq02h-check-final.exit","completePython":"logs/vq02h-python-final.log","completePythonExit":"logs/vq02h-python-final.exit","redRegression":"logs/vq02h-regression-before.log","redRegressionExit":1},
+  "testBoundaries":"Eight new Python tests include24 long-leg direction/axis/chapter/read-cost subcases. Original G tests and36 subcases are unchanged. Models are unit regression evidence, NOT browser or successful save/state fixtures. Initial red regression was temporarily in the original test module; final added tests live in cpu_native_route_cost_test.py. Two interrupted npm checks are retained separately, not reported as successful; the later full final check exited0.",
+  "unitCostModel":{"basis":"29 observed CI49 native pulse cost pairs","oldElapsedTicks":323,"newElapsedTicks":255,"originalBudget":315,"newPulses":13,"newFinalZ":5.060000000000005,"targetZ":5.1,"epsilon":0.12,"nativeAcceptance":false},
+  "changedPolicy":"Distance-scaled native holds cap at250ms instead of100ms, amortizing repeated unheld observations on long legs. Near-target distance/release-latency shortening and opposite-key correction remain. Hold size is not timeout or tick-budget enlargement.",
+  "preserved":["All src/index/.github/package/config bytes","Entire CPU browser driver and all original routes/assertions","Original cpu_native_route_test.py unchanged","Strict .12 arrival after release","Original per-leg tick formula and single30s deadline","Budget check before arrival; all readback ticks charged","Attempted-key cleanup including partial co-op chord failures","No game/save/state/collision/time mutation","F CPU density tiers, FrameWindow and runtime/build identity"],
+  "localHtml":{"bytes":5686331,"sha256":"fa3fe7f1cecd9af61d997b8d8b6a44823b94cad9861620edec3454e33cec0277","sourceSha":null},
+  "cloud":"VQ02H_CLOUD_RETENTION.json",
+  "archiveIdentity":"Package was made before publication; its null source and assembled recovery are intentional. This GitHub receipt binds tested tree and later published source. Do not rewrite original logs or compare source-null local HTML with source-embedded CI HTML.",
+  "localBrowserRun":false,"nativeAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,
+  "heldRendererBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "fullScope":"T03-T08 retained; held Z/local-browser restrictions unchanged; no new art or completed chapter claim."
+}

@@ -1,0 +1,18 @@
+{
+  "schema":1,"batch":"VQ02H","version":"0.9.30",
+  "source":"840ffe01882c8248f11603ee1c4da246f5aa2ccc",
+  "sourceTree":"205bc73a075b92a5efd5ac072f45f6857b037b4a",
+  "folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "fileId":"1w5T1edXd0vXOhciA23SRC3CWNqKEMPyb",
+  "name":"Chrono-CI49-terminal-VQ02H-tested-batch.zip",
+  "bytes":52245774,
+  "sha256":"428c22ed7f6522f8eb83bd324b3306da22e07f8206afc4f82152e4a305366c40",
+  "manifestEntries":36,"rawArchives":4,
+  "verification":{"downloadedRawReadback":true,"sizeAndSha256Matched":true,"zipCrcMatched":true,"all36ManifestEntriesMatched":true,"fourUntouchedOriginalsByteMatched":true,"nestedRawZipCrcMatched":true,"parentMetadataMatched":true},
+  "contents":["Four untouched CI49 browser/good/bad/art ZIP archives","CI49 exact source tar inside raw browser ZIP; original Git archive comment matched G source","CI49 failure analysis and actual image review; six render-ledger listed hashes checked","Three H changed program files","Original red regression, two interrupted checks, completed final check/Python and standalone build/typecheck logs with exit records","Unit-cost model, explicitly not native acceptance","Unaccepted local HTML and build metadata with sourceSha null","272-file assembled tested-program recovery"],
+  "recovery":{"path":"recovery/VQ02H-tested-program-snapshot.tar.gz","files":272,"kind":"assembled-tested-program-snapshot-not-published-git-archive","baseSource":"8c9f8a26ad1e7e8a5683936604165a799f8acbec","testedTree":"205bc73a075b92a5efd5ac072f45f6857b037b4a","docs":"Only THIRD_PARTY.md included. Read current GitHub main documents separately; do not overwrite progress from an old tar."},
+  "publicationNote":"Uploaded and downloaded/hash-verified before source commit. Archived null-source receipt is preserved. This final GitHub receipt supplies published identity; source tree matches tested program subtrees and retains then-current main docs.",
+  "toolchain":"Existing1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE: restored node_modules only, esbuild hardlink preserved, no old source/config or bootstrap CI.",
+  "nativeRepairAccepted":false,"newPagesAccepted":false,"artApproved":false,"physicalDeviceApproved":false,
+  "privacy":"No ROM, private original media, font files or credentials added. Sharing permissions unchanged."
+}

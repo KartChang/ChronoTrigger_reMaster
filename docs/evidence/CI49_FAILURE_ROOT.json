@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "run": 35641527652,
+  "number": 49,
+  "source": "8c9f8a26ad1e7e8a5683936604165a799f8acbec",
+  "event": "push",
+  "attempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "updatedAt": "2026-09-21T19:15:06Z",
+  "accepted": false,
+  "firstRoot": "CI49-cpu-native-observation-overhead-budget",
+  "jobs": {
+    "validate": {"id":106471733017,"conclusion":"failure","firstFailedStep":21},
+    "good": {"id":106471733186,"conclusion":"success"},
+    "bad": {"id":106471733213,"conclusion":"success"}
+  },
+  "originalCpuReport": {"path":"cpu-renderer/report.json","bytes":1112903,"sha256":"9e83983820653d63b2a3c696bb00778e61d77b60e95d0546fd1dcccd90a512d4"},
+  "html": {"bytes":5686369,"sha256":"fe3ec313725c3e001f01ccff24928cfc2eaef4a5497ecdf32492dd4dc420305f"},
+  "failedRoute": {
+    "axis":"z","target":5.1,"chapter":"overworld1000","budget":315,
+    "before":{"ticks":736,"x":0.039999999999998766,"z":-2.7},
+    "afterRelease":{"ticks":1059,"x":0.039999999999998766,"z":4.980000000000005},
+    "elapsedTicks":323,"pulseCount":29,"everyHoldMs":100,
+    "movementEquivalentTicks":192,"otherElapsedTicks":131,
+    "caughtLastStateTicks":1061
+  },
+  "finding":"Repeated 100ms native holds forced 29 key-release/readback cycles on the original 7.8-unit overworld leg. The original 315-tick budget was exhausted after 323 ticks. Movement/other ticks are derived from recorded displacement and fixed speed, not fabricated native evidence. The catch snapshot at1061 is later than the failing released-position observation at1059.",
+  "boundary":"Final error is numerically just below .12, but exhausted budget must still fail BEFORE arrival. Do not move arrival ahead of budget checks, subtract readback ticks, reset deadline, change collisions or construct successful state/save fixtures.",
+  "partialNativeEvidence":"Four earlier movement calls arrived after release. Actual bedroom stairs, home and overworld were reached. This supports the prior stairs correction only as partial native evidence; the two complete CPU journeys and F presentation/save contracts are not accepted.",
+  "secondaryFailure":"Step22 lacks a successful CPU final report after step21 terminated; this is secondary, not another gameplay root.",
+  "visualReview":{"reviewed":true,"path":"cpu-renderer/failure.png","bytes":303813,"sha256":"e72d68bb1950094093cf5fc7830b498f5aff359cd80d6950769e3ba02116a11f","observation":"Actual CPU overworld, terrain, water, houses, trees, tent and player near the fair are visible. Not blank rendering or WebGL startup failure. No art/device/sustained-performance certification."},
+  "evidenceChecks":{"rawZipSizeDigestCrcMatched":4,"renderLedgerListedFilesBytesHashMatched":6,"renderLedgerSourceMatched":true,"verifierReexecuted":false,"exactLedgerRegenerationClaim":false,"laneLedgersReverified":false},
+  "artifacts":[
+    {"id":10659285772,"path":"raw/CI49-browser.zip","bytes":19002501,"sha256":"16ed78647e3220daaf6b2c6680a714010038d7c087729fc35f7d5b3229287006"},
+    {"id":10658173718,"path":"raw/CI49-good.zip","bytes":26749907,"sha256":"5796da87fcf2cf41b68031c84ef21126f0a74c64b53408e95a567c09a7d4e1ee"},
+    {"id":10658978194,"path":"raw/CI49-bad.zip","bytes":4275059,"sha256":"54c4236ae3e92118539e20e089c42ec0cb615ce3386a6e2bc7e2fd61df43bdf1"},
+    {"id":10659350659,"path":"raw/CI49-art.zip","bytes":324934,"sha256":"9e2aee3857e69396babe9b110ec16629d8d99892bbe680e08249c9abc24b799f"}
+  ],
+  "cloudRetention":"VQ02H_CLOUD_RETENTION.json",
+  "repairSource":"840ffe01882c8248f11603ee1c4da246f5aa2ccc",
+  "repairValidation":35669876213,
+  "playableArtifactProduced":false,"newPagesAccepted":false,"localBrowserRun":false,"nativeRepairAccepted":false
+}

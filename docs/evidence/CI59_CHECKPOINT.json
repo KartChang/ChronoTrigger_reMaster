@@ -1,0 +1,21 @@
+{
+  "schema": "chrono-ci-checkpoint-v1",
+  "sourceSha": "f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9",
+  "batch": "VQ02Q",
+  "version": "0.9.39",
+  "runNumber": 59,
+  "runId": "35740055642",
+  "status": "completed",
+  "conclusion": "success",
+  "technicalEvidenceAccepted": true,
+  "active": false,
+  "acceptanceReceipt": "docs/evidence/CI59_ACCEPTANCE.json",
+  "pagesRunId": "35743956702",
+  "supersededBy": "docs/evidence/CI60_CHECKPOINT.json",
+  "nextSource": "f7de177305e46cf5d72a63968404d74451579677",
+  "nextRun": "35749870324",
+  "driveFileId": "16En-zDfwXGNnF2ozBrHlOjZ8KoFzEiK7",
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "wholeGameAccepted": false
+}

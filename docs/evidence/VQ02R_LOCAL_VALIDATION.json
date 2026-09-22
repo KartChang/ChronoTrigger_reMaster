@@ -1,0 +1,177 @@
+{
+  "schema": "chrono-vq02r-local-validation-v1",
+  "batch": "VQ02R",
+  "version": "0.9.40",
+  "baseSource": "f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9",
+  "baseTree": "1797ff77512702d58ee394a54d14b6fc32e4ec74",
+  "sourceSha": "f7de177305e46cf5d72a63968404d74451579677",
+  "expectedSourceTree": "5f73024510d273a19f85e3a9f78eaa83598decf6",
+  "publicationStatus": "published once non-force; main read back; entire tested program tree matched",
+  "tests": {
+    "node": 1392,
+    "python": 337,
+    "assets": true,
+    "typecheck": true,
+    "build": true,
+    "fullNpmCheck": true,
+    "diffCheck": true,
+    "nodeVersion": "v22.16.0",
+    "pythonVersion": "Python 3.13.5",
+    "localBrowser": false
+  },
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "a511fa0e8fcb591a2b4a80f7a92d2b324e19b5585ec17f58d249592f14625fd3",
+      "gitBlob": "6c4297e4e15c9988216a1472cb8db9b51b9dff69"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 12329,
+      "sha256": "abfebe897862074418f6b9dc2e8dec7f07da4d84aa36a1574df3d7208b1d8223",
+      "gitBlob": "c946e5120c113bbe62ea81e8efa3409707a70120"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 4416,
+      "sha256": "8b9c10ea38f0f1a797eca39f1226096ec1adbef35395576bfdfc0d853aaa13da",
+      "gitBlob": "cc51ac04b33787f4b1ff8d458ae6f238500e1513"
+    },
+    {
+      "path": "scripts/woodland-evidence.mjs",
+      "bytes": 1285,
+      "sha256": "d275634674295b069f43a58a0281db2b64db13607c5984000b227dc55e2e5471",
+      "gitBlob": "abbf9f60a8509c1b5398542bf173171468e7e955"
+    },
+    {
+      "path": "src/kingdom-render.ts",
+      "bytes": 10597,
+      "sha256": "aa3e9e469315d2542ae2c3c080e5a87cdc8241bb789b97bdc2df57384542b473",
+      "gitBlob": "6a4ceca29755073a7dfda85f79a58c1f4605862a"
+    },
+    {
+      "path": "src/woodland-art.ts",
+      "bytes": 5024,
+      "sha256": "4a8fea6fc92ca5bbf65f8df8335391574fc011482b769187aa3f724bec33dac7",
+      "gitBlob": "f654435d35d4a5f907e9d5d705bc19111ba0bc36"
+    },
+    {
+      "path": "tests/baselines/vq02r-declared-woodland-edits.json",
+      "bytes": 4034,
+      "sha256": "9c76532cd84862371c1288d003a0af9fd13dfcae838c6d6d99aec071e8e80a2f",
+      "gitBlob": "6ced6a72b6d2941185faafde95c388a646116c6f"
+    },
+    {
+      "path": "tests/cpu-era-evidence.test.mjs",
+      "bytes": 8545,
+      "sha256": "9cebda2907a65eec4bb6f8dca4a7761d9f482e3cec3aed8ddb71c5ea6acebbf1",
+      "gitBlob": "a3d95613f2a3562d4a37087328ac8f187e37c244"
+    },
+    {
+      "path": "tests/cpu_era_route.py",
+      "bytes": 12393,
+      "sha256": "41c408acfe9679463f27afd6c6fa71192b499f396dfc1dd68bcbda6b20eb229b",
+      "gitBlob": "6ca9442f4ab137c1d697ba6ffcb9f3a5e150e2ad"
+    },
+    {
+      "path": "tests/cpu_journey_support_test.py",
+      "bytes": 16979,
+      "sha256": "66ee2cb174134a9af6fcc3ca2e0e8156fcc323f20f0529782a2a76e8585bb018",
+      "gitBlob": "95f3374399c76f8f0dec3db1459141aa67f03e53"
+    },
+    {
+      "path": "tests/fixtures/woodland-pixels-unit.json",
+      "bytes": 2132,
+      "sha256": "2964cc01c5fb72c3cb69cb6b97e5b27f51a06a119e8c490d6e6d2aa32bb87d65",
+      "gitBlob": "99e0a0ba2fa625ebb71c157ee5b2a5e4348577dc"
+    },
+    {
+      "path": "tests/helpers/story-npc-baseline.mjs",
+      "bytes": 742,
+      "sha256": "6ab73e9609b56ad4c95252292b91b8c701720a8e248d634980619ef9e6a3fd66",
+      "gitBlob": "7571349d54f89b7dab35022a16cffd907d6284ed"
+    },
+    {
+      "path": "tests/helpers/woodland-baseline.mjs",
+      "bytes": 602,
+      "sha256": "ee3859f4d781ee06179ea4f70e95f86831c26e2de487e933355e59f4a2021e60",
+      "gitBlob": "21d239ae0ed07645b28a3e22c19d7cdd022ec07f"
+    },
+    {
+      "path": "tests/helpers/woodland-fixture.mjs",
+      "bytes": 651,
+      "sha256": "d52affd14d0fb3a840d985637d419aa4d912b84eba5afba622f88eec4ea8c142",
+      "gitBlob": "8faa7015e329ec2107376f172cfc2343592d1ec8"
+    },
+    {
+      "path": "tests/story-npc-art.test.mjs",
+      "bytes": 3434,
+      "sha256": "1247bc1008932bab74c7667630bd979e93d06f30d4cc08b08d9aef8d4fdfa513",
+      "gitBlob": "aadeed1e298ec6a1749b7a2448d3bf11dcbc4f94"
+    },
+    {
+      "path": "tests/story_npc_preservation.py",
+      "bytes": 763,
+      "sha256": "f47f750f93e1cb082871b675ed6145f37e556f4d8b2543b16bbaaaaedd7557bc",
+      "gitBlob": "3aa4942530109ffec568763854a693dddff4464e"
+    },
+    {
+      "path": "tests/story_npc_preservation_test.py",
+      "bytes": 4576,
+      "sha256": "3138eb54b10dcc6d851bde3d43c986da6feceea2d9748853fdee6b749200ccb8",
+      "gitBlob": "e2159a7e39aeca6a4340ad60f1305093da35e26a"
+    },
+    {
+      "path": "tests/woodland-art.test.mjs",
+      "bytes": 4848,
+      "sha256": "58da5d5604d61b776bc88b902052a528b28d237ddd12569ab4ee352688845124",
+      "gitBlob": "7582ee01eb18ecd6077da420f604da2d9fc1e3f5"
+    },
+    {
+      "path": "tests/woodland-integration.test.mjs",
+      "bytes": 3131,
+      "sha256": "ef000bc5e612390d961759420123ec65f7e84ff28c77154539cf779b6bf31f3a",
+      "gitBlob": "d20fe12ee7b506c25dfed0b733f58069b0c6f604"
+    },
+    {
+      "path": "tests/woodland_preservation.py",
+      "bytes": 620,
+      "sha256": "1f108e2e1b650037144c5d61b8e151814e4150c40b503d9b1a11f8e3342474be",
+      "gitBlob": "d5058bfa03ba47393eae80b8bc68911a2d879b04"
+    },
+    {
+      "path": "tests/woodland_preservation_test.py",
+      "bytes": 1475,
+      "sha256": "93cf04bbaa4b273169890ee23ca02bedae9f2cb7e584f31edc07277179503e09",
+      "gitBlob": "7dde56c4e6b121231d365797cb8bb38d90fa7b5f"
+    }
+  ],
+  "visualWork": [
+    "Quiet forest/Truce ground color masses with sparse grass/leaf clusters and unchanged painted route predicates",
+    "64x80 authored clustered oak canopy, branch/bark/root direction with original contact row and original world-plane geometry",
+    "24x32 authored fern card replaces only existing rock-fern texture; no new obstacle/mesh"
+  ],
+  "nativeEvidenceExtension": "Original era600 capture gains readonly woodland texture samples; original route/actions/assertions retained. Existing source-bound era ledger additionally requires actual new ground/tree identity, dimensions, nearest alpha and sampled RGBA. Authored expected pixels and structural unit fixtures are not browser evidence.",
+  "preservation": "Three declared R files inverted to exact Q before historical fingerprints; expected historical hashes unchanged. Missing/duplicate/out-of-scope mutations still rejected, including original Q hunk negatives.",
+  "runtimeChanges": [
+    "src/woodland-art.ts",
+    "src/kingdom-render.ts"
+  ],
+  "unchanged": [
+    "all core/main/input/save/time/collision",
+    "original native CPU/era/rescue/trial actions,targets,budgets and operators",
+    "all scene geometry,mesh counts,anchors,world scale",
+    "prologue-render.ts held blob2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "index.html,.github,package/lock,quality/scorecard,existing asset approval status"
+  ],
+  "testHistory": "Initial complete check caught an unused old drawTree import; first Python check rejected the two intended source-pinned capture/verifier changes. Corrected explicit reversible render wiring, not expected hashes or native gates. Final separate full npm check exited0 and337 Python tests passed. Earlier logs retained.",
+  "sourceAuthoredPreview": "audit/woodland-authored-review.png is pure authored-source export, NOT native browser screenshot or art approval",
+  "awaiting": "single new matching CI including complete old suite, new actual texture diagnostics, screenshots and Pages",
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "sourceTree": "5f73024510d273a19f85e3a9f78eaa83598decf6",
+  "pendingRun": "35749870324",
+  "driveFileId": "16En-zDfwXGNnF2ozBrHlOjZ8KoFzEiK7"
+}

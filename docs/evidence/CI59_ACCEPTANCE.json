@@ -1,0 +1,328 @@
+{
+  "schema": "chrono-ci59-acceptance-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "sourceSha": "f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9",
+  "sourceTree": "1797ff77512702d58ee394a54d14b6fc32e4ec74",
+  "batch": "VQ02Q",
+  "version": "0.9.39",
+  "runId": "35740055642",
+  "runNumber": 59,
+  "attempt": 1,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "success",
+  "updatedUtc": "2026-09-22T14:57:32Z",
+  "jobs": [
+    {
+      "id": 106787156681,
+      "name": "validate",
+      "conclusion": "success"
+    },
+    {
+      "id": 106787156376,
+      "name": "good",
+      "conclusion": "success"
+    },
+    {
+      "id": 106787156672,
+      "name": "bad",
+      "conclusion": "success"
+    }
+  ],
+  "technicalEvidenceAccepted": true,
+  "ledgerCount": 7,
+  "listedRows": 127,
+  "allExactReproduced": true,
+  "ledgers": [
+    {
+      "name": "validate",
+      "bytes": 3768,
+      "sha256": "5a1b6b5523b7a3e3270d30e8002c58f40fd50ef5fad1009fb815ecf706516fe2",
+      "listedFiles": 17,
+      "exactReproduced": true
+    },
+    {
+      "name": "good",
+      "bytes": 2088,
+      "sha256": "586ad2c57e0ac20f3010ebd3de02ab12878f936b058aea549ab6b23748458e46",
+      "listedFiles": 8,
+      "exactReproduced": true
+    },
+    {
+      "name": "bad",
+      "bytes": 1260,
+      "sha256": "9b8d97a7c51ce35553512e0c8b1200394dd723edca8475d86267ae2c42db6632",
+      "listedFiles": 4,
+      "exactReproduced": true
+    },
+    {
+      "name": "render",
+      "bytes": 1278,
+      "sha256": "3de2dbd97cb581759e8700d1bfabce673f67371f9727588ce6215a7649af4ba8",
+      "listedFiles": 6,
+      "exactReproduced": true
+    },
+    {
+      "name": "cpu",
+      "bytes": 2570,
+      "sha256": "599acdecdd83d89640c0d88035af20694c3a971791e7f1aa65af9a2f24b5ed42",
+      "listedFiles": 14,
+      "exactReproduced": true
+    },
+    {
+      "name": "era600",
+      "bytes": 2973,
+      "sha256": "858c922d95f05c5392f2a69a47d76e454886a337c4aafd02d5738801a61e29f7",
+      "listedFiles": 16,
+      "exactReproduced": true
+    },
+    {
+      "name": "adventure",
+      "bytes": 11376,
+      "sha256": "b6ba7bd4b2cd7d26cf42f72b045ed17c5b81a780d91713f12cee3b1f2d6a6eb1",
+      "listedFiles": 62,
+      "exactReproduced": true
+    }
+  ],
+  "nativeCoverage": {
+    "primaryJourneys": 13,
+    "originalNativeChooserReports": 9,
+    "originalCpuLegs": 10,
+    "era600Legs": 30,
+    "rescueLegs": 37,
+    "trialLegs": 30,
+    "adventureLegs": 67,
+    "adventureEncounters": 4,
+    "solidPropApproaches": 2,
+    "rescueMilestones": 10,
+    "trialMilestones": 7,
+    "sameRunOwnV4V5V7AndAlternateCellNativeChain": true,
+    "bothReleasedOwnersOriginalBudgetsAndAssertions": true,
+    "activeWindows": 6,
+    "minimumDrawsEach": 120,
+    "completeSeventhLedger": true,
+    "actualOriginalCpuActiveFrames": {
+      "profile": "vq02f-active-frame-window",
+      "active": true,
+      "samples": 61,
+      "capacity": 120,
+      "ready": true,
+      "meanMs": 50.40655737704994,
+      "p95Ms": 65.79999999981374,
+      "maxMs": 180.5,
+      "fps": 19.838688695199387,
+      "rejected": 0,
+      "physicalDeviceApproved": false
+    }
+  },
+  "inspectedPrimaryCpuPngs": 39,
+  "visualFinding": "Q story-NPC cloth and tick poses are visible in original CPU rescue/trial views. Dense high-contrast ground and canopy stippling still competes with paths/actors in forest/Truce. No claim that art reaches90. R targets only permitted kingdom outdoors, not held prologue art.",
+  "pages": {
+    "runId": "35743956702",
+    "runNumber": 53,
+    "conclusion": "success",
+    "updatedUtc": "2026-09-22T14:58:53Z",
+    "prepareJob": 106800589572,
+    "deployJob": 106800701881,
+    "deployPublicHttpStepPassed": true,
+    "selectedSourceMatches": true,
+    "html": {
+      "bytes": 5695936,
+      "sha256": "520c219ee39d26e013de34ab75675e7c21d081dabc916b1326108b63a53e6ae4",
+      "playableStagedDeployedEqual": true
+    },
+    "localHttpOrBrowserPerformed": false
+  },
+  "rawArtifacts": [
+    {
+      "file": "CI59-browser.zip",
+      "id": 10701471569,
+      "bytes": 30662192,
+      "sha256": "5a24604a0629fead4e9a053bf5332c85c2cf872e006515713c42a7a7d3553789"
+    },
+    {
+      "file": "CI59-good.zip",
+      "id": 10700062462,
+      "bytes": 26664222,
+      "sha256": "98d936dfd74af39770a53c9e1ec99309a488d64bdcec97507b6092348e72a23b"
+    },
+    {
+      "file": "CI59-bad.zip",
+      "id": 10699249638,
+      "bytes": 4266504,
+      "sha256": "fff4807676092c7dcdc4816f21404b6e9d53027a73e78d507f641c2679cf72d3"
+    },
+    {
+      "file": "CI59-playable.zip",
+      "id": 10701386667,
+      "bytes": 1320860,
+      "sha256": "567f4ddbc151dcffb5281620e57944d118207b5d4dfd120ce0f29e83d0a25d79"
+    },
+    {
+      "file": "CI59-art.zip",
+      "id": 10701276613,
+      "bytes": 324934,
+      "sha256": "a912f067eee7263fed43d8140cf57336465f06d922ea62cad9545e2c61d77740"
+    },
+    {
+      "file": "Pages53-staged.zip",
+      "id": 10702305316,
+      "bytes": 1326228,
+      "sha256": "b1f379c9dfe7935d1de4a8a40d10ebd41505c2f23598f6ec1e56df18c0bae023"
+    },
+    {
+      "file": "Pages53-deployed.zip",
+      "id": 10702570192,
+      "bytes": 1324297,
+      "sha256": "6cd4861a23c5add5918d55049695e9aedd4aa4d8992ef44acaa2b88a4e5576e7"
+    }
+  ],
+  "drive": {
+    "fileName": "Chrono-CI59-accepted-VQ02R-tested-batch.zip",
+    "bytes": 67658651,
+    "sha256": "dce88526c8c33fd971aa9161af21161eaa06d237d650b2d814db882eadc00430",
+    "manifestEntries": 60,
+    "programFiles": 325,
+    "changedFiles": 21,
+    "rawZipCount": 7,
+    "expectedSourceTree": "5f73024510d273a19f85e3a9f78eaa83598decf6",
+    "localVerified": true,
+    "fileId": "16En-zDfwXGNnF2ozBrHlOjZ8KoFzEiK7",
+    "driveFolderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "downloadedReadback": true,
+    "downloadedBytesAndSha256Matched": true,
+    "zipCrcPassed": true,
+    "allManifestBytesAndHashesMatched": true,
+    "allSevenRawZipsUnmodifiedAndMatched": true,
+    "parentReadbackMatched": true,
+    "schema": "chrono-cloud-retention-v1",
+    "batch": "VQ02R",
+    "version": "0.9.40",
+    "sourceSha": "f7de177305e46cf5d72a63968404d74451579677",
+    "sourceTree": "5f73024510d273a19f85e3a9f78eaa83598decf6",
+    "originalCiRun": "35740055642",
+    "originalPagesRun": "35743956702",
+    "recoveryPath": "recovery/VQ02R-tested-program-snapshot.tar.gz",
+    "recoveryKind": "assembled tested program snapshot, NOT published Gitarchive",
+    "archiveTiming": "Immutable prepublication package has source=null; this GitHub receipt supplies actual publication and pending CI",
+    "pendingRun": "35749870324",
+    "newNativeArtAccepted": false
+  },
+  "rawDetails": "Verified Drive: audit/ci59/CI59_ACCEPTANCE.json and CI59_ACTIVE_WINDOWS.json, audit/ci59/verify.mjs; seven original archives remain unmodified",
+  "boundedWindowFps": [
+    {
+      "lane": "rescue",
+      "index": 0,
+      "draws": 123,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 50.5875,
+        "p95Ms": 57.60000000009313,
+        "maxMs": 91.80000000004657,
+        "fps": 19.767729182110205,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    },
+    {
+      "lane": "rescue",
+      "index": 1,
+      "draws": 124,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 42.60749999999923,
+        "p95Ms": 49,
+        "maxMs": 61.199999999953434,
+        "fps": 23.470046353341974,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    },
+    {
+      "lane": "rescue",
+      "index": 2,
+      "draws": 122,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 41.483333333333334,
+        "p95Ms": 45.10000000009313,
+        "maxMs": 57.5,
+        "fps": 24.106066693451183,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    },
+    {
+      "lane": "trial",
+      "index": 0,
+      "draws": 124,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 22.504166666666666,
+        "p95Ms": 25.300000000046566,
+        "maxMs": 26.600000000093132,
+        "fps": 44.43621551564525,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    },
+    {
+      "lane": "trial",
+      "index": 1,
+      "draws": 126,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 22.59833333333372,
+        "p95Ms": 25.100000000093132,
+        "maxMs": 38.800000000046566,
+        "fps": 44.2510509624596,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    },
+    {
+      "lane": "trial",
+      "index": 2,
+      "draws": 123,
+      "frames": {
+        "profile": "vq02f-active-frame-window",
+        "active": true,
+        "samples": 120,
+        "capacity": 120,
+        "ready": true,
+        "meanMs": 22.77583333333217,
+        "p95Ms": 25.800000000046566,
+        "maxMs": 38.10000000009313,
+        "fps": 43.906187113536326,
+        "rejected": 0,
+        "physicalDeviceApproved": false
+      }
+    }
+  ],
+  "legacyDocs": "Previous response interrupted after Q source publication; STATUS/handoff still at CI58. This acceptance advances directly to actual Q/CI59, not a replay or retroactive acceptance of old failed CI.",
+  "doNotReopen": "CI59/Pages53 is now authoritative accepted baseline. Do not rerun CI53/Pages47,CI58 or republish Q. Older failed runs remain failed.",
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null
+}

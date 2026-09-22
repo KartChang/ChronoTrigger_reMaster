@@ -1,35 +1,33 @@
-# Immediate continuation — CI58 only
+# Immediate continuation — CI60 only
 
-Immediately use GitHub connector for KartChang/ChronoTrigger_reMaster; Drive when needed. Main only, one AI, non-force; no branch/PR/history inventory/reimplementation/token/ROM/manual evidence request. Read STATUS and CI58_CHECKPOINT with this file. Confirm main once and exact run once; later docs HEAD is not another source.
+Immediately use GitHub connector for KartChang/ChronoTrigger_reMaster; Drive when needed. Main only, single AI, non-force. No history audit, branch/PR, duplicated engineering, token/ROM/manual-evidence request. Read STATUS and CI60_CHECKPOINT with this file; confirm main once, exact run once. Later docs HEAD is not another runtime.
 
-## Published position
+## Exact current position
 
-**VQ02P/0.9.38** source **71f0cc05a6b0b3b09a314242405d2f7ba543b130**, tree **f5866487151c269043b181b530199d7631b5a3c6**, parent **f1981836a41163f445d446c09d5ed5aa91f5c1c2**. Full tested program tree matched and main read back. New src tree **2e16dab74bbcc589987d30993361223dd6d5dcd0** changes only cpu-raster.ts and readonly cpu-scene observations. Do not repeat P publication.
+R/0.9.40 source **f7de177305e46cf5d72a63968404d74451579677**；root tree **5f73024510d273a19f85e3a9f78eaa83598decf6**；parent **f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9**。21檔一次non-force發布，main回讀且完整程式tree與已測版本一致。唯一 **CI60 35749870324**，workflow360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count1。最後in_progress/null，created2026-09-22T15:49:24Z，updated15:49:32Z（台灣23:49:32）。尚未查jobs或接受R；文件HEAD不是另一遊戲source。
 
-Current root T05-early-visual-cohesion; terminal **CI58-pending-full-validation**. Only run **35722175327 /CI58**, workflow360357259/.github/workflows/ci.yml, push/attempt1. Exact SHA all events/states count1. Last in_progress/null, created2026-09-22T11:34:13Z/updated11:34:27Z (Taipei19:34:27). No jobs read or native acceptance. Pending: preserve/report, no waiting/polling/rerun/dispatch/cancel/extra CI.
+Current root T05-early-visual-cohesion; terminal CI60-pending-full-validation. No new R native acceptance. Queued/in_progress: preserve/report, no long wait/poll/rerun/dispatch/cancel/newsource. Failure: first matching actual root, keep all gates. Success: every CI60_CHECKPOINT requirement and real screenshots/cloud/Pages.
 
-## P is implemented; native mitigation remains unverified
+## R is implemented — do not rewrite or republish
 
-Twelve files: CPU raster exact conservative row spans/fixed-shape projection/scalar and row hoisting/same-buffer packed clear; readonly work counters; unedited CI57 raster oracle;88 existing-scene combinations/4000triangles;Node benchmark;explicit inverse renderer preservation/negative tests;build/test wires/negative fixture. No game/input/time/collision/quality tier/material/geometry/native route or timeout change. No projection/texture cache retained. Oracle blobff7029702da8567c765acb4c76cc29442125a7d7. Historical expected hashes not replaced.
+本批改善僅限kingdom-render的托魯斯／森林戶外：384x352低頻地表色塊與稀疏草葉、64x80分組樹冠／枝幹樹根、24x32岩邊蕨類卡片。保留原painted route predicate、場景geometry/plane尺寸/物件座標/隨機序列消耗；不增加障礙或改角色尺寸。src/woodland-art.ts為可重用自製像素繪圖，src/kingdom-render.ts接用；共享pixel-art/world-art與prologue皆未改。
 
-1350Node/325Python/assets/typecheck/build/full npm check passed;11Node/5Python added. Five alternating24-sample Node kernel means improved14.34%-25.99%, exact pixels/depth. This EXCLUDES browser events/cadence/scene traversal and is NOT FPS/native precision evidence. First source-pin failures and host-interrupted check retained; final full checks exited0. No local browser.
+最終1392Node/337Python/assets/typecheck/build/full npm check/diff check通過。新圖純CPU場景與exact Q對照確認geometry/state不变、僅兩戶外畫面改變；六次地圖往返不增加mesh/texture；nearest二元alpha、接地、快取上限、完整原painted路徑、失敗反例及held blob均保留。三個明列R接線反向还原至Q，再驗原P/Q及舊旅程hash；expected未換，缺少/重複hunk或其他檔案改動仍拒絕。初次unused import與預期source pin失敗已修正，原log保留，最終各check exit0。全部本機證據非browser／真機驗收。
 
-## CI57 actual failure, not pending
+Original native driver/actions/targets/.12/tick budgets/one30s/250ms/256limits unchanged. Additional actual woodland diagnostics are read-only and source-bound. Expected source pixels and pure CPU source previews are NOT native evidence. Native success requires original3jobs/full13primary/native+CPU/audio/actor/HUD/touch/equipmentv8/trial,sevenledgers/eachbytehash,CPU2+600+rescue+trial ownv4-v5-v7/alternatecell,67dualownerlegs/4encounters/2props/17PNGs/6windows plus actual Rforest/truce pixels/resource metadata. Inspect images, not only counters.
 
-Run35712112661/O source9425f58c423897be08fe1ca0d810ec9d6088f7b3 completed/failure,updated2026-09-22T10:09:47Z. Validate106694937164 first failurestep21;good106694937405/bad106694937359 succeeded. FirstCPU home-tofair passed;second first co-op z=-2 failed169/165ticks. O public keyboard.press actually completed for50/16/17ms but still four movementticks;released positions-2.133333333333331/-1.8666666666666643 both miss. N rescue/trial skipped, not disproved or accepted.
+## Accepted baseline and stale-history correction
 
-Originaldraw67.1ms/48 active intervals mean65.31875ms at678x452;main polls once perrender forfixedsubsteps. Consistent with coarseinput sampling, not event-timestamp causal proof. OriginalfailurePNG viewed. Fourpassed preCPUledgers35rows/rawhasheschecked;verifiers NOT rerun. No CI57playable/Pages acceptance. Root CI57-driver-press-still-frame-quantized; receipts inGitHub andrawDrive.
+最後完整技術accepted為 **Q/0.9.39/sourcef0abb3ef0ecc67164031d0ac3b14b7333a13a8f9/CI59 35740055642/Pages53 35743956702**。三jobs、13primary、9原生chooser加原CPU/600/救援/審判、本人v4-v5-v7與alternate own cell鏈、原67腿/4遇敵/2props/17里程碑/6窗口全部核對。用exact Q原始source唯讀重算七ledger，逐byte相同，127列bytes/hash通過；39張CPU主原PNG已檢視。Pages prepare/deploy及公共HTTP step通過，playable/staged/deployed HTML同5695936bytes、SHA256 520c219ee39d26e013de34ab75675e7c21d081dabc916b1326108b63a53e6ae4。未做本機HTTP/browser。
 
-## Next run handling
+Q was already published despite interrupted responses; old docs stayed atCI58. This turn closes actualCI59/Pages53 directly. Do not rerunCI53/Pages47/CI58/CI59 or republishQ. The former narrow pulse root passed this actual run; no all-device precision guarantee.
 
-Failure: read first actual matching root/artifact; P is only measured cost mitigation, never assume input fixed. Keep original epsilon/ticks/30s and assertions. Success: every CI58_CHECKPOINT requirement. Original3jobs/13primary/9native+CPU/audio/actor/HUD/scenery/ATB/touch/equipmentv8/fulltrial/sixledgers;completeCPU2+600+rescue+trial ownv4->v5->v7/alternatecell;67dual-owner releasedlegs under originalbudgets;4encounters/2props/17PNGs/6nonoverlapping120drawwindows/seventhledger;Oactualpress andPwork/frame data. Actualpictures/costs andallbytes/hash,rawDrive downloadedreadback andsameCI playable/staged/deployed HTML/source/Pages are mandatory. Local source=null HTML is notthehashbaseline. No fixture/syntheticpositive save/progress substitution.
+## Durable recovery and next TODO
 
-## Durable recovery
+唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。最新Chrono-CI59-accepted-VQ02R-tested-batch.zip /16En-zDfwXGNnF2ozBrHlOjZ8KoFzEiK7，67658651bytes，SHA256 dce88526c8c33fd971aa9161af21161eaa06d237d650b2d814db882eadc00430。60manifest/325程式檔/七份未修改CI59及Pages53原ZIP，下載bytes/hash/CRC/全部manifest/rawZIP/parent均一致。recovery/VQ02R-tested-program-snapshot.tar.gz為assembled程式快照，不是published Gitarchive；不含進度docs（THIRD_PARTY除外）。包內source=null為發布前歷史，最新main文件補足實際身分，不重送已發布R、不用舊docs覆蓋進度。
 
-Only folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb. Latest **1qIQpqFbfG684IdOAH9Mi8JPblXmOkv0G /Chrono-CI57-terminal-VQ02P-tested-batch.zip**,52200466bytes,SHA256 **873f8e80be5774fc7fee10bcd6a153d0d059a8fc71634238c03751fbaedc7688**. Downloadedbytes/hash/CRC/37manifest/4rawZIP/parentverified. recovery/VQ02P-tested-program-snapshot.tar.gz:305programfiles,assembled NOTpublishedGitarchive. Latestdocs separatelyfrommain. Packagedsource=nullishistoricalprepublication;actualidentityabove. Do notoverwriteprogresswitharchive orrepublishP.
+After Rfull native closure continue observed compatibility, remaining early material/scale/silhouette/landmarks,animation/audio and meaningful long-session/device observation; do not equate authored previews or test counts with quality approval.
 
-Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE only node_modules/esbuildhardlink. PrivateROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM noreupload/publication. Lastaccepted K/source3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454 staysclosed. After nativeclosure continue observedcompatibility/performance,meaningful long-session/device observations and permitted earlymaterial/scale/silhouette/landmark/animation/audio TODO;kerneloptimization is not art completion.
+T03：隱含規則、版本差異、完整拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色與學習技能／雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來及其餘時代主支線、結局。T07：完整範圍整體>=90、每面向>=80%、required assets/five gates/zero critical與實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔及音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮，2300抵達不是完整未來，舊30stale，沒有新美術90、真機或全遊戲認證。
 
-T03：隱含規則、版本差異、完整拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色、學習技能與雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線及結局。T07：完整範圍整體>=90、每面向>=80%、required assets／five gates／zero critical，加實體裝置輸入、FPS/frame time、載入、記憶體、背景恢復、存檔與音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來，舊30為stale，沒有新的美術90、真機或全遊戲認證。
-
-保留TS/Babylon/esbuild、fixed ATB、A*、InputBoundary、P1/P2/自主第三與家中至2300及v1-v8裝備存檔。無新branch/PR/P3/ARPG或框架重造。Held Z/升級母親家具仍held，prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換或局部提升。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈只恢復node_modules及esbuild hardlink。臨時容器不是authority。
+保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三及家中至2300、v1-v8裝備存檔；無branch/PR/P3/ARPG/框架重造。Held Z/升級母親家具不提升，src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅恢復node_modules/esbuild hardlink；私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳。臨時容器不是authority。

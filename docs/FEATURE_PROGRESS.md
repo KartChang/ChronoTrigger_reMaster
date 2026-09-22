@@ -1,21 +1,21 @@
-# 功能進度 — P已發布；CI58待完整原生驗收
+# 功能進度 — Q已驗；R已發布；CI60待驗
 
-Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI58_CHECKPOINT。
+Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI60_CHECKPOINT。
 
-**VQ02P/0.9.38/source 71f0cc05a6b0b3b09a314242405d2f7ba543b130**，tree **f5866487151c269043b181b530199d7631b5a3c6**。唯一CI58 **35722175327**，push/attempt1，最後in_progress/null（2026-09-22T11:34:27Z）。Source一次non-force並回讀完整程式tree；1350Node/325Python/assets/typecheck/build/fullcheck通過，本機無browser。
+R/0.9.40 source **f7de177305e46cf5d72a63968404d74451579677**；root tree **5f73024510d273a19f85e3a9f78eaa83598decf6**；parent **f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9**。21檔一次non-force發布，main回讀且完整程式tree與已測版本一致。唯一 **CI60 35749870324**，workflow360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count1。最後in_progress/null，created2026-09-22T15:49:24Z，updated15:49:32Z（台灣23:49:32）。尚未查jobs或接受R；文件HEAD不是另一遊戲source。
 
-本批十二檔包含真正CPU raster成本優化、唯讀work診斷、原始source oracle、可重現kernel benchmark及回歸。掃描列保守界線略過外部像素，但原coverage/top-left/depth/UV/alpha運算及精度不改；固定形狀projection、row/numeric外提、packed clear共用原RGBA buffer。88場景組合/4000三角形的像素深度逐byte相等。未改主迴圈/輸入/時間/core/collision、native路線/斷言/預算、畫質tiers、材質幾何、index/workflow，held素材仍held。
+本批改善僅限kingdom-render的托魯斯／森林戶外：384x352低頻地表色塊與稀疏草葉、64x80分組樹冠／枝幹樹根、24x32岩邊蕨類卡片。保留原painted route predicate、場景geometry/plane尺寸/物件座標/隨機序列消耗；不增加障礙或改角色尺寸。src/woodland-art.ts為可重用自製像素繪圖，src/kingdom-render.ts接用；共享pixel-art/world-art與prologue皆未改。
 
-五案例Node kernel平均成本下降14.34%至25.99%，不含真正browser/cadence/event或scene traversal；**不宣稱FPS改善、原生精度修復或美術提升**。新11Node/5Python保護精確等价與原檔hash，僅反向明列兩個renderer改動，歷史expected未換。
+唯讀實際貼圖樣本加入原era600流程，七個source ledger保留、追加woodland契約；沒有移除原browser操作或斷言。Source preview與unit結構fixture不當native。
 
-CI57failed於原CPU第二旅程z=-2，O press50/16/17ms都完成仍移動4ticks，兩邊誤差.133333，169/165ticks。第一家中至祭典完成；N救援/審判未執行。末次draw67.1ms、48活動interval平均65.31875ms，與每render取樣再共用fixed substeps的粗粒度一致，但沒有事件層因果证明。四passed ledger35列/四rawZIP已核，未重跑verifier；原failurePNG已看。CI57不接受，P緩解效果要看CI58。
+最終1392Node/337Python/assets/typecheck/build/full npm check/diff check通過。新圖純CPU場景與exact Q對照確認geometry/state不变、僅兩戶外畫面改變；六次地圖往返不增加mesh/texture；nearest二元alpha、接地、快取上限、完整原painted路徑、失敗反例及held blob均保留。三個明列R接線反向还原至Q，再驗原P/Q及舊旅程hash；expected未換，缺少/重複hunk或其他檔案改動仍拒絕。初次unused import與預期source pin失敗已修正，原log保留，最終各check exit0。全部本機證據非browser／真機驗收。
 
-L/M/N/O的完整CPU延伸保留：本人v4-v5-v7與alternate cell原生回讀，67腿/4遇敵/2props/17PNG/6窗口/第七ledger。仍須同source全套成功及實際圖/成本/雲端/Pages驗收，不能以已寫測試等於已玩通。
+最後完整技術accepted為 **Q/0.9.39/sourcef0abb3ef0ecc67164031d0ac3b14b7333a13a8f9/CI59 35740055642/Pages53 35743956702**。三jobs、13primary、9原生chooser加原CPU/600/救援/審判、本人v4-v5-v7與alternate own cell鏈、原67腿/4遇敵/2props/17里程碑/6窗口全部核對。用exact Q原始source唯讀重算七ledger，逐byte相同，127列bytes/hash通過；39張CPU主原PNG已檢視。Pages prepare/deploy及公共HTTP step通過，playable/staged/deployed HTML同5695936bytes、SHA256 520c219ee39d26e013de34ab75675e7c21d081dabc916b1326108b63a53e6ae4。未做本機HTTP/browser。
 
-最新保存 **1qIQpqFbfG684IdOAH9Mi8JPblXmOkv0G** /Chrono-CI57-terminal-VQ02P-tested-batch.zip，指定folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；52200466bytes/hash/CRC/37manifest/305程式檔/四rawZIP/parent下載一致。包內source=null為發布前歷史，目前身份依GitHub。
+Q NPC材質輪廓已可見，CPU完整旅程此版實際通過；這不是全遊戲、美術90、保證流暢或真機認證。R本批原生驗收只等CI60，不回頭重做Q及舊走位修正。
 
-最後accepted K/source3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454不重開，沒有新的美術或全遊戲分數。
+唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。最新Chrono-CI59-accepted-VQ02R-tested-batch.zip /16En-zDfwXGNnF2ozBrHlOjZ8KoFzEiK7，67658651bytes，SHA256 dce88526c8c33fd971aa9161af21161eaa06d237d650b2d814db882eadc00430。60manifest/325程式檔/七份未修改CI59及Pages53原ZIP，下載bytes/hash/CRC/全部manifest/rawZIP/parent均一致。recovery/VQ02R-tested-program-snapshot.tar.gz為assembled程式快照，不是published Gitarchive；不含進度docs（THIRD_PARTY除外）。包內source=null為發布前歷史，最新main文件補足實際身分，不重送已發布R、不用舊docs覆蓋進度。
 
-T03：隱含規則、版本差異、完整拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色、學習技能與雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線及結局。T07：完整範圍整體>=90、每面向>=80%、required assets／five gates／zero critical，加實體裝置輸入、FPS/frame time、載入、記憶體、背景恢復、存檔與音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來，舊30為stale，沒有新的美術90、真機或全遊戲認證。
+T03：隱含規則、版本差異、完整拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色與學習技能／雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來及其餘時代主支線、結局。T07：完整範圍整體>=90、每面向>=80%、required assets/five gates/zero critical與實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔及音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮，2300抵達不是完整未來，舊30stale，沒有新美術90、真機或全遊戲認證。
 
-保留TS/Babylon/esbuild、fixed ATB、A*、InputBoundary、P1/P2/自主第三與家中至2300及v1-v8裝備存檔。無新branch/PR/P3/ARPG或框架重造。Held Z/升級母親家具仍held，prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換或局部提升。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈只恢復node_modules及esbuild hardlink。臨時容器不是authority。
+保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三及家中至2300、v1-v8裝備存檔；無branch/PR/P3/ARPG/框架重造。Held Z/升級母親家具不提升，src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅恢復node_modules/esbuild hardlink；私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳。臨時容器不是authority。

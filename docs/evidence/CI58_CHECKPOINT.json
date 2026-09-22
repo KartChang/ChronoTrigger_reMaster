@@ -3,7 +3,7 @@
   "repository": "KartChang/ChronoTrigger_reMaster",
   "branch": "main",
   "currentRoot": "T05-early-visual-cohesion",
-  "executionTerminal": "CI58-pending-full-validation",
+  "executionTerminal": "historical-superseded-by-CI59-accepted",
   "batch": "VQ02P",
   "version": "0.9.38",
   "sourceSha": "71f0cc05a6b0b3b09a314242405d2f7ba543b130",
@@ -61,5 +61,9 @@
   "physicalDeviceApproved": false,
   "artApproved": false,
   "fullGameAccepted": false,
-  "nativePrecisionRepairAccepted": false
+  "nativePrecisionRepairAccepted": false,
+  "active": false,
+  "supersededBy": "docs/evidence/CI59_ACCEPTANCE.json",
+  "currentCheckpoint": "docs/evidence/CI60_CHECKPOINT.json",
+  "historicalObservationOnly": "Original CI58 status fields are the historical observation, not a current pending task. Q was subsequently published and CI59/Pages53 is now fully accepted. No CI58 re-audit was performed this turn."
 }

@@ -1,0 +1,12 @@
+{
+  "schema":1,"batch":"VQ02I","version":"0.9.31","source":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","sourceTree":"5563d8c44fded9b43c72461411aef7a1ab2d6376",
+  "folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1OwdrRCffGd6YtJx2YMn1qzoPE2CnvYoV","name":"Chrono-CI50-terminal-VQ02I-tested-batch.zip","bytes":53409483,"sha256":"a48de01346c3fdc37a46e538cc9dffd5ff629984d4002bedfda7b2dce6858a5a",
+  "manifestEntries":30,"rawArchives":4,
+  "verification":{"downloadedRawReadback":true,"sizeAndSha256Matched":true,"zipCrcMatched":true,"all30ManifestEntriesMatched":true,"fourUntouchedOriginalsByteMatched":true,"nestedRawZipCrcMatched":true,"parentMetadataMatched":true,"recoveryFiles":273},
+  "contents":["Four untouched CI50 browser/good/bad/art ZIP archives","Exact H source Git archive inside original browser ZIP,paxcomment matches840ffe01882c8248f11603ee1c4da246f5aa2ccc","CI50 full ten-pulse/six-arrival analysis,partial presentation checks and actual failure image review","Ten actual CPU PNG metadata/hashes and six render-ledger listed hashes checked; no verifier rerun claim","Three I changed program files and tested patch","Initial red/rejected all-inner draft/interrupted check and complete successful Node/Python/assets/typecheck/build logs/exit records","Unit cost model explicitly not native acceptance","Unaccepted local source-null HTML/buildmetadata","273-file assembled tested-program recovery"],
+  "recovery":{"path":"recovery/VQ02I-tested-program-snapshot.tar.gz","files":273,"kind":"assembled-tested-program-snapshot-not-published-git-archive","baseSource":"840ffe01882c8248f11603ee1c4da246f5aa2ccc","testedTree":"5563d8c44fded9b43c72461411aef7a1ab2d6376","docs":"Only THIRD_PARTY.md included. Latest progress must be read separately from GitHubmain; do not overwrite from archive."},
+  "publicationNote":"Uploaded/downloaded/hash-verified before source commit. Archived nullsource is preserved. This final receipt binds later published I SHA to the tested program tree and retained current main docs.",
+  "toolchain":"Existing1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE: node_modules only with esbuild hardlink; no old source/config or bootstrapCI.",
+  "nativeRepairAccepted":false,"newPagesAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,
+  "privacy":"No ROM,private original media,font files or credentials added. Sharing permissions unchanged."
+}

@@ -1,0 +1,25 @@
+{
+  "schema":1,"repository":"KartChang/ChronoTrigger_reMaster","run":35669876213,"number":50,
+  "source":"840ffe01882c8248f11603ee1c4da246f5aa2ccc","event":"push","attempt":1,"status":"completed","conclusion":"failure","updatedAt":"2026-09-22T00:15:21Z","accepted":false,
+  "firstRoot":"CI50-cpu-coop-primary-outer-chord-oscillation",
+  "jobs":{"validate":{"id":106563719363,"conclusion":"failure","firstFailedStep":21},"good":{"id":106563719387,"conclusion":"success"},"bad":{"id":106563719274,"conclusion":"success"}},
+  "originalCpuReport":{"path":"cpu-renderer/report.json","bytes":759711,"sha256":"3e5370dd57689df3b5c9376987540de6f586e43ca4de7b5cf802ed7b494fce54"},
+  "html":{"bytes":5686369,"sha256":"155c30cfd4f891496865e9c32e61b80e4825d808b2882b07c47afe4036efb415"},
+  "failedRoute":{"axis":"z","target":-2,"coop":true,"chapter":"fair","budget":165,"beforeTicks":177,"afterReleaseTicks":349,"elapsedTicks":172,"caughtLastStateTicks":352,"beforeP1z":-5,"afterReleaseP1z":-2.199999999999998,"afterReleaseP2z":-2.8666666666666667,"pulseCount":10,"holdMs":[250,250,0,0,17,0,17,0,17,0],"originalChordOrder":"P1 down -> P2 down -> hold -> P2 up -> P1 up"},
+  "finding":"P1 is the arrival-measured owner but stays held across both P2 native transport calls. Even zero-ms pulses in the recorded sequence move P1 by8-9movement-equivalent ticks while P2 moves2-3ticks. Corrections oscillate across the unchanged .12 tolerance, then correctly fail the original165tick budget. This is a different root from the already-passed bedroom stairs and long overworld leg.",
+  "costBoundary":"Movement-equivalent costs are derived from recorded displacement and speed4/60. The exact browser-internal split between individual native call delays was not timestamped; the split in added unit tests is a MODEL, not measured native event timestamps or successful browser evidence.",
+  "partialNativeEvidence":{"firstCpuHomeToFairCasePassed":true,"releasedMoveArrivals":6,"previousOverworldLeg":{"beforeTicks":747,"afterReleaseTicks":1000,"elapsedTicks":253,"budget":315,"finalZ":5.060000000000005},"presentation":{"samples":61,"meanMs":45.65737704917995,"p95Ms":60.10000000009313,"maxMs":81,"fps":21.90226562780529,"statisticsConsistent":true,"cpuBuildSourceLabelsMatched":true,"qualityBuffer":[678,452],"compatibilityBuffer":[452,301],"fullBeforeQualityCompatibilityPausedStatesEqual":true,"portraitAndShortLandscapeAssertionsReached":true},"fullSecondCpuCasePassed":false,"fullCpuAcceptance":false,"performanceCertified":false},
+  "secondaryFailure":"Step22 lacks a successful final CPU report after step21 terminated. It is secondary, not another gameplay root. No playable artifact was produced and no new Pages acceptance exists.",
+  "visualReview":{"reviewed":true,"path":"cpu-renderer/failure.png","bytes":241136,"sha256":"7d42947945072bfaa98d2c86961817007f98d424556976db9f7f350587e5fade","observation":"Actual CPU fair with both players, bell, paving and stalls is visible. Not blank rendering or WebGL startup failure; no art/device/sustained-performance certification."},
+  "evidenceChecks":{"rawZipSizeDigestCrcMatched":4,"actualCpuPngFilesMetadataHashMatched":10,"cpuPngBoundary":"Nine pre-failure captures plus failure.png; not all11required successful CPU PNGs.","renderLedgerListedFilesBytesHashMatched":6,"renderLedgerSourceMatched":true,"verifierReexecuted":false,"exactLedgerRegenerationClaim":false,"wholeLaneRevalidationClaim":false},
+  "artifacts":[
+    {"id":10671110608,"path":"raw/CI50-browser.zip","bytes":20234481,"sha256":"f82163007a700ba16a639d3f3ce9b4713cc6682b93006bb58c8306e4a5216b01"},
+    {"id":10669964727,"path":"raw/CI50-good.zip","bytes":26743171,"sha256":"75e21b53c6ec53ff0e0d51165f0e0b8ed262faaa0f854b748d2419c8e83029de"},
+    {"id":10671180377,"path":"raw/CI50-bad.zip","bytes":4264283,"sha256":"d6a4332bc000e7f93276fde43b204e780b4f28766f41fd1bfb6fb84385fbc4ce"},
+    {"id":10671395385,"path":"raw/CI50-art.zip","bytes":324934,"sha256":"89c3cc912c70e219a62b0a976e1e6076d3b7f2df148ee2f50708d3a0c4bf1de4"}
+  ],
+  "fullPulseAnalysisInCloud":"analysis/CI50_FAILURE_ROOT.json inside VQ02I_CLOUD_RETENTION package retains all ten pulse position/tick pairs and six first-case arrivals.",
+  "cloudRetention":"VQ02I_CLOUD_RETENTION.json","repairSource":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","repairValidation":35675330433,
+  "repairBoundary":"Coarse chord unchanged; near target use P2down/P1down/hold/P1up/P2up and relearn only release distance. No epsilon/clock/tickbudget/collision/save/time changes; all ticks charged; budget before arrival. Native repair acceptance belongs to CI51, not unit models.",
+  "playableArtifactProduced":false,"newPagesAccepted":false,"localBrowserRun":false,"nativeRepairAccepted":false
+}

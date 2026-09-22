@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本：product-2026-09-22-vq02h-ci50-pending。更新既有進度，不重新規劃。唯一執行依STATUS／IMMEDIATE_CONTINUATION／CI50_CHECKPOINT。上一版全文保留於 **3c3c1909f03df9a839c7569860e0506d6c05ac2c**；其CI49待驗收文字已由本次實際failure與H/CI50取代，不重開已完成章節或舊驗收。
+版本：product-2026-09-22-vq02i-ci51-pending。更新既有進度，不重新規劃。唯一執行依STATUS／IMMEDIATE_CONTINUATION／CI51_CHECKPOINT。前版全文保留於 **0fe330ddbfac451667e57d0f5b3917a6bdcfa651**；其CI50待驗收文字由本次實際failure及I/CI51取代，不重開已完成章節或舊驗收。
 
 ## 產品目標、順序與架構
 
@@ -22,36 +22,48 @@ A/B/C主角與鏡頭接地、P祭典道具棚布、S地面取樣、T探索HUD、
 
 欠缺精緻HD-2D仍是交付落差。木料平塗、人物植物與立體道具材質語言、尺度輪廓、窄視窗地標構圖，以及家中升級母親家具、完整動畫音樂仍有缺口。既有母親對話可操作不等於新美術整合。測試數、引擎、模型數、短曲、CPU相容與FPS標示不能替代美術90證據。舊30stale、release仍blocked，沒有目前整體已接近完成的量化認證。
 
-Z0.9.22材質／UV／直向構圖仍保留於雲端、未發布且受限，不重送、換編碼管道、間接替換或部分提升。prologue-render.ts blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**及localbrowser限制不因一般繼續解除；這不表示GitHub／Drive不能讀寫。
+Z0.9.22材質／UV／直向構圖仍雲端保留、未發布且受限，不重送、換編碼管道、間接替換或部分提升。prologue-render.ts blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**及localbrowser限制不因一般繼續解除；這不表示GitHub／Drive不能讀寫。
 
 ## CPU能力與最後完整驗收
 
-D/E已實作WebGL2/1不可用時預設CPU／Canvas2D fallback，真正處理既有頂點矩陣、簡化光照、UV紋理、透明深度與像素；不是NullEngine空跑或只顯示錯誤。640×480基準像素cap、最大邊1280、紋理32MiB/512格，不做shadowmap/glow/specular，不保證WebGL視覺一致或全部裝置流暢。E保守剔除畫面外submesh、省去完全畫面內三角形裁切、重用每幀方向光；原像素規則及真實work計數保留。
+D/E已實作WebGL2/1不可用時預設CPU／Canvas2D fallback，真正處理既有頂點矩陣、簡化光照、UV紋理、透明深度與像素，不是NullEngine空跑或只顯示錯誤。640×480基準像素cap、最大邊1280、紋理32MiB/512格，不做shadowmap/glow/specular，不保證WebGL視覺一致或全部裝置流暢。E保守剔除畫面外submesh、省去完全畫面內三角形裁切、重用每幀方向光；原像素規則及真實work計數保留。
 
-最後已驗收仍 **E0.9.27／sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4／tree00efc6b0ea450961739948a952bd2756ea7f2eb1／CI47 35615882220／Pages41 35618506663**。其13主、9原native加CPU native、五ledger、音訊actor/HUD/接地ATB/裝備v8/完整故事審判及觸控、實圖、原包與source/HTML已閉環。CPU前段真正走過家中至祭典、P1/P2、ATB及自己匯出v2再原生匯入；不是全章CPU／裝置／聽感或90認證。CI47及更早不重開，不补造CI45獨立驗收。
+最後已驗收仍 **E0.9.27／sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4／tree00efc6b0ea450961739948a952bd2756ea7f2eb1／CI47 35615882220／Pages41 35618506663**。13主、9原native加CPU native、五ledger、音訊actor/HUD/接地ATB/裝備v8/完整故事審判及觸控、實圖、原包與source/HTML已閉環。CPU前段真正走過家中至祭典、P1/P2、ATB及自己匯出v2再原生匯入；不是全章CPU／裝置／聽感或90認證。CI47及更早不重開，不補造CI45獨立驗收。
 
-F0.9.28已實作CPUtiers在原cap後套用，初始auto保留舊尺寸、auto0–3／quality0／compatibility2實際buffer；120格活動frame interval、mean/P95/max/FPS、CPU/Canvas2D及统一build/source身份。這是負載控制與觀察，不保證FPS或美術提升。G/H全部src不變，F實作完整保留，但尚待完整新native驗收。
+F0.9.28已實作CPUtiers在原cap後套用，初始auto保留舊尺寸、auto0–3／quality0／compatibility2實際buffer；120格活動frame interval、mean/P95/max/FPS、CPU/Canvas2D及統一build/source身份。這是負載控制與觀察，不保證FPS或美術提升。G/H/I全部src不變，完整保留F實作，新增完整native驗收尚待通過。
 
-## CI49實際根因與H修正
+G原生鍵盤release後snapshot／反方向修正、H長腿最多250ms距離縮放降低讀取成本均已發布，不重做。CI48/CI49皆實際failure，不接受或重跑；詳細原因與原包收據保留。CI50已真正通過這兩個先前卡点，不能把舊pending當現行工作。
 
-G0.9.29／source **8c9f8a26ad1e7e8a5683936604165a799f8acbec**已用原生按鍵release後snapshot改善舊CI48樓梯overshoot；不重做。**CI49 35641527652**實際completed/failure，updated2026-09-21T19:15:06Z；validate **106471733017**在step21CPU失敗、good **106471733186**及bad **106471733213**成功。
+## CI50實際根因與部分native成功
 
-新第一root **CI49-cpu-native-observation-overhead-budget**。這次真正通過臥室樓梯、家中與大地圖，前四次move抵達；第五腿z=-2.7→5.1用29次100ms原生hold/release/readback，before736、afterRelease1059，323ticks超過原315budget，x=.039999999999998766／z=4.980000000000005。由位移推得192移動ticks與131其他ticks；catch1061是較晚觀察。位置數值已剛好小於.12，也必須先因超budget失敗，不能把抵達檢查放到前面或扣除讀取成本。
+**CI50 35669876213**／Hsource **840ffe01882c8248f11603ee1c4da246f5aa2ccc**，completed/failure，updated2026-09-22T00:15:21Z。validate **106563719363** step21CPU失敗；good **106563719387**／bad **106563719274**成功。
 
-已檢視原failure.png，大地圖與玩家、帳棚、地形皆由CPU繪出，非WebGL啟動失敗。Step22缺成功CPUfinalreport是次生。四原始ZIP大小/hash/CRC、renderledger列入六檔bytes/hash核對，但沒有重跑verifier、重產精確ledger或重驗全lane的宣稱。無playable／新Pages；CI49與CI48皆非accepted。詳CI49_FAILURE_ROOT。
+第一CPUcase已完整家中到祭典，六次move釋放後抵達；先前大地圖長腿before747／after1000，253/315tick，z5.060000000000005。Fpresentation已記錄61真活動sample：mean45.657377ms／P95 60.1／max81／FPS21.902266，統計一致、CPU/version/source標示吻合，原生quality678×452／compatibility452×301真正改變buffer，完整pausedstate相同，portrait與shortlandscape斷言到達。這是可保留的部分原生證據，不是全CPU／持續效能或裝置認證。
 
-**H0.9.30／source840ffe01882c8248f11603ee1c4da246f5aa2ccc／tree205bc73a075b92a5efd5ac072f45f6857b037b4a**，parent3c3c1909f03df9a839c7569860e0506d6c05ac2c。三檔整批測試後一次non-force發布回讀、完整tested程式子樹匹配：tests/cpu_native_route.py、新cpu_native_route_cost_test.py、scripts/build.mjs版本。全部src/index/.github/config、整份CPUbrowserdriver和G原port測試不變。
+新第一root **CI50-cpu-coop-primary-outer-chord-oscillation**，在第二CPUcase第一腿雙人z=-5→-2。P1先按／最後放，跨越P2兩次transport期間仍在移動。記錄zero-ms hold仍讓P1移動8–9等效ticks、P2移動2–3ticks，導致在原<.12目標兩側振盪。10pulse耗172/165tick，before177／afterRelease349，P1z=-2.199999999999998、P2z=-2.8666666666666667；catch352是之後的snapshot。真正individual event延遲拆分沒有時間戳，測試port中的拆分明示為模型。
 
-長腿以距離決定原生hold、上限250ms；近目標仍縮短並依已觀察的release位移調整，必要反方向修正。改善短脈衝讀取成本，而非增大timeout/tickbudget。原<.12、每腿ceil((距離/速度+2)*60)、單一30秒、先budget再arrival、全部readbackticks照算、release後snapshot與部分co-op失敗的cleanup全部保留。沒有遊戲時間/state/save/collision更動。
+原failure.png已檢視，CPU祭典雙人、鐘、鋪面與攤位可見，非WebGL啟動失敗。Step22缺成功final CPUreport是次生。四原ZIP大小/hash/CRC、十張實際CPU PNG與renderledger六列入檔bytes/hash核對；十張為九前段加failure，非11成功圖。沒有重跑verifier、重產精確ledger或全lane複驗宣稱。ATB/本人v2匯出/IndexedDB/原生匯入仍未完成，沒有playable／新Pages。CI50不接受，CI50_FAILURE_ROOT及雲端保留完整十pulse分析與原圖。
 
-新跑 **1161Node／240Python／assets／typecheck／build**，完整npm run check最終exit0。新增8Python測試含24長腿方向/軸/章節/讀取成本子案例及負向budget/deadline/blocked/co-op；G原36子案例保留。CI49成本的單元模型重現舊323/315失敗，H為255/315、13pulse、z5.06；它不是browser或通關存檔fixture，更不是native修復驗收。初次red、兩次工具中斷check與後續完整成功log分開保存。本機未操作browser。
+## I修正發布與本機測試界線
 
-唯一 **CI50 35669876213**，push/attempt1、exactSHA全event/state count1，最後in_progress/null updated2026-09-21T23:57:35Z（台灣2026-09-22 07:57:35）。未查jobs、不等待輪詢取消重派。只接同run；失敗修第一根因；成功須原3job/13primary/9native加CPU/fiveledgers/所有列入bytes/hash與原audio/actor/HUD/scenes/ATB/equipmentv8/fulltrial/touch，再驗兩CPU原生旅程／自己匯出v2及原生匯入、60真sample與一致統計/身份、quality實際尺寸/完整pausedstate、11原圖/14ledgerfiles、原budget內實際afterRelease<.12。原包雲端回讀後核對Pages/source/HTML；CI嵌入sourceSHA，不拿本機null-sourceHTML作hash基準。
+**I0.9.31／source44ba3922ac2e6b1dd002624a38f4156edcd7d2c5／tree5563d8c44fded9b43c72461411aef7a1ab2d6376**，parent0fe330ddbfac451667e57d0f5b3917a6bdcfa651。三檔整批測試後一次non-force發布回讀、完整tested子樹匹配：tests/cpu_native_route.py、新cpu_native_chord_test.py、scripts/build.mjs版本。全部src/index/.github/config、整份CPUbrowserdriver、G/H原測試與36/24子案例不變。
 
-## 完整剩餘範圍與持久交付
+長距離保留Hcoarse高效率P1外層順序；接近目標改為P2down→P1down→hold→P1up→P2up，让精準觀察的P1在P2transport期間不再被持續按住。這一腿一旦進入precision便保持，僅重新估計release位移，沒有重設clock/tickbudget或扣除成本。原<.12、釋放全部後snapshot、每腿ceil((距離/速度+2)*60)、單一30秒、先budget再arrival、250ms maxhold與全attempted-key cleanup保留。native_pulse函式不變；trace增加arrivalOwner/chordPolicy/keys/releaseKeys/chordOrder。没有遊戲時間/state/save/collision改寫。
 
-T03隱藏規則／版本差異／完整拓樸／數值忠實度；T04成長報酬掉落／全經濟物品飾品／技能角色雙三人技；T05全美術動畫與權利清楚音訊；T06完整未來及其他時代主支線結局；T07整體90、每面向80%、zero-critical、必需素材五gate、實體輸入FPS/frame-time/載入/記憶體/背景/存檔/音訊及全章CPU；T08每批雲端。不得縮小分母只評已做功能。前段真品質優先；H驗收後先CPU完整章節及裝置／實圖相容，再材質比例輪廓、窄視窗地標、動畫音樂，不擅自解封Z或提早擴後段。
+新跑 **1161Node／250Python／assets／typecheck／build**，完整npmcheck最終exit0。新增10Python測試及48長腿方向/軸/速度/讀取成本子案例、原四co-op座標串行、兩種按鍵順序cleanup、單人獨立及負向budget/deadline/blocked/pause/transition。CI50成本模型重現舊172/165fail，最終86/165、4pulse、P1z-2.0666667；模型不是nativebrowser／成功存檔證據。初次red、淘汰的全程inner草稿長腿失敗、工具中斷check及最後完整成功logs分開保存；未發布被淘汰草稿。本機沒有操作browser。
 
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。新 **Chrono-CI49-terminal-VQ02H-tested-batch.zip／1w5T1edXd0vXOhciA23SRC3CWNqKEMPyb**，52245774bytes、SHA256 **428c22ed7f6522f8eb83bd324b3306da22e07f8206afc4f82152e4a305366c40**。下載hash/CRC/36manifest/四原ZIP/parent全匹配；含失敗分析、三改檔、原logs/exit、未驗收localHTML與272檔assembled程式快照。不是publishedGitarchive；除THIRD_PARTY不含docs，最新main文件永遠另讀。封存nullsource在發布前，最終GitHub H收據補身分，不重寫原證據。
+唯一 **CI51 35675330433**，push/attempt1、exactSHA全event/state count1，最後in_progress/null updated2026-09-22T01:19:34Z（台灣2026-09-22 09:19:34）。未查jobs，不等待輪詢、取消、重派。pending保存回報，failure同run第一實際根因，success完整同source證據，不因後續文件HEAD重跑CI。
 
-固定工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**只恢復node_modules、保留esbuildhardlink，不覆source/config或開bootstrapCI。私人ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM**不需重傳；不公開ROM、原圖原音訊、字型檔或憑證。所有修改與交付回GitHub／指定Drive並回讀，文件[skip ci]；臨時環境可能清除，不能當接续權威。
+## 完整驗收與剩餘工作
+
+CI51成功仍需原3job／13finalprimary／9原native加CPU／fiveledgers與所有列入bytes/hash，原audio/actor.playback/HUD/正常暫停減動態/接地ATB/equipmentv8/完整trial/touch全部保留。CPU兩原生旅程、同run自己匯出v2與IndexedDB/原生匯入，>=60真sample一致統計/身份、quality真正尺寸、完整pausedstate、11成功原圖/14CPUledgerfiles，及原budget內afterRelease<.12與I實際coarse/precision按鍵release順序都須核對。原包指定Drive下載回讀後再核對Pages/source/HTML。CI嵌入sourceSHA，不以本機null-sourceHTML作hash基準。不用progress或fixture替代。
+
+T03隱藏規則／版本差異／完整拓樸／數值忠實度；T04成長報酬掉落／全經濟物品飾品／技能角色雙三人技；T05全美術動畫與權利清楚音訊；T06完整未來與其他時代主支線結局；T07整體90、每面向80%、zero-critical、必需素材五gate、實體輸入FPS/frame-time/載入/記憶體/背景/存檔/音訊及全章CPU；T08每批雲端。不得縮小分母只評已做功能。
+
+前段真品質優先。CI51完整閉環後，整批接續全原生CPU章節及裝置觀察／實圖相容缺陷、人物植物與道具材質比例輪廓、窄視窗地標、動畫音樂；重用保存素材，不以測試數替代美術，不擅自解封Z／升級母親家具或提早擴後段。
+
+## 持久交付與恢復
+
+唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。新 **Chrono-CI50-terminal-VQ02I-tested-batch.zip／1OwdrRCffGd6YtJx2YMn1qzoPE2CnvYoV**，53409483bytes，SHA256 **a48de01346c3fdc37a46e538cc9dffd5ff629984d4002bedfda7b2dce6858a5a**。下載hash/CRC/30manifest/四原ZIP/parent全部一致；含完整failure分析、三改檔、原logs/exit、未驗收localHTML與273檔assembled程式恢復快照。不是publishedGitarchive；除THIRD_PARTY不含docs，最新main文件另讀。原browserZIP內保留exactH Gitarchive。封存nullsource在發布前，最終GitHub I收據補身分，不重寫原證據。
+
+固定工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**只恢復node_modules及esbuildhardlink，不覆source/config或開bootstrapCI。私人ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM**不重傳；不公開ROM、原圖原音訊、字型檔或憑證。所有修改交付回GitHub／指定Drive並回讀，文件[skip ci]，臨時環境可能清除，不能當權威。

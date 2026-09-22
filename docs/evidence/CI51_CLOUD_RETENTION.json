@@ -1,0 +1,18 @@
+{
+  "schema":1,"source":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","ci":35675330433,"pages":35676767742,
+  "folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1sgU-n16eUnPExIBtFsx2RHgGDf51BC4U","name":"Chrono-CI51-accepted-Pages45-originals.zip",
+  "bytes":56597286,"sha256":"49263d9ad3348e919612180a12197356fb1719d643417aacf8ffad147a20b22e","manifestEntries":20,"rawArchives":7,
+  "verification":{"downloadedRawReadback":true,"sizeAndSha256Matched":true,"zipCrcMatched":true,"all20ManifestEntriesMatched":true,"sevenUntouchedRawArchivesMatched":true,"nestedCrcMatched":true,"parentMatched":true},
+  "artifacts":[
+    {"id":10672484989,"name":"CI51-browser.zip","bytes":20581241,"sha256":"6f36f1bfe231e20df5d02725f3c9578fbdafcf82e79f2706a3cd2de0b528581f"},
+    {"id":10672962279,"name":"CI51-good.zip","bytes":26668885,"sha256":"43bbb04d5bc79d2b743938521265db535ac22b2869ca0ea7975ee8dcfa85bed4"},
+    {"id":10673356146,"name":"CI51-bad.zip","bytes":4273354,"sha256":"0f64cfdf3af7344e9ca8530878394fb95da9968a14302056bf4fd99d5ff4a23f"},
+    {"id":10672629771,"name":"CI51-playable.zip","bytes":1316937,"sha256":"b11d2cf1487d76fe5dc0f4a1b28b90e7003a1ea4b0b7bdc0c0d28e93510bf560"},
+    {"id":10672893180,"name":"CI51-art.zip","bytes":324934,"sha256":"2909998c28cae60cf849e163a5fa0f5bf6ba47afd32d30cf0c1f56af7ecb89b1"},
+    {"id":10673267043,"name":"Pages45-staged.zip","bytes":1322305,"sha256":"260f62d0bc271e7cba67b1234f5c0c55c78ca805105ef6e42864db831413865a"},
+    {"id":10673227074,"name":"Pages45-deployed.zip","bytes":1320230,"sha256":"17a46c9062723fc8dac5687402cf049642cd7af8249cdda4e9e7405f2598f6dd"}
+  ],
+  "contents":"Seven untouched original ZIPs, exact I Git source archive inside browser ZIP, verifier and route analysis, full CPU PNG ownership/hashes, actual-image contact sheet, Pages provenance and explicit local-HTTP-unavailable boundary.",
+  "accepted":true,"localBrowserRun":false,"physicalDeviceApproved":false,"artApproved":false,"wholeGameAccepted":false,
+  "privacy":"Correct existing parent and sharing retained. No private ROM/original media/font files/credentials added."
+}

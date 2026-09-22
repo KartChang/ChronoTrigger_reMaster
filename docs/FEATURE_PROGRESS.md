@@ -1,21 +1,19 @@
-# 功能快照 — CI50失敗；I已發布／唯一CI51待驗收
+# 功能快照 — CI51已驗收；J已發布／唯一CI52待驗收
 
-Authority：STATUS／IMMEDIATE_CONTINUATION／CI51_CHECKPOINT。沒有新增完成百分比、美術分數或完整遊戲接近完成的認證。
+Authority：STATUS／IMMEDIATE_CONTINUATION／CI52_CHECKPOINT。沒有新增完成百分比、美術分數或全遊戲接近完成認證。
 
-**VQ02I0.9.31** source **44ba3922ac2e6b1dd002624a38f4156edcd7d2c5**，tree **5563d8c44fded9b43c72461411aef7a1ab2d6376**。三檔一次non-force發布回讀：CPUnative走位精準按鍵順序、新transportcost回歸測試、build版本。全部src/index/.github/config、整份CPUbrowserdriver、G/H原測試不變；不是新人物、美術、章節或renderer。
+**VQ02J0.9.32** source **e93733179a4e0e0cb5fd254d7a841c2eb3df542d**，tree **23bfe048c311e8afdb4913283c8257ebff910adb**。15檔整批測試，一次non-force發布，main回讀及完整tested root一致。
 
-長距離保留H有效的P1外層按鍵；接近目標改為P2down→P1down→hold→P1up→P2up，該腿後續維持此順序，只重新估計release位移，不重設時間或tick預算。原<.12、全部釋放後snapshot、每腿tick公式、單一30秒、250ms按鍵上限、先budget再arrival及cleanup保留；所有讀取與按鍵ticks照算。增加真實按鍵順序診斷，不注入遊戲時間/state/save/collision。
+本批有實際產品功能：CPU暫停選單新增「遠景紋理平滑」實驗選項，預設關閉。只對不透明原紋理建立按需box-filter mip層，以正交三角形足跡挑選，32MiB／512格預算、更新失效、關閉及dispose清理完整。人物／透明植物輪廓、opacity/blend、原WebGL、素材與UV／幾何不變；透視回nearest。這是CPU縮小取樣改善，不是新美術資產，也不是解封Z；實圖改善與負載仍待CI52確認。
 
-新跑 **1161Node／250Python／assets／typecheck／build**，完整npmcheck最終exit0。新增10Python測試／48長腿成本子案例；原G36/H24子案例不改。CI50成本單元模型舊172/165失敗，修正86/165、4pulse、P1z-2.0666667；只是模型，不是nativebrowser或通關存檔證據。初次red、被淘汰的全程inner草稿及中斷check與最後完整成功logs分開保存。本機未操作browser。
+原生CPU覆蓋新增同頁後續：保留家中到祭典、双人ATB／本人v2／IndexedDB／原生匯入兩原case，再接既有項鍊異變、600山道獨戰、托魯斯旅店、森林獨戰、王城／王后消失、露卡P2及修道院入口。30原生放鍵後抵達路段、兩段劇情暫停、本人v3／v4原生匯入與11新PNG由新第六ledger驗證；原5ledger／14CPU列入檔／11CPU成功圖不減。這是既有章節的CPU驗收覆蓋，不是重造故事，也尚未原生通過。
 
-唯一 **CI51 35675330433**，push/attempt1，最後in_progress/null updated2026-09-22T01:19:34Z（台灣9/22 09:19:34），exactSHA count1，未查jobs／未接受。必須原三job／全finalreports／fiveledgers、F60真sample/品質尺寸/pausedstate/11PNG、兩CPU原生旅程與I原budget內afterRelease和chordorder，再原包雲端及Pages閉環。不等待輪詢或另開CI。
+新跑 **1239Node／259Python／assets／typecheck／build**，完整npmcheck及Python皆exit0。新增78Node／9Python，含minification、反例驗證器、純規則輸入及實際serialize/deserialize路線、按鍵例外cleanup。模型／記憶體fixture不輸出原生成功證據；本機沒有操作browser。原CPUdriver10函式、I走位helper、G/H/I測試、core／碰撞／素材／package／lock原樣；workflow僅加驗證步驟，3jobs與45分鐘不改。
 
-CI50 **35669876213** completed/failure：validate106563719363在第二CPUcase首次co-op走位失敗；good106563719387／bad106563719274成功。第一CPUcase已真正走完整家中到祭典，六次抵達、前大地圖長腿253/315tick通過。F61活動sample、CPU/version/source、quality678×452/compatibility452×301、完整pausedstate與窄視窗斷言已到達。這不代表第二case的ATB／本人匯出v2／IndexedDB／原生匯入已通過。
+唯一 **CI52 35680779688** push／attempt1，最後queued/null at2026-09-22T02:47:53Z，台灣10:47:53；exactSHA count1，未查jobs／未接受。沒有等待輪詢、取消、重派或多開CI。
 
-新root是P1先按最後放造成P2兩次transport期間多走、在目標兩側振盪；十pulse耗172/165tick，非舊樓梯或大地圖根因重現。failurePNG有CPU祭典雙人畫面；step22缺成功report是次生。四原ZIP、十實際PNG及renderledger六檔bytes/hash核對，未重跑verifier／重產ledger。無playable/newPages，CI50不接受。
+最後已驗收前移為 **I0.9.31／source44ba3922ac2e6b1dd002624a38f4156edcd7d2c5／CI51 35675330433／Pages45 35676767742**。3job成功，13主報告、9原native加CPU、五ledger重新執行後逐bytes相同。兩CPU旅程、10次原budget內afterRelease抵達、11真圖、61活動sample與品質／暫停／source標示通過。約24.36FPS只是該觀察窗口，不是真機持續效能。Pages原產物同source同HTML及CI端公共HTTP驗證通過；本機獨立HTTP因DNS不可用，不冒稱已讀到。G/H/I不重做，CI48–50仍記錄為失敗，舊E閉環不重開。
 
-最後已驗收仍 **E0.9.27／sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4／CI47 35615882220／Pages41 35618506663**；不重開。CPU可玩後端及E前段原生證據存在；F實作保留，但F/I完整新增native結果、全章CPU及真機仍待驗收。
+指定Drive已保存兩包並下載hash／CRC／manifest／parent核對：CI51原包 **1sgU-n16eUnPExIBtFsx2RHgGDf51BC4U**（20manifest／7rawZIP），J批次 **14HDH1dKKIKzkHfqWCAfHtRgjKs6j0gNd**（58593820bytes／43manifest／280檔恢復）。最新main文件另讀；封存nullsource是發布前，GitHub收據補身分，不改寫原log。
 
-指定folder已保存 **1OwdrRCffGd6YtJx2YMn1qzoPE2CnvYoV**：53409483bytes、30manifest、四原ZIP、三改檔、原logs與273檔程式恢復快照。下載hash/CRC/parent全部一致。assembled快照不是publishedGitarchive；封存nullsource由最終GitHub收據補發布身份，最新文件另讀main，不依賴容器。
-
-完整T03-T08保留：規則版本拓樸、成長报酬經濟技能、全美術動畫配樂、其餘時代主支線結局、每面向80%／整體90與真機、每批雲端。人物植物／道具材質、尺度輪廓、窄視窗地標、升級母親家具仍有缺口。Z/prologue-render/localbrowser限制不變且不可旁路。2300抵達不是全未來；舊30stale，測試數不能代替美術交付。
+完整T03–T08、規則數值拓樸、成長經濟技能、全美術動畫配樂、剩餘時代主支線結局、各面向80%／整體90與真機、每批雲端均保留。CPU全章、持續效能、聽感、人物植物與道具材質、尺度／窄視窗地標仍有缺口。Z／升級母親家具／prologue-render／localbrowser限制不變且不可旁路。2300抵達非全未來，舊30stale；測試數不可替代美術。

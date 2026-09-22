@@ -1,0 +1,10 @@
+{
+  "schema":1,"run":35676767742,"number":45,"event":"workflow_run","conclusion":"success","createdAt":"2026-09-22T01:42:36Z","updatedAt":"2026-09-22T01:43:02Z",
+  "workflowHead":"a22054d7efa9f963376e145ec9ccb762300ca628","selectedSource":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","ci":35675330433,"ciNumber":51,"version":"0.9.31",
+  "prepareJob":106584814656,"deployJob":106584847498,"bothJobsSuccess":true,"playableArtifact":10672629771,"stagedArtifact":10673267043,"deployedArtifact":10673227074,
+  "html":{"bytes":5686369,"sha256":"ca963b73d55cdc37e9f348dd93476c1a86089c3f4fed7313147f7a9f935c43a3","playableStagedDeployedIdentical":true},
+  "verification":{"deploymentJsonSourceCiArtifactAndDigestMatched":true,"deployedTarAllFilesMatchStaged":true,"rawZipDigestSizeCrcMatched":true,"ciPublicHttpStep":3,"ciPublicHttpConclusion":"success","ciHttpAssertions":["deployment source equals selected source","public game SHA256 equals metadata","launcher includes ./play/"],"independentLocalLiveHttpSucceeded":false,"independentLocalHttpBoundary":"Local DNS/network fetch unavailable. Public HTTP closure relies on this run's successful CI-side actual HTTP assertions plus exact locally inspected playable/staged/deployed bytes, not a fabricated independent request."},
+  "publicPreview":"https://kartchang.github.io/ChronoTrigger_reMaster/","cloudRetention":"CI51_CLOUD_RETENTION.json","accepted":true,
+  "localBrowserRun":false,"wholeGameAccepted":false,"physicalDeviceApproved":false,"artApproved":false,"oldQuality30Stale":true,
+  "note":"Pages workflow's document HEAD is distinct from the selected verified game source. Do not rebuild or rerun solely because these SHAs differ."
+}

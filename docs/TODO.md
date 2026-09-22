@@ -1,38 +1,34 @@
-# Execution TODO — CI51 native co-op precision chord repair
+# Execution TODO — CI52 CPU minification and native600 continuation
 
-Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI51_CHECKPOINT.json. Main only, soleAI, non-force. Immediate execution, not history audit/branches/PRs/closed-run replay. Previous full progress is retained at0fe330ddbfac451667e57d0f5b3917a6bdcfa651; its CI50 pending text is superseded, not unfinished implementation to recreate.
+Authority: STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI52_CHECKPOINT.json. Main only, soleAI, non-force; immediate execution, no history audit/branches/PRs/closed-run replay. Prior full record remains ata22054d7efa9f963376e145ec9ccb762300ca628; its CI51pending text is superseded by acceptedCI51/Pages45 and currentCI52.
 
-## Only active terminal — CI51-pending-full-validation
+## Only active terminal — CI52-pending-full-validation
 
-**I0.9.31 source44ba3922ac2e6b1dd002624a38f4156edcd7d2c5**, tree **5563d8c44fded9b43c72461411aef7a1ab2d6376**. **CI51 35675330433**, push/attempt1, lastin_progress/null updated2026-09-22T01:19:34Z. ExactSHA all-event/state count1. One non-force sourcecommit; later document HEAD is not another candidate. Jobs not inspected; no wait/rerun/dispatch/cancel.
+**J0.9.32 sourcee93733179a4e0e0cb5fd254d7a841c2eb3df542d**, tree **23bfe048c311e8afdb4913283c8257ebff910adb**. **CI52 35680779688**,push/attempt1,lastqueued/null updated2026-09-22T02:47:53Z. ExactSHA all-event/state count1, jobs not inspected, no dispatch/rerun/cancel/wait. Subsequent documentHEAD is not another candidate.
 
-DONE: Three-file repair keeps H coarse chord, switches near-target P1 inside P2 (P2down/P1down/hold/P1up/P2up), retains that precision order and relearns only release-distance estimate. Original strict<.12 afterrelease, every-leg tick formula, single30s deadline,250ms maxhold, budget-before-arrival and all attempted-key cleanup preserved. No clock reset/tick subtraction. Trace records arrivalOwner/chordPolicy/keys/releaseKeys/chordOrder. All src/index/.github/config, entire CPUbrowserdriver and original G/H tests unchanged. Added10Python tests/48cost subcases; oldG36/H24 preserved. Fresh1161Node/250Python/assets/typecheck/build and final fullnpmcheck exit0. Tested tree/mainreadback and correctDrive download/hash/CRC/30manifest closure complete. Do not redo I/G/H.
+DONE this related15-file batch: opt-in/off-by-default CPU opaque minification and user checkbox; bounded originaltexture mipcache/lifecycle; alpha actors/plants and WebGL unchanged. Same-page native600 continuation after both originalcases: parentGato/v2,30legs,pendant andqueen cinematicpause,two soloATBencounters,Truce/inn/castle,LuccaP2,ownv3/v4/nativechooser,cathedralentrance. OrdinaryP2stageapproach accommodates genuinepost-Gatoformation. New strict era verifier adds sixthledger/16files/11extraPNG. Original10CPUdriver functions,Ihelper,alloldassertions/fiveverifiers and3jobs/45minlimits retained. Fresh1239Node/259Python/assets/typecheck/build/fullnpmcheck exit0; exacttested root/mainreadback; Drive43manifest/280files downloaded/hash/CRC/parent checked. Do not implement J again; it needs native acceptance.
 
-NEXT: read same CI51 once. queued/in_progress -> preserve/report without long waiting/cancel/rerun/dispatch. Failure -> same-run first actual root with original/new assertions, controls, report ownership, tick budgets and timeout unchanged. Inspect actual afterRelease and native chord ordering. No near-target acceptance after budget expiry, no subtracting input/readback time, no writable state/save/time/collision hooks.
+NEXT read sameCI52 once. Pending preserve/report without waitingloop/retry. Failure inspect first actual same-run root, cpu-renderer/era600/report.json when relevant. No weakened epsilon/ticks/timeouts/ownership/inputcleanup, collision edits, fabricated positive save, gameclock/state mutation or stale-root replay.
 
-Success -> all3jobs,13finalprimary,9originalnative+CPU native,three lane/render/CPU fiveledgers and all listed bytes/hash; original audio/actor.playback/HUD/normal-paused-reduced-motion scenes/groundedATB/equipmentv8/fulltrial/touch. CPU original home→fair and co-op/ATB/own-v2-export/IndexedDB/native-import journeys required. Factivepresentation>=60real samples with consistentmean/P95/max/FPS,correctCPU/build/source labels,nativequality/compatibilityactualdimensions,identicalfullpausedstates,11successfulCPUoriginalPNG/14CPUledgerfiles. Actual released arrivals<.12 within original budgets; verify I coarse/inner input/release sequence without resetting time. Review real images, preserve untouched artifacts in designatedDrive/downloadreadback, then Pages/source/HTML. CI embeds sourceSHA; source-null localHTML is not its hash baseline. No progress/fixtures/device/art90/performance substitution.
+SUCCESS requirements: all3jobs; original13primary/9native+CPU, allfive original ledgers and listedbytes/hash; originalaudio/actor.playback/HUD/normal-paused-reduced-motion/groundedATB/equipmentv8/fulltrial/touch. Both originalCPUjourneys/ownv2/IndexedDB/nativeimport,>=60realframes/coherentmean-P95-max-FPS/labels,qualitydimensions/fullpausedstate,11originalCPU PNG and14ledgerfiles. Additionally era600 finalreport/nativeimport and sixth16-fileledger,all30afterRelease<.12 within originalbudgets and realchordorder; same-runparentv2,companionstageapproach,departureP2inactive,two solo victories,cinematicpause,Luccaownership,ownv3/v4imports,cathedral. Review11newPNG and truecanvas nearest/filter/revert hashes (on differs,off restores exactly),fullstate unchanged,cachelimits/cleanup,alpha silhouettes. Originalreports alone cannot accept newJ. Retain untouchedraws in correctDrive/readback then sameCI Pages/source/HTML. No progress/fixture/localnull-sourceHTML substitution.
 
-## CI50 failed, but prior route work advanced
+## Closed acceptance — no repeated engineering
 
-CI50 35669876213 completed/failure. Validate106563719363 CPUstep21 failed; good106563719387/bad106563719274 succeeded. Complete first CPU home-to-fair case passed with six arrivals; previous overworld leg253/315ticks. F61sample/labels/nativequality678×452 vscompatibility452×301/fullpausedstate assertions reached. These are partial evidence, not full newCPU/F acceptance.
+I0.9.31/source44ba3922ac2e6b1dd002624a38f4156edcd7d2c5,CI51 35675330433,Pages45 35676767742 accepted. Threejobs/allfinalreports/five byte-reproducedledgers,11CPUimages,10releasedarrivals/twocompleteCPUjourneys and source/HTML/rawretention closed. G/H/I fixes natively verified here. CI48/49/50 remain failures and are not rerun or retroactively accepted. E/CI47/Pages41 and earlier remain closed. No fabricated historical independentCI45 acceptance.
 
-New root CI50-cpu-coop-primary-outer-chord-oscillation: secondcase first co-op leg P1 outerkey moves across both P2 transportcalls; zero-ms holds still move P1 by8-9ticks and alternate overshoot. Ten pulses172/165ticks;afterRelease349/P1z-2.2;catch352 is later. Actual CPUfailurePNG reviewed; four rawZIPs,tenactualPNG hashes,sixrenderledger files checked. No verifier replay/exactledgerregeneration/wholelane revalidation claim. Step22 secondary; no playable/newPages. CI50_FAILURE_ROOT and CI50_CHECKPOINT closed as failure/superseded, not accepted/rerun.
+## Related next batch after CI52 closure
 
-Last accepted CI47/Pages41 Esourcef07a42bfa7357e1a9ddcebfa8a790855927051b4 remains closed. CI48/49 failures and earlier acceptance not replayed; no fabricated independentCI45 closure.
+Continue existing earlyT05 actual quality, not newframework or latereras: extend nativeCPU beyondcathedral into existingrescue/trial/futurearrival journeys, obtain sustained/device observations, address actual imagecompatibility defects, improve permitted actor/plant/prop material consistency/scale/silhouette/narrowlandmarks and fullanimation/music/listening. Reuse savedassets. J's600 route is coverage of existingcontent, not newly implementedgamechapters; cathedralentrance is not whole600. Filter defaultmust not be promoted before actualreview. Do not treat testcount/mipcounter/FPSlabel as fineartdelivery. HeldZ and upgradedmother/furniture remain restricted; ordinarycontinue does not lift that boundary.
 
-## Related next work after CI51 closure
-
-Continue existing earlyT05 real quality as a related batch: complete nativeCPU chapter coverage and sustained/device observations; actual-image CPU compatibility defects; actor/plant versus solid-prop material language, scale/silhouette and narrow-view landmarks; complete animation and soundtrack/listening. Reuse saved assets. Tests/diagnostics are not refinedHD-2D delivery. Upgraded mother/furniture and Z material/composition remain held; ordinary continue does not allow retry/indirectreplacement/partialpromotion. No later chapter expansion before evidence-backed early quality.
-
-## Full scope, unchanged denominator
+## Full scope, denominator unchanged
 
 T03: hiddenrules/versiondifferences/fulltopology/numericfidelity.
-T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; preserve equipment and provisional-numeric disclosure.
-T05: completeart/animation/rights-clearedaudio; actual early-scene quality first.
+T04: growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; preserve equipmentv1-v8 and provisionalnumeric disclosure.
+T05: completeart/animation/rights-clearedaudio; actualearlyscenequality first.
 T06: completefuture/othereras/main-sidequests/endings;2300arrival is not fullfuture.
-T07: overall>=90/eachdimension>=80%/zero-critical/requiredassets/fivegates/physicalinput-FPS-frametime-loading-memory-background-save-audio/fullnativeCPUcoverage. No newscore;old30stale.
-T08: each related batch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/readback; docs[skip ci].
+T07: overall>=90/eachdimension>=80%/zero-critical/requiredassets/fivegates/realdeviceinput-FPS-frametime-loading-memory-background-save-audio/fullnativeCPUcoverage. No newscore;old30stale.
+T08: eachrelatedbatch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/downloadreadback; docs[skip ci].
 
-CPUfallback exists. Preserve TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300/equipmentv1-v8. NoP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials. Heldprologue-renderblob2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser restriction remains.
+Preserve TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300; CPUbackend exists. NoP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials. Heldrenderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowserrestriction unchanged, no retry/bypass/indirectreplacement/partialpromotion.
 
-Recovery Drive **1OwdrRCffGd6YtJx2YMn1qzoPE2CnvYoV**,53409483bytes/30manifest/4rawZIP/273programfiles. VQ02I_CLOUD_RETENTION records downloaded readback and published source binding. CurrentGitHubdocs separately; temporarycontainer is notauthority.
+Recovery Drive14HDH1dKKIKzkHfqWCAfHtRgjKs6j0gNd,58593820bytes/43manifest/280programfiles; originalacceptedbundle1sgU-n16eUnPExIBtFsx2RHgGDf51BC4U. Currentmain docs separately, never overwrite them from tar. Temporarycontainer is notauthority.

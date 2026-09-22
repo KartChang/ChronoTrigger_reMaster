@@ -1,0 +1,19 @@
+{
+  "schema":1,"repository":"KartChang/ChronoTrigger_reMaster","source":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","sourceTree":"5563d8c44fded9b43c72461411aef7a1ab2d6376","batch":"VQ02I","version":"0.9.31",
+  "run":35675330433,"number":51,"event":"push","attempt":1,"conclusion":"success","updatedAt":"2026-09-22T01:42:33Z","accepted":true,
+  "jobs":{"validate":106580545339,"good":106580545667,"bad":106580545619,"allSuccess":true},
+  "html":{"bytes":5686369,"sha256":"ca963b73d55cdc37e9f348dd93476c1a86089c3f4fed7313147f7a9f935c43a3","metadataSourceMatched":true},
+  "reports":{"primary":13,"originalNative":9,"cpuNative":true,"audio":true,"actorPlayback":true,"hud":true,"normalPausedReducedMotionScenes":true,"groundedAtb":true,"equipmentV8":true,"fullWitnessTrial":true,"touch":true},
+  "ledgers":[{"lane":"validate","files":17,"primary":8},{"lane":"good","files":8,"primary":3},{"lane":"bad","files":4,"primary":2},{"lane":"render-compatibility","files":6},{"lane":"cpu-renderer","files":14}],
+  "ledgerVerification":{"exactSourceVerifiersReexecuted":true,"allFiveOriginalLedgersByteIdentical":true,"allListedBytesAndHashesMatched":true,"laneAssembly":"Good/bad raw metadata was paired with the same CI51 playable HTML because those lane ZIPs do not contain HTML. Original reports/ZIPs were not altered. An initial missing-HTML invocation failed before this correct assembly; it is not counted as successful."},
+  "cpu":{"reportBytes":695374,"reportSha256":"9eaf783a1222ed77784623370ca116a1bbad3089d7c235c47769380c86f65deb","bothOriginalCasesPassed":true,"actualHomeStairsMotherOverworldFair":true,"independentP1P2":true,"atbVictory":true,"ownV2Export":true,"indexedDbReload":true,"nativeImport":true,"successfulOriginalPng":11,"allTenAfterReleaseArrivalsBelowPoint12":true,"allOriginalTickBudgetsAnd30SecondCeilingsPreserved":true,"coarseAndPrecisionChordOrdersChecked":true,
+    "elapsedBudgetPairs":[[36,143],[91,188],[130,216],[70,168],[271,315],[65,167],[66,165],[133,220],[110,188],[68,165]],
+    "frames":{"samples":61,"meanMs":41.059016393444146,"p95Ms":49.39999999990687,"maxMs":85.4000000001397,"fps":24.355186456918364,"statisticsConsistent":true},
+    "qualityBuffer":[678,452],"compatibilityBuffer":[452,301],"fullPausedStateEquality":true,"backendBuildSourceLabelsMatched":true},
+  "visualReview":"CI51_VISUAL_REVIEW.md; eleven exact CPU PNGs viewed in a labelled contact sheet; original full-size captures retained. No temporal shimmer or art90 claim.",
+  "pages":{"run":35676767742,"number":45,"sourceMatched":true,"stagedAndDeployedAndPlayableBytesIdentical":true,"ciPublicHttpAssertionPassed":true,"independentLocalHttpSucceeded":false,"receipt":"PAGES45_PROVENANCE.json"},
+  "cloudRetention":"CI51_CLOUD_RETENTION.json","originalSourceArchivePaxCommentMatched":true,
+  "closedFailures":"CI48/49/50 remain failures; their incremental fixes are accepted here in I, not retroactively accepted runs. Earlier E/CI47/Pages41 remains closed.",
+  "localBrowserRun":false,"physicalDeviceApproved":false,"performanceCertified":false,"artApproved":false,"wholeGameAccepted":false,
+  "boundary":"Acceptance covers this source's existing required suites and two CPU opening/fair journeys. It does not establish complete native CPU chapters, device/listening/continuous performance, full game content or current90 quality. Old30 is stale. J changes require CI52."
+}

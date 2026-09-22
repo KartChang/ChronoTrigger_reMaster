@@ -1,0 +1,13 @@
+{
+  "schema":1,"batch":"VQ02J","version":"0.9.32","source":"e93733179a4e0e0cb5fd254d7a841c2eb3df542d","sourceTree":"23bfe048c311e8afdb4913283c8257ebff910adb",
+  "folder":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"14HDH1dKKIKzkHfqWCAfHtRgjKs6j0gNd","name":"Chrono-CI51-accepted-VQ02J-tested-batch.zip","bytes":58593820,"sha256":"f48e75f308b02182bb3635e651d3be0b461f685daa5c78de6c8677c9fc199fe2",
+  "manifestEntries":43,"recoveryFiles":280,
+  "verification":{"downloadedRawReadback":true,"sizeAndSha256Matched":true,"zipCrcMatched":true,"all43ManifestEntriesMatched":true,"acceptedRawPackageUnchanged":true,"nestedCrcMatched":true,"parentMatched":true},
+  "contents":["Unmodified Chrono-CI51-accepted-Pages45-originals.zip with all7 rawZIPs","Fifteen J changed source/test/workflow files and tested patch","Complete Node1239/Python259/assets/typecheck/build logs and exits; interrupted runs separately retained","CI51 acceptance/verifier/native/image/Pages analysis","Unaccepted source-null local HTML and build metadata","280-file assembled tested program recovery"],
+  "recovery":{"path":"recovery/VQ02J-tested-program-snapshot.tar.gz","files":280,"kind":"assembled-tested-program-snapshot-not-published-Git-archive","baseSource":"44ba3922ac2e6b1dd002624a38f4156edcd7d2c5","docs":"Only THIRD_PARTY.md included. Always read current GitHubmain documents separately; never overwrite progress from archived source."},
+  "originals":{"fileId":"1sgU-n16eUnPExIBtFsx2RHgGDf51BC4U","receipt":"CI51_CLOUD_RETENTION.json","accepted":true},
+  "publicationNote":"Package uploaded and fetched/hash-verified before source commit. Nullsource inside it is intentional; this final GitHub receipt binds actual publication without rewriting originals.",
+  "toolchain":"Existing approved1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE; node_modules only, esbuild hardlink retained. No source/config overwrite or bootstrapCI.",
+  "nativeAccepted":false,"newPagesAccepted":false,"artApproved":false,"physicalDeviceApproved":false,"performanceCertified":false,
+  "privacy":"Sharing and correct existing parent retained. No ROM, private original media, font files or credentials added."
+}

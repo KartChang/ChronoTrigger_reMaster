@@ -12,6 +12,7 @@ from playwright.sync_api import sync_playwright
 from native_chooser import arm_native_chooser
 from native_import import import_save
 from cpu_native_route import move_axis
+from cpu_era_route import observe_era_route
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results' / 'cpu-renderer'
@@ -262,6 +263,9 @@ try:
         try:
             observe_home(page)
             observe_fair(page)
+            observe_era_route(page, OUT/'era600',
+                              {k: report[k] for k in ('sourceSha','runId','runAttempt','htmlSha256','htmlBytes')},
+                              snap, wait_game, activate, observed)
             assert not report['errors'], report['errors']
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4190/', 'data:', 'blob:'))], requests
             report['status'] = 'passed'

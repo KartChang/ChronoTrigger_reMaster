@@ -1,0 +1,42 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {assertCpuEraEvidence,ERA_CHAPTERS,ERA_IMAGES,ERA_MOVES} from '../scripts/cpu-era-evidence.mjs';
+import {readFileSync} from 'node:fs';
+const identity={sourceSha:'a'.repeat(40),runId:'999',runAttempt:'1',htmlSha256:'b'.repeat(64),htmlBytes:999};
+const clone=structuredClone;
+// In-memory schema fixtures only; never serialized as native reports, saves or images.
+function fixture(){
+ const state=(chapter='fair')=>({chapter,mode:'explore',ticks:100,era:'middle',joined:true,players:[{x:0,z:0,hp:120,mp:18,atb:0},{x:1,z:0,hp:120,mp:18,atb:0}],fair:{gatoWon:true},opening:{phase:'none',canyonWon:true},kingdom:{phase:'rescue',forestWon:true}});
+ const observation=(name,chapter,on=true)=>({chapter,state:state(chapter),image:{path:name+'.png',bytes:12,sha256:'c'.repeat(64)},renderer:{backend:'cpu-canvas2d',webglVersion:0,canvas2dFallback:true,width:8,height:8,cpu:{profile:'vq02d-existing-scene-cpu-raster',draws:1,fragments:64,triangles:2,unsupportedResources:0,textureMemory:{budget:33554432,bytes:340,entries:1,entryLimit:512,mipBytes:on?84:0},sampling:{profile:'vq02j-opaque-affine-minification',enabled:on,alphaCutouts:'nearest',perspective:'nearest-fallback',minifiedTriangles:on?1:0}}},pixels:{source:'actual-cpu-canvas',context2d:true,webgl1:true,webgl2:true,width:8,height:8,opaque:64,min:0,max:255,sum:999}});
+ const frozen=state(),nearest=observation('sampling-nearest','fair',false),filtered=observation('sampling-filtered','fair'),restored=observation('sampling-restored','fair',false);
+ nearest.canvasSha256=restored.canvasSha256='d'.repeat(64);filtered.canvasSha256='e'.repeat(64);
+ const cinematic=(field,phase)=>{const before=state();before[field].phase=phase;return {before,after:clone(before),fullStateEqual:true};};
+ const pb=state();pb.players[1].x=3;pb.players[1].z=6.4;const pa=clone(pb);pa.ticks+=40;pa.players[1].x=1.4;
+ const routes=ERA_MOVES.map(([axis,target,coop])=>{
+  const b=state();b.players[0][axis]=target-1;const a=clone(b);a.ticks+=25;a.players[0][axis]=target;
+  const before={state:b,paused:false},afterRelease={state:a,paused:false};
+  const key=axis==='x'?'d':'w',arrow=axis==='x'?'ArrowRight':'ArrowUp',keys=coop?[key,arrow]:[key];
+  return {axis,target,coop,status:'arrived',epsilon:.12,timeoutMs:30000,maxHoldMs:250,arrivalOwner:0,budget:135,before,afterRelease,pulses:[{before,afterRelease,keys,releaseKeys:[...keys].reverse(),holdMs:250,chordOrder:coop?'primary-outer':'single-owner'}]};
+ });
+ const boundaries=[],battles=[];
+ for(const [i,chapter] of ['canyon','forest'].entries()){
+  const before=state(chapter),after=clone(before);after.ticks+=30;after.mode='battle';after.enemies=Array.from({length:i?2:3},()=>({hp:48}));
+  const target=i?1:4.8;boundaries.push({before,afterRelease:after,reached:clone(after),key:i?'w':'s',target,budget:Math.ceil((target/4+2)*60),timeoutMs:30000});
+  const victory=clone(after);victory.mode='victory';victory.enemies.forEach(e=>e.hp=0);battles.push({before:clone(after),victory,soloP1:true});
+ }
+ const ob=state('castle'),oa=clone(ob);oa.players[1].x+=.5;
+ const saves=[3,4].map((version,i)=>{const before=state(i?'castle':'canyon'),bytes=100,sha256='f'.repeat(64);return {version,path:i?'cpu-kingdom-v4.json':'cpu-opening-v3.json',bytes,sha256,sameRunExport:true,before,after:clone(before),nativeImport:{status:'passed',expected:'imported',stage:'completed',terminal:{event:'imported'},frozenWhileSelecting:true,freezeComparison:{equal:true},selection:{bytes,sha256}}};});
+ const r={schema:'chrono-cpu-era600-v1',status:'passed',...identity,physicalDevice:false,artApproved:false,wholeGameAccepted:false,errors:[],entry:state(),sourceSave:{path:'../cpu-own-fair-save.json',bytes:100,sha256:'f'.repeat(64)},views:ERA_CHAPTERS.map((c,i)=>observation(ERA_IMAGES[i],c)),filtering:{before:frozen,after:clone(frozen),nearest,filtered,restored,fullStateEqual:true},pendantPause:cinematic('opening','approach'),queenPause:cinematic('kingdom','erasing'),departedP2Inactive:true,companionApproach:{before:pb,afterRelease:pa,key:'ArrowLeft',targetUpperX:1.5,budget:143,timeoutMs:30000},nativeRoutes:routes,boundaries,battles,luccaOwnership:{label:'露卡',before:ob,after:oa},saves,final:state('cathedral')};
+ r.views[0].state.opening.phase='lost';return r;
+}
+test('in-memory era contract fixture is complete, not native evidence',()=>assert(assertCpuEraEvidence(fixture(),identity)));
+for(const [name,mutate] of Object.entries({
+ failed:r=>r.status='failed',wrongSha:r=>r.sourceSha='b'.repeat(40),wrongRun:r=>r.runId='998',wrongAttempt:r=>r.runAttempt='2',wrongHtml:r=>r.htmlSha256='0'.repeat(64),runtimeError:r=>r.errors.push('error'),deviceClaim:r=>r.physicalDevice=true,artClaim:r=>r.artApproved=true,gameClaim:r=>r.wholeGameAccepted=true,
+ noParentVictory:r=>r.entry.fair.gatoWon=false,parentTraversal:r=>r.sourceSave.path='../../private.json',missingChapter:r=>r.views.pop(),wrongOrder:r=>r.views.reverse(),reusedCapture:r=>r.views[1].image.path=r.views[0].image.path,
+ webgl:r=>r.views[0].renderer.webglVersion=2,noDraw:r=>r.views[0].renderer.cpu.fragments=0,overBudget:r=>r.views[0].renderer.cpu.textureMemory.bytes=33554433,invalidLevels:r=>r.views[0].renderer.cpu.textureMemory.mipBytes=-1,noNativeCanvas:r=>r.views[0].pixels.source='fixture',blank:r=>r.views[0].pixels.max=0,
+ spriteFiltered:r=>r.views[0].renderer.cpu.sampling.alphaCutouts='linear',perspectiveClaim:r=>r.views[0].renderer.cpu.sampling.perspective='affine',notEnabled:r=>r.views[0].renderer.cpu.sampling.enabled=false,noActualFilter:r=>r.filtering.filtered.renderer.cpu.sampling.minifiedTriangles=0,unchangedPixels:r=>r.filtering.filtered.canvasSha256=r.filtering.nearest.canvasSha256,notReverted:r=>r.filtering.restored.canvasSha256='0'.repeat(64),memoryNotReleased:r=>r.filtering.restored.renderer.cpu.textureMemory.mipBytes=84,pausedMutation:r=>r.filtering.after.ticks++,capturedMutation:r=>r.filtering.filtered.state.ticks++,cinematicMutation:r=>r.queenPause.after.players[0].hp--,notCinematic:r=>r.pendantPause.before.opening.phase='none',departedControlled:r=>r.departedP2Inactive=false,
+ companionNotClose:r=>r.companionApproach.afterRelease.players[1].x=10,companionMovesP1:r=>r.companionApproach.afterRelease.players[0].x=2,
+ missingLeg:r=>r.nativeRoutes.pop(),wrongTarget:r=>r.nativeRoutes[0].target=2,epsilonWidened:r=>r.nativeRoutes[0].epsilon=.2,timeoutWidened:r=>r.nativeRoutes[0].timeoutMs=30001,budgetWidened:r=>r.nativeRoutes[0].budget=200,clockReset:r=>r.nativeRoutes[0].afterRelease.state.ticks=0,arrivedAfterBudget:r=>r.nativeRoutes[0].afterRelease.state.ticks=236,notArrived:r=>r.nativeRoutes[0].afterRelease.state.players[0].x=.13,pausedRoute:r=>r.nativeRoutes[0].afterRelease.paused=true,wrongOwner:r=>r.nativeRoutes[0].arrivalOwner=1,longHold:r=>r.nativeRoutes[0].pulses[0].holdMs=251,wrongKeys:r=>r.nativeRoutes[0].pulses[0].keys=['s'],notReleased:r=>r.nativeRoutes[0].pulses[0].releaseKeys=[],wrongChord:r=>r.nativeRoutes[0].pulses[0].chordOrder='single-owner',fabricatedArrival:r=>r.nativeRoutes[0].afterRelease=clone(r.nativeRoutes[0].before),
+ encounterBudget:r=>r.boundaries[0].budget++,notBattle:r=>r.boundaries[0].afterRelease.mode='explore',enemySurvives:r=>r.battles[0].victory.enemies[0].hp=1,p2Damaged:r=>r.battles[0].victory.players[1].hp--,gatoLost:r=>r.battles[0].victory.fair.gatoWon=false,noP2Reunion:r=>r.luccaOwnership.after.players[1].x=1,reunionMovesP1:r=>r.luccaOwnership.after.players[0].z=2,
+ missingSave:r=>r.saves.pop(),notExported:r=>r.saves[0].sameRunExport=false,wrongVersion:r=>r.saves[0].version=2,nativeNotDone:r=>r.saves[0].nativeImport.status='started',changedSelection:r=>r.saves[0].nativeImport.selection.sha256='0'.repeat(64),syntheticSave:r=>r.saves[0].nativeImport.selection.negativeFixture=true,importMutation:r=>r.saves[0].after.players[0].mp--,wrongEnd:r=>r.final.chapter='truce'
+}))test('era verifier rejects '+name,()=>{const r=fixture();mutate(r);assert.throws(()=>assertCpuEraEvidence(r,identity));});
+test('CPU era CLI preserves the original parent verifier and adds one workflow gate',()=>{const script=readFileSync('scripts/cpu-era-evidence.mjs','utf8'),wf=readFileSync('.github/workflows/ci.yml','utf8');assert(script.includes('const parent=inspectCpuEvidence('));assert(wf.includes('run: node scripts/cpu-evidence.mjs'));assert.equal(wf.split('run: node scripts/cpu-era-evidence.mjs').length-1,1);assert(wf.includes('timeout-minutes: 45'));});

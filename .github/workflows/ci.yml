@@ -58,6 +58,9 @@ jobs:
       - name: Verify same-source CPU pixels and native gameplay
         if: always()
         run: node scripts/cpu-evidence.mjs
+      - name: Verify same-source CPU sampling and native 600 AD continuation
+        if: always()
+        run: node scripts/cpu-era-evidence.mjs
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate

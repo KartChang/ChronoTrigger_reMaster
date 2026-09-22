@@ -12,18 +12,21 @@ export class CpuScene {
  private raster:CpuRaster|null=null;private image:ImageData|null=null;
  private consideredSubmeshes=0;private culledSubmeshes=0;private shadedVertices=0;
  private draws=0;private meshes=0;private textured=0;private unsupported=0;private elapsed=0;
- private lastNames:string[]=[];private perFrameTextures=new Map<BaseTexture,CpuTexture|null>();
+ private lastNames:string[]=[];private perFrameTextures=new Map<BaseTexture,CpuTexture|null>();private perFrameOpaqueTextures=new Map<BaseTexture,CpuTexture|null>();
  constructor(private engine:CpuEngine){}
- private texture(t:BaseTexture|null):CpuTexture|null{
-  if(!t)return null;if(this.perFrameTextures.has(t))return this.perFrameTextures.get(t)!;
-  const internal=t.getInternalTexture(),pixels=internal?this.engine.readTexturePixels(internal):null;
-  if(!pixels){this.unsupported++;this.perFrameTextures.set(t,null);return null;}
-  const sample={...pixels,wrapU:t.wrapU,wrapV:t.wrapV,matrix:Array.from(t.getTextureMatrix().m)};
-  this.perFrameTextures.set(t,sample);return sample;
+ private texture(t:BaseTexture|null,minify=false):CpuTexture|null{
+  minify=minify&&this.engine.opaqueMinificationEnabled();
+  const cache=minify?this.perFrameOpaqueTextures:this.perFrameTextures;
+  if(!t)return null;if(cache.has(t))return cache.get(t)!;
+  const internal=t.getInternalTexture(),pixels=internal?this.engine.readTexturePixels(internal,minify):null;
+  if(!pixels){this.unsupported++;cache.set(t,null);return null;}
+  const sample={...pixels,mips:minify?pixels.mips:undefined,wrapU:t.wrapU,wrapV:t.wrapV,matrix:Array.from(t.getTextureMatrix().m)};
+  cache.set(t,sample);return sample;
  }
  private material(m:StandardMaterial,mesh:AbstractMesh):CpuSurface{
   const diffuse=m.disableLighting&&m.emissiveTexture?m.emissiveTexture:m.diffuseTexture;
-  const texture=this.texture(diffuse),alphaTexture=!!texture&&(m.useAlphaFromDiffuseTexture||m.needAlphaTesting());
+  const alphaTexture=!!diffuse&&(m.useAlphaFromDiffuseTexture||m.needAlphaTesting());
+  const texture=this.texture(diffuse,!alphaTexture&&!m.opacityTexture&&!m.needAlphaBlendingForMesh(mesh));
   const opacity=m.opacityTexture===diffuse&&alphaTexture?null:this.texture(m.opacityTexture);
   return {texture,opacity,opacityFromRGB:m.opacityTexture?.getAlphaFromRGB??false,textureAlpha:alphaTexture,
    alpha:m.alpha*mesh.visibility,cutoff:m.needAlphaTesting()?m.alphaCutOff:0,
@@ -33,7 +36,7 @@ export class CpuScene {
   const start=performance.now(),camera=scene.activeCamera;if(!camera)return;
   const width=this.engine.getRenderWidth(),height=this.engine.getRenderHeight();
   if(this.raster?.width!==width||this.raster?.height!==height){this.raster=new CpuRaster(width,height);this.image=this.engine.cpuContext.createImageData(width,height);}
-  const raster=this.raster!;raster.clear(scene.clearColor.asArray());this.perFrameTextures.clear();this.meshes=0;this.textured=0;this.unsupported=0;this.lastNames=[];
+  const raster=this.raster!;raster.clear(scene.clearColor.asArray());this.perFrameTextures.clear();this.perFrameOpaqueTextures.clear();this.meshes=0;this.textured=0;this.unsupported=0;this.lastNames=[];
   this.consideredSubmeshes=0;this.culledSubmeshes=0;this.shadedVertices=0;
   // Render observers own existing light/visibility synchronization. No GPU render,
   // material mutation, gameplay tick, collision, save or input processing occurs here.
@@ -89,11 +92,12 @@ export class CpuScene {
    if(a&&b&&c)raster.triangle(a,b,c,p.material);
   }
   this.image!.data.set(raster.rgba);this.engine.cpuContext.putImageData(this.image!,0,0);this.draws++;
-  this.perFrameTextures.clear();this.elapsed=performance.now()-start;scene.onAfterRenderObservable.notifyObservers(scene);
+  this.perFrameTextures.clear();this.perFrameOpaqueTextures.clear();this.elapsed=performance.now()-start;scene.onAfterRenderObservable.notifyObservers(scene);
  }
  inspect(){return {profile:'vq02d-existing-scene-cpu-raster',draws:this.draws,meshes:this.meshes,texturedSurfaces:this.textured,unsupportedResources:this.unsupported,
   triangles:this.raster?.triangles??0,fragments:this.raster?.fragments??0,frameMs:this.elapsed,
   work:{profile:'vq02e-conservative-cpu-work',consideredSubmeshes:this.consideredSubmeshes,culledSubmeshes:this.culledSubmeshes,shadedVertices:this.shadedVertices,submittedTriangles:this.raster?.submitted??0,fastAccepted:this.raster?.fastAccepted??0,trivialRejected:this.raster?.trivialRejected??0,clipped:this.raster?.clipped??0},
+  sampling:{profile:'vq02j-opaque-affine-minification',enabled:this.engine.opaqueMinificationEnabled(),minifiedTriangles:this.raster?.minifiedTriangles??0,alphaCutouts:'nearest',perspective:'nearest-fallback'},
   bufferBytes:(this.raster?.rgba.byteLength??0)+(this.raster?.depth.byteLength??0)+(this.image?.data.byteLength??0),
   textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames],shadowMaps:false,postprocess:false,artApproved:false};}
 }

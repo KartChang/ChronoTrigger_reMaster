@@ -58,6 +58,7 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
 
     def capture(name):
         value = observed(page)
+        value['woodland'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.woodland')
         path = out / (name + '.png')
         page.screenshot(path=str(path), timeout=15000)
         b = path.read_bytes()

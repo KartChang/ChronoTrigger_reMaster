@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {surface,png} from '../scripts/asset-export.mjs';
 import {STORY_NPC_ART,STORY_NPC_KINDS,drawStoryNpc} from '../.test/story-npc-art.mjs';
+import {woodlandBaseline} from './helpers/woodland-baseline.mjs';
 import {storyNpcBaseline} from './helpers/story-npc-baseline.mjs';
 const draw=(kind,frame)=>{const s=surface(48,64);drawStoryNpc(s.ink,kind,frame);return s;};
 for(const kind of STORY_NPC_KINDS){
@@ -34,8 +35,9 @@ const declared=JSON.parse(readFileSync('tests/baselines/vq02q-declared-scene-edi
 for(const name of Object.keys(declared.files))test(`${name}: only enumerated NPC art/inspection deltas from exact P source`,()=>{
  const s=readFileSync(name,'utf8');const restored=storyNpcBaseline(name,s);
  assert.equal(createHash('sha256').update(restored).digest('hex'),declared.originalSha256[name]);
- const e=declared.files[name][0];assert.throws(()=>storyNpcBaseline(name,s.replace(e.after,'')));
- assert.throws(()=>storyNpcBaseline(name,s+'\n'+e.after));
+ const q=name==='src/kingdom-render.ts'?woodlandBaseline(name,s):s;
+ const e=declared.files[name][0];assert.throws(()=>storyNpcBaseline(name,q.replace(e.after,''),false));
+ assert.throws(()=>storyNpcBaseline(name,q+'\n'+e.after,false));
  // A change outside the declared wires is not erased by the normalization.
  assert.notEqual(createHash('sha256').update(storyNpcBaseline(name,s+'\n// out of scope\n')).digest('hex'),declared.originalSha256[name]);
 });

@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import {assertWoodland} from './woodland-evidence.mjs';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -39,7 +40,7 @@ export function assertCpuEraEvidence(r, identity) {
  need(r.entry?.chapter==='fair' && r.entry.fair.gatoWon===true && r.entry.opening.phase==='none','actual parent fair journey');
  need(r.sourceSave?.path==='../cpu-own-fair-save.json' && r.sourceSave.bytes>0 && hash(r.sourceSave.sha256),'parent own v2 export');
  need(equal(r.views?.map(o=>o.chapter),ERA_CHAPTERS),'chapter coverage');
- r.views.forEach((o,i)=>{observation(o,true);need(o.image.path===ERA_IMAGES[i]+'.png','chapter image ownership');});
+ r.views.forEach((o,i)=>{observation(o,true);assertWoodland(o.woodland,o.chapter);need(o.image.path===ERA_IMAGES[i]+'.png','chapter image ownership');});
  const f=r.filtering;
  need(f?.fullStateEqual===true && equal(f.before,f.after),'sampling changed full paused state');
  for(const [k,on] of [['nearest',false],['filtered',true],['restored',false]]){

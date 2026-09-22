@@ -1,0 +1,68 @@
+{
+  "source": "f0abb3ef0ecc67164031d0ac3b14b7333a13a8f9",
+  "files": {
+    "src/kingdom-render.ts": [
+      {
+        "before": "import {drawSurface} from './world-art';",
+        "after": "import {drawWoodlandGround,drawWoodlandOak,drawWoodlandFern,WOODLAND_ART} from './woodland-art';"
+      },
+      {
+        "before": "import {drawTree} from './pixel-art';\n",
+        "after": "// Shared tree authoring remains unchanged; only this map owner selects woodland pixels.\n"
+      },
+      {
+        "before": "type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh};",
+        "after": "type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh;outdoor?:{ground:DynamicTexture;trees:Mesh[]}};"
+      },
+      {
+        "before": "const npcMotion=new StoryNpcMotion(scene);",
+        "after": "const npcMotion=new StoryNpcMotion(scene);\n function inspectWoodland(){\n  const entry=[...views.entries()].find(([,v])=>v.root.isEnabled()&&v.outdoor);\n  if(!entry)return null;\n  const [chapter,v]=entry,art=v.outdoor!;\n  const pixels=(t:DynamicTexture,points:readonly (readonly number[])[])=>points.map(([x,y])=>({x:x!,y:y!,rgba:Array.from(t.getContext().getImageData(x!,y!,1,1).data)}));\n  return {profile:WOODLAND_ART.id,approved:false,chapter,ground:{name:art.ground.name,...art.ground.getSize(),samples:pixels(art.ground,[[0,0],[192,30],[32,200],[190,180],[320,280]])},trees:art.trees.filter(m=>m.isEnabled()&&!m.isDisposed()).map(m=>{const t=(m.material as StandardMaterial).diffuseTexture as DynamicTexture;return {name:m.name,position:m.position.asArray(),cell:{...t.getSize()},sampling:t.samplingMode,alpha:t.hasAlpha,samples:pixels(t,[[0,0],[32,12],[29,62],[32,76],[32,79]])};})};\n }"
+      },
+      {
+        "before": "const root=new TransformNode('kingdom-'+chapter,scene),mats=new Map<string,StandardMaterial>();",
+        "after": "const root=new TransformNode('kingdom-'+chapter,scene),mats=new Map<string,StandardMaterial>(),trees:Mesh[]=[];"
+      },
+      {
+        "before": "if(chapter==='forest')drawSurface(ctx,384,352,'forest');",
+        "after": "if(!inside)drawWoodlandGround(ctx,384,352,chapter==='forest'?'forest':'truce');"
+      },
+      {
+        "before": "function tree(x:number,z:number,w=4.2){picture('oak',x,z,w,w*1.25,c=>drawTree(c),64,80);}",
+        "after": "function tree(x:number,z:number,w=4.2){trees.push(picture('oak',x,z,w,w*1.25,c=>drawWoodlandOak(c),64,80));}"
+      },
+      {
+        "before": "c=>{c.fillStyle='#6f8151';for(let i=0;i<7;i++){c.fillRect(3+i*3,10+Math.abs(3-i)*2,1,14);c.fillRect(1+i*3,15+Math.abs(3-i),5,1);}}",
+        "after": "c=>drawWoodlandFern(c)"
+      },
+      {
+        "before": "root.setEnabled(false);return {root,queen,lucca};",
+        "after": "root.setEnabled(false);return {root,queen,lucca,outdoor:inside?undefined:{ground:texture,trees}};"
+      },
+      {
+        "before": "inspectNpcs(){return npcMotion.inspect();}",
+        "after": "inspectNpcs(){return {...npcMotion.inspect(),woodland:inspectWoodland()};}"
+      }
+    ],
+    "tests/cpu_era_route.py": [
+      {
+        "before": "        value = observed(page)\n",
+        "after": "        value = observed(page)\n        value['woodland'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.woodland')\n"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {createHash} from 'node:crypto';",
+        "after": "import {createHash} from 'node:crypto';\nimport {assertWoodland} from './woodland-evidence.mjs';"
+      },
+      {
+        "before": "r.views.forEach((o,i)=>{observation(o,true);",
+        "after": "r.views.forEach((o,i)=>{observation(o,true);assertWoodland(o.woodland,o.chapter);"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/kingdom-render.ts": "1b9f844a990a3db3d2b129fd666a29136bd0f0d37f97a56ceda8ba2ecee01956",
+    "tests/cpu_era_route.py": "bc1bc3c80acb724f6661328c4425f63160ac69d2a1110f63dcc92e3866f2561f",
+    "scripts/cpu-era-evidence.mjs": "66b2f873896f7d8ab1d867f154d754b449b07c69b0d75c04ca7fbccb62b8fee8"
+  }
+}

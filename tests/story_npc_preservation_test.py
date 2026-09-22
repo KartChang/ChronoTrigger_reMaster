@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib,json,unittest
 from copy import deepcopy
+from woodland_preservation import restore_woodland_source
 from story_npc_preservation import restore_story_source,EDITS
 from story_npc_observation import assert_story_npcs,PROFILE
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,16 +14,19 @@ class StorySourceTests(unittest.TestCase):
     def test_every_missing_or_mutated_hunk_fails(self):
         for name,edits in EDITS.items():
             s=(ROOT/name).read_text()
+            if name=='src/kingdom-render.ts': s=restore_woodland_source(name,s)
             for i,e in enumerate(edits):
                 for v in ['',e['after']+'/* changed */']:
                     with self.subTest(name=name,i=i):
                         changed=s.replace(e['after'],v,1)
-                        try:r=restore_story_source(name,changed)
+                        try:r=restore_story_source(name,changed,include_woodland=False)
                         except AssertionError:continue
                         self.assertNotEqual(hashlib.sha256(r.encode()).hexdigest(),BASE[name])
     def test_duplicate_fails(self):
         for name,edits in EDITS.items():
-            with self.assertRaises(AssertionError):restore_story_source(name,(ROOT/name).read_text()+edits[0]['after'])
+            s=(ROOT/name).read_text()
+            if name=='src/kingdom-render.ts': s=restore_woodland_source(name,s)
+            with self.assertRaises(AssertionError):restore_story_source(name,s+edits[0]['after'],include_woodland=False)
     def test_other_files_not_exempt(self):
         for name in ['src/main.ts','src/core.ts','src/input.ts','src/prologue-render.ts']:
             with self.assertRaises(ValueError):restore_story_source(name,'changed')

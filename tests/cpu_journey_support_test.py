@@ -1,3 +1,4 @@
+from woodland_preservation import restore_woodland_source
 from cpu_render_preservation import restore_render_source
 from story_npc_preservation import restore_story_source
 """Unit input/file/AST ports only. These fixtures are NOT native browser evidence."""
@@ -244,6 +245,7 @@ class PreservationTests(unittest.TestCase):
         for name,expected in pinned['files'].items():
             with self.subTest(path=name):
                 raw=(ROOT/name).read_bytes()
+                if name in ('tests/cpu_era_route.py','scripts/cpu-era-evidence.mjs'):raw=restore_woodland_source(name,raw.decode()).encode()
                 if name in ('src/cpu-raster.ts','src/cpu-scene.ts'):raw=restore_render_source(name,raw.decode()).encode()
                 if name=='src/render.ts':raw=restore_story_source(name,raw.decode()).encode()
                 if name=='tests/cpu_native_route.py':raw=restore_i_route(raw.decode()).encode()

@@ -1,20 +1,27 @@
 import {drawHDHero,HD_ART} from './hd-hero-art';
-import {drawSurface} from './world-art';
+import {drawWoodlandGround,drawWoodlandOak,drawWoodlandFern,WOODLAND_ART} from './woodland-art';
 import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicTexture,Texture,Material,ShadowGenerator} from '@babylonjs/core';
 import {KINGDOM_SOLIDS,kingdomMap} from './kingdom-data';
 import type {KingdomMap} from './kingdom-data';
 import type {State} from './core';
-import {drawTree} from './pixel-art';
+// Shared tree authoring remains unchanged; only this map owner selects woodland pixels.
 import {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';
 import {StoryNpcMotion} from './story-npc-motion';
 
 /** Lazy map construction. No game state is written here; footprints come from the rule data. */
 export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
- type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh};
+ type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh;outdoor?:{ground:DynamicTexture;trees:Mesh[]}};
  const views=new Map<KingdomMap,MapView>();
  const npcMotion=new StoryNpcMotion(scene);
+ function inspectWoodland(){
+  const entry=[...views.entries()].find(([,v])=>v.root.isEnabled()&&v.outdoor);
+  if(!entry)return null;
+  const [chapter,v]=entry,art=v.outdoor!;
+  const pixels=(t:DynamicTexture,points:readonly (readonly number[])[])=>points.map(([x,y])=>({x:x!,y:y!,rgba:Array.from(t.getContext().getImageData(x!,y!,1,1).data)}));
+  return {profile:WOODLAND_ART.id,approved:false,chapter,ground:{name:art.ground.name,...art.ground.getSize(),samples:pixels(art.ground,[[0,0],[192,30],[32,200],[190,180],[320,280]])},trees:art.trees.filter(m=>m.isEnabled()&&!m.isDisposed()).map(m=>{const t=(m.material as StandardMaterial).diffuseTexture as DynamicTexture;return {name:m.name,position:m.position.asArray(),cell:{...t.getSize()},sampling:t.samplingMode,alpha:t.hasAlpha,samples:pixels(t,[[0,0],[32,12],[29,62],[32,76],[32,79]])};})};
+ }
  function build(chapter:KingdomMap):MapView{
-  const root=new TransformNode('kingdom-'+chapter,scene),mats=new Map<string,StandardMaterial>();
+  const root=new TransformNode('kingdom-'+chapter,scene),mats=new Map<string,StandardMaterial>(),trees:Mesh[]=[];
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(chapter+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
   const box=(name:string,x:number,y:number,z:number,w:number,h:number,d:number,m:StandardMaterial)=>{const b=MeshBuilder.CreateBox(chapter+'-'+name,{width:w,height:h,depth:d},scene);b.parent=root;b.position.set(x,y,z);b.material=m;b.receiveShadows=true;if(h>.6)shadow.addShadowCaster(b);return b;};
   const picture=(name:string,x:number,z:number,w:number,h:number,draw:(c:CanvasRenderingContext2D)=>void,width=24,height=32)=>{
@@ -37,7 +44,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
    if(chapter==='truce'){ctx.fillStyle='#a89467';ctx.fillRect(75,93,138,26);ctx.fillRect(80,253,248,34);}
    for(let i=0;i<1300;i++){const x=162+rand()*58,y=rand()*352;ctx.fillStyle=i%2?'#b8a67b':'#9b895f';ctx.fillRect(x,y,2+rand()*4,1);}
   }
-  if(chapter==='forest')drawSurface(ctx,384,352,'forest');
+  if(!inside)drawWoodlandGround(ctx,384,352,chapter==='forest'?'forest':'truce');
   texture.update();const groundMat=new StandardMaterial(chapter+'-floor-material',scene);groundMat.diffuseTexture=texture;groundMat.specularColor=Color3.Black();
   const floor=MeshBuilder.CreateGround(chapter+'-floor',{width:24,height:22},scene);floor.parent=root;floor.position.set(0,.06,1);floor.material=groundMat;floor.receiveShadows=true;
   box('foundation',0,-.6,1,24,1,22,mat(inside?'#3e4955':'#304b37'));
@@ -54,7 +61,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
    box('chimney',x+w*.25,3.75,z+.25,.5,1.5,.55,stone);
    if(inn){const sign=picture('inn-sign',x+1.8,z-d/2-.3,1.4,.7,c=>{c.fillStyle='#493c32';c.fillRect(0,0,80,40);c.strokeStyle='#bca274';c.strokeRect(2,2,76,36);c.fillStyle='#eee0b6';c.font='bold 22px serif';c.fillText('INN',16,28);},80,40);sign.position.y=2.4;}
   }
-  function tree(x:number,z:number,w=4.2){picture('oak',x,z,w,w*1.25,c=>drawTree(c),64,80);}
+  function tree(x:number,z:number,w=4.2){trees.push(picture('oak',x,z,w,w*1.25,c=>drawWoodlandOak(c),64,80));}
   let queen:Mesh|undefined,lucca:Mesh|undefined;
   if(chapter==='truce'){
    KINGDOM_SOLIDS.truce.forEach((s,i)=>house(s.x,s.z,s.w,s.d,i===2));
@@ -65,7 +72,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   }else if(chapter==='forest'){
    for(const r of KINGDOM_SOLIDS.forest){
     const rock=MeshBuilder.CreatePolyhedron('forest-weathered-rock',{type:2,size:1},scene);rock.parent=root;rock.position.set(r.x,.38,r.z);rock.scaling.set(r.w*.42,.65,r.d*.42);rock.material=mat('#687257');rock.receiveShadows=true;shadow.addShadowCaster(rock);
-    picture('rock-ferns',r.x,r.z,r.w*.6,.62,c=>{c.fillStyle='#6f8151';for(let i=0;i<7;i++){c.fillRect(3+i*3,10+Math.abs(3-i)*2,1,14);c.fillRect(1+i*3,15+Math.abs(3-i),5,1);}});
+    picture('rock-ferns',r.x,r.z,r.w*.6,.62,c=>drawWoodlandFern(c));
    }
    for(const x of [-10.5,10.5])for(const z of [-7,-2,3,8])tree(x,z,4.8);
    for(const [x,z] of [[-7,7],[7,8],[-6,-6],[6,-5]])tree(x!,z!,3.7);
@@ -89,7 +96,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
     queen=picture('marle-as-queen',0,2,1.36,1.85,c=>drawHDHero(c,'marle',0,0),HD_ART.width,HD_ART.height);
    }
   }
-  root.setEnabled(false);return {root,queen,lucca};
+  root.setEnabled(false);return {root,queen,lucca,outdoor:inside?undefined:{ground:texture,trees}};
  }
  return {draw(s:State){
   for(const [id,v] of views)v.root.setEnabled(id===s.chapter);
@@ -98,5 +105,5 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing'||s.rescue.stage==='homecoming');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
   view.lucca?.setEnabled(s.kingdom.phase==='missing');
   npcMotion.draw(s.ticks);
- },inspectNpcs(){return npcMotion.inspect();}};
+ },inspectNpcs(){return {...npcMotion.inspect(),woodland:inspectWoodland()};}};
 }

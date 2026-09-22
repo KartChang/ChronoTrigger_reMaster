@@ -5,3 +5,21 @@
 #render-unavailable p{max-width:52rem;white-space:normal;overflow-wrap:anywhere;line-height:1.65}
 #render-unavailable button,#render-quality{font:inherit;padding:.55rem;min-height:40px}
 .render-help{font-size:.85rem}
+
+/* VQ02T: pause-only control layout; no game/canvas dimensions or hidden controls. */
+#pause-screen .pause-dialog{width:min(700px,calc(100vw - 24px));max-width:700px;max-height:calc(100dvh - 24px);padding:18px 24px;scroll-padding:12px}
+#pause-screen .pause-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+#pause-screen .pause-heading h2{font-size:22px;line-height:1.35;letter-spacing:1px;margin:4px 0 0}
+#pause-screen #resume{flex:none;min-height:44px;min-width:104px;margin:0;padding:10px 16px}
+#pause-screen #pause-intro{font-size:13px;line-height:1.5;margin:12px 0}
+#pause-screen .pause-settings{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px;align-items:stretch}
+#pause-screen .pause-quality{margin:0;display:flex;flex-direction:column;gap:6px;font-size:14px;min-width:0}
+#pause-screen #render-quality{width:100%;min-height:44px}
+#pause-screen #cpu-sampling-control{display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 10px;border:1px solid #b5b99366;border-radius:4px;line-height:1.5;font-size:14px;cursor:pointer}
+#pause-screen #cpu-sampling-control[hidden]{display:none}
+#pause-screen #cpu-sampling{flex:none;width:20px;height:20px;margin:0;accent-color:#c8a75b}
+#pause-screen #cpu-sampling-control:focus-within{outline:3px solid #e8c879;outline-offset:2px}
+#pause-screen .pause-details p{font-size:12px;line-height:1.5;margin:10px 0 0;white-space:normal}
+#pause-screen #build-info{display:block;font-size:11px;line-height:1.5;margin-top:10px;overflow-wrap:anywhere}
+@media(max-width:540px){#pause-screen .pause-dialog{padding:16px}#pause-screen .pause-settings{grid-template-columns:minmax(0,1fr)}#pause-screen .pause-heading{gap:8px}#pause-screen .pause-heading h2{font-size:20px}}
+@media(max-height:440px) and (min-width:541px){#pause-screen .pause-dialog{padding:12px 18px}#pause-screen .pause-heading .eyebrow{font-size:10px}#pause-screen #pause-intro{margin:7px 0}#pause-screen .pause-details p{margin-top:7px}#pause-screen #build-info{margin-top:7px}}

@@ -18,7 +18,8 @@ test('only Truce existing building surfaces change; original R geometry, NPCs, o
    assertVillage(k.current.inspect().storyNpcs.kingdom.village,chapter);
    if(chapter==='truce'){
     assert.notDeepEqual(k.a.pixels(),k.b.pixels());const info=k.current.inspect().storyNpcs.kingdom.village,copy=structuredClone(info);info.surfaces[0].samples[0].rgba[0]=999;assert.deepEqual(k.current.inspect().storyNpcs.kingdom.village,copy);
-    assert(k.current.scene.textures.length-k.original.scene.textures.length===6);
+    assert(k.current.scene.textures.filter(t=>t.name!=='truce-planter-craft').length-k.original.scene.textures.length===6);
+    assert.equal(k.current.scene.textures.filter(t=>t.name==='truce-planter-craft').length,1);
    }else assert.deepEqual(k.a.pixels(),k.b.pixels(),chapter+' untouched');
    const c=k.current.inspectRenderer().cpu;assert.equal(c.unsupportedResources,0);assert(c.textureMemory.bytes<=33554432&&c.textureMemory.entries<=512);
   }

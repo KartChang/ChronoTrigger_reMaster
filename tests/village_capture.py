@@ -5,6 +5,7 @@ import base64
 import hashlib
 import sys
 from pathlib import Path
+from pause_access import observe_pause_access
 
 VIEWPORTS = ((960, 640), (390, 844), (844, 390))
 
@@ -41,6 +42,8 @@ def observe_village_layouts(page, out, record, snap, observed):
             canvas = Path(out) / f'village-canvas-{i}.png'
             canvas.write_bytes(base64.b64decode(encoded.split(',', 1)[1], validate=True))
             value['canvasImage'] = {**receipt(canvas), 'source': 'actual-cpu-canvas'}
+            value['pauseAccess'] = {}
+            observe_pause_access(page, out, value['pauseAccess'], snap, observed, frozen, i)
         page.set_viewport_size(original)
         page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
         record['restoredViewport'] = page.evaluate('({width:innerWidth,height:innerHeight})')

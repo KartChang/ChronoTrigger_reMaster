@@ -2,7 +2,7 @@ import {exportAssets} from './asset-export.mjs';
 import {runQuality} from './quality.mjs';
 import {build} from 'esbuild';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
-const buildInfo={version:'0.9.41',batch:'VQ02S',sourceSha:process.env.GITHUB_SHA??null};
+const buildInfo={version:'0.9.42',batch:'VQ02T',sourceSha:process.env.GITHUB_SHA??null};
 if(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test(buildInfo.sourceSha))throw Error('Invalid source SHA');
 const out=await build({entryPoints:['src/main.ts'],bundle:true,write:false,format:'iife',platform:'browser',target:['es2022'],minify:true,legalComments:'inline',metafile:true,define:{__CHRONO_BUILD__:JSON.stringify(buildInfo)}});
 let template=await readFile('index.html','utf8');

@@ -1,0 +1,122 @@
+{
+  "schema": "chrono-vq02t-declared-readability-edits-v1",
+  "baseSource": "9b9020e05b3c9c68aee378ceab74dc8fa4677c88",
+  "files": {
+    "src/village-finish.ts": [
+      {
+        "before": "import type {VillageSurface} from './village-art';",
+        "after": "import type {VillageSurface} from './village-art';\nimport {drawVillagePlanter,PLANTER_ART,PLANTER_SAMPLE_POINTS} from './village-planter-art';"
+      },
+      {
+        "before": " private sign:DynamicTexture|undefined;",
+        "after": " private sign:DynamicTexture|undefined;\n private planter:StandardMaterial|undefined;"
+      },
+      {
+        "before": " apply(root:TransformNode):void{",
+        "after": " private planterMaterial():StandardMaterial{\n  if(this.planter)return this.planter;\n  const name='truce-planter-craft',t=new DynamicTexture(name,PLANTER_ART.cell,this.scene,false,Texture.NEAREST_SAMPLINGMODE);\n  t.hasAlpha=false;drawVillagePlanter(t.getContext() as CanvasRenderingContext2D);t.update();\n  const m=new StandardMaterial(name,this.scene);m.diffuseTexture=t;m.diffuseColor=Color3.White();m.specularColor=Color3.Black();\n  this.planter=m;return m;\n }\n apply(root:TransformNode):void{"
+      },
+      {
+        "before": "   if(kind)mesh.material=this.material(kind);",
+        "after": "   if(kind)mesh.material=this.material(kind);\n   if(name==='truce-flower-box')mesh.material=this.planterMaterial();"
+      },
+      {
+        "before": "  return {profile:VILLAGE_ART.id,approved:false,chapter:'truce',",
+        "after": "  const p=this.planter?.diffuseTexture as DynamicTexture|undefined;\n  const planters=p?{profile:PLANTER_ART.id,approved:false,name:p.name,...p.getSize(),sampling:p.samplingMode,alpha:p.hasAlpha,samples:sample(p,PLANTER_SAMPLE_POINTS),meshes:this.root.getChildMeshes(false).filter(b=>b.material===this.planter&&b.isEnabled()).length}:null;\n  return {profile:VILLAGE_ART.id,approved:false,chapter:'truce',planters,"
+      }
+    ],
+    "index.html": [
+      {
+        "before": "<div id=\"pause-screen\" class=\"overlay pause-overlay\" hidden><section class=\"dialog glass\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"pause-title\"><span class=\"eyebrow\">PAUSE</span><h2 id=\"pause-title\">冒險已暫停</h2><p>切到背景時，戰鬥與移動也會暫停。</p><button id=\"resume\" class=\"primary\">返回冒險</button><p><label for=\"render-quality\">畫面負載</label> <select id=\"render-quality\"><option value=\"auto\">自動判斷</option><option value=\"quality\">原畫質</option><option value=\"compatibility\">相容解析度</option></select></p>\n      <small id=\"build-info\"></small>\n      <p id=\"cpu-render-note\" hidden>CPU 相容繪圖：不使用 WebGL，保留場景與玩法；光影簡化，速度依裝置而異。</p>\n      <label id=\"cpu-sampling-control\" hidden><input id=\"cpu-sampling\" type=\"checkbox\"> CPU 遠景紋理平滑（實驗功能；像素人物維持清晰）</label><p class=\"render-help\">只調整繪圖解析度，不改操作、戰鬥速度或人物大小。WebGL 無法使用時，預設嘗試 CPU 相容繪圖。</p></section></div>\n",
+        "after": "<div id=\"pause-screen\" class=\"overlay pause-overlay\" hidden><section class=\"dialog glass pause-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"pause-title\" aria-describedby=\"pause-intro\">\n<div class=\"pause-heading\"><div><span class=\"eyebrow\">PAUSE</span><h2 id=\"pause-title\">冒險已暫停</h2></div><button id=\"resume\" class=\"primary\">返回冒險</button></div>\n<p id=\"pause-intro\">切到背景時，戰鬥與移動也會暫停。</p>\n<div class=\"pause-settings\"><p class=\"pause-quality\"><label for=\"render-quality\">畫面負載</label><select id=\"render-quality\"><option value=\"auto\">自動判斷</option><option value=\"quality\">原畫質</option><option value=\"compatibility\">相容解析度</option></select></p>\n<label id=\"cpu-sampling-control\" hidden><input id=\"cpu-sampling\" type=\"checkbox\"><span>CPU 遠景紋理平滑（實驗功能；像素人物維持清晰）</span></label></div>\n<div class=\"pause-details\"><p id=\"cpu-render-note\" hidden>CPU 相容繪圖：不使用 WebGL，保留場景與玩法；光影簡化，速度依裝置而異。</p><p class=\"render-help\">只調整繪圖解析度，不改操作、戰鬥速度或人物大小。WebGL 無法使用時，預設嘗試 CPU 相容繪圖。</p><small id=\"build-info\"></small></div>\n</section></div>\n"
+      }
+    ],
+    "src/render-status.css": [
+      {
+        "before": "/* Backend status is independent of scene art, input ownership and game state. */\n.render-state{position:fixed;z-index:1000;inset:1rem 1rem auto;padding:1rem;background:#172c32;color:#fff;border:1px solid #a4bbbd;pointer-events:none}\n.render-state[hidden]{display:none}\n#render-unavailable{inset:clamp(12px,5vw,60px);max-width:52rem;margin:auto;padding:clamp(16px,3vw,30px);z-index:2000;overflow:auto;max-height:100dvh;box-sizing:border-box;text-align:left}\n#render-unavailable p{max-width:52rem;white-space:normal;overflow-wrap:anywhere;line-height:1.65}\n#render-unavailable button,#render-quality{font:inherit;padding:.55rem;min-height:40px}\n.render-help{font-size:.85rem}\n",
+        "after": "/* Backend status is independent of scene art, input ownership and game state. */\n.render-state{position:fixed;z-index:1000;inset:1rem 1rem auto;padding:1rem;background:#172c32;color:#fff;border:1px solid #a4bbbd;pointer-events:none}\n.render-state[hidden]{display:none}\n#render-unavailable{inset:clamp(12px,5vw,60px);max-width:52rem;margin:auto;padding:clamp(16px,3vw,30px);z-index:2000;overflow:auto;max-height:100dvh;box-sizing:border-box;text-align:left}\n#render-unavailable p{max-width:52rem;white-space:normal;overflow-wrap:anywhere;line-height:1.65}\n#render-unavailable button,#render-quality{font:inherit;padding:.55rem;min-height:40px}\n.render-help{font-size:.85rem}\n\n/* VQ02T: pause-only control layout; no game/canvas dimensions or hidden controls. */\n#pause-screen .pause-dialog{width:min(700px,calc(100vw - 24px));max-width:700px;max-height:calc(100dvh - 24px);padding:18px 24px;scroll-padding:12px}\n#pause-screen .pause-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}\n#pause-screen .pause-heading h2{font-size:22px;line-height:1.35;letter-spacing:1px;margin:4px 0 0}\n#pause-screen #resume{flex:none;min-height:44px;min-width:104px;margin:0;padding:10px 16px}\n#pause-screen #pause-intro{font-size:13px;line-height:1.5;margin:12px 0}\n#pause-screen .pause-settings{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px;align-items:stretch}\n#pause-screen .pause-quality{margin:0;display:flex;flex-direction:column;gap:6px;font-size:14px;min-width:0}\n#pause-screen #render-quality{width:100%;min-height:44px}\n#pause-screen #cpu-sampling-control{display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 10px;border:1px solid #b5b99366;border-radius:4px;line-height:1.5;font-size:14px;cursor:pointer}\n#pause-screen #cpu-sampling-control[hidden]{display:none}\n#pause-screen #cpu-sampling{flex:none;width:20px;height:20px;margin:0;accent-color:#c8a75b}\n#pause-screen #cpu-sampling-control:focus-within{outline:3px solid #e8c879;outline-offset:2px}\n#pause-screen .pause-details p{font-size:12px;line-height:1.5;margin:10px 0 0;white-space:normal}\n#pause-screen #build-info{display:block;font-size:11px;line-height:1.5;margin-top:10px;overflow-wrap:anywhere}\n@media(max-width:540px){#pause-screen .pause-dialog{padding:16px}#pause-screen .pause-settings{grid-template-columns:minmax(0,1fr)}#pause-screen .pause-heading{gap:8px}#pause-screen .pause-heading h2{font-size:20px}}\n@media(max-height:440px) and (min-width:541px){#pause-screen .pause-dialog{padding:12px 18px}#pause-screen .pause-heading .eyebrow{font-size:10px}#pause-screen #pause-intro{margin:7px 0}#pause-screen .pause-details p{margin-top:7px}#pause-screen #build-info{margin-top:7px}}\n"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.41',batch:'VQ02S'",
+        "after": "version:'0.9.42',batch:'VQ02T'"
+      }
+    ],
+    "tests/village-integration.test.mjs": [
+      {
+        "before": "    assert(k.current.scene.textures.length-k.original.scene.textures.length===6);",
+        "after": "    assert(k.current.scene.textures.filter(t=>t.name!=='truce-planter-craft').length-k.original.scene.textures.length===6);\n    assert.equal(k.current.scene.textures.filter(t=>t.name==='truce-planter-craft').length,1);"
+      }
+    ],
+    "tests/village_capture.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from pathlib import Path\nfrom pause_access import observe_pause_access"
+      },
+      {
+        "before": "            value['canvasImage'] = {**receipt(canvas), 'source': 'actual-cpu-canvas'}",
+        "after": "            value['canvasImage'] = {**receipt(canvas), 'source': 'actual-cpu-canvas'}\n            value['pauseAccess'] = {}\n            observe_pause_access(page, out, value['pauseAccess'], snap, observed, frozen, i)"
+      }
+    ],
+    "scripts/village-evidence.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {readFileSync} from 'node:fs';\nimport {assertPlanters,assertPauseAccess} from './pause-access-evidence.mjs';"
+      },
+      {
+        "before": " need(same(sign.samples,expected.sign),'actual sign pixels');return true;",
+        "after": " need(same(sign.samples,expected.sign),'actual sign pixels');assertPlanters(v.planters);return true;"
+      },
+      {
+        "before": "  observation(v,true);assertVillage(v.village,'truce');",
+        "after": "  observation(v,true);assertVillage(v.village,'truce');\n  assertPauseAccess(v.pauseAccess,r.before,v.viewport,i,observation,receipt);"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": " need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');",
+        "after": " for(const v of r.villageLayouts.views){const n=v.pauseAccess.nearest;keep(n.image,true);const b=keep(n.canvasImage,true);need(b.readUInt32BE(16)===n.pixels.width&&b.readUInt32BE(20)===n.pixels.height,'nearest canvas PNG dimensions');}\n need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');"
+      }
+    ],
+    "tests/helpers/village-fixture.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {readFileSync} from 'node:fs';\nimport {planterFixture,pauseAccessFixture} from './pause-access-fixture.mjs';"
+      },
+      {
+        "before": "return {profile:e.profile,approved:false,chapter,",
+        "after": "return {profile:e.profile,approved:false,chapter,planters:planterFixture(),"
+      },
+      {
+        "before": "paused:true,viewport:{width,height},state:structuredClone(state),",
+        "after": "paused:true,viewport:{width,height},pauseAccess:pauseAccessFixture(state,{width,height},i,observation),state:structuredClone(state),"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "for(const name of ['village-art'",
+        "after": "for(const name of ['village-planter-art','village-art'"
+      },
+      {
+        "before": "import {villageBaseline}",
+        "after": "import {readabilityBaseline} from '../tests/helpers/readability-baseline.mjs';\nimport {villageBaseline}"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test',",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/readability-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci61-village',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]village-finish\\.ts$/},args=>({contents:readabilityBaseline('src/village-finish.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/readability.test.mjs','tests/pause-access-evidence.test.mjs',"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/village-finish.ts": "55720809fbc1086729374f7f4eeec205fb5c55bb5749a4f1f91e7359f318648a",
+    "index.html": "27deb210a584ced317ecfc3c0e3ff88e95d5ed4fe463d300d7776226f1095ca6",
+    "src/render-status.css": "f56c1a2a1828d0b8a60df50e36c20edf467a7d3ebbf08dd714d5b7405a46b0fe",
+    "scripts/build.mjs": "8c881c94e4b259167bf18bfcfef1ddf54090f23fb5457ca74253320e7f1f93f6",
+    "tests/village-integration.test.mjs": "977a34cb784c52b79a04dd851064b89948ea65872d8a19ff00082a247080d124",
+    "tests/village_capture.py": "b84370b282220df766e630e4795e2a11d814498b527b91229d576dc78986838e",
+    "scripts/village-evidence.mjs": "fe272a95feb71bb8088cb1a1c5c9f4209a880dac20b9454e8d1640c594514002",
+    "scripts/cpu-era-evidence.mjs": "2d5864a4a51e289dff8e9f3b6f6f0431e38fb69ae42c3406b5412eafb3f0c2b8",
+    "tests/helpers/village-fixture.mjs": "57ddc05bbd34ee45fb86f2d1fe6d0a375879f34772a59cfec75ac9a16d9241c9",
+    "scripts/test.mjs": "1d55f77ec5ef8ddf521fa7c77f6ca09ae20a6c20a620f45023f85264de820b9b"
+  }
+}

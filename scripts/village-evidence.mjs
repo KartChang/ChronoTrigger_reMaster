@@ -1,4 +1,5 @@
 import {readFileSync} from 'node:fs';
+import {assertPlanters,assertPauseAccess} from './pause-access-evidence.mjs';
 const expected=JSON.parse(readFileSync(new URL('../tests/fixtures/village-pixels-unit.json',import.meta.url),'utf8'));
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const need=(ok,why)=>{if(!ok)throw Error('Village evidence: '+why);};
@@ -14,7 +15,7 @@ export function assertVillage(v,chapter){
   need(same(s.samples,expected.surfaces[s.kind]),'actual surface pixels');
  }
  const sign=v.sign;need(sign?.kind==='sign'&&sign.name==='truce-inn-sign'&&sign.width===80&&sign.height===40&&sign.sampling===1&&sign.alpha===true,'existing inn sign');
- need(same(sign.samples,expected.sign),'actual sign pixels');return true;
+ need(same(sign.samples,expected.sign),'actual sign pixels');assertPlanters(v.planters);return true;
 }
 /** Extra evidence gate; the original eight chapter views and all old gates stay required. */
 export function assertVillageLayouts(r,observation,receipt){
@@ -24,6 +25,7 @@ export function assertVillageLayouts(r,observation,receipt){
  need(r.views?.length===3,'layout coverage');
  r.views.forEach((v,i)=>{
   observation(v,true);assertVillage(v.village,'truce');
+  assertPauseAccess(v.pauseAccess,r.before,v.viewport,i,observation,receipt);
   need(v.paused===true&&same(v.state,r.before)&&same(v.viewport,{width:sizes[i][0],height:sizes[i][1]}),'actual viewport and pause');
   need(v.image.path===`village-layout-${i}.png`,'DOM screenshot owner');
   need(receipt(v.canvasImage)&&v.canvasImage.path===`village-canvas-${i}.png`&&v.canvasImage.source==='actual-cpu-canvas','actual canvas export');

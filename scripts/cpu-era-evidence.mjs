@@ -124,6 +124,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  const native=readFileSync(join(dir,'native-import-report.json')),n=JSON.parse(native);
  need(n.schema==='chrono-native-import-evidence-v1' && n.sourceSha===sourceSha && n.status==='passed' && n.physicalDeviceApproved===false && equal(n.attempts,r.saves.map(s=>s.nativeImport)),'final native import record');
  files.push({path:'native-import-report.json',bytes:native.length,sha256:sha(native)});
+ for(const v of r.villageLayouts.views){const n=v.pauseAccess.nearest;keep(n.image,true);const b=keep(n.canvasImage,true);need(b.readUInt32BE(16)===n.pixels.width&&b.readUInt32BE(20)===n.pixels.height,'nearest canvas PNG dimensions');}
  need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');
  return {schema:'chrono-cpu-era-source-ledger-v1',status:'passed',...identity,files,chapters:ERA_CHAPTERS,physicalDevice:false,artApproved:false,wholeGameAccepted:false};
 }

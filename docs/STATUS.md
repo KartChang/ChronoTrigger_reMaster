@@ -1,37 +1,29 @@
-# Current status — CI53 accepted; CI54 root fixed; CI55 pending
+# Current status — VQ02N / CI56
 
-Updated 2026-09-22 Asia/Taipei. Authority: STATUS, TODO, handoff/IMMEDIATE_CONTINUATION and evidence/CI55_CHECKPOINT.json. Main only, one AI, non-force. Later [skip ci] documentation HEAD is not another runtime. This supersedes old CI53/CI49-pending headers; previous details remain in Git history, not new tasks.
+唯一 current root：**T05-early-visual-cohesion**。唯一 execution terminal：**CI56-pending-full-validation**。先讀本檔、`handoff/IMMEDIATE_CONTINUATION.md`、`evidence/CI56_CHECKPOINT.json`。Main only；單一AI；non-force；不要盤點歷史或重開已驗收章節。
 
-## Only active validation
+## 已發布、目前待驗
 
-**VQ02M / 0.9.35**, source **238bb31976e58accaf48769b8a72a3693518a4de**, tree **8ff0e84846d3e9c3c9c890d170ca3a0d031675b0**, parent **b27f2f7d2e9ea2a4d6dc7e5994ce9f538d10ac6d**. Five-file correction published after the twelve-file L batch. Remote program tree matches the fully tested bytes with current docs preserved. All src/ remain the accepted K tree **18c602e8c79e292ced059da37a4ee39a5e2075bb**.
+Source **3f65ae23b2b09be1bb4c23ed559003ae541fe1d3**，root tree **f9320655ffcb75c7de8f6c9c969e7a0d0c95cc91**，VQ02N/0.9.36。一次source commit，parent **91e79f707cb28974140359d9759e6de4f155348f**；main已回讀，完整程式樹與測試版本一致。所有src/仍為 **18c602e8c79e292ced059da37a4ee39a5e2075bb**。文件更新不改遊戲source、不另開CI。
 
-**CI55 35696071243**, workflow 360357259 / .github/workflows/ci.yml, push / attempt 1. Exact SHA all-event/all-state query returned one run: **pending/null**, created 2026-09-22T06:42:39Z, updated 2026-09-22T06:42:40Z (Taipei 14:42:40). Terminal **CI55-pending-full-validation**. No rerun, manual dispatch or cancellation. Preserve/report pending instead of waiting in a loop. M and L native CPU acceptance is not claimed.
+唯一run：**CI56 35706073669**，Playable prototype CI /360357259，push/attempt1，exact source全event/state查詢count=1。最後 **in_progress/null**，created 2026-09-22T08:40:19Z，updated 08:40:23Z（台灣16:40:23）。尚未查jobs、尚未驗收；不輪詢、rerun、dispatch、cancel或再推source。
 
-## Completed implementation
+N九檔修正CI-only CPU rescue/trial雙人走位：遠距離同向原生按鍵共走，依實際放鍵後snapshot修正落後者；已到位者不被另一人的精準修正拖走。兩人均須在原目標軸誤差<.12內，沿用P1原始距離計算的一份tick預算、单一30秒deadline、250ms pulse/256次上限，不因P2修正重設。Verifier要求雙owner、實際按鍵/放鍵顺序、連續snapshot、未操作者及垂直軸不動。原I helper、原CPU/600 driver、rescue/trial本體、遇敵與實體道具路線、src/index/.github不變。
 
-L reuses the existing rescue_browser.py and trial_browser.py through CI-only CHRONO_CPU_CHAIN=1. Original WebGL actions/assertions remain. Actual --disable-webgl/automatic Canvas2D fallback, default smoothing OFF, same-run actual CPU v4 -> own rescue v5 -> own trial v7/alternate native cell import. Existing Naga/Frog/organ/chest/Yakra/queen/homecoming, court/two prison routes/Fritz/Lucca/tank/fire shield/repair/portrait bag/2300 are exercised, not reimplemented.
+最終 **1339 Node /305 Python /assets/typecheck/build/完整npm run check/diff check通過**。新增9 Node/15 Python；48方向/軸/延遲子例、36實際觀察走位×3延遲模型的108個core碰撞回歸、原托魯斯最後兩腿及真正轉場規則。皆本機單元/整合證據，非新原生瀏覽器驗收；本機未操作browser。
 
-The unchanged I helper drives 67 coordinate legs, plus four encounter and two solid-prop approaches. Post-release error <.12, original distance-based tick budget, single 30-second deadline, 250ms pulses/256 limit and actual P2 ownership stay intact. Seventeen original milestones add actual canvas/renderer/state/PNG receipts. Returned fair and future entrance each observe three successive nonoverlapping >=120-draw windows with 120 active frame samples, texture accounting and optional browser heap. Not long-session/device/RSS certification. A seventh parent-bound source ledger verifies the complete original/new evidence and preserves partial/failure observations.
+## CI55已失敗，不再是pending入口
 
-CI54 validate failed before its browsers at two Python AST preservation subtests (3.12.14 CI versus local 3.13.5 display fingerprint). Downstream missing ledgers are not separate gameplay defects. M replaces ast.dump display hashing with a fixed semantic AST encoding including every field, None, empty lists, primitive types and order. New references are derived from the exact CI53 original Gitarchive, not copied from failed hashes. Original assertion/action/target/resource mutations still fail. The original browser bodies, workflow and all src/ are unchanged by M.
+CI55 **35696071243** / source **238bb31976e58accaf48769b8a72a3693518a4de** completed/failure，updated **2026-09-22T07:08:46Z**。validate106643830853 failure；good106643830978及bad106643831050 success。首個root **CI55-cpu-rescue-companion-drift-at-truce-return**，step24。
 
-Final local **1330 Node / 290 Python** tests, assets, typecheck, build, full npm run check and diff check passed. L added 80 Node/20 Python tests; M added eight Python tests. Local Python3.12 execution and local browser operation were NOT performed. CI55 remains required.
+原CPU兩旅程、600前段、平滑及M語意AST檢查已通過；新增救援已達9/10里程碑、36/37原coordinate legs，亞克拉、王后/大臣、返鄉重逢均有原始觀察。托魯斯出口P1=(-.06666666666666181,7.599999999999995)，P2=(2.1666666666666767,4.800000000000005)，距離3.5815887225891454>原3.5；遊戲正確回應「等待同行者」。舊driver只確認P1，P2偏移累積。不得改同行距離或碰撞來通過。
 
-## Latest accepted technical baseline
+已看原始failure.png；CPU確實畫出托魯斯與分離角色。六份原passed ledger共65列bytes/hash及救援列入檔案均核對；本輪未重新執行verifier，不宣稱重建ledger。CPU trial未執行、第七ledger不完整是後果；CI55不接受、無playable或新Pages驗收。詳見CI55_FAILURE_ROOT。
 
-K / 0.9.33 source **3028e2499d5a268d20c5251a3aec6e8c2c5a09e2**, **CI53 35684197933 / Pages47 35685874454**. Three jobs, 13 primary journeys, nine original native reports plus two CPU native reports and all six exact-source ledgers were inspected. Original verifiers reproduced ledgers; all listed bytes/hashes matched. Original two CPU journeys/10 legs and 600 continuation/30 legs/actual v3-v4 imports/solo battles/cinematic pauses/Lucca P2/cathedral entrance passed. Twenty-two CPU PNGs were reviewed. Optional filter ON changes the actual canvas; OFF restores it exactly, clears mip memory and preserves full paused state.
+## 持久保存與下一步
 
-Pages47 playable/staged/deployed HTML agrees: 5690213 bytes, SHA256 3fda62047f3d6d5d1ce308534e51856a0da6ce0d88f531ad85b90d6af18c0a39. Selected K source differs correctly from documentation workflow HEAD. No independent local live HTTP/browser claim. The 61 observed active intervals (~17.0125 FPS, mean58.7803ms/P9569.2ms/max102.6ms) are not sustained performance or art certification. CI52 and CI54 are not retroactively accepted. Do not reopen CI51/G/H/I or replay CI53.
+指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新 **Chrono-CI55-terminal-VQ02N-tested-batch.zip** / **1irVUTuklzPVqGjRd2cBCbGPlZo8YcRqn**，58936843 bytes，SHA256 **e444e9968d7b8762877997cef320d216a612e17aba00f7cfd858267723fc5969**。下載回讀已核對hash/CRC/31manifest/四原ZIP/parent；含294檔assembled程式快照，非published Git archive。包內source=null是發布前歷史；最新身分以GitHub本次文件為準。不可重送已發布N或用包內舊docs覆蓋目前文件。
 
-## Durable delivery and next step
+最後完整技術accepted仍是 **K/3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454**；不重開。CI56成功後依checkpoint核對原全套及完整CPU救援/審判/本人存檔鏈/67腿/四遇敵/兩提示/17里程碑/六窗口/第七ledger、原圖、Drive及同CI Pages。再處理實際相容/效能與前段美術品質；綠勾不代表長時間、真機或美術認證。
 
-Only Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. M failure/test/recovery package **1Sc2809rDWRDCvYZgM1DkI2b2VGpz5gyA**, 1340053 bytes, SHA256 **885edaa1cf481a5c534382470eadda22ea4275b15645e437283232ec67db1dd3**; downloaded bytes/CRC/14 manifest entries/290 program files/parent verified. Includes the unchanged CI54 validate failure ZIP and exact original-source comparison. L package **1NfZu0QvDnMd2Mm17uiZPYsef4OfHyshr** (688057 bytes/24 entries/288 files) and CI53/Pages47 originals **1h9THuGPcjSkcAPIIdqIeWPO7-5M2u7Kf** (59450174 bytes/seven raw ZIPs) were also downloaded and verified. Prepublication package status is historical; current SHA/run is above. Read current main docs separately from recovery snapshots.
-
-Read exact CI55 once. Failure: first actual failing step and its original artifacts. Success: retain original three jobs/13 journeys/all existing native/audio/actor/HUD/touch/equipment-v8/full-trial checks and six ledgers, then added CPU rescue/trial sidecars, 67 legs/four encounters/two prompts, 17 images, own v4/v5/v7 native chain, six windows/seventh ledger, original Drive raw readback and same-CI Pages/source/HTML. Do not relax any gate.
-
-## Full remaining scope and restrictions
-
-T03: hidden rules, version differences, full topology and numerical fidelity. T04: growth, battle rewards/drops, complete economy/items/accessories, roster, learned skills and dual/triple techs. T05: complete art/animation/rights-cleared audio, prioritizing actual early-scene quality. T06: complete future and remaining eras, main/side quests and endings. T07: whole-scope >=90, every dimension >=80%, required assets/five gates/zero critical plus physical-device input, FPS/frame time, loading, memory, background, saves and audio. T08: batch implementation/tests, non-force source publication, full matching CI, correct Drive/raw readback and [skip ci] documentation. No reduced denominator. 2300 arrival is not the complete future. Old score 30 is stale; no new score or art/device/full-game approval.
-
-Keep TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/autonomous third and existing home-to-2300/equipment saves v1-v8. No branch/PR/P3/ARPG/framework restart, writable test state/time/save/collision hooks or manufactured positive native saves. Held Z/upgraded mother/furniture and prologue-render.ts blob 2711a74185aacf3c6bddf9db85ba99a2afbc507a remain restricted; no indirect replacement or partial promotion. Local browser restriction remains. No public ROM/original external media/fonts/credentials. Temporary containers are not authority.
+T03–T08完整範圍不縮：規則版本拓樸、成長報酬經濟技能、全美術動畫音訊、其餘時代主支線結局、整體>=90/每面向>=80%與實體裝置、每批雲端。2300抵達非完整未來；舊30stale，無新分數。TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三保留。Z/母親家具仍held；prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變；不間接提升。禁止本機browser、可寫時間/存檔/碰撞hook、偽原生成功存檔、公開ROM/原媒體/字型/憑證。工具鏈只恢復node_modules/esbuild hardlink。

@@ -3,12 +3,15 @@ import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicText
 import {RESCUE_SOLIDS,rescueMap} from './rescue-data';
 import type {RescueMap} from './rescue-data';
 import type {State} from './core';
-import {drawRescueNpc,drawCathedralFloor,drawGlass} from './rescue-art';
+import {drawCathedralFloor,drawGlass} from './rescue-art';
+import {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';
+import {StoryNpcMotion} from './story-npc-motion';
 
 /** Lazy authored sets. Shared solid footprints drive benches, pillars, organ and crates. */
 export function buildRescue(scene:Scene,shadow:ShadowGenerator){
  type View={root:TransformNode;nuns:Mesh[];crest?:Mesh;frog?:Mesh;door?:Mesh;queen?:Mesh;fake?:Mesh;prisoner?:Mesh;lid?:Mesh};
  const views=new Map<RescueMap,View>();
+ const npcMotion=new StoryNpcMotion(scene);
  function build(map:RescueMap):View{
   const root=new TransformNode(map+'-set',scene),mats=new Map<string,StandardMaterial>();
   const mat=(hex:string,glow=false)=>{const key=hex+glow;let m=mats.get(key);if(!m){m=new StandardMaterial(map+key,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();if(glow)m.emissiveColor=Color3.FromHexString(hex).scale(.6);mats.set(key,m);}return m;};
@@ -47,7 +50,7 @@ export function buildRescue(scene:Scene,shadow:ShadowGenerator){
    for(let i=0;i<9;i++){const h=1.2+(4-Math.abs(i-4))*.31;const pipe=MeshBuilder.CreateCylinder('organ-pipe',{height:h,diameter:.16,tessellation:8},scene);pipe.parent=root;pipe.position.set(-7.9+i*.27,1.8+h/2,8.35);pipe.material=mat('#afa581');}
    box('organ-keys',-6.8,1.04,6.27,2.5,.13,.46,mat('#eee3bb'));
    for(let i=0;i<15;i++)if(i%7!==2&&i%7!==6)box('black-key',-7.94+i*.16,1.13,6.38,.075,.08,.22,dark);
-   for(const [x,z] of [[-2.8,-2],[2.8,1],[-2.8,4]])v.nuns.push(picture('disguised-nun',x!,1.03,z!,1.3,1.85,c=>drawRescueNpc(c,'nun')));
+   for(const [x,z] of [[-2.8,-2],[2.8,1],[-2.8,4]])v.nuns.push(npcMotion.add(picture('disguised-nun',x!,1.03,z!,1.3,1.85,c=>drawStoryNpc(c,'nun'),STORY_NPC_ART.width,STORY_NPC_ART.height),'nun'));
    v.frog=picture('frog-arrival',1.2,1.03,4.8,1.4,1.85,c=>drawHDHero(c,'frog',0,0),HD_ART.width,HD_ART.height);
    v.crest=box('royal-crest',0,.12,1.8,.27,.06,.27,gold);
    v.door=box('secret-stone-door',4,1.65,10.02,2.3,3.3,.35,stone);
@@ -66,9 +69,9 @@ export function buildRescue(scene:Scene,shadow:ShadowGenerator){
    box('raised-floor',0,.2,9,3.4,.35,1.3,stone);box('captivity-box',7.8,.6,7.7,2,1.2,1.7,wood);
    for(const x of [-3.8,3.8])candle(x,8.4);
    picture('faded-window',0,3.1,10.1,2.1,3.4,drawGlass,40,64,false);
-   v.fake=picture('false-chancellor',0,1.03,4.5,1.32,1.85,c=>drawRescueNpc(c,'chancellor'));
-   v.queen=picture('queen-leene',-2.5,1.03,7.4,1.32,1.85,c=>drawRescueNpc(c,'queen'));
-   v.prisoner=picture('true-chancellor',7.8,1.03,6.1,1.32,1.85,c=>drawRescueNpc(c,'chancellor'));
+   v.fake=npcMotion.add(picture('false-chancellor',0,1.03,4.5,1.32,1.85,c=>drawStoryNpc(c,'chancellor'),STORY_NPC_ART.width,STORY_NPC_ART.height),'chancellor');
+   v.queen=npcMotion.add(picture('queen-leene',-2.5,1.03,7.4,1.32,1.85,c=>drawStoryNpc(c,'queen'),STORY_NPC_ART.width,STORY_NPC_ART.height),'queen');
+   v.prisoner=npcMotion.add(picture('true-chancellor',7.8,1.03,6.1,1.32,1.85,c=>drawStoryNpc(c,'chancellor'),STORY_NPC_ART.width,STORY_NPC_ART.height),'chancellor');
   }
   root.setEnabled(false);return v;
  }
@@ -79,5 +82,6 @@ export function buildRescue(scene:Scene,shadow:ShadowGenerator){
   const r=s.rescue;v.nuns.forEach(n=>n.setEnabled(r.stage==='entered'&&s.mode==='explore'));v.crest?.setEnabled(r.stage==='entered'&&s.mode==='explore');v.frog?.setEnabled(r.stage==='cleared'&&s.mode==='explore');v.door?.setEnabled(!r.organOpen);
   v.fake?.setEnabled(!r.yakraWon&&s.mode==='explore');v.queen?.setEnabled(s.mode!=='battle');v.prisoner?.setEnabled(r.chancellorFreed&&s.mode==='explore');
   if(v.lid)v.lid.rotation.x=r.chestOpened?-.8:0;
- },inspect(){return [...views.keys()];}};
+  npcMotion.draw(s.ticks);
+ },inspect(){return [...views.keys()];},inspectNpcs(){return npcMotion.inspect();}};
 }

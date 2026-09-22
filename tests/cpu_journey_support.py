@@ -12,6 +12,7 @@ import time
 import traceback
 from cpu_native_route import move_axis
 from cpu_native_pair import move_pair_axis
+from story_npc_observation import assert_story_npcs
 
 CPU_ARGS = ['--no-sandbox', '--disable-webgl']
 SOURCES = {'rescue': 'cpu-renderer/era600/cpu-kingdom-v4.json',
@@ -23,7 +24,7 @@ OBSERVE = """()=>{const t=window.__CHRONO_TEST__,s=t.snapshot(),v=t.view(),c=doc
  const d=ctx.getImageData(0,0,c.width,c.height).data;
  let min=255,max=0,sum=0,opaque=0;for(let i=0;i<d.length;i+=4){
   if(d[i+3]===255)opaque++;for(let k=0;k<3;k++){min=Math.min(min,d[i+k]);max=Math.max(max,d[i+k]);sum+=d[i+k];}}
- return {state:s,viewChapter:v.chapter,renderer:v.renderer,paused:t.paused(),
+ return {state:s,viewChapter:v.chapter,renderer:v.renderer,paused:t.paused(),storyNpcs:v.storyNpcs,
   pixels:{source:'actual-cpu-canvas',context2d:true,webgl1:c.getContext('webgl')===null,
    webgl2:c.getContext('webgl2')===null,width:c.width,height:c.height,min,max,sum,opaque},
   heap:performance.memory?{used:performance.memory.usedJSHeapSize,total:performance.memory.totalJSHeapSize,
@@ -57,6 +58,7 @@ def assert_observation(value):
     # This additional route uses the unchanged DEFAULT policy, not a forced quality reduction.
     assert c['sampling']['enabled'] is False and m['mipBytes'] == 0
     assert c['sampling']['alphaCutouts'] == 'nearest'
+    assert_story_npcs(value)
 
 
 def _file(path):

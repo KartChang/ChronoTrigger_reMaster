@@ -1,4 +1,5 @@
 from cpu_render_preservation import restore_render_source
+from story_npc_preservation import restore_story_source
 """Unit input/file/AST ports only. These fixtures are NOT native browser evidence."""
 import ast
 from copy import deepcopy
@@ -20,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def observation():
     return {'state': {'chapter': 'fair', 'mode': 'explore', 'ticks': 1}, 'viewChapter': 'fair', 'paused': False,
+            'storyNpcs': {o:{'profile':'vq02q-story-npc-cloth-and-silhouette','approved':False,'actors':[]} for o in ('kingdom','rescue')},
             'renderer': {'backend': 'cpu-canvas2d', 'webglVersion': 0, 'canvas2dFallback': True, 'width': 8, 'height': 8,
                 'cpu': {'profile': 'vq02d-existing-scene-cpu-raster', 'draws': 1, 'triangles': 2, 'fragments': 64,
                     'unsupportedResources': 0, 'textureMemory': {'bytes': 256, 'budget': 33554432, 'entries': 1, 'entryLimit': 512, 'mipBytes': 0},
@@ -243,6 +245,7 @@ class PreservationTests(unittest.TestCase):
             with self.subTest(path=name):
                 raw=(ROOT/name).read_bytes()
                 if name in ('src/cpu-raster.ts','src/cpu-scene.ts'):raw=restore_render_source(name,raw.decode()).encode()
+                if name=='src/render.ts':raw=restore_story_source(name,raw.decode()).encode()
                 if name=='tests/cpu_native_route.py':raw=restore_i_route(raw.decode()).encode()
                 self.assertEqual(hashlib.sha256(raw).hexdigest(),expected)
 

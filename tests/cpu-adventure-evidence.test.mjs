@@ -1,3 +1,4 @@
+import {expectedStoryNpcs,assertStoryNpcs} from '../scripts/story-npc-evidence.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync,mkdtempSync,rmSync} from 'node:fs';
@@ -9,9 +10,10 @@ const C=JSON.parse(readFileSync(new URL('./cpu-adventure-contract.json',import.m
 const id={sourceSha:'a'.repeat(40),runId:'unit-only',runAttempt:'1',htmlSha256:'b'.repeat(64),htmlBytes:999};
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const clone=structuredClone;
+function unitStoryNpcs(s){return Object.fromEntries(Object.entries(expectedStoryNpcs(s)).map(([owner,kinds])=>[owner,{profile:'vq02q-story-npc-cloth-and-silhouette',approved:false,actors:kinds.map(v=>{const [name,kind]=v.split(':');return {name,kind,frame:0,uploads:0,cell:{width:48,height:64}};})}]));}
 // Only synthetic in-memory/temporary-directory validator fixtures; NEVER CI browser evidence.
 function state(chapter){return {chapter,mode:'explore',ticks:100,era:'middle',joined:true,players:[{x:0,z:0},{x:1,z:0}],rescue:{stage:'allied',tonics:2},trial:{stage:'none',luccaJoined:false}};}
-function observation(chapter){return {state:state(chapter),viewChapter:chapter,paused:false,heap:null,
+function observation(chapter){return {state:state(chapter),viewChapter:chapter,paused:false,heap:null,storyNpcs:unitStoryNpcs(state(chapter)),
  renderer:{backend:'cpu-canvas2d',webglVersion:0,canvas2dFallback:true,physicalDeviceApproved:false,width:8,height:8,
   frames:{profile:'vq02f-active-frame-window',active:true,samples:120,capacity:120,ready:true,meanMs:50,p95Ms:60,maxMs:70,fps:20,physicalDeviceApproved:false},
   cpu:{profile:'vq02d-existing-scene-cpu-raster',draws:1,triangles:2,fragments:64,unsupportedResources:0,artApproved:false,textureMemory:{bytes:256,budget:33554432,entries:1,entryLimit:512,mipBytes:0},sampling:{enabled:false,alphaCutouts:'nearest'}}},
@@ -37,6 +39,7 @@ function fixture(stage){
   const before=state('fair');before.players[0][axis]=target-1;const afterRelease=clone(before);afterRelease.ticks+=20;afterRelease.mode='battle';const key=axis==='x'?'d':'w',keys=[key,axis==='x'?'ArrowRight':'ArrowUp'];return {axis,target,before,afterRelease,budget:135,status:'entered-battle',keys,attemptedKeys:keys,releasedKeys:[...keys].reverse(),timeoutMs:30000};
  });
  r.performanceWindows=[0,1,2].map(index=>{const before=observation(stage==='rescue'?'fair':'futuregate');before.state.ticks+=index*360;before.renderer.cpu.draws+=index*120;const after=clone(before);after.state.ticks+=360;after.renderer.cpu.draws+=120;return {index,before,after,label:C[stage].labels[stage==='rescue'?9:5],status:'observed-not-certified',requiredDraws:120,timeoutMs:30000,wallMs:6000};});
+ r.observations.forEach(o=>{o.storyNpcs=unitStoryNpcs(o.state);});
  return {r,journey};
 }
 for(const stage of ['rescue','trial'])test(stage+' unit model covers the existing milestones, not native acceptance',()=>{const {r,journey}=fixture(stage);assert(assertCpuAdventure(r,journey,id));});
@@ -94,3 +97,5 @@ for(const [name,change] of Object.entries({
  peerOwnershipLost:r=>r.nativeRoutes[0].afterRelease.state.joined=false,
  transientReset:r=>r.nativeRoutes[0].pulses[0].afterRelease.state.chapter='home'
 }))test('independent paired gate rejects '+name,()=>{const {r,journey}=fixture('rescue');change(r);assert.throws(()=>assertCpuAdventure(r,journey,id));});
+
+for(const [name,mutate] of Object.entries({missing:o=>delete o.storyNpcs,profile:o=>o.storyNpcs.rescue.profile='old',approval:o=>o.storyNpcs.rescue.approved=true,role:o=>o.storyNpcs.rescue.actors[0].kind='guard',hidden:o=>o.storyNpcs.rescue.actors=[],dimensions:o=>o.storyNpcs.rescue.actors[0].cell.width=24,frame:o=>o.storyNpcs.rescue.actors[0].frame=4,counter:o=>o.storyNpcs.rescue.actors[0].uploads=-1}))test('new NPC native observation rejects '+name,()=>{const {r,journey}=fixture('rescue');mutate(r.observations[0]);assert.throws(()=>assertCpuAdventure(r,journey,id));});

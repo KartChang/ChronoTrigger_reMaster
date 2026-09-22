@@ -1,3 +1,4 @@
+import {assertStoryNpcs} from './story-npc-evidence.mjs';
 import {createHash} from 'node:crypto';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {join,resolve} from 'node:path';
@@ -18,6 +19,7 @@ const stamp=(r,id)=>{for(const k of ['sourceSha','runId','runAttempt','htmlSha25
 const receipt=f=>f&&safe(f.path)&&integer(f.bytes)&&f.bytes>0&&hash(f.sha256);
 
 export function checkObservation(o){
+ assertStoryNpcs(o);
  const r=o?.renderer,c=r?.cpu,p=o?.pixels,m=c?.textureMemory;
  need(o?.state?.chapter===o?.viewChapter&&typeof o.paused==='boolean','coherent observation');
  need(r?.backend==='cpu-canvas2d'&&r.webglVersion===0&&r.canvas2dFallback===true&&r.physicalDeviceApproved===false,'native CPU identity');

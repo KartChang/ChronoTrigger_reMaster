@@ -1,0 +1,76 @@
+{
+  "sourceSha": "71f0cc05a6b0b3b09a314242405d2f7ba543b130",
+  "files": {
+    "src/kingdom-render.ts": [
+      {
+        "before": "import {drawTree,drawResident} from './pixel-art';",
+        "after": "import {drawTree} from './pixel-art';\nimport {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';\nimport {StoryNpcMotion} from './story-npc-motion';"
+      },
+      {
+        "before": " const views=new Map<KingdomMap,MapView>();",
+        "after": " const views=new Map<KingdomMap,MapView>();\n const npcMotion=new StoryNpcMotion(scene);"
+      },
+      {
+        "before": "picture('townsperson',-4.5,1,1.32,1.8,c=>drawResident(c,'resident'));",
+        "after": "npcMotion.add(picture('townsperson',-4.5,1,1.32,1.8,c=>drawStoryNpc(c,'resident'),STORY_NPC_ART.width,STORY_NPC_ART.height),'resident');"
+      },
+      {
+        "before": "picture('innkeeper',-6.5,-3.3,1.32,1.8,c=>drawResident(c,'resident'));",
+        "after": "npcMotion.add(picture('innkeeper',-6.5,-3.3,1.32,1.8,c=>drawStoryNpc(c,'innkeeper'),STORY_NPC_ART.width,STORY_NPC_ART.height),'innkeeper');"
+      },
+      {
+        "before": "picture('king',0,7.4,1.4,1.95,c=>drawResident(c,'king'));",
+        "after": "npcMotion.add(picture('king',0,7.4,1.4,1.95,c=>drawStoryNpc(c,'king'),STORY_NPC_ART.width,STORY_NPC_ART.height),'king');"
+      },
+      {
+        "before": "picture('guard',-1.8,-2.5,1.4,1.95,c=>drawResident(c,'guard'));",
+        "after": "npcMotion.add(picture('guard',-1.8,-2.5,1.4,1.95,c=>drawStoryNpc(c,'guard'),STORY_NPC_ART.width,STORY_NPC_ART.height),'guard');"
+      },
+      {
+        "before": "  view.lucca?.setEnabled(s.kingdom.phase==='missing');\n }};",
+        "after": "  view.lucca?.setEnabled(s.kingdom.phase==='missing');\n  npcMotion.draw(s.ticks);\n },inspectNpcs(){return npcMotion.inspect();}};"
+      }
+    ],
+    "src/rescue-render.ts": [
+      {
+        "before": "import {drawRescueNpc,drawCathedralFloor,drawGlass} from './rescue-art';",
+        "after": "import {drawCathedralFloor,drawGlass} from './rescue-art';\nimport {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';\nimport {StoryNpcMotion} from './story-npc-motion';"
+      },
+      {
+        "before": " const views=new Map<RescueMap,View>();",
+        "after": " const views=new Map<RescueMap,View>();\n const npcMotion=new StoryNpcMotion(scene);"
+      },
+      {
+        "before": "picture('disguised-nun',x!,1.03,z!,1.3,1.85,c=>drawRescueNpc(c,'nun'))",
+        "after": "npcMotion.add(picture('disguised-nun',x!,1.03,z!,1.3,1.85,c=>drawStoryNpc(c,'nun'),STORY_NPC_ART.width,STORY_NPC_ART.height),'nun')"
+      },
+      {
+        "before": "picture('false-chancellor',0,1.03,4.5,1.32,1.85,c=>drawRescueNpc(c,'chancellor'))",
+        "after": "npcMotion.add(picture('false-chancellor',0,1.03,4.5,1.32,1.85,c=>drawStoryNpc(c,'chancellor'),STORY_NPC_ART.width,STORY_NPC_ART.height),'chancellor')"
+      },
+      {
+        "before": "picture('queen-leene',-2.5,1.03,7.4,1.32,1.85,c=>drawRescueNpc(c,'queen'))",
+        "after": "npcMotion.add(picture('queen-leene',-2.5,1.03,7.4,1.32,1.85,c=>drawStoryNpc(c,'queen'),STORY_NPC_ART.width,STORY_NPC_ART.height),'queen')"
+      },
+      {
+        "before": "picture('true-chancellor',7.8,1.03,6.1,1.32,1.85,c=>drawRescueNpc(c,'chancellor'))",
+        "after": "npcMotion.add(picture('true-chancellor',7.8,1.03,6.1,1.32,1.85,c=>drawStoryNpc(c,'chancellor'),STORY_NPC_ART.width,STORY_NPC_ART.height),'chancellor')"
+      },
+      {
+        "before": "  if(v.lid)v.lid.rotation.x=r.chestOpened?-.8:0;\n },inspect(){return [...views.keys()];}};",
+        "after": "  if(v.lid)v.lid.rotation.x=r.chestOpened?-.8:0;\n  npcMotion.draw(s.ticks);\n },inspect(){return [...views.keys()];},inspectNpcs(){return npcMotion.inspect();}};"
+      }
+    ],
+    "src/render.ts": [
+      {
+        "before": "inspect(){return {actorPlayback:",
+        "after": "inspect(){return {storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/kingdom-render.ts": "1b2c73ff474e72e8ae9e313d7ddd1d71963e6a5d40b332f80d3cfb28b228cffb",
+    "src/rescue-render.ts": "89ba3f25d3383c9a1532dd3346b8907259f4ba21334328b5f186791f995bbbcc",
+    "src/render.ts": "8219483464635e6f6a98d8dbcfac8a16148915f928d413127045722be045ebf7"
+  }
+}

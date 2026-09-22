@@ -4,12 +4,15 @@ import {Scene,Mesh,MeshBuilder,TransformNode,Color3,StandardMaterial,DynamicText
 import {KINGDOM_SOLIDS,kingdomMap} from './kingdom-data';
 import type {KingdomMap} from './kingdom-data';
 import type {State} from './core';
-import {drawTree,drawResident} from './pixel-art';
+import {drawTree} from './pixel-art';
+import {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';
+import {StoryNpcMotion} from './story-npc-motion';
 
 /** Lazy map construction. No game state is written here; footprints come from the rule data. */
 export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
  type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh};
  const views=new Map<KingdomMap,MapView>();
+ const npcMotion=new StoryNpcMotion(scene);
  function build(chapter:KingdomMap):MapView{
   const root=new TransformNode('kingdom-'+chapter,scene),mats=new Map<string,StandardMaterial>();
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(chapter+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
@@ -56,8 +59,8 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   if(chapter==='truce'){
    KINGDOM_SOLIDS.truce.forEach((s,i)=>house(s.x,s.z,s.w,s.d,i===2));
    for(const [x,z] of [[-10,-7],[10,8],[-10,9],[9,-8]])tree(x!,z!,3.7);
-   picture('townsperson',-4.5,1,1.32,1.8,c=>drawResident(c,'resident'));
-   picture('innkeeper',-6.5,-3.3,1.32,1.8,c=>drawResident(c,'resident'));
+   npcMotion.add(picture('townsperson',-4.5,1,1.32,1.8,c=>drawStoryNpc(c,'resident'),STORY_NPC_ART.width,STORY_NPC_ART.height),'resident');
+   npcMotion.add(picture('innkeeper',-6.5,-3.3,1.32,1.8,c=>drawStoryNpc(c,'innkeeper'),STORY_NPC_ART.width,STORY_NPC_ART.height),'innkeeper');
    for(let i=0;i<5;i++)box('flower-box',-9+i*.4,.35,-3.4,.27,.35,.5,mat(i%2?'#c6966c':'#6d854d'));
   }else if(chapter==='forest'){
    for(const r of KINGDOM_SOLIDS.forest){
@@ -75,8 +78,8 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
    if(chapter==='castle'){
     for(const r of KINGDOM_SOLIDS.castle.slice(0,4)){box('column',r.x,1.7,r.z,r.w,3.4,r.d,mat('#a3a99e'));box('capital',r.x,3.4,r.z,1.4,.24,1.4,stone);}
     box('dais',0,.22,8.6,4,.4,2.6,stone);box('throne-seat',0,.7,8.8,1.5,.55,1.2,mat('#744856'));box('throne-back',0,1.55,9.3,1.6,2,.24,mat('#826143'));
-    picture('king',0,7.4,1.4,1.95,c=>drawResident(c,'king'));
-    picture('guard',-1.8,-2.5,1.4,1.95,c=>drawResident(c,'guard'));
+    npcMotion.add(picture('king',0,7.4,1.4,1.95,c=>drawStoryNpc(c,'king'),STORY_NPC_ART.width,STORY_NPC_ART.height),'king');
+    npcMotion.add(picture('guard',-1.8,-2.5,1.4,1.95,c=>drawStoryNpc(c,'guard'),STORY_NPC_ART.width,STORY_NPC_ART.height),'guard');
     for(let i=0;i<6;i++)box('east-stair',8,.12+i*.1,6.4+i*.4,2,.2+i*.2,.5,mat(i%2?'#a4aaa4':'#7e8b8b'));
     for(const x of [-3.8,3.8]){box('banner',x,2.15,10.3,1.3,2.5,.08,mat('#415a7e'));box('banner-crest',x,2.3,10.23,.45,.7,.05,mat('#d6b873'));}
     lucca=picture('lucca',2,-3.2,1.36,1.85,c=>drawHDHero(c,'lucca',0,0),HD_ART.width,HD_ART.height);
@@ -94,5 +97,6 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   let view=views.get(s.chapter);if(!view){view=build(s.chapter);views.set(s.chapter,view);}view.root.setEnabled(true);
   if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing'||s.rescue.stage==='homecoming');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
   view.lucca?.setEnabled(s.kingdom.phase==='missing');
- }};
+  npcMotion.draw(s.ticks);
+ },inspectNpcs(){return npcMotion.inspect();}};
 }

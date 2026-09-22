@@ -1,29 +1,27 @@
-# Current status — VQ02N / CI56
+# Current status — VQ02O / CI57
 
-唯一 current root：**T05-early-visual-cohesion**。唯一 execution terminal：**CI56-pending-full-validation**。先讀本檔、`handoff/IMMEDIATE_CONTINUATION.md`、`evidence/CI56_CHECKPOINT.json`。Main only；單一AI；non-force；不要盤點歷史或重開已驗收章節。
+唯一 current root：**T05-early-visual-cohesion**。唯一 execution terminal：**CI57-pending-full-validation**。先讀本檔、handoff/IMMEDIATE_CONTINUATION.md、evidence/CI57_CHECKPOINT.json。Main only、單一AI、non-force；不盤點歷史、不重寫已完成批次。文件HEAD不同不代表另一遊戲source。
 
-## 已發布、目前待驗
+## 已發布與唯一驗證
 
-Source **3f65ae23b2b09be1bb4c23ed559003ae541fe1d3**，root tree **f9320655ffcb75c7de8f6c9c969e7a0d0c95cc91**，VQ02N/0.9.36。一次source commit，parent **91e79f707cb28974140359d9759e6de4f155348f**；main已回讀，完整程式樹與測試版本一致。所有src/仍為 **18c602e8c79e292ced059da37a4ee39a5e2075bb**。文件更新不改遊戲source、不另開CI。
+**VQ02O/0.9.37**，source **9425f58c423897be08fe1ca0d810ec9d6088f7b3**，root tree **8e9b4f10329ddfe3b482670efac1b4229039ce07**，publication parent **e5174d5c760b683137311b80ad71725d134a28e5**。九檔一次non-force發布、main回讀，完整程式tree與已測版本一致並保留當時最新docs；src全保持 **18c602e8c79e292ced059da37a4ee39a5e2075bb**。
 
-唯一run：**CI56 35706073669**，Playable prototype CI /360357259，push/attempt1，exact source全event/state查詢count=1。最後 **in_progress/null**，created 2026-09-22T08:40:19Z，updated 08:40:23Z（台灣16:40:23）。尚未查jobs、尚未驗收；不輪詢、rerun、dispatch、cancel或再推source。
+唯一 **CI57 35712112661**，Playable prototype CI/360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count=1。最後 **in_progress/null**，created2026-09-22T09:44:44Z、updated09:44:48Z（台灣17:44:48）。尚未查jobs或驗收。Pending保存回報，不長等、輪詢、rerun、dispatch、cancel或另推source。
 
-N九檔修正CI-only CPU rescue/trial雙人走位：遠距離同向原生按鍵共走，依實際放鍵後snapshot修正落後者；已到位者不被另一人的精準修正拖走。兩人均須在原目標軸誤差<.12內，沿用P1原始距離計算的一份tick預算、单一30秒deadline、250ms pulse/256次上限，不因P2修正重設。Verifier要求雙owner、實際按鍵/放鍵顺序、連續snapshot、未操作者及垂直軸不動。原I helper、原CPU/600 driver、rescue/trial本體、遇敵與實體道具路線、src/index/.github不變。
+## CI56真正失敗與O修正
 
-最終 **1339 Node /305 Python /assets/typecheck/build/完整npm run check/diff check通過**。新增9 Node/15 Python；48方向/軸/延遲子例、36實際觀察走位×3延遲模型的108個core碰撞回歸、原托魯斯最後兩腿及真正轉場規則。皆本機單元/整合證據，非新原生瀏覽器驗收；本機未操作browser。
+CI56 **35706073669** / N source3f65ae23b2b09be1bb4c23ed559003ae541fe1d3 completed/failure，updated2026-09-22T09:05:32Z。validate106675203969首敗step21；good106675204230、bad106675204345成功。原CPU家中到祭典已走完，第二條旅程第一段co-op z=-2失敗。P1放鍵後反覆在-2.133333333333331與-1.8666666666666643；0/17ms兩種短hold均移動4ticks、每脈衝總耗20ticks。兩側誤差約.133333均未達<.12，最後185/165ticks。Root **CI56-native-short-pulse-quantized-reversal**。N的救援/trial未執行，不能宣稱N失敗或通過。
 
-## CI55已失敗，不再是pending入口
+已看原CPU failure.png，祭典鐘樓/棚位/兩角色正常繪出。四份原passed pre-CPU ledger共35列bytes/hash核對；本輪未重跑verifier，不宣稱重建ledger。後续CPU/era/adventure ledger缺失與救援/trial skipped為次生結果；CI56無playable或Pages驗收。
 
-CI55 **35696071243** / source **238bb31976e58accaf48769b8a72a3693518a4de** completed/failure，updated **2026-09-22T07:08:46Z**。validate106643830853 failure；good106643830978及bad106643831050 success。首個root **CI55-cpu-rescue-companion-drift-at-truce-return**，step24。
+O保留正常與長距離原split down/wait/up，只在實際觀察到兩次短脈衝反向越界且兩端均未到位後，改用公開Playwright keyboard.press執行最內層按鍵的down/delay/up，減少Python往返期間持續按住的成本。同樣接入N的獨立近距修正。保持原按鍵順序、實際afterRelease、原一次tick預算/30秒/.12/250ms/256上限；只重估傳輸成本、不重設時間。任何部分dispatch失敗都釋放已嘗試按鍵並保留首個例外。這不保證sub-frame精度，真正效果仍等CI57。
 
-原CPU兩旅程、600前段、平滑及M語意AST檢查已通過；新增救援已達9/10里程碑、36/37原coordinate legs，亞克拉、王后/大臣、返鄉重逢均有原始觀察。托魯斯出口P1=(-.06666666666666181,7.599999999999995)，P2=(2.1666666666666767,4.800000000000005)，距離3.5815887225891454>原3.5；遊戲正確回應「等待同行者」。舊driver只確認P1，P2偏移累積。不得改同行距離或碰撞來通過。
+最終 **1339 Node/320 Python/assets/typecheck/build/完整npm check/diff check通過**；新增15 Python（12方向軸成本、8雙owner近距、3既有core成本案例）。原0/17ms負例重現；延伸66ms plateau及compact成本是明示模型假設，不冒稱原生測量；不可達精度仍按原budget失敗。原I helper只反向移除明示O接線後核對舊hash，未改expected；數值/語意變更仍fail。全部src/index/workflow/原browser旅程本體/路線斷言、N雙owner規則與verifier保留；沒有本機browser。
 
-已看原始failure.png；CPU確實畫出托魯斯與分離角色。六份原passed ledger共65列bytes/hash及救援列入檔案均核對；本輪未重新執行verifier，不宣稱重建ledger。CPU trial未執行、第七ledger不完整是後果；CI55不接受、無playable或新Pages驗收。詳見CI55_FAILURE_ROOT。
+## 雲端保存與下一步
 
-## 持久保存與下一步
+唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新 **Chrono-CI56-terminal-VQ02O-tested-batch.zip /1zRzBn2uz9QOsg0kQ84LWllgEialwf7mL**，51889991bytes，SHA256 **4b99193b4b6a6d6c108586de77ccf90d569812ffee3e08c9ed8c59a7a6a11a8e**。下載回讀hash/CRC/28manifest/四原ZIP/parent全部一致；298檔assembled程式恢復快照，非published Gitarchive。包內source=null是發布前歷史，最終身分以本次GitHub收據為準，不重送O。
 
-指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新 **Chrono-CI55-terminal-VQ02N-tested-batch.zip** / **1irVUTuklzPVqGjRd2cBCbGPlZo8YcRqn**，58936843 bytes，SHA256 **e444e9968d7b8762877997cef320d216a612e17aba00f7cfd858267723fc5969**。下載回讀已核對hash/CRC/31manifest/四原ZIP/parent；含294檔assembled程式快照，非published Git archive。包內source=null是發布前歷史；最新身分以GitHub本次文件為準。不可重送已發布N或用包內舊docs覆蓋目前文件。
+最後accepted仍為 **K/3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454**，不重開。成功時依CI57_CHECKPOINT驗原三jobs全報告與CPU兩旅程/600/救援/審判/本人存檔鏈、67腿雙人放鍵、4遇敵/2提示/17PNG/6窗口/第七ledger及O真實按鍵診斷，再Drive原始產物及同CI Pages/source/HTML；不能只看綠勾。之後依TODO推進實際相容/效能、長時間/裝置、前段材質尺度輪廓、地標、動畫音訊品質。
 
-最後完整技術accepted仍是 **K/3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454**；不重開。CI56成功後依checkpoint核對原全套及完整CPU救援/審判/本人存檔鏈/67腿/四遇敵/兩提示/17里程碑/六窗口/第七ledger、原圖、Drive及同CI Pages。再處理實際相容/效能與前段美術品質；綠勾不代表長時間、真機或美術認證。
-
-T03–T08完整範圍不縮：規則版本拓樸、成長報酬經濟技能、全美術動畫音訊、其餘時代主支線結局、整體>=90/每面向>=80%與實體裝置、每批雲端。2300抵達非完整未來；舊30stale，無新分數。TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三保留。Z/母親家具仍held；prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變；不間接提升。禁止本機browser、可寫時間/存檔/碰撞hook、偽原生成功存檔、公開ROM/原媒體/字型/憑證。工具鏈只恢復node_modules/esbuild hardlink。
+T03–T08完整範圍不縮：規則版本拓樸、成長報酬經濟技能、全美術動畫音訊、其餘時代主支線結局、整體>=90/每面向>=80%與實體裝置、每批雲端。2300抵達非完整未來；舊30stale，無新分數。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三，無P3/ARPG/framework重造。Held Z/母親家具不提升；prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser、可寫game/time/save/collision hook、假原生成功存檔、公開ROM/原媒體/字型/憑證。工具鏈只恢復node_modules/esbuild hardlink。臨時容器非authority。

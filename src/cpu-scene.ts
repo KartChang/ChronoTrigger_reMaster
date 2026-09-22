@@ -96,7 +96,7 @@ export class CpuScene {
  }
  inspect(){return {profile:'vq02d-existing-scene-cpu-raster',draws:this.draws,meshes:this.meshes,texturedSurfaces:this.textured,unsupportedResources:this.unsupported,
   triangles:this.raster?.triangles??0,fragments:this.raster?.fragments??0,frameMs:this.elapsed,
-  work:{profile:'vq02e-conservative-cpu-work',consideredSubmeshes:this.consideredSubmeshes,culledSubmeshes:this.culledSubmeshes,shadedVertices:this.shadedVertices,submittedTriangles:this.raster?.submitted??0,fastAccepted:this.raster?.fastAccepted??0,trivialRejected:this.raster?.trivialRejected??0,clipped:this.raster?.clipped??0},
+  work:{profile:'vq02e-conservative-cpu-work',consideredSubmeshes:this.consideredSubmeshes,culledSubmeshes:this.culledSubmeshes,shadedVertices:this.shadedVertices,submittedTriangles:this.raster?.submitted??0,fastAccepted:this.raster?.fastAccepted??0,trivialRejected:this.raster?.trivialRejected??0,clipped:this.raster?.clipped??0,rasterPolicy:'vq02p-exact-conservative-row-spans',boundingPixels:this.raster?.boundingPixels??0,candidatePixels:this.raster?.candidatePixels??0},
   sampling:{profile:'vq02j-opaque-affine-minification',enabled:this.engine.opaqueMinificationEnabled(),minifiedTriangles:this.raster?.minifiedTriangles??0,fractionalTriangles:this.raster?.fractionalTriangles??0,levelSelection:'continuous-base-to-mip',alphaCutouts:'nearest',perspective:'nearest-fallback'},
   bufferBytes:(this.raster?.rgba.byteLength??0)+(this.raster?.depth.byteLength??0)+(this.image?.data.byteLength??0),
   textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames],shadowMaps:false,postprocess:false,artApproved:false};}

@@ -37,20 +37,17 @@ const edge=(a:Screen,b:Screen,x:number,y:number)=>(b.sx-a.sx)*(y-a.sy)-(b.sy-a.s
 const topLeft=(a:Screen,b:Screen)=>b.sy<a.sy||(b.sy===a.sy&&b.sx>a.sx);
 const accepted=(e:number,t:boolean)=>e>1e-8||(Math.abs(e)<=1e-8&&t);
 export class CpuRaster {
- private readonly packed:Uint32Array;
  readonly rgba:Uint8ClampedArray;readonly depth:Float32Array;
- boundingPixels=0;candidatePixels=0;
  fractionalTriangles=0;minifiedTriangles=0;triangles=0;fragments=0;submitted=0;fastAccepted=0;trivialRejected=0;clipped=0;
  constructor(readonly width:number,readonly height:number){
   if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width*height>640*480)throw Error('CPU raster size outside bounded pixel budget');
-  this.rgba=new Uint8ClampedArray(width*height*4);this.depth=new Float32Array(width*height);this.packed=new Uint32Array(this.rgba.buffer);
+  this.rgba=new Uint8ClampedArray(width*height*4);this.depth=new Float32Array(width*height);
  }
  clear(color:readonly number[]):void{
-  this.boundingPixels=0;this.candidatePixels=0;
   this.depth.fill(Infinity);this.fractionalTriangles=0;this.minifiedTriangles=0;this.triangles=0;this.fragments=0;
   this.submitted=0;this.fastAccepted=0;this.trivialRejected=0;this.clipped=0;
   const r=Math.round(clamp(color[0]??0)*255),g=Math.round(clamp(color[1]??0)*255),b=Math.round(clamp(color[2]??0)*255);
-  this.packed.fill(new Uint32Array(Uint8Array.of(r,g,b,255).buffer)[0]!);
+  for(let i=0;i<this.rgba.length;i+=4){this.rgba[i]=r;this.rgba[i+1]=g;this.rgba[i+2]=b;this.rgba[i+3]=255;}
  }
  triangle(a:ClipVertex,b:ClipVertex,c:ClipVertex,material:CpuSurface):void{
   this.submitted++;
@@ -63,7 +60,7 @@ export class CpuRaster {
   this.clipped++;const p=clipTriangle(a,b,c);for(let i=1;i+1<p.length;i++)this.fill(p[0]!,p[i]!,p[i+1]!,material);
  }
  private fill(av:ClipVertex,bv:ClipVertex,cv:ClipVertex,m:CpuSurface):void{
-  const project=(v:ClipVertex):Screen=>({x:v.x,y:v.y,z:v.z,w:v.w,u:v.u,v:v.v,r:v.r,g:v.g,b:v.b,a:v.a,sx:(v.x/v.w*.5+.5)*this.width,sy:(.5-v.y/v.w*.5)*this.height,sz:v.z/v.w*.5+.5,iw:1/v.w});
+  const project=(v:ClipVertex):Screen=>({...v,sx:(v.x/v.w*.5+.5)*this.width,sy:(.5-v.y/v.w*.5)*this.height,sz:v.z/v.w*.5+.5,iw:1/v.w});
   const a=project(av);let b=project(bv),c=project(cv),area=edge(a,b,c.sx,c.sy);
   if(Math.abs(area)<1e-8)return;if(area<0){[b,c]=[c,b];area=-area;}
   const x0=Math.max(0,Math.ceil(Math.min(a.sx,b.sx,c.sx)-.5)),x1=Math.min(this.width-1,Math.floor(Math.max(a.sx,b.sx,c.sx)-.5));
@@ -81,57 +78,29 @@ export class CpuRaster {
     this.minifiedTriangles++;
    }
   }
-  // Snapshot ordinary numeric attributes outside the hot pixel loop. The
-  // operation order below is unchanged; no affine approximation or lower tier.
-  const az=a.sz,bz=b.sz,cz=c.sz,aiw=a.iw,biw=b.iw,ciw=c.iw;
-  const au=a.u,bu=b.u,cu=c.u,avv=a.v,bvv=b.v,cvv=c.v;
-  const ar=a.r,br=b.r,cr=c.r,ag=a.g,bg=b.g,cg=c.g,ab=a.b,bb=b.b,cb=c.b,aa=a.a,ba=b.a,ca=c.a;
-  const alphaScale=m.alpha,cutoff=m.cutoff,blend=m.blend,textureAlpha=m.textureAlpha;
-  const opacity=m.opacity,opacityFromRGB=m.opacityFromRGB,er=m.emission[0]??0,eg=m.emission[1]??0,eb=m.emission[2]??0,width=this.width;
-  const dx0=c.sx-b.sx,dy0=c.sy-b.sy,dx1=a.sx-c.sx,dy1=a.sy-c.sy,dx2=b.sx-a.sx,dy2=b.sy-a.sy;
-  const bx=b.sx,cx=c.sx,ax=a.sx,by=b.sy,cy=c.sy,ay=a.sy;
-  let fragments=0;
-  // Conservative half-plane spans skip only pixels the original three edge
-  // predicates would reject. Re-evaluate every retained pixel with the exact
-  // original expression (not accumulated edge/UV increments).
-  const spans=[[b,c],[c,a],[a,b]] as const;
-  this.boundingPixels+=Math.max(0,x1-x0+1)*Math.max(0,y1-y0+1);
-  for(let y=y0;y<=y1;y++){
-   let left=x0,right=x1;
-   for(const [p,q] of spans){
-    const slope=-(q.sy-p.sy),value=edge(p,q,x0+.5,y+.5);
-    if(slope===0){if(value < -1e-8){right=left-1;break;}continue;}
-    const crossing=x0+(-1e-8-value)/slope;
-    if(slope>0)left=Math.max(left,Math.ceil(crossing)-1);
-    else right=Math.min(right,Math.floor(crossing)+1);
-   }
-   this.candidatePixels+=Math.max(0,right-left+1);
-   const row0=dx0*(y+.5-by),row1=dx1*(y+.5-cy),row2=dx2*(y+.5-ay);
-   for(let x=left;x<=right;x++){
-   const e0=row0-dy0*(x+.5-bx),e1=row1-dy1*(x+.5-cx),e2=row2-dy2*(x+.5-ax);
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+   const e0=edge(b,c,x+.5,y+.5),e1=edge(c,a,x+.5,y+.5),e2=edge(a,b,x+.5,y+.5);
    if(!accepted(e0,tl0)||!accepted(e1,tl1)||!accepted(e2,tl2))continue;
-   const f0=e0/area,f1=e1/area,f2=e2/area,z=f0*az+f1*bz+f2*cz,index=y*width+x;
+   const f0=e0/area,f1=e1/area,f2=e2/area,z=f0*a.sz+f1*b.sz+f2*c.sz,index=y*this.width+x;
    if(z<0||z>1||z>zbuffer[index]!+1e-7)continue;
-   const iw=f0*aiw+f1*biw+f2*ciw;if(iw<=0)continue;
-   const k0=f0*aiw/iw,k1=f1*biw/iw,k2=f2*ciw/iw;
-   const u=k0*au+k1*bu+k2*cu,v=k0*avv+k1*bvv+k2*cvv;
-   let r=k0*ar+k1*br+k2*cr,g=k0*ag+k1*bg+k2*cg,blue=k0*ab+k1*bb+k2*cb,alpha=clamp(alphaScale*(k0*aa+k1*ba+k2*ca));
+   const iw=f0*a.iw+f1*b.iw+f2*c.iw;if(iw<=0)continue;
+   const k0=f0*a.iw/iw,k1=f1*b.iw/iw,k2=f2*c.iw/iw;
+   const u=k0*a.u+k1*b.u+k2*c.u,v=k0*a.v+k1*b.v+k2*c.v;
+   let r=k0*a.r+k1*b.r+k2*c.r,g=k0*a.g+k1*b.g+k2*c.g,blue=k0*a.b+k1*b.b+k2*c.b,alpha=clamp(m.alpha*(k0*a.a+k1*b.a+k2*c.a));
    if(diffuse){const t=diffuse,i=textureIndex(t,u,v);
     if(upper){const j=textureIndex(upper,u,v),baseMix=1-mipMix;
      r*=(t.rgba[i]!*baseMix+upper.rgba[j]!*mipMix)/255;
      g*=(t.rgba[i+1]!*baseMix+upper.rgba[j+1]!*mipMix)/255;
      blue*=(t.rgba[i+2]!*baseMix+upper.rgba[j+2]!*mipMix)/255;
     }else{r*=t.rgba[i]!/255;g*=t.rgba[i+1]!/255;blue*=t.rgba[i+2]!/255;}
-    if(textureAlpha)alpha*=t.rgba[i+3]!/255;
+    if(m.textureAlpha)alpha*=t.rgba[i+3]!/255;
    }
-   if(opacity){const t=opacity,i=textureIndex(t,u,v);alpha*=opacityFromRGB?(t.rgba[i]!*.3+t.rgba[i+1]!*.59+t.rgba[i+2]!*.11)/255:t.rgba[i+3]!/255;}
-   if(alpha<=0||alpha<cutoff)continue;
-   r=clamp(r+er);g=clamp(g+eg);blue=clamp(blue+eb);
-   if(!blend)alpha=1;
+   if(m.opacity){const t=m.opacity,i=textureIndex(t,u,v);alpha*=m.opacityFromRGB?(t.rgba[i]!*.3+t.rgba[i+1]!*.59+t.rgba[i+2]!*.11)/255:t.rgba[i+3]!/255;}
+   if(alpha<=0||alpha<m.cutoff)continue;
+   r=clamp(r+(m.emission[0]??0));g=clamp(g+(m.emission[1]??0));blue=clamp(blue+(m.emission[2]??0));
+   if(!m.blend)alpha=1;
    const j=index*4,inv=1-alpha;pixels[j]=r*255*alpha+pixels[j]!*inv;pixels[j+1]=g*255*alpha+pixels[j+1]!*inv;pixels[j+2]=blue*255*alpha+pixels[j+2]!*inv;
-   if(!blend)zbuffer[index]=z;fragments++;
-   }
+   if(!m.blend)zbuffer[index]=z;this.fragments++;
   }
-  this.fragments+=fragments;
  }
 }

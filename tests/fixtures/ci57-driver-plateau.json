@@ -1,0 +1,172 @@
+{
+  "schema": "chrono-ci57-negative-native-observation-v1",
+  "kind": "negative observed data for diagnosis and unit-only rendering; never native success or save",
+  "source": "9425f58c423897be08fe1ca0d810ec9d6088f7b3",
+  "runId": "35712112661",
+  "rawReportSha256": "a693644e07c7d3ebe85d0f1c710042d2b18de58a999fd68da1c256ad42eaf16e",
+  "target": -2,
+  "axis": "z",
+  "budget": 165,
+  "beforeTicks": 233,
+  "lastTicks": 402,
+  "pulses": [
+    {
+      "keys": [
+        "w",
+        "ArrowUp"
+      ],
+      "holdMs": 250,
+      "transport": "split-calls",
+      "beforeTicks": 233,
+      "afterTicks": 265,
+      "before": -5,
+      "afterRelease": -3.333333333333335,
+      "driverOperations": []
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 250,
+      "transport": "split-calls",
+      "beforeTicks": 265,
+      "afterTicks": 300,
+      "before": -3.333333333333335,
+      "afterRelease": -2.133333333333331,
+      "driverOperations": []
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 0,
+      "transport": "split-calls",
+      "beforeTicks": 300,
+      "afterTicks": 321,
+      "before": -2.133333333333331,
+      "afterRelease": -1.8666666666666643,
+      "driverOperations": []
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "s"
+      ],
+      "holdMs": 0,
+      "transport": "split-calls",
+      "beforeTicks": 321,
+      "afterTicks": 341,
+      "before": -1.8666666666666643,
+      "afterRelease": -2.133333333333331,
+      "driverOperations": []
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 50,
+      "transport": "driver-press",
+      "beforeTicks": 341,
+      "afterTicks": 362,
+      "before": -2.133333333333331,
+      "afterRelease": -1.8666666666666643,
+      "driverOperations": [
+        {
+          "method": "down",
+          "key": "ArrowUp",
+          "status": "completed"
+        },
+        {
+          "method": "press",
+          "key": "w",
+          "status": "completed",
+          "delayMs": 50
+        },
+        {
+          "method": "up",
+          "key": "ArrowUp",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "s"
+      ],
+      "holdMs": 16,
+      "transport": "driver-press",
+      "beforeTicks": 362,
+      "afterTicks": 382,
+      "before": -1.8666666666666643,
+      "afterRelease": -2.133333333333331,
+      "driverOperations": [
+        {
+          "method": "down",
+          "key": "ArrowDown",
+          "status": "completed"
+        },
+        {
+          "method": "press",
+          "key": "s",
+          "status": "completed",
+          "delayMs": 16
+        },
+        {
+          "method": "up",
+          "key": "ArrowDown",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 17,
+      "transport": "driver-press",
+      "beforeTicks": 382,
+      "afterTicks": 402,
+      "before": -2.133333333333331,
+      "afterRelease": -1.8666666666666643,
+      "driverOperations": [
+        {
+          "method": "down",
+          "key": "ArrowUp",
+          "status": "completed"
+        },
+        {
+          "method": "press",
+          "key": "w",
+          "status": "completed",
+          "delayMs": 17
+        },
+        {
+          "method": "up",
+          "key": "ArrowUp",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "frames": {
+    "profile": "vq02f-active-frame-window",
+    "active": true,
+    "samples": 48,
+    "capacity": 120,
+    "ready": true,
+    "meanMs": 65.31875000000582,
+    "p95Ms": 70,
+    "maxMs": 85,
+    "fps": 15.309539756959692,
+    "rejected": 0,
+    "physicalDeviceApproved": false
+  },
+  "cpuFrameMs": 67.10000000009313,
+  "width": 678,
+  "height": 452
+}

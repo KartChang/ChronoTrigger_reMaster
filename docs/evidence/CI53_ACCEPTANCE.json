@@ -1,0 +1,31 @@
+{
+  "schema": "chrono-ci53-acceptance-v1",
+  "status": "accepted-technical-coverage",
+  "sourceSha": "3028e2499d5a268d20c5251a3aec6e8c2c5a09e2",
+  "sourceTree": "23c26af9f62ec1b6dc2f1e7e56974e0dc35a3ea0",
+  "runId": "35684197933",
+  "runNumber": 53,
+  "runAttempt": 1,
+  "conclusion": "success",
+  "jobs": {"validate": 106607433489, "good": 106607433531, "bad": 106607433577},
+  "primaryJourneys": 13,
+  "originalNativeReports": 9,
+  "additionalCpuNativeReports": 2,
+  "ledgers": [
+    {"path": "browser/ci/validate.json", "files": 17},
+    {"path": "good/test-results/ci/good.json", "files": 8},
+    {"path": "bad/test-results/ci/bad.json", "files": 4},
+    {"path": "browser/render-compatibility/source-ledger.json", "files": 6},
+    {"path": "browser/cpu-renderer/source-ledger.json", "files": 14},
+    {"path": "browser/cpu-renderer/era600/source-ledger.json", "files": 16}
+  ],
+  "inspection": "All six exact-source read-only verifiers reproduced this run's original ledgers. Every listed file matched bytes and SHA256. Good/bad metadata was paired with the same-CI playable HTML; original archives were not modified. No browser rerun.",
+  "cpu": {"originalCases": 2, "originalReleasedLegs": 10, "eraReleasedLegs": 30, "arrivalEpsilon": 0.12, "timeoutMs": 30000, "eraEndpoint": "cathedral", "originalPngsReviewed": 11, "eraPngsReviewed": 11, "minifiedTriangles": 1482, "fractionalTriangles": 1482, "filterOnChangesActualCanvas": true, "filterOffRestoresExactCanvas": true, "filterOffMipBytes": 0, "fullPausedStateUnchanged": true, "activeFrameSamples": 61, "meanMs": 58.78032786885399, "p95Ms": 69.19999999995343, "maxMs": 102.60000000009313, "fps": 17.012494422132534},
+  "pages": {"runId": "35685874454", "runNumber": 47, "conclusion": "success", "workflowHead": "3c6bbbc226110ffc450a5171ab1ba1d761f5ff69", "selectedSource": "3028e2499d5a268d20c5251a3aec6e8c2c5a09e2", "ciArtifactId": 10677130955, "htmlBytes": 5690213, "htmlSha256": "3fda62047f3d6d5d1ce308534e51856a0da6ce0d88f531ad85b90d6af18c0a39", "playableStagedDeployedEqual": true, "independentLocalLiveHttp": false},
+  "retention": {"folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb", "fileId": "1h9THuGPcjSkcAPIIdqIeWPO7-5M2u7Kf", "fileName": "Chrono-CI53-accepted-Pages47-originals.zip", "bytes": 59450174, "sha256": "2a7e8be60b1fa814cb81c984ca327fcf86e3dee75c6eb8cbbef190302068a6ca", "downloadedReadbackMatched": true, "zipCrcMatched": true, "manifestEntriesMatched": 12, "unalteredRawZips": 7, "parentVerified": true},
+  "limitations": ["Still-image/technical acceptance, not art approval or temporal-shimmer assessment.", "61 active samples are not sustained or physical-device certification.", "The CPU route currently ends at cathedral entrance; rescue/trial CPU continuation is next.", "Existing early materials, shapes, held home work and full-game scope remain open. CI52 remains failed, not retroactively accepted."],
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "fullGameAccepted": false,
+  "newScore": null
+}

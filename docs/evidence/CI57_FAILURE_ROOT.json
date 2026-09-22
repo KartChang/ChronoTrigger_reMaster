@@ -1,0 +1,110 @@
+{
+  "schema": "chrono-ci57-failure-root-v1",
+  "runId": "35712112661",
+  "runNumber": 57,
+  "sourceSha": "9425f58c423897be08fe1ca0d810ec9d6088f7b3",
+  "status": "completed",
+  "conclusion": "failure",
+  "updatedUtc": "2026-09-22T10:09:47Z",
+  "jobs": [
+    {
+      "id": 106694937164,
+      "name": "validate",
+      "conclusion": "failure"
+    },
+    {
+      "id": 106694937405,
+      "name": "good",
+      "conclusion": "success"
+    },
+    {
+      "id": 106694937359,
+      "name": "bad",
+      "conclusion": "success"
+    }
+  ],
+  "firstFailureStep": 21,
+  "root": "CI57-driver-press-still-frame-quantized",
+  "originalCpuHomeToFairPassed": true,
+  "rescueStarted": false,
+  "trialStarted": false,
+  "finding": "O driver-press actually executed but all three16/17/50ms corrections still moved four fixed ticks and missed .12;169/165ticks. No successful O precision claim. Main samples input once per draw and reuses it for fixed substeps; observed CPU draw67.1ms/frame interval65.31875ms is consistent with four-tick granularity. Rendering-cost optimization is a candidate mitigation, not a proven precision repair.",
+  "secondary": [
+    "CPU/era/adventure final evidence missing",
+    "rescue/trial skipped"
+  ],
+  "imageInspected": "Original cpu-renderer/failure.png shows fair bell/stalls/2 actors, not blank rendering. No art score assigned.",
+  "reportSha256": "a693644e07c7d3ebe85d0f1c710042d2b18de58a999fd68da1c256ad42eaf16e",
+  "rawArtifacts": [
+    {
+      "id": 10689256430,
+      "file": "CI57-browser.zip",
+      "bytes": 20313091,
+      "sha256": "7804515512ea93a6e7b9ae2596c4c9daaa3c67d2a38b22703a90d01f4cd02033"
+    },
+    {
+      "id": 10688946505,
+      "file": "CI57-good.zip",
+      "bytes": 26647466,
+      "sha256": "c42ed9c7f1aa2fb7b6ff5a7296f663d3f4e597a09f88313cd20000abed53eb64"
+    },
+    {
+      "id": 10688775162,
+      "file": "CI57-bad.zip",
+      "bytes": 4278333,
+      "sha256": "706360f3441a970371212d64aa298b0f7ab9caf96a1326041348454c0b05d59f"
+    },
+    {
+      "id": 10688646945,
+      "file": "CI57-art.zip",
+      "bytes": 324934,
+      "sha256": "e50e418b8e2743efb034f7f51df6aae33d69bec7cf9a366722786b0a8877ba44"
+    }
+  ],
+  "accepted": false,
+  "newPagesAccepted": false,
+  "target": -2,
+  "axis": "z",
+  "epsilon": 0.12,
+  "beforeTicks": 233,
+  "lastRouteTicks": 402,
+  "elapsedTicks": 169,
+  "originalBudget": 165,
+  "releasedOscillation": [
+    -2.133333333333331,
+    -1.8666666666666643
+  ],
+  "driverPressHoldsMs": [
+    50,
+    16,
+    17
+  ],
+  "driverPressCompleted": 3,
+  "movementTicksPerPrecisionPulse": 4,
+  "cpuFrameMs": 67.10000000009313,
+  "activeFrames": {
+    "samples": 48,
+    "meanMs": 65.31875000000582,
+    "p95Ms": 70,
+    "maxMs": 85,
+    "fps": 15.309539756959692
+  },
+  "buffer": {
+    "width": 678,
+    "height": 452
+  },
+  "negativeFixture": "tests/fixtures/ci57-driver-plateau.json",
+  "fixtureIsNativeSuccessOrSave": false,
+  "integrity": {
+    "passedPreCpuLedgers": 4,
+    "listedRowsChecked": 35,
+    "allListedBytesAndHashesMatched": true,
+    "verifiersReexecuted": false,
+    "rawZipCount": 4
+  },
+  "driveFileId": "1qIQpqFbfG684IdOAH9Mi8JPblXmOkv0G",
+  "fullAuditInPackage": "audit/CI57_FAILURE_ROOT.json",
+  "nextSource": "71f0cc05a6b0b3b09a314242405d2f7ba543b130",
+  "nextRun": "35722175327",
+  "nativePrecisionRepairAccepted": false
+}

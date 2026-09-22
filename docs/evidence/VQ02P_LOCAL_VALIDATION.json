@@ -1,0 +1,203 @@
+{
+  "schema": "chrono-vq02p-local-validation-v1",
+  "batch": "VQ02P",
+  "version": "0.9.38",
+  "baseSource": "9425f58c423897be08fe1ca0d810ec9d6088f7b3",
+  "publicationParent": "f1981836a41163f445d446c09d5ed5aa91f5c1c2",
+  "sourceSha": "71f0cc05a6b0b3b09a314242405d2f7ba543b130",
+  "sourceTree": "f5866487151c269043b181b530199d7631b5a3c6",
+  "srcTree": "2e16dab74bbcc589987d30993361223dd6d5dcd0",
+  "publicationStatus": "Published once non-force; main read back; complete program tree matches tested bytes with existing remote docs preserved",
+  "tests": {
+    "node": 1350,
+    "python": 325,
+    "addedNode": 11,
+    "addedPython": 5,
+    "nodeVersion": "22.16.0",
+    "pythonVersion": "3.13.5",
+    "assets": true,
+    "typecheck": true,
+    "build": true,
+    "fullNpmCheck": true,
+    "whitespaceCheck": true,
+    "localBrowser": false
+  },
+  "changeCount": 12,
+  "files": [
+    {
+      "path": "scripts/build.mjs",
+      "gitBlob": "5ef4e4205e0a2b75e48c39722e39d9f4bf23ace1"
+    },
+    {
+      "path": "scripts/cpu-raster-benchmark.mjs",
+      "gitBlob": "febdcd0fba72cc20f86d624161dcf456828515f1"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "gitBlob": "9fb6656f53469bef9c1cac47e3723616b1e8ff49"
+    },
+    {
+      "path": "src/cpu-raster.ts",
+      "gitBlob": "860c40003c1f71c8df590b60e953ecc579c07d07"
+    },
+    {
+      "path": "src/cpu-scene.ts",
+      "gitBlob": "5b552ffa8aa7adee60b3d47223926c79ca46bb74"
+    },
+    {
+      "path": "tests/baselines/ci57-cpu-raster.ts",
+      "gitBlob": "ff7029702da8567c765acb4c76cc29442125a7d7"
+    },
+    {
+      "path": "tests/baselines/vq02p-declared-render-edits.json",
+      "gitBlob": "25959ac0c20fbd42cd8b6d6bcac7804fb373c1d7"
+    },
+    {
+      "path": "tests/cpu-raster-work.test.mjs",
+      "gitBlob": "f4a730379b3f94b489159cff98b4019976f60ac5"
+    },
+    {
+      "path": "tests/cpu_journey_support_test.py",
+      "gitBlob": "853b528e3b15f90f36a626121a5a10ce34c006e2"
+    },
+    {
+      "path": "tests/cpu_render_preservation.py",
+      "gitBlob": "937574ab55ad50665762f573265e850a379702f1"
+    },
+    {
+      "path": "tests/cpu_render_preservation_test.py",
+      "gitBlob": "34213f67945a34b67f809e1907149a04419394a9"
+    },
+    {
+      "path": "tests/fixtures/ci57-driver-plateau.json",
+      "gitBlob": "3d7949e9ed8e91a5fa33c88cc617472c8c4849b0"
+    }
+  ],
+  "onlyRuntimeChanges": [
+    "src/cpu-raster.ts",
+    "src/cpu-scene.ts readonly work observations"
+  ],
+  "implementation": [
+    "Conservative row spans with padded bounds retain original per-pixel half-plane/top-left/depth/UV/alpha predicates and arithmetic order",
+    "Fixed-shape projection, numeric and row-invariant hoisting, packed clear aliases original RGBA buffer; no persistent cache of mutable vertices or textures",
+    "Actual boundingPixels and candidatePixels reset per frame; no lower resolution/tier/material/geometry or smoothing-default change"
+  ],
+  "unchanged": [
+    "main/input/core/fixed-time/ATB/collision/save rules",
+    "all native CPU/600/rescue/trial drivers,targets,assertions,budgets",
+    "index.html/.github/package/lock/assets/held prologue renderer"
+  ],
+  "oracle": {
+    "source": "9425f58c423897be08fe1ca0d810ec9d6088f7b3",
+    "blob": "ff7029702da8567c765acb4c76cc29442125a7d7",
+    "sha256": "2416fdd24eb0ff00908ccf1d295abdcb02580a6e574804f8b4d67b39c9e0b654",
+    "unedited": true
+  },
+  "sceneParity": {
+    "chapters": 22,
+    "views": 2,
+    "samplingModes": 2,
+    "cases": 88,
+    "exactRgbaAndDepth": true,
+    "stateUnchanged": true,
+    "avoidedCandidateTests": 561432,
+    "constructedUnitCasesNotNative": true
+  },
+  "deterministicTriangleCases": 4000,
+  "preservation": "Only declared two renderer edits are inverted before comparing unchanged historical expected hashes. Each changed/missing/duplicated hunk and out-of-scope source mutation is rejected; independent original-code oracle checks rendering bytes. Expected hashes were not replaced.",
+  "kernelTiming": {
+    "kind": "Node-only captured existing scene triangles; constructed states; not browser/native gameplay/device evidence",
+    "scope": "clear, clipping and raster kernel only; excludes scene traversal, actual browser canvas, event dispatch, rendering cadence and GPU",
+    "method": "8 warmups each;24 alternating paired timings each;no timing pass threshold",
+    "rows": [
+      {
+        "chapter": "fair",
+        "viewport": {
+          "width": 960,
+          "height": 640
+        },
+        "buffer": {
+          "width": 678,
+          "height": 452
+        },
+        "smoothing": false,
+        "previousMeanMs": 60.12420550000004,
+        "currentMeanMs": 50.275665083333344,
+        "meanReduction": 0.16380325252974337,
+        "exactRgbaDepth": true
+      },
+      {
+        "chapter": "fair",
+        "viewport": {
+          "width": 960,
+          "height": 640
+        },
+        "buffer": {
+          "width": 678,
+          "height": 452
+        },
+        "smoothing": true,
+        "previousMeanMs": 67.74245862500004,
+        "currentMeanMs": 56.173029583333495,
+        "meanReduction": 0.17078549076157834,
+        "exactRgbaDepth": true
+      },
+      {
+        "chapter": "fair",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "buffer": {
+          "width": 312,
+          "height": 675
+        },
+        "smoothing": false,
+        "previousMeanMs": 33.24343579166657,
+        "currentMeanMs": 28.476814791666886,
+        "meanReduction": 0.1433853296594143,
+        "exactRgbaDepth": true
+      },
+      {
+        "chapter": "bedroom",
+        "viewport": {
+          "width": 960,
+          "height": 640
+        },
+        "buffer": {
+          "width": 678,
+          "height": 452
+        },
+        "smoothing": false,
+        "previousMeanMs": 33.926026499999956,
+        "currentMeanMs": 25.108747374999894,
+        "meanReduction": 0.25989719500455133,
+        "exactRgbaDepth": true
+      },
+      {
+        "chapter": "cathedral",
+        "viewport": {
+          "width": 960,
+          "height": 640
+        },
+        "buffer": {
+          "width": 678,
+          "height": 452
+        },
+        "smoothing": false,
+        "previousMeanMs": 37.42026124999984,
+        "currentMeanMs": 28.907457708333368,
+        "meanReduction": 0.2274918254790781,
+        "exactRgbaDepth": true
+      }
+    ]
+  },
+  "history": "Projected-vertex and texture-sampler cache experiments were rejected. Initial Python source pins caught intentional renderer edits; explicit inverse and negative tests added without replacing expected hashes. One combined local check/benchmark call was host-interrupted; final separate complete npm check and Python both exited0.",
+  "rawLogsAndSamples": "Drive 1qIQpqFbfG684IdOAH9Mi8JPblXmOkv0G: audit/npm-check-final.log,python-final.log,p-benchmark.json,change-manifest.json,earlier logs; no browser was run locally",
+  "archiveNote": "Immutable package was saved before publication with source=null; this receipt supplies actual published identity",
+  "pendingRun": "35722175327",
+  "nativePrecisionRepairAccepted": false,
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "fullGameAccepted": false
+}

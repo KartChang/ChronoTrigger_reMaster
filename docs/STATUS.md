@@ -1,27 +1,33 @@
-# Current status — VQ02O / CI57
+# Current status — VQ02P / CI58
 
-唯一 current root：**T05-early-visual-cohesion**。唯一 execution terminal：**CI57-pending-full-validation**。先讀本檔、handoff/IMMEDIATE_CONTINUATION.md、evidence/CI57_CHECKPOINT.json。Main only、單一AI、non-force；不盤點歷史、不重寫已完成批次。文件HEAD不同不代表另一遊戲source。
+唯一 current root：**T05-early-visual-cohesion**。唯一 execution terminal：**CI58-pending-full-validation**。先讀本檔、handoff/IMMEDIATE_CONTINUATION.md、evidence/CI58_CHECKPOINT.json。Main only、單一AI、non-force；不盤點歷史或重寫已發布批次。文件HEAD不是另一遊戲source。
 
 ## 已發布與唯一驗證
 
-**VQ02O/0.9.37**，source **9425f58c423897be08fe1ca0d810ec9d6088f7b3**，root tree **8e9b4f10329ddfe3b482670efac1b4229039ce07**，publication parent **e5174d5c760b683137311b80ad71725d134a28e5**。九檔一次non-force發布、main回讀，完整程式tree與已測版本一致並保留當時最新docs；src全保持 **18c602e8c79e292ced059da37a4ee39a5e2075bb**。
+**VQ02P/0.9.38**，source **71f0cc05a6b0b3b09a314242405d2f7ba543b130**，root tree **f5866487151c269043b181b530199d7631b5a3c6**，parent **f1981836a41163f445d446c09d5ed5aa91f5c1c2**。十二檔一次non-force發布，main回讀，完整程式tree與已測版本一致，保留原remote docs。src tree **2e16dab74bbcc589987d30993361223dd6d5dcd0**，僅cpu-raster.ts與cpu-scene.ts改動。
 
-唯一 **CI57 35712112661**，Playable prototype CI/360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count=1。最後 **in_progress/null**，created2026-09-22T09:44:44Z、updated09:44:48Z（台灣17:44:48）。尚未查jobs或驗收。Pending保存回報，不長等、輪詢、rerun、dispatch、cancel或另推source。
+唯一 **CI58 35722175327**，workflow360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count=1。最後 **in_progress/null**，created2026-09-22T11:34:13Z，updated11:34:27Z（台灣19:34:27）。尚未讀jobs或驗收；不輪詢、重派、取消、重跑或再推source。
 
-## CI56真正失敗與O修正
+## CI57失敗已確認，不回填成功
 
-CI56 **35706073669** / N source3f65ae23b2b09be1bb4c23ed559003ae541fe1d3 completed/failure，updated2026-09-22T09:05:32Z。validate106675203969首敗step21；good106675204230、bad106675204345成功。原CPU家中到祭典已走完，第二條旅程第一段co-op z=-2失敗。P1放鍵後反覆在-2.133333333333331與-1.8666666666666643；0/17ms兩種短hold均移動4ticks、每脈衝總耗20ticks。兩側誤差約.133333均未達<.12，最後185/165ticks。Root **CI56-native-short-pulse-quantized-reversal**。N的救援/trial未執行，不能宣稱N失敗或通過。
+CI57 **35712112661** / O source9425f58c423897be08fe1ca0d810ec9d6088f7b3 completed/failure，updated2026-09-22T10:09:47Z。Validate106694937164首敗step21；good106694937405/bad106694937359成功。第一CPU家中到祭典完成；第二旅程第一co-op z=-2，O keyboard.press已實際執行，但50/16/17ms均移動4ticks，放鍵後仍在-2.133333333333331/-1.8666666666666643反覆，169/165ticks。Root **CI57-driver-press-still-frame-quantized**。N救援/審判未執行，不宣稱其已驗或新失敗。
 
-已看原CPU failure.png，祭典鐘樓/棚位/兩角色正常繪出。四份原passed pre-CPU ledger共35列bytes/hash核對；本輪未重跑verifier，不宣稱重建ledger。後续CPU/era/adventure ledger缺失與救援/trial skipped為次生結果；CI56無playable或Pages驗收。
+真實CPU末次draw67.1ms、48活動interval平均65.31875ms/P9570/max85/FPS15.30954；buffer678x452。main每render讀一次input供固定substeps共用，與粗粒度一致，但沒有事件timestamp層因果證明。原failure.png已看，祭典/鐘樓/棚位/雙人真實繪出。四份passed preCPU ledger35列bytes/hash及四原ZIP核對，未重新執行verifier。後續缺ledger、救援/trial skipped為次生結果；CI57無playable/Pages驗收。
 
-O保留正常與長距離原split down/wait/up，只在實際觀察到兩次短脈衝反向越界且兩端均未到位後，改用公開Playwright keyboard.press執行最內層按鍵的down/delay/up，減少Python往返期間持續按住的成本。同樣接入N的獨立近距修正。保持原按鍵順序、實際afterRelease、原一次tick預算/30秒/.12/250ms/256上限；只重估傳輸成本、不重設時間。任何部分dispatch失敗都釋放已嘗試按鍵並保留首個例外。這不保證sub-frame精度，真正效果仍等CI57。
+## 本批是實際CPU繪圖優化，不是再調延遲
 
-最終 **1339 Node/320 Python/assets/typecheck/build/完整npm check/diff check通過**；新增15 Python（12方向軸成本、8雙owner近距、3既有core成本案例）。原0/17ms負例重現；延伸66ms plateau及compact成本是明示模型假設，不冒稱原生測量；不可達精度仍按原budget失敗。原I helper只反向移除明示O接線後核對舊hash，未改expected；數值/語意變更仍fail。全部src/index/workflow/原browser旅程本體/路線斷言、N雙owner規則與verifier保留；沒有本機browser。
+P保守掃描列範圍先跳過三角形外部候選像素，保留原逐像素edge/top-left/depth/UV/alpha判定與算術順序；固定形狀project物件、數值及row invariant外提、同RGBA buffer的packed clear。cpu-scene僅加唯讀boundingPixels/candidatePixels與policy。未改遊戲input/time/core、畫質tiers/尺寸、材質/UV/幾何、平滑預設、任何native driver或路線預算。
 
-## 雲端保存與下一步
+最終 **1350 Node/325 Python/assets/typecheck/build/full npm check/差異檢查通過**。新增11Node/5Python；保留CI57原raster作byte-exact oracle，22章節x2視窗x2sampling共88個純繪圖案例、4000三角形、邊界透明/深度/紋理更新均一致。只反向移除兩個明列render改動後比原hash，expected未換，負例仍拒絕。沒有本機browser。
 
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新 **Chrono-CI56-terminal-VQ02O-tested-batch.zip /1zRzBn2uz9QOsg0kQ84LWllgEialwf7mL**，51889991bytes，SHA256 **4b99193b4b6a6d6c108586de77ccf90d569812ffee3e08c9ed8c59a7a6a11a8e**。下載回讀hash/CRC/28manifest/四原ZIP/parent全部一致；298檔assembled程式恢復快照，非published Gitarchive。包內source=null是發布前歷史，最終身分以本次GitHub收據為準，不重送O。
+五個Node kernel案例24組交替測量平均耗時下降14.34%至25.99%，像素/depth相同。這排除scene traversal、真正browser/event/render cadence，**不是FPS提升或原生精度修復驗收**。P為已測渲染成本緩解，是否足以解除卡點仍看CI58，不能先標root repaired。
 
-最後accepted仍為 **K/3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454**，不重開。成功時依CI57_CHECKPOINT驗原三jobs全報告與CPU兩旅程/600/救援/審判/本人存檔鏈、67腿雙人放鍵、4遇敵/2提示/17PNG/6窗口/第七ledger及O真實按鍵診斷，再Drive原始產物及同CI Pages/source/HTML；不能只看綠勾。之後依TODO推進實際相容/效能、長時間/裝置、前段材質尺度輪廓、地標、動畫音訊品質。
+## 雲端保存與接續
 
-T03–T08完整範圍不縮：規則版本拓樸、成長報酬經濟技能、全美術動畫音訊、其餘時代主支線結局、整體>=90/每面向>=80%與實體裝置、每批雲端。2300抵達非完整未來；舊30stale，無新分數。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三，無P3/ARPG/framework重造。Held Z/母親家具不提升；prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser、可寫game/time/save/collision hook、假原生成功存檔、公開ROM/原媒體/字型/憑證。工具鏈只恢復node_modules/esbuild hardlink。臨時容器非authority。
+唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。最新 **Chrono-CI57-terminal-VQ02P-tested-batch.zip /1qIQpqFbfG684IdOAH9Mi8JPblXmOkv0G**，52200466bytes，SHA256 **873f8e80be5774fc7fee10bcd6a153d0d059a8fc71634238c03751fbaedc7688**。下載hash/CRC/37manifest/四未改rawZIP/parent全一致，305檔assembled程式快照，非Gitarchive。包內source=null是發布前歷史；目前身份以GitHub收據為準，不重送P或覆蓋最新docs。
+
+最後accepted仍K/source3028e2499d5a268d20c5251a3aec6e8c2c5a09e2/CI53 35684197933/Pages47 35685874454。不重開。CI58依checkpoint驗原全套、完整CPU/600/救援/審判/本人v4-v7/67腿/4遇敵/2提示/17PNG/6窗口/第七ledger、P實際成本與圖片，再原始雲端與同CI Pages/source/HTML。之後接相容效能、長時間/裝置及前段材質尺度輪廓、地標、動畫音訊。
+
+T03：隱含規則、版本差異、完整拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色、學習技能與雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線及結局。T07：完整範圍整體>=90、每面向>=80%、required assets／five gates／zero critical，加實體裝置輸入、FPS/frame time、載入、記憶體、背景恢復、存檔與音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來，舊30為stale，沒有新的美術90、真機或全遊戲認證。
+
+保留TS/Babylon/esbuild、fixed ATB、A*、InputBoundary、P1/P2/自主第三與家中至2300及v1-v8裝備存檔。無新branch/PR/P3/ARPG或框架重造。Held Z/升級母親家具仍held，prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換或局部提升。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈只恢復node_modules及esbuild hardlink。臨時容器不是authority。

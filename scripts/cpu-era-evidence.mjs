@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto';
 import {assertWoodland} from './woodland-evidence.mjs';
+import {assertVillage,assertVillageLayouts} from './village-evidence.mjs';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -41,6 +42,8 @@ export function assertCpuEraEvidence(r, identity) {
  need(r.sourceSave?.path==='../cpu-own-fair-save.json' && r.sourceSave.bytes>0 && hash(r.sourceSave.sha256),'parent own v2 export');
  need(equal(r.views?.map(o=>o.chapter),ERA_CHAPTERS),'chapter coverage');
  r.views.forEach((o,i)=>{observation(o,true);assertWoodland(o.woodland,o.chapter);need(o.image.path===ERA_IMAGES[i]+'.png','chapter image ownership');});
+ r.views.forEach(o=>assertVillage(o.village,o.chapter));
+ assertVillageLayouts(r.villageLayouts,observation,receipt);
  const f=r.filtering;
  need(f?.fullStateEqual===true && equal(f.before,f.after),'sampling changed full paused state');
  for(const [k,on] of [['nearest',false],['filtered',true],['restored',false]]){
@@ -113,6 +116,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
   files.push({path:item.path,bytes:b.length,sha256:sha(b)});return b;
  };
  for(const o of [...r.views,...['nearest','filtered','restored'].map(k=>r.filtering[k])])keep(o.image,true);
+ for(const v of r.villageLayouts.views){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'actual canvas PNG dimensions');}
  for(const s of r.saves)need(JSON.parse(keep(s)).version===s.version,'export version');
  const own=JSON.parse(keep(r.sourceSave));need(own.version===2 && own.fair.gatoWon===true,'parent export state');
  const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),receipt=parentReport.cases[1].save;

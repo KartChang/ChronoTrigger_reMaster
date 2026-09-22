@@ -1,0 +1,57 @@
+{
+  "schema": "chrono-vq02s-declared-village-edits-v1",
+  "baseSource": "f7de177305e46cf5d72a63968404d74451579677",
+  "files": {
+    "src/kingdom-render.ts": [
+      {
+        "before": "import {StoryNpcMotion} from './story-npc-motion';",
+        "after": "import {StoryNpcMotion} from './story-npc-motion';\nimport {VillageFinish} from './village-finish';"
+      },
+      {
+        "before": " const npcMotion=new StoryNpcMotion(scene);",
+        "after": " const npcMotion=new StoryNpcMotion(scene);\n const villageFinish=new VillageFinish(scene);"
+      },
+      {
+        "before": "  root.setEnabled(false);return {root,queen,lucca,outdoor:",
+        "after": "  if(chapter==='truce')villageFinish.apply(root);\n  root.setEnabled(false);return {root,queen,lucca,outdoor:"
+      },
+      {
+        "before": "woodland:inspectWoodland()",
+        "after": "woodland:inspectWoodland(),village:villageFinish.inspect()"
+      }
+    ],
+    "tests/cpu_era_route.py": [
+      {
+        "before": "from cpu_native_route import move_axis",
+        "after": "from cpu_native_route import move_axis\nfrom village_capture import observe_village_layouts"
+      },
+      {
+        "before": "        value['woodland'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.woodland')",
+        "after": "        value['woodland'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.woodland')\n        value['village'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.village')"
+      },
+      {
+        "before": "        r['views'].append(capture('03-truce'))",
+        "after": "        r['views'].append(capture('03-truce'))\n        r['villageLayouts'] = {}\n        observe_village_layouts(page, out, r['villageLayouts'], snap, observed)"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {assertWoodland} from './woodland-evidence.mjs';",
+        "after": "import {assertWoodland} from './woodland-evidence.mjs';\nimport {assertVillage,assertVillageLayouts} from './village-evidence.mjs';"
+      },
+      {
+        "before": " const f=r.filtering;",
+        "after": " r.views.forEach(o=>assertVillage(o.village,o.chapter));\n assertVillageLayouts(r.villageLayouts,observation,receipt);\n const f=r.filtering;"
+      },
+      {
+        "before": " for(const s of r.saves)need",
+        "after": " for(const v of r.villageLayouts.views){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'actual canvas PNG dimensions');}\n for(const s of r.saves)need"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/kingdom-render.ts": "aa3e9e469315d2542ae2c3c080e5a87cdc8241bb789b97bdc2df57384542b473",
+    "tests/cpu_era_route.py": "41c408acfe9679463f27afd6c6fa71192b499f396dfc1dd68bcbda6b20eb229b",
+    "scripts/cpu-era-evidence.mjs": "abfebe897862074418f6b9dc2e8dec7f07da4d84aa36a1574df3d7208b1d8223"
+  }
+}

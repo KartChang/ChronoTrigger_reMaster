@@ -7,12 +7,14 @@ import type {State} from './core';
 // Shared tree authoring remains unchanged; only this map owner selects woodland pixels.
 import {drawStoryNpc,STORY_NPC_ART} from './story-npc-art';
 import {StoryNpcMotion} from './story-npc-motion';
+import {VillageFinish} from './village-finish';
 
 /** Lazy map construction. No game state is written here; footprints come from the rule data. */
 export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
  type MapView={root:TransformNode;queen?:Mesh;lucca?:Mesh;outdoor?:{ground:DynamicTexture;trees:Mesh[]}};
  const views=new Map<KingdomMap,MapView>();
  const npcMotion=new StoryNpcMotion(scene);
+ const villageFinish=new VillageFinish(scene);
  function inspectWoodland(){
   const entry=[...views.entries()].find(([,v])=>v.root.isEnabled()&&v.outdoor);
   if(!entry)return null;
@@ -96,6 +98,7 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
     queen=picture('marle-as-queen',0,2,1.36,1.85,c=>drawHDHero(c,'marle',0,0),HD_ART.width,HD_ART.height);
    }
   }
+  if(chapter==='truce')villageFinish.apply(root);
   root.setEnabled(false);return {root,queen,lucca,outdoor:inside?undefined:{ground:texture,trees}};
  }
  return {draw(s:State){
@@ -105,5 +108,5 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing'||s.rescue.stage==='homecoming');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
   view.lucca?.setEnabled(s.kingdom.phase==='missing');
   npcMotion.draw(s.ticks);
- },inspectNpcs(){return {...npcMotion.inspect(),woodland:inspectWoodland()};}};
+ },inspectNpcs(){return {...npcMotion.inspect(),woodland:inspectWoodland(),village:villageFinish.inspect()};}};
 }

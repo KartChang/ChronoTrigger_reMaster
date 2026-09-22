@@ -1,5 +1,6 @@
 from pathlib import Path
 import hashlib,unittest
+from village_preservation import restore_village_source
 from woodland_preservation import restore_woodland_source,SPEC
 ROOT=Path(__file__).resolve().parents[1]
 class WoodlandPreservationTests(unittest.TestCase):
@@ -10,10 +11,10 @@ class WoodlandPreservationTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(restored.encode()).hexdigest(),SPEC['originalSha256'][name])
     def test_each_missing_or_duplicate_hunk_rejected(self):
         for name,edits in SPEC['files'].items():
-            source=(ROOT/name).read_text()
+            source=restore_village_source(name,(ROOT/name).read_text())
             for i,e in enumerate(edits):
                 for changed in [source.replace(e['after'],'',1),source+e['after']]:
-                    with self.subTest(name=name,index=i),self.assertRaises(AssertionError):restore_woodland_source(name,changed)
+                    with self.subTest(name=name,index=i),self.assertRaises(AssertionError):restore_woodland_source(name,changed,include_village=False)
     def test_unrelated_content_is_never_erased(self):
         for name in SPEC['files']:
             b=restore_woodland_source(name,(ROOT/name).read_text()+'\n# MUTATED\n')

@@ -1,3 +1,4 @@
+import {villageBaseline} from './helpers/village-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -41,9 +42,9 @@ test('outdoor art never imports the game, uses a timer, downloads art or touches
 });
 const spec=JSON.parse(readFileSync('tests/baselines/vq02r-declared-woodland-edits.json','utf8'));
 for(const [name,edits] of Object.entries(spec.files))test(name+': exact CI59 inverse, with all missing/duplicate/outside mutations rejected',()=>{
- const source=readFileSync(name,'utf8');assert.equal(sha(woodlandBaseline(name,source)),spec.originalSha256[name]);
- for(const e of edits){assert.throws(()=>woodlandBaseline(name,source.replace(e.after,'')));assert.throws(()=>woodlandBaseline(name,source+e.after));}
- assert.notEqual(sha(woodlandBaseline(name,source+'\n// changed\n')),spec.originalSha256[name]);
+ const source=villageBaseline(name,readFileSync(name,'utf8'));assert.equal(sha(woodlandBaseline(name,source,false)),spec.originalSha256[name]);
+ for(const e of edits){assert.throws(()=>woodlandBaseline(name,source.replace(e.after,''),false));assert.throws(()=>woodlandBaseline(name,source+e.after,false));}
+ assert.notEqual(sha(woodlandBaseline(name,source+'\n// changed\n',false)),spec.originalSha256[name]);
 });
 test('new pixel expectations describe unit authoring, not a physical or native approval',()=>{
  for(const chapter of ['fair','castle','chamber','canyon','cathedral','bedroom','truce','forest'])assert(assertWoodland(woodlandFixture(chapter),chapter));

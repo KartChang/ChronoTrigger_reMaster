@@ -9,6 +9,7 @@ import math
 import sys
 import traceback
 from cpu_native_route import move_axis
+from village_capture import observe_village_layouts
 from native_import import import_save
 
 CHAPTER_CAPTURES = ('fair', 'canyon', 'truce', 'forest', 'castle', 'chamber', 'castle', 'cathedral')
@@ -59,6 +60,7 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
     def capture(name):
         value = observed(page)
         value['woodland'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.woodland')
+        value['village'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.village')
         path = out / (name + '.png')
         page.screenshot(path=str(path), timeout=15000)
         b = path.read_bytes()
@@ -203,6 +205,8 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
         talk('托魯斯')
         assert state()['chapter'] == 'truce'
         r['views'].append(capture('03-truce'))
+        r['villageLayouts'] = {}
+        observe_village_layouts(page, out, r['villageLayouts'], snap, observed)
         move('z', 1);move('x', -4.5);talk('鎮民')
         move('x', 0);move('z', -4.3);move('x', -6.5);talk('旅店')
         assert state()['players'][0]['hp'] == 120 and state()['players'][0]['mp'] == 18

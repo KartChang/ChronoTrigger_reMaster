@@ -1,27 +1,26 @@
-# Delivery index — current M / CI55
+# Delivery index — VQ02T / CI62
 
-Current source **238bb31976e58accaf48769b8a72a3693518a4de**, source tree **8ff0e84846d3e9c3c9c890d170ca3a0d031675b0**, **CI55 35696071243** push/attempt1/lastpending. STATUS/TODO/IMMEDIATE_CONTINUATION and CI55_CHECKPOINT are current; previous pending labels are historical.
+T/0.9.42 source **85f35c062720ed494b9869488b0c39e94b7c82b4**；root tree **c8eadf451849aa2b7d6f5e9f0b1176a3294a5b33**；parent **44349c5c9b1a09b86b83607039d61758f86b8c47**。24檔一次non-force發布，349檔程式與已測快照匹配；main已回讀。唯一 **CI62 35776529708**，workflow360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count1；最後queued/null，created/updated **2026-09-22T19:52:01Z**（台灣2026-09-23 03:52:01）。只查一次，尚未讀jobs、artifacts或接受T。
 
-Only Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**, verified ChronoTrigger_reMaster. No public ROM/original external media/fonts/credentials. Local environment is not retention.
+Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI62_CHECKPOINT。CI61/Pages55已結案；舊CI55及更早delivery labels是歷史，不是目前接續點。
 
-## This turn's three verified deliveries
+## 最新兩份交付
 
-| Purpose | Drive file ID | Bytes | SHA256 |
+| 用途 | Drive file ID | Bytes | SHA256 |
 |---|---|---:|---|
-| CI53/Pages47 seven unchanged raw ZIPs plus inspection receipts | 1h9THuGPcjSkcAPIIdqIeWPO7-5M2u7Kf | 59450174 | 2a7e8be60b1fa814cb81c984ca327fcf86e3dee75c6eb8cbbef190302068a6ca |
-| L tested twelve-file batch and assembled program snapshot | 1NfZu0QvDnMd2Mm17uiZPYsef4OfHyshr | 688057 | 0f77fbf1c7876146e1fb9d641ae55e793501c2f7681718ed1579dbad511a172b |
-| M tested five-file correction plus CI54 first-failure original ZIP | 1Sc2809rDWRDCvYZgM1DkI2b2VGpz5gyA | 1340053 | 885edaa1cf481a5c534382470eadda22ea4275b15645e437283232ec67db1dd3 |
+| CI61/Pages55七未修改原ZIP、exact S source、重算及視覺紀錄 | 1KA38Hu9qJ6HsnQqr8bAW1-kZQVAqCd87 | 70055052 | 9a751b9ea880c771fb410a620b9b75b7ea4e6608fd9a6e3e11460f845567d991 |
+| T最終已測24改檔、349程式恢復快照及完整logs | 13Ink_1PPYbZNYBrHFi1Bau7RRj-p15uI | 828192 | 9b4985368a2cc0ba7d00d3590512002dd6d9b145be48d383743f526c4bcab3af |
 
-All three were uploaded, metadata/parent checked, downloaded, and verified by bytes/SHA256/ZIP CRC/all manifest entries. Kraw12entries/7ZIPs; L24entries/288programfiles; M14entries/290programfiles. M filename Chrono-CI54-failure-VQ02M-tested-batch.zip. Snapshots exclude progress docs except THIRD_PARTY; read current main docs separately. Immutable packages retain their truthful prepublication state; CI55_CHECKPOINT binds them to actual published source/run. Do not regenerate accepted evidence or republish these batches.
+兩檔均在folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb，已metadata/parent回读並下載驗bytes/SHA256/ZIP CRC/全manifest；S26項及七內層原ZIP CRC，T18項及349檔tar/manifest/Git blob。
 
-M includes unchanged actual CI54 validate artifact10679618723:765984bytes/SHA2564cea99378caf4b57bb4b0683a169090240f0d71b4fe46d7cb538f0ffe7d5d5cb, Gitarchive sourceL and failedledger. It is not a completed L browser proof. Actual failure log excerpt is explicitly a selective connector transcription, not a fabricated fullrawlog.
+T同一Drive ID曾在發布前更新以隔離global header衝突，最新以上bytes/hash為準；先前775894bytes版本已被替換，不是另一candidate。完整npm check重跑成功。T包內publishedSource=null是封裝時真實歷史，不代表未發布。349檔assembled快照非published Git archive，進度docs讀最新main，不以包覆舊。
 
-## GitHub current records
+## 最新GitHub紀錄
 
-CI53_ACCEPTANCE.json closes K/CI53/Pages47 technical acceptance. CI54_FAILURE.json records firstPythonfailure and corrective provenance. CI55_CHECKPOINT.json names only activevalidation. Current STATUS, TODO, DEVELOPMENT_WHITEPAPER, FEATURE_PROGRESS, CPU_RENDERING_T05 and IMMEDIATE_CONTINUATION are published [skip ci] after M source; they do not create a new gameplaycandidate.
+CI61_ACCEPTANCE.json結案S；CI62_CHECKPOINT.json唯一active驗證；VQ02T_LOCAL_VALIDATION.json、VQ02T_CLOUD_RETENTION.json提供發布／測試／雲端鏈。STATUS、TODO、白皮書、功能進度與handoff使用[skip ci]，不另開遊戲CI。
 
-CI53 playable/staged/deployed HTML all5690213bytes/SHA2563fda62047f3d6d5d1ce308534e51856a0da6ce0d88f531ad85b90d6af18c0a39. CI55 must provide its own exactsource/HTML/evidence; never compare a source-null localbuild as though byte-identical. Latest accepted source remainsK until fullnewCIclosure. No art/device/whole-game/newscore.
+CI61 playable/staged/deployed HTML同5704004bytes/SHA256 bd23d550062b186cec198efa7879a5889cdf5c78e351562a38db078f2cd6a9e8。CI62必須使用自己的同source/HTML/raw reports/Pages；local source=null HTML不作錯誤hash基準。T尚無原生、美術、長時間、真機或全遊戲完成認證。
 
-## Minimal recovery
+## 最小恢復
 
-Fetch M raw package and latest main docs. Restore290programfiles from program-snapshot-vq02m.tar.gz. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE onlynode_modules/esbuild hardlink; do not overwrite source/config or bootstrapCI. No localbrowser. Inspect existingCI55 before anynewcommit. Older delivery history stays in Git history; do not download alloldpackages or replay acceptedruns.
+只取T保存包與main最新文件；只在CI62結果需要時下載該run原artifact，不重開CI61或更早。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules/esbuild hardlink；不覆舊source/config、不開bootstrapCI。本機browser禁用；ROM/原媒體/字型/憑證不公開。

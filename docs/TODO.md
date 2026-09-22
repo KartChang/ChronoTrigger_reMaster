@@ -1,31 +1,26 @@
-# Execution TODO — CI61 only
+# Execution TODO — CI61 accepted; T05 next batch
 
-Authority：STATUS／IMMEDIATE_CONTINUATION／CI61_CHECKPOINT。
+Authority：STATUS／IMMEDIATE_CONTINUATION／CI61_ACCEPTANCE。Current root：T05-early-visual-cohesion。Execution terminal：VQ02T-pause-and-village-readability-development。No active validation or new source yet.
 
-S/0.9.41 source **9b9020e05b3c9c68aee378ceab74dc8fa4677c88**；root tree **432ce1a0a42bb35f392601eaee774123dffb4684**；parent **8b950ea2a8122b69c19b955c6163a403ba9ff2d4**。23檔一次non-force發布，main已回讀，完整程式樹匹配已測338檔。唯一 **CI61 35765515107**，workflow360357259/.github/workflows/ci.yml，push/attempt1，exact source全event/state count1。最後in_progress/null，created2026-09-22T18:11:14Z，updated18:11:19Z（台灣2026-09-23 02:11:19）。尚未讀jobs或接受S；文件HEAD不是另一遊戲source。
+## 已完成，不重開
 
-## 本批已完成
+- [x] CI61 / VQ02S三job及13主報告、原native和完整CPU旅程，七ledger逐byte重算／133列hash。
+- [x] S六材質與原旅店招牌實際owner/尺寸/nearest-alpha/RGBA，三viewport完整暫停state、恢復、3DOM＋3CPU canvas。
+- [x] 39主CPU圖＋6張新S原圖檢視；不代表最終美術。
+- [x] Pages55 selected CI61/source、playable/staged/deployed HTML一致及公共HTTP step success。
+- [x] 七原始ZIP／exact source／重算與視覺紀錄保存正確Drive並下載驗hash/CRC/26manifest/parent。收據docs/evidence/CI61_ACCEPTANCE.json。
 
-- [x] CI60／Pages54全技術驗收、七ledger逐byte重現127列、39主CPU圖與正確Drive原始產物回讀。
-- [x] 從前輪Drive恢復已測S23檔／338檔程式，不重寫；一次non-force source提交並回讀完整tree。
-- [x] 六組托魯斯建材、原旅店像素圖示招牌、同次原生三viewport觀察／六PNG與附加來源驗證已實作。
-- [x] 恢復1415Node／345Python完整成功log與exact tested tree；沒有冒稱本輪重跑S或本機browser。
-- [ ] 完成CI61全原生suite及S三viewport真圖／原始雲端／同CI Pages驗收，才接受S。
+## 接續合併批次
 
-## 唯一接續
+- [ ] 依S真圖改善短橫向暫停卡的控制項與說明可見性；先查原scroll與focus，不隱藏功能或縮小可操作目標來過關。
+- [ ] 接續前段植物／道具材質與窄地標可讀性；重用原素材，不重畫S建材、不提升held家中資產。
+- [ ] 同一原生旅程追加對應畫面／完整state及預設平滑OFF的觀察；原七ledger和全部原斷言、原路徑／預算不減。
+- [ ] 累積相容修改後跑完整本機非browser檢查，成果與logs先存雲端，再一次non-force source及一次CI；pending保存回報，不等待到中斷。
 
-確認main一次並讀exact CI61一次。只有文件HEAD差異仍接同source/run；確有更新checkpoint才接更新位置。Pending保存回報，不長等、重跑、取消或另推source。Failure先讀同run首個根因和原始artifact，不放寬原.12、tick預算、30秒或畫質。Success保留原三job／13primary／native+CPU／audio／actor.playback／HUD／normal-paused-reduced／ATB／touch／equipmentv8／fulltrial與七ledger、每列bytes/hash。CPU本人v4-v5-v7及alternate cell、67legs／4encounters／2props／17milestones／6窗口和R woodland不省。新增S村落profile與材質實際RGBA／owner／尺寸，3viewport完整paused state、3DOM＋3實際canvas PNG及原viewport恢復。檢視窄畫面地標，不把fixture/source預覽算native；最後原Drive回讀與同CI Pages selected source/HTML。
+## 後續完整範圍
 
-## 後續既有工作
+T03規則/版本/全拓樸與數值；T04成長/報酬/完整經濟裝備道具/角色與雙三人技；T05全美術/完整動畫/合法音訊；T06完整未來及其餘時代主支線結局；T07全範圍>=90、各面向>=80%、五gate/required assets/zero critical和真機長時間證據；T08每批完整技術、matching CI與正確雲端閉環。分母不縮；2300抵達不是完整未來。六短窗口不是長時間認證，舊30為stale，沒有新美術90分。
 
-CI61先依checkpoint完成原suite與新3view/6PNG／實際材質驗收及matching Pages。之後只按真圖處理相容／可讀性問題，再依既有TODO改善前段人物植物道具材質、尺度輪廓、窄地標、完整動畫／合法音訊與有意義長時間／真機觀察。六短窗口不等於長時間認證，不因綠勾擴後段；不預設開平滑、不提升held家中素材。
+S/0.9.41 source9b9020e05b3c9c68aee378ceab74dc8fa4677c88，CI6135765515107，Pages5535769247113為目前accepted。不重開CI60/Pages54或更早。雲端1KA38Hu9qJ6HsnQqr8bAW1-kZQVAqCd87在folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb，70055052bytes，SHA256 9a751b9ea880c771fb410a620b9b75b7ea4e6608fd9a6e3e11460f845567d991。
 
-T03：隱含規則、版本差異、全拓樸與數值忠實。T04：成長、報酬掉落、完整經濟道具飾品、角色與學習技能／雙三人技。T05：完整美術、動畫與合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線、結局。T07：完整範圍整體>=90、每面向>=80%、required assets/five gates/zero critical與實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔及音訊。T08：每批實作測試、一次non-force source、完整matching CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來；舊30stale，沒有新美術90、真機或全遊戲認證。
-
-## 已結案與恢復
-
-CI60／Pages54為最後完整技術accepted；CI59／Pages53與更早不重開。歷史失敗不改success。R素材不重做，S不要重送。
-
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新程式恢復包 **Chrono-CI60-accepted-VQ02S-tested-batch.zip / 11X_BtNMbdeJHKiIQMMwuSUYpTci-alZq**，67039136bytes，SHA256 **3c03bb97fd4185a3af6b2bf86741e28d64f318bb90ec0462dc22857b5eea5f5b**。本輪由Drive下載核對bytes/hash/ZIP CRC/52manifest/七未修改CI60與Pages54原ZIP/parent，全部一致。recovery/VQ02S-tested-program-snapshot.tar.gz含338程式檔，是assembled快照而非published Gitarchive，不含進度docs（THIRD_PARTY除外）。包內source=null為前輪發布前歷史；S現已發布，最新GitHub文件補足身分。不要重送S或用舊docs覆蓋進度。
-
-保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三及家中至2300、v1-v8裝備存檔。無branch/PR/P3/ARPG/框架重造。Held Z/升級母親家具不提升；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變，不間接替換。禁止本機browser、可寫原生game/time/save/collision hook、假原生成功存檔、公開ROM/原始外部媒體/字型/憑證。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink；私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳。臨時容器不是authority。
+Main only、one AI、non-force、無PR/branch/P3/ARPG/框架重造。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary與v1-v8。Held Z/母親家具禁止間接提升；prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。本機browser禁用；不造game/time/save/collision state、不放寬原斷言/畫質/.12/ticks/單一30秒/250ms/256。工具鏈只恢復node_modules/esbuild hardlink。私人ROM、原媒體、字型、憑證不公開。

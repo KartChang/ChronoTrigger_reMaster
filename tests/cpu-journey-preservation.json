@@ -1,0 +1,26 @@
+{
+  "sourceSha": "3028e2499d5a268d20c5251a3aec6e8c2c5a09e2",
+  "journeys": {
+    "rescue": "4c1f48a85b86850a399c07175d283274373bab5af0879a3995235c1879bd1440",
+    "trial": "090b973ab031d52a8c2c0dcd250e0d227faee70a0820eda79758faf43c6a75bf"
+  },
+  "files": {
+    "src/core.ts": "d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d",
+    "src/render.ts": "8219483464635e6f6a98d8dbcfac8a16148915f928d413127045722be045ebf7",
+    "src/prologue-render.ts": "4acab4a7f71aa5dda5640b48958658df9549dfb55c2ce63f7f0bb476aacb52af",
+    "src/input.ts": "f4e49695188d941194c2bcdbc737fa7e0bc9f8d5f1d7d04ca6a325c50d2dded8",
+    "src/input-boundary.ts": "80ddeaa0d7120b08aee850fe1b830b2b11fe1db41cfc29715ef9c2682dd8d7c0",
+    "src/cpu-scene.ts": "6e7775044b91a6080cc6d9d4aa0dacea26517bd69a03313f141738c7013918f7",
+    "src/cpu-raster.ts": "2416fdd24eb0ff00908ccf1d295abdcb02580a6e574804f8b4d67b39c9e0b654",
+    "src/frame-window.ts": "7794dd907e72a1bcfc1decc7748eb199774efb0d9f909899ed9aa3e0f181717c",
+    "tests/cpu_native_route.py": "ac94e055c80dbc790350b6b421092e55dc542b6650b7546bb5cf95788fb72ae1",
+    "tests/cpu_renderer_browser.py": "68d7346abdccdc1b2b0cf030917607d9dafa76e32a0f81c215707de0bc2d78c6",
+    "tests/cpu_era_route.py": "bc1bc3c80acb724f6661328c4425f63160ac69d2a1110f63dcc92e3866f2561f",
+    "tests/native_import.py": "a55dc8fdb674863b6787ca26553b35a30dc8d7d82081757c98cfb2421a2aea8a",
+    "tests/native_chooser.py": "8573d71cfb551b3349448b5a40da41c407715ee620fae844a0ebd864d0779ba3",
+    "scripts/ci-evidence.mjs": "51185a4338ae5010a195ab6b6a10f57dd91e56eb2728f27f1445538f8ac6dc60",
+    "scripts/cpu-era-evidence.mjs": "66b2f873896f7d8ab1d867f154d754b449b07c69b0d75c04ca7fbccb62b8fee8",
+    "scripts/cpu-evidence.mjs": "2527e5879adb2649b0b7168cd8fb07f042424e6113c41a18ffcc37357ed61e50",
+    "scripts/render-evidence.mjs": "d1a44c2c428e7b6e3002346a8e4cdbc4d0daac89ad7e722fd3c8c11650e91e64"
+  }
+}

@@ -61,6 +61,13 @@ jobs:
       - name: Verify same-source CPU sampling and native 600 AD continuation
         if: always()
         run: node scripts/cpu-era-evidence.mjs
+      - name: Test the existing rescue journey on native CPU fallback
+        run: CHRONO_CPU_CHAIN=1 python tests/rescue_browser.py
+      - name: Test the existing trial and both prison routes on native CPU fallback
+        run: CHRONO_CPU_CHAIN=1 python tests/trial_browser.py
+      - name: Verify source-bound CPU rescue, trial and sustained observations
+        if: always()
+        run: node scripts/cpu-adventure-evidence.mjs
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate

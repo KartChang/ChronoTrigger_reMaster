@@ -2,6 +2,7 @@
 Only keyboard, visible controls and public save/import UI mutate the game. No state hooks,
 constructed saves, teleports or accelerated clocks. Software GPU is not hardware certification.
 """
+from cpu_journey_support import CpuJourney, CPU_ARGS
 from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
@@ -10,16 +11,19 @@ from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'test-results'/'rescue'
+cpu=CpuJourney('rescue',ROOT)
+OUT=cpu.output(ROOT/'test-results'/'rescue')
 OUT.mkdir(parents=True,exist_ok=True)
-SOURCE=ROOT/'test-results'/'kingdom'/'kingdom-save-v4.json'
+SOURCE=cpu.source(ROOT/'test-results'/'kingdom'/'kingdom-save-v4.json')
 checks, errors, waits, requests=[], [], [], []
 feedback_geometry=[]
 chest_approaches=[]
 organ_approaches=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4181','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
-def passed(name):checks.append(name);print('PASS',name,flush=True)
+def passed(name):
+    checks.append(name);print('PASS',name,flush=True)
+    cpu.observe(page,name)
 def wait_game(page,expression,budget=300,modes=('explore',)):
     start=snap(page)['ticks'];began=time.monotonic()
     handle=page.wait_for_function("""({start,budget,modes,expression})=>{
@@ -27,12 +31,13 @@ def wait_game(page,expression,budget=300,modes=('explore',)):
         if(t.paused()||!modes.includes(s.mode)||s.ticks<start||s.ticks-start>budget)
             return {ok:false,state:s,paused:t.paused()};
         return Function('s','return ('+expression+')')(s)?{ok:true,state:s}:false;
-    }""",arg={'start':start,'budget':budget,'modes':list(modes),'expression':expression},polling=100,timeout=120000)
+    }""",arg={'start':start,'budget':budget,'modes':list(modes),'expression':expression},polling=100,timeout=30000 if cpu.enabled else 120000)
     result=handle.json_value();handle.dispose()
     waits.append({'predicate':expression,'wallSeconds':round(time.monotonic()-began,2),'observed':result})
     assert result['ok'],result
 
 def move(page,axis,target,battle=False):
+    if cpu.enabled:return cpu.move(page,axis,target,battle,wait_game,snap)
     delta=target-snap(page)['players'][0][axis]
     if abs(delta)<.025:return
     keys=({'x':('d','ArrowRight'),'z':('w','ArrowUp')} if delta>0 else {'x':('a','ArrowLeft'),'z':('s','ArrowDown')})[axis]
@@ -93,9 +98,10 @@ def save_reload(page,stage,chapter,name):
 try:
     assert SOURCE.exists(),'Run kingdom_browser.py first; its unmodified real export is required.'
     original=SOURCE.read_bytes();source=json.loads(original)
+    cpu.begin(SOURCE,original)
     assert source['version']==4 and source['chapter']=='castle' and source['kingdom']['phase']=='rescue'
     with sync_playwright() as p:
-        browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
+        browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_EXECUTABLE_PATH'),headless=True,args=CPU_ARGS if cpu.enabled else ['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
         page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(page)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
@@ -129,7 +135,7 @@ try:
             # Visit the concealed door before playing the organ; a real lock must refuse it.
             move(page,'z',5.8);move(page,'x',4);move(page,'z',8.6);talk(page,'石牆')
             assert snap(page)['chapter']=='cathedral' and snap(page)['rescue']['organOpen'] is False
-            approach_organ(page,move,snap,organ_approaches)
+            approach_organ(page,move,snap,organ_approaches,timeout_ms=30000 if cpu.enabled else 120000)
             page.screenshot(path=str(OUT/'04a-organ-approach.png'))
             talk(page,'管風琴')
             assert snap(page)['rescue']['organOpen'] is True
@@ -140,7 +146,7 @@ try:
             passed('organ prompt at a solid prop, E activation and actual v5 reload preserve the opened route without awarding chest stock')
             move(page,'x',4);move(page,'z',8.6);talk(page,'密道')
             assert snap(page)['chapter']=='passage'
-            approach_supply_chest(page,move,snap,chest_approaches)
+            approach_supply_chest(page,move,snap,chest_approaches,timeout_ms=30000 if cpu.enabled else 120000)
             page.screenshot(path=str(OUT/'05a-supply-chest-approach.png'))
             talk(page,'回復藥')
             assert snap(page)['rescue']['tonics']==3 and snap(page)['rescue']['chestOpened']
@@ -221,7 +227,7 @@ try:
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4181/','data:','blob:'))],requests
             passed('party walks back through the kingdom and time gate; v5 reload retains the completed rescue in 1000 AD')
-            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'feedbackGeometry':feedback_geometry,'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
+            report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'feedbackGeometry':feedback_geometry,'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
@@ -236,6 +242,9 @@ try:
                 (OUT/'rescue-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:
-    server.terminate()
-    try:server.wait(timeout=10)
-    except subprocess.TimeoutExpired:server.kill();server.wait()
+    try:
+        cpu.finish('rescue-report.json')
+    finally:
+        server.terminate()
+        try:server.wait(timeout=10)
+        except subprocess.TimeoutExpired:server.kill();server.wait()

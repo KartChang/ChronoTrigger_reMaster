@@ -2,21 +2,24 @@
 No state injection, constructed saves, teleports, ROM input or accelerated clocks.
 Alternate route reloads only the cell save exported by this very browser journey.
 """
+from cpu_journey_support import CpuJourney, CPU_ARGS
 from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
 from pathlib import Path
-import hashlib, json, math, subprocess, sys, time
+import hashlib, json, math, os, subprocess, sys, time
 from native_import import import_save, import_context
 from playwright.sync_api import sync_playwright
 from hd_party_browser import record_hd_party
 from journey_progress import write_progress
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'test-results'/'trial';OUT.mkdir(parents=True,exist_ok=True)
-SOURCE=ROOT/'test-results'/'rescue'/'rescue-returned-v5.json'
+cpu=CpuJourney('trial',ROOT)
+OUT=cpu.output(ROOT/'test-results'/'trial');OUT.mkdir(parents=True,exist_ok=True)
+SOURCE=cpu.source(ROOT/'test-results'/'rescue'/'rescue-returned-v5.json')
 checks,errors,waits,requests=[],[],[],[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):
     checks.append(name);print('PASS',name,flush=True)
+    cpu.observe(page,name)
     write_progress(OUT/'trial-progress.json',checks,waits,phase=name)
 def wait_game(page,expression,budget=240,modes=('explore',)):
     start=snap(page)['ticks'];began=time.monotonic()
@@ -24,7 +27,7 @@ def wait_game(page,expression,budget=240,modes=('explore',)):
         const t=window.__CHRONO_TEST__,s=t.snapshot();
         if(t.paused()||!modes.includes(s.mode)||s.ticks<start||s.ticks-start>budget)return {ok:false,state:s,paused:t.paused()};
         return Function('s','return ('+expression+')')(s)?{ok:true,state:s}:false;
-    }''',arg={'start':start,'budget':budget,'modes':list(modes),'expression':expression},polling=100,timeout=120000)
+    }''',arg={'start':start,'budget':budget,'modes':list(modes),'expression':expression},polling=100,timeout=30000 if cpu.enabled else 120000)
     r=h.json_value();h.dispose();waits.append({'predicate':expression,'wallSeconds':round(time.monotonic()-began,2),'observed':r});assert r['ok'],r
 
 def stable(page):
@@ -32,6 +35,7 @@ def stable(page):
     page.wait_for_function('''()=>{const t=window.__CHRONO_TEST__;return t.view().chapter===t.snapshot().chapter}''',timeout=30000)
 
 def move(page,axis,target,battle=False):
+    if cpu.enabled:return cpu.move(page,axis,target,battle,wait_game,snap)
     delta=target-snap(page)['players'][0][axis]
     if abs(delta)<.03:return
     keys=({'x':('d','ArrowRight'),'z':('w','ArrowUp')} if delta>0 else {'x':('a','ArrowLeft'),'z':('s','ArrowDown')})[axis]
@@ -97,9 +101,10 @@ def to_warden(page):
 try:
     assert SOURCE.exists(),'Run rescue_browser.py first; its unchanged real same-run export is required.'
     original=SOURCE.read_bytes();source=json.loads(original)
+    cpu.begin(SOURCE,original)
     assert source['version']==5 and source['rescue']['stage']=='returned'
     with sync_playwright() as p:
-        browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
+        browser=p.chromium.launch(headless=True,args=CPU_ARGS if cpu.enabled else ['--no-sandbox','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'])
         page=browser.new_page(viewport={'width':1200,'height':800},accept_downloads=True);arm_native_chooser(page)
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
@@ -205,7 +210,7 @@ try:
             passed('same-browser real cell export also supports declining wait, three-day execution rescue and merged escape without false Fritz/XP flags')
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4183/','data:','blob:'))],requests
-            report={'status':'passed','assetProfile':'snes-reference-hd2d-r1','tankVisualFrames':[first_frame,second_frame],'passed':checks,'errors':errors,'waits':waits,'sourceSave':'rescue/rescue-returned-v5.json from preceding same-run journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'alternateRouteSaveSha256':hashlib.sha256((OUT/'trial-cell-v7.json').read_bytes()).hexdigest(),'limitations':['Reconstructed prison topology and combat balance, not exact original maps or data.','Missing fair witness cases and original seven-juror algorithm are not certified; unknown facts remain unknown.','Three prison days use explicit rest transitions, not original clock timing.','XP recorded, not a finished leveling/equipment/roster system.','Only arrival in 2300 is implemented here; full future route remains open.','Software-GPU keyboard evidence; no physical device/music/90-point/full-game acceptance.']}
+            report={'status':'passed','assetProfile':'snes-reference-hd2d-r1','tankVisualFrames':[first_frame,second_frame],'passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'rescue/rescue-returned-v5.json from preceding same-run journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'alternateRouteSaveSha256':hashlib.sha256((OUT/'trial-cell-v7.json').read_bytes()).hexdigest(),'limitations':['Reconstructed prison topology and combat balance, not exact original maps or data.','Missing fair witness cases and original seven-juror algorithm are not certified; unknown facts remain unknown.','Three prison days use explicit rest transitions, not original clock timing.','XP recorded, not a finished leveling/equipment/roster system.','Only arrival in 2300 is implemented here; full future route remains open.','Native CPU keyboard evidence; no physical device/music/90-point/full-game acceptance.' if cpu.enabled else 'Software-GPU keyboard evidence; no physical device/music/90-point/full-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}
             try:
@@ -216,6 +221,9 @@ try:
             if 'report' in locals():(OUT/'trial-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:
-    server.terminate()
-    try:server.wait(timeout=10)
-    except subprocess.TimeoutExpired:server.kill();server.wait()
+    try:
+        cpu.finish('trial-report.json')
+    finally:
+        server.terminate()
+        try:server.wait(timeout=10)
+        except subprocess.TimeoutExpired:server.kill();server.wait()

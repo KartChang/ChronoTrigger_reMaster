@@ -21,7 +21,7 @@ def input_context(page):
     })''')
 
 
-def approach_interaction(page, move, snapshot, evidence, route, route_name):
+def approach_interaction(page, move, snapshot, evidence, route, route_name, timeout_ms=120000):
     """Walk an aisle, then stop at the actual in-range prompt before interacting.
 
     Intermediate legs use the journey's original keyboard driver. The final leg
@@ -29,6 +29,8 @@ def approach_interaction(page, move, snapshot, evidence, route, route_name):
     the correct prompt rather than insisting on a precise prop-centre coordinate.
     The caller still sends E and verifies the real event/stock/save result.
     """
+    if type(timeout_ms) is not int or not 0 < timeout_ms <= 120000:
+        raise ValueError('invalid approach wall timeout')
     before = snapshot(page)
     trace = {'route': route_name, 'interaction': route['interaction']['id'],
              'before': before, 'waypoints': []}
@@ -67,7 +69,7 @@ def approach_interaction(page, move, snapshot, evidence, route, route_name):
                     record['keys'].append(key)
                     page.keyboard.down(key)
                 handle = page.wait_for_function(PROBE, arg={**args, 'wait': True},
-                                                polling=100, timeout=120000)
+                                                polling=100, timeout=timeout_ms)
                 try:
                     observation = handle.json_value()
                 finally:
@@ -98,9 +100,9 @@ def approach_interaction(page, move, snapshot, evidence, route, route_name):
         raise
 
 
-def approach_supply_chest(page, move, snapshot, evidence):
-    return approach_interaction(page, move, snapshot, evidence, ROUTE, 'rescue-route.json')
+def approach_supply_chest(page, move, snapshot, evidence, timeout_ms=120000):
+    return approach_interaction(page, move, snapshot, evidence, ROUTE, 'rescue-route.json', timeout_ms=timeout_ms)
 
 
-def approach_organ(page, move, snapshot, evidence):
-    return approach_interaction(page, move, snapshot, evidence, ORGAN_ROUTE, 'organ-route.json')
+def approach_organ(page, move, snapshot, evidence, timeout_ms=120000):
+    return approach_interaction(page, move, snapshot, evidence, ORGAN_ROUTE, 'organ-route.json', timeout_ms=timeout_ms)

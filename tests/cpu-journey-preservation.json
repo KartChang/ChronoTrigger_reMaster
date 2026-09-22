@@ -1,8 +1,8 @@
 {
   "sourceSha": "3028e2499d5a268d20c5251a3aec6e8c2c5a09e2",
   "journeys": {
-    "rescue": "4c1f48a85b86850a399c07175d283274373bab5af0879a3995235c1879bd1440",
-    "trial": "090b973ab031d52a8c2c0dcd250e0d227faee70a0820eda79758faf43c6a75bf"
+    "rescue": "f77bcfa3dbb6d62dc94031456c59810e171d3ac5e087497eafafcbdde62fccbe",
+    "trial": "91766b97d9cd2fc244d819375d8b3292309c7d79047adf83ee71ca5ee95adad6"
   },
   "files": {
     "src/core.ts": "d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d",
@@ -22,5 +22,14 @@
     "scripts/cpu-era-evidence.mjs": "66b2f873896f7d8ab1d867f154d754b449b07c69b0d75c04ca7fbccb62b8fee8",
     "scripts/cpu-evidence.mjs": "2527e5879adb2649b0b7168cd8fb07f042424e6113c41a18ffcc37357ed61e50",
     "scripts/render-evidence.mjs": "d1a44c2c428e7b6e3002346a8e4cdbc4d0daac89ad7e722fd3c8c11650e91e64"
+  },
+  "fingerprintSchema": "chrono-semantic-ast-v1",
+  "legacyDisplayHashes": {
+    "rescue": "4c1f48a85b86850a399c07175d283274373bab5af0879a3995235c1879bd1440",
+    "trial": "090b973ab031d52a8c2c0dcd250e0d227faee70a0820eda79758faf43c6a75bf"
+  },
+  "originalSourceSha256": {
+    "rescue": "16e5b0e085611dacbf33ad12d0ee9f703354912d4e7c3c096fd0fdbbba8840e0",
+    "trial": "6645d848423e7d0022784ada7e63b89d5f4ff28f692b4ac2f3c537e436b415bf"
   }
 }

@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from cpu_journey_support import CpuJourney, enabled_from_environment, controls_peer, assert_observation
+from ast_fingerprint import structural_hash
 from cpu_native_route_test import NativePort
 from rescue_route_test import PageDouble
 from rescue_route import approach_organ
@@ -207,7 +208,7 @@ class OriginalOnly(ast.NodeTransformer):
 
 
 def normalized(source):
-    tree=OriginalOnly().visit(ast.parse(source));return hashlib.sha256(ast.dump(tree,include_attributes=False).encode()).hexdigest()
+    tree=OriginalOnly().visit(ast.parse(source));return structural_hash(tree)
 
 
 def contract(source,stage):

@@ -7,10 +7,17 @@ import hashlib
 import json
 import math
 import sys
+import traceback
 from cpu_native_route import move_axis
 from native_import import import_save
 
 CHAPTER_CAPTURES = ('fair', 'canyon', 'truce', 'forest', 'castle', 'chamber', 'castle', 'cathedral')
+
+def failure_detail(exc):
+    """Keep bare assertions actionable; never substitute a successful report."""
+    return {'type': type(exc).__name__, 'message': str(exc) or type(exc).__name__,
+            'traceback': ''.join(traceback.format_exception(type(exc), exc, exc.__traceback__))}
+
 
 def hold_until(page, key, wait, expression, budget):
     """Ordinary native input; release even when activation/wait fails."""
@@ -148,20 +155,27 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
         frozen = state()
         assert page.locator('#cpu-sampling-control').is_visible()
         assert not page.locator('#cpu-sampling').is_checked()
+        r['filteringAttempt'] = {'before': frozen, 'stage': 'nearest'}
         unfiltered = capture('sampling-nearest');unfiltered['canvasSha256'] = pixels_hash()
+        r['filteringAttempt']['nearest'] = unfiltered
         toggle_filter(True)
+        r['filteringAttempt']['stage'] = 'filtered'
         filtered = capture('sampling-filtered');filtered['canvasSha256'] = pixels_hash()
+        r['filteringAttempt']['filtered'] = filtered
         assert filtered['renderer']['cpu']['sampling']['minifiedTriangles'] > 0
         assert filtered['renderer']['cpu']['textureMemory']['mipBytes'] > 0
         assert filtered['canvasSha256'] != unfiltered['canvasSha256']
         assert state() == frozen
         toggle_filter(False)
+        r['filteringAttempt']['stage'] = 'restored'
         restored = capture('sampling-restored');restored['canvasSha256'] = pixels_hash()
+        r['filteringAttempt']['restored'] = restored
         assert restored['canvasSha256'] == unfiltered['canvasSha256']
         assert restored['renderer']['cpu']['textureMemory']['mipBytes'] == 0
         assert state() == frozen
         r['filtering'] = {'before': frozen, 'after': state(), 'nearest': unfiltered,
                           'filtered': filtered, 'restored': restored, 'fullStateEqual': True}
+        del r['filteringAttempt']
         # Continue actual gameplay with the user-facing option enabled.
         toggle_filter(True)
         activate(page, '#resume')
@@ -220,7 +234,8 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
         assert r['final']['kingdom']['forestWon'] and r['final']['fair']['gatoWon']
         r['status'] = 'passed'
     except Exception as exc:
-        r['status'] = 'failed';r['errors'].append(str(exc))
+        r['status'] = 'failed';r['failure'] = failure_detail(exc)
+        r['errors'].append(r['failure']['message'])
         try:
             r['failureView'] = capture('failure')
         except Exception as capture_error:

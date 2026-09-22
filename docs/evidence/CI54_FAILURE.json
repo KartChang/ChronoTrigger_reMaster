@@ -1,0 +1,51 @@
+{
+  "schema": "chrono-ci54-first-failure-v1",
+  "runId": "35694463695",
+  "runNumber": 54,
+  "sourceSha": "b27f2f7d2e9ea2a4d6dc7e5994ce9f538d10ac6d",
+  "jobId": 106638181958,
+  "jobConclusion": "failure",
+  "firstFailedStep": "Test host input release and rescue approach contracts",
+  "observedFrom": "GitHub connector job log; selective transcription, not the complete raw log",
+  "python": "3.12.14",
+  "nodeTests": 1330,
+  "pythonTestsRun": 282,
+  "pythonSubtestFailures": 2,
+  "firstFailureUtc": "2026-09-22T06:22:37Z",
+  "failureTest": "PreservationTests.test_original_webgl_ast_reverses_exactly_after_only_declared_cpu_wires",
+  "actualDisplayHashes": {
+    "rescue": "9d7c0c2ef3b52ca31d8dceea6ac6a59454a276497735a497396f03d8b28ec4fe8",
+    "trial": "4cc439f750587dbb427e5acf5fa98a72fc897da53ab2ac03d6a0ceb72ce15a7e0"
+  },
+  "expectedLocalDisplayHashes": {
+    "rescue": "4c1f48a85b86850a399c07175d283274373bab5af0879a3995235c1879bd1440",
+    "trial": "090b973ab031d52a8c2c0dcd250e0d227faee70a0820eda79758faf43c6a75bf"
+  },
+  "localPython": "3.13.5",
+  "cause": "Version-dependent ast.dump display was used as a semantic fingerprint. Python 3.13 changes empty-field rendering. Use an explicit structure encoding instead. New expected structural hashes are derived from CI53 exact originals, not from the failed display hashes.",
+  "primarySource": "https://docs.python.org/3.13/library/ast.html#ast.dump",
+  "correctiveLocalTests": {
+    "node": 1330,
+    "python": 290,
+    "assets": true,
+    "typecheck": true,
+    "build": true,
+    "npmCheck": true
+  },
+  "localPython312Executed": false,
+  "localBrowserExecuted": false,
+  "validateBrowserJourneysExecuted": false,
+  "newCpuAcceptance": false,
+  "artifact": {
+    "id": 10679618723,
+    "bytes": 765984,
+    "sha256": "4cea99378caf4b57bb4b0683a169090240f0d71b4fe46d7cb538f0ffe7d5d5cb",
+    "downloadedHashAndCrcVerified": true
+  },
+  "wholeRunConclusionAtThisCheckpoint": null,
+  "otherJobsLastObserved": "in_progress; do not cancel/rerun",
+  "followup": "Publish tested five-file M correction once; use actual new matching run. Do not rewrite prior logs or mark CI54 accepted.",
+  "correctiveSourceSha": "238bb31976e58accaf48769b8a72a3693518a4de",
+  "correctiveRunId": "35696071243",
+  "retentionDriveFileId": "1Sc2809rDWRDCvYZgM1DkI2b2VGpz5gyA"
+}

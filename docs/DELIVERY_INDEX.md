@@ -1,23 +1,27 @@
-# Cloud delivery — CI48 failure originals / G tested source / CI49
+# Delivery index — current M / CI55
 
-Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. No sharing/move/deletion changes. Current authority STATUS / IMMEDIATE_CONTINUATION / CI49_CHECKPOINT. All prior evidence and source packages retained, not replayed.
+Current source **238bb31976e58accaf48769b8a72a3693518a4de**, source tree **8ff0e84846d3e9c3c9c890d170ca3a0d031675b0**, **CI55 35696071243** push/attempt1/lastpending. STATUS/TODO/IMMEDIATE_CONTINUATION and CI55_CHECKPOINT are current; previous pending labels are historical.
 
-## Latest repair and original failed-run evidence
+Only Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**, verified ChronoTrigger_reMaster. No public ROM/original external media/fonts/credentials. Local environment is not retention.
 
-**Chrono-CI48-terminal-VQ02G-tested-batch.zip** — ID **1XIFKO-hLoFWrEPwC6oBE74hIuHikDKoi**, **51526156bytes**, SHA256 **f941eccb3bfaa7147eb3485ef34322f5a7f484dff2593e10d8e6d857099f8275**, created2026-09-21T18:51:19.811Z. Downloaded raw readback/hash/CRC/all23manifest entries/four nested rawZIP CRCs/correctparent verified. See VQ02G_CLOUD_RETENTION / VQ02G_LOCAL_VALIDATION / CI48_FAILURE_ROOT.
+## This turn's three verified deliveries
 
-Four untouched CI48 ZIPs:browser/good/bad/art. CI48 failed its first native CPU route; NO playable ZIP or accepted new Pages. Original lane/render report bytes and hashes checked, not a new verifier replay. Includes exact failure/image receipt,4tested changes,7raw local log/exit files, null-source localHTML/metadata and **recovery/VQ02G-tested-program-snapshot.tar.gz (271files)**. This is an assembled F+G program snapshot, not a published Gitarchive. It excludes docs except unchangedTHIRD_PARTY.md, node_modules, ROM, original external media, fonts, credentials andheldZ.
+| Purpose | Drive file ID | Bytes | SHA256 |
+|---|---|---:|---|
+| CI53/Pages47 seven unchanged raw ZIPs plus inspection receipts | 1h9THuGPcjSkcAPIIdqIeWPO7-5M2u7Kf | 59450174 | 2a7e8be60b1fa814cb81c984ca327fcf86e3dee75c6eb8cbbef190302068a6ca |
+| L tested twelve-file batch and assembled program snapshot | 1NfZu0QvDnMd2Mm17uiZPYsef4OfHyshr | 688057 | 0f77fbf1c7876146e1fb9d641ae55e793501c2f7681718ed1579dbad511a172b |
+| M tested five-file correction plus CI54 first-failure original ZIP | 1Sc2809rDWRDCvYZgM1DkI2b2VGpz5gyA | 1340053 | 885edaa1cf481a5c534382470eadda22ea4275b15645e437283232ec67db1dd3 |
 
-ExactF base recovery is also in **raw/CI48-browser.zip -> source-38edba36ccd75a3ef8129aea62d21769d847f749.tar.gz**, Gitarchivecomment matched. Always read latest main documents separately; archived progress cannot replace current authority.
+All three were uploaded, metadata/parent checked, downloaded, and verified by bytes/SHA256/ZIP CRC/all manifest entries. Kraw12entries/7ZIPs; L24entries/288programfiles; M14entries/290programfiles. M filename Chrono-CI54-failure-VQ02M-tested-batch.zip. Snapshots exclude progress docs except THIRD_PARTY; read current main docs separately. Immutable packages retain their truthful prepublication state; CI55_CHECKPOINT binds them to actual published source/run. Do not regenerate accepted evidence or republish these batches.
 
-Published Gsource **8c9f8a26ad1e7e8a5683936604165a799f8acbec**, tree **3d6df6621fc91ce7dcc9590db4ada2cef85eb308**. All4 changed blobs and fulltested program subtrees match; src/index/workflow unchanged. Package predates publication, so archived source=null is correct then; final GitHub receipts supplement identity without rewriting rawlogs. **CI49 35641527652** push/attempt1 lastin_progress18:55:29Z, notaccepted. No actual Gbrowser or Pages acceptance is in this package.
+M includes unchanged actual CI54 validate artifact10679618723:765984bytes/SHA2564cea99378caf4b57bb4b0683a169090240f0d71b4fe46d7cb538f0ffe7d5d5cb, Gitarchive sourceL and failedledger. It is not a completed L browser proof. Actual failure log excerpt is explicitly a selective connector transcription, not a fabricated fullrawlog.
 
-## Last accepted originals — retained, not reopened
+## GitHub current records
 
-**Chrono-CI47-Pages41-accepted-evidence.zip**, ID **1mwt02LrSZpAIIIlQtv8QWFtb78aCcd35**,54510480bytes/SHA256 **5d84469bfcf0681edcd5be641ed473184f6e8f6e48572d5fda2412ec1804dee9**. Existing verified14manifest/sixoriginalZIPs/hash/CRC/parent. Sourcef07a42bfa7357e1a9ddcebfa8a790855927051b4/E0.9.27, CI47 35615882220/Pages41 35618506663. Recovery raw/CI47-browser.zip -> source-f07a42bfa7357e1a9ddcebfa8a790855927051b4.tar.gz. Scope: original WebGL regression and observed CPU opening/fair native journeys/work accounting/deployment; not fullCPUchapter/device/listening/art90. Existing receipts unchanged.
+CI53_ACCEPTANCE.json closes K/CI53/Pages47 technical acceptance. CI54_FAILURE.json records firstPythonfailure and corrective provenance. CI55_CHECKPOINT.json names only activevalidation. Current STATUS, TODO, DEVELOPMENT_WHITEPAPER, FEATURE_PROGRESS, CPU_RENDERING_T05 and IMMEDIATE_CONTINUATION are published [skip ci] after M source; they do not create a new gameplaycandidate.
 
-## Earlier local packages, assets and fixed recovery
+CI53 playable/staged/deployed HTML all5690213bytes/SHA2563fda62047f3d6d5d1ce308534e51856a0da6ce0d88f531ad85b90d6af18c0a39. CI55 must provide its own exactsource/HTML/evidence; never compare a source-null localbuild as though byte-identical. Latest accepted source remainsK until fullnewCIclosure. No art/device/whole-game/newscore.
 
-Full prior index at immutable **526684e957436f05a95813750793ba2aa3035a6e** retains finalF **1jDHFP8Mmd58iZNK5A-8spp_9KLphxjtG** (2026104bytes/SHA256320e0aed8b00a6ab5dde31354f10103a030076c916099643fe05b1dacadfba22,34manifest/269files), acceptedCI46/Pages40 **14tSUKqvNA95il7QAOlGCpm6IVgK9MIp9**, Etested **1JYsFtMMuNMwPmGEciEqp6rmvCo628868**, C/B/CI44 and older linked tables. Their historical pending labels do not reopen completed work. F's old CI48pending is superseded by actualfailure; it was not an accepted deployment.
+## Minimal recovery
 
-HeldZ **1hTbyvTOdJ0K7QtM4Pm_2ZLV4aW6pxpV9** retained/unpublished, not retried/applied/indirectlyreplaced. SavedA/B/C art and hashes stay in linked indexes; recoveronlyneeded, no repaint/oldindependent-ui. Fixedtoolchain **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** onlynode_modules/esbuildhardlinks, never source/configoverwrite/bootstrapCI. PrivateROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** not reuploaded/public. Heldprologue-render/localbrowser boundaries intact. Temporary containers are not authority.
+Fetch M raw package and latest main docs. Restore290programfiles from program-snapshot-vq02m.tar.gz. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE onlynode_modules/esbuild hardlink; do not overwrite source/config or bootstrapCI. No localbrowser. Inspect existingCI55 before anynewcommit. Older delivery history stays in Git history; do not download alloldpackages or replay acceptedruns.

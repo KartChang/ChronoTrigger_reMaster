@@ -1,36 +1,30 @@
-# Execution TODO — CI53 mild CPU minification repair
+# Execution TODO — current CI55, not history replay
 
-Authority STATUS / handoff/IMMEDIATE_CONTINUATION / evidence/CI53_CHECKPOINT.json. Main only, one AI, non-force. Immediate execution, no history audit/branches/PRs/closed-run replay. Previous record retained at0df37add4bf68e3b2314593b13413c1173e0cc09; its CI52pending is superseded, not an implementation to recreate.
+Authority: STATUS, IMMEDIATE_CONTINUATION and CI55_CHECKPOINT. Main only, single AI, non-force. Source **238bb31976e58accaf48769b8a72a3693518a4de**, VQ02M/0.9.35. Unique active run **CI55 35696071243**, push/attempt1, last pending/null. No rerun, dispatch, cancellation or long wait.
 
-## Only active terminal — CI53-pending-full-validation
+## Completed this batch
 
-**K0.9.33 /source3028e2499d5a268d20c5251a3aec6e8c2c5a09e2**, tree **23c26af9f62ec1b6dc2f1e7e56974e0dc35a3ea0**. **CI53 35684197933**, push/attempt1, lastin_progress/null updated2026-09-22T03:43:32Z. ExactSHA all-event/state count1; no jobs/wait/rerun/dispatch/cancel. Later documentation HEAD is not another runtime source.
+- [x] Accept CI53/Pages47 technical evidence, six source ledgers, original reports and 22 CPU images; retain seven untouched original ZIPs in the correct Drive and download-verify them.
+- [x] Publish L's twelve files: reuse full existing rescue/trial CPU journeys, actual v4/v5/v7 native chain, 67 coordinate legs/four encounters/two prompts, 17 milestones/images, six nonoverlapping 120-draw windows and seventh ledger.
+- [x] Diagnose CI54's first validate failure: two version-dependent Python AST display fingerprints, before validate browsers. Preserve actual failure evidence; do not mark CI54 accepted.
+- [x] Publish M's five-file correction: explicit semantic serialization and original-CI53-derived reference hashes; preserve all semantic fields and original assertion mutations. Final 1330 Node/290 Python and full check passed; no local browser.
+- [x] Store/download-verify M's 14-entry/290-program-file recovery package, L's 24-entry package and CI53 originals. Update authoritative cloud documents.
+- [ ] Read exact CI55; new native CPU rescue/trial coverage is still unaccepted.
 
-DONE related8-file batch: continuous base-to-first/adjacent-mip RGB blend for mild minification, opaque only/off by default; actual fractional counter; invalid/perspective/magnification/alpha/opacity/blend/vertex-alpha exclusions. Pre-assertion sampling-attempt snapshots and typed original exception trace. Added11Node/3Python tests; fresh1250Node/262Python/assets/typecheck/build/fullnpmcheck exit0. All39era assertions/30legs/native inputs/original budgets/30s limits, CPUdriver/Ihelper, all6verifiers, workflow/index/assets/held paths unchanged. Exacttested root/main readback and Drive46manifest/282files/hash/CRC/parent closed. Do not implement K or J again; native acceptance is the next work.
+## CI55 next action
 
-NEXT: read exactCI53 once. Pending preserve/report; failure first same-run actual root, using era600/report.json filteringAttempt/failure/failureView. Never weaken assertions, epsilon, budgets, timeout or ownership; no writable game/time/save/collision hooks, positive native fixtures or report edits. G/H/I route repairs remain accepted inCI51.
+Pending: preserve/report, no polling loop. Failure: inspect first actual root in the matching job and original artifact. CI54's failed display hashes are historical, not new expected values. Success: retain original three-job checks/13 primary/all existing native/audio/actor/HUD/touch/equipment-v8/full trial and six ledgers. Require added cpu-renderer/rescue and trial original reports/sidecars, same-run CPU source v4 -> own v5 -> own v7 and alternate native cell selection/IndexedDB, all 67 released arrivals <.12/original tick budget/30s/250ms, four real encounters/two solid-prop prompts, 17 milestones/PNG hashes, six nonoverlapping active windows and seventh adventure-source-ledger. Inspect actual images and observed costs, not only counters. Retain raw ZIPs in Drive, download-check all bytes/hashes/CRC/parent, then bind the same CI's playable/staged/deployed HTML/source.
 
-SUCCESS: original3jobs/13primary/9native+CPU/five ledgers/all listedbytes/hash/audio/actor.playback/HUD/normal-paused-reduced-motion/groundedATB/equipmentv8/fulltrial/touch. Both original CPU journeys/ownv2/IndexedDB/nativeimport,>=60real samples/coherentstats/labels/actual quality sizes/fullpausedstate,11originalPNG/14CPUledgerfiles. Also era600 finalreport/nativeimports/sixth16-fileledger,30releasedlegs<.12 within original budgets/chord order/same-runGato-parentv2/companionapproach/departedP2inactive/two soloATB/two cinematicpauses/LuccaP2/ownv3-v4/cathedralendpoint. Inspect11extraPNG and actual canvas on-change/off-exact-restoration,fullstate/memorycleanup/alpha silhouettes. K unit1482 counter is not browser proof. Retain untouched artifacts in correctDrive/downloadreadback then same-CI Pages/source/HTML. Source-null localHTML and progress/fixtures cannot substitute.
+## Following work, no duplicate engineering
 
-## CI52 failed; previous acceptance stays closed
+After CI55 closure, fix only observed compatibility/performance defects. Extend meaningful long-session/physical-device observation and permitted early art/material consistency, actor/plant/prop scale/silhouette, narrow landmarks, animation and rights-cleared audio/listening. Six bounded windows do not replace long-session tests. Do not enable smoothing by default or expand later gameplay merely because tests are green. Held home art remains held.
 
-CI52 35680779688 failure at2026-09-22T03:13:29Z. Validate106597074095 failedstep21; good106597074278/bad106597074334 succeeded. Both original CPUcases passed,10arrivals/ownv2/nativeimport. New sampling assertion atcpu_era_route.py:154 failed before any600move:enabledtrue,mipBytes349524,minifiedTriangles0,buffer543x362. Source rho<2 gap; unitWorld rho~1.272581 is computed,not native telemetry. Steps22/23 secondary; no playable/newPages. Raw4ZIP/11originalCPUhashes/6renderledgerfilechecks and actualfailurePNG retained; no verifier rerun/fullacceptance claim. CI52_FAILURE_ROOT records exact boundaries.
+T03: hidden rules, version differences, full topology and numerical fidelity. T04: growth, battle rewards/drops, complete economy/items/accessories, roster, learned skills and dual/triple techs. T05: complete art/animation/rights-cleared audio, prioritizing actual early-scene quality. T06: complete future and remaining eras, main/side quests and endings. T07: whole-scope >=90, every dimension >=80%, required assets/five gates/zero critical plus physical-device input, FPS/frame time, loading, memory, background, saves and audio. T08: batch implementation/tests, non-force source publication, full matching CI, correct Drive/raw readback and [skip ci] documentation. No reduced denominator. 2300 arrival is not the complete future. Old score 30 is stale; no new score or art/device/full-game approval.
 
-I0.9.31 source44ba3922ac2e6b1dd002624a38f4156edcd7d2c5 /CI51 35675330433 /Pages45 35676767742 remains last accepted. Do not replay CI51/47, closed Pages, G/H/I or failed48–50/52. No fabricated historical acceptance.
+## Closed baseline and recovery
 
-## Related next batch after CI53 closure
+K **3028e2499d5a268d20c5251a3aec6e8c2c5a09e2 / CI53 35684197933 / Pages47 35685874454** is technically accepted. Original CPU/600 route to cathedral entrance is closed. CI52 remains failed; no CI51/G/H/I or CI53 reruns. Current L/M adds compatibility verification, not new story completion.
 
-Continue earlyT05 actual quality: extend nativeCPU beyond cathedral into existing rescue/trial/futurearrival; sustained and realdevice observations; actual image compatibility defects; permitted actor/plant/prop material consistency, scale/silhouette, narrow landmarks; complete animation/music/listening. Reuse savedassets. J600coverage is existing-content verification, not newchapters or whole600. Do not promote filter defaultON before review or use tests/counters as artdelivery. HeldZ/upgradedmother/furniture restrictions remain; ordinarycontinue does not lift them. No later-era expansion before evidence-backed earlyquality.
+Only folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**. Latest M package **1Sc2809rDWRDCvYZgM1DkI2b2VGpz5gyA**, SHA256 **885edaa1cf481a5c534382470eadda22ea4275b15645e437283232ec67db1dd3**. Current GitHub docs override archived prepublication status; do not publish the same tested batch again.
 
-## Full scope, denominator unchanged
-
-T03 hiddenrules/versiondifferences/fulltopology/numericfidelity.
-T04 growth/rewards/drops/full economy/items/accessories/roster/skills/dual-triple techs; preserve existing equipment/provisionalnumbers.
-T05 completeart/animation/rights-clearedaudio; actual earlyquality first.
-T06 completefuture/othereras/main-sidequests/endings;2300arrival is not fullfuture.
-T07 overall>=90/eachdimension>=80%/zero-critical/requiredassets/fivegates/physicalinput-FPS-frametime-loading-memory-background-save-audio/fullnativeCPUcoverage. No newscore;old30stale.
-T08 relatedbatch -> tests -> one non-force sourcecommit/fullCI -> correctDrive/downloadreadback; docs[skip ci].
-
-Preserve TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/autonomous third/home-to2300/equipmentv1-v8. CPUbackend exists; noP3/ARPG/frameworkrestart/publicROM/originalmedia/fonts/credentials. Heldrenderer2711a74185aacf3c6bddf9db85ba99a2afbc507a/localbrowser boundary unchanged, no bypass.
-
-Recovery Drive **1dHLUbuu8p3VtqwVENV0jO6PJid2g7etZ**,55142554bytes/46manifest/4rawZIP/282programfiles; VQ02K_CLOUD_RETENTION binds source and downloadedreadback. CurrentGitHubdocs separately; temporary container is notauthority.
+Keep TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/autonomous third and existing home-to-2300/equipment saves v1-v8. No branch/PR/P3/ARPG/framework restart, writable test state/time/save/collision hooks or manufactured positive native saves. Held Z/upgraded mother/furniture and prologue-render.ts blob 2711a74185aacf3c6bddf9db85ba99a2afbc507a remain restricted; no indirect replacement or partial promotion. Local browser restriction remains. No public ROM/original external media/fonts/credentials. Temporary containers are not authority.

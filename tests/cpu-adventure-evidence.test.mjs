@@ -29,9 +29,9 @@ function fixture(stage){
   s[0].trial.stage='court';Object.assign(s[1].trial,{stage:'cell',question:3,verdict:'not-guilty'});Object.assign(s[2].trial,{fritzFreed:true,luccaJoined:true});s[3].trial.headRepairs=1;s[4].trial.tankWon=true;s[5].era='future';Object.assign(s[5].trial,{tankWon:true,luccaJoined:true,marleJoined:true});Object.assign(s[6].trial,{route:'wait',days:3,luccaJoined:true,fritzFreed:false,experience:30});
  }
  r.nativeRoutes=C[stage].moves.map(([axis,target])=>{
-  const b=state('fair');b.players[0][axis]=target-1;const a=clone(b);a.ticks+=20;a.players[0][axis]=target;
+  const b=state('fair');b.players.forEach(p=>p[axis]=target-1);const a=clone(b);a.ticks+=20;a.players.forEach(p=>p[axis]=target);
   const before={state:b,paused:false},afterRelease={state:a,paused:false},key=axis==='x'?'d':'w',arrow=axis==='x'?'ArrowRight':'ArrowUp',keys=[key,arrow];
-  return {axis,target,coop:true,status:'arrived',epsilon:.12,timeoutMs:30000,maxHoldMs:250,arrivalOwner:0,budget:135,before,afterRelease,pulses:[{before,afterRelease,keys,releaseKeys:[...keys].reverse(),holdMs:250,chordOrder:'primary-outer'}]};
+  return {axis,target,coop:true,status:'arrived',epsilon:.12,timeoutMs:30000,maxHoldMs:250,arrivalOwner:0,arrivalOwners:[0,1],policy:'vq02n-independent-paired-arrival',budget:135,before,afterRelease,pulses:[{before,afterRelease,keys,releaseKeys:[...keys].reverse(),holdMs:250,owners:[0,1],chordOrder:'paired-coarse'}]};
  });
  r.encounters=C[stage].encounters.map(([axis,target])=>{
   const before=state('fair');before.players[0][axis]=target-1;const afterRelease=clone(before);afterRelease.ticks+=20;afterRelease.mode='battle';const key=axis==='x'?'d':'w',keys=[key,axis==='x'?'ArrowRight':'ArrowUp'];return {axis,target,before,afterRelease,budget:135,status:'entered-battle',keys,attemptedKeys:keys,releasedKeys:[...keys].reverse(),timeoutMs:30000};
@@ -82,3 +82,15 @@ for(const kind of ['good','image-bytes','save-bytes','native-bytes','source-byte
   else assert.throws(()=>inspectAdventureFiles({resultsDir:dir,identity:id}));
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
+
+for(const [name,change] of Object.entries({
+ peerNotArrived:r=>r.nativeRoutes[0].afterRelease.state.players[1][r.nativeRoutes[0].axis]-=.5,
+ oldLeaderOnlyPolicy:r=>r.nativeRoutes[0].policy='vq02h-distance-scaled-native-pulses',
+ noPeerOwner:r=>r.nativeRoutes[0].arrivalOwners=[0],
+ falseOwners:r=>r.nativeRoutes[0].pulses[0].owners=[0],
+ wrongPeerKey:r=>r.nativeRoutes[0].pulses[0].keys[1]='ArrowDown',
+ wrongPeerRelease:r=>r.nativeRoutes[0].pulses[0].releaseKeys=['d'],
+ driftOtherAxis:r=>r.nativeRoutes[0].afterRelease.state.players[1].z+=.2,
+ peerOwnershipLost:r=>r.nativeRoutes[0].afterRelease.state.joined=false,
+ transientReset:r=>r.nativeRoutes[0].pulses[0].afterRelease.state.chapter='home'
+}))test('independent paired gate rejects '+name,()=>{const {r,journey}=fixture('rescue');change(r);assert.throws(()=>assertCpuAdventure(r,journey,id));});

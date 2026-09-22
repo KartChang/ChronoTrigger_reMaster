@@ -67,7 +67,7 @@ class CpuJourneyTests(unittest.TestCase):
         for joined,stage,lucca,result in [(False,'none',False,False),(True,'none',False,True),(True,'escort',False,False),(True,'cell',False,False),(True,'escaped',True,True)]:
             self.assertEqual(controls_peer({'joined':joined,'trial':{'stage':stage,'luccaJoined':lucca}}),result)
 
-    def test_normal_move_uses_unchanged_native_driver_and_releases_before_arrival(self):
+    def test_normal_move_releases_and_checks_both_owners_with_original_budget(self):
         p=NativePort();p.state.update(joined=True,trial={'stage':'none','luccaJoined':False})
         a=self.make('/unit');before=deepcopy(p.state)
         a.move(p,'x',0,False,None,lambda p:deepcopy(p.state))
@@ -75,6 +75,7 @@ class CpuJourneyTests(unittest.TestCase):
         self.assertEqual(t['status'],'arrived');self.assertLess(abs(p.state['players'][0]['x']),.12)
         self.assertFalse(p.keyboard.held);self.assertEqual(t['before']['state'],before)
         self.assertEqual(t['timeoutMs'],30000);self.assertEqual(t['maxHoldMs'],250)
+        self.assertLess(abs(p.state['players'][1]['x']),.12)
 
     def test_inactive_peer_never_receives_cpu_route_arrows(self):
         p=NativePort();p.state.update(joined=True,trial={'stage':'cell','luccaJoined':False})

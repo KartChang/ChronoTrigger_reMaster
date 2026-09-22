@@ -39,6 +39,33 @@ export function checkReleasedRoute(t){
  need(finite(b.players[0][t.axis])&&finite(a.players[0][t.axis])&&integer(b.ticks)&&integer(a.ticks)&&a.ticks>=b.ticks,'native route coordinates');
  need(t.budget===Math.ceil((Math.abs(t.target-b.players[0][t.axis])/speed+2)*60)&&a.ticks-b.ticks<=t.budget&&Math.abs(a.players[0][t.axis]-t.target)<.12,'released arrival/budget');
  need(Array.isArray(t.pulses)&&t.pulses.length<=256,'native pulse limit');
+ if(t.coop){
+  need(t.policy==='vq02n-independent-paired-arrival'&&same(t.arrivalOwners,[0,1]),'paired arrival policy');
+  need(a.players.every(p=>finite(p[t.axis])&&Math.abs(p[t.axis]-t.target)<.12),'both released arrivals');
+  let previous=t.before;
+  for(const p of t.pulses){
+   need(same(p.before,previous),'paired pulse continuity');
+   const owners=p.owners;
+   need(same(owners,[0])||same(owners,[1])||same(owners,[0,1])||same(owners,[1,0]),'paired pulse owners');
+   const errors=owners.map(i=>t.target-p.before.state.players[i][t.axis]);
+   need(errors.every(e=>finite(e)&&Math.abs(e)>=.12),'pulse cannot drift an arrived owner');
+   const keys=errors.map((e,j)=>{const k=t.axis==='x'?(e>0?'d':'a'):(e>0?'w':'s');return owners[j]===0?k:{d:'ArrowRight',a:'ArrowLeft',w:'ArrowUp',s:'ArrowDown'}[k];});
+   need(same(p.keys,keys)&&same(p.releaseKeys,[...keys].reverse()),'paired native key/release');
+   need(p.chordOrder===(owners.length===2?'paired-coarse':'independent-precision')&&
+       (owners.length===1||errors[0]*errors[1]>0),'paired command order');
+   const v=p.afterRelease?.state;
+   need(integer(p.holdMs)&&p.holdMs<=250&&integer(v?.ticks)&&v.ticks>=p.before.state.ticks&&v.ticks-b.ticks<=t.budget&&
+       !p.afterRelease.paused&&v.mode==='explore'&&v.chapter===b.chapter&&v.joined&&(v.trial.stage==='none'||v.trial.luccaJoined),'paired release boundary');
+   for(let i=0;i<2;i++)for(const axis of ['x','z']){
+    need(finite(v.players?.[i]?.[axis]),'paired finite coordinates');
+    if(axis!==t.axis||!owners.includes(i))need(v.players[i][axis]===p.before.state.players[i][axis],'unowned actor movement');
+   }
+   previous=p.afterRelease;
+  }
+  need(same(previous,t.afterRelease),'unobserved paired arrival');
+  return;
+ }
+
  let previous=t.before,inner=false;
  for(const p of t.pulses){
   need(same(p.before,previous),'pulse continuity');

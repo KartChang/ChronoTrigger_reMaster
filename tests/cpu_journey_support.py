@@ -11,6 +11,7 @@ import sys
 import time
 import traceback
 from cpu_native_route import move_axis
+from cpu_native_pair import move_pair_axis
 
 CPU_ARGS = ['--no-sandbox', '--disable-webgl']
 SOURCES = {'rescue': 'cpu-renderer/era600/cpu-kingdom-v4.json',
@@ -107,7 +108,9 @@ class CpuJourney:
     def move(self, page, axis, target, battle, wait, snapshot):
         before = snapshot(page)
         if not battle:
-            return move_axis(page, axis, target, controls_peer(before), self.data['nativeRoutes'])
+            if controls_peer(before):
+                return move_pair_axis(page, axis, target, self.data['nativeRoutes'])
+            return move_axis(page, axis, target, False, self.data['nativeRoutes'])
         if axis not in ('x', 'z') or not math.isfinite(target):
             raise ValueError('invalid encounter target')
         delta = target - before['players'][0][axis]

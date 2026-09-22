@@ -6,6 +6,7 @@ This is a test operator, never a gameplay movement/teleport/follow hook.
 """
 import math
 import time
+from cpu_native_precision import PrecisionStall, native_driver_pulse
 from cpu_native_route import (ARRIVAL_EPSILON, TIMEOUT_SECONDS, MAX_PULSES,
                               COARSE_HOLD_MS, OBSERVATION, native_pulse)
 
@@ -35,6 +36,7 @@ def move_pair_axis(page, axis, target, evidence=None, clock=time.monotonic):
     pair_drift = [0., 0.]  # observed outer/inner command cost, not game time
     previous_error = [None, None]
     reversals = [0, 0]
+    resolution = [PrecisionStall(ARRIVAL_EPSILON) for _ in range(2)]
     try:
         for _ in range(MAX_PULSES+1):
             state = current['state']
@@ -83,7 +85,14 @@ def move_pair_axis(page, axis, target, evidence=None, clock=time.monotonic):
                      'chordOrder': 'paired-coarse' if coarse else 'independent-precision',
                      'holdMs': milliseconds, 'before': current}
             trace['pulses'].append(pulse)
-            native_pulse(page, keys, milliseconds)
+            compact = not coarse and resolution[owners[0]].active
+            pulse['transport'] = 'driver-press' if compact else 'split-calls'
+            pulse['precisionResolution'] = [item.receipt() for item in resolution]
+            if compact:
+                pulse['driverOperations'] = []
+                native_driver_pulse(page, keys, milliseconds, pulse['driverOperations'])
+            else:
+                native_pulse(page, keys, milliseconds)
             current = page.evaluate(OBSERVATION)
             pulse['afterRelease'] = current
             for j, i in enumerate(owners):
@@ -94,7 +103,9 @@ def move_pair_axis(page, axis, target, evidence=None, clock=time.monotonic):
                 if coarse:
                     pair_drift[j] = cost
                 else:
-                    drift[i] = cost
+                    was_active = resolution[i].active
+                    resolution[i].observe(errors[i], target-current['state']['players'][i][axis], milliseconds)
+                    drift[i] = 0. if resolution[i].active and not was_active else cost
         raise AssertionError('unreachable paired route bound')
     except Exception as exc:
         trace.update(status='failed', errorType=type(exc).__name__)

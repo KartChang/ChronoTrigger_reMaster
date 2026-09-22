@@ -7,6 +7,7 @@ No browser clock, collision, state, save or input-hook mutation is used.
 import math
 import sys
 import time
+from cpu_native_precision import PrecisionStall, native_driver_pulse
 
 ARRIVAL_EPSILON = .12
 TIMEOUT_SECONDS = 30
@@ -62,6 +63,7 @@ def move_axis(page, axis, target, coop=False, evidence=None, clock=time.monotoni
     previous_error = None
     precision_chord = False
     reversals = 0
+    resolution = PrecisionStall(ARRIVAL_EPSILON)
     try:
         for _ in range(MAX_PULSES+1):
             state = current['state']
@@ -106,11 +108,22 @@ def move_axis(page, axis, target, coop=False, evidence=None, clock=time.monotoni
                      'chordOrder': ('primary-inner' if precision_chord else 'primary-outer') if coop else 'single-owner',
                      'holdMs': milliseconds, 'before': current}
             trace['pulses'].append(pulse)
-            native_pulse(page, keys, milliseconds)
+            pulse['precisionResolution'] = resolution.receipt()
+            pulse['transport'] = 'driver-press' if resolution.active else 'split-calls'
+            if resolution.active:
+                pulse['driverOperations'] = []
+                native_driver_pulse(page, keys, milliseconds, pulse['driverOperations'])
+            else:
+                native_pulse(page, keys, milliseconds)
             current = page.evaluate(OBSERVATION)
             pulse['afterRelease'] = current
             moved = abs(current['state']['players'][0][axis]-state['players'][0][axis])
-            release_distance = max(0.0, min(1.0, moved-speed*milliseconds/1000))
+            was_active = resolution.active
+            resolution.observe(error, target-current['state']['players'][0][axis], milliseconds)
+            # The compact driver call has a different cost. Relearn it from
+            # real released positions, not the old split-call movement floor.
+            release_distance = (0.0 if resolution.active and not was_active else
+                                max(0.0, min(1.0, moved-speed*milliseconds/1000)))
         raise AssertionError('unreachable native route bound')
     except Exception as exc:
         trace.update(status='failed', errorType=type(exc).__name__)

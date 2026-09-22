@@ -32,6 +32,15 @@ class Keyboard:
             raise RuntimeError('native key-up error')
 
 
+    def press(self, key, delay=0):
+        # Conservative unit port: the same down/wait/up costs as before.
+        # This does NOT claim the driver's native latency is zero.
+        self.down(key)
+        if delay:
+            self.page.wait_for_timeout(delay)
+        self.up(key)
+
+
 class NativePort:
     def __init__(self, x=1.5, z=1.4, chapter='bedroom', release_ticks=2, overshoot=False):
         self.state = {'chapter': chapter, 'mode': 'explore', 'ticks': 0,

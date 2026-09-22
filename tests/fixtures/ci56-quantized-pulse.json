@@ -1,0 +1,610 @@
+{
+  "kind": "negative original native observation; never a successful browser/save fixture",
+  "runId": "35706073669",
+  "sourceSha": "3f65ae23b2b09be1bb4c23ed559003ae541fe1d3",
+  "reportSha256": "17b9f4f75fa530bdf8266487387adfed55cc5f786ecfb8ad98ed863fa700fb03",
+  "axis": "z",
+  "target": -2,
+  "budget": 165,
+  "before": {
+    "state": {
+      "equipment": null,
+      "trial": {
+        "hearing": null,
+        "stage": "none",
+        "history": null,
+        "fade": 0,
+        "choice": null,
+        "question": 0,
+        "blamedMarle": null,
+        "wealthMotive": null,
+        "verdict": "pending",
+        "knocks": 0,
+        "days": 0,
+        "route": "unknown",
+        "cellOpen": false,
+        "guardsWon": false,
+        "fritzFreed": false,
+        "luccaJoined": false,
+        "marleJoined": false,
+        "manualRead": false,
+        "suppliesTaken": false,
+        "tankWon": false,
+        "encounter": "none",
+        "ethers": 0,
+        "experience": 0,
+        "headRepairs": 0
+      },
+      "prologue": {
+        "conduct": null,
+        "stage": "legacy",
+        "elapsed": 0,
+        "first": "unknown",
+        "checkedMarle": false,
+        "pendantPicked": false,
+        "pendantReturned": false,
+        "motherTalked": false,
+        "choice": null,
+        "transition": null
+      },
+      "followPlan": {
+        "chapter": "",
+        "goal": {
+          "x": 0,
+          "z": 0
+        },
+        "points": [],
+        "repathAt": 0
+      },
+      "mode": "explore",
+      "era": "present",
+      "joined": true,
+      "players": [
+        {
+          "x": 0.26666666666666644,
+          "z": -5,
+          "hp": 120,
+          "mp": 18,
+          "atb": 0,
+          "facing": 1,
+          "walking": false
+        },
+        {
+          "x": 2.1333333333333333,
+          "z": -5,
+          "hp": 120,
+          "mp": 18,
+          "atb": 0,
+          "facing": 1,
+          "walking": false
+        }
+      ],
+      "enemies": [],
+      "flags": {
+        "repaired": false,
+        "won": false,
+        "visitedFuture": false
+      },
+      "targets": [
+        null,
+        null
+      ],
+      "combo": [
+        false,
+        false
+      ],
+      "log": [
+        "千年祭：同行之後、傳送實驗之前。"
+      ],
+      "effects": [],
+      "ticks": 232,
+      "enemyTurn": 0,
+      "chapter": "fair",
+      "fair": {
+        "bellHeard": false,
+        "gatoWon": false,
+        "luccaMet": false,
+        "telepodTested": false
+      },
+      "opening": {
+        "phase": "none",
+        "elapsed": 0,
+        "canyonWon": false
+      },
+      "kingdom": {
+        "phase": "none",
+        "heardYear": false,
+        "forestWon": false,
+        "elapsed": 0
+      },
+      "rescue": {
+        "stage": "none",
+        "organOpen": false,
+        "guardsWon": false,
+        "yakraWon": false,
+        "chancellorFreed": false,
+        "chestOpened": false,
+        "tonics": 0,
+        "guest": {
+          "x": 0,
+          "z": -5,
+          "hp": 140,
+          "mp": 16,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        },
+        "guestPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "encounter": "none",
+        "enemyActions": 0
+      }
+    },
+    "paused": false
+  },
+  "pulses": [
+    {
+      "keys": [
+        "w",
+        "ArrowUp"
+      ],
+      "holdMs": 250,
+      "before": {
+        "state": {
+          "ticks": 232,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -5,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 1,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -5,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 1,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 264,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -3.333333333333335,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -3.86666666666667,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 250,
+      "before": {
+        "state": {
+          "ticks": 264,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -3.333333333333335,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -3.86666666666667,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 297,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 0,
+      "before": {
+        "state": {
+          "ticks": 297,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 317,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "s"
+      ],
+      "holdMs": 0,
+      "before": {
+        "state": {
+          "ticks": 317,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 337,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 17,
+      "before": {
+        "state": {
+          "ticks": 337,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 357,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "s"
+      ],
+      "holdMs": 0,
+      "before": {
+        "state": {
+          "ticks": 357,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 377,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "w"
+      ],
+      "holdMs": 17,
+      "before": {
+        "state": {
+          "ticks": 377,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 397,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "s"
+      ],
+      "holdMs": 0,
+      "before": {
+        "state": {
+          "ticks": 397,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -1.8666666666666643,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -1.333333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 2,
+              "walking": false
+            }
+          ]
+        }
+      },
+      "afterRelease": {
+        "state": {
+          "ticks": 417,
+          "players": [
+            {
+              "x": 0.26666666666666644,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            },
+            {
+              "x": 2.1333333333333333,
+              "z": -2.133333333333331,
+              "hp": 120,
+              "mp": 18,
+              "atb": 0,
+              "facing": 0,
+              "walking": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

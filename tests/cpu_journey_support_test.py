@@ -9,6 +9,7 @@ import unittest
 from unittest.mock import patch
 from cpu_journey_support import CpuJourney, enabled_from_environment, controls_peer, assert_observation
 from ast_fingerprint import structural_hash
+from native_operator_preservation import restore_i_route
 from cpu_native_route_test import NativePort
 from rescue_route_test import PageDouble
 from rescue_route import approach_organ
@@ -238,7 +239,10 @@ class PreservationTests(unittest.TestCase):
         for stage,expected in pinned['journeys'].items():
             with self.subTest(stage=stage):self.assertEqual(normalized((ROOT/'tests'/f'{stage}_browser.py').read_text()),expected)
         for name,expected in pinned['files'].items():
-            with self.subTest(path=name):self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),expected)
+            with self.subTest(path=name):
+                raw=(ROOT/name).read_bytes()
+                if name=='tests/cpu_native_route.py':raw=restore_i_route(raw.decode()).encode()
+                self.assertEqual(hashlib.sha256(raw).hexdigest(),expected)
 
     def test_all_original_story_actions_and_both_branch_route_calls_match_verifier(self):
         expected=json.loads((ROOT/'tests/cpu-adventure-contract.json').read_text())

@@ -1,0 +1,84 @@
+{
+  "schema": "chrono-ci-failure-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "runId": "35875725015",
+  "runNumber": 66,
+  "sourceSha": "e18ac52e5ad37b0259ef1f27ce40c3d6fb9f6ef4",
+  "sourceTree": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "status": "completed",
+  "conclusion": "failure",
+  "accepted": false,
+  "jobId": 107230992459,
+  "firstFailedStep": 23,
+  "stepName": "Verify same-source CPU sampling and native 600 AD continuation",
+  "root": "town-camera-joined-preference-mistaken-for-story-active-p2",
+  "originalError": {
+    "name": "Error",
+    "message": "Town camera evidence: second human retained",
+    "stack": "Error: Town camera evidence: second human retained\n    at need (file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/town-camera-evidence.mjs:3:36)\n    at assertTownCameraLayouts (file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/town-camera-evidence.mjs:22:27)\n    at assertVillageLayouts (file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/village-evidence.mjs:35:76)\n    at assertCpuEraEvidence (file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/cpu-era-evidence.mjs:47:2)\n    at inspectCpuEraEvidence (file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/cpu-era-evidence.mjs:112:68)\n    at file:///home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/scripts/cpu-era-evidence.mjs:133:14\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)",
+    "observation": null
+  },
+  "originalReport": {
+    "path": "report.json",
+    "bytes": 2303496,
+    "sha256": "19f7f7fa6b7af84e65028ba2e68ca5c4755a0dd691ff10aaa29fd1f31f08761e"
+  },
+  "facts": {
+    "joined": true,
+    "prologueStage": "legacy",
+    "openingPhase": "vista",
+    "kingdomPhase": "arrival",
+    "trialStage": "none",
+    "tick": 48,
+    "productionActiveSlot1": false,
+    "observedPortraitIds": [
+      "p0",
+      "inn-sign"
+    ],
+    "allThreeVillageCapturesPresent": true,
+    "rawEraReportStatus": "passed"
+  },
+  "explanation": "joined retains control preference through Marle departure. Exact production activeSlot is false during vista/arrival. Renderer hides unavailable P2 correctly. The new X evidence condition erroneously demanded p1 from joined alone. Y validates exact story-active membership including mandatory active follower/guest and rejects ghosts; no gameplay state or source report is changed.",
+  "downstream": {
+    "cpuRescueSkipped": true,
+    "cpuTrialSkipped": true,
+    "adventureVerifierFailed": true,
+    "playableNotProduced": true
+  },
+  "witnessJobsSucceeded": [
+    107230993009,
+    107230993364
+  ],
+  "originalArchive": {
+    "fileId": "10ne2hfCNybesZBD13jlUOG-jadtl8yFu",
+    "fileName": "Chrono-CI66-failure-original-browser-evidence.zip",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "bytes": 24148544,
+    "sha256": "37598e446752bd7a980fddb498748e41b9772177b0399254c0d1edf796184529",
+    "originalArtifactId": 10759041685,
+    "downloadedBack": true,
+    "parentReadBack": true,
+    "zipCrcVerified": true,
+    "sourceTreeMatched": "eb8399aae63fa07d672aa865933e0bd28e841690",
+    "verifiedUtc": "2026-09-23T15:45:45.746501+00:00"
+  },
+  "offlineReevaluation": "Corrected verifier evaluates the unchanged entire original era600 report successfully. This does not turn CI66 into success or supply the skipped native evidence.",
+  "visualReview": {
+    "fullResolution": [
+      "cpu-renderer/era600/village-canvas-1.png"
+    ],
+    "notes": "Portrait P1 is readable and only one hero is present as required at arrival. Large inn sign overlaps house frontage; other positions/movement and art quality are not certified."
+  },
+  "lastFullAccepted": "CI65/Pages59/VQ02W",
+  "correctionBatch": "VQ02Y",
+  "correctionNativeAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "event": "push",
+  "attempt": 1,
+  "completedUtc": "2026-09-23T15:01:58Z",
+  "correctiveSource": "3dc95cb3f9487953ce11214f9a6561b915e3f368",
+  "correctiveRunId": "35885061454"
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "chrono-vq02y-validation-v1",
+  "batch": "VQ02Y",
+  "kind": "verifier-only-correction",
+  "runtimeBatch": "VQ02X",
+  "runtimeVersion": "0.9.46",
+  "baseSource": "e18ac52e5ad37b0259ef1f27ce40c3d6fb9f6ef4",
+  "publicationParent": "cb2f3978a2df89be08984a885642d316c8ad97c4",
+  "publicationParentTree": "68ef9121f1bd67afc6c6af32835b08462a0ff0ec",
+  "expectedRootTree": "e8fb226d479be3303d177aa4dc76b9578eda96de",
+  "publishedSource": "3dc95cb3f9487953ce11214f9a6561b915e3f368",
+  "srcTree": "03e2a953b7f53a42df765d36917c0389af3ab38a",
+  "scriptsTree": "60f96f7ec6d22384ff281bd18270aaac40862f4c",
+  "testsTree": "74e3b17a2f2569cf47a6c48ba40039c784ec6db3",
+  "changedFiles": [
+    {
+      "path": "scripts/town-camera-evidence.mjs",
+      "bytes": 3032,
+      "sha256": "070c88e4a0309c4ec347e9b8b5f443bb895eab1e74756ca2ab9aac61d24f7d65",
+      "gitBlob": "c63d2f70285c412f84703e01416b1091d6675798"
+    },
+    {
+      "path": "scripts/town-party-evidence.mjs",
+      "bytes": 2343,
+      "sha256": "464ca0e4674229c1a052bb94ff5f19fcd2051201a2923adf510579baad355eeb",
+      "gitBlob": "a93d4b500aab0048b8652dee216b41338e24bbae"
+    },
+    {
+      "path": "tests/cpu-era-evidence.test.mjs",
+      "bytes": 9593,
+      "sha256": "70d5a324b5aeffb86d910aa499345f45c0cda0d93066d2813a6ee6a54080e808",
+      "gitBlob": "08eb09ea2fec6a20dcf410638158333227bd6790"
+    },
+    {
+      "path": "tests/fixtures/ci66-town-camera-regression.json",
+      "bytes": 5636,
+      "sha256": "14bd51230a999db563ec0b132afc4c90437fd526a7e219cb51d10f728fbf8855",
+      "gitBlob": "a71c923b84607f797ab683c2e04b7d45505aea84"
+    },
+    {
+      "path": "tests/helpers/town-camera-fixture.mjs",
+      "bytes": 1185,
+      "sha256": "56931a74cd9659b87e725114d07669596b9cb012bc3b54d58f5bfee46f79d2cc",
+      "gitBlob": "6afcf0816137f64767b4ff8c3d2de12891f4613b"
+    },
+    {
+      "path": "tests/town-camera-evidence.test.mjs",
+      "bytes": 3124,
+      "sha256": "53780d1792b38e5a0be267557b095d08bf646e0aca4ea074c0f1422f59561ce7",
+      "gitBlob": "1a99217c48a646431896a1c85bfb3b7cd93228d8"
+    },
+    {
+      "path": "tests/town-party-evidence.test.mjs",
+      "bytes": 10264,
+      "sha256": "1a8bc841c720a13d0fd1ec0f9bb79fb1864a26122feb1703dbfc72144ad36219",
+      "gitBlob": "ecde9a46ff9489e52f863ff12c5cacb52ed63c9b"
+    }
+  ],
+  "programFiles": 380,
+  "nodeTests": 1649,
+  "newNodeTests": 40,
+  "pythonTests": 364,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "runtimeAndWorkflowUnchanged": true,
+  "originalSourceArchiveTreeMatched": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "phaseParityCases": 4776,
+  "offlineWorldCases": 8,
+  "originalEraReportReevaluatedReadOnly": true,
+  "nativeAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "wholeGameAccepted": false,
+  "noLocalBrowser": true,
+  "newScore": null,
+  "localCheckInterruption": "check-first.log was interrupted by the local tool host; not a pass. check-complete.log and final exact-tree check-final.log both exited 0.",
+  "verifiedUtc": "2026-09-23T15:49:04.406566+00:00",
+  "publishedRootTree": "e8fb226d479be3303d177aa4dc76b9578eda96de",
+  "sourceTreeMatched": true,
+  "runId": "35885061454",
+  "runNumber": 67,
+  "cloudFileId": "10MdC4_H_8oijTDrTjC-JQn_FCTTwz6vy"
+}

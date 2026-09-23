@@ -1,0 +1,104 @@
+{
+  "schema": "chrono-source-inverse-v1",
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "import {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';",
+        "after": "import {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';\nimport {TownSignOcclusion} from './town-sign-occlusion';"
+      },
+      {
+        "before": "  private fairWorld:ReturnType<typeof buildFair>;",
+        "after": "  private fairWorld:ReturnType<typeof buildFair>;\n  private townSignOcclusion:TownSignOcclusion;"
+      },
+      {
+        "before": "festivalOcclusion:this.fairWorld.inspectOcclusion(),",
+        "after": "festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),"
+      },
+      {
+        "before": "    this.fairWorld=buildFair(this.scene,this.shadow);",
+        "after": "    this.fairWorld=buildFair(this.scene,this.shadow);\n    this.townSignOcclusion=new TownSignOcclusion(this.scene);"
+      },
+      {
+        "before": "    this.fairWorld?.resetOcclusion?.();",
+        "after": "    this.fairWorld?.resetOcclusion?.();\n    this.townSignOcclusion?.reset();"
+      },
+      {
+        "before": "    this.fairWorld.updateOcclusion(s.ticks,fair?this.cameraSubjects:[]);",
+        "after": "    this.fairWorld.updateOcclusion(s.ticks,fair?this.cameraSubjects:[]);\n    this.townSignOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';",
+        "after": "import {build} from 'esbuild';\nimport {signOcclusionBaseline} from '../tests/helpers/sign-occlusion-baseline.mjs';"
+      },
+      {
+        "before": "for(const name of ['town-camera',",
+        "after": "for(const name of ['town-sign-occlusion','town-camera',"
+      },
+      {
+        "before": "const townCameraPlugin={name:'exact-ci65-camera',",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/sign-occlusion-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci67-runtime',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:signOcclusionBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst townCameraPlugin={name:'exact-ci65-camera',"
+      },
+      {
+        "before": "['--test','tests/town-camera.test.mjs'",
+        "after": "['--test','tests/town-sign-occlusion.test.mjs','tests/town-route-evidence.test.mjs','tests/town-camera.test.mjs'"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.46',batch:'VQ02X'",
+        "after": "version:'0.9.47',batch:'VQ02Z'"
+      }
+    ],
+    "tests/cpu_era_route.py": [
+      {
+        "before": "from village_capture import observe_village_layouts",
+        "after": "from village_capture import observe_village_layouts\nfrom town_route_capture import TownRouteCapture"
+      },
+      {
+        "before": "        move('z', 1);move('x', -4.5);talk('鎮民')\n        move('x', 0);move('z', -4.3);move('x', -6.5);talk('旅店')\n        assert state()['players'][0]['hp'] == 120 and state()['players'][0]['mp'] == 18\n        move('x', 7.3);talk('森林')",
+        "after": "        r['townReadability'] = {}\n        with TownRouteCapture(page, out, r['townReadability'], snap, observed, r['nativeRoutes']) as town:\n            move('z', 1);move('x', -4.5);town.stop('resident');talk('鎮民')\n            move('x', 0);move('z', -4.3);move('x', -6.5);town.stop('inn');talk('旅店')\n            assert state()['players'][0]['hp'] == 120 and state()['players'][0]['mp'] == 18\n            move('x', 7.3);town.stop('exit')\n        talk('森林')"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {createHash} from 'node:crypto';",
+        "after": "import {createHash} from 'node:crypto';\nimport {assertTownRoute} from './town-route-evidence.mjs';"
+      },
+      {
+        "before": "const raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);assertCpuEraEvidence(r,identity);",
+        "after": "const raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);assertCpuEraEvidence(r,identity);\n assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);"
+      },
+      {
+        "before": " need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');",
+        "after": " for(const v of r.townReadability.stops){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'town route canvas PNG dimensions');}\n need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');"
+      },
+      {
+        "before": "const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),receipt=parentReport.cases[1].save;\n need(receipt.bytes===r.sourceSave.bytes && receipt.sha256===r.sourceSave.sha256,'parent export chain');",
+        "after": "const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),parentReceipt=parentReport.cases[1].save;\n need(parentReceipt.bytes===r.sourceSave.bytes && parentReceipt.sha256===r.sourceSave.sha256,'parent export chain');"
+      }
+    ],
+    "tests/readability_preservation.py": [
+      {
+        "before": "\"\"\"Exact, enumerated T inverse for old-source checks, never native mutation.\"\"\"\nfrom sign_preservation import restore_sign_source\nfrom town_camera_preservation import restore_town_camera_if_declared\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02t-declared-readability-edits.json').read_text())\ndef restore_readability_source(name,source):\n    source = restore_town_camera_if_declared(name,source)\n    if name == 'scripts/cpu-era-evidence.mjs': source = restore_sign_source(name,source)\n    if name not in SPEC['files']: raise ValueError('undeclared readability source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('readability edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n",
+        "after": "\"\"\"Exact, enumerated T inverse for old-source checks, never native mutation.\"\"\"\nfrom sign_preservation import restore_sign_source\nfrom town_camera_preservation import restore_town_camera_if_declared\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02t-declared-readability-edits.json').read_text())\ndef restore_readability_source(name,source):\n    source = restore_town_camera_if_declared(name,source)\n    if name == 'scripts/cpu-era-evidence.mjs': source = restore_sign_source(name,source,False)\n    if name not in SPEC['files']: raise ValueError('undeclared readability source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('readability edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n"
+      }
+    ],
+    "tests/village_preservation.py": [
+      {
+        "before": "\"\"\"Test-only removal of explicitly reviewed S presentation/observation wires.\"\"\"\nfrom readability_preservation import restore_readability_source\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02s-declared-village-edits.json').read_text())\ndef restore_village_source(name,source):\n    if name == 'scripts/cpu-era-evidence.mjs': source = restore_readability_source(name,source)\n    if name not in SPEC['files']: raise ValueError('undeclared village source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('village edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n",
+        "after": "\"\"\"Test-only removal of explicitly reviewed S presentation/observation wires.\"\"\"\nfrom readability_preservation import restore_readability_source\nfrom town_camera_preservation import restore_town_camera_if_declared\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02s-declared-village-edits.json').read_text())\ndef restore_village_source(name,source):\n    if name == 'scripts/cpu-era-evidence.mjs': source = restore_readability_source(name,source)\n    else: source = restore_town_camera_if_declared(name,source)\n    if name not in SPEC['files']: raise ValueError('undeclared village source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('village edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "187b0c5c24181a82337242ba16d61f5d6237effd10cd4f7081b87d035b3e37bd",
+    "scripts/test.mjs": "5fa2d782ec5efb7916ccc5d75790c022b582642b96c523546ade7adb5e3f8ddb",
+    "scripts/build.mjs": "ba9f3b072277a9dd714e30e13a0cc757897bde0696b10daf489a0e437dabdecf",
+    "tests/cpu_era_route.py": "96bff63cf7b97c8a81d16f56fe20feba89c77e5e3ab7c5fdc92f7327d3e90244",
+    "scripts/cpu-era-evidence.mjs": "1a202344de6fd3a197a393ef7bdef1321ed8100286adcc2865db5fbe00e04fb6",
+    "tests/readability_preservation.py": "7d7bfb98774038b4fcda9898b1b6efbb1daec6d558f30bdacb759f0384508bd1",
+    "tests/village_preservation.py": "a46251a9cfe370e0805d0d7253ac3d9b97342cb86b769ea3b08a0b9cc116360f"
+  }
+}

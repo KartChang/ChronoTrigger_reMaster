@@ -1,3 +1,4 @@
+import {signOcclusionIfDeclared} from './helpers/sign-occlusion-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {frameTownActors,townPortrait,TOWN_CAMERA} from '../.test/town-camera.mjs';
@@ -10,10 +11,10 @@ import {assertTownDetails} from '../scripts/village-detail-evidence.mjs';
 const spec=JSON.parse(readFileSync('tests/baselines/vq02x-declared-town-camera-edits.json'));
 const hash=s=>createHash('sha256').update(s).digest('hex');
 for(const [path,edits] of Object.entries(spec.files))test('X exact W inverse preserves old pins: '+path,()=>{
- const source=readFileSync(path,'utf8');assert.equal(hash(townCameraBaseline(path,source)),spec.originalSha256[path]);
- assert.throws(()=>townCameraBaseline(path,source+edits.at(-1).after));
- assert.throws(()=>townCameraBaseline(path,source.replace(edits.at(-1).after,'')));
- assert.notEqual(hash(townCameraBaseline(path,source+'\n// unrelated mutation\n')),spec.originalSha256[path]);
+ const source=signOcclusionIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(townCameraBaseline(path,source,false)),spec.originalSha256[path]);
+ assert.throws(()=>townCameraBaseline(path,source+edits.at(-1).after,false));
+ assert.throws(()=>townCameraBaseline(path,source.replace(edits.at(-1).after,''),false));
+ assert.notEqual(hash(townCameraBaseline(path,source+'\n// unrelated mutation\n',false)),spec.originalSha256[path]);
 });
 const base={x:0,z:5.6,half:18},actor=(id,x,z=4)=>({id,x,z,height:1.85,groundY:.14,halfWidth:.68});
 const safe=f=>{assert(f.active);for(const a of f.actors){assert(a.left>=f.bounds.left-1e-8);assert(a.right<=f.bounds.right+1e-8);assert(a.top>=f.bounds.top-1e-8);assert(a.bottom<=f.bounds.bottom+1e-8);}};

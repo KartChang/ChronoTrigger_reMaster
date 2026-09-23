@@ -5,6 +5,7 @@ import {placeSpriteContact,inspectSpriteContacts} from './sprite-contact';
 import type {SpriteContact} from './sprite-contact';
 import {EarlyCameraMotion} from './camera-motion';
 import {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';
+import {TownSignOcclusion} from './town-sign-occlusion';
 import {frameEarlyActors,EARLY_COMFORT} from './early-comfort';
 import type {CameraFrame} from './early-comfort';
 import {observeCameraSubjects,projectCameraSubjects} from './early-camera-view';
@@ -73,6 +74,7 @@ export class World {
   private prologueWorld:ReturnType<typeof buildPrologue>;
   private prologueKind='field';
   private fairWorld:ReturnType<typeof buildFair>;
+  private townSignOcclusion:TownSignOcclusion;
   private trialWorld:ReturnType<typeof buildTrial>;
   private rescueWorld:ReturnType<typeof buildRescue>;
   private guest:Sprite;
@@ -96,7 +98,7 @@ export class World {
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
@@ -164,6 +166,7 @@ export class World {
     for(const light of this.scene.lights)if(light instanceof PointLight)light.parent=this.labRoot;
     this.prologueWorld=buildPrologue(this.scene,this.shadow);
     this.fairWorld=buildFair(this.scene,this.shadow);
+    this.townSignOcclusion=new TownSignOcclusion(this.scene);
     this.canyonWorld=buildCanyon(this.scene,this.shadow);
     this.kingdomWorld=buildKingdom(this.scene,this.shadow);this.rescueWorld=buildRescue(this.scene,this.shadow);this.trialWorld=buildTrial(this.scene,this.shadow);
     this.guest=this.sprite('guest-companion',1.36,1.85,HD_ART.width,HD_ART.height);this.yakra=this.sprite('yakra',3.5,3.5,48,48);
@@ -302,6 +305,7 @@ export class World {
     this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
     this.contacts=[];this.contactHistory=[];
     this.fairWorld?.resetOcclusion?.();
+    this.townSignOcclusion?.reset();
     this.poseHistory.length=0;this.guestView={pose:'idle',frame:0};
     this.lunges.forEach(l=>{l.time=1;l.dx=0;l.dz=0;});
   }
@@ -376,6 +380,7 @@ export class World {
     // Use actual billboard vertices after framing, including the current attack lunge.
     // Only tagged festival canopies participate; no material alpha or collision changes.
     this.fairWorld.updateOcclusion(s.ticks,fair?this.cameraSubjects:[]);
+    this.townSignOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
     for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}

@@ -3,7 +3,7 @@ import hashlib,tempfile,unittest
 from pathlib import Path
 from village_capture_test import Page,snap,observed
 from village_capture import observe_village_layouts
-from town_camera_preservation import SPEC,restore_town_camera_if_declared
+from town_camera_preservation import SPEC,restore_town_camera_if_declared,restore_sign_occlusion_if_declared
 ROOT=Path(__file__).resolve().parents[1]
 class TownCameraCaptureTests(unittest.TestCase):
     def test_same_paused_visit_retains_every_original_png_and_readonly_camera(self):
@@ -26,7 +26,7 @@ class TownCameraCaptureTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),want)
     def test_duplicate_or_missing_x_edit_cannot_hide_in_old_contracts(self):
         for name,edits in SPEC['files'].items():
-            source=(ROOT/name).read_text();after=edits[-1]['after']
+            source=restore_sign_occlusion_if_declared(name,(ROOT/name).read_text());after=edits[-1]['after']
             for change in [source+after,source.replace(after,'',1)]:
-                with self.subTest(name=name),self.assertRaises(AssertionError):restore_town_camera_if_declared(name,change)
+                with self.subTest(name=name),self.assertRaises(AssertionError):restore_town_camera_if_declared(name,change,include_sign=False)
 if __name__=='__main__':unittest.main()

@@ -6,7 +6,7 @@ from pathlib import Path
 SPEC=json.loads((Path(__file__).parent/'baselines/vq02t-declared-readability-edits.json').read_text())
 def restore_readability_source(name,source):
     source = restore_town_camera_if_declared(name,source)
-    if name == 'scripts/cpu-era-evidence.mjs': source = restore_sign_source(name,source)
+    if name == 'scripts/cpu-era-evidence.mjs': source = restore_sign_source(name,source,False)
     if name not in SPEC['files']: raise ValueError('undeclared readability source')
     for edit in reversed(SPEC['files'][name]):
         before,after=edit['before'],edit['after']

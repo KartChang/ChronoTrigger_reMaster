@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import {assertTownRoute} from './town-route-evidence.mjs';
 import {retainCpuEraFailure} from './cpu-era-failure.mjs';
 import {assertWoodland} from './woodland-evidence.mjs';
 import {assertVillage,assertVillageLayouts} from './village-evidence.mjs';
@@ -110,6 +111,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  const parent=inspectCpuEvidence({dir:resolve(dir,'..'),buildDir,sourceSha,runId,runAttempt});
  const identity={sourceSha,runId,runAttempt,htmlSha256:parent.htmlSha256,htmlBytes:parent.htmlBytes};
  const raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);assertCpuEraEvidence(r,identity);
+ assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);
  const files=[{path:'report.json',bytes:raw.length,sha256:sha(raw)}];
  const keep=(item,png=false)=>{
   const b=readFileSync(join(dir,item.path));need(b.length===item.bytes && sha(b)===item.sha256,'listed bytes/hash mismatch');
@@ -120,12 +122,13 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  for(const v of r.villageLayouts.views){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'actual canvas PNG dimensions');}
  for(const s of r.saves)need(JSON.parse(keep(s)).version===s.version,'export version');
  const own=JSON.parse(keep(r.sourceSave));need(own.version===2 && own.fair.gatoWon===true,'parent export state');
- const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),receipt=parentReport.cases[1].save;
- need(receipt.bytes===r.sourceSave.bytes && receipt.sha256===r.sourceSave.sha256,'parent export chain');
+ const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),parentReceipt=parentReport.cases[1].save;
+ need(parentReceipt.bytes===r.sourceSave.bytes && parentReceipt.sha256===r.sourceSave.sha256,'parent export chain');
  const native=readFileSync(join(dir,'native-import-report.json')),n=JSON.parse(native);
  need(n.schema==='chrono-native-import-evidence-v1' && n.sourceSha===sourceSha && n.status==='passed' && n.physicalDeviceApproved===false && equal(n.attempts,r.saves.map(s=>s.nativeImport)),'final native import record');
  files.push({path:'native-import-report.json',bytes:native.length,sha256:sha(native)});
  for(const v of r.villageLayouts.views){const n=v.pauseAccess.nearest;keep(n.image,true);const b=keep(n.canvasImage,true);need(b.readUInt32BE(16)===n.pixels.width&&b.readUInt32BE(20)===n.pixels.height,'nearest canvas PNG dimensions');}
+ for(const v of r.townReadability.stops){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'town route canvas PNG dimensions');}
  need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');
  return {schema:'chrono-cpu-era-source-ledger-v1',status:'passed',...identity,files,chapters:ERA_CHAPTERS,physicalDevice:false,artApproved:false,wholeGameAccepted:false};
 }

@@ -1,23 +1,21 @@
-# Delivery index — CI66 failure / VQ02Y CI67
+# Delivery index — CI67 accepted / VQ02Z CI68
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI67-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI67_CHECKPOINT。文件HEAD不是另一遊戲source。
+Current root：**T05-early-visual-cohesion**。Execution terminal：**CI68-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI68_CHECKPOINT。文件HEAD不是另一遊戲source。
 
-VQ02Y為**驗證器修正批次**；runtime/build仍為**VQ02X／0.9.46**，不冒稱0.9.47。已發布source **3dc95cb3f9487953ce11214f9a6561b915e3f368**；root tree **e8fb226d479be3303d177aa4dc76b9578eda96de**；parent **cb2f3978a2df89be08984a885642d316c8ad97c4**。七檔一次non-force發布，380程式檔及原main文件組成的tree與已測快照一致，main已回讀。唯一 **CI67／35885061454**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source全event/state count1。最後in_progress/null，created **2026-09-23T15:55:08Z**、updated **2026-09-23T15:55:13Z**（台灣23:55:13）。只查一次，未讀CI67 jobs/artifacts/Pages；X/Y尚未完整原生接受。
+VQ02Z／0.9.47 source **e1bda62c363ee82844333937f130736d20581205**；root tree **507ef1d9c3c9f05a5dd978b73c09897e4fdc902c**；parent **3a3eddbad8929dc1bdc0da8bda919738524f3c8c**。20檔一次non-force發布，388程式檔與修正版已測快照一致；main已回讀。唯一 **CI68／35907329257**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source全event/state count1。最後in_progress/null，created **2026-09-23T19:08:40Z**、updated **2026-09-23T19:08:44Z**（台灣2026-09-24 03:08:44）。只查一次，未讀CI68 jobs/artifacts/Pages；Z尚未原生接受。
 
 ## 最新交付
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。Y已測包 **10MdC4_H_8oijTDrTjC-JQn_FCTTwz6vy／Chrono-CI66-failure-VQ02Y-tested-batch.zip**，862898bytes，SHA256 e1779e7c91a3819ac326132c4ea7dd1689fdecdb014cdf6649f5891aedecbae8；已下載回驗parent/hash/CRC/24manifest/380程式tar與Git blob。快照development/VQ02Y-tested-program-snapshot.tar.gz為assembled已測程式，非published Git archive；不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是發布前歷史，Y已發布不重送。原CI66 browser ZIP另存 **10ne2hfCNybesZBD13jlUOG-jadtl8yFu**，24148544bytes，SHA256 37598e446752bd7a980fddb498748e41b9772177b0399254c0d1edf796184529，已下載回驗hash/CRC/parent及exact X source tree；不是七份success ZIP。
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。最新修正版 **1ZrJs8QqmUbOmJO-Do0465d1wtV7FrXKo／Chrono-VQ02Z-repaired-tested-batch.zip**，1662278bytes，SHA256 **585c7bb70ab598716f9321aee6745a3b27167f10eb0fa3075ce36e86b53b14ab**。已下載回驗parent／hash／CRC／18項manifest／388程式tar及Git blob；內含未修改舊Z原包作歷史。development/VQ02Z-tested-program-snapshot.tar.gz是assembled已測程式快照，非published Git archive，不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是封裝前歷史；本批現已發布，不重送。最新進度讀main。
 
-## 已結案保存，不重驗
+CI67/Pages61七個未修改原始ZIP已保存在 **1AX3LYBwLevaxjTI2-by7kU2Hg4r1ZYHb／Chrono-CI67-VQ02Y-evidence.zip**，67587978bytes，SHA25630cccd0fd651040a40ab0749d2bcaad56366693dd983a3a83a6b88b6ba4c2fce；先前已回驗19manifest／7內層CRC，正式收據CI67_ACCEPTANCE不重驗。
 
-CI65/Pages59包1CgCUvasru_dmbtH7fVFMDVR11gTXSrBA，68574605bytes，SHA2567068c5fbe2c58b6c4a3506f1cdeb51da265ba5297a85d70af16729591897a590；七未修改原ZIP，先前已回驗。X開發包12cLTT6A7wH-1NsYesWZaRAsdnriyWoH1，842490bytes，SHA256003e77103ddc709d48aba9ead9abe3665a986455adfb8377ba0897c0eeccf1f0。恢復Y即可，不用重下載X或CI65。
+## 歷史包與修正版區別
 
-歷史CI64原ZIP13ZHgUXvPFvpD2CJtEy5wu7gj_Sfy8HkU、W包1BVuwwwOub4u88TkPWy-Zefq5hxRrLYnD、CI63包1Zltufu3mZ_mJqX1_zrt8eETvp8-uJuzJ保留；歷史metadata差異見CI64_FAILURE，不覆寫。
+舊Z 1LDfkv3aCRys2J-cVNKs-z_MiqXD3piZi，876271bytes／SHA2567e0596eba48844e34b67cc4591122cea5acf129922d23e22aaf30106ea7baee3，及對話publication-ready附件皆為未修正歷史。原expected tree a3f94a06d722efc08d0eab25145bd05c89dfb52b未發布；本次修正3個既有檔後的root為507ef1d9c3c9f05a5dd978b73c09897e4fdc902c。Runtime保持保存Z相同。
 
 ## 收據與最小恢復
 
-CI66_CHECKPOINT關閉為failure，詳CI66_FAILURE；唯一active為CI67_CHECKPOINT。VQ02Y_LOCAL_VALIDATION／CLOUD_RETENTION綁定發布source/tree/run。六份進度文件以[skip ci]保存；runtime仍X/0.9.46，不能拿版本字串代替exact source。包內null source為發布前歷史，不重送；最新docs只讀main。
+CI67_CHECKPOINT關閉並指向CI68_CHECKPOINT；VQ02Z_LOCAL_VALIDATION與VQ02Z_CLOUD_RETENTION綁定已發布source/tree/run。只恢復最新修正版388檔與main文件；不重做Z、不重驗CI67或舊包。CI68必須自己的same-source HTML；local source=null或CI67 HTML不可當新hash基準。文件使用[skip ci]，不另開CI。
 
-CI67 queued/in_progress只保存回報，不長等／輪詢／rerun／dispatch／cancel或另推source。Failure只處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI67_CHECKPOINT完成全部原reports、實際畫面、七ledger逐byte/hash、原始ZIP Drive回讀與matching Pages/source/HTML後才接受X/Y。版本仍0.9.46，但CI內嵌source應是新SHA；不能使用本機source=null或CI66 HTML作新hash基準。通過後先處理直式人物／招牌遮擋、其他站位與移動舒適性，再續前段人物植物道具、完整動畫與合法音訊、長時間及真機。
-
-Main only、single AI、non-force；無branch/PR/P3/ARPG/框架重造。不造原生game/time/save/collision state，不放寬.12／原tick預算／單一30秒／250ms/256／畫質。TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三與v1-v8存檔保留。Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。
+Main only、single AI、non-force，無branch／PR／P3／ARPG／框架重造。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三與v1-v8存檔。不造原生game/time/save/collision state，不放寬.12／原tick預算／單一30秒／250ms/256／畫質。Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。

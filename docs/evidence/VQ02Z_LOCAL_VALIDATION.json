@@ -1,0 +1,175 @@
+{
+  "schema": "chrono-vq02z-local-validation-v2",
+  "batch": "VQ02Z",
+  "version": "0.9.47",
+  "baseSource": "3dc95cb3f9487953ce11214f9a6561b915e3f368",
+  "publicationParent": "3a3eddbad8929dc1bdc0da8bda919738524f3c8c",
+  "publicationParentTree": "e27b41f86f25554eb7dbbeb294d168eac319afca",
+  "expectedRootTree": "507ef1d9c3c9f05a5dd978b73c09897e4fdc902c",
+  "srcTree": "d9304620e54e2ffc0f1b9c8bc862be63339bac93",
+  "scriptsTree": "e4f1a9a9e9b256260de3da24947179ce7cd60e37",
+  "testsTree": "5f92b2a5d2fd1e2bc6c6b65f2f95c24329df2c2a",
+  "publishedSource": "e1bda62c363ee82844333937f130736d20581205",
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "270cda608937a84ec49081f9068ed820ad10112804eff1d7047adf770852e61c",
+      "gitBlob": "cd588c6418fb3550f77ee87a1f2c2c2cb420d61d"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 13645,
+      "sha256": "901ca8b01e50dd37ec2b27349296131d9cd094f306ad9dc470138187e19cf26d",
+      "gitBlob": "a75dd70e143eba44b23090e469388b4ce69fff68"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 8183,
+      "sha256": "c6ac0dc22a59aec74c33676d95a12d45ccda386dfb7bafb5ba240990221cbddf",
+      "gitBlob": "c5b11fa6d7324232b93fe786573404fc9de6a0b2"
+    },
+    {
+      "path": "scripts/town-route-evidence.mjs",
+      "bytes": 4469,
+      "sha256": "5e72021bf24768829072deee964983ebb025dce65161fbe095a91881cdb708fb",
+      "gitBlob": "258398f60f6837475f074611ab562024f10e8bd5"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 37828,
+      "sha256": "2cd2aaa881e79b3b65ffb92310c102b66fb5cd7bc415c48cbb1f4bb869125c7d",
+      "gitBlob": "efd047d5bd817535ef4a7a442e6fe93b30547a25"
+    },
+    {
+      "path": "src/town-sign-occlusion.ts",
+      "bytes": 4505,
+      "sha256": "bca648200982867007eb1e0fd05509ebdd126cc3d44cbb723609a1f82eaa1abd",
+      "gitBlob": "b81edd96bf4f7c6a1904b8c8c3467d7cde869243"
+    },
+    {
+      "path": "tests/baselines/vq02z-declared-sign-occlusion-edits.json",
+      "bytes": 9813,
+      "sha256": "b9cbea19103b6dba3b46837f14f97a89fbbc0e75404bc5af4ef57d03a5db366e",
+      "gitBlob": "ff8fe78347e1e3deba3c5731efd9f40ab8e3502d"
+    },
+    {
+      "path": "tests/cpu_era_route.py",
+      "bytes": 12928,
+      "sha256": "7be43754aace36c883f6ec826d57ba22f2529bddd78b447fdd9f1e409d1a5133",
+      "gitBlob": "23c5612c8c605e119a0b9ebc3ecbcb5b31f5c34c"
+    },
+    {
+      "path": "tests/helpers/sign-occlusion-baseline.mjs",
+      "bytes": 746,
+      "sha256": "8d9f5ae0474089b2d8b3fde19720e8525a930daa6ea3d2bb9c25d9aa6f3bf797",
+      "gitBlob": "0d06c6dfd118193b6d02d54ab39bfdf8ea86137f"
+    },
+    {
+      "path": "tests/helpers/town-camera-baseline.mjs",
+      "bytes": 906,
+      "sha256": "0e724140acfb892ada13c94934dc9c2af7cdfead7b34eec646dc48a3221f957c",
+      "gitBlob": "754ef8c38575610770fab46ae23ed31912049201"
+    },
+    {
+      "path": "tests/helpers/village-baseline.mjs",
+      "bytes": 855,
+      "sha256": "1195bc2afb0725fdedbb0d7316fb59b4b90d0e0c01c33ea70b41e063ad8ed108",
+      "gitBlob": "de838239e14c600728d33bc129d35351320dd242"
+    },
+    {
+      "path": "tests/readability_preservation.py",
+      "bytes": 893,
+      "sha256": "2c8e8003e08b354e716b53489a878988422662a192fa4747714c2e4336a28216",
+      "gitBlob": "1daced5d700fb08dd65a2bb8be8c19dbefa49403"
+    },
+    {
+      "path": "tests/town-camera.test.mjs",
+      "bytes": 10731,
+      "sha256": "b526912cfb28c6591b372d7395e01850f4439e7a064bd4daf9e867ab281829d6",
+      "gitBlob": "01d9ac960b23e2e30d36a8d4906c60e75b770e1a"
+    },
+    {
+      "path": "tests/town-route-evidence.test.mjs",
+      "bytes": 8536,
+      "sha256": "f736e97d8f5e229a4915aea69b5d0f627fd831f5e12ad2b98bbf6efb32a0fcf7",
+      "gitBlob": "5e79f0c34967a18271c066e54989e9d662bd60dd"
+    },
+    {
+      "path": "tests/town-sign-occlusion.test.mjs",
+      "bytes": 9984,
+      "sha256": "dbae6beb1fbcb44edce3174262ce5e78be3522a3d244fa00679b1d39ccc36b5d",
+      "gitBlob": "e04e762a91b1593b55470e19418ac0d7df8ea10c"
+    },
+    {
+      "path": "tests/town_camera_capture_test.py",
+      "bytes": 2269,
+      "sha256": "a60b9c837ac1647c1e1df6771c52afe50d4ae90e3706b3eab705079c4478dbb3",
+      "gitBlob": "a02e392c7adca8e5dff2580cb787d5466a7314fd"
+    },
+    {
+      "path": "tests/town_camera_preservation.py",
+      "bytes": 1112,
+      "sha256": "0f07a880dd555b0c2b6f7970708fe0853bec6c2695a17a6567c3517c815b3261",
+      "gitBlob": "45c0caec79838c9dc8d8bd978e9860a6e7cb7ba9"
+    },
+    {
+      "path": "tests/town_route_capture.py",
+      "bytes": 4941,
+      "sha256": "a6b8089f993e8c2f1d03d872ad8c2081354d40ba20f0318e7396dcf82e9ca431",
+      "gitBlob": "daa1e3968ba0703f334cc376ad6ab92168baf890"
+    },
+    {
+      "path": "tests/town_route_capture_test.py",
+      "bytes": 4229,
+      "sha256": "9044771316451bb8491eca21e29a8dd9ae89453cd1b5dfd4b5e85b06b4060cc9",
+      "gitBlob": "b0caae5d2d04a2fe6595cc6e41d1071da661a462"
+    },
+    {
+      "path": "tests/village_preservation.py",
+      "bytes": 899,
+      "sha256": "ceec4de773f5418c3872109589a05fd8ddfd4a54c14080d8ce13dd4d247db8d6",
+      "gitBlob": "ba3e9cb081831c87d831f52ba5f50fe77eb2a119"
+    }
+  ],
+  "programFiles": 388,
+  "nodeTests": 1713,
+  "pythonTests": 368,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "noLocalBrowser": true,
+  "previousSavedZNodeTests": 1711,
+  "prepublicationCorrection": {
+    "root": "receipt-validator-shadowed-by-parent-save-TDZ",
+    "files": [
+      "scripts/cpu-era-evidence.mjs",
+      "tests/baselines/vq02z-declared-sign-occlusion-edits.json",
+      "tests/town-route-evidence.test.mjs"
+    ],
+    "runtimeUnchangedFromSavedZ": true,
+    "negativeRegressionReproduced": true,
+    "targetedTestsPassed": 41
+  },
+  "fullCheckResult": {
+    "returncode": 0,
+    "timedOut": false,
+    "finishedUtc": "2026-09-23T18:44:02.204491+00:00"
+  },
+  "interruptedCheck": "logs/check-repaired.log timed out before completion; not a pass",
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeAccepted": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-23T18:56:41.323359+00:00",
+  "publishedRootTree": "507ef1d9c3c9f05a5dd978b73c09897e4fdc902c",
+  "sourceTreeMatched": true,
+  "runId": "35907329257",
+  "runNumber": 68,
+  "cloudFileId": "1ZrJs8QqmUbOmJO-Do0465d1wtV7FrXKo"
+}

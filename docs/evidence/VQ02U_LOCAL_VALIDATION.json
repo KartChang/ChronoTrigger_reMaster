@@ -1,0 +1,122 @@
+{
+  "schema": "chrono-vq02u-local-validation-v1",
+  "batch": "VQ02U",
+  "version": "0.9.43",
+  "baseSource": "85f35c062720ed494b9869488b0c39e94b7c82b4",
+  "publicationParent": "eef741ed12b8dec3326e385d14a84f5302fb947f",
+  "publicationParentTree": "3d7ebb71ca3747b336cd08d4e705e4756ec5eab1",
+  "expectedRootTree": "ba4480efcb7ed06451a3202cbbb55958a27a819c",
+  "localSnapshotTree": "e21ccdbb3160d276059d84a838a3181885702768",
+  "publishedSource": "1d2be87885c129442d6123625b030d599ed8db50",
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "6936cab3548903a31bc251b0af934010b3265c454c23a23ecab6ad7c76c2db6a",
+      "gitBlob": "588cabd76519dca1f080a84157d1409d14c2bf94"
+    },
+    {
+      "path": "scripts/pause-access-evidence.mjs",
+      "bytes": 4063,
+      "sha256": "76c46484104d4edd91a22fd5f2f832d78f068380d24b6fd24c80c521009f83f3",
+      "gitBlob": "d3ce583d0760ed61cd0b0e621e95de1af5622c36"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 5523,
+      "sha256": "b3c44b2d271992526dfa60bfbf1cfb2a2ebabed351f4bd2bcb38b29147c7ae30",
+      "gitBlob": "9b1df71864cdb66d5ddf9be7060473906db37401"
+    },
+    {
+      "path": "src/main.ts",
+      "bytes": 41884,
+      "sha256": "c90be3662ca97cf7ec7712239c0cbd932d2bb7e72543a995f4334ed8b3250561",
+      "gitBlob": "a19c60a18b3cd02583b9bab9be87de142dffd7b4"
+    },
+    {
+      "path": "tests/baselines/vq02u-declared-pause-edit.json",
+      "bytes": 1252,
+      "sha256": "9b2fc1a324770a61647df80adb6c4cda362efed74c116aec7d8753e4fcbcf194",
+      "gitBlob": "46b25aa938a2b2b7ca60cc7bf570b7eaaab73094"
+    },
+    {
+      "path": "tests/helpers/pause-access-fixture.mjs",
+      "bytes": 1850,
+      "sha256": "f8a313edb8a596fa09d29e674dd4df1adec75bbd9e055252afc254dfac674b17",
+      "gitBlob": "b89ae470115fc5b087e6616fbec02f417c22c7a9"
+    },
+    {
+      "path": "tests/helpers/pause-baseline.mjs",
+      "bytes": 590,
+      "sha256": "2d8f46d1e584038a86025f84b240a5180b489876d2ce3fdb80cfa3dd55e7219c",
+      "gitBlob": "c36d9b07c074f3d40049bf0cfd44de2e0dff972d"
+    },
+    {
+      "path": "tests/helpers/readability-baseline.mjs",
+      "bytes": 782,
+      "sha256": "fdf1467828d62906bf6af9f2bb608bcbc5595f4d31e432f2c0c8e064af6cd63c",
+      "gitBlob": "6e54dc55bafe4c7e8725151120aad9fcbcf78a7b"
+    },
+    {
+      "path": "tests/helpers/runtime-baseline.mjs",
+      "bytes": 727,
+      "sha256": "818b87562a74f2880c22dcbfab88afcfa2cc00e7000e3af22e750a9264cc56b9",
+      "gitBlob": "bef97645c5ebb56ad4fe77e26bf89e812eb32377"
+    },
+    {
+      "path": "tests/pause-access-evidence.test.mjs",
+      "bytes": 3036,
+      "sha256": "454f12979285cb686afe8fd865865c25499bab8a3f5a21842ceeb46768b5a157",
+      "gitBlob": "d0b1b0b9c674739c6e614f2dd58fccc5a24c3199"
+    },
+    {
+      "path": "tests/pause-keyboard.test.mjs",
+      "bytes": 7367,
+      "sha256": "d02d5a620a8674cfdb637a898ec440903ab10ec24eee3c6f71518e6551b25f86",
+      "gitBlob": "749d95277a81699df39a27becd6bd8d30f302b2d"
+    },
+    {
+      "path": "tests/pause_access.py",
+      "bytes": 5565,
+      "sha256": "ca6a1d98ebf35702f98967afdc3648c52ef7aa13a1db69eed7d66ab71aef7930",
+      "gitBlob": "29fe86ae37d0cb4171fc2a7d57f27765a6b9f52a"
+    },
+    {
+      "path": "tests/pause_access_test.py",
+      "bytes": 6048,
+      "sha256": "8a62a52119f4ca928da47391a5a570027a3b53dfdae833b9e4414ad6cc34e9ea",
+      "gitBlob": "a993e7a1a418f9be168d0aac164b044814c5cbf1"
+    },
+    {
+      "path": "tests/readability.test.mjs",
+      "bytes": 5975,
+      "sha256": "31fff28d7078e84bb42812946cb712347a94c637a7382af9a3fab29b2f18f8eb",
+      "gitBlob": "d2fee1ec502d94ac776f501996a81bd4a52598a2"
+    }
+  ],
+  "nodeTests": 1487,
+  "pythonTests": 356,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "noLocalBrowser": true,
+  "sourceArchiveMatchedPublishedT": true,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeAccepted": false,
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-23T01:31:41.529046+00:00",
+  "scriptsTree": "71adfca31c08fe30bfaa32c05b0100a0b1ec1129",
+  "srcTree": "f0870f8080431d0fde7072b44bf6abf09d1063eb",
+  "testsTree": "0ce2b09367fb2fe17ebfe2b17c2b5f237a151d39",
+  "programFiles": 352,
+  "publishedRootTree": "ba4480efcb7ed06451a3202cbbb55958a27a819c",
+  "sourceTreeMatched": true,
+  "runId": "35807473251",
+  "runNumber": 63,
+  "cloudFileId": "1JfJL4VqTemOr_iW71wYzQ6-vJ_tzeWK9"
+}

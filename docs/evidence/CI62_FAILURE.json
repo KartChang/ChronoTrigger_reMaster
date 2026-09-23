@@ -1,0 +1,78 @@
+{
+  "schema": "chrono-ci-failure-v1",
+  "runId": "35776529708",
+  "runNumber": 62,
+  "sourceSha": "85f35c062720ed494b9869488b0c39e94b7c82b4",
+  "sourceTree": "c8eadf451849aa2b7d6f5e9f0b1176a3294a5b33",
+  "event": "push",
+  "attempt": 1,
+  "conclusion": "failure",
+  "accepted": false,
+  "jobId": 106911025319,
+  "firstFailedStep": 21,
+  "stepName": "Test playable CPU fallback without WebGL",
+  "root": "pause-native-checkbox-space-resumes-world",
+  "failure": {
+    "type": "AssertionError",
+    "message": "AssertionError",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/tests/cpu_era_route.py\", line 209, in observe_era_route\n    observe_village_layouts(page, out, r['villageLayouts'], snap, observed)\n  File \"/home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/tests/village_capture.py\", line 46, in observe_village_layouts\n    observe_pause_access(page, out, value['pauseAccess'], snap, observed, frozen, i)\n  File \"/home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/tests/pause_access.py\", line 61, in observe_pause_access\n    if original:press('Space','cpu-sampling')\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/tests/pause_access.py\", line 50, in press\n    page.keyboard.press(key);record['keys'].append(key);frame()\n                                                        ^^^^^^^\n  File \"/home/runner/work/ChronoTrigger_reMaster/ChronoTrigger_reMaster/tests/pause_access.py\", line 47, in frame\n    assert page.evaluate('window.__CHRONO_TEST__.paused()') is True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  "originalKeys": [
+    "Tab",
+    "Tab",
+    "Space"
+  ],
+  "originalFocusOrder": [
+    "render-quality",
+    "cpu-sampling"
+  ],
+  "originalSampling": true,
+  "layoutViewport": {
+    "width": 960,
+    "height": 640
+  },
+  "fullPausedBeforeTicks": 63,
+  "failureSnapshotTicks": 109,
+  "partialVillageViews": 1,
+  "lastFullAccepted": "CI61/Pages55/VQ02S",
+  "completedWitnessJobs": [
+    106911025059,
+    106911025386
+  ],
+  "downstream": {
+    "cpuVerifier": 22,
+    "eraVerifier": 23,
+    "adventureVerifier": 26,
+    "cpuRescueAndTrialSkipped": true,
+    "playableNotProduced": true
+  },
+  "originalArchive": {
+    "fileId": "1QStW1BRZQ-jTqlS6KcOo-QYcrfvRZCQs",
+    "fileName": "Chrono-CI62-failure-original-browser-evidence.zip",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "bytes": 22638488,
+    "sha256": "b3a9a93f1cdc209e9ea9b4b4959a40b07f83194cc847d7359cdbaae7cc163ec3",
+    "originalArtifactId": 10716852740,
+    "runId": "35776529708",
+    "sourceSha": "85f35c062720ed494b9869488b0c39e94b7c82b4",
+    "downloadedBack": true,
+    "parentReadBack": true,
+    "zipCrcVerified": true,
+    "sourceArchiveTreeMatched": "c8eadf451849aa2b7d6f5e9f0b1176a3294a5b33",
+    "verifiedUtc": "2026-09-23T01:26:45.021203+00:00"
+  },
+  "provenanceNote": "Exact downloadable artifact/source/report and REST jobs are authority. An earlier decoded-log response named different helper functions and artifact IDs; it was not used as root or raw-log evidence. No full raw log is fabricated.",
+  "visualReview": [
+    "Opened the original desktop pause layout and original failure PNG; pause overlay is present before Space and absent in failure capture.",
+    "Only first 960x640 village view exists in this failed run; portrait/landscape and twelve-image T completion not accepted."
+  ],
+  "restrictionsPreserved": true,
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "correctiveSource": "1d2be87885c129442d6123625b030d599ed8db50",
+  "correctiveRunId": "35807473251",
+  "correctiveBatch": "VQ02U",
+  "correctionNativeAccepted": false
+}

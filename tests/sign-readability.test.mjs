@@ -1,20 +1,21 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/town-camera-baseline-cpu-entry.mjs';
 import {World as VWorld} from '../.test/sign-baseline-cpu-entry.mjs';
 import {assertTownDetails} from '../scripts/village-detail-evidence.mjs';
 import {assertTownDetails as assertVDetails} from '../.test/sign-baseline-village-detail-evidence.mjs';
 import {signBaseline} from './helpers/sign-baseline.mjs';
+import {townCameraIfDeclared} from './helpers/town-camera-baseline.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';
 import {townDetailFixture} from './helpers/village-detail-fixture.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const recorded=JSON.parse(readFileSync('tests/fixtures/ci64-recorded-sign-failure.json'));
 const spec=JSON.parse(readFileSync('tests/baselines/vq02w-declared-sign-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('W explicit exact V inverse: '+name,()=>{
- const actual=readFileSync(name,'utf8');assert.equal(hash(signBaseline(name,actual)),spec.originalSha256[name]);
- assert.throws(()=>signBaseline(name,actual+edits.at(-1).after));
- assert.throws(()=>signBaseline(name,actual.replace(edits.at(-1).after,'')));
- assert.notEqual(hash(signBaseline(name,actual+'\n// unrelated change\n')),spec.originalSha256[name]);
+ const actual=townCameraIfDeclared(name,readFileSync(name,'utf8'));assert.equal(hash(signBaseline(name,actual,false)),spec.originalSha256[name]);
+ assert.throws(()=>signBaseline(name,actual+edits.at(-1).after,false));
+ assert.throws(()=>signBaseline(name,actual.replace(edits.at(-1).after,''),false));
+ assert.notEqual(hash(signBaseline(name,actual+'\n// unrelated change\n',false)),spec.originalSha256[name]);
 });
 test('W retains original 40x20 rejection from the untouched CI64 component',()=>{
  const before=JSON.stringify(recorded);assert.equal(recorded.sourceSha,'3cf048e5debba3a679385112c21f45c55c5d0e19');

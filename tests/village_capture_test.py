@@ -25,6 +25,7 @@ class Page:
     def evaluate(self,code):
         if code==DOM_LAYOUT:
             return {'viewport':dict(self.viewport_size),'focus':self.focus_id,'dialog':{'x':12,'y':12,'width':self.viewport_size['width']-24,'height':300},'scrollTop':0,'scrollHeight':296,'clientHeight':296,'controls':[{'id':name,'visible':True,'hit':True,'fontSize':14,'rect':{'x':24,'y':30+i*60,'width':150,'height':44}} for i,name in enumerate(('resume','render-quality','cpu-sampling'))]}
+        if code=='window.__CHRONO_TEST__.view().earlyComfort':return {'viewport':dict(self.viewport_size),'unitOnly':True}
         if code=='document.activeElement.id':return self.focus_id
         if code=='window.__CHRONO_TEST__.paused()':return self.paused
         if 'innerWidth' in code:return dict(self.viewport_size)

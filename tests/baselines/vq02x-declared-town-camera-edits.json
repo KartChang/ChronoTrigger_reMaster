@@ -1,0 +1,234 @@
+{
+  "schema": "chrono-vq02x-declared-town-camera-edits-v1",
+  "baseSource": "11ae55d6c90d8bb6eb5f6f75eed05993191bfa35",
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "import {EarlyCameraMotion} from './camera-motion';",
+        "after": "import {EarlyCameraMotion} from './camera-motion';\nimport {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';"
+      },
+      {
+        "before": "return {profile:EARLY_COMFORT.id,camera:",
+        "after": "return {profile:EARLY_COMFORT.id,townProfile:this.chapter==='truce'&&this.comfortFrame?.portrait?TOWN_CAMERA.id:null,camera:"
+      },
+      {
+        "before": "    const target=frameEarlyActors(early?s.chapter:'outside-early',ratio,base,observeCameraSubjects(this.cameraSubjects),s.mode==='battle');",
+        "after": "    const town=townPortrait(s.chapter,ratio);\n    if(town){\n      this.heroes.forEach((sprite,i)=>{if(activeSlot(s,i as 0|1))this.cameraSubjects.push({id:'p'+i,mesh:sprite.mesh});});\n      if(guestKind(s))this.cameraSubjects.push({id:'guest',mesh:this.guest.mesh});\n      const inn=this.scene.getMeshByName('inn-sign'),p=s.players[0];\n      if(inn?.isEnabled()&&Math.hypot(inn.position.x-p.x,inn.position.z-p.z)<TOWN_CAMERA.landmarkRange)\n        this.cameraSubjects.push({id:'inn-sign',mesh:inn});\n    }\n    const subjects=observeCameraSubjects(this.cameraSubjects);\n    const target=town?frameTownActors(s.chapter,ratio,base,subjects):frameEarlyActors(early?s.chapter:'outside-early',ratio,base,subjects,s.mode==='battle');"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.45',batch:'VQ02W'",
+        "after": "version:'0.9.46',batch:'VQ02X'"
+      }
+    ],
+    "tests/helpers/sign-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {readFileSync} from 'node:fs';\nimport {townCameraIfDeclared} from './town-camera-baseline.mjs';"
+      },
+      {
+        "before": "export function signBaseline(name,source){",
+        "after": "export function signBaseline(name,source){\n source=townCameraIfDeclared(name,source);"
+      },
+      {
+        "before": "?signBaseline(name,source):source;",
+        "after": "?signBaseline(name,source):townCameraIfDeclared(name,source);"
+      },
+      {
+        "before": "export function signBaseline(name,source){\n source=townCameraIfDeclared(name,source);\n const edits=spec.files[name];if(!edits)throw Error('Undeclared sign source');",
+        "after": "export function signBaseline(name,source,includeTown=true){\n const edits=spec.files[name];if(!edits)throw Error('Undeclared sign source');\n if(includeTown)source=townCameraIfDeclared(name,source);"
+      }
+    ],
+    "tests/helpers/story-npc-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {readFileSync} from 'node:fs';\nimport {townCameraIfDeclared} from './town-camera-baseline.mjs';"
+      },
+      {
+        "before": " if(includeWoodland&&name===",
+        "after": " if(name==='src/render.ts')source=townCameraIfDeclared(name,source);\n if(includeWoodland&&name==="
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';",
+        "after": "import {build} from 'esbuild';\nimport {townCameraBaseline} from '../tests/helpers/town-camera-baseline.mjs';"
+      },
+      {
+        "before": "for(const name of ['village-detail-art'",
+        "after": "for(const name of ['town-camera','village-detail-art'"
+      },
+      {
+        "before": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/detail-baseline-cpu-entry.mjs'",
+        "after": "const townCameraPlugin={name:'exact-ci65-camera',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:townCameraBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}};\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/town-camera-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[townCameraPlugin]});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/detail-baseline-cpu-entry.mjs'"
+      },
+      {
+        "before": "plugins:[{name:'exact-ci63-village",
+        "after": "plugins:[townCameraPlugin,{name:'exact-ci63-village"
+      },
+      {
+        "before": "plugins:[{name:'exact-ci59-kingdom",
+        "after": "plugins:[townCameraPlugin,{name:'exact-ci59-kingdom"
+      },
+      {
+        "before": "plugins:[{name:'exact-ci60-kingdom",
+        "after": "plugins:[townCameraPlugin,{name:'exact-ci60-kingdom"
+      },
+      {
+        "before": "plugins:[{name:'exact-ci61-village",
+        "after": "plugins:[townCameraPlugin,{name:'exact-ci61-village"
+      },
+      {
+        "before": "plugins:[signPlugin]",
+        "after": "plugins:[townCameraPlugin,signPlugin]"
+      },
+      {
+        "before": "['--test','tests/sign-readability.test.mjs'",
+        "after": "['--test','tests/town-camera.test.mjs','tests/town-camera-evidence.test.mjs','tests/sign-readability.test.mjs'"
+      }
+    ],
+    "tests/sign-readability.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs';",
+        "after": "from '../.test/town-camera-baseline-cpu-entry.mjs';"
+      },
+      {
+        "before": "import {signBaseline} from './helpers/sign-baseline.mjs';",
+        "after": "import {signBaseline} from './helpers/sign-baseline.mjs';\nimport {townCameraIfDeclared} from './helpers/town-camera-baseline.mjs';"
+      },
+      {
+        "before": "const actual=readFileSync(name,'utf8');assert.equal(hash(signBaseline(name,actual)),spec.originalSha256[name]);",
+        "after": "const actual=townCameraIfDeclared(name,readFileSync(name,'utf8'));assert.equal(hash(signBaseline(name,actual,false)),spec.originalSha256[name]);"
+      },
+      {
+        "before": "signBaseline(name,actual+edits.at(-1).after)",
+        "after": "signBaseline(name,actual+edits.at(-1).after,false)"
+      },
+      {
+        "before": "signBaseline(name,actual.replace(edits.at(-1).after,''))",
+        "after": "signBaseline(name,actual.replace(edits.at(-1).after,''),false)"
+      },
+      {
+        "before": "signBaseline(name,actual+'\\n// unrelated change\\n')",
+        "after": "signBaseline(name,actual+'\\n// unrelated change\\n',false)"
+      }
+    ],
+    "tests/village_capture.py": [
+      {
+        "before": "        record['before'] = frozen",
+        "after": "        record['before'] = frozen\n        record['beforeCamera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')"
+      },
+      {
+        "before": "            value['village'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.village')",
+        "after": "            value['village'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.village')\n            value['camera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')"
+      },
+      {
+        "before": "        record['after'] = snap(page)",
+        "after": "        record['after'] = snap(page)\n        record['afterCamera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')"
+      }
+    ],
+    "scripts/village-evidence.mjs": [
+      {
+        "before": "import {assertTownDetails}",
+        "after": "import {assertTownCameraLayouts} from './town-camera-evidence.mjs';\nimport {assertTownDetails}"
+      },
+      {
+        "before": "'viewport restored');return true;",
+        "after": "'viewport restored');assertTownCameraLayouts(r);return true;"
+      }
+    ],
+    "tests/helpers/village-fixture.mjs": [
+      {
+        "before": "import {townDetailFixture}",
+        "after": "import {townCameraFixture} from './town-camera-fixture.mjs';\nimport {townDetailFixture}"
+      },
+      {
+        "before": "return {schema:'chrono-village-layouts-v1'",
+        "after": "return {beforeCamera:townCameraFixture({width:480,height:320}),afterCamera:townCameraFixture({width:480,height:320}),schema:'chrono-village-layouts-v1'"
+      },
+      {
+        "before": "return {...value,paused:true,viewport:",
+        "after": "return {...value,camera:townCameraFixture(canvas),paused:true,viewport:"
+      },
+      {
+        "before": "townCameraFixture(canvas),paused:true",
+        "after": "townCameraFixture(canvas,state.ticks,value.village.details.sign.projection),paused:true"
+      },
+      {
+        "before": "value.village.details=townDetailFixture(canvas);",
+        "after": "value.village.details=townDetailFixture(canvas);\n  // X unit schema requires the nearby sign inside the same HUD-safe portrait region.\n  if(canvas.width/canvas.height<.85)value.village.details.sign.projection.rect.y=canvas.height*.3;"
+      }
+    ],
+    "tests/readability_preservation.py": [
+      {
+        "before": "from sign_preservation import restore_sign_source",
+        "after": "from sign_preservation import restore_sign_source\nfrom town_camera_preservation import restore_town_camera_if_declared"
+      },
+      {
+        "before": "def restore_readability_source(name,source):",
+        "after": "def restore_readability_source(name,source):\n    source = restore_town_camera_if_declared(name,source)"
+      }
+    ],
+    "tests/village_capture_test.py": [
+      {
+        "before": "        if code=='document.activeElement.id':",
+        "after": "        if code=='window.__CHRONO_TEST__.view().earlyComfort':return {'viewport':dict(self.viewport_size),'unitOnly':True}\n        if code=='document.activeElement.id':"
+      }
+    ],
+    "tests/sign_preservation.py": [
+      {
+        "before": "import json",
+        "after": "from town_camera_preservation import restore_town_camera_if_declared\nimport json"
+      },
+      {
+        "before": "def restore_sign_source(name,source):",
+        "after": "def restore_sign_source(name,source):\n    source = restore_town_camera_if_declared(name,source)"
+      },
+      {
+        "before": "def restore_sign_source(name,source):\n    source = restore_town_camera_if_declared(name,source)\n    if name not in SPEC['files']: raise ValueError('undeclared sign source')",
+        "after": "def restore_sign_source(name,source,include_town=True):\n    if name not in SPEC['files']: raise ValueError('undeclared sign source')\n    if include_town: source = restore_town_camera_if_declared(name,source)"
+      }
+    ],
+    "tests/story_npc_preservation.py": [
+      {
+        "before": "import json",
+        "after": "import json\nfrom town_camera_preservation import restore_town_camera_if_declared"
+      },
+      {
+        "before": "def restore_story_source(name, source, include_woodland=True):",
+        "after": "def restore_story_source(name, source, include_woodland=True):\n    if name == \"src/render.ts\": source = restore_town_camera_if_declared(name,source)"
+      }
+    ],
+    "tests/sign_preservation_test.py": [
+      {
+        "before": "from sign_preservation import restore_sign_source,SPEC",
+        "after": "from sign_preservation import restore_sign_source,SPEC\nfrom town_camera_preservation import restore_town_camera_if_declared"
+      },
+      {
+        "before": "s=(ROOT/name).read_text();a=edits[-1]['after']",
+        "after": "s=restore_town_camera_if_declared(name,(ROOT/name).read_text());a=edits[-1]['after'];self.assertEqual(s.count(a),1)"
+      },
+      {
+        "before": "restore_sign_source(name,changed)",
+        "after": "restore_sign_source(name,changed,include_town=False)"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "d467feffdb68050ec433681113be060b837245735d3a9a68d35817aa75145a23",
+    "scripts/build.mjs": "ef068189b91ed1ce973e17020464cb61c97b9b5cc5b870f6605141a32604eaa4",
+    "tests/helpers/sign-baseline.mjs": "6c2a897a8d089f24e24e908ea1899f1f9dffbc6904843ce52cd4f2dcfe72d4a3",
+    "tests/helpers/story-npc-baseline.mjs": "6ab73e9609b56ad4c95252292b91b8c701720a8e248d634980619ef9e6a3fd66",
+    "scripts/test.mjs": "8a6913a49a0a743093e4681c240e960ebf56757e070a3014585de3e10305035f",
+    "tests/sign-readability.test.mjs": "7fbf12949949a5f9d9a3eff4b8156ba53f549833ea0e53a4a8514bf552f98ec0",
+    "tests/village_capture.py": "0fc370f59806a5d47e231430435b2256e2447c1f2befa69ebbdc41664c0484aa",
+    "scripts/village-evidence.mjs": "bf07ac9021337e252ecb9055d8b09e16d9b435bf649f87c983cf9a1ff7aebde6",
+    "tests/helpers/village-fixture.mjs": "97de285211f985ed509aaf16ca7d0272f30a6824e0099dd242bf03d1bf137c9b",
+    "tests/readability_preservation.py": "4a4a0f32b2b9b7f3b7810b139d01320b0b980b253387b94553599c50f58a22e0",
+    "tests/village_capture_test.py": "b3f1211ba899dec5904c025434fbe94e61d68a78270482bb0c7c098250acfcfe",
+    "tests/sign_preservation.py": "e4e55f00ac7441141f6280b46377581a74c5e2154824749556fce2656e4c2cf9",
+    "tests/story_npc_preservation.py": "f47f750f93e1cb082871b675ed6145f37e556f4d8b2543b16bbaaaaedd7557bc",
+    "tests/sign_preservation_test.py": "ecb6552145bf273a8b2674213fa2ab21fdb8a8e30eb676a042a9a7be97c2140a"
+  }
+}

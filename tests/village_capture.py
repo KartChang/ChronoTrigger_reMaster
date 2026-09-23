@@ -23,6 +23,7 @@ def observe_village_layouts(page, out, record, snap, observed):
         paused_here = True
         frozen = snap(page)
         record['before'] = frozen
+        record['beforeCamera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')
         for i, (width, height) in enumerate(VIEWPORTS):
             page.set_viewport_size({'width': width, 'height': height})
             page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
@@ -31,6 +32,7 @@ def observe_village_layouts(page, out, record, snap, observed):
             value['paused'] = page.evaluate('window.__CHRONO_TEST__.paused()')
             value['viewport'] = page.evaluate('({width:innerWidth,height:innerHeight})')
             value['village'] = page.evaluate('window.__CHRONO_TEST__.view().storyNpcs.kingdom.village')
+            value['camera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')
             assert value['state'] == frozen and value['paused'] is True
             assert value['viewport'] == {'width': width, 'height': height}
             record['views'].append(value)  # Keep partial original observation if screenshot fails.
@@ -48,6 +50,7 @@ def observe_village_layouts(page, out, record, snap, observed):
         page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
         record['restoredViewport'] = page.evaluate('({width:innerWidth,height:innerHeight})')
         record['after'] = snap(page)
+        record['afterCamera'] = page.evaluate('window.__CHRONO_TEST__.view().earlyComfort')
         assert record['after'] == frozen and record['restoredViewport'] == original
         record['fullStateEqual'] = True
         record['status'] = 'passed'

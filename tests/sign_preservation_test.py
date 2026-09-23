@@ -2,6 +2,7 @@
 import unittest,hashlib
 from pathlib import Path
 from sign_preservation import restore_sign_source,SPEC
+from town_camera_preservation import restore_town_camera_if_declared
 ROOT=Path(__file__).resolve().parents[1]
 class SignPreservationTests(unittest.TestCase):
     def test_exact_v_hashes(self):
@@ -9,9 +10,9 @@ class SignPreservationTests(unittest.TestCase):
             with self.subTest(name=name):self.assertEqual(hashlib.sha256(restore_sign_source(name,(ROOT/name).read_text()).encode()).hexdigest(),want)
     def test_last_edit_missing_or_duplicated_fails(self):
         for name,edits in SPEC['files'].items():
-            s=(ROOT/name).read_text();a=edits[-1]['after']
+            s=restore_town_camera_if_declared(name,(ROOT/name).read_text());a=edits[-1]['after'];self.assertEqual(s.count(a),1)
             for changed in [s.replace(a,''),s+a]:
-                with self.subTest(name=name),self.assertRaises(AssertionError):restore_sign_source(name,changed)
+                with self.subTest(name=name),self.assertRaises(AssertionError):restore_sign_source(name,changed,include_town=False)
     def test_unrelated_content_cannot_be_erased(self):
         for name,want in SPEC['originalSha256'].items():
             actual=restore_sign_source(name,(ROOT/name).read_text()+'\n# unrelated change\n')

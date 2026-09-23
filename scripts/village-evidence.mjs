@@ -1,3 +1,4 @@
+import {assertTownCameraLayouts} from './town-camera-evidence.mjs';
 import {assertTownDetails} from './village-detail-evidence.mjs';
 import {readFileSync} from 'node:fs';
 import {assertPlanters,assertPauseAccess} from './pause-access-evidence.mjs';
@@ -31,5 +32,5 @@ export function assertVillageLayouts(r,observation,receipt){
   need(v.image.path===`village-layout-${i}.png`,'DOM screenshot owner');
   need(receipt(v.canvasImage)&&v.canvasImage.path===`village-canvas-${i}.png`&&v.canvasImage.source==='actual-cpu-canvas','actual canvas export');
  });
- need(same(r.restoredViewport,{width:960,height:640}),'viewport restored');return true;
+ need(same(r.restoredViewport,{width:960,height:640}),'viewport restored');assertTownCameraLayouts(r);return true;
 }

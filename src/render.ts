@@ -4,6 +4,7 @@ import {renderCompatibleScene,inspectCpuRendering} from './cpu-scene';
 import {placeSpriteContact,inspectSpriteContacts} from './sprite-contact';
 import type {SpriteContact} from './sprite-contact';
 import {EarlyCameraMotion} from './camera-motion';
+import {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';
 import {frameEarlyActors,EARLY_COMFORT} from './early-comfort';
 import type {CameraFrame} from './early-comfort';
 import {observeCameraSubjects,projectCameraSubjects} from './early-camera-view';
@@ -405,7 +406,7 @@ export class World {
     }
   }
   private inspectEarlyCamera(){
-    return {profile:EARLY_COMFORT.id,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
+    return {profile:EARLY_COMFORT.id,townProfile:this.chapter==='truce'&&this.comfortFrame?.portrait?TOWN_CAMERA.id:null,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
       motion:this.cameraMotion.inspect(),rects:projectCameraSubjects(this.cameraSubjects,this.camera),fullScenePublished:false};
   }
   private frameEarlyScene(s:State,ratio:number,base:{x:number;z:number;half:number}):void {
@@ -430,7 +431,16 @@ export class World {
         if(mesh?.isEnabled()&&s.enemies.some(e=>e.hp>0))this.cameraSubjects.push({id:'gato',mesh});
       }
     }
-    const target=frameEarlyActors(early?s.chapter:'outside-early',ratio,base,observeCameraSubjects(this.cameraSubjects),s.mode==='battle');
+    const town=townPortrait(s.chapter,ratio);
+    if(town){
+      this.heroes.forEach((sprite,i)=>{if(activeSlot(s,i as 0|1))this.cameraSubjects.push({id:'p'+i,mesh:sprite.mesh});});
+      if(guestKind(s))this.cameraSubjects.push({id:'guest',mesh:this.guest.mesh});
+      const inn=this.scene.getMeshByName('inn-sign'),p=s.players[0];
+      if(inn?.isEnabled()&&Math.hypot(inn.position.x-p.x,inn.position.z-p.z)<TOWN_CAMERA.landmarkRange)
+        this.cameraSubjects.push({id:'inn-sign',mesh:inn});
+    }
+    const subjects=observeCameraSubjects(this.cameraSubjects);
+    const target=town?frameTownActors(s.chapter,ratio,base,subjects):frameEarlyActors(early?s.chapter:'outside-early',ratio,base,subjects,s.mode==='battle');
     this.comfortFrame=this.cameraMotion.update(s.ticks,`${s.chapter}/${s.mode}/${s.prologue.stage==='waking'}`,target,this.reducedMotion?.matches??false);
     const f=this.comfortFrame;
     this.camera.orthoLeft=-f.half*ratio;this.camera.orthoRight=f.half*ratio;this.camera.orthoTop=f.half;this.camera.orthoBottom=-f.half;

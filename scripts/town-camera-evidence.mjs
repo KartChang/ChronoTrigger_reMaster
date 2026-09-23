@@ -1,3 +1,4 @@
+import {assertTownPartyCoverage} from './town-party-evidence.mjs';
 /** Extra source-bound geometry gate for the same paused Truce captures; not an art grade. */
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const need=(ok,why)=>{if(!ok)throw Error('Town camera evidence: '+why);};
@@ -19,7 +20,8 @@ export function assertTownCameraLayouts(record){
   need(f.half>=7.2&&f.half<8/f.ratio,'portrait enlarges, not logical actor scaling');
   need(Array.isArray(c.rects)&&Array.isArray(f.actors)&&c.rects.length===f.actors.length,'actual subject coverage');
   const ids=c.rects.map(a=>a.id);need(new Set(ids).size===ids.length&&ids.includes('p0')&&ids.includes('inn-sign'),'human and nearby landmark');
-  if(record.before.joined)need(ids.includes('p1'),'second human retained');
+  need(same(v.state,record.before),'complete frozen party state');
+  assertTownPartyCoverage(v.state,ids);
   need(same(ids,f.actors.map(a=>a.id)),'policy and projected mesh identities');
   for(const a of c.rects){
    need(finiteRect(a),'finite projected mesh');

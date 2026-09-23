@@ -1,0 +1,4 @@
+import {readFileSync} from 'node:fs';
+const e=JSON.parse(readFileSync(new URL('../fixtures/village-detail-pixels-unit.json',import.meta.url),'utf8'));
+/** Unit schema only. Never exported as native observations, game state or saves. */
+export const townDetailFixture=(viewport={width:312,height:675})=>({profile:e.profile,approved:false,owner:'kingdom-truce',windows:['frame','glass'].map(kind=>({kind,name:'truce-detail-'+kind,width:kind==='frame'?64:32,height:kind==='frame'?64:32,sampling:1,alpha:false,meshes:kind==='frame'?16:8,samples:structuredClone(e.windows[kind])})),sign:{name:'inn-sign',texture:'truce-inn-sign',position:[-4.7,2.4,-3.4],scaling:[1.6,1.6,1],vertices:4,indices:6,projection:{source:'scene-matrix-projection',viewport:{...viewport},rect:{x:16,y:20,width:44,height:22},inside:true}}});

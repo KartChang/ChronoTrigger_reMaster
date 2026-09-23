@@ -1,7 +1,8 @@
+import {detailIfDeclared} from './helpers/detail-baseline.mjs';
 import {pauseBaseline} from './helpers/pause-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/detail-baseline-cpu-entry.mjs';
 import {World as OriginalWorld} from '../.test/readability-baseline-cpu-entry.mjs';
 import {drawVillagePlanter,PLANTER_SAMPLE_POINTS} from '../.test/village-planter-art.mjs';
 import {surface} from '../scripts/asset-export.mjs';import {cpuTestCanvas} from './cpu-test-canvas.mjs';
@@ -11,7 +12,7 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const spec=JSON.parse(readFileSync('tests/baselines/vq02t-declared-readability-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('T inverse retains original S bytes: '+name,()=>{
  const s=readFileSync(name,'utf8');assert.equal(sha(readabilityBaseline(name,s)),spec.originalSha256[name]);
- const originalT=['scripts/build.mjs','scripts/test.mjs'].includes(name)?pauseBaseline(name,s):s;
+ const originalT=['scripts/build.mjs','scripts/test.mjs'].includes(name)?pauseBaseline(name,s):detailIfDeclared(name,s);
  for(const {after} of edits){assert.throws(()=>readabilityBaseline(name,originalT.replace(after,''),false));assert.throws(()=>readabilityBaseline(name,originalT+after,false));}
  assert.notEqual(sha(readabilityBaseline(name,s+'\n// undeclared change\n')),spec.originalSha256[name]);
 });

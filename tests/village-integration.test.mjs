@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/detail-baseline-cpu-entry.mjs';
 import {World as OriginalWorld} from '../.test/village-baseline-cpu-entry.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';import {assertVillage} from '../scripts/village-evidence.mjs';
 function setup(){

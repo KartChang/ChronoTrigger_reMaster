@@ -1,3 +1,4 @@
+import {assertTownDetails} from './village-detail-evidence.mjs';
 import {readFileSync} from 'node:fs';
 import {assertPlanters,assertPauseAccess} from './pause-access-evidence.mjs';
 const expected=JSON.parse(readFileSync(new URL('../tests/fixtures/village-pixels-unit.json',import.meta.url),'utf8'));
@@ -24,7 +25,7 @@ export function assertVillageLayouts(r,observation,receipt){
  const sizes=[[960,640],[390,844],[844,390]];
  need(r.views?.length===3,'layout coverage');
  r.views.forEach((v,i)=>{
-  observation(v,true);assertVillage(v.village,'truce');
+  observation(v,true);assertVillage(v.village,'truce');assertTownDetails(v.village.details,v.renderer);
   assertPauseAccess(v.pauseAccess,r.before,v.viewport,i,observation,receipt);
   need(v.paused===true&&same(v.state,r.before)&&same(v.viewport,{width:sizes[i][0],height:sizes[i][1]}),'actual viewport and pause');
   need(v.image.path===`village-layout-${i}.png`,'DOM screenshot owner');

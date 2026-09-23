@@ -1,0 +1,138 @@
+{
+  "schema": "chrono-vq02v-declared-town-detail-edits-v1",
+  "baseSource": "1d2be87885c129442d6123625b030d599ed8db50",
+  "files": {
+    "src/village-finish.ts": [
+      {
+        "before": "import type {VillageSurface} from './village-art';",
+        "after": "import {VillageDetail} from './village-detail';\nimport type {VillageSurface} from './village-art';"
+      },
+      {
+        "before": "/** Texture-only finishing of the existing Truce owner. Never changes meshes or rules. */",
+        "after": "/** Finishes the existing Truce owner; VillageDetail declares the sign-only scale change. */"
+      },
+      {
+        "before": " constructor(private readonly scene:Scene){}",
+        "after": " private readonly detail:VillageDetail;\n constructor(private readonly scene:Scene){this.detail=new VillageDetail(scene);}"
+      },
+      {
+        "before": "  }\n }\n inspect(){",
+        "after": "  }\n  this.detail.apply(root);\n }\n inspect(){"
+      },
+      {
+        "before": "chapter:'truce',planters,surfaces:",
+        "after": "chapter:'truce',planters,details:this.detail.inspect(),surfaces:"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.43',batch:'VQ02U'",
+        "after": "version:'0.9.44',batch:'VQ02V'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';",
+        "after": "import {build} from 'esbuild';\nimport {detailBaseline} from '../tests/helpers/detail-baseline.mjs';"
+      },
+      {
+        "before": "['village-planter-art','village-art'",
+        "after": "['village-detail-art','village-detail','village-planter-art','village-art'"
+      },
+      {
+        "before": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/detail-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci63-village',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]village-finish\\.ts$/},args=>({contents:detailBaseline('src/village-finish.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});"
+      },
+      {
+        "before": "['--test','tests/readability.test.mjs'",
+        "after": "['--test','tests/village-detail.test.mjs','tests/readability.test.mjs'"
+      }
+    ],
+    "tests/readability.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs';",
+        "after": "from '../.test/detail-baseline-cpu-entry.mjs';"
+      },
+      {
+        "before": "import {pauseBaseline} from './helpers/pause-baseline.mjs';",
+        "after": "import {detailIfDeclared} from './helpers/detail-baseline.mjs';\nimport {pauseBaseline} from './helpers/pause-baseline.mjs';"
+      },
+      {
+        "before": "?pauseBaseline(name,s):s;",
+        "after": "?pauseBaseline(name,s):detailIfDeclared(name,s);"
+      }
+    ],
+    "tests/village-integration.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs';",
+        "after": "from '../.test/detail-baseline-cpu-entry.mjs';"
+      }
+    ],
+    "tests/woodland-integration.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs';",
+        "after": "from '../.test/detail-baseline-cpu-entry.mjs';"
+      }
+    ],
+    "tests/helpers/pause-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {detailBaseline} from './detail-baseline.mjs';\nimport {readFileSync} from 'node:fs';"
+      },
+      {
+        "before": "export function pauseBaseline(name,source){",
+        "after": "export function pauseBaseline(name,source){\n if(['scripts/build.mjs','scripts/test.mjs'].includes(name))source=detailBaseline(name,source);"
+      }
+    ],
+    "tests/helpers/readability-baseline.mjs": [
+      {
+        "before": "import {pauseBaseline} from './pause-baseline.mjs';",
+        "after": "import {detailIfDeclared} from './detail-baseline.mjs';\nimport {pauseBaseline} from './pause-baseline.mjs';"
+      },
+      {
+        "before": "if(includePause&&['scripts/build.mjs','scripts/test.mjs'].includes(name))source=pauseBaseline(name,source);",
+        "after": "if(includePause)source=['scripts/build.mjs','scripts/test.mjs'].includes(name)?pauseBaseline(name,source):detailIfDeclared(name,source);"
+      }
+    ],
+    "scripts/village-evidence.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {assertTownDetails} from './village-detail-evidence.mjs';\nimport {readFileSync} from 'node:fs';"
+      },
+      {
+        "before": "observation(v,true);assertVillage(v.village,'truce');",
+        "after": "observation(v,true);assertVillage(v.village,'truce');assertTownDetails(v.village.details);"
+      },
+      {
+        "before": "assertTownDetails(v.village.details);",
+        "after": "assertTownDetails(v.village.details,v.renderer);"
+      }
+    ],
+    "tests/helpers/village-fixture.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {townDetailFixture} from './village-detail-fixture.mjs';\nimport {readFileSync} from 'node:fs';"
+      },
+      {
+        "before": "chapter,planters:planterFixture(),surfaces:",
+        "after": "chapter,planters:planterFixture(),details:townDetailFixture(),surfaces:"
+      },
+      {
+        "before": ".map(([width,height],i)=>({...observation('village-layout-'+i,'truce'),paused:true,viewport:{width,height},pauseAccess:pauseAccessFixture(state,{width,height},i,observation),state:structuredClone(state),canvasImage:{source:'actual-cpu-canvas',path:`village-canvas-${i}.png`,bytes:99,sha256:'a'.repeat(64)}}))",
+        "after": ".map(([width,height],i)=>{const value=observation('village-layout-'+i,'truce'),canvas={width:Math.floor(width/2),height:Math.floor(height/2)};\n  Object.assign(value.renderer,canvas);Object.assign(value.pixels,{...canvas,opaque:canvas.width*canvas.height});value.village.details=townDetailFixture(canvas);\n  return {...value,paused:true,viewport:{width,height},pauseAccess:pauseAccessFixture(state,{width,height},i,observation),state:structuredClone(state),canvasImage:{source:'actual-cpu-canvas',path:`village-canvas-${i}.png`,bytes:99,sha256:'a'.repeat(64)}};})"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/village-finish.ts": "c2e87a779230268d054f1b5c7cc79003fc33c25500e45a6fac4bb3909eff0092",
+    "scripts/build.mjs": "6936cab3548903a31bc251b0af934010b3265c454c23a23ecab6ad7c76c2db6a",
+    "scripts/test.mjs": "b3c44b2d271992526dfa60bfbf1cfb2a2ebabed351f4bd2bcb38b29147c7ae30",
+    "tests/readability.test.mjs": "31fff28d7078e84bb42812946cb712347a94c637a7382af9a3fab29b2f18f8eb",
+    "tests/village-integration.test.mjs": "be1e5d8ba02a79670c7a530f5cebb8b46987819b26227a9146e92db4cf1dbf97",
+    "tests/woodland-integration.test.mjs": "ef000bc5e612390d961759420123ec65f7e84ff28c77154539cf779b6bf31f3a",
+    "tests/helpers/pause-baseline.mjs": "2d8f46d1e584038a86025f84b240a5180b489876d2ce3fdb80cfa3dd55e7219c",
+    "tests/helpers/readability-baseline.mjs": "fdf1467828d62906bf6af9f2bb608bcbc5595f4d31e432f2c0c8e064af6cd63c",
+    "scripts/village-evidence.mjs": "c4d64346d43c97b82b6f70cf40aa97b1cb687a12ce386e92a6e802342abfe76e",
+    "tests/helpers/village-fixture.mjs": "246d6d7c198f29d817958da31beca9e3e88d72a1933db0b8ea7fe2f83cadd84d"
+  }
+}

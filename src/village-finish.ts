@@ -1,14 +1,16 @@
 import {Color3,DynamicTexture,Scene,StandardMaterial,Texture,TransformNode} from '@babylonjs/core';
 import {drawVillageSign,drawVillageSurface,VILLAGE_ART} from './village-art';
+import {VillageDetail} from './village-detail';
 import type {VillageSurface} from './village-art';
 import {drawVillagePlanter,PLANTER_ART,PLANTER_SAMPLE_POINTS} from './village-planter-art';
-/** Texture-only finishing of the existing Truce owner. Never changes meshes or rules. */
+/** Finishes the existing Truce owner; VillageDetail declares the sign-only scale change. */
 export class VillageFinish{
  private root:TransformNode|undefined;
  private readonly surfaces=new Map<VillageSurface,StandardMaterial>();
  private sign:DynamicTexture|undefined;
  private planter:StandardMaterial|undefined;
- constructor(private readonly scene:Scene){}
+ private readonly detail:VillageDetail;
+ constructor(private readonly scene:Scene){this.detail=new VillageDetail(scene);}
  private material(kind:VillageSurface):StandardMaterial{
   const previous=this.surfaces.get(kind);if(previous)return previous;
   const name='truce-craft-'+kind,t=new DynamicTexture(name,VILLAGE_ART.cell,this.scene,false,Texture.NEAREST_SAMPLINGMODE);
@@ -40,6 +42,7 @@ export class VillageFinish{
     drawVillageSign(t.getContext() as CanvasRenderingContext2D);t.update();this.sign=t;
    }
   }
+  this.detail.apply(root);
  }
  inspect(){
   if(!this.root||this.root.isDisposed()||!this.root.isEnabled())return null;
@@ -47,6 +50,6 @@ export class VillageFinish{
   const resource=(kind:string,t:DynamicTexture)=>({kind,name:t.name,...t.getSize(),sampling:t.samplingMode,alpha:t.hasAlpha,samples:sample(t,kind==='sign'?[[0,0],[3,3],[13,15],[38,13],[45,19]]:[[0,0],[7,12],[23,41],[48,32],[62,62]])});
   const p=this.planter?.diffuseTexture as DynamicTexture|undefined;
   const planters=p?{profile:PLANTER_ART.id,approved:false,name:p.name,...p.getSize(),sampling:p.samplingMode,alpha:p.hasAlpha,samples:sample(p,PLANTER_SAMPLE_POINTS),meshes:this.root.getChildMeshes(false).filter(b=>b.material===this.planter&&b.isEnabled()).length}:null;
-  return {profile:VILLAGE_ART.id,approved:false,chapter:'truce',planters,surfaces:[...this.surfaces].map(([kind,m])=>({...resource(kind,m.diffuseTexture as DynamicTexture),meshes:this.root!.getChildMeshes(false).filter(b=>b.material===m&&b.isEnabled()).length})),sign:this.sign?resource('sign',this.sign):null};
+  return {profile:VILLAGE_ART.id,approved:false,chapter:'truce',planters,details:this.detail.inspect(),surfaces:[...this.surfaces].map(([kind,m])=>({...resource(kind,m.diffuseTexture as DynamicTexture),meshes:this.root!.getChildMeshes(false).filter(b=>b.material===m&&b.isEnabled()).length})),sign:this.sign?resource('sign',this.sign):null};
  }
 }

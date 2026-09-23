@@ -1,0 +1,152 @@
+{
+  "schema": "chrono-vq02v-local-validation-v1",
+  "batch": "VQ02V",
+  "version": "0.9.44",
+  "baseSource": "1d2be87885c129442d6123625b030d599ed8db50",
+  "publicationParent": "6ae32507b65293825d1c0a4dc538caf55b09ac77",
+  "publicationParentTree": "2ee1a1eb20ea6c62a86ec294219778455e4a36ae",
+  "expectedRootTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+  "localSnapshotTree": "2e94a8e7621e4fbba89b0ecdd0c0c77ad0c44752",
+  "publishedSource": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "570d52aca34994350649f827be85f70da293e40bc0abc2096bdf9306c57fa244",
+      "gitBlob": "6dcf524dd9891018681fda46b5af142efb5dcb43"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 6025,
+      "sha256": "03fd7cd274882d710417bd123ae67fa26b6b090ce41080654002a0cab52d6e80",
+      "gitBlob": "69d2e1640b8d0a85d55880bc2b08bfd78825d075"
+    },
+    {
+      "path": "scripts/village-detail-evidence.mjs",
+      "bytes": 2045,
+      "sha256": "ce031df1dc70bebba097e11a05ecf8920b2ec3ce280ebc66fa427b27e143dd9f",
+      "gitBlob": "e62c8bd48aeb7947e77a846048f1ba98cb1ef184"
+    },
+    {
+      "path": "scripts/village-evidence.mjs",
+      "bytes": 2614,
+      "sha256": "bf07ac9021337e252ecb9055d8b09e16d9b435bf649f87c983cf9a1ff7aebde6",
+      "gitBlob": "2533f18ba703229d016a88171558c25a24ddf27b"
+    },
+    {
+      "path": "src/village-detail-art.ts",
+      "bytes": 1939,
+      "sha256": "be617e57e4a3cab0a5182132e7b1972a1b4279f3431b71c36476b67e5666e557",
+      "gitBlob": "989675f32483ddbff370d9b8a881d53200773755"
+    },
+    {
+      "path": "src/village-detail.ts",
+      "bytes": 4488,
+      "sha256": "f74451db8b9329630d3c1990f557bdf15b335c088f618abe046a753f60b3e32e",
+      "gitBlob": "ead70300343e9a76d7e055e9519ee32add0629d2"
+    },
+    {
+      "path": "src/village-finish.ts",
+      "bytes": 4216,
+      "sha256": "686aee6df4b2864c82c7c0c9c9c535240d29e67358653232b6e05ae912d31e59",
+      "gitBlob": "a22a7578d33703e45a11bfcbc5f71d6485788053"
+    },
+    {
+      "path": "tests/baselines/vq02v-declared-town-detail-edits.json",
+      "bytes": 7531,
+      "sha256": "71b77714ef85760753ac60910bf51577a9eb820e6552d68707b0e09192bc32b5",
+      "gitBlob": "38664f922194e8a6c71dde316bfea727fdcd3865"
+    },
+    {
+      "path": "tests/fixtures/village-detail-pixels-unit.json",
+      "bytes": 1801,
+      "sha256": "5cbf8deb2a5673f44a6c0281eb3e294015d45f13f1925b449c8ad5d3f51cacd0",
+      "gitBlob": "e072584e991c7c4216ee47f7e66d5a8cbdeb23a5"
+    },
+    {
+      "path": "tests/helpers/detail-baseline.mjs",
+      "bytes": 784,
+      "sha256": "0fa7d442e634e65f9b3f5fe741cd5c572a76b1ea1f1ba06a85b0cf2edc2f8db5",
+      "gitBlob": "f0c9e2e3a789ad0615fb0e086959f33c2609f973"
+    },
+    {
+      "path": "tests/helpers/pause-baseline.mjs",
+      "bytes": 740,
+      "sha256": "80797e6dc5e01e1002c47daa28d88542dc72c9e9dc1caaa190816ee0570f2205",
+      "gitBlob": "568db8a703bf5795d8d738fbc1237882b91d887b"
+    },
+    {
+      "path": "tests/helpers/readability-baseline.mjs",
+      "bytes": 867,
+      "sha256": "781e654d89190b02d99192886886ae2a592011bd9a4670f096923272a10fa1b8",
+      "gitBlob": "ce5ba1fdbfe6854c546a71826c1c68863751561e"
+    },
+    {
+      "path": "tests/helpers/village-detail-fixture.mjs",
+      "bytes": 811,
+      "sha256": "e52ef1428497424d30603ebbad07a8403b4e616a1cc27b666b54f20f547137e5",
+      "gitBlob": "fc226f1efffd2633e5b9d68d2c9a1f1336bacc6c"
+    },
+    {
+      "path": "tests/helpers/village-fixture.mjs",
+      "bytes": 1775,
+      "sha256": "97de285211f985ed509aaf16ca7d0272f30a6824e0099dd242bf03d1bf137c9b",
+      "gitBlob": "f1833b07c10afd14e42e0beee5dda6b79a957f87"
+    },
+    {
+      "path": "tests/readability.test.mjs",
+      "bytes": 6078,
+      "sha256": "980a4fbdfa3928048f09063435496fea9a9c9eb2c789269cfd76f49e7669852c",
+      "gitBlob": "df2d69c24ab4b3d50db29483307be816dae7c0dd"
+    },
+    {
+      "path": "tests/village-detail.test.mjs",
+      "bytes": 11379,
+      "sha256": "57a3281206f00473a1781b5f0d7ac3068b40681f1c3bafc7a12f523d8fec5716",
+      "gitBlob": "e75649ac4e5c7a48c86213b69cb3cdac5738ebed"
+    },
+    {
+      "path": "tests/village-integration.test.mjs",
+      "bytes": 3232,
+      "sha256": "28768f363bc611d21c874b8bd347e6bdd8f8e7484251ad73394e824ac42b206d",
+      "gitBlob": "91d30f1256c8aeaf429e2b92d8be45d3a000ba0e"
+    },
+    {
+      "path": "tests/woodland-integration.test.mjs",
+      "bytes": 3147,
+      "sha256": "9c69be23b5dde68a663cf8cc4a96db954da335cd4f9ae45c6bea07521f99c22a",
+      "gitBlob": "f31153a987e5587fe359505d222113e5b48b2192"
+    }
+  ],
+  "nodeTests": 1535,
+  "pythonTests": 356,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "noLocalBrowser": true,
+  "programFiles": 360,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeAccepted": false,
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-23T10:04:47.193660+00:00",
+  "changes": [
+    "Existing inn sign XY scale 1->1.6; original pixels80x40/material/anchor/4vertices6indices unchanged",
+    "Eight frames+eight mullions share one64x64opaque nearest material; eight panes share one32x32opaque nearest material",
+    "Native original three Truce layouts retain all12PNG and complete pause/keyboard checks; added actual owner/RGBA/sign projection gate >=40x20 in same CPUcanvas",
+    "Ten chapter offline comparison exact state and geometry except sign scale, nonTruce pixels identical, original other materials unchanged; six return cycles resource counts stable"
+  ],
+  "note": "Offline rectangular Canvas unit port not browser or new art acceptance. Frozen U/T/S/R differential comparators have strict enumerated inverses; original hashes unchanged.",
+  "publishedRootTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+  "sourceTreeMatched": true,
+  "runId": "35847433193",
+  "runNumber": 64,
+  "cloudFileId": "1H1NrWpgkA3dMXrnvm819Vw-8x4zrUpX2",
+  "srcTree": "e62a754ddbc6a2244551218ec1e779727c6c5769",
+  "scriptsTree": "b030404e4c3e6787894154d6ad9cfd24a99a91eb",
+  "testsTree": "4042d7b42c1770ac7e2d081c83b60256a7181872"
+}

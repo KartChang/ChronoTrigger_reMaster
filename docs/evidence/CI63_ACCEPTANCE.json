@@ -1,0 +1,245 @@
+{
+  "schema": "chrono-ci-acceptance-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ02U",
+  "version": "0.9.43",
+  "sourceSha": "1d2be87885c129442d6123625b030d599ed8db50",
+  "sourceTree": "ba4480efcb7ed06451a3202cbbb55958a27a819c",
+  "runId": "35807473251",
+  "runNumber": 63,
+  "workflowId": "360357259",
+  "event": "push",
+  "attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "accepted": true,
+  "completedUtc": "2026-09-23T02:11:17Z",
+  "jobs": [
+    107011397811,
+    107011397944,
+    107011398060
+  ],
+  "jobConclusions": [
+    "success",
+    "success",
+    "success"
+  ],
+  "ledgerVerification": {
+    "schema": "chrono-ci63-readonly-verification-v1",
+    "sourceSha": "1d2be87885c129442d6123625b030d599ed8db50",
+    "runId": "35807473251",
+    "runAttempt": "1",
+    "sourceTree": "ba4480efcb7ed06451a3202cbbb55958a27a819c",
+    "verifiedUtc": "2026-09-23T09:48:23.405Z",
+    "records": [
+      {
+        "path": "evidence/ci/validate.json",
+        "bytes": 3768,
+        "sha256": "9fe4102e1b004f80dfe45567bae5c0e70c6769e4e98ab012148beac4f339c1de",
+        "rows": 17,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "good/test-results/ci/good.json",
+        "bytes": 2088,
+        "sha256": "24139cc3ea9b400b1b1f800249233561e060ff1a8ec948d9849771e542242705",
+        "rows": 8,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "bad/test-results/ci/bad.json",
+        "bytes": 1260,
+        "sha256": "bc451351c75d54312901b484162c9ab23f75a330ba6659ef7be7ee69b957ff13",
+        "rows": 4,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "evidence/render-compatibility/source-ledger.json",
+        "bytes": 1278,
+        "sha256": "c57fa2aff38ff925677899822776f010f979d58437850bea44466f3346b5a401",
+        "rows": 6,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "evidence/cpu-renderer/source-ledger.json",
+        "bytes": 2570,
+        "sha256": "3ffb846f37c6ecc254fea3802a82c65d21c23db77f5171e2d51f99949f34a5cb",
+        "rows": 14,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "evidence/cpu-renderer/era600/source-ledger.json",
+        "bytes": 4854,
+        "sha256": "e3575920fe014b162f10ed5fe9cd69e8f0184dc730800a07cb01bf526a471c1d",
+        "rows": 28,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      },
+      {
+        "path": "evidence/cpu-renderer/adventure-source-ledger.json",
+        "bytes": 11376,
+        "sha256": "c522b9d418613d93b3af566eb664cfb7383dd13138d702ddbdaed92f6d305448",
+        "rows": 62,
+        "status": "passed",
+        "byteIdenticalRecomputation": true
+      }
+    ],
+    "totalRows": 139,
+    "pause": [
+      {
+        "viewport": {
+          "width": 960,
+          "height": 640
+        },
+        "keys": [
+          "Tab",
+          "Tab",
+          "Space",
+          "Space",
+          "Tab"
+        ],
+        "steps": 5,
+        "status": "passed"
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "keys": [
+          "Tab",
+          "Tab",
+          "Space",
+          "Space",
+          "Tab"
+        ],
+        "steps": 5,
+        "status": "passed"
+      },
+      {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "keys": [
+          "Tab",
+          "Tab",
+          "Space",
+          "Space",
+          "Tab"
+        ],
+        "steps": 5,
+        "status": "passed"
+      }
+    ],
+    "htmlSha256": "1e8f3920a0c983606d31384e42024c331b0ea05d71272e8adfe92d82de61d4e4",
+    "htmlBytes": 5707852,
+    "noLocalBrowser": true,
+    "artApproved": false,
+    "physicalDeviceApproved": false,
+    "wholeGameAccepted": false
+  },
+  "originalArchives": [
+    {
+      "name": "CI63-chrono-hd2d-browser-evidence.zip",
+      "artifactId": 10728987429,
+      "bytes": 31456832,
+      "sha256": "56f028d8a7fb82edc26fd9f4d64020e3d7e8e98a1ca82303972c55daaf12aa3d",
+      "zipCrc": true
+    },
+    {
+      "name": "CI63-chrono-witness-good-evidence.zip",
+      "artifactId": 10729300443,
+      "bytes": 26480676,
+      "sha256": "b8588191a2cfc27f6f3e66e756117d88d6a22c6915100038f2829f5c66818d20",
+      "zipCrc": true
+    },
+    {
+      "name": "CI63-chrono-witness-bad-evidence.zip",
+      "artifactId": 10728099461,
+      "bytes": 4263928,
+      "sha256": "d4bc58ef0b16756a9df7050ccd9144e8bb325a706f321c967378868c4f83a449",
+      "zipCrc": true
+    },
+    {
+      "name": "CI63-chrono-hd2d-playable.zip",
+      "artifactId": 10728892730,
+      "bytes": 1324971,
+      "sha256": "84459fc433278bfb4f8c5d55776cd9fb002f7496316b288e0a5d5dee4fc64f0a",
+      "zipCrc": true
+    },
+    {
+      "name": "CI63-chrono-hd2d-art-review-kit.zip",
+      "artifactId": 10728912630,
+      "bytes": 324934,
+      "sha256": "2b6e752dfb755734a835b05ef8336f400378016e2239835f313e955880f6cd79",
+      "zipCrc": true
+    },
+    {
+      "name": "Pages57-chrono-pages-staged-preview.zip",
+      "artifactId": 10729057054,
+      "bytes": 1330341,
+      "sha256": "d2ea4516442028fff36838f96061f952b09f34e04df4f309553d891a0df6d983",
+      "zipCrc": true
+    },
+    {
+      "name": "Pages57-github-pages.zip",
+      "artifactId": 10729141645,
+      "bytes": 1328637,
+      "sha256": "22fd8f28ee6d53ca8575a8f033c573dae3d8ba9d797a4c713fe1cef31fd778cd",
+      "zipCrc": true
+    }
+  ],
+  "cloudRetention": {
+    "fileId": "1Zltufu3mZ_mJqX1_zrt8eETvp8-uJuzJ",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileName": "Chrono-CI63-VQ02U-evidence.zip",
+    "bytes": 68549728,
+    "sha256": "79cab3b7a41f3080b35689c97ba469522675b3e62ad8bb8e1840c2d4873d7946",
+    "downloadedBack": true,
+    "parentReadBack": true,
+    "zipCrcVerified": true,
+    "manifestItems": 22,
+    "allManifestVerified": true,
+    "innerOriginalZipsCrcVerified": 7,
+    "verifiedUtc": "2026-09-23T09:55:43.623462+00:00"
+  },
+  "pages": {
+    "runId": "35809349787",
+    "runNumber": 57,
+    "status": "completed",
+    "conclusion": "success",
+    "sourceSha": "1d2be87885c129442d6123625b030d599ed8db50",
+    "selectedCiRunId": "35807473251",
+    "artifactId": 10728892730,
+    "htmlBytes": 5707852,
+    "htmlSha256": "1e8f3920a0c983606d31384e42024c331b0ea05d71272e8adfe92d82de61d4e4",
+    "playableStagedDeployedIdentical": true,
+    "publicHttpStep": "success",
+    "noLocalHttpReplay": true
+  },
+  "visualReview": {
+    "originalCpuPaths": 60,
+    "contactSheets": 7,
+    "fullResolutionAdditional": [
+      "cpu-renderer/era600/pause-controls-2.png",
+      "cpu-renderer/era600/village-canvas-1.png"
+    ],
+    "all60FullResolution": false,
+    "notes": "All original12 village captures and native pause controls retained. Truce inn sign/window detail and portrait empty space still need improvement; technical acceptance is not an art grade."
+  },
+  "originalScopeRetained": "3 jobs/13 primary/9 original native chooser/fullCPU two journeys/600/rescue/trial; own same-run v4-v5-v7 and alternate own cell;67 legs,4 encounters,2 props,17 milestones,6 windows; U5 raw native keys each of3viewports; all original assertion/time/input/quality budgets",
+  "corrects": "CI62 pause-native-checkbox-space-resumes-world; CI62 remains historical failure",
+  "noLocalBrowser": true,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null
+}

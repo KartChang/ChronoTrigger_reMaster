@@ -1,0 +1,23 @@
+{
+  "fileName": "Chrono-CI63-accepted-VQ02V-tested-batch.zip",
+  "bytes": 770020,
+  "sha256": "862fc920a1725a13c13762bef398f7ad3e57ce162f5600d5658298660e7d6ee7",
+  "manifestItems": 20,
+  "programFiles": 360,
+  "expectedRootTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+  "fileId": "1H1NrWpgkA3dMXrnvm819Vw-8x4zrUpX2",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "downloadedBack": true,
+  "parentReadBack": true,
+  "zipCrcVerified": true,
+  "manifestVerified": true,
+  "programManifestAndTarVerified": true,
+  "verifiedUtc": "2026-09-23T10:06:07.240956+00:00",
+  "archiveKind": "assembled-tested-program-not-published-Git-archive",
+  "programArchive": "development/VQ02V-tested-program-snapshot.tar.gz",
+  "progressDocsAuthority": "GitHub main",
+  "publishedSource": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "sourceTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+  "runId": "35847433193",
+  "nativeAccepted": false
+}

@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import {retainCpuEraFailure} from './cpu-era-failure.mjs';
 import {assertWoodland} from './woodland-evidence.mjs';
 import {assertVillage,assertVillageLayouts} from './village-evidence.mjs';
 import {readFileSync, writeFileSync} from 'node:fs';
@@ -130,5 +131,5 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
 }
 if(process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  try{const r=inspectCpuEraEvidence({dir:'test-results/cpu-renderer/era600',buildDir:'dist',sourceSha:process.env.GITHUB_SHA,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT});writeFileSync('test-results/cpu-renderer/era600/source-ledger.json',JSON.stringify(r,null,2)+'\n');console.log(JSON.stringify(r));}
- catch(e){console.error(e);process.exitCode=1;}
+ catch(e){console.error(e);try{retainCpuEraFailure('test-results/cpu-renderer/era600',e,{sourceSha:process.env.GITHUB_SHA,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT});}catch(retentionError){console.error('Failure receipt could not be written',retentionError);}process.exitCode=1;}
 }

@@ -1,6 +1,6 @@
 /** Authored window joinery and warm glass. Rect-only original pixels; no fonts,
  * ROM media, random source, clock or gameplay dependency. Shared per Truce owner. */
-export const TOWN_DETAIL_ART=Object.freeze({id:'vq02v-town-details',approved:false,romPixels:false,signScale:1.6});
+export const TOWN_DETAIL_ART=Object.freeze({id:'vq02v-town-details',approved:false,romPixels:false,signScale:2.75});
 export const DETAIL_KINDS=['frame','glass'] as const;
 export type DetailKind=typeof DETAIL_KINDS[number];
 export const DETAIL_SIZES=Object.freeze({frame:64,glass:32});

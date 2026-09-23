@@ -1,0 +1,614 @@
+{
+  "schema": "chrono-ci64-recorded-town-projection-component-v1",
+  "provenance": "Read-only exact component extracted from a FAILED CI64; not a successful journey or synthetic game state. Full original report retained separately.",
+  "sourceSha": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "runId": "35847433193",
+  "runAttempt": "1",
+  "originalReportSha256": "d0702b7234e18cf1755beb62cc212af37728efe3e22361b436608415e2ffc2fe",
+  "views": [
+    {
+      "viewport": {
+        "width": 960,
+        "height": 640
+      },
+      "renderer": {
+        "width": 543,
+        "height": 362,
+        "level": 1,
+        "mode": "auto"
+      },
+      "details": {
+        "profile": "vq02v-town-details",
+        "approved": false,
+        "owner": "kingdom-truce",
+        "windows": [
+          {
+            "kind": "frame",
+            "name": "truce-detail-frame",
+            "width": 64,
+            "height": 64,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 16,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  69,
+                  56,
+                  44,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  208,
+                  166,
+                  106,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  153,
+                  114,
+                  68,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  116,
+                  82,
+                  51,
+                  255
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "glass",
+            "name": "truce-detail-glass",
+            "width": 32,
+            "height": 32,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 8,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  114,
+                  93,
+                  56,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  159,
+                  169,
+                  145,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  225,
+                  199,
+                  143,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  179,
+                  148,
+                  92,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  212,
+                  180,
+                  117,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  87,
+                  75,
+                  54,
+                  255
+                ]
+              }
+            ]
+          }
+        ],
+        "sign": {
+          "name": "inn-sign",
+          "texture": "truce-inn-sign",
+          "position": [
+            -4.7,
+            2.4,
+            -3.4
+          ],
+          "scaling": [
+            1.6,
+            1.6,
+            1
+          ],
+          "vertices": 4,
+          "indices": 6,
+          "projection": {
+            "source": "scene-matrix-projection",
+            "viewport": {
+              "width": 543,
+              "height": 362
+            },
+            "rect": {
+              "x": 101.59355392456055,
+              "y": 286.41421756744387,
+              "width": 65.39355010986327,
+              "height": 32.69677238464351
+            },
+            "inside": true
+          }
+        }
+      },
+      "image": {
+        "path": "village-canvas-0.png",
+        "bytes": 44038,
+        "sha256": "891f60d3f95498d15c0344383fbc522745bd59d5fc8aa539a7262c2a288f3eab",
+        "source": "actual-cpu-canvas"
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "renderer": {
+        "width": 249,
+        "height": 540,
+        "level": 1,
+        "mode": "auto"
+      },
+      "details": {
+        "profile": "vq02v-town-details",
+        "approved": false,
+        "owner": "kingdom-truce",
+        "windows": [
+          {
+            "kind": "frame",
+            "name": "truce-detail-frame",
+            "width": 64,
+            "height": 64,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 16,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  69,
+                  56,
+                  44,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  208,
+                  166,
+                  106,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  153,
+                  114,
+                  68,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  116,
+                  82,
+                  51,
+                  255
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "glass",
+            "name": "truce-detail-glass",
+            "width": 32,
+            "height": 32,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 8,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  114,
+                  93,
+                  56,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  159,
+                  169,
+                  145,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  225,
+                  199,
+                  143,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  179,
+                  148,
+                  92,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  212,
+                  180,
+                  117,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  87,
+                  75,
+                  54,
+                  255
+                ]
+              }
+            ]
+          }
+        ],
+        "sign": {
+          "name": "inn-sign",
+          "texture": "truce-inn-sign",
+          "position": [
+            -4.7,
+            2.4,
+            -3.4
+          ],
+          "scaling": [
+            1.6,
+            1.6,
+            1
+          ],
+          "vertices": 4,
+          "indices": 6,
+          "projection": {
+            "source": "scene-matrix-projection",
+            "viewport": {
+              "width": 249,
+              "height": 540
+            },
+            "rect": {
+              "x": 33.92625484466553,
+              "y": 326.19424085617067,
+              "width": 34.85999946594239,
+              "height": 17.42999973297117
+            },
+            "inside": true
+          }
+        }
+      },
+      "image": {
+        "path": "village-canvas-1.png",
+        "bytes": 23068,
+        "sha256": "52efe6d323365b9cba9af0d5bd0fd871a2c82170ec58b05cff17c19c39a140d8",
+        "source": "actual-cpu-canvas"
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "renderer": {
+        "width": 540,
+        "height": 249,
+        "level": 1,
+        "mode": "auto"
+      },
+      "details": {
+        "profile": "vq02v-town-details",
+        "approved": false,
+        "owner": "kingdom-truce",
+        "windows": [
+          {
+            "kind": "frame",
+            "name": "truce-detail-frame",
+            "width": 64,
+            "height": 64,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 16,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  69,
+                  56,
+                  44,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  208,
+                  166,
+                  106,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  153,
+                  114,
+                  68,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  170,
+                  128,
+                  80,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  116,
+                  82,
+                  51,
+                  255
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "glass",
+            "name": "truce-detail-glass",
+            "width": 32,
+            "height": 32,
+            "sampling": 1,
+            "alpha": false,
+            "meshes": 8,
+            "samples": [
+              {
+                "x": 0,
+                "y": 0,
+                "rgba": [
+                  114,
+                  93,
+                  56,
+                  255
+                ]
+              },
+              {
+                "x": 3,
+                "y": 3,
+                "rgba": [
+                  159,
+                  169,
+                  145,
+                  255
+                ]
+              },
+              {
+                "x": 7,
+                "y": 12,
+                "rgba": [
+                  225,
+                  199,
+                  143,
+                  255
+                ]
+              },
+              {
+                "x": 13,
+                "y": 21,
+                "rgba": [
+                  179,
+                  148,
+                  92,
+                  255
+                ]
+              },
+              {
+                "x": 23,
+                "y": 8,
+                "rgba": [
+                  212,
+                  180,
+                  117,
+                  255
+                ]
+              },
+              {
+                "x": 30,
+                "y": 30,
+                "rgba": [
+                  87,
+                  75,
+                  54,
+                  255
+                ]
+              }
+            ]
+          }
+        ],
+        "sign": {
+          "name": "inn-sign",
+          "texture": "truce-inn-sign",
+          "position": [
+            -4.7,
+            2.4,
+            -3.4
+          ],
+          "scaling": [
+            1.6,
+            1.6,
+            1
+          ],
+          "vertices": 4,
+          "indices": 6,
+          "projection": {
+            "source": "scene-matrix-projection",
+            "viewport": {
+              "width": 540,
+              "height": 249
+            },
+            "rect": {
+              "x": 153.13064918518066,
+              "y": 197.00866870880128,
+              "width": 44.98064498901368,
+              "height": 22.490322494506813
+            },
+            "inside": true
+          }
+        }
+      },
+      "image": {
+        "path": "village-canvas-2.png",
+        "bytes": 39799,
+        "sha256": "e04422d45b13b07202753d24645c171b45cad77f857e57c6e1bf49055cb4b3ea",
+        "source": "actual-cpu-canvas"
+      }
+    }
+  ],
+  "offlineCameraInput": {
+    "joined": true,
+    "players": [
+      {
+        "x": 0,
+        "z": 6.4
+      },
+      {
+        "x": 0,
+        "z": 6.4
+      }
+    ]
+  }
+}

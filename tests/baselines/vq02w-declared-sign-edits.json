@@ -1,0 +1,123 @@
+{
+  "schema": "chrono-vq02w-declared-sign-edits-v1",
+  "baseSource": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "files": {
+    "src/village-detail-art.ts": [
+      {
+        "before": "signScale:1.6",
+        "after": "signScale:2.75"
+      }
+    ],
+    "scripts/village-detail-evidence.mjs": [
+      {
+        "before": "const need=(ok,why)=>{if(!ok)throw Error('Town detail evidence: '+why);};",
+        "after": "const need=(ok,why,observation)=>{if(!ok){const error=Error('Town detail evidence: '+why);if(observation)error.observation=structuredClone(observation);throw error;}};"
+      },
+      {
+        "before": "same(s.scaling,[1.6,1.6,1])",
+        "after": "same(s.scaling,[2.75,2.75,1])"
+      },
+      {
+        "before": "'readable sign rectangle');",
+        "after": "'readable sign rectangle',{projection:p,renderSize,required:{width:40,height:20}});"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.44',batch:'VQ02V'",
+        "after": "version:'0.9.45',batch:'VQ02W'"
+      }
+    ],
+    "tests/helpers/village-detail-fixture.mjs": [
+      {
+        "before": "scaling:[1.6,1.6,1]",
+        "after": "scaling:[2.75,2.75,1]"
+      }
+    ],
+    "tests/village-detail.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs';",
+        "after": "from '../.test/sign-baseline-cpu-entry.mjs';"
+      },
+      {
+        "before": "from '../.test/village-detail.mjs';",
+        "after": "from '../.test/sign-baseline-village-detail.mjs';"
+      },
+      {
+        "before": "from '../.test/village-detail-art.mjs';",
+        "after": "from '../.test/sign-baseline-village-detail-art.mjs';"
+      },
+      {
+        "before": "from '../scripts/village-detail-evidence.mjs';",
+        "after": "from '../.test/sign-baseline-village-detail-evidence.mjs';"
+      },
+      {
+        "before": "import {detailBaseline} from './helpers/detail-baseline.mjs';import {townDetailFixture} from './helpers/village-detail-fixture.mjs';",
+        "after": "import {detailBaseline} from './helpers/detail-baseline.mjs';import {townDetailFixture as currentUnitFixture} from './helpers/village-detail-fixture.mjs';\n// Only this in-memory V schema fixture retains V's declared scale. No native record is edited.\nconst townDetailFixture=(...args)=>{const v=currentUnitFixture(...args);v.sign.scaling=[1.6,1.6,1];return v;};"
+      },
+      {
+        "before": "import {detailBaseline} from './helpers/detail-baseline.mjs';",
+        "after": "import {signIfDeclared} from './helpers/sign-baseline.mjs';\nimport {detailBaseline} from './helpers/detail-baseline.mjs';"
+      },
+      {
+        "before": "const s=readFileSync(name,'utf8');assert.equal(sha(detailBaseline(name,s)),spec.originalSha256[name]);",
+        "after": "const s=signIfDeclared(name,readFileSync(name,'utf8'));assert.equal(sha(detailBaseline(name,s,false)),spec.originalSha256[name]);"
+      },
+      {
+        "before": "detailBaseline(name,s+'\\n'+edits.at(-1).after)",
+        "after": "detailBaseline(name,s+'\\n'+edits.at(-1).after,false)"
+      },
+      {
+        "before": "detailBaseline(name,s.replace(edits.at(-1).after,''))",
+        "after": "detailBaseline(name,s.replace(edits.at(-1).after,''),false)"
+      },
+      {
+        "before": "detailBaseline(name,s+'\\n// unrelated change\\n')",
+        "after": "detailBaseline(name,s+'\\n// unrelated change\\n',false)"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';",
+        "after": "import {build} from 'esbuild';\nimport {signIfDeclared,signBaseline} from '../tests/helpers/sign-baseline.mjs';"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test','tests/village-detail.test.mjs'",
+        "after": "const signPlugin={name:'exact-ci64-sign-only',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]village-detail-art\\.ts$/},args=>({contents:signBaseline('src/village-detail-art.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}};\nfor(const [entry,name] of [['tests/cpu-entry.ts','cpu-entry'],['src/village-detail.ts','village-detail'],['src/village-detail-art.ts','village-detail-art']])await build({entryPoints:[entry],bundle:true,outfile:`.test/sign-baseline-${name}.mjs`,format:'esm',platform:'node',packages:'external',plugins:[signPlugin]});\nawait build({stdin:{contents:signBaseline('scripts/village-detail-evidence.mjs',readFileSync('scripts/village-detail-evidence.mjs','utf8')),loader:'js',resolveDir:process.cwd()+'/scripts'},bundle:true,outfile:'.test/sign-baseline-village-detail-evidence.mjs',format:'esm',platform:'node'});\nconst r=spawnSync(process.execPath,['--test','tests/sign-readability.test.mjs','tests/cpu-era-failure.test.mjs','tests/village-detail.test.mjs'"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {createHash} from 'node:crypto';",
+        "after": "import {createHash} from 'node:crypto';\nimport {retainCpuEraFailure} from './cpu-era-failure.mjs';"
+      },
+      {
+        "before": " catch(e){console.error(e);process.exitCode=1;}",
+        "after": " catch(e){console.error(e);try{retainCpuEraFailure('test-results/cpu-renderer/era600',e,{sourceSha:process.env.GITHUB_SHA,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT});}catch(retentionError){console.error('Failure receipt could not be written',retentionError);}process.exitCode=1;}"
+      }
+    ],
+    "tests/helpers/detail-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';\nconst spec=JSON.parse(readFileSync(new URL('../baselines/vq02v-declared-town-detail-edits.json',import.meta.url),'utf8'));\n/** Test-only, enumerated inverse to keep U/T/S/R comparisons on their exact\n * historical source. Never edits a native report, save, runtime state or hash. */\nexport function detailBaseline(name,source){\n const edits=spec.files[name];if(!edits)throw Error('Undeclared town detail source');\n for(const {before,after} of [...edits].reverse()){\n  if(!after||source.split(after).length!==2)throw Error('Town detail edit missing, duplicated or changed');\n  source=source.replace(after,before);\n }\n return source;\n}\nexport const detailIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)?detailBaseline(name,source):source;\n",
+        "after": "import {signIfDeclared} from './sign-baseline.mjs';\nimport {readFileSync} from 'node:fs';\nconst spec=JSON.parse(readFileSync(new URL('../baselines/vq02v-declared-town-detail-edits.json',import.meta.url),'utf8'));\n/** Test-only, enumerated inverse to keep U/T/S/R comparisons on their exact\n * historical source. Never edits a native report, save, runtime state or hash. */\nexport function detailBaseline(name,source,includeSign=true){\n if(includeSign)source=signIfDeclared(name,source);\n const edits=spec.files[name];if(!edits)throw Error('Undeclared town detail source');\n for(const {before,after} of [...edits].reverse()){\n  if(!after||source.split(after).length!==2)throw Error('Town detail edit missing, duplicated or changed');\n  source=source.replace(after,before);\n }\n return source;\n}\nexport const detailIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)?detailBaseline(name,source):signIfDeclared(name,source);\n"
+      }
+    ],
+    "tests/readability_preservation.py": [
+      {
+        "before": "\"\"\"Exact, enumerated T inverse for old-source checks, never native mutation.\"\"\"\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02t-declared-readability-edits.json').read_text())\ndef restore_readability_source(name,source):\n    if name not in SPEC['files']: raise ValueError('undeclared readability source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('readability edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n",
+        "after": "\"\"\"Exact, enumerated T inverse for old-source checks, never native mutation.\"\"\"\nfrom sign_preservation import restore_sign_source\nimport json\nfrom pathlib import Path\nSPEC=json.loads((Path(__file__).parent/'baselines/vq02t-declared-readability-edits.json').read_text())\ndef restore_readability_source(name,source):\n    if name == 'scripts/cpu-era-evidence.mjs': source = restore_sign_source(name,source)\n    if name not in SPEC['files']: raise ValueError('undeclared readability source')\n    for edit in reversed(SPEC['files'][name]):\n        before,after=edit['before'],edit['after']\n        if not after or source.count(after)!=1: raise AssertionError('readability edit changed or duplicated')\n        source=source.replace(after,before,1)\n    return source\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/village-detail-art.ts": "be617e57e4a3cab0a5182132e7b1972a1b4279f3431b71c36476b67e5666e557",
+    "scripts/village-detail-evidence.mjs": "ce031df1dc70bebba097e11a05ecf8920b2ec3ce280ebc66fa427b27e143dd9f",
+    "scripts/build.mjs": "570d52aca34994350649f827be85f70da293e40bc0abc2096bdf9306c57fa244",
+    "tests/helpers/village-detail-fixture.mjs": "e52ef1428497424d30603ebbad07a8403b4e616a1cc27b666b54f20f547137e5",
+    "tests/village-detail.test.mjs": "57a3281206f00473a1781b5f0d7ac3068b40681f1c3bafc7a12f523d8fec5716",
+    "scripts/test.mjs": "03fd7cd274882d710417bd123ae67fa26b6b090ce41080654002a0cab52d6e80",
+    "scripts/cpu-era-evidence.mjs": "fccbed567b3ecc4f90d0acace706f7d7e000a7145c5a03a9e291dd4296f52ee1",
+    "tests/helpers/detail-baseline.mjs": "0fa7d442e634e65f9b3f5fe741cd5c572a76b1ea1f1ba06a85b0cf2edc2f8db5",
+    "tests/readability_preservation.py": "30827cf16d31534c878fd1da0564db194cd1ae7c4203a5600e18bb2fdfa8cf11"
+  }
+}

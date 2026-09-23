@@ -1,13 +1,16 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {NullEngine,Scene,TransformNode,MeshBuilder,DynamicTexture,StandardMaterial} from '@babylonjs/core';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/sign-baseline-cpu-entry.mjs';
 import {World as OriginalWorld} from '../.test/detail-baseline-cpu-entry.mjs';
-import {VillageDetail} from '../.test/village-detail.mjs';
-import {DETAIL_KINDS,DETAIL_SIZES,DETAIL_SAMPLE_POINTS,drawTownDetail,TOWN_DETAIL_ART} from '../.test/village-detail-art.mjs';
+import {VillageDetail} from '../.test/sign-baseline-village-detail.mjs';
+import {DETAIL_KINDS,DETAIL_SIZES,DETAIL_SAMPLE_POINTS,drawTownDetail,TOWN_DETAIL_ART} from '../.test/sign-baseline-village-detail-art.mjs';
 import {surface} from '../scripts/asset-export.mjs';import {cpuTestCanvas} from './cpu-test-canvas.mjs';
-import {detailBaseline} from './helpers/detail-baseline.mjs';import {townDetailFixture} from './helpers/village-detail-fixture.mjs';
-import {assertTownDetails} from '../scripts/village-detail-evidence.mjs';
+import {signIfDeclared} from './helpers/sign-baseline.mjs';
+import {detailBaseline} from './helpers/detail-baseline.mjs';import {townDetailFixture as currentUnitFixture} from './helpers/village-detail-fixture.mjs';
+// Only this in-memory V schema fixture retains V's declared scale. No native record is edited.
+const townDetailFixture=(...args)=>{const v=currentUnitFixture(...args);v.sign.scaling=[1.6,1.6,1];return v;};
+import {assertTownDetails} from '../.test/sign-baseline-village-detail-evidence.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const expected=JSON.parse(readFileSync('tests/fixtures/village-detail-pixels-unit.json'));
 for(const kind of DETAIL_KINDS)test('V '+kind+' is deterministic original opaque pixel art',()=>{
@@ -19,16 +22,16 @@ for(const kind of DETAIL_KINDS)test('V '+kind+' is deterministic original opaque
 });
 const spec=JSON.parse(readFileSync('tests/baselines/vq02v-declared-town-detail-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('V exact U inverse and negative mutations: '+name,()=>{
- const s=readFileSync(name,'utf8');assert.equal(sha(detailBaseline(name,s)),spec.originalSha256[name]);
+ const s=signIfDeclared(name,readFileSync(name,'utf8'));assert.equal(sha(detailBaseline(name,s,false)),spec.originalSha256[name]);
  // For overlapping edits, mutation is applied at its reverse stage, not to an
  // already superseded earlier token. Every declared delta remains single-use.
  let stage=s;for(const {before,after} of [...edits].reverse()){
   assert.equal(stage.split(after).length,2);assert.notEqual(stage.replace(after,'').split(after).length,2);assert.notEqual((stage+after).split(after).length,2);
   stage=stage.replace(after,before);
  }
- assert.equal(sha(stage),spec.originalSha256[name]);assert.throws(()=>detailBaseline(name,s+'\n'+edits.at(-1).after));
- assert.throws(()=>detailBaseline(name,s.replace(edits.at(-1).after,'')));
- assert.notEqual(sha(detailBaseline(name,s+'\n// unrelated change\n')),spec.originalSha256[name]);
+ assert.equal(sha(stage),spec.originalSha256[name]);assert.throws(()=>detailBaseline(name,s+'\n'+edits.at(-1).after,false));
+ assert.throws(()=>detailBaseline(name,s.replace(edits.at(-1).after,''),false));
+ assert.notEqual(sha(detailBaseline(name,s+'\n// unrelated change\n',false)),spec.originalSha256[name]);
 });
 test('V does not exempt held home, game rules, scene topology, input, old material pixels or budgets',()=>{
  for(const p of ['src/prologue-render.ts','src/core.ts','src/main.ts','src/kingdom-render.ts','src/input.ts','src/input-boundary.ts','src/village-art.ts','src/village-planter-art.ts','src/cpu-raster.ts','src/cpu-engine.ts','src/render.ts','src/art-profile.ts','.github/workflows/ci.yml'])assert.throws(()=>detailBaseline(p,'change'));

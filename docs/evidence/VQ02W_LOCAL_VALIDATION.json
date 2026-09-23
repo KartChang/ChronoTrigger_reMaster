@@ -1,0 +1,166 @@
+{
+  "schema": "chrono-vq02w-local-validation-v1",
+  "batch": "VQ02W",
+  "version": "0.9.45",
+  "baseSource": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "publicationParent": "d900565412c6d74d60ea993e006086fb434fb915",
+  "expectedRootTree": "faf4656e7b1eedecc9d808ac5c2896fccd6ee0b6",
+  "localSnapshotTree": "da36252d04c16d3eab7d13b406cd881c8c65f282",
+  "publishedSource": "11ae55d6c90d8bb6eb5f6f75eed05993191bfa35",
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "ef068189b91ed1ce973e17020464cb61c97b9b5cc5b870f6605141a32604eaa4",
+      "gitBlob": "ad689bc4a80a2e4f5ad0fa3557a7f93bb87193e9"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 13286,
+      "sha256": "1a202344de6fd3a197a393ef7bdef1321ed8100286adcc2865db5fbe00e04fb6",
+      "gitBlob": "15ea422af48fe82b2f72e3c0b765d7ddda3c4478"
+    },
+    {
+      "path": "scripts/cpu-era-failure.mjs",
+      "bytes": 1121,
+      "sha256": "25cfa62c0f931b72ab0bcaf2c2784b663c81a20cacf2cb4e8ac83b6aa2a4e494",
+      "gitBlob": "fd5ea6140702b3e0da04faf898f71390a0e27521"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 7001,
+      "sha256": "8a6913a49a0a743093e4681c240e960ebf56757e070a3014585de3e10305035f",
+      "gitBlob": "7a20300f75a6e7933be8989eb482fcb76e1f161e"
+    },
+    {
+      "path": "scripts/village-detail-evidence.mjs",
+      "bytes": 2197,
+      "sha256": "2d7706f46ddd7cc45e2bd9700d3d5d548df636c3bca733348f621a26dbd95ee6",
+      "gitBlob": "81a766955478d0a1a809fc49eb86fe4871ada6c2"
+    },
+    {
+      "path": "src/village-detail-art.ts",
+      "bytes": 1940,
+      "sha256": "78deab78cd1e524524d4219e7cf83bbea287f1949372e1c713af6ee0a32c2acc",
+      "gitBlob": "44805b6d4d147423be1fa19190d56f57fe3e2640"
+    },
+    {
+      "path": "tests/baselines/vq02w-declared-sign-edits.json",
+      "bytes": 9757,
+      "sha256": "2b207aefd20a0f06dceb50031912ad6b48827f8019dd7688244f6a846c99dc0d",
+      "gitBlob": "fc2ad99d4b02e0fe1d8502a742b2ca4868fbe920"
+    },
+    {
+      "path": "tests/cpu-era-failure.test.mjs",
+      "bytes": 3565,
+      "sha256": "5e88eae8cfd2e31624e2b8f5328a5ef70f96eb845c8a16cea807d409ac5af815",
+      "gitBlob": "f800a2bdd6e0478605d4fb7b7dfbcbae701cab94"
+    },
+    {
+      "path": "tests/fixtures/ci64-recorded-sign-failure.json",
+      "bytes": 13906,
+      "sha256": "2ae312fd2a5989b229e660299682cf3d06d496b81bef1c0baf1a2ee4510e3a06",
+      "gitBlob": "dec8d1f17f60acb87bdd7438c82f670c78021c98"
+    },
+    {
+      "path": "tests/helpers/detail-baseline.mjs",
+      "bytes": 926,
+      "sha256": "c36ea0e7ed7a629be6ff2df3eaec46fe82a2b02b502e82e9132778286b3a9b36",
+      "gitBlob": "b7efc23a9a9670900c0bbe693625e36e0b196932"
+    },
+    {
+      "path": "tests/helpers/sign-baseline.mjs",
+      "bytes": 685,
+      "sha256": "6c2a897a8d089f24e24e908ea1899f1f9dffbc6904843ce52cd4f2dcfe72d4a3",
+      "gitBlob": "df1d21228a6e28d13bb285f1720ffa8a162d037a"
+    },
+    {
+      "path": "tests/helpers/village-detail-fixture.mjs",
+      "bytes": 813,
+      "sha256": "7ce20c8798768f394d8b447781bd1aae219def26706cf05c5fd98b41eaed0890",
+      "gitBlob": "ff5dcfb3e1ade1d7f4ce8639818feff3c6120dbb"
+    },
+    {
+      "path": "tests/readability_preservation.py",
+      "bytes": 760,
+      "sha256": "4a4a0f32b2b9b7f3b7810b139d01320b0b980b253387b94553599c50f58a22e0",
+      "gitBlob": "5a4afb8f87790bc875e90f88f777f8071b2a818f"
+    },
+    {
+      "path": "tests/sign-readability.test.mjs",
+      "bytes": 8546,
+      "sha256": "7fbf12949949a5f9d9a3eff4b8156ba53f549833ea0e53a4a8514bf552f98ec0",
+      "gitBlob": "e516af5408d46df507e1657428d249f0ecaa0156"
+    },
+    {
+      "path": "tests/sign_preservation.py",
+      "bytes": 595,
+      "sha256": "e4e55f00ac7441141f6280b46377581a74c5e2154824749556fce2656e4c2cf9",
+      "gitBlob": "73200e6867fe149fe04b8114a0c5dcc44bb6f9cf"
+    },
+    {
+      "path": "tests/sign_preservation_test.py",
+      "bytes": 1524,
+      "sha256": "ecb6552145bf273a8b2674213fa2ab21fdb8a8e30eb676a042a9a7be97c2140a",
+      "gitBlob": "0fb39eb86beb13fb456e4623643a4799872a4ea2"
+    },
+    {
+      "path": "tests/village-detail.test.mjs",
+      "bytes": 11767,
+      "sha256": "e5abfa6b22ddd9d279c595cf074248e18ea46548a3e4659ac240b4bd373f1ebb",
+      "gitBlob": "0f7a22b33bcfb603496c6603c31a42974f582fff"
+    }
+  ],
+  "programFiles": 368,
+  "nodeTests": 1560,
+  "pythonTests": 360,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "noLocalBrowser": true,
+  "offlinePolicyComparisons": 42,
+  "offlineDpr": [
+    1,
+    2
+  ],
+  "minimumOfflineProjection": {
+    "kind": "offline-policy-projection-not-native",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "dpr": 2,
+    "mode": "auto",
+    "level": 3,
+    "canvas": {
+      "width": 167,
+      "height": 361
+    },
+    "rect": {
+      "x": 14.351564788818362,
+      "y": 213.98739929199218,
+      "width": 40.18437499999999,
+      "height": 20.092187500000023
+    },
+    "inside": true
+  },
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-23T12:01:34.048526+00:00",
+  "scope": "Constant sign-only scale1.6->2.75; no pixels/material/anchor/camera/game/input/quality change; current 40x20 gate retained and full policy-tier/source-preservation/failure receipt tests added.",
+  "publishedRootTree": "faf4656e7b1eedecc9d808ac5c2896fccd6ee0b6",
+  "sourceTreeMatched": true,
+  "runId": "35859095751",
+  "runNumber": 65,
+  "cloudFileId": "1BVuwwwOub4u88TkPWy-Zefq5hxRrLYnD",
+  "srcTree": "c9f99be8e0977dcf48f8d10e418c1ed2a713c297",
+  "scriptsTree": "24de8bd0c10442788bf4546d35f757de9e72ffe2",
+  "testsTree": "2a545e8c81e1d1d3f11b666d37dd6d6a46aad8f7"
+}

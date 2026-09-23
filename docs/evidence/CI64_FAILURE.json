@@ -1,0 +1,178 @@
+{
+  "schema": "chrono-ci-failure-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "runId": "35847433193",
+  "runNumber": 64,
+  "sourceSha": "3cf048e5debba3a679385112c21f45c55c5d0e19",
+  "sourceTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+  "event": "push",
+  "attempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "completedUtc": "2026-09-23T10:38:27Z",
+  "accepted": false,
+  "jobId": 107136875166,
+  "firstFailedStep": 23,
+  "stepName": "Verify same-source CPU sampling and native 600 AD continuation",
+  "root": "town-sign-under40x20-after-cpu-auto-downscale",
+  "rawEraReportStatus": "passed",
+  "rawReportSha256": "d0702b7234e18cf1755beb62cc212af37728efe3e22361b436608415e2ffc2fe",
+  "failure": {
+    "type": "Error",
+    "message": "Town detail evidence: readable sign rectangle",
+    "actualSource": "scripts/cpu-era-evidence.mjs -> scripts/village-detail-evidence.mjs:21",
+    "reproducedWithExactVVerifier": true,
+    "required": {
+      "width": 40,
+      "height": 20
+    }
+  },
+  "nativeCpuJourneyStep21": "success",
+  "cpuSourceLedgerStep22": "success",
+  "views": [
+    {
+      "viewport": {
+        "width": 960,
+        "height": 640
+      },
+      "renderer": {
+        "width": 543,
+        "height": 362,
+        "level": 1,
+        "mode": "auto"
+      },
+      "signProjection": {
+        "source": "scene-matrix-projection",
+        "viewport": {
+          "width": 543,
+          "height": 362
+        },
+        "rect": {
+          "x": 101.59355392456055,
+          "y": 286.41421756744387,
+          "width": 65.39355010986327,
+          "height": 32.69677238464351
+        },
+        "inside": true
+      },
+      "image": {
+        "path": "village-canvas-0.png",
+        "bytes": 44038,
+        "sha256": "891f60d3f95498d15c0344383fbc522745bd59d5fc8aa539a7262c2a288f3eab",
+        "source": "actual-cpu-canvas"
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "renderer": {
+        "width": 249,
+        "height": 540,
+        "level": 1,
+        "mode": "auto"
+      },
+      "signProjection": {
+        "source": "scene-matrix-projection",
+        "viewport": {
+          "width": 249,
+          "height": 540
+        },
+        "rect": {
+          "x": 33.92625484466553,
+          "y": 326.19424085617067,
+          "width": 34.85999946594239,
+          "height": 17.42999973297117
+        },
+        "inside": true
+      },
+      "image": {
+        "path": "village-canvas-1.png",
+        "bytes": 23068,
+        "sha256": "52efe6d323365b9cba9af0d5bd0fd871a2c82170ec58b05cff17c19c39a140d8",
+        "source": "actual-cpu-canvas"
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "renderer": {
+        "width": 540,
+        "height": 249,
+        "level": 1,
+        "mode": "auto"
+      },
+      "signProjection": {
+        "source": "scene-matrix-projection",
+        "viewport": {
+          "width": 540,
+          "height": 249
+        },
+        "rect": {
+          "x": 153.13064918518066,
+          "y": 197.00866870880128,
+          "width": 44.98064498901368,
+          "height": 22.490322494506813
+        },
+        "inside": true
+      },
+      "image": {
+        "path": "village-canvas-2.png",
+        "bytes": 39799,
+        "sha256": "e04422d45b13b07202753d24645c171b45cad77f857e57c6e1bf49055cb4b3ea",
+        "source": "actual-cpu-canvas"
+      }
+    }
+  ],
+  "completedWitnessJobs": [
+    107136876053,
+    107136876499
+  ],
+  "downstream": {
+    "cpuRescueAndTrialSkipped": true,
+    "adventureVerifierStep26": "failure",
+    "playableNotProduced": true,
+    "pagesAccepted": false
+  },
+  "originalArchive": {
+    "fileId": "13ZHgUXvPFvpD2CJtEy5wu7gj_Sfy8HkU",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "fileName": "Chrono-CI64-failure-original-browser-evidence.zip",
+    "bytes": 24221183,
+    "sha256": "b06fb1478f908a27c36338c070c5fb48c295d54617c7e741070f80fac52bc819",
+    "artifactId": 10744528350,
+    "artifactMetadataReportedBytes": 27269718,
+    "metadataSizeNote": "GitHub artifact response reported a different size; downloaded original and Drive returned bytes match each other and the artifact SHA256 digest. Actual bytes are authoritative.",
+    "downloadedBack": true,
+    "parentReadBack": true,
+    "zipCrcVerified": true,
+    "sourceTree": "8741d19d6b9f2ca932db8c23a644a45448684472",
+    "verifiedUtc": "2026-09-23T11:50:49.896979+00:00"
+  },
+  "provenanceNote": "Root determined by untouched artifact report and exact-source verifier reproduction. Decoded job-log wrapper named a different script/function; it is not treated as original raw-log proof. Artifact metadata size differs from downloaded bytes, while SHA256 digest and Drive roundtrip match.",
+  "visualReview": {
+    "fullResolution": [
+      "cpu-renderer/era600/village-canvas-0.png",
+      "cpu-renderer/era600/village-canvas-1.png"
+    ],
+    "notes": "Original portrait sign is small; no art score assigned. Not a full V visual acceptance."
+  },
+  "lastAccepted": {
+    "batch": "VQ02U",
+    "sourceSha": "1d2be87885c129442d6123625b030d599ed8db50",
+    "runId": "35807473251",
+    "pagesRunId": "35809349787",
+    "receipt": "docs/evidence/CI63_ACCEPTANCE.json"
+  },
+  "correctiveSource": "11ae55d6c90d8bb6eb5f6f75eed05993191bfa35",
+  "correctiveRunId": "35859095751",
+  "correctiveBatch": "VQ02W",
+  "correctionNativeAccepted": false,
+  "physicalDeviceApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null
+}

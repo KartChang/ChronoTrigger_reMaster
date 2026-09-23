@@ -1,0 +1,23 @@
+{
+  "fileName": "Chrono-CI64-failure-VQ02W-tested-batch.zip",
+  "bytes": 1043818,
+  "sha256": "e4b0bcdf3ee285daeaa9fe34c987c80bca92797a6f820c31db18500cd7af0fd9",
+  "manifestItems": 20,
+  "programFiles": 368,
+  "expectedRootTree": "faf4656e7b1eedecc9d808ac5c2896fccd6ee0b6",
+  "fileId": "1BVuwwwOub4u88TkPWy-Zefq5hxRrLYnD",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "downloadedBack": true,
+  "parentReadBack": true,
+  "zipCrcVerified": true,
+  "manifestVerified": true,
+  "programManifestAndTarVerified": true,
+  "verifiedUtc": "2026-09-23T12:02:58.540923+00:00",
+  "archiveKind": "assembled-tested-program-not-published-Git-archive",
+  "programArchive": "development/VQ02W-tested-program-snapshot.tar.gz",
+  "progressDocsAuthority": "GitHub main",
+  "publishedSource": "11ae55d6c90d8bb6eb5f6f75eed05993191bfa35",
+  "nativeAccepted": false,
+  "sourceTree": "faf4656e7b1eedecc9d808ac5c2896fccd6ee0b6",
+  "runId": "35859095751"
+}

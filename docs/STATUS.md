@@ -1,32 +1,26 @@
-# Current status — CI64 failed; VQ02W / CI65 pending
+# Current status — CI65 accepted; VQ02X / CI66 pending
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI65-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI65_CHECKPOINT。文件HEAD不是另一遊戲source。
+Current root：**T05-early-visual-cohesion**。Execution terminal：**CI66-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI66_CHECKPOINT。文件HEAD不是另一遊戲source。
 
-## 已發布修正批次
+## 已發布批次
 
-VQ02W／0.9.45 source **11ae55d6c90d8bb6eb5f6f75eed05993191bfa35**；root tree **faf4656e7b1eedecc9d808ac5c2896fccd6ee0b6**；parent **d900565412c6d74d60ea993e006086fb434fb915**。17檔一次non-force發布；368程式檔加當時main文件組成的tree與已測快照一致，main已回讀。唯一 **CI65／35859095751**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source全event/state count1。最後queued/null，created/updated **2026-09-23T12:12:59Z**（台灣20:12:59）。只查一次，未讀CI65 jobs/artifacts/Pages；W尚未原生接受。
+VQ02X／0.9.46 source **e18ac52e5ad37b0259ef1f27ce40c3d6fb9f6ef4**；root tree **eb8399aae63fa07d672aa865933e0bd28e841690**；parent **028052e37af97670f4d941550a0dce503bee2638**。23檔一次non-force發布，377程式檔及當時main文件組成的tree與已測快照一致，main已回讀。唯一 **CI66／35875725015**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source全event/state count1。最後queued/null，created/updated **2026-09-23T14:38:56Z**（台灣22:38:56）。只查一次，未讀CI66 jobs/artifacts/Pages；X尚未原生接受。
 
-W的runtime只改src/village-detail-art.ts之signScale **1.6→2.75**，固定比例，不依DPR或tier動態變形。原inn-sign／truce-inn-sign、80x40原pixels與material、anchor[-4.7,2.4,-3.4]、4vertices/6indices及Z scale1保留。V兩窗戶材質／16+8用途、S六建材／旅店原圖、T五花箱與排版、U暫停Space修正均不重做。不改相機、人物、CPU降級策略／sampling／pixelcap／memory、main/core/input/time/collision/save或原native路線。
+Runtime只改src/render.ts與新增src/town-camera.ts，限定Truce且實際canvas寬高比<.85。讀取現有可見P1/P2／第三同伴的mesh頂點及距P1<13的原inn-sign，重用EarlyCameraMotion與既有安全約束；最小half7.2，雙人分離時可立即擴展，不以zoom ceiling裁切P2。保留normalized HUD bounds [.045,.955,.12,.80]、fixed-tick平滑、重置／resize／reduced-motion。只改構圖，不改人物尺度、招牌2.75／pixels／anchor、任何材質或場景幾何、main/core/input/time/save/collision及CPU tiers／pixelcap／memory。其他章節與Truce橫向走原鏡頭。
 
-原生取證路徑與12PNG不改。village-detail-evidence保持owner／RGBA／同canvas／inside／40x20／unclipped門檻，只在錯誤中附上實測projection、renderSize與required。cpu-era-evidence仍先跑完整原verifier，失敗時另寫source-failure.json，保留首個error/stack/observation及原report bytes/hash；不改原report／ledger，仍exit1。缺報告或保存失敗不能掩蓋原root；新增negative tests防止偽造passed。
+同一次原生Truce暫停與三viewport，原12PNG／Tab-Space／全state／恢復viewport及native resume不變，只追加beforeCamera／每view camera／afterCamera唯讀原觀察。source verifier增加同CPU buffer ratio、同frozen tick、P0/可用P1/nearby inn實際投影位於HUD安全區、直式P0高度>=30px、兩條獨立inn投影一致及原橫向鏡頭幾何完全恢復。原40x20招牌／七ledger／所有舊旅程斷言保留；失敗保留真實觀察與first-root。新門檻不是美術分數，離線fixture不是原生證據。
 
-完整npm run check通過：**1560 Node、360 Python、assets、typecheck、build、diff check**；比V新增25 Node／4 Python。追加三viewport／DPR1與2／auto0–3及quality、compatibility、回auto的42組離線production policy投影；最小167x361 canvas上40.184375x20.092188px，inside=true，原40x20門檻不降。原CI64失敗component用exact V verifier仍會被拒絕；DPR1/auto1的V離線投影與三張原觀察數值匹配。十章節除原sign scale外state／幾何保留，非Truce九章節像素一致，六次往返不累增mesh/texture。W→V精確列舉test-only inverse保留原hash與舊斷言，缺少／重複／其他修改拒絕。這是離線unit／policy驗證，不是新native／真機／全DPR保證；未開本機browser。前期本機測試與host中斷logs及最終完整成功log均保留。
+完整npm run check通過：**1609 Node、364 Python、assets、typecheck、build、diff check**。比W新增49 Node／4 Python。離線production policy的DPR1/2、tiers/modes、雙人分離、暫停／橫直回復、九個非Truce章節兩方向pixels與幾何、Truce橫向pixels、六次warm-cache往返均已驗。X→W精確列舉source-only inverse保留原hash與negative assertions；W負測試先回到exact W文字再突變，防止X已換字串造成no-op。新鏡頭算術單元比較容許16*Number.EPSILON浮點誤差，原CPU pixels與game state仍exact；不是放寬原走位／時間門檻。兩次本機host中斷不算通過，首輪完整check四個失敗已修正，最終check-locked.log全通過；失敗與成功logs全保存，未開本機browser。
 
-## CI64實際失敗
+## 已接受與雲端
 
-CI64 **35847433193／V source3cf048e5debba3a679385112c21f45c55c5d0e19** 已completed/failure（updated2026-09-23T10:38:27Z）。validate job107136875166首先在step23「Verify same-source CPU sampling and native 600 AD continuation」失敗；不是native步驟21或暫停走位失敗。原era600 report雖status=passed且有三view，exact source gate在390x844／CPU auto1／249x540 canvas讀到sign **34.859999x17.430000px**，低於原40x20，拋出 **Town detail evidence: readable sign rectangle**。Desktop與短橫向分別65.393550x32.696772及44.980645x22.490322px。兩witness job成功，CPU rescue/trial跳過，adventure verifier下游失敗，沒有playable，不接受V或聲稱Pages完成。原始來源／reproduction／metadata差異見evidence/CI64_FAILURE.json。
+**CI65／35859095751／W source11ae55d6c90d8bb6eb5f6f75eed05993191bfa35／Pages59 35862694649已正式技術接受**，收據evidence/CI65_ACCEPTANCE.json已獨立發布於028052e37af97670f4d941550a0dce503bee2638並回讀。三job／13主報告／9原native chooser與完整CPU兩旅程／600／救援／審判保留；七ledger以exact W程式唯讀重算逐byte一致，139列bytes/hash相符。本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、U逐鍵及三view12PNG完整。W招牌2.75與V窗戶均通過原owner/RGBA/40x20/inside門檻。playable/staged/deployed HTML同5711878bytes、SHA256 996400b0548762dfa446eec412ac02eec0f3f555db8c4c2e1a68a043e475ea86，Pages公共HTTP步驟成功。77張原CPU圖以7聯絡表檢視，另3張村莊canvas全解析度檢視，非全77張全尺寸。CI64仍為已修正的歷史failure，不重開CI65/Pages59或更早。
 
-## 已接受基準
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。CI65原始證據包 **1CgCUvasru_dmbtH7fVFMDVR11gTXSrBA／Chrono-CI65-VQ02W-evidence.zip**，68574605bytes，SHA256 7068c5fbe2c58b6c4a3506f1cdeb51da265ba5297a85d70af16729591897a590；已下載回驗parent/hash/CRC/20manifest/7未修改原ZIP。X已測包 **12cLTT6A7wH-1NsYesWZaRAsdnriyWoH1／Chrono-CI65-accepted-VQ02X-tested-batch.zip**，842490bytes，SHA256 003e77103ddc709d48aba9ead9abe3665a986455adfb8377ba0897c0eeccf1f0；已下載回驗parent/hash/CRC/18manifest/377程式tar及Git blob。development/VQ02X-tested-program-snapshot.tar.gz是assembled已測程式快照，非published Git archive；不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是發布前歷史，X已發布不重送；進度只讀最新main。
 
-最後完整技術accepted維持 **CI63／35807473251／U source1d2be87885c129442d6123625b030d599ed8db50／Pages57 35809349787**，見evidence/CI63_ACCEPTANCE.json。三job／13主報告／9原native chooser與完整CPU兩旅程／600／救援／審判、本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger139列與原12村莊PNG已閉環。playable/staged/deployed HTML5707852bytes，SHA256 1e8f3920a0c983606d31384e42024c331b0ea05d71272e8adfe92d82de61d4e4。60原CPU圖是7聯絡表＋另2張全解析度，不冒稱全60張皆全尺寸。CI62仍為已修正的歷史failure；不重開CI63/Pages57或更早。
+## 唯一接續
 
-## 雲端與直接接續
-
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。W包 **1BVuwwwOub4u88TkPWy-Zefq5hxRrLYnD／Chrono-CI64-failure-VQ02W-tested-batch.zip**，1043818bytes，SHA256 **e4b0bcdf3ee285daeaa9fe34c987c80bca92797a6f820c31db18500cd7af0fd9**；已下載回驗parent／hash／ZIP CRC／20manifest／368程式tar與Git blob。development/VQ02W-tested-program-snapshot.tar.gz是assembled已測程式快照，非published Git archive；不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是發布前歷史，W已發布，不重送；最新文件讀GitHub main。
-
-CI64未修改原browser ZIP **13ZHgUXvPFvpD2CJtEy5wu7gj_Sfy8HkU**，實際24221183bytes，SHA256 **b06fb1478f908a27c36338c070c5fb48c295d54617c7e741070f80fac52bc819**；已下載回驗parent／hash／CRC及source tree8741d19d6b9f2ca932db8c23a644a45448684472。GitHub artifact metadata曾報27269718bytes，但下載與Drive返回的實際bytes相同、digest吻合，以實際檔為準，不冒稱metadata一致。CI63舊包1Zltufu3mZ_mJqX1_zrt8eETvp8-uJuzJ已閉環，不需再下載。
-
-CI65 queued/in_progress只保存與回報，不長等／輪詢／rerun／dispatch／cancel或另推source。Failure只處理同run首個實際root與原artifact／source-failure，不放寬原斷言。Success依CI65_CHECKPOINT完成原reports／真圖／七ledger／正確Drive原ZIP回讀及matching Pages/source/HTML後才接受V/W。先親看2.75招牌的裁切、遮擋、畫面比例及三視窗可讀性，不因數值40x20就給美術分數；其後續前段人物植物道具、尺度輪廓、窄地標與鏡頭留白、完整動畫、合法音訊及有意義長時間／實體裝置觀察。直式人物偏小／留白仍未解決，不擴後段掩蓋前段品質。
+CI66 queued/in_progress只保存與回報，不長等／輪詢／rerun／dispatch／cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬斷言或造狀態。Success依CI66_CHECKPOINT驗完整原reports／實際畫面／七ledger／原ZIP Drive回讀／matching Pages/source/HTML，才接受X。先親看直式P1/P2、招牌比例遮擋、鏡頭留白及移動舒適性，再續前段人物植物道具、完整動畫與合法音訊、長時間及真機；不能以新投影數字或綠勾宣稱前段美術90分。招牌覆蓋部分屋牆、其他站位遮擋與全遊戲美術仍待處理。
 
 ## 固定完整範圍
 

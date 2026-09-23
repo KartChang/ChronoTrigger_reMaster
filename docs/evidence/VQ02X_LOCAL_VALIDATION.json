@@ -1,0 +1,181 @@
+{
+  "schema": "chrono-vq02x-local-validation-v1",
+  "batch": "VQ02X",
+  "version": "0.9.46",
+  "baseSource": "11ae55d6c90d8bb6eb5f6f75eed05993191bfa35",
+  "publicationParent": "028052e37af97670f4d941550a0dce503bee2638",
+  "publicationParentTree": "7a86424e93981a0bbf94376b13bef27397bb1e5a",
+  "expectedRootTree": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "publishedSource": "e18ac52e5ad37b0259ef1f27ce40c3d6fb9f6ef4",
+  "programFiles": 377,
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "ba9f3b072277a9dd714e30e13a0cc757897bde0696b10daf489a0e437dabdecf",
+      "gitBlob": "15ac5deff14196a79d1865858cabe9e235438b24"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 7641,
+      "sha256": "5fa2d782ec5efb7916ccc5d75790c022b582642b96c523546ade7adb5e3f8ddb",
+      "gitBlob": "7561428ca56592b954ee2866a21a9cb097a74f67"
+    },
+    {
+      "path": "scripts/town-camera-evidence.mjs",
+      "bytes": 2934,
+      "sha256": "d78a9210216dbe3456d45e3f700861bacf8e703b5690940f9162254eef6132a5",
+      "gitBlob": "b348c9ff3ce075e990c7d846cf2349ae3d05f05f"
+    },
+    {
+      "path": "scripts/village-evidence.mjs",
+      "bytes": 2709,
+      "sha256": "898dc116907e476b9c325fa0db327dc81e563c45320be891602632243439379a",
+      "gitBlob": "f4009604d5efd8c4b53ac2cdc14f02b5fda0d120"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 37397,
+      "sha256": "187b0c5c24181a82337242ba16d61f5d6237effd10cd4f7081b87d035b3e37bd",
+      "gitBlob": "bc2b0f2e5d9215df99654bca60bcc8da4ffeac0f"
+    },
+    {
+      "path": "src/town-camera.ts",
+      "bytes": 2054,
+      "sha256": "a92a2a9e92b1569582d19317816712673206dded22fb7e309fc6c35e856f6da4",
+      "gitBlob": "083e51475bbf65499f31ba2741db0f807a14ab95"
+    },
+    {
+      "path": "tests/baselines/vq02x-declared-town-camera-edits.json",
+      "bytes": 12954,
+      "sha256": "836cb891a5b65ba0d22d7811f44303256b24898ded558cd35bd4fddab1246181",
+      "gitBlob": "de1bf3931b31b85004a15114ae9bd2b65714b087"
+    },
+    {
+      "path": "tests/helpers/sign-baseline.mjs",
+      "bytes": 852,
+      "sha256": "6bdc594350d2a4bac89ea91cd0a626afe1bf06b97a469e6519eb48b05ad2397e",
+      "gitBlob": "436e0dc3883ca7f5eed204518b0d7072ed1c1ac1"
+    },
+    {
+      "path": "tests/helpers/story-npc-baseline.mjs",
+      "bytes": 876,
+      "sha256": "74518bb2777ae595018645460ce80289d8d9146c70b16ad77e10b5302edaa790",
+      "gitBlob": "8c3a53c00822af86b6739a4b83a7b4ad11775144"
+    },
+    {
+      "path": "tests/helpers/town-camera-baseline.mjs",
+      "bytes": 727,
+      "sha256": "14e18382f0e0c47a904ad6529c81764e8329a6c4315280df2c25193ffc9954c0",
+      "gitBlob": "ff979645aba6cf4053a113521bd4f40c3f9fba18"
+    },
+    {
+      "path": "tests/helpers/town-camera-fixture.mjs",
+      "bytes": 842,
+      "sha256": "89fa9bbc03292e206b5f26f96efa4a4cc0a8e730efe16d87f652edecdf311dff",
+      "gitBlob": "d9f58b0ff37f0aa0dcf7581147c6380fcbc5e117"
+    },
+    {
+      "path": "tests/helpers/village-fixture.mjs",
+      "bytes": 2213,
+      "sha256": "98cce16d90a8f788638fcb3a322992e2a3b7234a7d7f96d237841994e6c40ad1",
+      "gitBlob": "1e87c15f389a5ac239b67423361ee0630cc94421"
+    },
+    {
+      "path": "tests/readability_preservation.py",
+      "bytes": 887,
+      "sha256": "7d7bfb98774038b4fcda9898b1b6efbb1daec6d558f30bdacb759f0384508bd1",
+      "gitBlob": "b3ca44b56c89557433371c982a7174383a949981"
+    },
+    {
+      "path": "tests/sign-readability.test.mjs",
+      "bytes": 8691,
+      "sha256": "26b7c3ed71774e0b33821efd3b6071a047b584b342f033620424d3bef83a47bd",
+      "gitBlob": "1a1dc400280779d25b94e2bf8cc7ce507852cd22"
+    },
+    {
+      "path": "tests/sign_preservation.py",
+      "bytes": 757,
+      "sha256": "8f8b7a653ce60c613af42b795c33c9ea7db167e85b4edf2aa94c3cd0cb1b4d7c",
+      "gitBlob": "42950a9dd28446ea6514a48e2cf4c2ecb9fe174b"
+    },
+    {
+      "path": "tests/sign_preservation_test.py",
+      "bytes": 1681,
+      "sha256": "b9378dad1918404961c870862e2eae06ea62b992470b6988b0e4ad9b8dfaec61",
+      "gitBlob": "b3469b586c079f1106876d633fb9c903f155b7a5"
+    },
+    {
+      "path": "tests/story_npc_preservation.py",
+      "bytes": 918,
+      "sha256": "ae31eefc35e93edaf2c2441cbf6a3dfb5a0317eb54bfead7d077ad132621ad49",
+      "gitBlob": "2238871643243e3025498508a3acde697d55c28a"
+    },
+    {
+      "path": "tests/town-camera-evidence.test.mjs",
+      "bytes": 2875,
+      "sha256": "7d590295b0c795eac52efb917076005d3e74df6c71352d100d6696cc67fbe2fe",
+      "gitBlob": "327ea9727217b9dc390106a48483ccaff7ad8af0"
+    },
+    {
+      "path": "tests/town-camera.test.mjs",
+      "bytes": 10598,
+      "sha256": "5226d03c88cb6257f521e75d40ea8e9632db696b9c11585a520d303af8f78a85",
+      "gitBlob": "17c127bc468eb1e56be5a474f6822b6069423752"
+    },
+    {
+      "path": "tests/town_camera_capture_test.py",
+      "bytes": 2174,
+      "sha256": "a824c8547a65084e40aea5795e40c7cfb0de27f0ba6355338bc9ec5def302f93",
+      "gitBlob": "36ffadd43af73fa50c479f51fe287aab61e9e18d"
+    },
+    {
+      "path": "tests/town_camera_preservation.py",
+      "bytes": 566,
+      "sha256": "a37c5696561796e20725c708c0f6e6a8be7c612e9598f6498438a368663264a5",
+      "gitBlob": "51d60eaca9ad4a831c2fca19a965666a6c27784b"
+    },
+    {
+      "path": "tests/village_capture.py",
+      "bytes": 3978,
+      "sha256": "520e28e8d7eead6f41ba667fbfa872c485c71150e22f4c03aaee051a6c23ff1c",
+      "gitBlob": "f0cedd1f69d4a2b151b75ad3a2bb50124770f086"
+    },
+    {
+      "path": "tests/village_capture_test.py",
+      "bytes": 4966,
+      "sha256": "f3c27be10c0a1b2dbd3330f5ea66caf2c9a19d6e57162d66ca6a23951231ae6f",
+      "gitBlob": "d3c3b1571a56ca02e2cbaf1656f869df555a3acd"
+    }
+  ],
+  "nodeTests": 1609,
+  "pythonTests": 364,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "noLocalBrowser": true,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeAccepted": false,
+  "artApproved": false,
+  "physicalDeviceApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-23T14:25:40.318446+00:00",
+  "notes": [
+    "Runtime only src/render.ts and new src/town-camera.ts; Truce portrait-only. Sign pixels/scale/anchor, all materials and object/actor geometry, CPU tiers/input/game rules/save unchanged.",
+    "Same original native visit and 12 PNGs; add actual camera/frame/mesh projections and restoration, complete HUD-safe subjects and >=30px portrait player height. Original 40x20 sign/paused state/route/time gates retained.",
+    "Offline exact W comparison across portrait tiers and DPR1/2; landscape and nine non-Truce scenes byte-identical; separate party safe, map cache stable after first creation. Unit protocol/CPU ports are not native evidence.",
+    "Original hashes and mutation assertions retained through strict X->W inverses. W negative tests mutate the exact restored W text, preventing no-op deletion of an X-replaced token.",
+    "Two local Node host timeouts were incomplete, not passed. First completed full check failed four assertions and was superseded. All raw local logs retained. ULP tolerance is limited to the new projection-arithmetic comparison; raw CPU pixels and world state remain exact."
+  ],
+  "srcTree": "03e2a953b7f53a42df765d36917c0389af3ab38a",
+  "scriptsTree": "b2a7519de625cc4455b95d5a084a60445d620635",
+  "testsTree": "8506a3c4b9d281b3c626e15753a6ab09bbc6fe29",
+  "publishedRootTree": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "sourceTreeMatched": true,
+  "runId": "35875725015",
+  "runNumber": 66,
+  "cloudFileId": "12cLTT6A7wH-1NsYesWZaRAsdnriyWoH1"
+}

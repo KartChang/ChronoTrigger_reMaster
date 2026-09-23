@@ -1,0 +1,23 @@
+{
+  "fileName": "Chrono-CI65-accepted-VQ02X-tested-batch.zip",
+  "bytes": 842490,
+  "sha256": "003e77103ddc709d48aba9ead9abe3665a986455adfb8377ba0897c0eeccf1f0",
+  "manifestItems": 18,
+  "programFiles": 377,
+  "expectedRootTree": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "fileId": "12cLTT6A7wH-1NsYesWZaRAsdnriyWoH1",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "downloadedBack": true,
+  "parentReadBack": true,
+  "zipCrcVerified": true,
+  "manifestVerified": true,
+  "programManifestAndTarVerified": true,
+  "verifiedUtc": "2026-09-23T14:26:54.296258+00:00",
+  "archiveKind": "assembled-tested-program-not-published-Git-archive",
+  "programArchive": "development/VQ02X-tested-program-snapshot.tar.gz",
+  "progressDocsAuthority": "GitHub main",
+  "publishedSource": "e18ac52e5ad37b0259ef1f27ce40c3d6fb9f6ef4",
+  "sourceTree": "eb8399aae63fa07d672aa865933e0bd28e841690",
+  "runId": "35875725015",
+  "nativeAccepted": false
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "chrono-vq02u-pause-edit-v1",
+  "baseSource": "85f35c062720ed494b9869488b0c39e94b7c82b4",
+  "files": {
+    "src/main.ts": [
+      {
+        "before": " if(manualPause){if(['Escape','Enter','Space','KeyE'].includes(code)&&!repeat)togglePause();return code!=='Tab';}",
+        "after": " // Native checkbox activation is completed on Space keyup; never resume the world first.\n if(manualPause&&code==='Space'&&document.activeElement===$('cpu-sampling'))return 'native';\n if(manualPause){if(['Escape','Enter','Space','KeyE'].includes(code)&&!repeat)togglePause();return code!=='Tab';}"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.42',batch:'VQ02T'",
+        "after": "version:'0.9.43',batch:'VQ02U'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "'tests/fair-paving.test.mjs'],",
+        "after": "'tests/fair-paving.test.mjs','tests/pause-keyboard.test.mjs'],"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/main.ts": "a4363e747b1ac9dcada20e9a92880e99089ae9479095c66d66c59a8456a2dd42",
+    "scripts/build.mjs": "7735a384570f64dcb629cc22ca0b6c16b80e46ddc7dad029935897a86891fbee",
+    "scripts/test.mjs": "607182db76c86293a6b105481a1151bf8503fbb5543cc69ad469b07bac6728cb"
+  }
+}

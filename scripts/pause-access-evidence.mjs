@@ -29,9 +29,24 @@ export function assertPauseAccess(r,frozen,viewport,index,observation,receipt){
  const keys=r.originalSampling?['Tab','Tab','Space','Space','Tab']:['Tab','Tab','Tab'];
  const order=r.originalSampling?['render-quality','cpu-sampling','cpu-sampling','cpu-sampling','resume']:['render-quality','cpu-sampling','resume'];
  need(same(r.keys,keys)&&same(r.focusOrder,order),'native keys and wrapping focus');
+ assertPauseKeySteps(r.steps,keys,order,frozen,r.originalSampling);
  const n=r.nearest;observation(n,false);
  need(n.paused===true&&same(n.state,frozen)&&n.chapter==='truce','nearest actual paused state');
  need(n.image.path===`pause-controls-${index}.png`,'nearest DOM owner');
  need(receipt(n.canvasImage)&&n.canvasImage.path===`village-nearest-${index}.png`&&n.canvasImage.source==='actual-cpu-canvas','nearest canvas owner');
  return true;
+}
+
+/** Additional source-bound key transitions. Old focus/state/image gates remain above. */
+export function assertPauseKeySteps(steps,keys,order,frozen,original){
+ need(Array.isArray(steps)&&steps.length===keys.length,'one raw transition per native key');
+ let focus='resume',sampling=original;
+ for(let i=0;i<keys.length;i++){
+  const s=steps[i];need(s?.key===keys[i]&&s.completed===true,'completed native key identity');
+  for(const p of [s.before,s.after])need(p?.paused===true&&same(p.state,frozen)&&typeof p.sampling==='boolean','per-key complete frozen state');
+  need(s.before.focus===focus&&s.before.sampling===sampling,'key continuity before activation');
+  if(keys[i]==='Space')sampling=!sampling;
+  focus=order[i];need(s.after.focus===focus&&s.after.sampling===sampling,'native checkbox toggle and focus');
+ }
+ need(focus==='resume'&&sampling===original,'key sequence restores focus and sampling');return true;
 }

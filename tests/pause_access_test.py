@@ -52,4 +52,34 @@ class PauseAccessTests(unittest.TestCase):
         p.focus=lambda:(_ for _ in ()).throw(RuntimeError('cleanup focus error'))
         with tempfile.TemporaryDirectory() as d,self.assertRaisesRegex(RuntimeError,'first capture error'):self.run_capture(p,r,d)
         self.assertEqual(r['error']['message'],'first capture error');self.assertIn('cleanup focus error',r['cleanupError'])
+
+class PauseStepDiagnosticsTests(unittest.TestCase):
+    page=PauseAccessTests.page
+    run_capture=PauseAccessTests.run_capture
+    def test_failed_space_keeps_actual_unpaused_snapshot_without_repairing_game_state(self):
+        p=self.page();r={};old=p.press
+        def wrong(key):
+            if key=='Space':p.paused=False;p.state['ticks']+=1
+            else:old(key)
+        p.press=wrong
+        with tempfile.TemporaryDirectory() as d,self.assertRaises(AssertionError):self.run_capture(p,r,d)
+        self.assertEqual(r['status'],'failed');self.assertEqual(r['keys'],['Tab','Tab','Space'])
+        step=r['steps'][-1];self.assertFalse(step['completed']);self.assertTrue(step['before']['paused'])
+        self.assertFalse(step['after']['paused']);self.assertNotEqual(step['before']['state'],step['after']['state'])
+        self.assertTrue(step['after']['sampling']);self.assertEqual(p.state['ticks'],8)
+    def test_raw_steps_match_full_frozen_state_and_native_checkbox_transitions(self):
+        p=self.page();r={};frozen=snap(p)
+        with tempfile.TemporaryDirectory() as d:self.run_capture(p,r,d)
+        self.assertEqual([s['key'] for s in r['steps']],r['keys'])
+        self.assertEqual([s['after']['sampling'] for s in r['steps']],[True,True,False,True,True])
+        for step in r['steps']:
+            self.assertTrue(step['completed'])
+            for point in (step['before'],step['after']):self.assertTrue(point['paused']);self.assertEqual(point['state'],frozen)
+    def test_keyboard_transport_failure_retains_before_without_inventing_after(self):
+        p=self.page();r={}
+        def fail(key):raise RuntimeError('native transport interrupted')
+        p.press=fail
+        with tempfile.TemporaryDirectory() as d,self.assertRaisesRegex(RuntimeError,'native transport interrupted'):self.run_capture(p,r,d)
+        self.assertEqual(len(r['steps']),1);self.assertNotIn('after',r['steps'][0]);self.assertFalse(r['steps'][0]['completed']);self.assertEqual(r['keys'],[])
+
 if __name__=='__main__':unittest.main()

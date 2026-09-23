@@ -1,3 +1,4 @@
+import {pauseBaseline} from './helpers/pause-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {World,createState} from '../.test/cpu-entry.mjs';
@@ -10,7 +11,8 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const spec=JSON.parse(readFileSync('tests/baselines/vq02t-declared-readability-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('T inverse retains original S bytes: '+name,()=>{
  const s=readFileSync(name,'utf8');assert.equal(sha(readabilityBaseline(name,s)),spec.originalSha256[name]);
- for(const {after} of edits){assert.throws(()=>readabilityBaseline(name,s.replace(after,'')));assert.throws(()=>readabilityBaseline(name,s+after));}
+ const originalT=['scripts/build.mjs','scripts/test.mjs'].includes(name)?pauseBaseline(name,s):s;
+ for(const {after} of edits){assert.throws(()=>readabilityBaseline(name,originalT.replace(after,''),false));assert.throws(()=>readabilityBaseline(name,originalT+after,false));}
  assert.notEqual(sha(readabilityBaseline(name,s+'\n// undeclared change\n')),spec.originalSha256[name]);
 });
 test('held home and all game/input boundaries are outside T exemptions',()=>{

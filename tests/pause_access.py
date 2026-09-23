@@ -39,18 +39,26 @@ def assert_layout(value):
 
 
 def observe_pause_access(page,out,record,snap,observed,frozen,index):
-    record.update(schema='chrono-pause-access-v1',status='running',keys=[],focusOrder=[],physicalDevice=False)
+    record.update(schema='chrono-pause-access-v1',status='running',keys=[],focusOrder=[],steps=[],physicalDevice=False)
     original=page.locator('#cpu-sampling').is_checked()
     record['originalSampling']=original
-    def frame():
+    def key_state():
+        return {'paused':page.evaluate('window.__CHRONO_TEST__.paused()'), 'state':snap(page),
+                'focus':page.evaluate('document.activeElement.id'),
+                'sampling':page.locator('#cpu-sampling').is_checked()}
+    def frame(step=None):
         page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+        if step is not None:step['after']=key_state()  # Retain the actual failed key before any assertion.
         assert page.evaluate('window.__CHRONO_TEST__.paused()') is True
         assert snap(page)==frozen
     def press(key,expected):
-        page.keyboard.press(key);record['keys'].append(key);frame()
+        step={'key':key,'before':key_state(),'completed':False}
+        record['steps'].append(step)
+        page.keyboard.press(key);record['keys'].append(key);frame(step)
         actual=page.evaluate('document.activeElement.id')
         record['focusOrder'].append(actual)
         assert actual==expected, {'key':key,'expected':expected,'actual':actual}
+        step['completed']=True
     try:
         record['before']=snap(page)
         assert record['before']==frozen

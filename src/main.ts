@@ -367,6 +367,8 @@ function routeKeyboardUi(code:string,repeat:boolean):boolean|'native'{
  if(!started){
   if(left||right||confirm){if(!repeat){if(left||right)navigate('start-screen');else activate('start-story');}return true;}return false;
  }
+ // Native checkbox activation is completed on Space keyup; never resume the world first.
+ if(manualPause&&code==='Space'&&document.activeElement===$('cpu-sampling'))return 'native';
  if(manualPause){if(['Escape','Enter','Space','KeyE'].includes(code)&&!repeat)togglePause();return code!=='Tab';}
  if(dialogOpen){
   if(!repeat){

@@ -1,0 +1,21 @@
+{
+  "schema":"chrono-bounded-technical-acceptance-v1",
+  "batch":"VQ03E","version":"0.9.52",
+  "sourceSha":"344fa860b5c8153b007f75912e16926d966862fa",
+  "sourceTree":"f0bfe4b67c57b7beed0e3b6a161b82a919b30041",
+  "runId":"36008892936","runNumber":73,"attempt":1,"event":"push",
+  "status":"completed","conclusion":"success","updatedUtc":"2026-09-24T14:29:04Z",
+  "jobs":{"validate":"107664128808","good":"107664128821","bad":"107664128444"},
+  "cpuRescueTrialAndNpcVerificationExecuted":true,
+  "sourceArchiveReconstructedTreeMatches":true,
+  "heldPrologueBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "originalReportsModified":false,
+  "readOnlyLedgerRecompute":{"exactUnmodifiedSource":true,"byteIdentical":true,"originalRows":[17,8,4,6,14,39,62],"extraNpcRows":4,"totalRows":154},
+  "pages":{"runId":"36013140375","number":67,"conclusion":"success","workflowHeadSha":"fc4909343c87d8340fade9521c33b03c94bae75d","selectedSourceSha":"344fa860b5c8153b007f75912e16926d966862fa","selectedCI":"36008892936","selectedArtifactId":"10813088332","htmlBytes":5730090,"htmlSha256":"19c2b7859908d4908d895c591a8e46c6cf27e500c1fbb12af2331956e9196acd","playableStagedDeployedIdentical":true,"publicHttpExactBytesStep":"success","localHttpReplay":false},
+  "visualReview":{"cpuPngContactCount":90,"fullResolutionCount":7,"fullResolutionScope":["npc-comfort/before.png","npc-comfort/reduced.png","npc-comfort/restored.png","town-route-exit-canvas.png","town-route-resident-canvas.png","field-canyon-canvas.png","field-forest-canvas.png"],"contactOnlyCount":83,"movieDurationSeconds":178.68,"movieBytes":19171476,"movieSha256":"d2ea6e83100b74a0f140e5dab0821bd77a539c9a31abd9302bb27a91be6fed3a","fullDecodeExit":0,"sampleRate":2,"sampleFrames":357,"all15SampleSheetsReviewed":true,"fullResolutionSampleFrameIndices":[226,256],"realTimePlayback":false,"audioPresent":false,"findings":"Original NPC before/restored images are byte-identical. Sampled town movement/building-sign fade/restore/exit/viewport and later forest/castle route reviewed; no new obvious regression within the stated bounded review. Existing production-art/scale/outline and native-rate comfort gaps remain."},
+  "cloud":{"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1YiSgMeQG7zDqE3ZgiQEVlqMXk8glvdM6","name":"Chrono-CI73-VQ03E-reviewed-evidence.zip","bytes":94085504,"sha256":"091e7b964ac85d2e6df1b96871b688bb34a4696ee5ca10ee8984cbd86fb57d41","originalArtifactZips":7,"manifestEntries":47,"parentReadBack":true,"downloadHashCrcManifestVerified":true},
+  "accepted":true,"scope":"E technical delivery and explicitly bounded static/sequential sampled regression only",
+  "ci71RetrospectiveAcceptance":false,"localBrowserRun":false,
+  "motionComfortApproved":false,"artApproved":false,"physicalDeviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null,
+  "next":"T05 VQ03F: propagate existing reduced-motion preference to fair witnesses/court-prison NPCs and nonessential trial gate, preserve normal animation and resource ownership; batch code/tests before one source/CI."
+}

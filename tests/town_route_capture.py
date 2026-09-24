@@ -5,6 +5,7 @@ resizing use the native controls; raw failed observations are retained in-place.
 """
 import base64
 import sys
+import time
 from pathlib import Path
 from village_capture import receipt
 
@@ -21,6 +22,7 @@ class TownRouteCapture:
         self.paused_here = False
         record.update(schema='chrono-town-route-readability-v1', status='running',
                       stops=[], routeStart=len(routes), originalViewport=self.original,
+                      nativeVideoWindow={'clock':'host-monotonic-us','startUs':time.monotonic_ns()//1000},
                       physicalDevice=False, artApproved=False, motionVideo=False)
 
     def _pause(self):
@@ -40,7 +42,7 @@ class TownRouteCapture:
         p, r = self.page, self.record
         p.evaluate(FRAME)
         value = self.observed(p)
-        value.update(name=name, viewport=p.evaluate(VIEWPORT), state=self.snap(p),
+        value.update(name=name, videoClockUs=time.monotonic_ns()//1000, viewport=p.evaluate(VIEWPORT), state=self.snap(p),
                      paused=p.evaluate(PAUSED), routeEnd=len(self.routes),
                      camera=p.evaluate('window.__CHRONO_TEST__.view().earlyComfort'),
                      signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'),
@@ -113,6 +115,7 @@ class TownRouteCapture:
         if exc is not None:
             self._error(exc)
         self.record['routeEnd'] = len(self.routes)
+        self.record['nativeVideoWindow']['endUs'] = time.monotonic_ns()//1000
         self._restore()
         if exc is None and self.record['status'] != 'failed':
             self.record['status'] = 'passed'

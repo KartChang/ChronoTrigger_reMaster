@@ -8,6 +8,8 @@ import json
 import os
 import subprocess
 import time
+import sys
+from native_video import video_options, begin_native_video, retain_native_video
 from playwright.sync_api import sync_playwright
 from native_chooser import arm_native_chooser
 from native_import import import_save
@@ -253,7 +255,8 @@ def observe_fair(page):
 try:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True, args=report['launchArgs'])
-        context = browser.new_context(viewport={'width': 960, 'height': 640}, device_scale_factor=1, accept_downloads=True)
+        context = browser.new_context(viewport={'width': 960, 'height': 640}, device_scale_factor=1, accept_downloads=True, **video_options(OUT))
+        report['nativeVideo'] = begin_native_video({k:report[k] for k in ('sourceSha','runId','runAttempt','htmlSha256','htmlBytes')})
         page = context.new_page()
         arm_native_chooser(page)
         page.on('pageerror', lambda e: report['errors'].append(str(e)))
@@ -280,8 +283,16 @@ try:
                 report['captureError'] = str(capture)
             raise
         finally:
-            context.close()
-            browser.close()
+            primary = sys.exc_info()[1]
+            try:
+                context.close()
+                retain_native_video(page, OUT, report['nativeVideo'])
+            except Exception as video_error:
+                report['nativeVideo'].update(status='failed', error={'type':type(video_error).__name__, 'message':str(video_error)})
+                if primary is None:
+                    raise
+            finally:
+                browser.close()
 except Exception as exc:
     report['status'] = 'failed'
     report['errors'].append(str(exc))

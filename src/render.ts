@@ -7,6 +7,7 @@ import {EarlyCameraMotion} from './camera-motion';
 import {TOWN_CAMERA,townPortrait,frameTownActors} from './town-camera';
 import {TownSignOcclusion} from './town-sign-occlusion';
 import {TownBuildingOcclusion} from './town-building-occlusion';
+import {TownLandmark} from './town-landmark';
 import {frameEarlyActors,EARLY_COMFORT} from './early-comfort';
 import type {CameraFrame} from './early-comfort';
 import {observeCameraSubjects,projectCameraSubjects} from './early-camera-view';
@@ -45,6 +46,7 @@ export class World {
   private scene:Scene;
   private camera:FreeCamera;
   private cameraMotion=new EarlyCameraMotion();
+  private townLandmark=new TownLandmark();
   private comfortFrame:CameraFrame|null=null;
   private cameraSubjects:CameraSubject[]=[];
   private cameraState:State|null=null;
@@ -416,13 +418,13 @@ export class World {
     }
   }
   private inspectEarlyCamera(){
-    return {profile:EARLY_COMFORT.id,townProfile:this.chapter==='truce'&&this.comfortFrame?.portrait?TOWN_CAMERA.id:null,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
+    return {profile:EARLY_COMFORT.id,landmark:this.townLandmark.inspect(),townProfile:this.chapter==='truce'&&this.comfortFrame?.portrait?TOWN_CAMERA.id:null,camera:this.comfortFrame?{...this.comfortFrame,bounds:{...this.comfortFrame.bounds},actors:this.comfortFrame.actors.map(a=>({...a}))}:null,
       motion:this.cameraMotion.inspect(),rects:projectCameraSubjects(this.cameraSubjects,this.camera),fullScenePublished:false};
   }
   private frameEarlyScene(s:State,ratio:number,base:{x:number;z:number;half:number}):void {
     // Reuse the preserved framing/filter independently of the held scenery work.
     // Fresh state identity (including same-map import) must not interpolate an old camera.
-    if(this.cameraState!==s){this.cameraMotion.reset();this.cameraState=s;}
+    if(this.cameraState!==s){this.cameraMotion.reset();this.townLandmark.reset();this.cameraState=s;}
     this.cameraSubjects=[];
     const early=s.prologue.stage!=='waking'&&EARLY_COMFORT.chapters.includes(s.chapter);
     if(early){
@@ -449,6 +451,9 @@ export class World {
       if(inn?.isEnabled()&&Math.hypot(inn.position.x-p.x,inn.position.z-p.z)<TOWN_CAMERA.landmarkRange)
         this.cameraSubjects.push({id:'inn-sign',mesh:inn});
     }
+    const candidateSubjects=observeCameraSubjects(this.cameraSubjects);
+    if(!this.townLandmark.select(s.chapter,ratio,base,candidateSubjects))
+      this.cameraSubjects=this.cameraSubjects.filter(a=>a.id!=='inn-sign');
     const subjects=observeCameraSubjects(this.cameraSubjects);
     const target=town?frameTownActors(s.chapter,ratio,base,subjects):frameEarlyActors(early?s.chapter:'outside-early',ratio,base,subjects,s.mode==='battle');
     this.comfortFrame=this.cameraMotion.update(s.ticks,`${s.chapter}/${s.mode}/${s.prologue.stage==='waking'}`,target,this.reducedMotion?.matches??false);

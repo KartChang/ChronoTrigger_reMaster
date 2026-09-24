@@ -1,3 +1,4 @@
+import {TownLandmark} from '../.test/town-landmark.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -12,7 +13,7 @@ function setup(){
  const engine=new NullEngine({renderWidth:1200,renderHeight:800}),scene=new Scene(engine),camera=new FreeCamera('camera',new Vector3(0,23,-26),scene);
  camera.mode=Camera.ORTHOGRAPHIC_CAMERA;camera.setTarget(Vector3.Zero());scene.activeCamera=camera;
  const make=(name,x,z,w=1.36,h=1.85)=>{const mesh=MeshBuilder.CreatePlane(name,{width:w,height:h},scene);mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,.14+SCREEN_UP.y*h*(62/64-.5),z+SCREEN_UP.z*h*(62/64-.5));return mesh;};
- const port={scene,camera,cameraMotion:new EarlyCameraMotion(),cameraState:null,comfortFrame:null,cameraSubjects:[],reducedMotion:{matches:false},heroes:[{mesh:make('player-0',1.5,1.8)},{mesh:make('player-1',2.4,1.8)}],guest:{mesh:make('guest',0,0)}};
+ const port={scene,camera,cameraMotion:new EarlyCameraMotion(),townLandmark:new TownLandmark(),cameraState:null,comfortFrame:null,cameraSubjects:[],reducedMotion:{matches:false},heroes:[{mesh:make('player-0',1.5,1.8)},{mesh:make('player-1',2.4,1.8)}],guest:{mesh:make('guest',0,0)}};
  const apply=(s,r=390/844,base={x:0,z:0,half:cameraHalf(s.chapter,r)})=>{World.prototype.frameEarlyScene.call(port,s,r,base);return port.comfortFrame;};
  return {engine,scene,camera,make,port,apply,dispose(){scene.dispose();engine.dispose();}};
 }

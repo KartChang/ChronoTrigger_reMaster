@@ -1,10 +1,11 @@
+import {landmarkIfDeclared} from './helpers/landmark-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {NullEngine,Scene,FreeCamera,Vector3,Camera,MeshBuilder,TransformNode,StandardMaterial} from '@babylonjs/core/index.js';
 import {TownBuildingOcclusion,TOWN_BUILDING_OCCLUSION} from '../.test/town-building-occlusion.mjs';
 import {World,createState,renderCompatibleScene} from '../.test/cpu-entry.mjs';import {World as OldWorld,renderCompatibleScene as renderOld} from '../.test/building-baseline-cpu-entry.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';import {buildingBaseline} from './helpers/building-baseline.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');const spec=JSON.parse(readFileSync('tests/baselines/vq03a-declared-building-edits.json'));const original=JSON.parse(readFileSync('tests/fixtures/ci68-town-building-regression.json'));
-for(const [p,edits]of Object.entries(spec.files))test('A strict source inverse '+p,()=>{const s=readFileSync(p,'utf8');assert.equal(hash(buildingBaseline(p,s)),spec.originalSha256[p]);for(const e of edits){assert.throws(()=>buildingBaseline(p,s+e.after));assert.throws(()=>buildingBaseline(p,s.replace(e.after,'')));}assert.notEqual(hash(buildingBaseline(p,s+'\n// unrelated change\n')),spec.originalSha256[p]);});
+for(const [p,edits]of Object.entries(spec.files))test('A strict source inverse '+p,()=>{const s=landmarkIfDeclared(p,readFileSync(p,'utf8'));assert.equal(hash(buildingBaseline(p,s)),spec.originalSha256[p]);for(const e of edits){assert.throws(()=>buildingBaseline(p,s+e.after));assert.throws(()=>buildingBaseline(p,s.replace(e.after,'')));}assert.notEqual(hash(buildingBaseline(p,s+'\n// unrelated change\n')),spec.originalSha256[p]);});
 function rig(){const engine=new NullEngine(),scene=new Scene(engine),camera=new FreeCamera('camera',new Vector3(0,0,-20),scene);camera.setTarget(Vector3.Zero());camera.mode=Camera.ORTHOGRAPHIC_CAMERA;scene.activeCamera=camera;
  const owner=new TransformNode('kingdom-truce',scene),a=MeshBuilder.CreateBox('truce-plaster',{width:4,height:4,depth:.4},scene);a.parent=owner;a.position.z=-2;const m=new StandardMaterial('unchanged-shared',scene);a.material=m;
  const sibling=MeshBuilder.CreateBox('unrelated',{size:1},scene);sibling.material=m;const actor=MeshBuilder.CreatePlane('hero',{width:1.36,height:1.85},scene);actor.position.z=0;const controller=new TownBuildingOcclusion(scene);
@@ -31,4 +32,4 @@ test('A resident actor contributes actual offline CPU pixels through the houses,
  assert.equal(counts[1],0,'preserved CI68 fixture reproduces fully hidden player');assert(counts[0]>100,'new presentation must render more than an incidental actor pixel');assert.deepEqual(s,frozen);
  }finally{k.close();}});
 
-test('A build metadata names the actual new runtime batch',()=>{assert.match(readFileSync('scripts/build.mjs','utf8'),/version:'0\.9\.48',batch:'VQ03A'/);});
+test('A build metadata names the actual new runtime batch',()=>{assert.match(landmarkIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8')),/version:'0\.9\.48',batch:'VQ03A'/);});

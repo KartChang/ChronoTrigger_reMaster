@@ -1,3 +1,4 @@
+from town_camera_preservation import restore_landmark_if_declared
 from woodland_preservation import restore_woodland_source
 from cpu_render_preservation import restore_render_source
 from story_npc_preservation import restore_story_source
@@ -245,6 +246,7 @@ class PreservationTests(unittest.TestCase):
         for name,expected in pinned['files'].items():
             with self.subTest(path=name):
                 raw=(ROOT/name).read_bytes()
+                if name=='tests/cpu_renderer_browser.py':raw=restore_landmark_if_declared(name,raw.decode()).encode()
                 if name in ('tests/cpu_era_route.py','scripts/cpu-era-evidence.mjs'):raw=restore_woodland_source(name,raw.decode()).encode()
                 if name in ('src/cpu-raster.ts','src/cpu-scene.ts'):raw=restore_render_source(name,raw.decode()).encode()
                 if name=='src/render.ts':raw=restore_story_source(name,raw.decode()).encode()

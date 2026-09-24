@@ -1,3 +1,5 @@
+import {assertTownLandmarkRoute} from './town-landmark-evidence.mjs';
+import {assertTownMotion} from './town-motion-evidence.mjs';
 import {createHash} from 'node:crypto';
 import {assertTownBuildingRoute} from './town-building-evidence.mjs';
 import {assertTownRoute} from './town-route-evidence.mjs';
@@ -114,6 +116,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  const raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);assertCpuEraEvidence(r,identity);
  assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);
  assertTownBuildingRoute(r.townReadability);
+ assertTownLandmarkRoute(r.townReadability);
  const files=[{path:'report.json',bytes:raw.length,sha256:sha(raw)}];
  const keep=(item,png=false)=>{
   const b=readFileSync(join(dir,item.path));need(b.length===item.bytes && sha(b)===item.sha256,'listed bytes/hash mismatch');
@@ -126,6 +129,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  const own=JSON.parse(keep(r.sourceSave));need(own.version===2 && own.fair.gatoWon===true,'parent export state');
  const parentReport=JSON.parse(readFileSync(resolve(dir,'../report.json'))),parentReceipt=parentReport.cases[1].save;
  need(parentReceipt.bytes===r.sourceSave.bytes && parentReceipt.sha256===r.sourceSave.sha256,'parent export chain');
+ const motion=assertTownMotion(parentReport.nativeVideo,r.townReadability,identity,readFileSync(join(dir,'native-session.webm')));keep(motion);
  const native=readFileSync(join(dir,'native-import-report.json')),n=JSON.parse(native);
  need(n.schema==='chrono-native-import-evidence-v1' && n.sourceSha===sourceSha && n.status==='passed' && n.physicalDeviceApproved===false && equal(n.attempts,r.saves.map(s=>s.nativeImport)),'final native import record');
  files.push({path:'native-import-report.json',bytes:native.length,sha256:sha(native)});

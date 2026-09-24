@@ -1,0 +1,103 @@
+{
+  "schema": "chrono-declared-source-inverse-v1",
+  "from": "VQ03B",
+  "to": "VQ03A",
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "om './town-building-occlusion';\nimport {frameEarlyActors,EARLY_COMFORT} from './",
+        "after": "om './town-building-occlusion';\nimport {TownLandmark} from './town-landmark';\nimport {frameEarlyActors,EARLY_COMFORT} from './"
+      },
+      {
+        "before": "tion=new EarlyCameraMotion();\n  private comfortFrame:CameraFrame|null=null;\n  pr",
+        "after": "tion=new EarlyCameraMotion();\n  private townLandmark=new TownLandmark();\n  private comfortFrame:CameraFrame|null=null;\n  pr"
+      },
+      {
+        "before": "){\n    return {profile:EARLY_COMFORT.id,townProfile:this.chapter==='truce'&&this",
+        "after": "){\n    return {profile:EARLY_COMFORT.id,landmark:this.townLandmark.inspect(),townProfile:this.chapter==='truce'&&this"
+      },
+      {
+        "before": "ate!==s){this.cameraMotion.reset();this.cameraState=s;}\n    this.cameraSubjects=",
+        "after": "ate!==s){this.cameraMotion.reset();this.townLandmark.reset();this.cameraState=s;}\n    this.cameraSubjects="
+      },
+      {
+        "before": ":'inn-sign',mesh:inn});\n    }\n    const subjects=observeCameraSubjects(this.came",
+        "after": ":'inn-sign',mesh:inn});\n    }\n    const candidateSubjects=observeCameraSubjects(this.cameraSubjects);\n    if(!this.townLandmark.select(s.chapter,ratio,base,candidateSubjects))\n      this.cameraSubjects=this.cameraSubjects.filter(a=>a.id!=='inn-sign');\n    const subjects=observeCameraSubjects(this.came"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "omises';\nconst buildInfo={version:'0.9.48',batch:'VQ03A',sourceSha:process.env.GITHUB_SHA??null",
+        "after": "omises';\nconst buildInfo={version:'0.9.49',batch:'VQ03B',sourceSha:process.env.GITHUB_SHA??null"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';\nimport {buildingB",
+        "after": "import {landmarkBaseline} from '../tests/helpers/landmark-baseline.mjs';\nimport {build} from 'esbuild';\nimport {buildingB"
+      },
+      {
+        "before": "form:'node'});\nfor(const name of ['town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu",
+        "after": "form:'node'});\nfor(const name of ['town-landmark','town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/landmark-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci69-runtime',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:landmarkBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nawait build({entryPoints:['tests/cpu"
+      },
+      {
+        "before": "(process.execPath,['--test','tests/town-building-occlusion.test.mjs','tests/town",
+        "after": "(process.execPath,['--test','tests/town-landmark.test.mjs','tests/town-motion-evidence.test.mjs','tests/town-building-occlusion.test.mjs','tests/town"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {createHash} from 'node:crypto';\nimport {",
+        "after": "import {assertTownLandmarkRoute} from './town-landmark-evidence.mjs';\nimport {assertTownMotion} from './town-motion-evidence.mjs';\nimport {createHash} from 'node:crypto';\nimport {"
+      },
+      {
+        "before": "tTownBuildingRoute(r.townReadability);\n const files=[{path:'report.json',bytes:r",
+        "after": "tTownBuildingRoute(r.townReadability);\n assertTownLandmarkRoute(r.townReadability);\n const files=[{path:'report.json',bytes:r"
+      },
+      {
+        "before": "e.sha256,'parent export chain');\n const native=readFileSync(join(dir,'native-imp",
+        "after": "e.sha256,'parent export chain');\n const motion=assertTownMotion(parentReport.nativeVideo,r.townReadability,identity,readFileSync(join(dir,'native-session.webm')));keep(motion);\n const native=readFileSync(join(dir,'native-imp"
+      }
+    ],
+    "tests/town_route_capture.py": [
+      {
+        "before": "import base64\nimport sys\nfrom pathlib import Path\nfrom village_ca",
+        "after": "import base64\nimport sys\nimport time\nfrom pathlib import Path\nfrom village_ca"
+      },
+      {
+        "before": "rt=self.original,\n                      physicalDevice=False, artApproved=False,",
+        "after": "rt=self.original,\n                      nativeVideoWindow={'clock':'host-monotonic-us','startUs':time.monotonic_ns()//1000},\n                      physicalDevice=False, artApproved=False,"
+      },
+      {
+        "before": "ed(p)\n        value.update(name=name, viewport=p.evaluate(VIEWPORT), state=self.",
+        "after": "ed(p)\n        value.update(name=name, videoClockUs=time.monotonic_ns()//1000, viewport=p.evaluate(VIEWPORT), state=self."
+      },
+      {
+        "before": "teEnd'] = len(self.routes)\n        self._restore()\n        if exc is None and se",
+        "after": "teEnd'] = len(self.routes)\n        self.record['nativeVideoWindow']['endUs'] = time.monotonic_ns()//1000\n        self._restore()\n        if exc is None and se"
+      }
+    ],
+    "tests/cpu_renderer_browser.py": [
+      {
+        "before": "import subprocess\nimport time\nfrom playwright.sync_api import sync_pla",
+        "after": "import subprocess\nimport time\nimport sys\nfrom native_video import video_options, begin_native_video, retain_native_video\nfrom playwright.sync_api import sync_pla"
+      },
+      {
+        "before": "ce_scale_factor=1, accept_downloads=True)\n        page = context.new_page()\n    ",
+        "after": "ce_scale_factor=1, accept_downloads=True, **video_options(OUT))\n        report['nativeVideo'] = begin_native_video({k:report[k] for k in ('sourceSha','runId','runAttempt','htmlSha256','htmlBytes')})\n        page = context.new_page()\n    "
+      },
+      {
+        "before": "     raise\n        finally:\n            context.close()\n            browser.close()\nexcept Excep",
+        "after": "     raise\n        finally:\n            primary = sys.exc_info()[1]\n            try:\n                context.close()\n                retain_native_video(page, OUT, report['nativeVideo'])\n            except Exception as video_error:\n                report['nativeVideo'].update(status='failed', error={'type':type(video_error).__name__, 'message':str(video_error)})\n                if primary is None:\n                    raise\n            finally:\n                browser.close()\nexcept Excep"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "8ab64757859bc496487d25aae6c6db77648b8e6716b42d0a968549e0ebc66801",
+    "scripts/build.mjs": "efe8afc8480637f507e1002ebcec70e5469e6a068b209e1977019799f69a0632",
+    "scripts/test.mjs": "184ac6246e7dbb261b5f8bc555ea3653b667b6a3f3e425e35aaaf22504e1cf3f",
+    "scripts/cpu-era-evidence.mjs": "2877694150b937a41bfe5f2aa6eaea1d37f9b99af65cd580b04ca75c4fe04c59",
+    "tests/town_route_capture.py": "7c70f8b6a9d953ee5c5d1bded26988a711ebe5c365c096a12ba8ab785dc3d037",
+    "tests/cpu_renderer_browser.py": "68d7346abdccdc1b2b0cf030917607d9dafa76e32a0f81c215707de0bc2d78c6"
+  }
+}

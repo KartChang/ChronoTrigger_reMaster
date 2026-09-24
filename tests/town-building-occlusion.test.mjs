@@ -2,7 +2,7 @@ import {landmarkIfDeclared} from './helpers/landmark-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {NullEngine,Scene,FreeCamera,Vector3,Camera,MeshBuilder,TransformNode,StandardMaterial} from '@babylonjs/core/index.js';
 import {TownBuildingOcclusion,TOWN_BUILDING_OCCLUSION} from '../.test/town-building-occlusion.mjs';
-import {World,createState,renderCompatibleScene} from '../.test/cpu-entry.mjs';import {World as OldWorld,renderCompatibleScene as renderOld} from '../.test/building-baseline-cpu-entry.mjs';
+import {World,createState,renderCompatibleScene} from '../.test/field-enemy-baseline-cpu-entry.mjs';import {World as OldWorld,renderCompatibleScene as renderOld} from '../.test/building-baseline-cpu-entry.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';import {buildingBaseline} from './helpers/building-baseline.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');const spec=JSON.parse(readFileSync('tests/baselines/vq03a-declared-building-edits.json'));const original=JSON.parse(readFileSync('tests/fixtures/ci68-town-building-regression.json'));
 for(const [p,edits]of Object.entries(spec.files))test('A strict source inverse '+p,()=>{const s=landmarkIfDeclared(p,readFileSync(p,'utf8'));assert.equal(hash(buildingBaseline(p,s)),spec.originalSha256[p]);for(const e of edits){assert.throws(()=>buildingBaseline(p,s+e.after));assert.throws(()=>buildingBaseline(p,s.replace(e.after,'')));}assert.notEqual(hash(buildingBaseline(p,s+'\n// unrelated change\n')),spec.originalSha256[p]);});

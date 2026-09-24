@@ -3,7 +3,7 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {frameTownActors,townPortrait,TOWN_CAMERA} from '../.test/town-camera.mjs';
 import {EarlyCameraMotion} from '../.test/camera-motion.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/field-enemy-baseline-cpu-entry.mjs';
 import {World as WWorld} from '../.test/town-camera-baseline-cpu-entry.mjs';
 import {townCameraBaseline} from './helpers/town-camera-baseline.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';

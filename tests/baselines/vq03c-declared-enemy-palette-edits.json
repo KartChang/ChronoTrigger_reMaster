@@ -1,0 +1,167 @@
+{
+  "schema": "source-only-preservation-v1",
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "import {PixelPalettePass} from './pixel-presentation';",
+        "after": "import {PixelPalettePass} from './pixel-presentation';\nimport {FieldEnemyPalette} from './field-enemy-palette';"
+      },
+      {
+        "before": "  private palettePass=new PixelPalettePass();",
+        "after": "  private palettePass=new PixelPalettePass();\n  private fieldEnemyPalette=new FieldEnemyPalette();"
+      },
+      {
+        "before": "  inspect(){return {storyNpcs:",
+        "after": "  inspect(){return {fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:"
+      },
+      {
+        "before": "this.scene.onDisposeObservable.add(()=>this.heroFrames.clear());",
+        "after": "this.scene.onDisposeObservable.add(()=>{this.fieldEnemyPalette.reset();this.heroFrames.clear();});"
+      },
+      {
+        "before": "    this.foes.forEach((f,i)=>{",
+        "after": "    this.foes.forEach((f,i)=>{\n      this.fieldEnemyPalette.apply(f,canyon||forest);"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.49'",
+        "after": "version:'0.9.50'"
+      },
+      {
+        "before": "batch:'VQ03B'",
+        "after": "batch:'VQ03C'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {landmarkBaseline}",
+        "after": "import {fieldEnemyIfDeclared} from '../tests/helpers/field-enemy-baseline.mjs';\nimport {landmarkBaseline}"
+      },
+      {
+        "before": "for(const name of ['town-landmark'",
+        "after": "for(const name of ['field-enemy-palette','town-landmark'"
+      },
+      {
+        "before": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/field-enemy-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci70-runtime',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:fieldEnemyIfDeclared('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});"
+      },
+      {
+        "before": "['--test','tests/town-landmark.test.mjs'",
+        "after": "['--test','tests/field-enemy-palette.test.mjs','tests/field-enemy-evidence.test.mjs','tests/town-landmark.test.mjs'"
+      }
+    ],
+    "tests/helpers/landmark-baseline.mjs": [
+      {
+        "before": "import {readFileSync}",
+        "after": "import {fieldEnemyIfDeclared} from './field-enemy-baseline.mjs';\nimport {readFileSync}"
+      },
+      {
+        "before": " const edits=spec.files[name];",
+        "after": " source=fieldEnemyIfDeclared(name,source);\n const edits=spec.files[name];"
+      },
+      {
+        "before": "export const landmarkIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)&&spec.files[name].some(e=>source.includes(e.after))?landmarkBaseline(name,source):source;",
+        "after": "export const landmarkIfDeclared=(name,source)=>{source=fieldEnemyIfDeclared(name,source);return Object.hasOwn(spec.files,name)&&spec.files[name].some(e=>source.includes(e.after))?landmarkBaseline(name,source):source;};"
+      }
+    ],
+    "tests/town-landmark.test.mjs": [
+      {
+        "before": "import {World,createState} from '../.test/cpu-entry.mjs';",
+        "after": "import {World,createState} from '../.test/field-enemy-baseline-cpu-entry.mjs';\nimport {fieldEnemyIfDeclared} from './helpers/field-enemy-baseline.mjs';"
+      },
+      {
+        "before": "const s=readFileSync(path,'utf8');assert.equal(hash(landmarkBaseline(path,s))",
+        "after": "const s=fieldEnemyIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(landmarkBaseline(path,s))"
+      },
+      {
+        "before": "assert.match(readFileSync('scripts/build.mjs','utf8'),/version:",
+        "after": "assert.match(fieldEnemyIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8')),/version:"
+      }
+    ],
+    "tests/town_camera_preservation.py": [
+      {
+        "before": "def restore_landmark_if_declared(name,source):",
+        "after": "CSPEC=json.loads((Path(__file__).parent/'baselines/vq03c-declared-enemy-palette-edits.json').read_text())\ndef restore_field_enemy_if_declared(name,source):\n    edits=CSPEC['files'].get(name,[])\n    if edits and any(e['after'] in source for e in edits):\n        for edit in reversed(edits):\n            if not edit['after'] or source.count(edit['after'])!=1: raise AssertionError('field enemy edit missing or duplicated')\n            source=source.replace(edit['after'],edit['before'],1)\n    return source\ndef restore_landmark_if_declared(name,source):\n    source=restore_field_enemy_if_declared(name,source)"
+      }
+    ],
+    "tests/cpu_era_route.py": [
+      {
+        "before": "from native_import import import_save",
+        "after": "from native_import import import_save\nfrom field_enemy_capture import observe_field_enemies"
+      },
+      {
+        "before": "r['views'].append(capture('02-canyon'))",
+        "after": "r['views'].append(capture('02-canyon'))\n        r['fieldEnemies'] = {}\n        observe_field_enemies(page, out, 'canyon', r['fieldEnemies'])"
+      },
+      {
+        "before": "assert state()['chapter'] == 'forest'\n        encounter",
+        "after": "assert state()['chapter'] == 'forest'\n        observe_field_enemies(page, out, 'forest', r['fieldEnemies'])\n        encounter"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {assertTownLandmarkRoute}",
+        "after": "import {assertFieldEnemies} from './field-enemy-evidence.mjs';\nimport {assertTownLandmarkRoute}"
+      },
+      {
+        "before": " need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');",
+        "after": " for(const c of ['canyon','forest']){const o=r.fieldEnemies?.[c];need(o,'field enemy evidence absent');const b=keep(o.canvasImage,true);assertFieldEnemies(o,c,b);}\n need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');"
+      }
+    ],
+    "tests/town-building-occlusion.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs'",
+        "after": "from '../.test/field-enemy-baseline-cpu-entry.mjs'"
+      }
+    ],
+    "tests/town-camera.test.mjs": [
+      {
+        "before": "from '../.test/cpu-entry.mjs'",
+        "after": "from '../.test/field-enemy-baseline-cpu-entry.mjs'"
+      }
+    ],
+    "tests/story-npc-art.test.mjs": [
+      {
+        "before": "import test from",
+        "after": "import {fieldEnemyIfDeclared} from './helpers/field-enemy-baseline.mjs';\nimport test from"
+      },
+      {
+        "before": "const q=name==='src/kingdom-render.ts'?woodlandBaseline(name,s):s;",
+        "after": "const q=name==='src/kingdom-render.ts'?woodlandBaseline(name,s):fieldEnemyIfDeclared(name,s);"
+      },
+      {
+        "before": "const e=declared.files[name][0];assert.throws",
+        "after": "const e=declared.files[name][0];assert.notEqual(q.replace(e.after,''),q,'negative must mutate the actual source');assert.throws"
+      }
+    ],
+    "tests/story_npc_preservation_test.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from town_camera_preservation import restore_field_enemy_if_declared\nfrom pathlib import Path"
+      },
+      {
+        "before": "            s=(ROOT/name).read_text()\n            if name=='src/kingdom-render.ts': s=restore_woodland_source(name,s)\n            for i,e",
+        "after": "            s=restore_field_enemy_if_declared(name,(ROOT/name).read_text())\n            if name=='src/kingdom-render.ts': s=restore_woodland_source(name,s)\n            for i,e"
+      },
+      {
+        "before": "                        changed=s.replace(e['after'],v,1)\n                        try:",
+        "after": "                        changed=s.replace(e['after'],v,1)\n                        self.assertNotEqual(changed,s,'negative must mutate the actual source')\n                        try:"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "1557ecce6df32966eb1ebdf29bc6b4954967dbe76d6d51615b6c207fe238d19e",
+    "scripts/build.mjs": "90d7353174dad6a5db3185b6cce98dd78c85845994465757a37324291644d3a0",
+    "scripts/test.mjs": "ac54ab5d5f1054bb6d0adcc48c52a50a508bc4e08e6237c3e82614849be8a522",
+    "tests/helpers/landmark-baseline.mjs": "a7c4e0db63859e62d1a2b492971c16931f2faf33e794f30eb90fc23154712d93",
+    "tests/town-landmark.test.mjs": "aac77df2a1be069ad391de785267110f0f8aea7c388c7e70bb6a413fa0bf0eef",
+    "tests/town_camera_preservation.py": "06f9e604032c47daee4cd82d1c4bb33bb3e76dfbeea05ae85f81768ef9ef41cc",
+    "tests/cpu_era_route.py": "7be43754aace36c883f6ec826d57ba22f2529bddd78b447fdd9f1e409d1a5133",
+    "scripts/cpu-era-evidence.mjs": "523333a2bb1f5e476b1d9902bbe3bab75303c4570ae093b702b829d7e8542955",
+    "tests/town-building-occlusion.test.mjs": "56e718fd39f80af8512c60e6da6b980526afb74d4e267ef3a24926ae9f913f1a",
+    "tests/town-camera.test.mjs": "b526912cfb28c6591b372d7395e01850f4439e7a064bd4daf9e867ab281829d6",
+    "tests/story-npc-art.test.mjs": "1247bc1008932bab74c7667630bd979e93d06f30d4cc08b08d9aef8d4fdfa513",
+    "tests/story_npc_preservation_test.py": "3138eb54b10dcc6d851bde3d43c986da6feceea2d9748853fdee6b749200ccb8"
+  }
+}

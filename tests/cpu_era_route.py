@@ -12,6 +12,7 @@ from cpu_native_route import move_axis
 from village_capture import observe_village_layouts
 from town_route_capture import TownRouteCapture
 from native_import import import_save
+from field_enemy_capture import observe_field_enemies
 
 CHAPTER_CAPTURES = ('fair', 'canyon', 'truce', 'forest', 'castle', 'chamber', 'castle', 'cathedral')
 
@@ -199,6 +200,8 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
         wait(page, "s.chapter==='canyon'", 150);stable()
         assert state()['era'] == 'middle'
         r['views'].append(capture('02-canyon'))
+        r['fieldEnemies'] = {}
+        observe_field_enemies(page, out, 'canyon', r['fieldEnemies'])
         encounter('s', 4.8, "s.mode==='battle'");win(3, ('opening','canyonWon'))
         assert state()['fair']['gatoWon']
         move('z', -6.1);talk('600 年')
@@ -216,6 +219,7 @@ def observe_era_route(page, out, identity, snap, wait, activate, observed):
             move('x', 7.3);town.stop('exit')
         talk('森林')
         assert state()['chapter'] == 'forest'
+        observe_field_enemies(page, out, 'forest', r['fieldEnemies'])
         encounter('w', 1, "s.mode==='battle'");win(2, ('kingdom','forestWon'))
         r['views'].append(capture('04-forest'))
         move('x', 0);move('z', 8.2);talk('王城')

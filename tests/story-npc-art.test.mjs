@@ -1,3 +1,4 @@
+import {fieldEnemyIfDeclared} from './helpers/field-enemy-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
@@ -35,8 +36,8 @@ const declared=JSON.parse(readFileSync('tests/baselines/vq02q-declared-scene-edi
 for(const name of Object.keys(declared.files))test(`${name}: only enumerated NPC art/inspection deltas from exact P source`,()=>{
  const s=readFileSync(name,'utf8');const restored=storyNpcBaseline(name,s);
  assert.equal(createHash('sha256').update(restored).digest('hex'),declared.originalSha256[name]);
- const q=name==='src/kingdom-render.ts'?woodlandBaseline(name,s):s;
- const e=declared.files[name][0];assert.throws(()=>storyNpcBaseline(name,q.replace(e.after,''),false));
+ const q=name==='src/kingdom-render.ts'?woodlandBaseline(name,s):fieldEnemyIfDeclared(name,s);
+ const e=declared.files[name][0];assert.notEqual(q.replace(e.after,''),q,'negative must mutate the actual source');assert.throws(()=>storyNpcBaseline(name,q.replace(e.after,''),false));
  assert.throws(()=>storyNpcBaseline(name,q+'\n'+e.after,false));
  // A change outside the declared wires is not erased by the normalization.
  assert.notEqual(createHash('sha256').update(storyNpcBaseline(name,s+'\n// out of scope\n')).digest('hex'),declared.originalSha256[name]);

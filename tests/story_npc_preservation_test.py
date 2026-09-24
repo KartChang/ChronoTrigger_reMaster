@@ -1,4 +1,5 @@
 """Exact-P source checks and negative metadata cases, not native screenshots."""
+from town_camera_preservation import restore_field_enemy_if_declared
 from pathlib import Path
 import hashlib,json,unittest
 from copy import deepcopy
@@ -13,12 +14,13 @@ class StorySourceTests(unittest.TestCase):
             with self.subTest(name=name):self.assertEqual(hashlib.sha256(restore_story_source(name,(ROOT/name).read_text()).encode()).hexdigest(),BASE[name])
     def test_every_missing_or_mutated_hunk_fails(self):
         for name,edits in EDITS.items():
-            s=(ROOT/name).read_text()
+            s=restore_field_enemy_if_declared(name,(ROOT/name).read_text())
             if name=='src/kingdom-render.ts': s=restore_woodland_source(name,s)
             for i,e in enumerate(edits):
                 for v in ['',e['after']+'/* changed */']:
                     with self.subTest(name=name,i=i):
                         changed=s.replace(e['after'],v,1)
+                        self.assertNotEqual(changed,s,'negative must mutate the actual source')
                         try:r=restore_story_source(name,changed,include_woodland=False)
                         except AssertionError:continue
                         self.assertNotEqual(hashlib.sha256(r.encode()).hexdigest(),BASE[name])

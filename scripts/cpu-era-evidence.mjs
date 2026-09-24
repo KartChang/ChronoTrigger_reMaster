@@ -1,3 +1,4 @@
+import {assertFieldEnemies} from './field-enemy-evidence.mjs';
 import {assertTownLandmarkRoute} from './town-landmark-evidence.mjs';
 import {assertTownMotion} from './town-motion-evidence.mjs';
 import {createHash} from 'node:crypto';
@@ -135,6 +136,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  files.push({path:'native-import-report.json',bytes:native.length,sha256:sha(native)});
  for(const v of r.villageLayouts.views){const n=v.pauseAccess.nearest;keep(n.image,true);const b=keep(n.canvasImage,true);need(b.readUInt32BE(16)===n.pixels.width&&b.readUInt32BE(20)===n.pixels.height,'nearest canvas PNG dimensions');}
  for(const v of r.townReadability.stops){keep(v.image,true);const b=keep(v.canvasImage,true);need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'town route canvas PNG dimensions');}
+ for(const c of ['canyon','forest']){const o=r.fieldEnemies?.[c];need(o,'field enemy evidence absent');const b=keep(o.canvasImage,true);assertFieldEnemies(o,c,b);}
  need(new Set(files.map(f=>f.path)).size===files.length,'duplicate file owner');
  return {schema:'chrono-cpu-era-source-ledger-v1',status:'passed',...identity,files,chapters:ERA_CHAPTERS,physicalDevice:false,artApproved:false,wholeGameAccepted:false};
 }

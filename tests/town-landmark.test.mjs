@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {TownLandmark,TOWN_LANDMARK} from '../.test/town-landmark.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/field-enemy-baseline-cpu-entry.mjs';
+import {fieldEnemyIfDeclared} from './helpers/field-enemy-baseline.mjs';
 import {World as OldWorld} from '../.test/landmark-baseline-cpu-entry.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';
 import {landmarkBaseline} from './helpers/landmark-baseline.mjs';
@@ -12,7 +13,7 @@ const original=JSON.parse(readFileSync('tests/fixtures/ci69-town-landmark-regres
 const spec=JSON.parse(readFileSync('tests/baselines/vq03b-declared-landmark-edits.json'));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 for(const [path,edits] of Object.entries(spec.files))test('B preserves exact A source contract: '+path,()=>{
- const s=readFileSync(path,'utf8');assert.equal(hash(landmarkBaseline(path,s)),spec.originalSha256[path]);
+ const s=fieldEnemyIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(landmarkBaseline(path,s)),spec.originalSha256[path]);
  for(const e of edits){assert.throws(()=>landmarkBaseline(path,s+e.after));assert.throws(()=>landmarkBaseline(path,s.replace(e.after,'')));}
  assert.notEqual(hash(landmarkBaseline(path,s+'\n// other drift\n')),spec.originalSha256[path]);
 });
@@ -79,6 +80,6 @@ test('B reduced motion, frozen resize and native-profile restore do not change s
  }finally{k.close();}
 });
 test('B metadata is current and forbidden game/held source cannot be inverted',()=>{
- assert.match(readFileSync('scripts/build.mjs','utf8'),/version:'0\.9\.49',batch:'VQ03B'/);
+ assert.match(fieldEnemyIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8')),/version:'0\.9\.49',batch:'VQ03B'/);
  for(const p of ['src/core.ts','src/main.ts','src/prologue-render.ts','src/input.ts','src/cpu-raster.ts','.github/workflows/ci.yml'])assert.throws(()=>landmarkBaseline(p,'modified'));
 });

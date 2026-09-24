@@ -336,7 +336,7 @@ export class World {
     }
     this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':(prologueMap(s.chapter)||(trialMap(s.chapter)&&!['guardia1000','prisonbridge'].includes(s.chapter)))?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
-    this.kingdomWorld.draw(s);this.rescueWorld.draw(s);this.trialWorld.draw(s);
+    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s);
     for(const effect of frameEffects)this.effect(effect,s);
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';

@@ -75,13 +75,13 @@ export function buildRescue(scene:Scene,shadow:ShadowGenerator){
   }
   root.setEnabled(false);return v;
  }
- return {draw(s:State){
+ return {draw(s:State,reducedMotion=false){
   for(const [map,v] of views)v.root.setEnabled(map===s.chapter);
   if(!rescueMap(s.chapter))return;
   let v=views.get(s.chapter);if(!v){v=build(s.chapter);views.set(s.chapter,v);}v.root.setEnabled(true);
   const r=s.rescue;v.nuns.forEach(n=>n.setEnabled(r.stage==='entered'&&s.mode==='explore'));v.crest?.setEnabled(r.stage==='entered'&&s.mode==='explore');v.frog?.setEnabled(r.stage==='cleared'&&s.mode==='explore');v.door?.setEnabled(!r.organOpen);
   v.fake?.setEnabled(!r.yakraWon&&s.mode==='explore');v.queen?.setEnabled(s.mode!=='battle');v.prisoner?.setEnabled(r.chancellorFreed&&s.mode==='explore');
   if(v.lid)v.lid.rotation.x=r.chestOpened?-.8:0;
-  npcMotion.draw(s.ticks);
+  npcMotion.draw(s.ticks,reducedMotion);
  },inspect(){return [...views.keys()];},inspectNpcs(){return npcMotion.inspect();}};
 }

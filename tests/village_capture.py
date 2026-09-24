@@ -6,6 +6,7 @@ import hashlib
 import sys
 from pathlib import Path
 from pause_access import observe_pause_access
+from npc_comfort_capture import observe_npc_comfort
 
 VIEWPORTS = ((960, 640), (390, 844), (844, 390))
 
@@ -46,6 +47,9 @@ def observe_village_layouts(page, out, record, snap, observed):
             value['canvasImage'] = {**receipt(canvas), 'source': 'actual-cpu-canvas'}
             value['pauseAccess'] = {}
             observe_pause_access(page, out, value['pauseAccess'], snap, observed, frozen, i)
+            if i == 0:
+                record['npcComfort'] = {}
+                observe_npc_comfort(page, out, record['npcComfort'], snap, frozen)
         page.set_viewport_size(original)
         page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
         record['restoredViewport'] = page.evaluate('({width:innerWidth,height:innerHeight})')

@@ -1,0 +1,257 @@
+{
+  "schema": "chrono-vq03e-npc-comfort-source-inverse-v1",
+  "source": "1d2a59bfa14b761969c2dfaf7261e6868bcdcd37",
+  "originalSha256": {
+    "src/render.ts": "f3c5f8bea398fd685ee212b3e487b606d3c61c0e8f84de92f8e88599eda169e9",
+    "src/kingdom-render.ts": "f2f4d131089469aaccceea1cd1bd01c071f599afb3c482b43d1333f6c81829be",
+    "src/rescue-render.ts": "55a617f4f9778c3b14869b36df51d5017ade53bb0b7bca7f6d502029bd46126f",
+    "src/story-npc-motion.ts": "bb55c79c91903e3c6bc7d4e2b5e3e71b1ea35675c5bfa2da98e56d40411771ec",
+    "tests/village_capture.py": "520e28e8d7eead6f41ba667fbfa872c485c71150e22f4c03aaee051a6c23ff1c",
+    ".github/workflows/ci.yml": "dd55ff718cebdb1c83f258a928258945069db5904be77d90930c460dffadb79f",
+    "scripts/build.mjs": "4837146ed2697fa389592cffebf671c963247c4bac45491d3af5d43f68b38a5d",
+    "scripts/test.mjs": "6322a523f127254ae7f666aa36027e420b6dc48fb8584a513703168d492b3d44",
+    "tests/helpers/story-npc-baseline.mjs": "74518bb2777ae595018645460ce80289d8d9146c70b16ad77e10b5302edaa790",
+    "tests/helpers/village-baseline.mjs": "1195bc2afb0725fdedbb0d7316fb59b4b90d0e0c01c33ea70b41e063ad8ed108",
+    "tests/helpers/visibility-baseline.mjs": "ea3629782753dc4c1775c678363388edc249fde2f69e7265c17ec1e27f5e8f08",
+    "tests/story_npc_preservation.py": "ae31eefc35e93edaf2c2441cbf6a3dfb5a0317eb54bfead7d077ad132621ad49",
+    "tests/village_capture_test.py": "f3c27be10c0a1b2dbd3330f5ea66caf2c9a19d6e57162d66ca6a23951231ae6f",
+    "tests/visibility_preservation.py": "58a156856afcda135d9f99c94c3ad5f6e699a0e6ef9b0eea69b5c2ffa4acc9de",
+    "tests/visibility_preservation_test.py": "cdfd6a9e5e01350f57189c0c48eb419edd60fe40c615340f7920da6d50224789",
+    "tests/woodland-occlusion.test.mjs": "fbcdcc32045c908d06343d6c0f30f2be31241de11a14ffb34e40b3597408db22",
+    "tests/helpers/readability-baseline.mjs": "781e654d89190b02d99192886886ae2a592011bd9a4670f096923272a10fa1b8",
+    "tests/helpers/town-camera-baseline.mjs": "0e724140acfb892ada13c94934dc9c2af7cdfead7b34eec646dc48a3221f957c",
+    "tests/town-camera.test.mjs": "443ce4ff72f53d1a2ad1d03e0f54bf1fd0eeeb587e30c695b60e5eb415bb633d"
+  },
+  "files": {
+    "src/render.ts": [
+      {
+        "before": ".draw(s,this.time);\n    this.kingdomWorld.draw(s);this.rescueWorld.draw(s);this.trialWorld.draw(s);\n    for(const effect ",
+        "after": ".draw(s,this.time);\n    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s);\n    for(const effect "
+      }
+    ],
+    "src/kingdom-render.ts": [
+      {
+        "before": "ground:texture,trees}};\n }\n return {draw(s:State){\n  for(const [id,v] of views)v.root.setEnabled",
+        "after": "ground:texture,trees}};\n }\n return {draw(s:State,reducedMotion=false){\n  for(const [id,v] of views)v.root.setEnabled"
+      },
+      {
+        "before": "dom.phase==='missing');\n  npcMotion.draw(s.ticks);\n },inspectNpcs(){return {...npcMotion.inspect",
+        "after": "dom.phase==='missing');\n  npcMotion.draw(s.ticks,reducedMotion);\n },inspectNpcs(){return {...npcMotion.inspect"
+      }
+    ],
+    "src/rescue-render.ts": [
+      {
+        "before": "nabled(false);return v;\n }\n return {draw(s:State){\n  for(const [map,v] of views)v.root.setEnable",
+        "after": "nabled(false);return v;\n }\n return {draw(s:State,reducedMotion=false){\n  for(const [map,v] of views)v.root.setEnable"
+      },
+      {
+        "before": ".x=r.chestOpened?-.8:0;\n  npcMotion.draw(s.ticks);\n },inspect(){return [...views.keys()];},inspe",
+        "after": ".x=r.chestOpened?-.8:0;\n  npcMotion.draw(s.ticks,reducedMotion);\n },inspect(){return [...views.keys()];},inspe"
+      }
+    ],
+    "src/story-npc-motion.ts": [
+      {
+        "before": "lane. */\nexport class StoryNpcMotion {\n private actors:{mesh:Mesh;kind:StoryNpcKind;frame:number;seed:number;uploads:number}[]=[];\n constructor(scene:Scene){scene.onDisposeObservable.addOnce((",
+        "after": "lane. */\nexport class StoryNpcMotion {\n private reducedMotion=false;\n private lastTick:number|null=null;\n private nextSeed=0;\n private actors:{mesh:Mesh;kind:StoryNpcKind;frame:number;seed:number;uploads:number}[]=[];\n constructor(private readonly scene:Scene){scene.onDisposeObservable.addOnce(("
+      },
+      {
+        "before": "=[];});}\n add(mesh:Mesh,kind:StoryNpcKind):Mesh{\n  if(this.actors.some(a=>a.mesh===mesh))throw n",
+        "after": "=[];});}\n add(mesh:Mesh,kind:StoryNpcKind):Mesh{\n  if(this.scene.isDisposed||mesh.isDisposed()||mesh.getScene()!==this.scene)throw new Error('Invalid NPC scene ownership');\n  if(this.actors.some(a=>a.mesh===mesh))throw n"
+      },
+      {
+        "before": "t)throw new Error('Story NPC cell mismatch');\n  this.actors.push({mesh,kind,frame:0,seed:this.actors.length,uploads:0});return mesh;\n }\n draw(ticks:number):void{\n  for(const a of this.actors){if(a.mesh.isDisposed()||!a.mesh.isEnabled())continue;\n   const frame=ambientFrame(ticks,a.seed);if(frame===a.frame)co",
+        "after": "t)throw new Error('Story NPC cell mismatch');\n  if(this.actors.some(a=>(a.mesh.material as StandardMaterial)?.diffuseTexture===tex))throw new Error('NPC texture must be private');\n  this.actors.push({mesh,kind,frame:0,seed:this.nextSeed++,uploads:0});\n  // Release references at disposal without renumbering still-live stagger seeds.\n  mesh.onDisposeObservable.addOnce(()=>{this.actors=this.actors.filter(a=>a.mesh!==mesh);});\n  return mesh;\n }\n draw(ticks:number,reducedMotion=false):void{\n  if(!Number.isSafeInteger(ticks)||ticks<0||typeof reducedMotion!=='boolean')throw new Error('Invalid NPC presentation input');\n  this.reducedMotion=reducedMotion;this.lastTick=ticks;\n  for(const a of this.actors){if(a.mesh.isDisposed()||!a.mesh.isEnabled()||!a.mesh.isVisible||a.mesh.visibility<=0)continue;\n   const frame=reducedMotion?0:ambientFrame(ticks,a.seed);if(frame===a.frame)co"
+      },
+      {
+        "before": "return {profile:STORY_NPC_ART.id,approved:false,actors:this.actors.filter(a=>!a.mesh.isDisposed()&&a.mesh.isEnabled()).map(a=>({name:a.mesh.name,kind:a.kind,frame:a.frame,uploads:a.uploads,cell:{...((a.m",
+        "after": "return {profile:STORY_NPC_ART.id,approved:false,motion:{profile:'vq03e-npc-motion-preference',clock:'simulation-ticks',tick:this.lastTick,reducedMotion:this.reducedMotion,bindingCount:this.actors.length,stateMutation:false},actors:this.actors.filter(a=>!a.mesh.isDisposed()&&a.mesh.isEnabled()&&a.mesh.isVisible&&a.mesh.visibility>0).map(a=>({name:a.mesh.name,kind:a.kind,seed:a.seed,frame:a.frame,uploads:a.uploads,cell:{...((a.m"
+      }
+    ],
+    "tests/village_capture.py": [
+      {
+        "before": "th\nfrom pause_access import observe_pause_access\n\nVIEWPORTS = ((960, 640), (390, 844), (844, 390",
+        "after": "th\nfrom pause_access import observe_pause_access\nfrom npc_comfort_capture import observe_npc_comfort\n\nVIEWPORTS = ((960, 640), (390, 844), (844, 390"
+      },
+      {
+        "before": "useAccess'], snap, observed, frozen, i)\n        page.set_viewport_size(original)\n        page.ev",
+        "after": "useAccess'], snap, observed, frozen, i)\n            if i == 0:\n                record['npcComfort'] = {}\n                observe_npc_comfort(page, out, record['npcComfort'], snap, frozen)\n        page.set_viewport_size(original)\n        page.ev"
+      }
+    ],
+    ".github/workflows/ci.yml": [
+      {
+        "before": "cpu-adventure-evidence.mjs\n      - name: Verify complete same-source validation evidence\n       ",
+        "after": "cpu-adventure-evidence.mjs\n      - name: Verify same-source native NPC reduced-motion and restoration\n        if: always()\n        run: node scripts/npc-comfort-evidence.mjs\n      - name: Verify complete same-source validation evidence\n       "
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "de:fs/promises';\nconst buildInfo={version:'0.9.51',batch:'VQ03D',sourceSha:process.env.GITHUB_SHA??null};\nif(bu",
+        "after": "de:fs/promises';\nconst buildInfo={version:'0.9.52',batch:'VQ03E',sourceSha:process.env.GITHUB_SHA??null};\nif(bu"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {fieldEnemyIfDeclared} from '../tests/hel",
+        "after": "import {npcComfortIfDeclared} from '../tests/helpers/npc-comfort-baseline.mjs';\nimport {fieldEnemyIfDeclared} from '../tests/hel"
+      },
+      {
+        "before": " from '../tests/helpers/visibility-baseline.mjs';\nconst visibilityPlugin={name:'exact-ci71-visib",
+        "after": " from '../tests/helpers/visibility-baseline.mjs';\nconst npcComfortPlugin={name:'exact-ci72-npc-comfort',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|kingdom-render|rescue-render|story-npc-motion)\\.ts$/},args=>({contents:npcComfortIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\nconst visibilityPlugin={name:'exact-ci71-visib"
+      },
+      {
+        "before": "ptions.outfile?.includes('baseline')?[visibilityPlugin]:[])]});\nimport {buildingBaseline,buildin",
+        "after": "ptions.outfile?.includes('baseline')?[visibilityPlugin,npcComfortPlugin]:[])]});\nimport {buildingBaseline,buildin"
+      },
+      {
+        "before": "format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.t",
+        "after": "format:'esm',platform:'node',packages:'external'});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/npc-comfort-original.mjs',format:'esm',platform:'node',packages:'external',plugins:[npcComfortPlugin]});\nawait build({entryPoints:['tests/cpu-entry.t"
+      },
+      {
+        "before": "t r=spawnSync(process.execPath,['--test','tests/woodland-occlusion.test.mjs','tests/cpu-blend-fa",
+        "after": "t r=spawnSync(process.execPath,['--test','tests/npc-comfort.test.mjs','tests/npc-comfort-evidence.test.mjs','tests/woodland-occlusion.test.mjs','tests/cpu-blend-fa"
+      }
+    ],
+    "tests/helpers/story-npc-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';\nimport {to",
+        "after": "import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';\nimport {readFileSync} from 'node:fs';\nimport {to"
+      },
+      {
+        "before": "ryNpcBaseline(name,source,includeWoodland=true){\n if(name==='src/render.ts')source=townCameraIfD",
+        "after": "ryNpcBaseline(name,source,includeWoodland=true){\n source=npcComfortIfDeclared(name,source);\n if(name==='src/render.ts')source=townCameraIfD"
+      }
+    ],
+    "tests/helpers/village-baseline.mjs": [
+      {
+        "before": "import {signOcclusionIfDeclared} from './sign-oc",
+        "after": "import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';\nimport {signOcclusionIfDeclared} from './sign-oc"
+      },
+      {
+        "before": "*/\nexport function villageBaseline(name,source){\n if(name==='scripts/cpu-era-evidence.mjs')sourc",
+        "after": "*/\nexport function villageBaseline(name,source){\n source=npcComfortIfDeclared(name,source);\n if(name==='scripts/cpu-era-evidence.mjs')sourc"
+      }
+    ],
+    "tests/helpers/visibility-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';\nconst spec",
+        "after": "import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';\nimport {readFileSync} from 'node:fs';\nconst spec"
+      },
+      {
+        "before": "export function visibilityBaseline(name,source){\n const edits=spec.files[name];if(!edits)throw E",
+        "after": "export function visibilityBaseline(name,source){\n source=npcComfortIfDeclared(name,source);\n const edits=spec.files[name];if(!edits)throw E"
+      },
+      {
+        "before": "xport const visibilityIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)&&spec.files[name]",
+        "after": "xport const visibilityIfDeclared=(name,source)=>{source=npcComfortIfDeclared(name,source);return Object.hasOwn(spec.files,name)&&spec.files[name]"
+      },
+      {
+        "before": ".after))?visibilityBaseline(name,source):source;\n",
+        "after": ".after))?visibilityBaseline(name,source):source;};\n"
+      }
+    ],
+    "tests/story_npc_preservation.py": [
+      {
+        "before": "\"\"\"Only the declared NPC scene/presentation addi",
+        "after": "from npc_comfort_preservation import restore_npc_comfort_if_declared\n\"\"\"Only the declared NPC scene/presentation addi"
+      },
+      {
+        "before": "ory_source(name, source, include_woodland=True):\n    if name == \"src/render.ts\": source = restor",
+        "after": "ory_source(name, source, include_woodland=True):\n    source = restore_npc_comfort_if_declared(name, source)\n    if name == \"src/render.ts\": source = restor"
+      }
+    ],
+    "tests/village_capture_test.py": [
+      {
+        "before": "lage_layouts\nfrom pause_access import DOM_LAYOUT\n\nclass Page:\n    def __init__(self):\n        se",
+        "after": "lage_layouts\nfrom pause_access import DOM_LAYOUT\nfrom npc_comfort_capture import SNAPSHOT, MEDIA_QUERY\n\nclass Page:\n    def __init__(self):\n        se"
+      },
+      {
+        "before": "sume\";self.sampling=True;self.selected=\"#resume\"\n    def press(self,key):\n        self.keys.appe",
+        "after": "sume\";self.sampling=True;self.selected=\"#resume\";self.reduced=False;self.npc_frames=[0,0];self.npc_uploads=[0,0]\n    def emulate_media(self, reduced_motion):\n        self.reduced = reduced_motion == 'reduce'\n    def npc_snapshot(self):\n        actors=[]\n        for seed,(name,kind) in enumerate([('townsperson','resident'),('innkeeper','innkeeper')]):\n            t=(self.state['ticks']+seed*37)%240\n            frame=0 if self.reduced or t<90 else 1 if t<180 else 2 if t<189 else 3\n            if self.npc_frames[seed] != frame:self.npc_frames[seed]=frame;self.npc_uploads[seed]+=1\n            actors.append({'name':name,'kind':kind,'seed':seed,'frame':frame,'uploads':self.npc_uploads[seed],'cell':{'width':48,'height':64}})\n        return {'chapter':self.state['chapter'],'paused':self.paused,'mediaReduce':self.reduced,\n                'npc':{'profile':'vq02q-story-npc-cloth-and-silhouette','approved':False,\n                'motion':{'profile':'vq03e-npc-motion-preference','clock':'simulation-ticks','tick':self.state['ticks'],'reducedMotion':self.reduced,'bindingCount':2,'stateMutation':False},'actors':actors},\n                'renderer':{'backend':'cpu-canvas2d','webglVersion':0,'width':120,'height':80,'samplingEnabled':self.sampling},'viewport':dict(self.viewport_size),'focus':self.focus_id}\n    def press(self,key):\n        self.keys.appe"
+      },
+      {
+        "before": "f.state['ticks']+=1\n    def evaluate(self,code):\n        if code==DOM_LAYOUT:\n            return",
+        "after": "f.state['ticks']+=1\n    def evaluate(self,code):\n        if code == MEDIA_QUERY:return self.reduced\n        if code == SNAPSHOT:return self.npc_snapshot()\n        if code==DOM_LAYOUT:\n            return"
+      }
+    ],
+    "tests/visibility_preservation.py": [
+      {
+        "before": "verse. Never used by native browser journeys.\"\"\"\nimport json\nfrom pathlib import Path\nSPEC = jso",
+        "after": "verse. Never used by native browser journeys.\"\"\"\nfrom npc_comfort_preservation import restore_npc_comfort_if_declared\nimport json\nfrom pathlib import Path\nSPEC = jso"
+      },
+      {
+        "before": "))\n\ndef restore_visibility_source(name, source):\n    edits = SPEC['files'].get(name)\n    if not ",
+        "after": "))\n\ndef restore_visibility_source(name, source):\n    source = restore_npc_comfort_if_declared(name, source)\n    edits = SPEC['files'].get(name)\n    if not "
+      },
+      {
+        "before": "store_visibility_if_declared(name, source):\n    edits = SPEC['files'].get(name, [])\n    return r",
+        "after": "store_visibility_if_declared(name, source):\n    source = restore_npc_comfort_if_declared(name, source)\n    edits = SPEC['files'].get(name, [])\n    return r"
+      }
+    ],
+    "tests/visibility_preservation_test.py": [
+      {
+        "before": "hashlib\nfrom pathlib import Path\nimport unittest\nfrom visibility_preservation import SPEC, resto",
+        "after": "hashlib\nfrom pathlib import Path\nimport unittest\nfrom npc_comfort_preservation import restore_npc_comfort_if_declared\nfrom visibility_preservation import SPEC, resto"
+      },
+      {
+        "before": " in SPEC['files'].items():\n            source = (ROOT/name).read_text()\n            for edit in edits:\n                for value in [source + edit['af",
+        "after": " in SPEC['files'].items():\n            source = restore_npc_comfort_if_declared(name, (ROOT/name).read_text())\n            for edit in edits:\n                self.assertEqual(source.count(edit['after']), 1)\n                for value in [source + edit['af"
+      }
+    ],
+    "tests/woodland-occlusion.test.mjs": [
+      {
+        "before": "import test from 'node:test';import assert from ",
+        "after": "import {npcComfortIfDeclared} from './helpers/npc-comfort-baseline.mjs';\nimport test from 'node:test';import assert from "
+      },
+      {
+        "before": "es))test('D exact C inverse '+path,()=>{const s=readFileSync(path,'utf8');assert.equal(hash(visibilityBaseline(path,s)),",
+        "after": "es))test('D exact C inverse '+path,()=>{const s=npcComfortIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(visibilityBaseline(path,s)),"
+      },
+      {
+        "before": "pec.originalSha256[path]);for(const e of edits){assert.throws(()=>visibilityBaseline(path,s+e.af",
+        "after": "pec.originalSha256[path]);for(const e of edits){assert.equal(s.split(e.after).length,2);assert.throws(()=>visibilityBaseline(path,s+e.af"
+      },
+      {
+        "before": "WOODLAND_OCCLUSION.approved,false);assert.match(readFileSync('scripts/build.mjs','utf8'),/version:'0\\.9\\.51',batch:'VQ03D'/);});\ntest('",
+        "after": "WOODLAND_OCCLUSION.approved,false);assert.match(npcComfortIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8')),/version:'0\\.9\\.51',batch:'VQ03D'/);});\ntest('"
+      }
+    ],
+    "tests/helpers/readability-baseline.mjs": [
+      {
+        "before": "import {detailIfDeclared} from './detail-baselin",
+        "after": "import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';\nimport {detailIfDeclared} from './detail-baselin"
+      },
+      {
+        "before": "dabilityBaseline(name,source,includePause=true){\n if(includePause)source=['scripts/build.mjs','s",
+        "after": "dabilityBaseline(name,source,includePause=true){\n source=npcComfortIfDeclared(name,source);\n if(includePause)source=['scripts/build.mjs','s"
+      }
+    ],
+    "tests/helpers/town-camera-baseline.mjs": [
+      {
+        "before": "import {signOcclusionIfDeclared} from './sign-oc",
+        "after": "import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';\nimport {signOcclusionIfDeclared} from './sign-oc"
+      },
+      {
+        "before": "ownCameraBaseline(name,source,includeSign=true){\n if(includeSign)source=signOcclusionIfDeclared(",
+        "after": "ownCameraBaseline(name,source,includeSign=true){\n source=npcComfortIfDeclared(name,source);\n if(includeSign)source=signOcclusionIfDeclared("
+      },
+      {
+        "before": "xport const townCameraIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)?townCameraBaselin",
+        "after": "xport const townCameraIfDeclared=(name,source)=>{source=npcComfortIfDeclared(name,source);return Object.hasOwn(spec.files,name)?townCameraBaselin"
+      },
+      {
+        "before": "me,source):signOcclusionIfDeclared(name,source);\n",
+        "after": "me,source):signOcclusionIfDeclared(name,source);};\n"
+      }
+    ],
+    "tests/town-camera.test.mjs": [
+      {
+        "before": "import {signOcclusionIfDeclared} from './helpers",
+        "after": "import {npcComfortIfDeclared} from './helpers/npc-comfort-baseline.mjs';\nimport {signOcclusionIfDeclared} from './helpers"
+      },
+      {
+        "before": ")=>{\n const source=signOcclusionIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(townCameraBaseline(path,sour",
+        "after": ")=>{\n const source=signOcclusionIfDeclared(path,npcComfortIfDeclared(path,readFileSync(path,'utf8')));assert.equal(source.split(edits.at(-1).after).length,2);assert.equal(hash(townCameraBaseline(path,sour"
+      }
+    ]
+  }
+}

@@ -68,6 +68,9 @@ jobs:
       - name: Verify source-bound CPU rescue, trial and sustained observations
         if: always()
         run: node scripts/cpu-adventure-evidence.mjs
+      - name: Verify same-source native NPC reduced-motion and restoration
+        if: always()
+        run: node scripts/npc-comfort-evidence.mjs
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate

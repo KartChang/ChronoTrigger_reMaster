@@ -1,3 +1,4 @@
+import {npcComfortIfDeclared} from './helpers/npc-comfort-baseline.mjs';
 import {signOcclusionIfDeclared} from './helpers/sign-occlusion-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
@@ -11,7 +12,7 @@ import {assertTownDetails} from '../scripts/village-detail-evidence.mjs';
 const spec=JSON.parse(readFileSync('tests/baselines/vq02x-declared-town-camera-edits.json'));
 const hash=s=>createHash('sha256').update(s).digest('hex');
 for(const [path,edits] of Object.entries(spec.files))test('X exact W inverse preserves old pins: '+path,()=>{
- const source=signOcclusionIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(townCameraBaseline(path,source,false)),spec.originalSha256[path]);
+ const source=signOcclusionIfDeclared(path,npcComfortIfDeclared(path,readFileSync(path,'utf8')));assert.equal(source.split(edits.at(-1).after).length,2);assert.equal(hash(townCameraBaseline(path,source,false)),spec.originalSha256[path]);
  assert.throws(()=>townCameraBaseline(path,source+edits.at(-1).after,false));
  assert.throws(()=>townCameraBaseline(path,source.replace(edits.at(-1).after,''),false));
  assert.notEqual(hash(townCameraBaseline(path,source+'\n// unrelated mutation\n',false)),spec.originalSha256[path]);

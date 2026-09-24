@@ -2,6 +2,7 @@
 import hashlib
 from pathlib import Path
 import unittest
+from npc_comfort_preservation import restore_npc_comfort_if_declared
 from visibility_preservation import SPEC, restore_visibility_source, restore_visibility_if_declared
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,8 +16,9 @@ class VisibilityPreservationTests(unittest.TestCase):
 
     def test_missing_or_duplicated_hunks_fail(self):
         for name, edits in SPEC['files'].items():
-            source = (ROOT/name).read_text()
+            source = restore_npc_comfort_if_declared(name, (ROOT/name).read_text())
             for edit in edits:
+                self.assertEqual(source.count(edit['after']), 1)
                 for value in [source + edit['after'], source.replace(edit['after'], '', 1)]:
                     with self.subTest(name=name), self.assertRaises(AssertionError):
                         restore_visibility_source(name, value)

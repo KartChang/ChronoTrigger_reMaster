@@ -3,12 +3,26 @@ import base64,copy,tempfile,unittest
 from pathlib import Path
 from village_capture import observe_village_layouts
 from pause_access import DOM_LAYOUT
+from npc_comfort_capture import SNAPSHOT, MEDIA_QUERY
 
 class Page:
     def __init__(self):
         self.viewport_size={'width':960,'height':640};self.paused=False;self.keyboard=self
         self.state={'chapter':'truce','mode':'explore','ticks':7,'players':[{'x':0,'z':0}]}
-        self.fail=None;self.resizes=[];self.keys=[];self.focus_id="resume";self.sampling=True;self.selected="#resume"
+        self.fail=None;self.resizes=[];self.keys=[];self.focus_id="resume";self.sampling=True;self.selected="#resume";self.reduced=False;self.npc_frames=[0,0];self.npc_uploads=[0,0]
+    def emulate_media(self, reduced_motion):
+        self.reduced = reduced_motion == 'reduce'
+    def npc_snapshot(self):
+        actors=[]
+        for seed,(name,kind) in enumerate([('townsperson','resident'),('innkeeper','innkeeper')]):
+            t=(self.state['ticks']+seed*37)%240
+            frame=0 if self.reduced or t<90 else 1 if t<180 else 2 if t<189 else 3
+            if self.npc_frames[seed] != frame:self.npc_frames[seed]=frame;self.npc_uploads[seed]+=1
+            actors.append({'name':name,'kind':kind,'seed':seed,'frame':frame,'uploads':self.npc_uploads[seed],'cell':{'width':48,'height':64}})
+        return {'chapter':self.state['chapter'],'paused':self.paused,'mediaReduce':self.reduced,
+                'npc':{'profile':'vq02q-story-npc-cloth-and-silhouette','approved':False,
+                'motion':{'profile':'vq03e-npc-motion-preference','clock':'simulation-ticks','tick':self.state['ticks'],'reducedMotion':self.reduced,'bindingCount':2,'stateMutation':False},'actors':actors},
+                'renderer':{'backend':'cpu-canvas2d','webglVersion':0,'width':120,'height':80,'samplingEnabled':self.sampling},'viewport':dict(self.viewport_size),'focus':self.focus_id}
     def press(self,key):
         self.keys.append(key)
         if key=='Escape':self.paused=True
@@ -23,6 +37,8 @@ class Page:
         self.viewport_size=dict(size);self.resizes.append(dict(size))
         if self.fail=='state' and size['width']==390:self.state['ticks']+=1
     def evaluate(self,code):
+        if code == MEDIA_QUERY:return self.reduced
+        if code == SNAPSHOT:return self.npc_snapshot()
         if code==DOM_LAYOUT:
             return {'viewport':dict(self.viewport_size),'focus':self.focus_id,'dialog':{'x':12,'y':12,'width':self.viewport_size['width']-24,'height':300},'scrollTop':0,'scrollHeight':296,'clientHeight':296,'controls':[{'id':name,'visible':True,'hit':True,'fontSize':14,'rect':{'x':24,'y':30+i*60,'width':150,'height':44}} for i,name in enumerate(('resume','render-quality','cpu-sampling'))]}
         if code=='window.__CHRONO_TEST__.view().earlyComfort':return {'viewport':dict(self.viewport_size),'unitOnly':True}

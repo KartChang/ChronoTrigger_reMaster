@@ -1,9 +1,11 @@
+import {npcComfortIfDeclared} from './npc-comfort-baseline.mjs';
 import {readFileSync} from 'node:fs';
 import {townCameraIfDeclared} from './town-camera-baseline.mjs';
 import {woodlandBaseline} from './woodland-baseline.mjs';
 const declared=JSON.parse(readFileSync(new URL('../baselines/vq02q-declared-scene-edits.json',import.meta.url),'utf8')).files;
 /** SOURCE-only inversion, never an altered runtime or evidence snapshot. */
 export function storyNpcBaseline(name,source,includeWoodland=true){
+ source=npcComfortIfDeclared(name,source);
  if(name==='src/render.ts')source=townCameraIfDeclared(name,source);
  if(includeWoodland&&name==='src/kingdom-render.ts')source=woodlandBaseline(name,source);
  const edits=declared[name];if(!edits)throw Error('Undeclared story source');

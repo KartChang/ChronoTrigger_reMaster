@@ -1,9 +1,11 @@
 """Strict D -> C offline source inverse. Never used by native browser journeys."""
+from npc_comfort_preservation import restore_npc_comfort_if_declared
 import json
 from pathlib import Path
 SPEC = json.loads((Path(__file__).parent / 'baselines/vq03d-declared-visibility-edits.json').read_text())
 
 def restore_visibility_source(name, source):
+    source = restore_npc_comfort_if_declared(name, source)
     edits = SPEC['files'].get(name)
     if not edits:
         raise ValueError('undeclared visibility source')
@@ -14,5 +16,6 @@ def restore_visibility_source(name, source):
     return source
 
 def restore_visibility_if_declared(name, source):
+    source = restore_npc_comfort_if_declared(name, source)
     edits = SPEC['files'].get(name, [])
     return restore_visibility_source(name, source) if edits and any(e['after'] in source for e in edits) else source

@@ -101,12 +101,12 @@ export function buildKingdom(scene:Scene,shadow:ShadowGenerator){
   if(chapter==='truce')villageFinish.apply(root);
   root.setEnabled(false);return {root,queen,lucca,outdoor:inside?undefined:{ground:texture,trees}};
  }
- return {draw(s:State){
+ return {draw(s:State,reducedMotion=false){
   for(const [id,v] of views)v.root.setEnabled(id===s.chapter);
   if(!kingdomMap(s.chapter))return;
   let view=views.get(s.chapter);if(!view){view=build(s.chapter);views.set(s.chapter,view);}view.root.setEnabled(true);
   if(view.queen){view.queen.setEnabled(s.kingdom.phase==='audience'||s.kingdom.phase==='erasing'||s.rescue.stage==='homecoming');const scale=s.kingdom.phase==='erasing'?Math.max(.02,1-s.kingdom.elapsed/2.2):1;view.queen.scaling.set(scale,scale,1);}
   view.lucca?.setEnabled(s.kingdom.phase==='missing');
-  npcMotion.draw(s.ticks);
+  npcMotion.draw(s.ticks,reducedMotion);
  },inspectNpcs(){return {...npcMotion.inspect(),woodland:inspectWoodland(),village:villageFinish.inspect()};}};
 }

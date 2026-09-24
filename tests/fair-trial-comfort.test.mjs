@@ -1,3 +1,4 @@
+import {audioGIfDeclared} from './helpers/audio-g-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -62,5 +63,5 @@ test('World normal-mode CPU bytes equal exact E across fair and trial maps; redu
  }finally{a?.engine.dispose();b?.engine.dispose();Object.assign(globalThis,old);}
 });
 const spec=JSON.parse(readFileSync('tests/baselines/vq03f-declared-fair-trial-edits.json'));
-for(const [name,edits] of Object.entries(spec.files))test('F source inverse retains original E pin '+name,()=>{const raw=readFileSync(name,'utf8'),sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(fairTrialBaseline(name,raw)),spec.originalSha256[name]);assert.throws(()=>fairTrialBaseline(name,raw+edits[0].after));assert.throws(()=>fairTrialBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(sha(fairTrialBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);});
+for(const [name,edits] of Object.entries(spec.files))test('F source inverse retains original E pin '+name,()=>{const raw=audioGIfDeclared(name,readFileSync(name,'utf8')),sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(fairTrialBaseline(name,raw)),spec.originalSha256[name]);assert.throws(()=>fairTrialBaseline(name,raw+edits[0].after));assert.throws(()=>fairTrialBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(sha(fairTrialBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);});
 test('held prologue and original painters remain unchanged; no timers/state writes in NPC motion',()=>{const raw=readFileSync('src/prologue-render.ts'),blob=createHash('sha1').update(`blob ${raw.length}\0`).update(raw).digest('hex');assert.equal(blob,'2711a74185aacf3c6bddf9db85ba99a2afbc507a');assert.doesNotMatch(readFileSync('src/npc-motion.ts','utf8'),/setTimeout|setInterval|Date\.now|Math\.random|\.position\s*\.|\.scaling\s*\./);});

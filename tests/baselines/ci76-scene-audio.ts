@@ -1,7 +1,5 @@
 import {MUSIC_PROFILE,SCORES,sceneCue,notesAt,noteFrequency} from './music-score';
 import type {AudioScene,Cue,Voice} from './music-score';
-import {SOUND_EFFECT_PROFILE,effectScore} from './sound-effect-score';
-import type {EffectNote} from './sound-effect-score';
 
 const VOICE_LIMIT=16,MASTER_LEVEL=.55;
 type Playing={osc:OscillatorNode;gain:GainNode;end:number};
@@ -27,10 +25,6 @@ export class SceneAudio {
  private skipped=0;
  private contexts=0;
  private requestId=0;
- private effectCount=0;
- private effectVoices=0;
- private lastEffect:string|null=null;
- private samples:Float32Array<ArrayBuffer>|undefined;
  constructor(private readonly factory:()=>AudioContext=()=>new AudioContext()){}
  setEnabled(enabled:boolean):void {
   if(this.disposed)return;
@@ -43,23 +37,11 @@ export class SceneAudio {
   const request=this.requestId;
   try {
    if(!this.context){
-    const ctx=this.factory();this.contexts++;
-    let master:GainNode|undefined,analyser:AnalyserNode|undefined;
-    try {
-     master=ctx.createGain();master.gain.value=0;
-     analyser=ctx.createAnalyser();analyser.fftSize=1024;
-     master.connect(analyser);analyser.connect(ctx.destination);
-     const samples=new Float32Array(analyser.fftSize);
-     ctx.onstatechange=()=>{if(ctx.state!=='running')this.hold();};
-     // Publish ownership only after the complete silent graph is connected.
-     this.context=ctx;this.master=master;this.analyser=analyser;this.samples=samples;
-    } catch(error){
-     try {master?.disconnect();}catch{}
-     try {analyser?.disconnect();}catch{}
-     try {ctx.onstatechange=null;}catch{}
-     try {void ctx.close().catch(()=>{});}catch{}
-     throw error;
-    }
+    const ctx=this.factory();this.context=ctx;this.contexts++;
+    this.master=ctx.createGain();this.master.gain.value=0;
+    this.analyser=ctx.createAnalyser();this.analyser.fftSize=1024;
+    this.master.connect(this.analyser);this.analyser.connect(ctx.destination);
+    ctx.onstatechange=()=>{if(ctx.state!=='running')this.hold();};
    }
    if(this.context.state==='closed')throw new Error('Audio context closed');
    if(this.context.state!=='running'){
@@ -94,41 +76,20 @@ export class SceneAudio {
   } catch(error){this.fail(error);}
  }
  effect(frequency=440):void {
-  if(!this.requested||this.blocked||this.context?.state!=='running'||this.disposed)return;
-  const score=effectScore(frequency);if(!score)return;
-  try {
-   this.reap();let count=0;
-   // One anchor keeps the motif coherent even if node creation takes time.
-   const anchor=this.context.currentTime+.008;
-   for(const n of score.notes)if(this.play(n.frequency,n.duration,'lead',n.level,{...n,anchor})){
-    // Record each started voice even if a later note fails and all are stopped.
-    if(count++===0){this.effectCount++;this.lastEffect=score.id;}
-    this.effectVoices++;
-   }
-  }catch(error){this.fail(error);}
+  if(!Number.isFinite(frequency)||frequency<40||frequency>4000||!this.requested||this.blocked||this.context?.state!=='running'||this.disposed)return;
+  try {this.reap();this.play(frequency,.12,'lead',.04);}catch(error){this.fail(error);}
  }
- private play(frequency:number,duration:number,voice:Voice,level:number,effect?:EffectNote&{anchor:number}):boolean {
-  if(this.voices.size>=VOICE_LIMIT)return false;
-  const ctx=this.context!,now=effect?effect.anchor+effect.offset:ctx.currentTime+.008;
-  let osc:OscillatorNode|undefined,gain:GainNode|undefined,playing:Playing|undefined;
+ private play(frequency:number,duration:number,voice:Voice,level:number):void {
+  if(this.voices.size>=VOICE_LIMIT)return;
+  const ctx=this.context!,now=ctx.currentTime+.008,osc=ctx.createOscillator(),gain=ctx.createGain();
+  const playing:Playing={osc,gain,end:now+duration+.055};this.voices.add(playing);
   try {
-   osc=ctx.createOscillator();gain=ctx.createGain();
-   const p:Playing={osc,gain,end:now+duration+.055};playing=p;this.voices.add(p);
-   osc.type=effect?.wave??(voice==='harmony'?'sine':'triangle');osc.frequency.setValueAtTime(frequency,now);
-   if(effect&&effect.endFrequency!==frequency)osc.frequency.linearRampToValueAtTime(effect.endFrequency,now+duration);
+   osc.type=voice==='harmony'?'sine':'triangle';osc.frequency.setValueAtTime(frequency,now);
    gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(level,now+.014);
-   gain.gain.setValueAtTime(level*.7,now+Math.max(.015,duration*.45));gain.gain.linearRampToValueAtTime(0,p.end);
-   osc.connect(gain);gain.connect(this.master!);osc.onended=()=>this.release(p);
-   osc.start(now);osc.stop(p.end);this.total++;this.peak=Math.max(this.peak,this.voices.size);return true;
-  } catch(error){
-   if(playing)this.release(playing,true);
-   else {
-    // createGain can fail after oscillator allocation, before a Playing exists.
-    if(osc){osc.onended=null;try{osc.stop();}catch{}try{osc.disconnect();}catch{}}
-    try{gain?.disconnect();}catch{}
-   }
-   throw error;
-  }
+   gain.gain.setValueAtTime(level*.7,now+Math.max(.015,duration*.45));gain.gain.linearRampToValueAtTime(0,playing.end);
+   osc.connect(gain);gain.connect(this.master!);osc.onended=()=>this.release(playing);
+   osc.start(now);osc.stop(playing.end);this.total++;this.peak=Math.max(this.peak,this.voices.size);
+  } catch(error){this.release(playing,true);throw error;}
  }
  private release(p:Playing,stop=false):void {
   if(!this.voices.delete(p))return;
@@ -153,23 +114,20 @@ export class SceneAudio {
  dispose():void {
   if(this.disposed)return;
   this.disposed=true;this.requestId++;this.requested=false;this.hold();
-  if(this.context){try{this.context.onstatechange=null;}catch{}try{void this.context.close().catch(()=>{});}catch{}}
-  try{this.master?.disconnect();}catch{}
-  try{this.analyser?.disconnect();}catch{}
-  this.samples=undefined;
+  if(this.context){this.context.onstatechange=null;void this.context.close().catch(()=>{});}
+  this.master?.disconnect();this.analyser?.disconnect();
  }
  status(){return {enabled:this.requested,error:this.failure};}
  /** Copies observed transport/node/analyser values; does not change game or audio transport. */
  inspect(){
   let rms=0;
-  if(!this.disposed&&this.analyser&&this.samples&&this.context?.state==='running'){
-   this.analyser.getFloatTimeDomainData(this.samples);
-   rms=Math.sqrt(this.samples.reduce((sum,n)=>sum+n*n,0)/this.samples.length);
+  if(this.analyser&&this.context?.state==='running'){
+   const samples=new Float32Array(this.analyser.fftSize);this.analyser.getFloatTimeDomainData(samples);
+   rms=Math.sqrt(samples.reduce((sum,n)=>sum+n*n,0)/samples.length);
   }
   return {profile:MUSIC_PROFILE,enabled:this.requested,blocked:this.blocked,context:this.context?.state??'not-created',contextCount:this.contexts,
    cue:this.cue,step:this.cursor,epoch:this.epoch,notesStarted:this.total,activeVoices:this.voices.size,peakVoices:this.peak,voiceLimit:VOICE_LIMIT,
    masterGain:this.master?.gain.value??0,contextTime:this.context?.currentTime??null,analyserSize:this.analyser?.fftSize??0,rms,skippedSteps:this.skipped,error:this.failure,disposed:this.disposed,
-   effects:{profile:SOUND_EFFECT_PROFILE,motifsStarted:this.effectCount,voicesStarted:this.effectVoices,last:this.lastEffect,originalSamples:false,listeningVerified:false},
    source:'live-web-audio-nodes-and-analyser',originalSoundtrack:false,physicalAudioVerified:false,approved:false};
  }
 }

@@ -1,0 +1,19 @@
+{
+  "schema": "chrono-source-preservation-unit-v1",
+  "baseSource": "19697fc3758b7fd484826a61dc2a98b7ddd6837e",
+  "scope": "G leaves these exact source files unchanged; unit contract, not native evidence",
+  "files": {
+    "src/main.ts": "c90be3662ca97cf7ec7712239c0cbd932d2bb7e72543a995f4334ed8b3250561",
+    "src/music-score.ts": "48f4cf1551da27dcd9ce80d3b4819168505c05fc4f90c460cc6aa9ea78f112cf",
+    "src/core.ts": "d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d",
+    "src/render.ts": "d76abf3d4a9df2c11fe446c02a03a2d4480941c1d49c03134d5ea2ea3ef39293",
+    "src/prologue-render.ts": "4acab4a7f71aa5dda5640b48958658df9549dfb55c2ce63f7f0bb476aacb52af",
+    "scripts/audio-evidence.mjs": "ab23345deca2c6c89752f828a21111dc97b1d63889296bebb4d5dfec876bd4e0",
+    "scripts/field-enemy-evidence.mjs": "6a45b8ff6adf2605cb33b3f34f9f5ce59408034a87430c07dcb852733a721190",
+    "scripts/fair-trial-comfort-evidence.mjs": "b3fd70092e26d857cbe596b25aac9ddfc3fdc644851d4e98ef88b7d5756f8f72",
+    "tests/scene_audio_browser.py": "22d4476830f43e4133d121c22df304a6b33031a5feab6108869858869864da9a",
+    "tests/equipment_browser.py": "bf4086df6ec206f893211c871c064117c0036809477ad3b4d3bb88dc823b4ec1",
+    ".github/workflows/ci.yml": "bf0f3caa3dcb23f27086943a2d040ad64af4f13089aa53125ced59d8cc6254f6",
+    "tests/baselines/ci76-scene-audio.ts": "764015e15281958b2216cd89a0a3b2f9f9903a242626cb7044be4a1cc6763517"
+  }
+}

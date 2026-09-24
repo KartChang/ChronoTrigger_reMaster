@@ -2,6 +2,7 @@
 import ast,base64,copy,hashlib,json,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
+from audio_g_preservation import restore_audio_g_if_declared
 import witness_comfort_capture as c
 from fair_trial_preservation import SPEC,restore_fair_trial_source
 ROOT=Path(__file__).resolve().parents[1]
@@ -71,7 +72,7 @@ class CaptureTests(unittest.TestCase):
         self.assertIn('if cpu.enabled:',trial);self.assertIn("state['trial']['choice']=='collision'",trial);self.assertIn("state['trial']['stage']=='flight'",trial)
     def test_strict_inverse_keeps_all_E_pins_and_rejects_missing_duplicate_hunks(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();h=lambda s:hashlib.sha256(s.encode()).hexdigest()
+            raw=restore_audio_g_if_declared(name,(ROOT/name).read_text());h=lambda s:hashlib.sha256(s.encode()).hexdigest()
             with self.subTest(name=name):
                 self.assertEqual(h(restore_fair_trial_source(name,raw)),SPEC['originalSha256'][name])
                 with self.assertRaises(AssertionError):restore_fair_trial_source(name,raw+edits[0]['after'])

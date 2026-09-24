@@ -1,0 +1,31 @@
+{
+  "schema": "chrono-declared-audio-edits-v1",
+  "baseSource": "19697fc3758b7fd484826a61dc2a98b7ddd6837e",
+  "scope": "precise build/test fragments only; inverse used solely by unit regression",
+  "files": {
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.53',batch:'VQ03F'",
+        "after": "version:'0.9.54',batch:'VQ03G'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "'music-score','scene-audio'",
+        "after": "'music-score','sound-effect-score','scene-audio'"
+      },
+      {
+        "before": "'tests/scene-audio.test.mjs','tests/core.test.mjs'",
+        "after": "'tests/scene-audio.test.mjs','tests/sound-effects.test.mjs','tests/audio-lifecycle.test.mjs','tests/audio-g-baseline.test.mjs','tests/webgl-canvas-png.test.mjs','tests/core.test.mjs'"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,",
+        "after": "await build({stdin:{contents:readFileSync('tests/baselines/ci76-scene-audio.ts','utf8'),loader:'ts',resolveDir:process.cwd()+'/src'},bundle:true,outfile:'.test/audio-g-baseline.mjs',format:'esm',platform:'node'});\nconst r=spawnSync(process.execPath,"
+      }
+    ]
+  },
+  "originalSha256": {
+    "scripts/build.mjs": "1afad89d75a502a99eb2be196b0a2947144b1fc0349c966cb437a08f148545d2",
+    "scripts/test.mjs": "adfb03c6ad3ec53b94cad93e97a42e88aa0bb7a63957a732d843cc1f48b6237d"
+  }
+}

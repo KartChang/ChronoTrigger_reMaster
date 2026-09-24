@@ -1,0 +1,20 @@
+{
+  "schema": "chrono-bounded-technical-acceptance-v1",
+  "batch": "VQ03F", "version": "0.9.53",
+  "sourceSha": "19697fc3758b7fd484826a61dc2a98b7ddd6837e",
+  "sourceTree": "eff9bafc7f4118b56b8901b782793ef726476706",
+  "sourceArchiveReconstructedTreeMatches": true,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "runId": "36037654752", "runNumber": 76, "attempt": 1, "event": "push",
+  "status": "completed", "conclusion": "success", "completedUtc": "2026-09-24T18:30:23Z",
+  "jobs": {"validate":"107761641715","good":"107761641950","bad":"107761641793"},
+  "cpuRescueTrialAndFairWitnessGateExecuted": true,
+  "readOnlyLedgerRecompute": {"exactUnmodifiedSource":true,"byteIdentical":true,"rows":[17,8,4,6,14,39,62,4,14,5],"totalRows":173,"originalFilesUnchanged":432},
+  "pages": {"runId":"36041702741","number":70,"workflowHead":"bf3f31d78443d41551d3091940e755f9b76d6208","selectedSource":"19697fc3758b7fd484826a61dc2a98b7ddd6837e","selectedArtifactId":"10826509408","htmlBytes":5731566,"htmlSha256":"b083f7f07c7da3f4a36f01525a5303cf0de55ae8d3eeffab67d484706e2f3f15","playableStagedDeployedIdentical":true,"publicHttpExactBytesStep":"success","localHttpReplay":false},
+  "visualReview": {"cpuOriginals":99,"webglWitnessOriginals":3,"contactReviewed":102,"fullSizeOriginals":6,"fullSizeScope":"WebGL fair-witnesses before/reduced/restored; CPU fair-vendors reduced, courtroom reduced, forest-gate reduced","contactOnly":96,"movieDurationSeconds":179.88,"sampleFps":2,"sampleFrames":360,"all12SampleSheetsReviewed":true,"fullSizeMovieSamples":0,"fullDecodeExit":0,"realTimePlayback":false,"audioPresent":false,"findings":"Witness canvases preserve silhouettes and composition; sampled sign/building restoration and exit foliage retained. Forest-gate ground remains noisy and courtroom sparse; production art remains open."},
+  "cloud": {"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"11w0HNMxSC6Olyzu6UoaXFC1-L6tj3fm_","name":"Chrono-CI76-VQ03F-reviewed-evidence.zip","bytes":95731703,"sha256":"648577a9ed8de07f3ada15e275130372a5854f863c0dff72958b0c9d2d04c82b","manifestEntries":39,"originalZips":7,"parentReadBack":true,"actualDownloadHashCrcAllManifestVerified":true},
+  "accepted":true,"scope":"Bounded technical/static/sampled regression only",
+  "ci75RemainsFailed":true,"ci71RetrospectiveAcceptance":false,"noLocalBrowser":true,
+  "artApproved":false,"motionComfortApproved":false,"physicalDeviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null,
+  "next":"Continue T05 authored effect presentation and audio resource lifecycle as one tested batch; full art/animation/audio listening/native-rate comfort remain open."
+}

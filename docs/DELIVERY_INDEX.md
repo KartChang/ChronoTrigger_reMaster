@@ -1,35 +1,32 @@
-# Delivery index — E published / CI73 checkpoint
+# Delivery index — CI76 checkpoint / F PNG evidence repair
 
-動態authority為STATUS與CI73_CHECKPOINT。VQ03E0.9.52 source **344fa860b5c8153b007f75912e16926d966862fa**、tree **f0bfe4b67c57b7beed0e3b6a161b82a919b30041**已一次發布並回讀。MatchingCI73 **36008892936**最後觀察in_progress，尚無E acceptance。不是等待發布，不重送C/D/E。
+目前source **19697fc3758b7fd484826a61dc2a98b7ddd6837e**、tree **eff9bafc7f4118b56b8901b782793ef726476706**、VQ03F/0.9.53。唯一terminal CI76-webgl-png-evidence；CI76/36037654752最後觀察queued/null，尚未accepted。最新文件只讀GitHub main，不讀封存包舊docs。
 
-唯一Drive folder：**1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。所有進度文件以最新GitHub main為準，封存包中的舊docs/source=null不得覆蓋main或觸發重送。
+## 本批最終修復與CI75原失敗證據 — 已回驗
 
-## E最終已測開發包 — 已回驗
+唯一Drive folder：**1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-**Chrono-VQ03E-npc-comfort-batch.zip**
-File ID：**1gbx0yzpPjOr9fmSTvAHQNQ1VPer0n078**
-Bytes：**1097022**
-SHA256：**0766df6c10901c85d9ff0345fce4a98b9180c9aa8d572f465e939e1f5b7dfc26**
+**Chrono-VQ03F-witness-motion-batch.zip**
+File ID：**1mfQYN5dk3BxM9syRQnJ_F_Dv4nY0h3o0**
+Bytes：**86370495**
+SHA256：**e369dde3b2b68c3affdda1788590f538e5daedd32f2500b47912e6590f264b65**
 
-已替換同一Drive檔為最終已測內容，回讀parent與大小，再實際下載核對SHA256、ZIP CRC及30項manifest。包含`development/VQ03E-program-snapshot.tar.gz`的431檔assembled程式快照、27檔patch、新舊失敗／最終成功logs、程式指紋與Git全樹比對。這不是published Git archive，不含最新進度docs，也不是CI73原生證據。最終1990 Node、389 Python、assets/typecheck/build/check/diff通過；完整log hash見VQ03E_TESTED_BATCH.json。E已發布，原source=null僅為發布前build歷史。
+同一file已替換為最終修復包，connector回讀parent/size並實際下載驗SHA256、outerCRC、47manifest及5個原ZIP的providerdigest/CRC。內含originals/CI75-browser-evidence.zip、CI75-bad-evidence.zip、CI75-good-evidence.zip、CI75-playable.zip、CI75-art-review.zip，均未改寫；完整native影片及exactFsource在browserZIP內。CI75失敗保留，不因新decoder離線通過就改記成功。沒有已接受F Pages。
 
-## D／CI72已接受的有界證據 — 已回驗，不重做
+`development/F-PNG-repair-program-snapshot.tar.gz`為441檔已測assembled程式，非publishedGitarchive/當前docs；development/files只含4個修復檔，logs包含2090Node/397Python/57targeted、指紋、全樹proof、原failure及fixedoffline結果。此repair已發布，封裝前published=false/source=null僅歷史。`investigation-only`是發現舊STATUS落後前的重疊E實驗，沒有發布，不能覆蓋main；其logs不當成本批測試。收據VQ03F_PNG_REPAIR與CI75_FAILURE。
 
-**Chrono-CI72-VQ03D-reviewed-evidence.zip**
-File ID：**1uApj0yusWMaC5Ed7Kz1cMIqQjmXiHTYW**
-Bytes：**93705018**
-SHA256：**10749b84c0478732fda681307d64ba46876be6998ee2de76118f723a51189a4d**
+## 最後accepted E/CI73原始包 — 沿用，不重驗
 
-7份未修改CI72／Pages66原ZIP、exactD source、完整原片與報告、唯讀ledger核對與視覺review，47項manifest及parent/size/hash/CRC下載回驗。D source1d2a59bfa14b761969c2dfaf7261e6868bcdcd37，CI72 35996220194，Pages66 35999168625。原七ledger150列逐byte一致；HTML5729236bytes／SHA2567618be126d8f7864fd0c1d598ab1f82820b0ef92f3e267a8e88c1cfee925bdfe。87張contact/22全尺寸、3502fps畫格/4全尺寸取樣；不是原速播放或全美術認證。收據CI72_ACCEPTANCE.json。
+File **1YiSgMeQG7zDqE3ZgiQEVlqMXk8glvdM6**，Chrono-CI73-VQ03E-reviewed-evidence.zip，94085504bytes/SHA256091e7b964ac85d2e6df1b96871b688bb34a4696ee5ca10ee8984cbd86fb57d41。原7ZIP/47manifest既有回驗；CI73/36008892936、Pages67/36013140375 selectedEsource344fa860，HTML5730090bytes/SHA25619c2b7859908d4908d895c591a8e46c6cf27e500c1fbb12af2331956e9196acd。90CPUcontact/7full-size、357個2fps sample/2full-size sample，非原速播放。CI73_ACCEPTANCE僅有界技術/靜態/抽樣。
 
-## 較早封存 — 僅歷史恢復，不重驗／重送
+E已測程式包1gbx0yzpPjOr9fmSTvAHQNQ1VPer0n078，1097022bytes/SHA2560766df6c10901c85d9ff0345fce4a98b9180c9aa8d572f465e939e1f5b7dfc26，431檔快照是歷史，不可恢復成目前F source。
 
-CI71／Pages65：**Chrono-CI71-VQ03C-evidence-review-handoff.zip**，**1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO**，86421383bytes，SHA25654d971655c70040276c4d0c9fbf2560175ead3f5452d9db29722ab9576d2284a。7原ZIP／17manifest既有回驗不重做。CI71歷史accepted=false保留，沒有回填CI71_ACCEPTANCE；D已接替最新有界技術基準。
+## 舊基準僅保留歷史
 
-C已測開發包：**Chrono-CI70-accepted-VQ03C-tested-batch.zip**，17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu，2045961bytes，SHA256801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc。413檔assembled快照不是Git archive，不是當前source；C不重送。
+D/CI72原證據1uApj0yusWMaC5Ed7Kz1cMIqQjmXiHTYW，93705018bytes/SHA25610749b84c0478732fda681307d64ba46876be6998ee2de76118f723a51189a4d，CI72_ACCEPTANCE及Pages66沿用不重驗。
 
-CI70／Pages64證據：1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9，87991208bytes，SHA256ab139df4f8213f4fc8a7b26aa34fe517f5c226629dc497b9b64afbd6797f2227。29manifest／7原ZIP既有回驗沿用，CI70_ACCEPTANCE與歷史failure不改寫。
+CI71/C原證據1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO，86421383bytes/SHA25654d971655c70040276c4d0c9fbf2560175ead3f5452d9db29722ab9576d2284a，歷史accepted=false不回填。C開發包17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu不是目前source。CI70原證據1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9及歷史收據保留，不重做。
 
-## 最短接續
+## 直接接續
 
-只讀STATUS／IMMEDIATE_CONTINUATION／CI73_CHECKPOINT。查exactCI73一次；完成後才下載其原始artifacts與matching Pages，使用同E source/run/HTML綁定核對並保存新證據。不拿local source=null、D或C的HTML hash當E基準。若CI仍active先保存接續點，不長時間輪詢。全T03-T08、held家具、no-local-browser、私人ROM／原媒體／字型／憑證及原始門檻均保留。
+STATUS/IMMEDIATE_CONTINUATION/CI76_CHECKPOINT；只查exactCI76一次，仍active先回報，不久等或重送。完成後下載本run原始產物與matchingPages、看原圖原片、用本source/run/HTML核對且存指定Drive回讀。不得以本包CI75failed/offline診斷或localnullhash冒充CI76驗收。完整T03-T08與no-local-browser/held/私人素材/原始品質時間門檻見STATUS。

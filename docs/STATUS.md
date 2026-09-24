@@ -1,34 +1,34 @@
-# Current status — CI68 accepted; VQ03A / CI69 pending
+# Current status — CI69 accepted; VQ03B / CI70 pending
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI69-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI69_CHECKPOINT。文件HEAD不是另一遊戲source。
+Current root：**T05-early-visual-cohesion**。Execution terminal：**CI70-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI70_CHECKPOINT。文件 HEAD 不是另一遊戲 source。
 
 ## 本批已發布
 
-VQ03A／0.9.48 source **4210a1f6438426d9933039f17178a8414dc94696**；root tree **de48ad754afedf9b5366dd7a809cfa03ddd0f158**；parent **759aa08adf79cb3c4ef0ba3bda2b9a158909a966**。16檔一次non-force發布，395程式檔與已測快照匹配，main已回讀。唯一 **CI69／35940156052**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source全event/state count1。最後in_progress/null，created **2026-09-24T00:49:28Z**、updated **2026-09-24T00:49:31Z**（台灣08:49:31）。只查一次，未讀CI69 jobs/artifacts/Pages；A尚未原生接受。
+VQ03B／0.9.49 source **4c3df07c1a6e067afbd3d42f423481d8e406f9c6**；root tree **439cc6b946698b701a91e4b9ed7aebf408540110**；parent **fdc8f1b13fb35a70dbe82b35f9732b7309f7a483**。21 檔一次 non-force 發布，405 程式檔與已測快照匹配，main 已回讀。唯一 **CI70／35953426299**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 in_progress/null，created **2026-09-24T03:54:55Z**、updated **2026-09-24T03:55:00Z**（台灣 **2026-09-24 11:55:00**）。只查一次，未讀 CI70 jobs/artifacts/Pages；B 尚未原生接受。
 
-Runtime只改src/render.ts並新增src/town-building-occlusion.ts。四棟既有Truce屋舍各26部件，共104個既有mesh；先以包圍盒篩選，再用實際平行相機三角形射線判斷是否遮擋在場p0/p1/guest，只把擋住角色的屋舍群組降至.16 per-mesh visibility，離開後恢復。沿用9tick指數過渡時間常數及12tick邊緣保持；重複／暫停tick不推進，重置、離圖及reduced-motion保留。不新增mesh/material/texture，不改共用材質alpha／透明模式／pixels、幾何／位置／碰撞／人物尺度／相機。原Z招牌遮擋控制獨立保留；core/main/input/time/save/collision、CPU tiers/pixelcap/memory與held家具完全不改。
+Runtime 只改 src/render.ts 並新增 src/town-landmark.ts。Truce 直式取景先計算必須保留的 p0/p1/guest 所需範圍，再評估原 inn-sign 的額外縮放成本。可選地標採進入1.5／退出1.6倍的幾何遲滯；成本太高只移除地標取景要求，不隱藏或移動招牌。所有在場隊員仍為必要對象，沒有裁切 P2 的 zoom ceiling。重用原 EarlyCameraMotion、安全 bounds、fixed-tick 平滑、state identity／非Truce／橫向重置。不改角色尺度、任何場景幾何／材質／位置、Z 招牌與 A 建築淡化、core/main/input/time/save/collision 或 CPU 品質門檻。
 
-同一原生600AD旅程、六段Truce走位、入口／鎮民／旅店／出口四放鍵停點與原20張PNG全部保留。observer只追加唯讀townBuildingOcclusion；新gate核對同凍結tick、劇情在場角色、四個精確house ID／各26部件名稱數量及plaster位置、per-mesh原visibility／blend與有界射線。鎮民停點必須實際命中p0並淡化，入口必須未遮擋且不透明。原Tab/Space、全state／viewport恢復、40x20招牌／30px人物、七ledger、所有原旅程與預算不減。新原生畫面及群組資料仍待CI69，不能以離線fixture當通過。
+同一個原 Playwright CPU context/page 與原 home→fair→600AD 旅程啟用 public record_video，原生路線、六段Truce走位、四停點及20張PNG不變。context.close 後保存 era600/native-session.webm，以新source/run/HTML及 bytes/SHA256 綁定，再刪除唯一冗餘 staging 副本；失敗保留第一個原始錯誤。固定錄影畫幅960×844，host-monotonic-us提供起訖及四停點定位。這是近似導覽時間，不是逐幀精確對時；不錄音、不宣稱裝置／長時間／流暢性已通過。原靜態 stop 記錄 motionVideo=false 保留，完整影片另外在 parent CPU report.nativeVideo。
 
-最終完整npm run check通過：**1753 Node、368 Python、assets、typecheck、build、diff check**，相較Z新增40 Node。657項最終輸入指紋保持一致。四個CI68原始停點state只作離線回歸；九個其他章節兩方向pixels／geometry完全相同，六次warm-cache往返資源數量不增。離線CPU角色移除對照在312x675：原CI68鎮民停點角色貢獻0像素，新A為542像素；這不是原生畫面或美術分數，unit Canvas不完整支援文字／曲線。新負測試拒絕未知／重複群組與角色、遺漏部件、錯誤blend或位置。A→exact Z嚴格source-only inverse保留所有舊hash與斷言，舊Z對照不受A污染。
+新增獨立 landmark 幾何驗證，核對實際 candidates、全部劇情在場 owner、1.5/1.6 遲滯決策；出口必須不再強留遠旅店，實際 P0 高度仍>=30px。新增影片來源、完整關閉 context、WebM header、bytes/hash、單調時間及四停點覆蓋檢查，原 era ledger 追加影片檔案列。這不是影片解碼或流暢度驗收；成功後仍須取得完整原片、確認可解碼並觀看實際走位、遮擋淡化及取景變化，不能只看 header 或綠勾。
 
-早期node-first/check-first本機中斷不算成功；新指數淡化測試的錯誤預期已修正為既有過渡法則，沒有修改原runtime或門檻。發布前另補正build batch從stale VQ02Z到VQ03A（version0.9.48），追加build metadata回歸並重跑最終全套；final-check-result.json exit0，完成UTC2026-09-24T00:39:28.748318。失敗、中斷及最終logs均保存。沒有本機browser。
+最終 locked 完整 npm run check 通過：**1782 Node、373 Python、assets、typecheck、build、diff check**，相較 A 新增29 Node／5 Python。405 項最終測試輸入指紋未變。locked-check exit0 完成UTC2026-09-24T03:33:14.266968+00:00；locked-python exit0 完成UTC2026-09-24T03:32:23.810492+00:00。四個 CI69 原始停點 state 僅作離線回歸：DPR1/2 的入口／鎮民／旅店保持 A 像素，出口改為隊伍取景；分離P2/第三同伴、reduced-motion、凍結resize與橫向恢復、九個非Truce章節雙方向像素／幾何、六次warm-cache往返皆驗。B→exact A 嚴格 inverse 保留原hash與斷言；失敗的初稿測試與最終 logs 均保存，沒有本機 browser，也沒有把 unit WebM bytes 冒稱原片。
 
 ## 已接受基準
 
-**CI68／35907329257／Z sourcee1bda62c363ee82844333937f130736d20581205／Pages62 35911000105已正式技術接受**，收據evidence/CI68_ACCEPTANCE.json獨立發布於759aa08adf79cb3c4ef0ba3bda2b9a158909a966並回讀。三job／13主報告／9原native chooser加完整CPU兩旅程／600／救援／審判、七ledger逐byte重算一致共147列、同run本人v4-v5-v7及alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口與20張村莊圖均保留。playable/staged/deployed HTML5716318bytes，SHA256 7121b7c66be16945b0ce112e52e89133b283621ce831ceacb56c18d22cc15369，Pages公共HTTP步驟成功。85張CPU圖以8聯絡表檢視，另旅店與鎮民兩張全尺寸，不冒稱85張皆全尺寸。旅店招牌淡化有效，但鎮民停點被建築遮住，這是A的工作依據，並非已接受最終美術。CI68技術結案不重開；CI66等歷史failure不回填success。
+**CI69／35940156052／A source4210a1f6438426d9933039f17178a8414dc94696／Pages63 35942278765 已正式技術接受**。收據 evidence/CI69_ACCEPTANCE.json 已於 fdc8f1b13fb35a70dbe82b35f9732b7309f7a483 獨立發布；本輪沿用，不重驗。原三job／13主報告／9native加完整CPU、七ledger逐byte重算147列、同run存檔鏈、67腿／4遇敵／2props／17里程碑／6窗口與20張村莊圖均已閉環。playable/staged/deployed HTML5720166bytes，SHA25622345927aad23a3a5696ff4ba6b729d9bbe27f1427741481ef46cb8138cc3bcb。85張CPU圖由上輪以8聯絡表、四停點原尺寸拼圖與鎮民原圖檢視，非85張全尺寸。鎮民建築淡化有效；出口為保留遠旅店令half達17.670250309289564而縮小人物，是 B 依據。技術接受不是最終美術或連續動態接受；CI69/Pages63及更早不重開，歷史failure不回填success。
 
 ## 雲端與唯一接續
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。CI68七未修改原ZIP及review包 **1FPe4IxJTDpgiGQLIhY70_C6SvMIxbVQ7／Chrono-CI68-VQ02Z-evidence.zip**，68882392bytes，SHA25636ebc98c57c263ecca226d7a7847271b50d25ac2f5d809569844a6992a180325；已下載回驗parent/hash/CRC/20manifest/7內層ZIP。A最終已測包 **13RKIPZ6zo-9fH_Hq6eee5SxRQFYCrXn4／Chrono-CI68-accepted-VQ03A-tested-batch.zip**，1104248bytes，SHA256 **2d31f759f33bf13607bad4e674414bf0284ae3a639114bd83f5aa065cc244e57**；已下載回驗parent/hash/CRC/32manifest/395程式tar及Git blob。
+唯一 Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。B 已測包 **1GazRKfFsIlESBqM7NHdvKxBQgeZ8y2qf／Chrono-CI69-accepted-VQ03B-tested-batch.zip**，**950818bytes**，SHA256 **50716b0add56e2920becaf88cdc8bc64e5268495619e8adf654b856ec822d4e5**；已下載回驗 parent/hash/CRC/21manifest/405程式tar與Git blob。development/VQ03B-tested-program-snapshot.tar.gz 為 assembled 已測程式，非 published Git archive；不含進度docs（THIRD_PARTY除外）。包內 publishedSource=null 為封裝前歷史，B 現已發布，不重送；最新文件只讀 main。
 
-A快照development/VQ03A-tested-program-snapshot.tar.gz是assembled已測程式，不是published Git archive；不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是封裝前歷史，A現已發布，不重送。相同Drive ID先前1037984bytes／1752測試版本已由最終包取代，必須使用1104248bytes／1753測試版。最新進度只讀GitHub main。
+CI69/Pages63 原始證據 **1CTwbpnf6VaibN5luuwNzQ_ESwF_l5wwh／Chrono-CI69-VQ03A-evidence.zip**，69376462bytes，SHA256 **b1c032d306942f791a9eab0e68acf0ac016e5d5521ef701f01192e75e4276f6a**；22manifest、7未修改原ZIP的既有回驗沿用。本輪只取需要的原四停點回歸資料，不重驗已接受的完整CI。
 
-CI69 queued/in_progress只保存與回報，不長等／輪詢／rerun／dispatch／cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI69_CHECKPOINT完成原reports、真圖、七ledger逐byte/hash、原始ZIP指定Drive下載回驗及matching Pages/source/HTML後才接受A。先親看鎮民與旅店角色輪廓、建物半透明效果、其他站位與過渡，再續前段人物植物道具、完整動畫／合法音訊與長時間／真機。離線像素增加、投影數字及綠勾不代表舒適性或美術90分。
+CI70 queued/in_progress 只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure 處理同run首個實際root及原artifact/source-failure，不放寬斷言。Success 依 CI70_CHECKPOINT 完成全部原reports、20PNG、七ledger逐byte/hash、新原生影片、正確Drive原ZIP下載回驗，以及 matching Pages/source/playable/staged/deployed HTML 後才接受B。新HTML必須用B同run來源；local source=null、A/CI69 hash不能當新基準。先親看出口人物及連續城鎮路線、鏡頭／建物／招牌過渡，再續前段人物植物道具材質、尺度輪廓、完整動畫與合法音訊、長時間及實體裝置觀察。
 
 ## 固定完整範圍
 
-原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判、audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z素材與操作、三view12PNG與四停點8PNG、全paused state、恢復viewport及native resume不減。六短窗口與靜態圖片不是長時間／真機／移動／聆聽認證。
+原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A素材與操作、三view12PNG及四停點8PNG、全paused state、Tab/Space、恢復viewport及native resume不減；只追加 B 地標決策與原session影片，沒有以新增項目替換舊門檻。
 
 T03：隱含規則、版本差異、全拓樸及數值忠實。T04：完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技。T05：全美術、完整動畫、合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線結局。T07：全範圍整體>=90／各面向>=80%、required assets／five gates／zero critical，及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊。T08：每批實作測試、一次source、matching完整CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來。舊30分stale；無新美術90分、長時間、真機或全遊戲認證。
 

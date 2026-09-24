@@ -1,0 +1,193 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ03B",
+  "version": "0.9.49",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "baseCommit": "fdc8f1b13fb35a70dbe82b35f9732b7309f7a483",
+  "expectedRootTree": "439cc6b946698b701a91e4b9ed7aebf408540110",
+  "publishedSource": "4c3df07c1a6e067afbd3d42f423481d8e406f9c6",
+  "programFiles": 405,
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "90d7353174dad6a5db3185b6cce98dd78c85845994465757a37324291644d3a0",
+      "gitBlob": "403d14f72165e7373eb243ec120963b4be32d918"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 14080,
+      "sha256": "523333a2bb1f5e476b1d9902bbe3bab75303c4570ae093b702b829d7e8542955",
+      "gitBlob": "498909edba35ca9728db30b10eb0c0683046db40"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 9242,
+      "sha256": "ac54ab5d5f1054bb6d0adcc48c52a50a508bc4e08e6237c3e82614849be8a522",
+      "gitBlob": "c513b6f6199c3f075ccaa3b26df1fc2bc90c5706"
+    },
+    {
+      "path": "scripts/town-landmark-evidence.mjs",
+      "bytes": 2310,
+      "sha256": "4a8118aa3400ad32ae7994695c21f6786b443a1da12f49b97d86bb890aa00420",
+      "gitBlob": "f9d44401c08899ca5dd3fcf53aacf25e3f21aee3"
+    },
+    {
+      "path": "scripts/town-motion-evidence.mjs",
+      "bytes": 1484,
+      "sha256": "d8d7ef33f7458160fbc83c5328bf87f367079c87b090a4c48024359ff839f5a0",
+      "gitBlob": "38d21911c3845b4f6571b73000dba7f47e17bd94"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 38673,
+      "sha256": "1557ecce6df32966eb1ebdf29bc6b4954967dbe76d6d51615b6c207fe238d19e",
+      "gitBlob": "3f5c31eff3ed821036bff6bbc24f86aaae561fad"
+    },
+    {
+      "path": "src/town-landmark.ts",
+      "bytes": 1629,
+      "sha256": "4d7fbe1f4893f6974fd88709e56cc110d52373a5d766e2ffc55ca11546d87712",
+      "gitBlob": "a3338cf7039d6836c53e93dcd039f3596926c77d"
+    },
+    {
+      "path": "tests/baselines/vq03b-declared-landmark-edits.json",
+      "bytes": 9850,
+      "sha256": "aaf170927a9777a34c7a2209da4c0c3022052a2702031536fb52c6a6bd691946",
+      "gitBlob": "ecfb358492588716867821dbfae436f71cb803d1"
+    },
+    {
+      "path": "tests/cpu_journey_support_test.py",
+      "bytes": 17163,
+      "sha256": "21c721e91b39b82b508301ac79c132f3cdd452ee8392350715387c5ad3dafc53",
+      "gitBlob": "1f88df1cfc520f4df8ca5231121ceec4770385ed"
+    },
+    {
+      "path": "tests/cpu_renderer_browser.py",
+      "bytes": 15702,
+      "sha256": "7c8de712435cd1876d8bec25603a934e0e960653ff00489bab465ca02da5453f",
+      "gitBlob": "bdefb9ad45121884667a3718f18168b2d9188bf0"
+    },
+    {
+      "path": "tests/early-camera-view.test.mjs",
+      "bytes": 8427,
+      "sha256": "6138b79d0d5a987e54efa1826b843b5665a1a48241a556d6861aa97f2397eca9",
+      "gitBlob": "7b0dd28ee6232ace0e2819a2a8faa2237eabc713"
+    },
+    {
+      "path": "tests/fixtures/ci69-town-landmark-regression.json",
+      "bytes": 10885,
+      "sha256": "744b7841557da472cae17216dedcf8292bb9f0c79a198658694655f454fdd238",
+      "gitBlob": "9ff84d761820334ebce14e2337a10bbecdb8485f"
+    },
+    {
+      "path": "tests/helpers/building-baseline.mjs",
+      "bytes": 801,
+      "sha256": "899d82e9811a228a80d30089ed1c4b796333848d8c74d6000649136f322367a4",
+      "gitBlob": "4b6602af4162af092e68b3cde5d579ee2dcefc1b"
+    },
+    {
+      "path": "tests/helpers/landmark-baseline.mjs",
+      "bytes": 766,
+      "sha256": "a7c4e0db63859e62d1a2b492971c16931f2faf33e794f30eb90fc23154712d93",
+      "gitBlob": "bda4c32d27395bc712f907e69e8bcffcc10e5418"
+    },
+    {
+      "path": "tests/native_video.py",
+      "bytes": 1810,
+      "sha256": "b6fd1f5925a3dbde49b7b3f29a202cf7a2a2f4decce3d0d0bd27fdaf48efe294",
+      "gitBlob": "4e45669a3ce2c93828ea46905115e48ad4e3bf49"
+    },
+    {
+      "path": "tests/native_video_test.py",
+      "bytes": 3270,
+      "sha256": "01c0be695cec7d47c9b280501cc66b9847b6f1dda0665e51d982d576a0dd96f8",
+      "gitBlob": "08fe63e22213108bb7a3f767212d2bfc16429e41"
+    },
+    {
+      "path": "tests/town-building-occlusion.test.mjs",
+      "bytes": 9351,
+      "sha256": "56e718fd39f80af8512c60e6da6b980526afb74d4e267ef3a24926ae9f913f1a",
+      "gitBlob": "0e2f035eab99a1873367bc9c0c3b18a3978f9444"
+    },
+    {
+      "path": "tests/town-landmark.test.mjs",
+      "bytes": 7965,
+      "sha256": "aac77df2a1be069ad391de785267110f0f8aea7c388c7e70bb6a413fa0bf0eef",
+      "gitBlob": "f9b3d1b0140e1e7cc42a5ae4a4c17cf58a7cfa51"
+    },
+    {
+      "path": "tests/town-motion-evidence.test.mjs",
+      "bytes": 2560,
+      "sha256": "e718846cb5a0b16964abddc14a280cd8448bf116bb215edf8f7891efbada9ed3",
+      "gitBlob": "842da1cc8253a51e9a87df6392be0123f8f98ee3"
+    },
+    {
+      "path": "tests/town_camera_preservation.py",
+      "bytes": 2215,
+      "sha256": "06f9e604032c47daee4cd82d1c4bb33bb3e76dfbeea05ae85f81768ef9ef41cc",
+      "gitBlob": "1ca38faee405904770c96bef097a3d53b0c33884"
+    },
+    {
+      "path": "tests/town_route_capture.py",
+      "bytes": 5284,
+      "sha256": "cba087e2db9f5f824a9e0b295a4bf7941e2597127b20c8c1bcb09d705452c318",
+      "gitBlob": "a5af9e425ea7c113827ed5897e2df064853f19d1"
+    }
+  ],
+  "nodeTests": 1782,
+  "pythonTests": 373,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "testInputFingerprintsUnchanged": 405,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "checkResult": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "exitCode": 0,
+    "finishedUtc": "2026-09-24T03:33:14.266968+00:00"
+  },
+  "pythonResult": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "*_test.py"
+    ],
+    "exitCode": 0,
+    "finishedUtc": "2026-09-24T03:32:23.810492+00:00"
+  },
+  "noLocalBrowser": true,
+  "nativeAccepted": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-24T03:36:15.782782+00:00",
+  "changes": [
+    "Only runtime src/render.ts and new src/town-landmark.ts: optional inn geometric hysteresis 1.5 entry/1.6 exit relative to required-party fit; no party zoom ceiling.",
+    "Original near-landmark views and required P2/guest retained; distant exit no longer expands to preserve inn. Existing camera easing/state/quality and 20PNG unchanged.",
+    "Public Playwright video of same original CPU session; context closure then byte/hash-bound native-session.webm. Approximate host monotonic microsecond route guide, not frame-exact or audio/device claims.",
+    "Independent optional-landmark geometry and native video-source/byte/clock gates append to existing era ledger; previous ledgers/route/budgets unchanged."
+  ],
+  "interruptions": "First new unit integration had partial World ports/strict A inverse/too-tight optional-landmark draft tests failing. Fixed ports and strict inverse adapters; selected 1.5/1.6 to preserve original near-coop views. Old numeric/hash gates retained. All failing and final logs saved. No local browser or CI rerun.",
+  "publishedRootTree": "439cc6b946698b701a91e4b9ed7aebf408540110",
+  "sourceTreeMatched": true,
+  "runId": "35953426299",
+  "runNumber": 70,
+  "cloudFileId": "1GazRKfFsIlESBqM7NHdvKxBQgeZ8y2qf",
+  "srcTree": "4c973268f01da08fe57d411d7ca4fb094732cacd",
+  "scriptsTree": "280df205c4c6477a4a2f3d60b9cb8982d2b22607",
+  "testsTree": "fe394a0917d6dc5dd24821ed89a36d79b3c947c3"
+}

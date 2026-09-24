@@ -1,0 +1,77 @@
+{
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "import {TownSignOcclusion} from './town-sign-occlusion';",
+        "after": "import {TownSignOcclusion} from './town-sign-occlusion';\nimport {TownBuildingOcclusion} from './town-building-occlusion';"
+      },
+      {
+        "before": "private townSignOcclusion:TownSignOcclusion;",
+        "after": "private townSignOcclusion:TownSignOcclusion;\n  private townBuildingOcclusion:TownBuildingOcclusion;"
+      },
+      {
+        "before": "townSignOcclusion:this.townSignOcclusion.inspect(),",
+        "after": "townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),"
+      },
+      {
+        "before": "this.townSignOcclusion=new TownSignOcclusion(this.scene);",
+        "after": "this.townSignOcclusion=new TownSignOcclusion(this.scene);\n    this.townBuildingOcclusion=new TownBuildingOcclusion(this.scene);"
+      },
+      {
+        "before": "this.townSignOcclusion?.reset();",
+        "after": "this.townSignOcclusion?.reset();\n    this.townBuildingOcclusion?.reset();"
+      },
+      {
+        "before": "this.townSignOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);",
+        "after": "this.townSignOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);\n    this.townBuildingOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.47',batch:'VQ02Z'",
+        "after": "version:'0.9.48',batch:'VQ03A'"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {assertTownRoute}",
+        "after": "import {assertTownBuildingRoute} from './town-building-evidence.mjs';\nimport {assertTownRoute}"
+      },
+      {
+        "before": " assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);",
+        "after": " assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);\n assertTownBuildingRoute(r.townReadability);"
+      }
+    ],
+    "tests/town_route_capture.py": [
+      {
+        "before": "signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'))",
+        "after": "signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'),\n                     buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'))"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {signOcclusionBaseline}",
+        "after": "import {buildingBaseline,buildingIfDeclared} from '../tests/helpers/building-baseline.mjs';\nimport {signOcclusionBaseline}"
+      },
+      {
+        "before": "['town-sign-occlusion','town-camera'",
+        "after": "['town-building-occlusion','town-sign-occlusion','town-camera'"
+      },
+      {
+        "before": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/building-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci68-runtime',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:buildingBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});"
+      },
+      {
+        "before": "['--test','tests/town-sign-occlusion.test.mjs'",
+        "after": "['--test','tests/town-building-occlusion.test.mjs','tests/town-building-evidence.test.mjs','tests/town-sign-occlusion.test.mjs'"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "2cd2aaa881e79b3b65ffb92310c102b66fb5cd7bc415c48cbb1f4bb869125c7d",
+    "scripts/build.mjs": "270cda608937a84ec49081f9068ed820ad10112804eff1d7047adf770852e61c",
+    "scripts/cpu-era-evidence.mjs": "901ca8b01e50dd37ec2b27349296131d9cd094f306ad9dc470138187e19cf26d",
+    "tests/town_route_capture.py": "a6b8089f993e8c2f1d03d872ad8c2081354d40ba20f0318e7396dcf82e9ca431",
+    "scripts/test.mjs": "c6ac0dc22a59aec74c33676d95a12d45ccda386dfb7bafb5ba240990221cbddf"
+  }
+}

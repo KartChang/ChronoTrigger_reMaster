@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import {assertTownBuildingRoute} from './town-building-evidence.mjs';
 import {assertTownRoute} from './town-route-evidence.mjs';
 import {retainCpuEraFailure} from './cpu-era-failure.mjs';
 import {assertWoodland} from './woodland-evidence.mjs';
@@ -112,6 +113,7 @@ export function inspectCpuEraEvidence({dir,buildDir,sourceSha,runId,runAttempt})
  const identity={sourceSha,runId,runAttempt,htmlSha256:parent.htmlSha256,htmlBytes:parent.htmlBytes};
  const raw=readFileSync(join(dir,'report.json')),r=JSON.parse(raw);assertCpuEraEvidence(r,identity);
  assertTownRoute(r.townReadability,r.nativeRoutes,observation,receipt);
+ assertTownBuildingRoute(r.townReadability);
  const files=[{path:'report.json',bytes:raw.length,sha256:sha(raw)}];
  const keep=(item,png=false)=>{
   const b=readFileSync(join(dir,item.path));need(b.length===item.bytes && sha(b)===item.sha256,'listed bytes/hash mismatch');

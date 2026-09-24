@@ -43,7 +43,8 @@ class TownRouteCapture:
         value.update(name=name, viewport=p.evaluate(VIEWPORT), state=self.snap(p),
                      paused=p.evaluate(PAUSED), routeEnd=len(self.routes),
                      camera=p.evaluate('window.__CHRONO_TEST__.view().earlyComfort'),
-                     signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'))
+                     signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'),
+                     buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'))
         r['stops'].append(value)  # Failed partial capture belongs to the original report.
         assert value['state'] == frozen and value['paused'] is True
         assert value['viewport'] == {'width':390, 'height':844}

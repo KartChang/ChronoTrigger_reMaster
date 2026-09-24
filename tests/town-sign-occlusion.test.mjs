@@ -2,14 +2,15 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {NullEngine,Scene,FreeCamera,Vector3,Camera,MeshBuilder,TransformNode,StandardMaterial,Material} from '@babylonjs/core/index.js';
 import {TownSignOcclusion,TOWN_SIGN_OCCLUSION} from '../.test/town-sign-occlusion.mjs';
-import {World,createState,renderCompatibleScene} from '../.test/cpu-entry.mjs';
+import {World,createState,renderCompatibleScene} from '../.test/building-baseline-cpu-entry.mjs';
 import {World as OldWorld} from '../.test/sign-occlusion-baseline-cpu-entry.mjs';
+import {buildingIfDeclared} from './helpers/building-baseline.mjs';
 import {signOcclusionBaseline} from './helpers/sign-occlusion-baseline.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const spec=JSON.parse(readFileSync('tests/baselines/vq02z-declared-sign-occlusion-edits.json'));
 for(const [path,edits] of Object.entries(spec.files))test('Z exact CI67 inverse, with missing/duplicate/extra-edit rejection: '+path,()=>{
- const source=readFileSync(path,'utf8');assert.equal(hash(signOcclusionBaseline(path,source)),spec.originalSha256[path]);
+ const source=buildingIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(signOcclusionBaseline(path,source)),spec.originalSha256[path]);
  for(const e of edits){assert.throws(()=>signOcclusionBaseline(path,source+e.after));assert.throws(()=>signOcclusionBaseline(path,source.replace(e.after,'')));}
  assert.notEqual(hash(signOcclusionBaseline(path,source+'\n// unrelated edit\n')),spec.originalSha256[path]);
 });

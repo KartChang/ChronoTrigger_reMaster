@@ -23,6 +23,7 @@ class Page:
         if 'toDataURL' in code:return 'data:image/png;base64,'+base64.b64encode(b'unit-only-image').decode()
         if 'earlyComfort' in code:return {'unitOnly':True}
         if 'townSignOcclusion' in code:return {'unitOnly':True}
+        if 'townBuildingOcclusion' in code:return {'unitOnly':True}
         if 'requestAnimationFrame' in code:return None
         raise AssertionError(code)
     def wait_for_function(self, code, timeout): assert timeout==10000
@@ -48,6 +49,7 @@ class TownRouteTests(unittest.TestCase):
             self.assertEqual(p.viewport_size,{'width':960,'height':640});self.assertFalse(p.paused)
             self.assertTrue(all(s['state']==s['after'] and s['fullStateEqual'] for s in r['stops']))
             self.assertTrue(set(p.keys)<= {'Escape','Enter'})
+            self.assertTrue(all(s['buildingOcclusion']=={'unitOnly':True} for s in r['stops']))
     def test_entry_screenshot_failure_retains_partial_and_restores(self):
         p=Page();r={};primary=RuntimeError('capture failed');p.fail=primary
         with tempfile.TemporaryDirectory() as d:

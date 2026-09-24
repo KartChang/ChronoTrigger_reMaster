@@ -1,0 +1,175 @@
+{
+  "schema": "chrono-vq03a-local-validation-v1",
+  "batch": "VQ03A",
+  "version": "0.9.48",
+  "baseSource": "e1bda62c363ee82844333937f130736d20581205",
+  "publicationParent": "759aa08adf79cb3c4ef0ba3bda2b9a158909a966",
+  "publicationParentTree": "3ac38347068353d76db5a4054d8bcefcca0ca7cb",
+  "publishedSource": "4210a1f6438426d9933039f17178a8414dc94696",
+  "expectedRootTree": "de48ad754afedf9b5366dd7a809cfa03ddd0f158",
+  "programFiles": 395,
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "efe8afc8480637f507e1002ebcec70e5469e6a068b209e1977019799f69a0632",
+      "gitBlob": "101176e29fe4f8a765c5a6011aaa1430340deec8"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 13760,
+      "sha256": "2877694150b937a41bfe5f2aa6eaea1d37f9b99af65cd580b04ca75c4fe04c59",
+      "gitBlob": "a4eee74c244b1803898a1e71d56821dd6fd3165a"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 8733,
+      "sha256": "184ac6246e7dbb261b5f8bc555ea3653b667b6a3f3e425e35aaaf22504e1cf3f",
+      "gitBlob": "afe3c4bd53c8fa7133f20c1ed76a81ecba3b07e9"
+    },
+    {
+      "path": "scripts/town-building-evidence.mjs",
+      "bytes": 2781,
+      "sha256": "f95f7be296d79cc0906a6f02a0f25108435089554f5604fa647eeb34873f0a29",
+      "gitBlob": "63f731e717eca052f5ffc685039cbaa7151c2fec"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 38299,
+      "sha256": "8ab64757859bc496487d25aae6c6db77648b8e6716b42d0a968549e0ebc66801",
+      "gitBlob": "7cd15375119314df8c0aa8c216c686451ebdd43a"
+    },
+    {
+      "path": "src/town-building-occlusion.ts",
+      "bytes": 5461,
+      "sha256": "82b1e56744b355791e10cea39719854615171416005ca66b81200c425002615f",
+      "gitBlob": "0354a85001fd2542e68a40ecfdd8b9d1838341b2"
+    },
+    {
+      "path": "tests/baselines/vq03a-declared-building-edits.json",
+      "bytes": 4523,
+      "sha256": "424ab060275aea0949e2fe0f3fd35b876d3de5421f5c1084a59c1d16520c4ce3",
+      "gitBlob": "4dee130ef5702697ce1bb97a4e568e127caf9bfb"
+    },
+    {
+      "path": "tests/fixtures/ci68-town-building-regression.json",
+      "bytes": 6903,
+      "sha256": "3e09954906b0fe760cb0c08cb47ebc92492070962dce22744e6d42f24cc464b5",
+      "gitBlob": "83b99de9a66722f80698dc701accf7d3134a16fc"
+    },
+    {
+      "path": "tests/helpers/building-baseline.mjs",
+      "bytes": 653,
+      "sha256": "c0f1f52d9ad02a7f641086add0fd6b2565238431dd2e74935f2f9a0bc208abcf",
+      "gitBlob": "4d2b09cec88a02bf109c6531c1cd5c1832285e7c"
+    },
+    {
+      "path": "tests/helpers/sign-occlusion-baseline.mjs",
+      "bytes": 847,
+      "sha256": "a2e9094b56ab1107a2068cd1e817fce546a7da059a32c8e17a3f2296a7516b30",
+      "gitBlob": "16727efd627ce26577a4fae7be019df096e61a58"
+    },
+    {
+      "path": "tests/town-building-evidence.test.mjs",
+      "bytes": 2950,
+      "sha256": "ac90f421fda34eb94bde1d271e8be314d7e0ce3e7463bbb7e884f492fd3c8d9e",
+      "gitBlob": "c500f0779f16148e530324a8f886cd92f0cd2d5e"
+    },
+    {
+      "path": "tests/town-building-occlusion.test.mjs",
+      "bytes": 9221,
+      "sha256": "ff9247826fa2207e271d306c9917b3f38c6bd5fab616a64ac1c7c24c173275f8",
+      "gitBlob": "dd074fdc9c1272607a50bcf05a7c2b75d331a821"
+    },
+    {
+      "path": "tests/town-sign-occlusion.test.mjs",
+      "bytes": 10095,
+      "sha256": "f2255b2a8dadb64947e6aba77688ed6ecb0572428774ff3a89401ed6f72df44b",
+      "gitBlob": "365e16ccb253b532cbaa1e4886ee66d74411f223"
+    },
+    {
+      "path": "tests/town_camera_preservation.py",
+      "bytes": 1668,
+      "sha256": "7fcc100d442cc1e1a968a2c0395a1c334ebd4bfe790513066f41cb05b7f9580d",
+      "gitBlob": "c005e81cd69a54c96beacbb4e9a65d851d195fbb"
+    },
+    {
+      "path": "tests/town_route_capture.py",
+      "bytes": 5047,
+      "sha256": "7c70f8b6a9d953ee5c5d1bded26988a711ebe5c365c096a12ba8ab785dc3d037",
+      "gitBlob": "d3f049fe535588da3bb47ff8777cd23f24aa8480"
+    },
+    {
+      "path": "tests/town_route_capture_test.py",
+      "bytes": 4393,
+      "sha256": "4ce92b613a5204584dd407da0bc716b29094214808cb87dba8edc033691e4ed5",
+      "gitBlob": "7ae28ef6de84b37de8cf9f38d538f5503ab9ee53"
+    }
+  ],
+  "nodeTests": 1753,
+  "pythonTests": 368,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "testInputFingerprintsUnchanged": 657,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "noLocalBrowser": true,
+  "offlineOnly": {
+    "originalCi68StopStates": 4,
+    "houseGroups": 4,
+    "housePartsEach": 26,
+    "playerPixelContribution": {
+      "canvas": [
+        312,
+        675
+      ],
+      "preservedCi68": 0,
+      "vq03a": 542
+    },
+    "productionWorldNewGate": true,
+    "nineOtherChapterBothAspectPixelsEqual": true,
+    "sixWarmReturnCyclesStable": true
+  },
+  "nativeAccepted": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "longSessionApproved": false,
+  "physicalDeviceApproved": false,
+  "newScore": null,
+  "verifiedUtc": "2026-09-24T00:48:07.374947+00:00",
+  "interruptions": "node-first/check-first local host interruptions are not passes. check-first includes an incorrect new exponential-fade test expectation; corrected to existing fade law without changing runtime or old gates. final-check and final-python exited 0.",
+  "metadataCorrection": "Before publication, updated the stale build batch label to VQ03A with version 0.9.48; strict inverse and metadata regression updated; complete final suite rerun. Earlier same-ID cloud bytes are superseded.",
+  "checkResult": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "exitCode": 0,
+    "finishedUtc": "2026-09-24T00:39:28.748318+00:00"
+  },
+  "pythonResult": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "*_test.py"
+    ],
+    "exitCode": 0,
+    "finishedUtc": "2026-09-24T00:39:31.061473+00:00"
+  },
+  "srcTree": "b465ddaf23e22e350c143cfe14f36145f96b1c79",
+  "scriptsTree": "7181373fa0c7d89277d0c6bbf83d1fde6de4d7cb",
+  "testsTree": "aa55525ba54f13cf2b5816a9f0af0e6c0a677347",
+  "publishedRootTree": "de48ad754afedf9b5366dd7a809cfa03ddd0f158",
+  "sourceTreeMatched": true,
+  "runId": "35940156052",
+  "runNumber": 69,
+  "cloudFileId": "13RKIPZ6zo-9fH_Hq6eee5SxRQFYCrXn4"
+}

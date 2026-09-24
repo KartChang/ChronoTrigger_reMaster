@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本product-2026-09-24-vq03c-ci71-pending。Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI71_CHECKPOINT。完整產品目標不縮；CI70/Pages64原技術結果已接受，動態審查界線仍保留；C/0.9.50待原生驗收。
+版本product-2026-09-24-vq03c-ci71-review-handoff。Authority：STATUS、TODO、IMMEDIATE_CONTINUATION、CI71_CHECKPOINT。唯一current root為T05-early-visual-cohesion；terminal為CI71-visual-motion-review。CI71 success與技術核對完成，不等於完整accepted；未完成的視覺／動態審查保留。
 
 ## 目標、架構與既有內容
 
@@ -22,36 +22,30 @@ S六組64x64建材及原80x40自繪INN/床圖、T五花箱及響應式pause、U 
 
 B取景必要隊伍優先，可選旅店地標採1.5/1.6幾何遲滯，成本太高只移除取景要求，不隱藏招牌、不裁切P2／guest。原EarlyCameraMotion、fixed-tick與state／resize／reduced-motion重置保留。同一原生CPU context/page的960×844 WebM由context.close後保存，與source/run/HTML/bytes/hash綁定；host時間只近似導覽，無音訊、無frame-exact或真機宣稱。C不重做B。
 
-## 當前技術基準
-
-**CI70／35953426299／B source4c3df07c1a6e067afbd3d42f423481d8e406f9c6／Pages64 35955841858已技術接受**。收據evidence/CI70_ACCEPTANCE.json已獨立發布於b2e3c134d56b6df157dd9b72d23400050cf656ad並回讀。三job、13主報告、9原native chooser加完整CPU、同run存檔鏈、67腿／4遇敵／2props／17里程碑／6窗口與20張村莊圖均保留；七份ledger精確原程式唯讀重算148列逐byte/hash一致。playable/staged/deployed HTML5721203bytes，SHA25686abc671d3d17f3c106e20c47c88dd18f9ac4ac9bd6d595e2959e244bfd85957，Pages公共HTTP步驟成功。
-
-CI70完整原生WebM 18801088bytes／SHA256697050a4bf5fb79e5f08736a7f07db125908e2b11b238bbf40dc01799134552c，VP8 960×844已完整ffmpeg解碼exit0。實際檢視方式是原城鎮路線2fps連續取樣的六張畫格聯絡表，另85張CPU圖由八張聯絡表檢視及出口原圖全尺寸；**不是原速連續播放，也不是每一原始frame都檢視**。可見走位、淡化與出口構圖改善；host時間僅近似導覽，與影片內容可能差數秒，未做逐幀精確對時。原速動態舒適性／完整過渡審查仍開放，沒有錄音、真機、長時間或美術90分認證；技術接受沒有取消這些TODO。
-
 ## C原小怪配色與實際像素證據
 
-VQ03C／0.9.50 source **62469eb87e3c736a99d970d555d4155fab4b8e79**；root tree **b226e44083a186005d4930915b6a9e44ac962e11**；parent **b2e3c134d56b6df157dd9b72d23400050cf656ad**。20 檔一次 non-force 發布，413 程式檔與最終已測快照匹配，三個程式子樹及完整 root tree 一致，main 已回讀。唯一 **CI71／35976206740**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 queued/null，created/updated **2026-09-24T08:36:12Z**（台灣 **2026-09-24 16:36:12**）。只查一次，未讀 CI71 jobs/artifacts/Pages；C 尚未原生接受。
+VQ03C／0.9.50 source62469eb87e3c736a99d970d555d4155fab4b8e79；source tree b226e44083a186005d4930915b6a9e44ac962e11；20檔原批次、413程式檔已發布。runtime只改render.ts及新增field-enemy-palette.ts，山道／森林既有小怪用原preservePixelPalette單一unlit emission，diffuse/emissive同原貼圖、去除額外灰色／ambient／specular；離圖／dispose還原。原drawImp、24×32 nearest-alpha／尺度位置／出現規則／數值及其他章節不改。
 
-Runtime 只改 src/render.ts 並新增 src/field-enemy-palette.ts。山道／森林的三個既有小怪 sprite 接回現有 preservePixelPalette 單一 unlit emission 配色流程，去除舊灰色自發光、環境光及高光相加；diffuse/emissive 使用同一原貼圖，不重畫 drawImp。記住原材質設定，離開這兩章或 dispose 時還原；重複 draw 不累加材質或貼圖。不改原24×32 nearest-alpha、圖像內容、模型／位置／尺度、敵人數值／出現規則、相機、Z/A/B遮擋與取景、core/main/input/time/save/collision 或 CPU品質／記憶體。
+同原600AD路線在山道與森林原遇敵前唯讀觀察，加field-canyon-canvas.png、field-forest-canvas.png；不加按鍵、路線或暫停。独立PNG bounded RGB/RGBA scanline解碼、CRC／bytes／hash／IHDR、五RGBA採樣與實際藍金／深色像素數核對。山道3隻、森林2隻必須各有藍金色，原20村莊PNG與完整影片、七ledger及原斷言保留。
 
-同一原生 CPU 600AD 旅程，在原山道與森林遇敵之前各追加一次唯讀觀察及實際 CPU PNG：field-canyon-canvas.png、field-forest-canvas.png。不輸入新按鍵、不寫 state、不插入新走位或暫停；原20張村莊圖、全部旅程與 native-session.webm 保留。observer 核對當前 state／tick、可見敵人 owner、原貼圖五個 RGBA 點、材質與投影，保存可取得觀察後才拋錯。獨立 verifier 解碼同一原始 PNG 的有界 RGB/RGBA scanline，驗 CRC／bytes／hash／IHDR及實際像素配色數量；山道3隻／森林2隻必須各有藍、金色，群組有深色輪廓，不只相信材質旗標。兩份原始 PNG 追加到既有 era ledger，七份 ledger 與所有舊斷言不減。
+中斷前最終1843 Node／377 Python、assets/typecheck/build/check/diff通過，74項針對測試及413輸入指紋一致。原CI70 state僅作離線回歸，DPR1/2、10個非field章節雙向pixels／geometry、同旅程lab還原及六次warm-cache資源穩定均已測；未啟動本機browser。C→exact B inverse只用於測試，不能改寫原報告／存檔／遊戲state；修正負測試no-op問題不放寬原門檻。
 
-最終 locked 完整 npm run check 通過：**1843 Node、377 Python、assets、typecheck、build、diff check**，比 B 增加61 Node／4 Python。413 項最終輸入指紋未變；npm check exit0 完成UTC2026-09-24T08:12:52.459260，Python及diff於08:12:55完成且exit0。74項針對性測試通過。原CI70山道／森林遇敵前 state 僅作離線回歸，DPR1/2、真實observer JS配合production World port及獨立PNG gate均驗；10個非field章節兩方向像素／幾何、相同往返旅程的lab材質還原、六次warm-cache資源不增均驗。單元Canvas不是本機browser或新原生畫面。
+## CI71已完成的核對與未完成界線
 
-首輪完整check遭本機host時限中止不算通過。初稿lab測試誤把返回場景與全新場景比較，改為相同旅程基準；舊NPC負測試因新增inspect前綴而可能沒有真的修改字串，改先還原精確B再突變並強制檢查非no-op。C→exact B是嚴格test-only source inverse，不改原報告、存檔或遊戲state；原數字／hash斷言不放寬。失敗、中斷與最終logs均保留，沒有本機browser。
+CI71／35976206740／attempt1已於2026-09-24T09:12:24Z成功，三job及原完整報告核對。七份原ledger由未修改exact C唯讀重算150列逐byte相同；原source archive重建tree匹配。Pages65／35979820044 selected CI/source/artifact10799354174正確，playable/staged/deployed HTML5723474bytes、SHA2563ca579cd2555629bc48e0ae5298668f1b98d98b2503c917ebeb1b43d1734b303一致，公共HTTP步驟success。
 
-## 驗收與完整剩餘範圍
+完整native-session.webm為18949301bytes／SHA2564d9e18a15284582b6d79a729a4bf2eabd33a440e2a65645cfdd07b2cbff43d22，VP8 960×844、174.360秒，ffmpeg全檔解碼exit0。此次只親看兩張新field原PNG，配色與輪廓可見。其餘85張CPU圖及影片的實際內容未完成此次審查，因此**CI71 accepted=false**，沒有CI71_ACCEPTANCE。解碼、元資料、像素數字或抽樣不能冒稱原速觀看／舒適性／美術90分。
 
-CI71 queued/in_progress只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI71_CHECKPOINT核對完整原reports、七ledger逐byte/hash、原20張村莊圖與新增2張實際field PNG、完整影片及同CI Pages/source/HTML；原始ZIP放指定Drive並下載驗hash/CRC/parent後才接受C。先親看山道／森林小怪藍金配色、深色輪廓及與人物／背景的分離，再續植物遮住下肢、原速移動及淡化舒適性、全角色動畫與合法音訊。不得以像素數字、離線fixture或綠勾宣稱美術完成；不重開CI70已閉環的技術證據。
+最後正式技術接受仍為CI70／Pages64，收據CI70_ACCEPTANCE.json與commit b2e3c134d56b6df157dd9b72d23400050cf656ad沿用，不重驗。CI70原片雖完整解碼並2fps取樣審查，原速動態舒適性仍未閉環；此次沒有取消該TODO。歷史failure不改記success。
 
-原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A/B素材與操作、三viewport12PNG及四停點8PNG、全paused state、Tab/Space、viewport恢復及native resume不減。B錄影原片必須保留；完整解碼及抽樣畫格不等於原速動態、長時間／真機／聆聽認證。
+## 完整剩餘範圍
 
-T03：隱含規則、版本差異、全拓樸及數值忠實。T04：完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技。T05：全美術、完整動畫、合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線結局。T07：全範圍整體>=90／各面向>=80%、required assets／five gates／zero critical，及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊。T08：每批實作測試、一次source、matching完整CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來。舊30分stale；無新美術90分、長時間、真機或全遊戲認證。
+先完成CI71 checkpoint.remainingReview：同run其餘85張CPU原圖（含20張村莊圖）及實際原片走位／鏡頭／建物／招牌過渡，必要審查完成才建立正式C收據。再續植物遮下肢、人物植物道具尺度輪廓、原速移動與淡化舒適性、完整動畫與合法音訊，原前段品質優先不變。
+
+T03規則版本、全拓樸與數值忠實；T04完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技；T05全部美術動畫音訊；T06全部時代主支線結局；T07整體>=90／各面向>=80%、required assets／five gates／zero critical及真機輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊；T08每批實作測試、一次source、完整matching CI與雲端原始產物回讀。沒有新評分或分母縮減。
 
 ## 持久交付與限制
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。C已測包 **17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu／Chrono-CI70-accepted-VQ03C-tested-batch.zip**，**2045961bytes**，SHA256 **801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc**；已下載回驗parent/hash/CRC/54manifest/413程式tar及Git blob。development/VQ03C-tested-program-snapshot.tar.gz是assembled已測程式，非published Git archive，不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是封裝前歷史；C現已發布，不重送，最新文件只讀main。
+唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。CI71／Pages65原始證據包1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO，86421383bytes／SHA25654d971655c70040276c4d0c9fbf2560175ead3f5452d9db29722ab9576d2284a，七未修改ZIP及17項manifest已下載回驗；C開發包17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu保存413檔已測assembled快照，不當最新進度。最新文件一律讀main。詳DELIVERY_INDEX及CI71_CLOUD_RETENTION。
 
-CI70／Pages64七個未修改原ZIP、完整影片及review包 **1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9／Chrono-CI70-VQ03B-evidence.zip**，87991208bytes，SHA256 **ab139df4f8213f4fc8a7b26aa34fe517f5c226629dc497b9b64afbd6797f2227**；已下載回驗parent/hash/CRC/29manifest及七個內層ZIP。既有CI69及更早結案不重驗；歷史failure不回填success。
-
-Main only、single AI、non-force，無branch／PR／P3／ARPG／框架重造。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三與v1-v8存檔。不造原生game/time/save/collision state，不放寬.12／原tick預算／單一30秒／250ms/256／畫質。Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。
+main only、single AI、non-force，不建其他branch／平行candidate／PR／多人防撞、P3、ARPG或重造框架。不造game/time/save/collision state，不放寬<.12、原tick預算、單一30秒、250ms／256及品質。Held VQ01Z／母親家具禁止提升或間接替換；prologue-render.ts blob保持2711a74185aacf3c6bddf9db85ba99a2afbc507a。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。

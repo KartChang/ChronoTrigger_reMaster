@@ -1,27 +1,25 @@
-# Execution TODO — CI71 only
+# Execution TODO — CI71 visual/motion review
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI71-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI71_CHECKPOINT。文件 HEAD 不是另一遊戲 source。
-
-VQ03C／0.9.50 source **62469eb87e3c736a99d970d555d4155fab4b8e79**；root tree **b226e44083a186005d4930915b6a9e44ac962e11**；parent **b2e3c134d56b6df157dd9b72d23400050cf656ad**。20 檔一次 non-force 發布，413 程式檔與最終已測快照匹配，三個程式子樹及完整 root tree 一致，main 已回讀。唯一 **CI71／35976206740**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 queued/null，created/updated **2026-09-24T08:36:12Z**（台灣 **2026-09-24 16:36:12**）。只查一次，未讀 CI71 jobs/artifacts/Pages；C 尚未原生接受。
+Current root：T05-early-visual-cohesion。唯一terminal：**CI71-visual-motion-review**。Authority：STATUS、IMMEDIATE_CONTINUATION、evidence/CI71_CHECKPOINT.json。CI71已completed/success，不是queued或等待CI；accepted仍false。唯一source62469eb87e3c736a99d970d555d4155fab4b8e79／VQ03C0.9.50，沒有CI72。
 
 ## 已完成，不重做
 
-- [x] CI70/Pages64原技術證據閉環：148列、20PNG、完整WebM解碼及有限抽樣檢視，原ZIP已雲端回驗。
-- [x] 山道／森林原小怪配色流程修正、離圖材質還原，無畫稿／規則／碰撞變更。
-- [x] 同旅程追加兩張實際CPU PNG、獨立解碼配色gate、舊assertion inverse及非no-op負測試。
-- [x] 1843 Node／377 Python／完整check、413輸入指紋；20檔發布及54manifest恢復包回驗。
-- [ ] CI71原生配色、新2PNG、原20PNG、完整suite／七ledger／影片／原ZIP與matching Pages閉環。
+- [x] C原20檔、413程式檔發布與最終1843 Node／377 Python及完整check；不是此次重跑。
+- [x] CI71三job／完整原報告與七ledger由exact C唯讀重算，150列逐byte一致，source archive root匹配。
+- [x] Pages65 selected source／CI／artifact、三份HTML5723474bytes與SHA256一致，公共HTTP步驟成功。
+- [x] 七個原始ZIP與完整影片保存指定Drive1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO，下載回驗hash／CRC／17manifest／parent。
+- [x] 原影片174.360秒完整解碼exit0；兩張新field PNG全尺寸檢視，藍金配色與深色輪廓可见。
 
-## 後續工作
+## 唯一先做的剩餘審查
 
-CI71 queued/in_progress只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI71_CHECKPOINT核對完整原reports、七ledger逐byte/hash、原20張村莊圖與新增2張實際field PNG、完整影片及同CI Pages/source/HTML；原始ZIP放指定Drive並下載驗hash/CRC/parent後才接受C。先親看山道／森林小怪藍金配色、深色輪廓及與人物／背景的分離，再續植物遮住下肢、原速移動及淡化舒適性、全角色動畫與合法音訊。不得以像素數字、離線fixture或綠勾宣稱美術完成；不重開CI70已閉環的技術證據。
+- [ ] 從已存原browser ZIP檢視其餘85張CPU圖，含原20張村莊圖、角色／NPC／woodland／HUD／ATB／touch及完整救援／審判；只核當前C，不重開旧CI。
+- [ ] 檢視同run完整native-session.webm的實際走位、出口構圖、招牌／屋舍淡化與viewport過渡；區分解碼、抽樣、原速觀看及舒適性證據，未錄音／非真機／非長時間。
+- [ ] 完成必要審查才建立CI71_ACCEPTANCE、關閉CI71；有實際缺口則修同一根因，不放寬原斷言、不造state、不覆寫原artifact。
 
-原速影片及實際移動／淡化舒適性、植物遮住下肢仍未驗收。CI70只完成全片解碼及2fps抽樣畫格檢視，不可用accepted:true省略這些工作。
+完成後按既有T05續作植物遮住下肢、人物／植物／道具尺度輪廓、原速移動與淡化舒適性、完整角色動畫與合法音訊。能開發及回歸的項目合批後一次non-force source、一次matching CI；不要因文件更新重送C或啟動額外CI。
 
-原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A/B素材與操作、三viewport12PNG及四停點8PNG、全paused state、Tab/Space、viewport恢復及native resume不減。B錄影原片必須保留；完整解碼及抽樣畫格不等於原速動態、長時間／真機／聆聽認證。
+## 固定完整分母
 
-T03：隱含規則、版本差異、全拓樸及數值忠實。T04：完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技。T05：全美術、完整動畫、合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線結局。T07：全範圍整體>=90／各面向>=80%、required assets／five gates／zero critical，及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊。T08：每批實作測試、一次source、matching完整CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來。舊30分stale；無新美術90分、長時間、真機或全遊戲認證。
+T03規則版本、全拓樸及數值；T04成長、掉落報酬、經濟道具飾品、學習及雙三人技；T05全美術動畫合法音訊；T06所有時代主支線結局（2300抵達不是完整未來）；T07整體>=90／各面向>=80%、required assets／five gates／zero critical及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊；T08每批實作／測試／一次source／完整CI／雲端原檔回讀。沒有完成度灌分或範圍縮減。
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。C已測包 **17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu／Chrono-CI70-accepted-VQ03C-tested-batch.zip**，**2045961bytes**，SHA256 **801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc**；已下載回驗parent/hash/CRC/54manifest/413程式tar及Git blob。development/VQ03C-tested-program-snapshot.tar.gz是assembled已測程式，非published Git archive，不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是封裝前歷史；C現已發布，不重送，最新文件只讀main。
-
-Main only、single AI、non-force，無branch／PR／P3／ARPG／框架重造。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三與v1-v8存檔。不造原生game/time/save/collision state，不放寬.12／原tick預算／單一30秒／250ms/256／畫質。Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。
+所有main-only、single-AI、non-force、held家具／prologue固定blob、本機browser禁止、原生輸入與遊戲時間／存檔／碰撞不可造假、<.12／原tick／單一30秒／250ms／256／品質不放寬、ROM／字型／憑證不公開規則均沿用STATUS與checkpoint。原三job／13報告／9native＋完整CPU、同run存檔鏈、67腿／4遇敵／2props／17里程碑／6窗口、七ledger、20PNG、原片及新增2field PNG不得減少。

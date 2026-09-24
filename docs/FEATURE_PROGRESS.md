@@ -1,29 +1,25 @@
-# 功能進度 — B技術已驗；C配色修正待CI71
+# 功能進度 — C已發布；CI71原始技術核對完成，視覺／動態待審
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI71-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI71_CHECKPOINT。文件 HEAD 不是另一遊戲 source。
+Current root：T05-early-visual-cohesion；terminal：**CI71-visual-motion-review**。VQ03C0.9.50／source62469eb87e3c736a99d970d555d4155fab4b8e79不變。此輪只補證據保存、進度與交接，沒有新runtime或新CI。
 
-VQ03C／0.9.50 source **62469eb87e3c736a99d970d555d4155fab4b8e79**；root tree **b226e44083a186005d4930915b6a9e44ac962e11**；parent **b2e3c134d56b6df157dd9b72d23400050cf656ad**。20 檔一次 non-force 發布，413 程式檔與最終已測快照匹配，三個程式子樹及完整 root tree 一致，main 已回讀。唯一 **CI71／35976206740**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 queued/null，created/updated **2026-09-24T08:36:12Z**（台灣 **2026-09-24 16:36:12**）。只查一次，未讀 CI71 jobs/artifacts/Pages；C 尚未原生接受。
+## 已發布功能
 
-## 本批實作
+C將山道／森林既有小怪材質接回既有單一unlit emission像素配色；原drawImp、24×32 nearest-alpha、圖像、模型位置尺度、敵人規則與game state不改。離圖／dispose還原材質。既有Z招牌淡化、A四棟104部件建築遮擋與B隊伍優先取景／完整原生錄影均保留。
 
-Runtime 只改 src/render.ts 並新增 src/field-enemy-palette.ts。山道／森林的三個既有小怪 sprite 接回現有 preservePixelPalette 單一 unlit emission 配色流程，去除舊灰色自發光、環境光及高光相加；diffuse/emissive 使用同一原貼圖，不重畫 drawImp。記住原材質設定，離開這兩章或 dispose 時還原；重複 draw 不累加材質或貼圖。不改原24×32 nearest-alpha、圖像內容、模型／位置／尺度、敵人數值／出現規則、相機、Z/A/B遮擋與取景、core/main/input/time/save/collision 或 CPU品質／記憶體。
+原600AD旅程遇敵前只追加唯讀field觀察、field-canyon-canvas.png及field-forest-canvas.png，沒有新按鍵或走位。獨立原PNG解碼／CRC／實際RGBA及藍金深色像素gate已隨CI71通過，七ledger150列與全部舊證據相容。山道三隻、森林兩隻原小怪在此次兩張全尺寸原圖中可見藍金配色與深色輪廓。
 
-同一原生 CPU 600AD 旅程，在原山道與森林遇敵之前各追加一次唯讀觀察及實際 CPU PNG：field-canyon-canvas.png、field-forest-canvas.png。不輸入新按鍵、不寫 state、不插入新走位或暫停；原20張村莊圖、全部旅程與 native-session.webm 保留。observer 核對當前 state／tick、可見敵人 owner、原貼圖五個 RGBA 點、材質與投影，保存可取得觀察後才拋錯。獨立 verifier 解碼同一原始 PNG 的有界 RGB/RGBA scanline，驗 CRC／bytes／hash／IHDR及實際像素配色數量；山道3隻／森林2隻必須各有藍、金色，群組有深色輪廓，不只相信材質旗標。兩份原始 PNG 追加到既有 era ledger，七份 ledger 與所有舊斷言不減。
+中斷前C已測1843 Node／377 Python、assets/typecheck/build/check/diff與413檔快照；此次沿用，不把舊logs冒稱新測試。
 
-最終 locked 完整 npm run check 通過：**1843 Node、377 Python、assets、typecheck、build、diff check**，比 B 增加61 Node／4 Python。413 項最終輸入指紋未變；npm check exit0 完成UTC2026-09-24T08:12:52.459260，Python及diff於08:12:55完成且exit0。74項針對性測試通過。原CI70山道／森林遇敵前 state 僅作離線回歸，DPR1/2、真實observer JS配合production World port及獨立PNG gate均驗；10個非field章節兩方向像素／幾何、相同往返旅程的lab材質還原、六次warm-cache資源不增均驗。單元Canvas不是本機browser或新原生畫面。
+## 證據完成與未完成
 
-## 驗收界線
+CI71 35976206740／attempt1已success；三job與原完整旅程報告、七ledger150列逐byte相同、source archive root匹配。Pages65 35979820044 selected source正確，playable/staged/deployed HTML5723474bytes、SHA2563ca579cd2555629bc48e0ae5298668f1b98d98b2503c917ebeb1b43d1734b303一致。完整174.360秒VP8原片解碼exit0，不等於觀看過。
 
-**CI70／35953426299／B source4c3df07c1a6e067afbd3d42f423481d8e406f9c6／Pages64 35955841858已技術接受**。收據evidence/CI70_ACCEPTANCE.json已獨立發布於b2e3c134d56b6df157dd9b72d23400050cf656ad並回讀。三job、13主報告、9原native chooser加完整CPU、同run存檔鏈、67腿／4遇敵／2props／17里程碑／6窗口與20張村莊圖均保留；七份ledger精確原程式唯讀重算148列逐byte/hash一致。playable/staged/deployed HTML5721203bytes，SHA25686abc671d3d17f3c106e20c47c88dd18f9ac4ac9bd6d595e2959e244bfd85957，Pages公共HTTP步驟成功。
+87張CPU原圖中此次只全尺寸審查新增2張field圖；其餘85張與實際影片內容仍待審。CI71 accepted=false；正式技術接受基準仍為CI70／Pages64。原速移動、完整淡化過渡、長時間、實體裝置與音訊聆聽均未宣稱通過。
 
-CI70完整原生WebM 18801088bytes／SHA256697050a4bf5fb79e5f08736a7f07db125908e2b11b238bbf40dc01799134552c，VP8 960×844已完整ffmpeg解碼exit0。實際檢視方式是原城鎮路線2fps連續取樣的六張畫格聯絡表，另85張CPU圖由八張聯絡表檢視及出口原圖全尺寸；**不是原速連續播放，也不是每一原始frame都檢視**。可見走位、淡化與出口構圖改善；host時間僅近似導覽，與影片內容可能差數秒，未做逐幀精確對時。原速動態舒適性／完整過渡審查仍開放，沒有錄音、真機、長時間或美術90分認證；技術接受沒有取消這些TODO。
+原始證據包1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO已下載回驗；完整位置／hash见DELIVERY_INDEX。下一對話只補remainingReview，不重跑已完成source／CI／ledger／Pages核對，也不重寫C。
 
-C沒有增加故事章節、成長系統、完整角色動畫或配樂；這批是恢復既有小怪畫稿的顯色，不是以重新繪圖替代材質根因。
+## 完整剩餘功能
 
-CI71 queued/in_progress只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI71_CHECKPOINT核對完整原reports、七ledger逐byte/hash、原20張村莊圖與新增2張實際field PNG、完整影片及同CI Pages/source/HTML；原始ZIP放指定Drive並下載驗hash/CRC/parent後才接受C。先親看山道／森林小怪藍金配色、深色輪廓及與人物／背景的分離，再續植物遮住下肢、原速移動及淡化舒適性、全角色動畫與合法音訊。不得以像素數字、離線fixture或綠勾宣稱美術完成；不重開CI70已閉環的技術證據。
+審查完成後續T05植物遮下肢、人物植物道具尺度輪廓、移動與過渡舒適性、全角色動畫及合法音訊。既有家中到2300內容、雙人合作／自主第三、fixed ATB、v1-v8存檔與裝備經濟保留；2300不等於完整未來，經驗紀錄不等於完整成長。
 
-原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A/B素材與操作、三viewport12PNG及四停點8PNG、全paused state、Tab/Space、viewport恢復及native resume不減。B錄影原片必須保留；完整解碼及抽樣畫格不等於原速動態、長時間／真機／聆聽認證。
-
-T03：隱含規則、版本差異、全拓樸及數值忠實。T04：完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技。T05：全美術、完整動畫、合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線結局。T07：全範圍整體>=90／各面向>=80%、required assets／five gates／zero critical，及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊。T08：每批實作測試、一次source、matching完整CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來。舊30分stale；無新美術90分、長時間、真機或全遊戲認證。
-
-Main only、single AI、non-force，無branch／PR／P3／ARPG／框架重造。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三與v1-v8存檔。不造原生game/time/save/collision state，不放寬.12／原tick預算／單一30秒／250ms/256／畫質。Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules並保留esbuild hardlink，不覆舊source/config、不開bootstrap CI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM不重傳；ROM／原媒體／字型／憑證不公開。臨時容器不是權威。
+T03規則版本拓樸數值；T04完整成長報酬掉落、經濟道具飾品、角色學習與雙三人技；T05全美術動畫音訊；T06所有時代主支線結局；T07全範圍>=90且各面向>=80%、required assets／five gates／zero critical與真機測量；T08每批雲端回讀均未縮減。原限制與完整證據項目見STATUS／TODO／CI71_CHECKPOINT，沒有新美術分數。

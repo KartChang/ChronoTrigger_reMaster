@@ -1,3 +1,4 @@
+import {visibilityIfDeclared} from './helpers/visibility-baseline.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
 import {World,createState} from '../.test/cpu-entry.mjs';
@@ -10,7 +11,7 @@ import {png} from '../scripts/asset-export.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const spec=JSON.parse(readFileSync('tests/baselines/vq03c-declared-enemy-palette-edits.json'));
 for(const [path,edits]of Object.entries(spec.files))test('C exact B source inverse '+path,()=>{
- const s=readFileSync(path,'utf8');assert.equal(hash(fieldEnemyBaseline(path,s)),spec.originalSha256[path]);
+ const s=visibilityIfDeclared(path,readFileSync(path,'utf8'));assert.equal(hash(fieldEnemyBaseline(path,s)),spec.originalSha256[path]);
  // Mutate the B-normalized source back into only this declared edit, ensuring the negative is not a no-op.
  for(const e of edits){assert.throws(()=>fieldEnemyBaseline(path,s+e.after));const bad=s.replace(e.after,'');assert.notEqual(bad,s);assert.throws(()=>fieldEnemyBaseline(path,bad));}
  assert.notEqual(hash(fieldEnemyBaseline(path,s+'\n// unrelated drift\n')),spec.originalSha256[path]);
@@ -58,7 +59,7 @@ test('C active battle enemies retain authored art, defeated field enemies disapp
  s.mode='victory';s.opening.canyonWon=true;k.current.draw(s,0,false);assert.deepEqual(k.current.inspect().fieldEnemyArt.actors,[]);
  }finally{k.close();}
 });
-test('C cannot invert forbidden engine, painter, game rules or held source',()=>{for(const p of ['src/core.ts','src/main.ts','src/input.ts','src/cpu-scene.ts','src/cpu-raster.ts','src/pixel-art.ts','src/prologue-render.ts','.github/workflows/ci.yml'])assert.throws(()=>fieldEnemyBaseline(p,'changed'));const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`),b])).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');assert.match(readFileSync('scripts/build.mjs','utf8'),/version:'0\.9\.50',batch:'VQ03C'/);});
+test('C cannot invert forbidden engine, painter, game rules or held source',()=>{for(const p of ['src/core.ts','src/main.ts','src/input.ts','src/cpu-scene.ts','src/cpu-raster.ts','src/pixel-art.ts','src/prologue-render.ts','.github/workflows/ci.yml'])assert.throws(()=>fieldEnemyBaseline(p,'changed'));const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`),b])).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');assert.match(visibilityIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8')),/version:'0\.9\.50',batch:'VQ03C'/);});
 import {runInNewContext} from 'node:vm';
 for(const chapter of ['canyon','forest'])test('C actual observer JavaScript executes against production World offline: '+chapter,()=>{const k=rig(640,480);try{
  const s=createState(chapter),frozen=structuredClone(s);k.current.draw(s,0,false);

@@ -1,5 +1,6 @@
 """Exact X inverse for old source assertions only; not native state/report mutation."""
 import json
+from visibility_preservation import restore_visibility_if_declared
 from pathlib import Path
 SPEC=json.loads((Path(__file__).parent/'baselines/vq02x-declared-town-camera-edits.json').read_text())
 ZSPEC=json.loads((Path(__file__).parent/'baselines/vq02z-declared-sign-occlusion-edits.json').read_text())
@@ -7,6 +8,7 @@ ASPEC=json.loads((Path(__file__).parent/'baselines/vq03a-declared-building-edits
 BSPEC=json.loads((Path(__file__).parent/'baselines/vq03b-declared-landmark-edits.json').read_text())
 CSPEC=json.loads((Path(__file__).parent/'baselines/vq03c-declared-enemy-palette-edits.json').read_text())
 def restore_field_enemy_if_declared(name,source):
+    source=restore_visibility_if_declared(name,source)
     edits=CSPEC['files'].get(name,[])
     if edits and any(e['after'] in source for e in edits):
         for edit in reversed(edits):

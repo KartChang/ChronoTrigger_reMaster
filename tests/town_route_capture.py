@@ -14,6 +14,24 @@ PAUSED = 'window.__CHRONO_TEST__.paused()'
 VIEWPORT = '({width:innerWidth,height:innerHeight})'
 
 
+VISIBILITY = r'''() => {
+    // VQ03D: read only the existing stopped CPU scene and original canvas.
+    const view = window.__CHRONO_TEST__.view(), canvas = document.getElementById('world');
+    const context = canvas.getContext('2d'), width = canvas.width, height = canvas.height;
+    const samples = view.earlyComfort.rects.filter(r => ['p0','p1','guest'].includes(r.id)).map(r => {
+        const points = [];
+        for (const dy of [.82,.9,.96]) for (const dx of [.3,.5,.7]) {
+            const x = Math.max(0,Math.min(width-1,Math.floor((r.left+(r.right-r.left)*dx)*width)));
+            const y = Math.max(0,Math.min(height-1,Math.floor((r.top+(r.bottom-r.top)*dy)*height)));
+            points.push({x,y,rgba:Array.from(context.getImageData(x,y,1,1).data)});
+        }
+        return {id:r.id,points};
+    });
+    return {profile:'vq03d-native-visibility',woodland:view.woodlandOcclusion,
+        blend:view.renderer.cpu.transparency,lowerBody:{source:'actual-cpu-canvas',width,height,samples},
+        physicalDevice:false,artApproved:false};
+}'''
+
 class TownRouteCapture:
     def __init__(self, page, out, record, snap, observed, routes):
         self.page, self.out, self.record = page, Path(out), record
@@ -46,7 +64,8 @@ class TownRouteCapture:
                      paused=p.evaluate(PAUSED), routeEnd=len(self.routes),
                      camera=p.evaluate('window.__CHRONO_TEST__.view().earlyComfort'),
                      signOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townSignOcclusion'),
-                     buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'))
+                     buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'),
+                     visibility=p.evaluate(VISIBILITY))
         r['stops'].append(value)  # Failed partial capture belongs to the original report.
         assert value['state'] == frozen and value['paused'] is True
         assert value['viewport'] == {'width':390, 'height':844}

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import unittest
 from cpu_render_preservation import EDITS, restore_render_source
+from visibility_preservation import restore_visibility_if_declared
 
 ROOT=Path(__file__).resolve().parents[1]
 PINNED=json.loads((ROOT/'tests/cpu-journey-preservation.json').read_text())['files']
@@ -18,12 +19,14 @@ class RenderPreservationTests(unittest.TestCase):
 
     def test_each_declared_change_rejects_modified_or_missing_content(self):
         for name, edits in EDITS.items():
-            source=(ROOT/name).read_text()
+            source=restore_visibility_if_declared(name,(ROOT/name).read_text())
             for i,edit in enumerate(edits):
                 for replacement in ('',edit['after'].replace(' ', '\t', 1)):
                     with self.subTest(name=name,edit=i,replacement=bool(replacement)):
+                        changed=source.replace(edit['after'],replacement,1)
+                        self.assertNotEqual(changed,source)
                         with self.assertRaises(AssertionError):
-                            restore_render_source(name,source.replace(edit['after'],replacement,1))
+                            restore_render_source(name,changed)
 
     def test_duplicate_declared_block_is_rejected(self):
         for name, edits in EDITS.items():

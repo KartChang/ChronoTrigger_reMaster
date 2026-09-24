@@ -1,6 +1,6 @@
 import {outsideClipVolume} from './cpu-visibility';
-import {DirectionalLight,HemisphericLight,PointLight,Mesh,StandardMaterial,VertexBuffer,Vector3,Matrix} from '@babylonjs/core';
-import type {Engine,Scene,BaseTexture,AbstractMesh} from '@babylonjs/core';
+import {DirectionalLight,HemisphericLight,PointLight,Mesh,Material,StandardMaterial,VertexBuffer,Vector3,Matrix} from '@babylonjs/core';
+import type {Engine,Scene,BaseTexture} from '@babylonjs/core';
 import {CpuEngine} from './cpu-engine';
 import {CpuRaster} from './cpu-raster';
 import type {ClipVertex,CpuTexture,CpuSurface} from './cpu-raster';
@@ -23,14 +23,25 @@ export class CpuScene {
   const sample={...pixels,mips:minify?pixels.mips:undefined,wrapU:t.wrapU,wrapV:t.wrapV,matrix:Array.from(t.getTextureMatrix().m)};
   cache.set(t,sample);return sample;
  }
- private material(m:StandardMaterial,mesh:AbstractMesh):CpuSurface{
+ private material(m:StandardMaterial,mesh:Mesh):CpuSurface{
   const diffuse=m.disableLighting&&m.emissiveTexture?m.emissiveTexture:m.diffuseTexture;
   const alphaTexture=!!diffuse&&(m.useAlphaFromDiffuseTexture||m.needAlphaTesting());
   const texture=this.texture(diffuse,!alphaTexture&&!m.opacityTexture&&!m.needAlphaBlendingForMesh(mesh));
   const opacity=m.opacityTexture===diffuse&&alphaTexture?null:this.texture(m.opacityTexture);
+  // VQ03D: mirror Babylon 8 Mesh.render effective orientation for alpha blends.
+  // Previously dark back faces of near-opaque boxes overwrote their lit fronts.
+  const blend=m.needAlphaBlendingForMesh(mesh);let cullSign=0;
+  // Only an otherwise opaque material entering the per-mesh visibility fade.
+  // Authored translucent materials (lights, water, effects) keep their old path.
+  if(blend&&mesh.visibility<1&&m.alpha===1&&m.transparencyMode===null&&m.backFaceCulling){
+   const orientation=m.sideOrientation??mesh.sideOrientation;
+   const clockwise=(orientation===Material.ClockWiseSideOrientation)!==(mesh.getWorldMatrix().determinant()<0);
+   const cullBack=m.cullBackFaces!==!!mesh.getScene()._mirroredCameraPosition;
+   cullSign=(clockwise?-1:1)*(cullBack?1:-1);
+  }
   return {texture,opacity,opacityFromRGB:m.opacityTexture?.getAlphaFromRGB??false,textureAlpha:alphaTexture,
    alpha:m.alpha*mesh.visibility,cutoff:m.needAlphaTesting()?m.alphaCutOff:0,
-   blend:m.needAlphaBlendingForMesh(mesh),emission:m.emissiveColor.asArray()};
+   blend,emission:m.emissiveColor.asArray(),cullSign};
  }
  draw(scene:Scene):void{
   const start=performance.now(),camera=scene.activeCamera;if(!camera)return;
@@ -99,7 +110,7 @@ export class CpuScene {
   work:{profile:'vq02e-conservative-cpu-work',consideredSubmeshes:this.consideredSubmeshes,culledSubmeshes:this.culledSubmeshes,shadedVertices:this.shadedVertices,submittedTriangles:this.raster?.submitted??0,fastAccepted:this.raster?.fastAccepted??0,trivialRejected:this.raster?.trivialRejected??0,clipped:this.raster?.clipped??0,rasterPolicy:'vq02p-exact-conservative-row-spans',boundingPixels:this.raster?.boundingPixels??0,candidatePixels:this.raster?.candidatePixels??0},
   sampling:{profile:'vq02j-opaque-affine-minification',enabled:this.engine.opaqueMinificationEnabled(),minifiedTriangles:this.raster?.minifiedTriangles??0,fractionalTriangles:this.raster?.fractionalTriangles??0,levelSelection:'continuous-base-to-mip',alphaCutouts:'nearest',perspective:'nearest-fallback'},
   bufferBytes:(this.raster?.rgba.byteLength??0)+(this.raster?.depth.byteLength??0)+(this.image?.data.byteLength??0),
-  textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames],shadowMaps:false,postprocess:false,artApproved:false};}
+  transparency:{profile:'vq03d-material-blend-face-culling',faceCulled:this.raster?.faceCulled??0,opaqueUnchanged:true,doubleSidedUnchanged:true},textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames],shadowMaps:false,postprocess:false,artApproved:false};}
 }
 export function renderCompatibleScene(engine:Engine,scene:Scene):void{
  if(!(engine instanceof CpuEngine)){scene.render();return;}

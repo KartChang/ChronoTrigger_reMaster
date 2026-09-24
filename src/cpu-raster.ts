@@ -5,7 +5,7 @@ import {clipOutcode} from './cpu-visibility';
  * No WebGL, DOM, game state, textures created by a driver, or synthetic success path. */
 export type ClipVertex={x:number;y:number;z:number;w:number;u:number;v:number;r:number;g:number;b:number;a:number};
 export type CpuTexture={width:number;height:number;rgba:Uint8ClampedArray;invertY:boolean;wrapU:number;wrapV:number;matrix:readonly number[];mips?:readonly CpuMipLevel[]};
-export type CpuSurface={texture:CpuTexture|null;opacity:CpuTexture|null;opacityFromRGB:boolean;textureAlpha:boolean;alpha:number;cutoff:number;blend:boolean;emission:readonly number[]};
+export type CpuSurface={texture:CpuTexture|null;opacity:CpuTexture|null;opacityFromRGB:boolean;textureAlpha:boolean;alpha:number;cutoff:number;blend:boolean;emission:readonly number[];cullSign?:number};
 const clamp=(n:number)=>Math.max(0,Math.min(1,n));
 const keys=['x','y','z','w','u','v','r','g','b','a'] as const;
 const planes=[(v:ClipVertex)=>v.w+v.x,(v:ClipVertex)=>v.w-v.x,(v:ClipVertex)=>v.w+v.y,(v:ClipVertex)=>v.w-v.y,(v:ClipVertex)=>v.w+v.z,(v:ClipVertex)=>v.w-v.z];
@@ -39,14 +39,14 @@ const accepted=(e:number,t:boolean)=>e>1e-8||(Math.abs(e)<=1e-8&&t);
 export class CpuRaster {
  private readonly packed:Uint32Array;
  readonly rgba:Uint8ClampedArray;readonly depth:Float32Array;
- boundingPixels=0;candidatePixels=0;
+ boundingPixels=0;candidatePixels=0;faceCulled=0;
  fractionalTriangles=0;minifiedTriangles=0;triangles=0;fragments=0;submitted=0;fastAccepted=0;trivialRejected=0;clipped=0;
  constructor(readonly width:number,readonly height:number){
   if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width*height>640*480)throw Error('CPU raster size outside bounded pixel budget');
   this.rgba=new Uint8ClampedArray(width*height*4);this.depth=new Float32Array(width*height);this.packed=new Uint32Array(this.rgba.buffer);
  }
  clear(color:readonly number[]):void{
-  this.boundingPixels=0;this.candidatePixels=0;
+  this.boundingPixels=0;this.candidatePixels=0;this.faceCulled=0;
   this.depth.fill(Infinity);this.fractionalTriangles=0;this.minifiedTriangles=0;this.triangles=0;this.fragments=0;
   this.submitted=0;this.fastAccepted=0;this.trivialRejected=0;this.clipped=0;
   const r=Math.round(clamp(color[0]??0)*255),g=Math.round(clamp(color[1]??0)*255),b=Math.round(clamp(color[2]??0)*255);
@@ -65,7 +65,11 @@ export class CpuRaster {
  private fill(av:ClipVertex,bv:ClipVertex,cv:ClipVertex,m:CpuSurface):void{
   const project=(v:ClipVertex):Screen=>({x:v.x,y:v.y,z:v.z,w:v.w,u:v.u,v:v.v,r:v.r,g:v.g,b:v.b,a:v.a,sx:(v.x/v.w*.5+.5)*this.width,sy:(.5-v.y/v.w*.5)*this.height,sz:v.z/v.w*.5+.5,iw:1/v.w});
   const a=project(av);let b=project(bv),c=project(cv),area=edge(a,b,c.sx,c.sy);
-  if(Math.abs(area)<1e-8)return;if(area<0){[b,c]=[c,b];area=-area;}
+  if(Math.abs(area)<1e-8)return;
+  // VQ03D: apply declared single-sided blend culling AFTER homogeneous clipping,
+  // before normalizing winding. Opaque/cutout and double-sided surfaces stay exact.
+  if((m.cullSign??0)*area>0){this.faceCulled++;return;}
+  if(area<0){[b,c]=[c,b];area=-area;}
   const x0=Math.max(0,Math.ceil(Math.min(a.sx,b.sx,c.sx)-.5)),x1=Math.min(this.width-1,Math.floor(Math.max(a.sx,b.sx,c.sx)-.5));
   const y0=Math.max(0,Math.ceil(Math.min(a.sy,b.sy,c.sy)-.5)),y1=Math.min(this.height-1,Math.floor(Math.max(a.sy,b.sy,c.sy)-.5));
   const tl0=topLeft(b,c),tl1=topLeft(c,a),tl2=topLeft(a,b),pixels=this.rgba,zbuffer=this.depth;

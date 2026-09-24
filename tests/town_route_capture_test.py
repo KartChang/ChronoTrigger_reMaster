@@ -19,6 +19,7 @@ class Page:
         self.state={'chapter':'truce','ticks':10,'players':[{'x':0,'z':6.4}]};self.fail=None
     def evaluate(self, code):
         if code=='window.__CHRONO_TEST__.paused()':return self.paused
+        if 'VQ03D' in code:return {'unitOnly':True}
         if 'innerWidth' in code:return dict(self.viewport_size)
         if 'toDataURL' in code:return 'data:image/png;base64,'+base64.b64encode(b'unit-only-image').decode()
         if 'earlyComfort' in code:return {'unitOnly':True}
@@ -50,6 +51,7 @@ class TownRouteTests(unittest.TestCase):
             self.assertTrue(all(s['state']==s['after'] and s['fullStateEqual'] for s in r['stops']))
             self.assertTrue(set(p.keys)<= {'Escape','Enter'})
             self.assertTrue(all(s['buildingOcclusion']=={'unitOnly':True} for s in r['stops']))
+            self.assertTrue(all(s['visibility']=={'unitOnly':True} for s in r['stops']))
     def test_entry_screenshot_failure_retains_partial_and_restores(self):
         p=Page();r={};primary=RuntimeError('capture failed');p.fail=primary
         with tempfile.TemporaryDirectory() as d:

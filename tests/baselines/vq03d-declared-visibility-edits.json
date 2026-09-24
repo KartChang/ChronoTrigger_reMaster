@@ -1,0 +1,142 @@
+{
+  "schema": "chrono-declared-source-inverse-v1",
+  "batch": "VQ03D",
+  "source": "62469eb87e3c736a99d970d555d4155fab4b8e79",
+  "scope": "Offline regression source inverse only; never edits game state, native observations, time or artifacts.",
+  "files": {
+    "src/cpu-raster.ts": [
+      {
+        "before": "emission:readonly number[]};",
+        "after": "emission:readonly number[];cullSign?:number};"
+      },
+      {
+        "before": "boundingPixels=0;candidatePixels=0;",
+        "after": "boundingPixels=0;candidatePixels=0;faceCulled=0;"
+      },
+      {
+        "before": "this.boundingPixels=0;this.candidatePixels=0;",
+        "after": "this.boundingPixels=0;this.candidatePixels=0;this.faceCulled=0;"
+      },
+      {
+        "before": "if(Math.abs(area)<1e-8)return;if(area<0){[b,c]=[c,b];area=-area;}",
+        "after": "if(Math.abs(area)<1e-8)return;\n  // VQ03D: apply declared single-sided blend culling AFTER homogeneous clipping,\n  // before normalizing winding. Opaque/cutout and double-sided surfaces stay exact.\n  if((m.cullSign??0)*area>0){this.faceCulled++;return;}\n  if(area<0){[b,c]=[c,b];area=-area;}"
+      }
+    ],
+    "src/cpu-scene.ts": [
+      {
+        "before": "PointLight,Mesh,StandardMaterial,VertexBuffer",
+        "after": "PointLight,Mesh,Material,StandardMaterial,VertexBuffer"
+      },
+      {
+        "before": "import type {Engine,Scene,BaseTexture,AbstractMesh} from '@babylonjs/core';",
+        "after": "import type {Engine,Scene,BaseTexture} from '@babylonjs/core';"
+      },
+      {
+        "before": "private material(m:StandardMaterial,mesh:AbstractMesh):CpuSurface{",
+        "after": "private material(m:StandardMaterial,mesh:Mesh):CpuSurface{"
+      },
+      {
+        "before": "const opacity=m.opacityTexture===diffuse&&alphaTexture?null:this.texture(m.opacityTexture);",
+        "after": "const opacity=m.opacityTexture===diffuse&&alphaTexture?null:this.texture(m.opacityTexture);\n  // VQ03D: mirror Babylon 8 Mesh.render effective orientation for alpha blends.\n  // Previously dark back faces of near-opaque boxes overwrote their lit fronts.\n  const blend=m.needAlphaBlendingForMesh(mesh);let cullSign=0;\n  // Only an otherwise opaque material entering the per-mesh visibility fade.\n  // Authored translucent materials (lights, water, effects) keep their old path.\n  if(blend&&mesh.visibility<1&&m.alpha===1&&m.transparencyMode===null&&m.backFaceCulling){\n   const orientation=m.sideOrientation??mesh.sideOrientation;\n   const clockwise=(orientation===Material.ClockWiseSideOrientation)!==(mesh.getWorldMatrix().determinant()<0);\n   const cullBack=m.cullBackFaces!==!!mesh.getScene()._mirroredCameraPosition;\n   cullSign=(clockwise?-1:1)*(cullBack?1:-1);\n  }"
+      },
+      {
+        "before": "blend:m.needAlphaBlendingForMesh(mesh),emission:m.emissiveColor.asArray()",
+        "after": "blend,emission:m.emissiveColor.asArray(),cullSign"
+      },
+      {
+        "before": "textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames]",
+        "after": "transparency:{profile:'vq03d-material-blend-face-culling',faceCulled:this.raster?.faceCulled??0,opaqueUnchanged:true,doubleSidedUnchanged:true},textureMemory:this.engine.textureMemory(),meshSamples:[...this.lastNames]"
+      }
+    ],
+    "src/render.ts": [
+      {
+        "before": "import {FieldEnemyPalette} from './field-enemy-palette';",
+        "after": "import {FieldEnemyPalette} from './field-enemy-palette';\nimport {WoodlandOcclusion} from './woodland-occlusion';"
+      },
+      {
+        "before": "private fieldEnemyPalette=new FieldEnemyPalette();",
+        "after": "private fieldEnemyPalette=new FieldEnemyPalette();\n  private woodlandOcclusion:WoodlandOcclusion;"
+      },
+      {
+        "before": "inspect(){return {fieldEnemyArt:",
+        "after": "inspect(){return {woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:"
+      },
+      {
+        "before": "this.scene=new Scene(this.engine);",
+        "after": "this.scene=new Scene(this.engine);\n    this.woodlandOcclusion=new WoodlandOcclusion(this.scene);"
+      },
+      {
+        "before": "    this.portal.rotation.z=Math.sin(this.time)*.08;",
+        "after": "    this.woodlandOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);\n    this.portal.rotation.z=Math.sin(this.time)*.08;"
+      },
+      {
+        "before": "    this.townBuildingOcclusion?.reset();",
+        "after": "    this.townBuildingOcclusion?.reset();\n    this.woodlandOcclusion?.reset();"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.50',batch:'VQ03C'",
+        "after": "version:'0.9.51',batch:'VQ03D'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {build} from 'esbuild';",
+        "after": "import {build as esbuild} from 'esbuild';\nimport {visibilityIfDeclared} from '../tests/helpers/visibility-baseline.mjs';\nconst visibilityPlugin={name:'exact-ci71-visibility',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|cpu-raster|cpu-scene)\\.ts$/},args=>({contents:visibilityIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\nconst build=options=>esbuild({...options,plugins:[...(options.plugins??[]),...(options.outfile?.includes('baseline')?[visibilityPlugin]:[])]});"
+      },
+      {
+        "before": "for(const name of ['field-enemy-palette'",
+        "after": "for(const name of ['woodland-occlusion','field-enemy-palette'"
+      },
+      {
+        "before": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});",
+        "after": "await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});\nawait build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/visibility-baseline-cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});"
+      },
+      {
+        "before": "['--test','tests/field-enemy-palette.test.mjs'",
+        "after": "['--test','tests/woodland-occlusion.test.mjs','tests/cpu-blend-facing.test.mjs','tests/visibility-evidence.test.mjs','tests/field-enemy-palette.test.mjs'"
+      }
+    ],
+    "scripts/cpu-era-evidence.mjs": [
+      {
+        "before": "import {assertFieldEnemies} from './field-enemy-evidence.mjs';",
+        "after": "import {assertVisibilityStop} from './visibility-evidence.mjs';\nimport {assertFieldEnemies} from './field-enemy-evidence.mjs';"
+      },
+      {
+        "before": "need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'town route canvas PNG dimensions');}",
+        "after": "need(b.readUInt32BE(16)===v.pixels.width&&b.readUInt32BE(20)===v.pixels.height,'town route canvas PNG dimensions');assertVisibilityStop(v,b);}"
+      }
+    ],
+    "tests/town_route_capture.py": [
+      {
+        "before": "class TownRouteCapture:",
+        "after": "VISIBILITY = r'''() => {\n    // VQ03D: read only the existing stopped CPU scene and original canvas.\n    const view = window.__CHRONO_TEST__.view(), canvas = document.getElementById('world');\n    const context = canvas.getContext('2d'), width = canvas.width, height = canvas.height;\n    const samples = view.earlyComfort.rects.filter(r => ['p0','p1','guest'].includes(r.id)).map(r => {\n        const points = [];\n        for (const dy of [.82,.9,.96]) for (const dx of [.3,.5,.7]) {\n            const x = Math.max(0,Math.min(width-1,Math.floor((r.left+(r.right-r.left)*dx)*width)));\n            const y = Math.max(0,Math.min(height-1,Math.floor((r.top+(r.bottom-r.top)*dy)*height)));\n            points.push({x,y,rgba:Array.from(context.getImageData(x,y,1,1).data)});\n        }\n        return {id:r.id,points};\n    });\n    return {profile:'vq03d-native-visibility',woodland:view.woodlandOcclusion,\n        blend:view.renderer.cpu.transparency,lowerBody:{source:'actual-cpu-canvas',width,height,samples},\n        physicalDevice:false,artApproved:false};\n}'''\n\nclass TownRouteCapture:"
+      },
+      {
+        "before": "buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'))",
+        "after": "buildingOcclusion=p.evaluate('window.__CHRONO_TEST__.view().townBuildingOcclusion'),\n                     visibility=p.evaluate(VISIBILITY))"
+      }
+    ],
+    "tests/town_camera_preservation.py": [
+      {
+        "before": "import json\nfrom pathlib import Path",
+        "after": "import json\nfrom visibility_preservation import restore_visibility_if_declared\nfrom pathlib import Path"
+      },
+      {
+        "before": "def restore_field_enemy_if_declared(name,source):\n    edits=",
+        "after": "def restore_field_enemy_if_declared(name,source):\n    source=restore_visibility_if_declared(name,source)\n    edits="
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/cpu-raster.ts": "56f1c89ad9520ab35705099ae0b20a65ebf75e4447eb16b50ca02da72baf6c3c",
+    "src/cpu-scene.ts": "e6548b334876b62190d7b703731d314e001fa89bad1ec84357cf85146875afca",
+    "src/render.ts": "e89a6d628300c4e4680b719705dc0ebb97a21d9f86ee63cd76cf49c0fe4ad7f1",
+    "scripts/build.mjs": "60f911a41c6d097cd87c32fb49a22fa7f438c5ff8356c2388be970877188d2e4",
+    "scripts/test.mjs": "dcc3bbcf065bf7b24b2e44f72fbdbc269330571b273f48396e933cc9f8095724",
+    "scripts/cpu-era-evidence.mjs": "8dd593dc9cab6e1c2b55b996375cf598e1c93495f43fa3954eb6e453f3707f11",
+    "tests/town_route_capture.py": "cba087e2db9f5f824a9e0b295a4bf7941e2597127b20c8c1bcb09d705452c318",
+    "tests/town_camera_preservation.py": "c06b30ac1b4fe98e57004c94415b2c4918f60fbaeb6c26b8e11d12244197f57f"
+  }
+}

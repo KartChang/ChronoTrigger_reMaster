@@ -1,13 +1,15 @@
 {
  "schema":"chrono-ci-checkpoint-v1","repository":"KartChang/ChronoTrigger_reMaster","branch":"main",
- "currentRoot":"T05-early-visual-cohesion","executionTerminal":"VQ03G-audio-presentation-development",
+ "currentRoot":"T05-early-visual-cohesion","executionTerminal":"CI77-audio-presentation-evidence",
  "batch":"VQ03F","version":"0.9.53","sourceSha":"19697fc3758b7fd484826a61dc2a98b7ddd6837e","sourceTree":"eff9bafc7f4118b56b8901b782793ef726476706",
  "runId":"36037654752","runNumber":76,"workflowId":"360357259","runAttempt":1,"event":"push","status":"completed","conclusion":"success","completedUtc":"2026-09-24T18:30:23Z",
  "activeValidation":false,"accepted":true,"closed":true,"acceptanceReceipt":"docs/evidence/CI76_ACCEPTANCE.json","matchingPagesRunId":"36041702741","matchingPagesNumber":70,
  "completedChecks":["Three jobs success including original CPU rescue/trial and repaired native WebGL PNG gate","Exact source archive root and held prologue matched","Ten original ledgers173rows byte-identical using unmodified exact source;432original files unchanged","102contact originals,6full-size originals,360sequential2fps samples/all12sheets;not real-time playback","Pages70 exact selectedCI/source/artifact/playable-staged-deployedHTML and publicHTTP step","Seven untouched ZIPs plus review saved to designated Drive;actual download parent/size/hash/CRC/39manifest verified"],
  "remainingReview":[],
  "latestEvidence":{"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"11w0HNMxSC6Olyzu6UoaXFC1-L6tj3fm_","name":"Chrono-CI76-VQ03F-reviewed-evidence.zip","bytes":95731703,"sha256":"648577a9ed8de07f3ada15e275130372a5854f863c0dff72958b0c9d2d04c82b"},
- "nextAction":"Continue same-root G authored audio effects and graph ownership/lifecycle; no G source published yet. Do not repeat accepted CI76 technical verification or re-publish C/D/E/F/PNG repair.",
+ "nextCheckpoint":"docs/evidence/CI77_CHECKPOINT.json",
+ "nextAction":"G audio batch is now published as fe7b733640263800ab419358b7dfcf3109bed6f6; continue exact CI77/36046993131. This closed CI76 receipt is historical, not a G-development task. Do not repeat accepted CI76 verification or republish C/D/E/F/PNG/G.",
+ "successorSourceSha":"fe7b733640263800ab419358b7dfcf3109bed6f6",
  "ci75RemainsFailed":true,"ci71RetrospectiveAcceptance":false,"noLocalBrowser":true,"heldPrologueBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a",
  "restrictions":"Main only/single AI/non-force; no branches/PR/parallel candidate/local browser/fabricated game-time-save-collision state/held furniture promotion/relaxed original route-time-CPU-memory-quality gates. Full T03-T08 scope retained.",
  "artApproved":false,"motionComfortApproved":false,"physicalDeviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null

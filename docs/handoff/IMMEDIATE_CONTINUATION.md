@@ -1,23 +1,26 @@
-# 立即接續 — CI76-webgl-png-evidence
+# 立即接續 — CI77-audio-presentation-evidence
 
-先讀STATUS及 `docs/evidence/CI76_CHECKPOINT.json`，main確認一次。不是repository盤點/歷史審計/重新規劃；不重讀全部歷史、不要求ROM/token或手動證據。
+直接使用GitHub connector接手KartChang/ChronoTrigger_reMaster。只讀STATUS與 **docs/evidence/CI77_CHECKPOINT.json**，確認main一次。不是盤點、歷史審計、重新規劃或重做舊章節；不要求ROM/token/手動證據。main only／single AI／non-force，無branch/PR/平行candidate。
 
-唯一root **T05-early-visual-cohesion**；terminal **CI76-webgl-png-evidence**。Source **19697fc3758b7fd484826a61dc2a98b7ddd6837e**；tree **eff9bafc7f4118b56b8901b782793ef726476706**；VQ03F/0.9.53證據修復已發布並回讀。Parent53d2bc9e74e4c05cf9dfa5ac05930fd6fdd92250。**F原本早已在456446發布；舊文件「尚未發布F」錯誤已修正。不要再重做或重送C/D/E/F/PNG修復。**
+## 唯一位置
 
-Matching **CI76/36037654752**，workflow360357259/.github/workflows/ci.yml，push/attempt1；發布後一次查詢queued/null，updated2026-09-24T17:55:22Z。accepted=false，matchingPages未讀。先查本run一次，仍active就保存接續點，不等到中斷。
+Root **T05-early-visual-cohesion**；terminal **CI77-audio-presentation-evidence**。
+G source **fe7b733640263800ab419358b7dfcf3109bed6f6**，tree **ac7940e93467103c2350cf84bd30f9e50ee3ac16**，**VQ03G/0.9.54**。Parent b6c3f33a4176d9f7c446d2eb84a0ef6c03a565a8。18檔一次發布並回讀，全樹與已測452程式加當時main docs一致。**G已發布，不重送C/D/E/F/PNG/G。**
 
-四檔只修證據：WebGL960x640原图被CPU307200上限誤拒。獨立WebGLPNG bounded614400pixel/1280edge/4MiB，CRC/RGB-RGBA8/五filters/解壓/結尾檢查；原CPUdecoder、runtime/assets/workflow/nativecapture、state/frame/精確還原/品質門檻全保留。原CI75failure不變，詳CI75_FAILURE。原278檔hash不變的bad5/validate14離線重算是診斷，不是CI76結果。
+Matching **CI77/36046993131**，workflow360357259/.github/workflows/ci.yml，push/attempt1，last observed **in_progress/null**，updated2026-09-24T19:16:18Z。只有這一筆matching run；accepted=false，沒有G Pages接受或CI77_ACCEPTANCE。續作查一次，仍active先保存checkpoint而非久等。
 
-最終2090Node/397Python、57targeted含於Node、assets/typecheck/build/check/diff及441指紋通過。整棵發布tree與已測程式+當時main docs一致。不是舊重疊實驗的測試成果；該實驗從未發布。收據 `VQ03F_PNG_REPAIR.json`。
+## 已完成，不重做
 
-恢復只在需要時：Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**；file **1mfQYN5dk3BxM9syRQnJ_F_Dv4nY0h3o0**，Chrono-VQ03F-witness-motion-batch.zip，**86370495bytes/SHA256e369dde3b2b68c3affdda1788590f538e5daedd32f2500b47912e6590f264b65**。已實際下載parent/size/hash/CRC/47manifest/5原ZIP回驗。含未改CI75source/movie/reports及已測441程式；`development/F-PNG-repair-program-snapshot.tar.gz`不是publishedGitarchive/當前docs；`investigation-only`嚴禁套用。包內封裝前published=false/source=null不改變目前已發布狀態。
+CI76/36037654752與Pages70/36041702741已完成有界接受，收據CI76_ACCEPTANCE；原十ledger173列及432原檔、source/root/Pages完全核對。102原圖contact／6full-size，179.88秒原片360個2fps樣本，不是原速播放。Drive **11w0HNMxSC6Olyzu6UoaXFC1-L6tj3fm_**／Chrono-CI76-VQ03F-reviewed-evidence.zip／95731703bytes／SHA256648577a9ed8de07f3ada15e275130372a5854f863c0dff72958b0c9d2d04c82b，7原ZIP/39manifest已下載回驗。不要重驗CI76/CI73或更早。CI75仍failure；CI71不回填接受。
 
-完成後核對CI76原三job/主報告/nativechooser/完整CPU鏈、原七ledger與E/F附加gate；尤其bad三張原960x640PNG、完整凍結state/角色frame/uploads/exactrestore。看原圖/原片明列全尺寸/contact/sample，非原速播放。matchingPages需selected本CI/source/artifact及原始HTML/publicHTTP；原ZIP雲端回驗後才做有界接受。不要拿舊CI75HTMLhash或offlineledger當新CI基準。
+G runtime只改scene-audio及新sound-effect-score：既有frequencyAPI自製短音型、原16聲部上限、一次audio-clock錨點；初始graph/部分聲部/dispose故障獨立清理與analyser緩衝重用。main/music-score/core/render/assets/workflow/nativecapture不變。原tone遇到dialog/hold仍立即停止；不為聲音加入sleep/延後對話/人工state。七音型unit通過不等於七音型實際聽過，原音訊journey只支持實際執行的music/analyser/hold/import/mute範圍。
 
-最後accepted CI73/36008892936、Pages67/36013140375及CI73_ACCEPTANCE沿用，不重驗。CI71歷史false及CI75failure不回填。成功後依TODO續T05尺度輪廓/完整動畫/合法音訊/原速舒適性；失敗只修原報告揭露同root問題。不要擴後段或縮完整遊戲目標。
+最終2191Node/401Python全部通過；143targeted含於Node，assets/typecheck/build/check/diff與452指紋不變。G→F精確註冊片段、原19F→E pins與負測試保留；沒有整檔豁免。收據VQ03G_TESTED_BATCH，說明AUDIO_PRESENTATION。
 
-T03規則/版本/完整拓樸/數值忠實；T04完整成長、報酬掉落、經濟道具飾品、學習及雙三人技；T05全部美術/完整動畫/合法音訊，前段品質優先；T06所有時代主支線與結局，2300抵達不是完整未來；T07整體>=90、各面向>=80%、required assets/five gates/zero critical及真機輸入/FPS/frame time/載入/記憶體/背景/存檔/音訊；T08每批實作測試、一次source、完整matchingCI與原始產物雲端回讀。分母不縮。
+G已測恢复：Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**，file **1eZQt5-o8ubX3Sfx-lmL6RDttuGN0a3Li**，**Chrono-VQ03G-audio-presentation-batch.zip**，**1027848bytes**／SHA256 **b4c5924420f12bcb1fd3e1940b6060c2690349f0cf69513594bed89963c3ddd9**；實際下載parent/size/hash/CRC/48manifest通過。development/VQ03G-program-snapshot.tar.gz是452檔assembled已測程式，不是published Git archive或最新docs；發布前false/null屬歷史，不能重送或覆蓋main進度。
 
-main only/single AI/non-force；無新branch、PR、平行candidate或多人防撞。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三/v1-v8。不造game/time/save/collision state，不放寬<.12、原tick預算、單一30秒、250ms/256、CPU畫質或記憶體門檻。Held VQ01Z/母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules及esbuild hardlink，不覆舊source/config、不開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM及原媒體/字型/憑證不公開。文件[skip ci]、雲端回讀；臨時容器不是權威。
+## 直接接remainingReview
 
-沒有新art90/原速comfort/真機/長時間/全遊戲認證。
+CI77完成後，只核該run的原三job/主報告/nativechooser/CPU600救援審判/十ledger及音訊回歸、原圖原片與matching Pages，原ZIP/source/movie/report保存並下載回讀後才能有界接受。失敗保留原artifact，只修實際同root問題，不改路線/時間/畫質/斷言。成功後接T05尺度輪廓／構圖、完整動畫／音訊與原速舒適性；不重做C/Z/A/B/D/E/F/G，也不提前擴後段。
+
+完整T03-T08及全部STATUS門檻不縮。TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8不變；無P3/ARPG/重造框架/native假state。Held VQ01Z/母親家具不提升，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只還原node_modules/esbuildhardlink，不覆舊source/config/bootstrapCI。ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM／原媒體／字型／憑證不公開。文件[skip ci]，成果雲端回讀，臨時容器不是權威。沒有新評分、聆聽、真機、長時間、原速comfort或完整遊戲認證。

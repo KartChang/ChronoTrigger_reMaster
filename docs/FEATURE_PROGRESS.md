@@ -1,27 +1,27 @@
-# 功能進度 — F已發布；PNG證據修復進入CI76
+# 功能進度 — G音訊批次已發布，CI77待驗收
 
-Current root T05-early-visual-cohesion；terminal CI76-webgl-png-evidence。Source **19697fc3758b7fd484826a61dc2a98b7ddd6837e**，tree **eff9bafc7f4118b56b8901b782793ef726476706**，VQ03F/0.9.53。MatchingCI76/36037654752最後觀察queued/null，尚未accepted。
+動態authority：STATUS、TODO、handoff/IMMEDIATE_CONTINUATION、evidence/CI77_CHECKPOINT。Current root **T05-early-visual-cohesion**；terminal **CI77-audio-presentation-evidence**。VQ03G／0.9.54 source **fe7b733640263800ab419358b7dfcf3109bed6f6**、tree **ac7940e93467103c2350cf84bd30f9e50ee3ac16**。已一次發布並回讀，不重送G或C/D/E/F/PNG修復。
 
-## 既有F功能與本批差異
+## 本批完成的實作
 
-F在456446c3f2e3b6c38425800542c76ac4f92ae355已完成祭典商販/證人與法庭/監獄NPC減少動態設定傳遞、保留frame0及current-tick恢復、隱藏/銷毀binding處理、穩定seed與私有貼圖檢查；審判森林時門抑制非必要旋轉，必要任務動作不變。其原生觀察在既有暫停區間，不新增走位或人工state。這些是已發布F，不是本批重寫。
+原頻率音效API接入七組自製合成音型：管風琴持音、短促降頻、互動單音、技能滑音、恢復上行、鐘聲／合技共用雙音、時門上行。保留440單音與未宣告合法頻率的原單音；原main觸發點不變，不保證既有流程已聽到全部音型。每型最多3聲部／level總和<=.04／含尾音<=.5秒，音效與配樂仍共用原16聲部與master .55；滿載時丟棄超額聲部，不排隊補播。參數限制不是主觀聽感或音量安全認證。
 
-CI75的runtime旅程/原validate及good成功；bad在PNG證據解碼失敗。真正問題為WebGL960x640套用CPU307200像素上限。本批只改四個script/test檔，分離614400像素/1280邊長/4MiB的WebGL證據解碼器，保留原CPUdecoder、畫面、路線、時間、畫質與完整凍結state/frame/exactrestore門檻。新增真實尺寸的synthetic單元測試、CRC/結構/filter/過大/非法/解壓結尾負測試；fixture不冒充原生證據。
+AudioContext/master/analyser初始圖與部分聲部建立失敗現在會獨立清理，不因handler或disconnect例外而跳過其他清理；dispose同樣保持冪等。analyser重用1024個Float32緩衝，hold時仍讀真實資料，不造零；dispose後不再讀取。音型的started計數保留實際成功排程量，即使後續聲部失敗而取消，也不假裝未發生。
 
-F runtime、資產、workflow、nativecapture逐byte不變；版本仍0.9.53。本次未採用因舊文件誤導而產生的重疊E-based本機實驗；已排除並在雲端investigation-only明列不可發布。
+Runtime僅修改scene-audio.ts與新增sound-effect-score.ts。main/core/music-score/render/held prologue/assets/workflow/nativecapture逐byte保留，七段配樂排程與exact CI76基準在hold／reset／過期節拍跳過後一致。沒有新輸入、走位、sleep、timer、simulation tick或存檔規則。
 
-## 已測與未驗收界線
+18程式／測試檔，452程式輸入；最終 **2191 Node、401 Python 全通過**，143針對測試含於Node，assets/typecheck/build/check/diff通過。G→F只還原精確build/test片段，原19個F→E SHA256與missing/duplicate/unrelated負向測試保留；原WebGL PNG負測試加入完整Node清單。詳VQ03G_TESTED_BATCH及AUDIO_PRESENTATION。沒有本機browser。
 
-最終2090Node/0fail/0skip，397Python、57targeted含於Node、assets/typecheck/build/check/diff通過；441輸入指紋不變。原CI75未修改證據重現舊錯誤，修復後offlinebad5/validate14列通過、278檔hash相同，不能改記CI75為success。三張原WebGL960x640PNG全尺寸檢視只支持本修復診斷，不是完整movie或art驗收。
+## 驗收與保存界線
 
-matchingCI76與Pages尚待本run原生結果、原圖/原片審查和雲端回驗。最後有界accepted為CI73/Pages67，其靜態及2fps審查不是原速播放。不宣稱新美術分數、真機/長時間/聆聽通過；release仍BLOCKED，舊30/100不適用本runtime。
+Matching **CI77／36046993131**，push/attempt1，最後觀察2026-09-24T19:16:18Z為in_progress/null，G尚未accepted。原生三job／主報告／十ledger／完整CPU旅程／音訊回歸、matchingPages與原始產物保存仍待完成。七音型unit排程通過不等於七音型都在原生遊戲觸發或已聆聽。紧接對話或hold的原音效仍可能被立即停止；不藉延後對話、放寬hold或加sleep製造通過。
 
-已測修复/CI75五原ZIP/logs已存指定Drive並實際回驗，詳DELIVERY_INDEX、VQ03F_PNG_REPAIR及CI76_CHECKPOINT。下一步照checkpoint，不重送F。
+G已測快照與logs存入正確Drive **1eZQt5-o8ubX3Sfx-lmL6RDttuGN0a3Li**，1027848bytes，48manifest已實際下載回驗，詳DELIVERY_INDEX。不是僅臨時容器交付。
 
-## 完整剩餘
+本輪先完成CI76／Pages70限定範圍驗收：十ledger173列逐byte相同、432原檔未改；102原圖contact／6全尺寸；179.88秒原片360個2fps畫格／12聯絡表。不是原速播放或聆聽。原始7ZIP與review已存Drive並回驗，收據CI76_ACCEPTANCE；CI75仍failure，CI71不補填接受，旧CI73/72不重開。
 
-T05人物/植物/道具尺度輪廓及原作构圖、原速移動/淡化/viewport舒適性、完整角色動畫、合法完整音訊仍開放。既有家中到2300、雙人合作/自主第三、fixedATB、v1-v8存檔與裝備經濟保留；不重做C/Z/A/B/D/E/F。
+## 完整剩餘功能
 
-T03規則/版本/完整拓樸/數值忠實；T04完整成長、報酬掉落、經濟道具飾品、學習及雙三人技；T05全部美術/完整動畫/合法音訊，前段品質優先；T06所有時代主支線與結局，2300抵達不是完整未來；T07整體>=90、各面向>=80%、required assets/five gates/zero critical及真機輸入/FPS/frame time/載入/記憶體/背景/存檔/音訊；T08每批實作測試、一次source、完整matchingCI與原始產物雲端回讀。分母不縮。
+先完成CI77_CHECKPOINT.remainingReview，再接T05人物／植物／道具尺度輪廓、原作構圖與製作品質、原速移動／淡化／viewport舒適性、完整角色動畫及完整合法音訊／聆聽。森林時門地面雜訊與法庭稀疏仍是已觀察的美術缺口，G不宣稱改善這些畫面。原C配色、Z招牌、A建物、B取景、D遮擋、E/F減少動態功能不重做。
 
-main only/single AI/non-force；無新branch、PR、平行candidate或多人防撞。保留TS/Babylon/esbuild/fixed ATB/A*/InputBoundary/P1/P2/自主第三/v1-v8。不造game/time/save/collision state，不放寬<.12、原tick預算、單一30秒、250ms/256、CPU畫質或記憶體門檻。Held VQ01Z/母親家具不得提升或間接替換；src/prologue-render.ts blob2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。禁止本機browser。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules及esbuild hardlink，不覆舊source/config、不開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM及原媒體/字型/憑證不公開。文件[skip ci]、雲端回讀；臨時容器不是權威。
+既有家中至2300路線、雙人合作／自主第三、fixed ATB、v1-v8與裝備經濟保留；2300不是完整未來，經驗紀錄不是完整成長。T03全規則版本拓樸数值、T04成長報酬掉落／經濟道具飾品／學習雙三人技、T05全美術動畫音訊、T06所有時代主支線結局、T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical及真機測量、T08每批完整CI原檔雲端回讀均未縮減。release仍BLOCKED，旧30/100不當G評分，沒有新美術、真機、長時間、聆聽或全遊戲認證。全部限制見STATUS。

@@ -1,0 +1,125 @@
+{
+  "schema": "chrono-tested-source-batch-v1",
+  "batch": "VQ03G",
+  "version": "0.9.54",
+  "sourcePublished": true,
+  "baseSource": "19697fc3758b7fd484826a61dc2a98b7ddd6837e",
+  "publicationParent": "b6c3f33a4176d9f7c446d2eb84a0ef6c03a565a8",
+  "expectedSourceRoot": "ac7940e93467103c2350cf84bd30f9e50ee3ac16",
+  "changedProgramFiles": 18,
+  "programFiles": 452,
+  "node": {
+    "tests": 2191,
+    "pass": 2191,
+    "fail": 0,
+    "skipped": 0
+  },
+  "python": {
+    "tests": 401,
+    "passed": 401
+  },
+  "targetedNode": 143,
+  "targetedIncludedInFullSuite": true,
+  "fullCheck": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exit": 0,
+      "startedEpoch": 1790276800.3424983,
+      "endedEpoch": 1790276872.5274284,
+      "inputCount": 452,
+      "inputsUnchanged": true
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "*_test.py"
+      ],
+      "exit": 0,
+      "startedEpoch": 1790276872.5277116,
+      "endedEpoch": 1790276875.172589,
+      "inputCount": 452,
+      "inputsUnchanged": true
+    }
+  ],
+  "diffCheckPassed": true,
+  "nativeBrowserRunLocally": false,
+  "releaseApproved": false,
+  "listeningVerified": false,
+  "wholeGameAccepted": false,
+  "snapshotKind": "assembled tested program, not published Git archive",
+  "sourceSha": "fe7b733640263800ab419358b7dfcf3109bed6f6",
+  "sourceTree": "ac7940e93467103c2350cf84bd30f9e50ee3ac16",
+  "publishedSourceReadBack": true,
+  "publishedWholeTreeMatchesTestedProgramAndCurrentDocs": true,
+  "existingFilesChanged": 7,
+  "newFiles": 11,
+  "runtimeFiles": [
+    "src/scene-audio.ts",
+    "src/sound-effect-score.ts"
+  ],
+  "cloud": {
+    "fileId": "1eZQt5-o8ubX3Sfx-lmL6RDttuGN0a3Li",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "bytes": 1027848,
+    "sha256": "b4c5924420f12bcb1fd3e1940b6060c2690349f0cf69513594bed89963c3ddd9",
+    "manifestEntries": 48,
+    "programFiles": 452,
+    "actualDownloadHashCrcManifestVerified": true,
+    "parentReadBack": true,
+    "name": "Chrono-VQ03G-audio-presentation-batch.zip",
+    "snapshotPath": "development/VQ03G-program-snapshot.tar.gz",
+    "snapshotKind": "452-file assembled tested program; not published Git archive or latest progress docs"
+  },
+  "ci": {
+    "runId": "36046993131",
+    "runNumber": 77,
+    "status": "in_progress",
+    "conclusion": null,
+    "event": "push",
+    "attempt": 1,
+    "lastObservedUpdatedUtc": "2026-09-24T19:16:18Z"
+  },
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "quality": "Quality tool executed; prior30/100 scorecard is stale, release BLOCKED; no new art score",
+  "logs": [
+    {
+      "path": "development/logs/full-check.log",
+      "bytes": 467568,
+      "sha256": "67fc3dd3f6088c1606b4b6663d2eda1cdfe0af29704dcae9a28cff8278bc4d44"
+    },
+    {
+      "path": "development/logs/python.log",
+      "bytes": 501,
+      "sha256": "e1f96237bd31d5e488904ddf05218cbf5c1a89bc3252aba9e67e3146559d5dde"
+    },
+    {
+      "path": "development/logs/targeted-final.log",
+      "bytes": 29577,
+      "sha256": "6db9f3b80b1aea1dfa0c0f26fa48c5a174e5bb198ef60f75c22038d3b88dd8d5"
+    },
+    {
+      "path": "development/logs/check-inputs.json",
+      "bytes": 46400,
+      "sha256": "d2efd5ef606ab5d8ee940a1c151732d43db77905c8daf91c468bfadfd1941a26"
+    }
+  ],
+  "failureHistory": "Incomplete container-timeout run and preliminary allocation/Node-Python inverse failures retained; final source passes all. No native report edited.",
+  "nativeScope": "Existing music/analyser/hold/import/mute regression pending CI77. Unit effect schedules are not evidence of all7 motifs heard in native play; actual listening remains open.",
+  "originalRuntimePreserved": "main/core/music-score/render/held prologue/assets/input/save and native captures/workflow unchanged; no new game/time hooks",
+  "originalSourcePins": "Exact G->F build/test fragments, all19 F->E pins and negative cases retained in Node/Python; no blanket file exemptions",
+  "artApproved": false,
+  "motionComfortApproved": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "newScore": null
+}

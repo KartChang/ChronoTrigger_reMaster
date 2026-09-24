@@ -1,3 +1,4 @@
+import {frozenCameraBaseline} from './frozen-camera-baseline.mjs';
 import {pauseBaseline} from './pause-baseline.mjs';
 import {readFileSync} from 'node:fs';
 const changes=JSON.parse(readFileSync(new URL('../fixtures/runtime-info-integration.json',import.meta.url),'utf8')).replacements;
@@ -10,4 +11,4 @@ export function runtimeBaseline(source){
  }
  return source;
 }
-export const runtimeBaselineBytes=(path,bytes)=>path==='src/main.ts'?runtimeBaseline(bytes.toString('utf8')):bytes;
+export const runtimeBaselineBytes=(path,bytes)=>path==='src/camera-motion.ts'?Buffer.from(frozenCameraBaseline(bytes.toString('utf8'))):path==='src/main.ts'?runtimeBaseline(bytes.toString('utf8')):bytes;

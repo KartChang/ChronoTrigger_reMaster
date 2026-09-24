@@ -58,3 +58,72 @@ for(const r of [1.5,650/900,390/844])test(`moving actors remain inside actual Ba
 });
 test('returned camera frames are independent; external inspection cannot alter filter state',()=>{const m=new EarlyCameraMotion(),t=desired();const f=m.update(0,'fair',t);f.x=900;f.actors[0].left=900;f.bounds.left=900;assert.deepEqual(m.update(0,'fair',t),t);});
 test('runtime consumes safe camera filter and OS preference; tests do not change gameplay framing',()=>{const s=readFileSync(new URL('../src/render.ts',import.meta.url),'utf8');assert.match(s,/this.cameraMotion.update\(s.ticks/);assert.match(s,/prefers-reduced-motion: reduce/);assert.match(s,/motion:this.cameraMotion.inspect\(\)/);assert.doesNotMatch(s,/test.*reducedMotion/);});
+
+// CI77 regression: a paused preference roundtrip must restore the actual eased
+// camera, not merely a numerically close target. PNG gates remain exact.
+test('same-tick preference roundtrip restores an unfinished eased camera exactly',()=>{
+ const m=new EarlyCameraMotion();m.update(0,'fair',desired());const target=desired(undefined,{x:2,z:1,half:7});
+ const before=m.update(3,'fair',target);assert.notDeepEqual(before,target);
+ for(let cycle=0;cycle<12;cycle++){
+  assert.deepEqual(m.update(3,'fair',target,true),target);
+  for(let i=0;i<4;i++)assert.deepEqual(m.update(3,'fair',target,true),target);
+  assert.deepEqual(m.update(3,'fair',target,false),before);
+  for(let i=0;i<4;i++)assert.deepEqual(m.update(3,'fair',target,false),before);
+ }
+ safe(before);
+});
+for(const change of ['tick','backward-clock','context','ratio','base','actor','bounds','inactive','reset','temporary-target'])test('frozen camera cache cannot cross '+change,()=>{
+ const m=new EarlyCameraMotion();m.update(0,'fair',desired());const target=desired(undefined,{x:2,z:1,half:7});
+ m.update(3,'fair',target);m.update(3,'fair',target,true);
+ const next=structuredClone(target);let tick=3,context='fair';
+ if(change==='tick')tick=4;
+ if(change==='backward-clock')tick=2;
+ if(change==='context')context='home';
+ if(change==='ratio')next.ratio=.6;
+ if(change==='base')next.x+=.1;
+ if(change==='actor')next.actors[0].id='p1';
+ if(change==='bounds')next.bounds.left+=.01;
+ if(change==='inactive')next.active=false;
+ if(change==='reset')m.reset();
+ if(change==='temporary-target')m.update(3,'fair',{...next,x:next.x+.1},true);
+ assert.deepEqual(m.update(tick,context,next,false),next);
+});
+test('roundtrip snapshots are detached; paused restore does not consume normal easing time',()=>{
+ const m=new EarlyCameraMotion(),control=new EarlyCameraMotion(),a=desired(),b=desired(undefined,{x:2,z:1,half:7});
+ m.update(0,'fair',a);control.update(0,'fair',a);const expected=control.update(3,'fair',b);
+ const returned=m.update(3,'fair',b);returned.x=999;returned.bounds.left=999;returned.actors[0].id='mutated';
+ const reduced=m.update(3,'fair',b,true);reduced.x=888;reduced.actors[0].left=888;
+ assert.deepEqual(m.update(3,'fair',b,false),expected);
+ assert.deepEqual(m.update(4,'fair',b,false),control.update(4,'fair',b));
+});
+test('CI77 recorded released checkpoints: CPU pixels restore exactly after paused preference switch',async()=>{
+ const {World}=await import('../.test/cpu-entry.mjs');const {cpuTestCanvas}=await import('./cpu-test-canvas.mjs');
+ const fixture=JSON.parse(readFileSync(new URL('./fixtures/ci77-camera-restoration.json',import.meta.url)));
+ const old={window:globalThis.window,document:globalThis.document,matchMedia:globalThis.matchMedia};
+ const media={matches:false,addEventListener(){},removeEventListener(){}};
+ const doc={createElement:t=>t==='canvas'?cpuTestCanvas(1,1).canvas:{style:{}},getElementById:()=>null,addEventListener(){},removeEventListener(){}};
+ globalThis.matchMedia=()=>media;globalThis.document=doc;globalThis.window={devicePixelRatio:1,matchMedia:()=>media,addEventListener(){},removeEventListener(){},navigator:{}};let world;
+ try{
+  const c=cpuTestCanvas(960,640);c.canvas.ownerDocument=doc;world=new World(c.canvas);const state=structuredClone(fixture.frozen);
+  for(const point of fixture.released){Object.assign(state,structuredClone(point));world.draw(state,0,false);}
+  Object.assign(state,structuredClone(fixture.frozen));world.draw(state,0,false);world.draw(state,0,false);
+  const before=Buffer.from(c.pixels()),camera=world.inspect().earlyComfort.camera,sceneCounts=[world.scene.meshes.length,world.scene.textures.length,world.scene.materials.length];
+  assert.notEqual(camera.x,.84,'fixture must still contain an eased offset');
+  for(let cycle=0;cycle<3;cycle++){
+   media.matches=true;world.draw(state,0,false);world.draw(state,0,false);
+   media.matches=false;world.draw(state,0,false);world.draw(state,0,false);
+   assert.deepEqual(world.inspect().earlyComfort.camera,camera);
+   assert.deepEqual(Buffer.from(c.pixels()),before,'unit CPU canvas must be byte-identical');
+   assert.deepEqual(state,fixture.frozen);assert.deepEqual([world.scene.meshes.length,world.scene.textures.length,world.scene.materials.length],sceneCounts);
+  }
+ }finally{world?.engine.dispose();Object.assign(globalThis,old);}
+});
+
+test('camera repair inverse preserves the original pin and rejects missing/duplicate/unrelated edits',async()=>{
+ const {frozenCameraBaseline}=await import('./helpers/frozen-camera-baseline.mjs');
+ const {createHash}=await import('node:crypto');const spec=JSON.parse(readFileSync('tests/baselines/ci77-camera-restoration-edits.json'));
+ const source=readFileSync('src/camera-motion.ts','utf8');
+ assert.equal(createHash('sha256').update(frozenCameraBaseline(source)).digest('hex'),'204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44');
+ for(const edit of spec.edits){assert.throws(()=>frozenCameraBaseline(source.replace(edit.after,'')),/hunk/);assert.throws(()=>frozenCameraBaseline(source+edit.after),/hunk/);}
+ assert.throws(()=>frozenCameraBaseline(source+'\n// unrelated'),/Unrelated/);
+});

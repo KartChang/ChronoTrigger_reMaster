@@ -1,0 +1,28 @@
+{
+  "schema": "chrono-test-only-source-inverse-v1",
+  "sourceSha": "fe7b733640263800ab419358b7dfcf3109bed6f6",
+  "path": "src/camera-motion.ts",
+  "originalSha256": "204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44",
+  "edits": [
+    {
+      "before": "const copy=(f:CameraFrame):CameraFrame=>({...f,bounds:{...f.bounds},actors:f.actors.map(a=>({...a}))});\n/** Reproject the same world-space actor extents after a proposed camera movement.\n",
+      "after": "const copy=(f:CameraFrame):CameraFrame=>({...f,bounds:{...f.bounds},actors:f.actors.map(a=>({...a}))});\n// Exact identity of the framing request, including safety extents. A different\n// actor, viewport, or constraint invalidates any reversible paused preference.\nconst sameTarget=(a:CameraFrame,b:CameraFrame):boolean=>\n a.x===b.x&&a.z===b.z&&a.half===b.half&&a.ratio===b.ratio&&a.active===b.active&&a.portrait===b.portrait&&\n a.bounds.left===b.bounds.left&&a.bounds.right===b.bounds.right&&a.bounds.top===b.bounds.top&&a.bounds.bottom===b.bounds.bottom&&\n a.actors.length===b.actors.length&&a.actors.every((v,i)=>{const w=b.actors[i]!;return v.id===w.id&&v.left===w.left&&v.right===w.right&&v.top===w.top&&v.bottom===w.bottom;});\n/** Reproject the same world-space actor extents after a proposed camera movement.\n"
+    },
+    {
+      "before": " private reason='initial';\n reset():void{this.frame=null;this.tick=null;this.context='';this.reason='reset';}\n update(ticks:number,context:string,target:CameraFrame,reducedMotion=false):CameraFrame{\n",
+      "after": " private reason='initial';\n private lastTarget:CameraFrame|null=null;\n private frozenNormal:CameraFrame|null=null;\n reset():void{this.frame=null;this.tick=null;this.context='';this.reason='reset';this.lastTarget=null;this.frozenNormal=null;}\n update(ticks:number,context:string,target:CameraFrame,reducedMotion=false):CameraFrame{\n"
+    },
+    {
+      "before": "  const old=this.frame;\n  const snap=!old||!target.active||context!==this.context||ticks<this.tick!||target.ratio!==old.ratio||reducedMotion!==this.reduced||reducedMotion;\n",
+      "after": "  const old=this.frame;\n  const sameFrozen=!!old&&target.active&&ticks===this.tick&&context===this.context&&!!this.lastTarget&&sameTarget(target,this.lastTarget);\n  if(!sameFrozen)this.frozenNormal=null;\n  // Preserve the actual eased frame only for a reversible same-tick preference\n  // change. Reduced mode still snaps safely; resumed simulation keeps old policy.\n  if(sameFrozen&&reducedMotion&&!this.reduced)this.frozenNormal=copy(old!);\n  const restore=sameFrozen&&!reducedMotion&&this.reduced&&this.frozenNormal!==null;\n  const snap=!old||!target.active||context!==this.context||ticks<this.tick!||target.ratio!==old.ratio||reducedMotion!==this.reduced||reducedMotion;\n"
+    },
+    {
+      "before": "  this.context=context;this.tick=ticks;this.reduced=reducedMotion;\n  if(snap){this.frame=copy(target);this.reason=reducedMotion?'reduced-motion':!target.active?'outside-early-scene':'context-or-viewport';}\n  else if(elapsed===0){this.frame=constrainCameraResponse(target,old);this.reason='same-simulation-tick';}\n",
+      "after": "  this.context=context;this.tick=ticks;this.reduced=reducedMotion;\n  if(restore){this.frame=copy(this.frozenNormal!);this.frozenNormal=null;this.reason='frozen-preference-restored';}\n  else if(snap){this.frame=copy(target);this.reason=reducedMotion?'reduced-motion':!target.active?'outside-early-scene':'context-or-viewport';}\n  else if(elapsed===0){this.frame=constrainCameraResponse(target,old);this.reason='same-simulation-tick';}\n"
+    },
+    {
+      "before": "  }\n  return copy(this.frame);\n",
+      "after": "  }\n  this.lastTarget=copy(target);\n  return copy(this.frame);\n"
+    }
+  ]
+}

@@ -1,28 +1,35 @@
-# Delivery index — CI71 retained evidence / immediate review handoff
+# Delivery index — E published / CI73 checkpoint
 
-唯一terminal：CI71-visual-motion-review。source62469eb87e3c736a99d970d555d4155fab4b8e79／VQ03C0.9.50；CI71 35976206740與Pages65 35979820044皆success，accepted仍false，視覺／動態審查未完成。沒有新source、CI72或平行candidate。
+動態authority為STATUS與CI73_CHECKPOINT。VQ03E0.9.52 source **344fa860b5c8153b007f75912e16926d966862fa**、tree **f0bfe4b67c57b7beed0e3b6a161b82a919b30041**已一次發布並回讀。MatchingCI73 **36008892936**最後觀察in_progress，尚無E acceptance。不是等待發布，不重送C/D/E。
 
-## 本輪新增並回驗
+唯一Drive folder：**1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。所有進度文件以最新GitHub main為準，封存包中的舊docs/source=null不得覆蓋main或觸發重送。
 
-唯一Drive folder：1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。
+## E最終已測開發包 — 已回驗
 
-**Chrono-CI71-VQ03C-evidence-review-handoff.zip**
-File ID：**1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO**
-Bytes：**86421383**
-SHA256：**54d971655c70040276c4d0c9fbf2560175ead3f5452d9db29722ab9576d2284a**
+**Chrono-VQ03E-npc-comfort-batch.zip**
+File ID：**1gbx0yzpPjOr9fmSTvAHQNQ1VPer0n078**
+Bytes：**1097022**
+SHA256：**0766df6c10901c85d9ff0345fce4a98b9180c9aa8d572f465e939e1f5b7dfc26**
 
-已下載回驗parent、大小、SHA256、外層ZIP CRC、17項manifest及七個原始內層ZIP的CRC／provider digest。originals/包含CI71 browser、good、bad、playable、art-review-kit、Pages65 staged、github-pages七份未修改ZIP。browser ZIP內有exact source tar、完整報告、87張CPU圖與native-session.webm；沒有只留摘要。
+已替換同一Drive檔為最終已測內容，回讀parent與大小，再實際下載核對SHA256、ZIP CRC及30項manifest。包含`development/VQ03E-program-snapshot.tar.gz`的431檔assembled程式快照、27檔patch、新舊失敗／最終成功logs、程式指紋與Git全樹比對。這不是published Git archive，不含最新進度docs，也不是CI73原生證據。最終1990 Node、389 Python、assets/typecheck/build/check/diff通過；完整log hash見VQ03E_TESTED_BATCH.json。E已發布，原source=null僅為發布前build歷史。
 
-review/包含verify.mjs、READONLY_VERIFICATION.json、SOURCE_VERIFICATION.json、PROVIDER_OBSERVATIONS.json（明確標為connector回傳的正規化摘要，不冒充原始provider JSON）、video-probe.json、VIDEO_DECODE.json、解碼log、VISUAL_REVIEW_PROGRESS.json及README。七ledger150列與source tree／Pages核對已完成，不重跑；兩張新增field圖已全尺寸檢視，其餘85張及影片觀看待續。
+## D／CI72已接受的有界證據 — 已回驗，不重做
 
-## 保留的開發恢復點
+**Chrono-CI72-VQ03D-reviewed-evidence.zip**
+File ID：**1uApj0yusWMaC5Ed7Kz1cMIqQjmXiHTYW**
+Bytes：**93705018**
+SHA256：**10749b84c0478732fda681307d64ba46876be6998ee2de76118f723a51189a4d**
 
-**Chrono-CI70-accepted-VQ03C-tested-batch.zip**：17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu；2045961bytes；SHA256801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc。前輪已回驗54manifest／413檔快照及Git blob；此次不重做開發測試。development/VQ03C-tested-program-snapshot.tar.gz是assembled已測程式，不是published Git archive；包內source=null為發布前歷史。C現已發布，不重送；進度只讀最新main。
+7份未修改CI72／Pages66原ZIP、exactD source、完整原片與報告、唯讀ledger核對與視覺review，47項manifest及parent/size/hash/CRC下載回驗。D source1d2a59bfa14b761969c2dfaf7261e6868bcdcd37，CI72 35996220194，Pages66 35999168625。原七ledger150列逐byte一致；HTML5729236bytes／SHA2567618be126d8f7864fd0c1d598ab1f82820b0ef92f3e267a8e88c1cfee925bdfe。87張contact/22全尺寸、3502fps畫格/4全尺寸取樣；不是原速播放或全美術認證。收據CI72_ACCEPTANCE.json。
 
-CI70／Pages64原始證據包1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9，87991208bytes／SHA256ab139df4f8213f4fc8a7b26aa34fe517f5c226629dc497b9b64afbd6797f2227，29manifest／七原ZIP既有回驗沿用，不重驗。原技術收據CI70_ACCEPTANCE保留，原速動態TODO仍開放。
+## 較早封存 — 僅歷史恢復，不重驗／重送
+
+CI71／Pages65：**Chrono-CI71-VQ03C-evidence-review-handoff.zip**，**1e5coZaU45p3QZy1I-eOesqj5Md7wI8dO**，86421383bytes，SHA25654d971655c70040276c4d0c9fbf2560175ead3f5452d9db29722ab9576d2284a。7原ZIP／17manifest既有回驗不重做。CI71歷史accepted=false保留，沒有回填CI71_ACCEPTANCE；D已接替最新有界技術基準。
+
+C已測開發包：**Chrono-CI70-accepted-VQ03C-tested-batch.zip**，17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu，2045961bytes，SHA256801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc。413檔assembled快照不是Git archive，不是當前source；C不重送。
+
+CI70／Pages64證據：1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9，87991208bytes，SHA256ab139df4f8213f4fc8a7b26aa34fe517f5c226629dc497b9b64afbd6797f2227。29manifest／7原ZIP既有回驗沿用，CI70_ACCEPTANCE與歷史failure不改寫。
 
 ## 最短接續
 
-讀STATUS／IMMEDIATE_CONTINUATION／CI71_CHECKPOINT的remainingReview即可。需要原圖／影片才下载上述新包並驗一個整包hash，解原browser ZIP；不重下載舊CI70或更早。新HTML只能以C同run 5723474bytes／SHA2563ca579cd2555629bc48e0ae5298668f1b98d98b2503c917ebeb1b43d1734b303為基準，不能拿local source=null或CI70 hash比較。
-
-本轮文件全部使用[skip ci]，不改source／tests／assets／workflow。完整範圍、固定門檻、held家具、禁止本機browser及私人素材限制均見STATUS與checkpoint，不因交接縮減。
+只讀STATUS／IMMEDIATE_CONTINUATION／CI73_CHECKPOINT。查exactCI73一次；完成後才下載其原始artifacts與matching Pages，使用同E source/run/HTML綁定核對並保存新證據。不拿local source=null、D或C的HTML hash當E基準。若CI仍active先保存接續點，不長時間輪詢。全T03-T08、held家具、no-local-browser、私人ROM／原媒體／字型／憑證及原始門檻均保留。

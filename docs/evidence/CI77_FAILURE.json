@@ -1,0 +1,15 @@
+{
+  "schema":"chrono-ci-failure-preservation-v1","repository":"KartChang/ChronoTrigger_reMaster","sourceSha":"fe7b733640263800ab419358b7dfcf3109bed6f6","sourceTree":"ac7940e93467103c2350cf84bd30f9e50ee3ac16","batch":"VQ03G","version":"0.9.54","runId":"36046993131","runNumber":77,"event":"push","attempt":1,"status":"completed","conclusion":"failure","accepted":false,
+  "failure":{"firstBlockingStage":"Test playable CPU fallback without WebGL: fair-vendors exact preference restoration","report":"cpu-renderer/fair-trial-comfort/fair-vendors/report.json","tick":120,"capturedPhases":3,"npcFramesAndRepeatedObservationsPassed":true,"beforePngSha256":"9a4d09468c3ed3763bb6e6e835980ae9591454662f9b90b0c7252134b5f1ee31","restoredPngSha256":"195f7781f2868f75c91e0ec8bd4501afea1a99a16baf5b87876879b7b9195757","differentOriginalPixels":76,"rootCause":"EarlyCameraMotion snaps to target on both preference edges, losing its unfinished eased frame even when tick, context and framing request remain frozen."},
+  "diagnosis":{"method":"Read-only original PNG comparison and explicit Node CPU unit port using original released checkpoints","preFixOfflinePixelDifference":22,"fixedOfflinePixelDifference":0,"preFixCameraX":0.8399950697205102,"oldRestoredCameraX":0.8399999999999999,"nativeReplay":false,"originalArtifactsRewritten":false,"scope":"Offline geometry and pixels establish the bug/regression test; they are not new native CI results and do not erase CI77 failure."},
+  "coverageLimit":"good/bad jobs succeeded; validate failed in CPU fallback. Do not claim later CPU600/rescue/trial or complete same-run movie/evidence passed. No playable artifact was returned for this run; no CI77 Pages acceptance.",
+  "originalArtifacts":[
+    {"name":"CI77-browser-evidence.zip","id":"10829805338","bytes":22394445,"sha256":"35527b95ee7620262eb7ab1ea3b8691d5e498116f2ad675d3dbc53e976826ab7"},
+    {"name":"CI77-good-evidence.zip","id":"10830125978","bytes":26547052,"sha256":"00be05ca04d774bee0e84884fc4fa12a794038dee8019b6f8570042e1c4c5971"},
+    {"name":"CI77-bad-evidence.zip","id":"10829597438","bytes":4809852,"sha256":"86d892a90c227e8e1870de2c21ffbd0d164ddb5a7033c988643e6d1f1c0b87a0"},
+    {"name":"CI77-art-review.zip","id":"10828604852","bytes":324995,"sha256":"8a52eddca3270210e09541ec959bb8834490f657946865eae9d9ca183c5f94d2"}
+  ],
+  "retention":{"fileId":"1S1kHlFoN-aeirWHVcB-9ouA-VrdnGix-","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","name":"Chrono-CI77-camera-restoration-repair.zip","bytes":54893149,"sha256":"1bba02d639a727f691d4b7b179772fb43e2ab25afe8424adbc3ea11b9aba2ac6","manifestEntries":24,"originalZips":4,"parentReadBack":true,"actualDownloadHashCrcManifestVerified":true},
+  "repairSourceSha":"c65fa91afd407d69976a4ca8e58855d3fff9cc34","nextCheckpoint":"docs/evidence/CI78_CHECKPOINT.json","retrospectiveSuccess":false,"noLocalBrowser":true,"newScore":null,
+  "providerObservationFormat":"Normalized from actual connector responses and original downloaded artifacts; not represented as raw GitHub API JSON."
+}

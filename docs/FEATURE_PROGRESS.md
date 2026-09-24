@@ -1,27 +1,29 @@
-# 功能進度 — G音訊批次已發布，CI77待驗收
+# 功能進度 — G鏡頭還原修復已發布，CI78待驗收
 
-動態authority：STATUS、TODO、handoff/IMMEDIATE_CONTINUATION、evidence/CI77_CHECKPOINT。Current root **T05-early-visual-cohesion**；terminal **CI77-audio-presentation-evidence**。VQ03G／0.9.54 source **fe7b733640263800ab419358b7dfcf3109bed6f6**、tree **ac7940e93467103c2350cf84bd30f9e50ee3ac16**。已一次發布並回讀，不重送G或C/D/E/F/PNG修復。
+Authority：STATUS、TODO、IMMEDIATE_CONTINUATION、CI78_CHECKPOINT。Root **T05-early-visual-cohesion**；terminal **CI78-frozen-camera-restoration-evidence**。Source **c65fa91afd407d69976a4ca8e58855d3fff9cc34**，tree **76a4efda08985cc8d668319905a00ae907993c89**，仍VQ03G/0.9.54。Matching **CI78／36054333321**發布後觀察queued/null at2026-09-24T20:21:37Z，尚未accepted。不重送G或camera修復。
 
-## 本批完成的實作
+## 本輪完成
 
-原頻率音效API接入七組自製合成音型：管風琴持音、短促降頻、互動單音、技能滑音、恢復上行、鐘聲／合技共用雙音、時門上行。保留440單音與未宣告合法頻率的原單音；原main觸發點不變，不保證既有流程已聽到全部音型。每型最多3聲部／level總和<=.04／含尾音<=.5秒，音效與配樂仍共用原16聲部與master .55；滿載時丟棄超額聲部，不排隊補播。參數限制不是主觀聽感或音量安全認證。
+CI77原CPU fair-vendors暫停偏好切換三張原PNG的before/restored差76像素；NPC畫格／完整state還原仍通過，鏡頭卻在切換時將原緩動位置丟掉。本次runtime只改camera-motion.ts，保留同tick／相同取景身份的原frame，reduced仍snap安全目標，切回時精確還原；時間、場景、比例、目標、角色安全框、reset改變則失效。正常緩動不補時間，不改安全框或native state。
 
-AudioContext/master/analyser初始圖與部分聲部建立失敗現在會獨立清理，不因handler或disconnect例外而跳過其他清理；dispose同樣保持冪等。analyser重用1024個Float32緩衝，hold時仍讀真實資料，不造零；dispose後不再讀取。音型的started計數保留實際成功排程量，即使後續聲部失敗而取消，也不假裝未發生。
+合批六檔，新增14Node回歸，最終 **2205Node／401Python**通過，Node0fail／0skip；完整assets/typecheck/build/check/diff與451非文件程式指紋一致。455檔快照另含四root文件。Camera共38項測試包含反覆切換、cache失效、外部修改隔離、恢復後正常緩動、明示Node CPU port以及原SHA256五片段inverse負測試。修前targeted37測試34pass3fail，修後37pass，最後加inverse測試；不是刪除失敗斷言。
 
-Runtime僅修改scene-audio.ts與新增sound-effect-score.ts。main/core/music-score/render/held prologue/assets/workflow/nativecapture逐byte保留，七段配樂排程與exact CI76基準在hold／reset／過期節拍跳過後一致。沒有新輸入、走位、sleep、timer、simulation tick或存檔規則。
+原生PNG差76與offlineCPU差22屬不同測量；offline修復後差0只支持離線回歸，不代替新CI。原native路線、captures、exactPNG還原斷言、workflow、G音訊、其他runtime與heldprologue都不變。沒有本機browser。詳CI77_CAMERA_REPAIR與CI77_FAILURE。
 
-18程式／測試檔，452程式輸入；最終 **2191 Node、401 Python 全通過**，143針對測試含於Node，assets/typecheck/build/check/diff通過。G→F只還原精確build/test片段，原19個F→E SHA256與missing/duplicate/unrelated負向測試保留；原WebGL PNG負測試加入完整Node清單。詳VQ03G_TESTED_BATCH及AUDIO_PRESENTATION。沒有本機browser。
+## G原音訊實作保留，非本輪重做
 
-## 驗收與保存界線
+原frequencyAPI的七組自製合成音型：262管風琴、330攻擊、440互動單音、520技能、620恢復、660鐘聲／合技、800時門；其他合法頻率保留原單音。每型最多3聲部、level總和<=.04、尾音<=.5秒；共用16聲部及master .55，超額不排隊補播。這不是聽感或音量安全認證，main觸發點與七段自製配樂保留。沒有使用ROM／原版OST／第三方音效採樣。
 
-Matching **CI77／36046993131**，push/attempt1，最後觀察2026-09-24T19:16:18Z為in_progress/null，G尚未accepted。原生三job／主報告／十ledger／完整CPU旅程／音訊回歸、matchingPages與原始產物保存仍待完成。七音型unit排程通過不等於七音型都在原生遊戲觸發或已聆聽。紧接對話或hold的原音效仍可能被立即停止；不藉延後對話、放寬hold或加sleep製造通過。
+初始audio graph、部分聲部失敗與dispose獨立清理；analyser重用1024Float32緩衝且仍讀實際訊號，hold不造零。已成功排程聲部計數不因後續取消而改寫。先前G原2191Node／401Python與143targeted屬前批成果，不混成這輪新增數。原G18檔／452快照及logs仍在原Drive包；本輪六檔獨立保存。
 
-G已測快照與logs存入正確Drive **1eZQt5-o8ubX3Sfx-lmL6RDttuGN0a3Li**，1027848bytes，48manifest已實際下載回驗，詳DELIVERY_INDEX。不是僅臨時容器交付。
+## 驗收界線與雲端
 
-本輪先完成CI76／Pages70限定範圍驗收：十ledger173列逐byte相同、432原檔未改；102原圖contact／6全尺寸；179.88秒原片360個2fps畫格／12聯絡表。不是原速播放或聆聽。原始7ZIP與review已存Drive並回驗，收據CI76_ACCEPTANCE；CI75仍failure，CI71不補填接受，旧CI73/72不重開。
+CI77原run failure保留，good/bad成功不能當validate或後续完整CPU600救援審判完成；四原ZIP沒有playableartifact，不宣稱不存在的完整錄影。新修復與原失敗產物保存 **Chrono-CI77-camera-restoration-repair.zip／1S1kHlFoN-aeirWHVcB-9ouA-VrdnGix-**，54893149bytes、SHA256 **1bba02d639a727f691d4b7b179772fb43e2ab25afe8424adbc3ea11b9aba2ac6**，四原ZIP／24manifest／parent／hash／CRC實際下載回驗。455assembled快照不是publishedGitarchive或最新docs，不可因包內發布前false重送。
 
-## 完整剩餘功能
+最後有界接受仍是CI76/Pages70；其102contact／6全尺寸原圖、360個2fps影片樣本不是原速播放、實際聆聽、真機或長時間認證。CI75failure與CI71歷史accepted=false保留。工具旧30/100stale，releaseBLOCKED；沒有新美術分數。
 
-先完成CI77_CHECKPOINT.remainingReview，再接T05人物／植物／道具尺度輪廓、原作構圖與製作品質、原速移動／淡化／viewport舒適性、完整角色動畫及完整合法音訊／聆聽。森林時門地面雜訊與法庭稀疏仍是已觀察的美術缺口，G不宣稱改善這些畫面。原C配色、Z招牌、A建物、B取景、D遮擋、E/F減少動態功能不重做。
+## 仍開放
 
-既有家中至2300路線、雙人合作／自主第三、fixed ATB、v1-v8與裝備經濟保留；2300不是完整未來，經驗紀錄不是完整成長。T03全規則版本拓樸数值、T04成長報酬掉落／經濟道具飾品／學習雙三人技、T05全美術動畫音訊、T06所有時代主支線結局、T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical及真機測量、T08每批完整CI原檔雲端回讀均未縮減。release仍BLOCKED，旧30/100不當G評分，沒有新美術、真機、長時間、聆聽或全遊戲認證。全部限制見STATUS。
+CI78同run完整原生journeys／十ledger／G音訊回歸／fair-vendors exactPNG／matchingPages與Drive保存待完成。通過後才有界接受，再续T05人物植物道具尺度輪廓／原作構圖（森林時門地面雜訊、法庭稀疏）、完整角色動畫、完整合法音訊／實際聆聽及原速走位淡化viewport舒適性。鏡頭單元修復不等於這些品質TODO已完成。
+
+T03全規則版本拓樸數值、T04完整成長報酬掉落經濟道具飾品學習雙三人技、T05全美術建模動畫音訊、T06所有時代主支線結局、T07整體>=90／各面向>=80%與requiredassets/fivegates/zerocritical/真機測量、T08每批完整CI／原始產物回讀都保留。2300抵達不是完整未來。沿用STATUS的main-only／heldprologue／no-local-browser與所有原native state／時間／CPU品質記憶體限制。

@@ -1,0 +1,31 @@
+{
+  "schema":"chrono-tested-camera-repair-v1","batch":"VQ03G","version":"0.9.54","iteration":"frozen-camera-preference-restoration","sourcePublished":true,
+  "sourceSha":"c65fa91afd407d69976a4ca8e58855d3fff9cc34","sourceTree":"76a4efda08985cc8d668319905a00ae907993c89","sourceParent":"a4957689983b4e9ef6a44327065d5d7ba774e7f4","baseProgramSource":"fe7b733640263800ab419358b7dfcf3109bed6f6","publishedSourceReadBack":true,"wholeTreeMatchesTestedProgramAndCurrentDocs":true,
+  "runtimeFiles":["src/camera-motion.ts"],"changedProgramFiles":6,"testedInputFiles":451,"snapshotFiles":455,"inputScope":"451 non-docs source/test/config/assets files; snapshot additionally retains four root documentation files. No source/test/config omitted.",
+  "sourceChanges":[
+    {"path":"src/camera-motion.ts","sha":"58c358c71e1a3250f076681afb314127024b531a","bytes":5062},
+    {"path":"tests/early-camera-motion.test.mjs","sha":"ac02d07b1b731f1cb02bdc4ca2c3ef679802e477","bytes":11186},
+    {"path":"tests/helpers/runtime-baseline.mjs","sha":"6514e5bf22ece8310d68831910cf5ebdc2d105de","bytes":882},
+    {"path":"tests/helpers/frozen-camera-baseline.mjs","sha":"62e44ce7a85087f77be3dbf90ee1f39896fb9ef2","bytes":656},
+    {"path":"tests/baselines/ci77-camera-restoration-edits.json","sha":"d8e3698604b6a088343dca206de9d6344989cf54","bytes":3766},
+    {"path":"tests/fixtures/ci77-camera-restoration.json","sha":"fbde7083376814a779bfb80f4ff45a8fa4dfccdd","bytes":12191}
+  ],
+  "tests":{"node":2205,"nodePass":2205,"nodeFail":0,"nodeSkipped":0,"python":401,"pythonPass":401,"newNodeTests":14,"cameraTestsInFinalSuite":38,"preFixTargeted":{"tests":37,"pass":34,"fail":3},"fixedTargeted":{"tests":37,"pass":37,"fail":0}},
+  "fullCheck":{"command":"npm run check","exit":0,"startedEpoch":1790280746.4181068,"endedEpoch":1790280845.41417,"inputsUnchanged":true,"assetsPassed":true,"typecheckPassed":true,"buildPassed":true,"diffCheckPassed":true},
+  "pythonCheck":{"command":"python -m unittest discover -s tests -p '*_test.py'","exit":0,"startedEpoch":1790280845.4220316,"endedEpoch":1790280848.3975158,"inputsUnchanged":true},
+  "regression":{"originalCi77DifferentPixels":76,"offlinePreFixDifferentPixels":22,"offlineFixedDifferentPixels":0,"scope":"Original PNG comparison plus explicit offline Node CPU port; not new native CI or native-rate visual review"},
+  "behavior":"Cache detached actual eased frame only on unchanged same-tick normal-to-reduced preference transition; reduced framing still snaps safely. Reverse edge restores exact frame only with identical context, tick, target/base, viewport ratio, active/portrait flags, actor extents and safety bounds. Tick/clock/context/viewport/target/actor/bounds/reset changes invalidate it; normal easing time and safety behavior remain.",
+  "originalCameraSha256":"204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44","sourcePinProtection":"Exact five-fragment test-only inverse; rejects missing, duplicated or unrelated source changes. No native state/report transform or blanket exemption.",
+  "treeProof":{"localSrcTree":"a587286e7a999144d19b5aa5ef3bb0224dcef520","localTestsTree":"b2d8bfa68f43be765a3cfba4e3cd444013263e21","currentDocsTree":"de169dbfeb6cfe04ccec20f72b314137ccd003ad","allOtherProgramEntriesFromTestedIndex":true,"reconstructedRoot":"76a4efda08985cc8d668319905a00ae907993c89","matchedRemoteRoot":true},
+  "cloud":{"fileId":"1S1kHlFoN-aeirWHVcB-9ouA-VrdnGix-","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","name":"Chrono-CI77-camera-restoration-repair.zip","bytes":54893149,"sha256":"1bba02d639a727f691d4b7b179772fb43e2ab25afe8424adbc3ea11b9aba2ac6","manifestEntries":24,"originalZips":4,"parentReadBack":true,"actualDownloadHashCrcManifestVerified":true,"snapshotPath":"development/CI77-camera-repair-program-snapshot.tar.gz","snapshotKind":"455-file assembled tested program, not published Git archive/current docs"},
+  "logs":[
+    {"path":"development/logs/full-check.log","bytes":470242,"sha256":"6bae1959e91c86f7f3ace2c839a1d68c84a1b268a277e11e0c5cc0f574aeea67"},
+    {"path":"development/logs/python.log","bytes":501,"sha256":"9bdc26a1244120be06668e9a1b7296d4cb685f017ed3dcbf4b9d3e94dd94ac86"},
+    {"path":"development/logs/check-inputs.json","bytes":46421,"sha256":"d9bd17bf0f46a1c5fb8ff7dd7b80ab1b60f26698d970e1118169a7e1a428a1a1"},
+    {"path":"development/logs/pre-fix-camera.log","bytes":14612,"sha256":"4d54e1a86ec3654aba8ab7888033d86754312ded81fb153fdc9d490e981cc1ce"}
+  ],
+  "ci":{"runId":"36054333321","runNumber":78,"event":"push","attempt":1,"status":"queued","conclusion":null,"lastObservedUpdatedUtc":"2026-09-24T20:21:37Z"},
+  "originalNativeRoutesCapturesAssertionsWorkflowUnchanged":true,"audioAndOtherRuntimeUnchanged":true,"heldPrologueBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a","noLocalBrowser":true,"ci77RemainsFailed":true,"ci75RemainsFailed":true,
+  "quality":"Old30/100 scorecard is stale; releaseBLOCKED. Quality-tool invocation success is not quality acceptance.",
+  "artApproved":false,"motionComfortApproved":false,"listeningVerified":false,"physicalDeviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null
+}

@@ -7,6 +7,7 @@ import {inspectLane} from './ci-evidence.mjs';
 import {inspectCpuAdventureEvidence} from './cpu-adventure-evidence.mjs';
 import {inspectCpuEvidence} from './cpu-evidence.mjs';
 import {decodeCanvasPng} from './field-enemy-evidence.mjs';
+import {decodeWebglCanvasPng} from './webgl-canvas-png.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const need=(ok,why)=>{if(!ok)throw Error('Fair/trial comfort: '+why);};
 const chapters={'fair-witnesses':'fair','fair-vendors':'fair',courtroom:'courtroom','forest-gate':'guardia1000'};
@@ -43,7 +44,7 @@ export function assertWitnessComfort(r,load,id,key,backend){
   need(Number.isSafeInteger(o.viewport?.width)&&Number.isSafeInteger(o.viewport?.height)&&o.viewport.width>0&&o.viewport.height>0&&typeof o.focus==='string','viewport/focus');
   const image=p.image;need(image?.path===p.phase+'.png'&&image.source==='actual-native-canvas','original image path');
   const raw=load(image.path);need(Buffer.isBuffer(raw)&&raw.length===image.bytes&&sha(raw)===image.sha256,'image bytes/hash');
-  const png=decodeCanvasPng(raw);need(png.width===v.width&&png.height===v.height,'decoded canvas dimensions');
+  const png=backend==='webgl'?decodeWebglCanvasPng(raw):decodeCanvasPng(raw);need(png.width===v.width&&png.height===v.height,'decoded canvas dimensions');
   let lo=255,hi=0;for(let j=0;j<png.rgba.length;j+=4){need(png.rgba[j+3]===255,'opaque scene');for(let c=0;c<3;c++){lo=Math.min(lo,png.rgba[j+c]);hi=Math.max(hi,png.rgba[j+c]);}}
   need(hi-lo>16,'nonblank pixels');files.push({path:image.path,bytes:raw.length,sha256:sha(raw)});
  }

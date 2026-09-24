@@ -1,14 +1,15 @@
 /** Synthetic PNG/protocol fixtures only; never emitted as native journey evidence. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';
+import './webgl-canvas-png.test.mjs';
 import {assertWitnessComfort} from '../scripts/fair-trial-comfort-evidence.mjs';import {surface,png} from '../scripts/asset-export.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),id={sourceSha:'a'.repeat(40),runId:'1',runAttempt:'1',htmlSha256:'b'.repeat(64),htmlBytes:123};
-function fixture(key='fair-witnesses',backend='webgl',original=false){
- const image=surface(60,40);image.ink.fillStyle='#123456';image.ink.fillRect(0,0,60,40);image.ink.fillStyle='#eedd88';image.ink.fillRect(8,4,30,30);const raw=png(image);
+function fixture(key='fair-witnesses',backend='webgl',original=false,width=60,height=40){
+ const image=surface(width,height);image.ink.fillStyle='#123456';image.ink.fillRect(0,0,width,height);image.ink.fillStyle='#eedd88';image.ink.fillRect(8,4,30,30);const raw=png(image);
  const s={chapter:key.startsWith('fair')?'fair':key==='courtroom'?'courtroom':'guardia1000',ticks:140,trial:{stage:'flight'}};
  const names=key==='fair-witnesses'?{conduct:['girl','elder','merchant'],vendors:['shopper','shopper','shopper']}:key==='fair-vendors'?{vendors:['shopper','shopper','shopper']}:{trial:key==='courtroom'?['judge','defender','prosecutor']:['guard','guard','guard']};
  const ambient=seed=>{const t=(140+seed*37)%240;return t<90?0:t<180?1:t<189?2:3;};
  const phases=['before','reduced','restored'].map((phase,i)=>{const reduced=i===1||original,groups=Object.fromEntries(Object.entries(names).map(([name,kinds])=>[name,{profile:'outlined-live-actors-r2',motion:{profile:'vq03f-witness-motion-preference',clock:'simulation-ticks',tick:140,reducedMotion:reduced,bindingCount:kinds.length,stateMutation:false},actors:kinds.map((kind,seed)=>({name:kind+seed,kind,seed,frame:reduced?0:ambient(seed),uploads:1+(original||ambient(seed)===0?0:i),cell:{width:48,height:64}}))}]));
- const observation={chapter:s.chapter,paused:true,mediaReduce:reduced,groups,gate:key==='forest-gate'?{name:'forest-time-gate',visible:true,position:[5.5,1.35,4],rotation:[Math.PI/2,0,reduced?0:140/180]}:null,renderer:{backend,webglVersion:backend==='webgl'?1:0,width:60,height:40,samplingEnabled:backend==='webgl'?null:false,mode:'auto'},viewport:{width:960,height:640},focus:'resume'};
+ const observation={chapter:s.chapter,paused:true,mediaReduce:reduced,groups,gate:key==='forest-gate'?{name:'forest-time-gate',visible:true,position:[5.5,1.35,4],rotation:[Math.PI/2,0,reduced?0:140/180]}:null,renderer:{backend,webglVersion:backend==='webgl'?1:0,width,height,samplingEnabled:backend==='webgl'?null:false,mode:'auto'},viewport:{width:960,height:640},focus:'resume'};
  return {phase,state:structuredClone(s),observation,repeated:structuredClone(observation),image:{path:phase+'.png',source:'actual-native-canvas',bytes:raw.length,sha256:sha(raw)}};});
  return {r:{schema:'chrono-native-fair-trial-comfort-v1',status:'passed',key,...id,physicalDevice:false,artApproved:false,realTimeComfortApproved:false,originalReduce:original,beforeState:s,afterState:structuredClone(s),fullStateEqual:true,phases},raw};
 }
@@ -19,3 +20,8 @@ test('self-consistent repeated hidden upload cannot pass single-upload accountin
 test('gate rotation not suppressed is rejected even with matching repeated observer',()=>{const f=fixture('forest-gate','cpu-canvas2d');for(const k of ['observation','repeated'])f.r.phases[1][k].gate.rotation[2]=1;assert.throws(()=>assertWitnessComfort(f.r,()=>f.raw,id,'forest-gate','cpu-canvas2d'),/gate/);});
 test('PNG CRC is verified independently after forged receipt update',()=>{const f=fixture();const corrupt=Buffer.from(f.raw);corrupt[corrupt.length-1]^=1;for(const p of f.r.phases)p.image.sha256=sha(corrupt);assert.throws(()=>assertWitnessComfort(f.r,()=>corrupt,id,'fair-witnesses','webgl'));});
 test('extra gates preserve all original jobs and complete CPU journeys',()=>{const s=readFileSync('.github/workflows/ci.yml','utf8');for(const token of ['node scripts/cpu-adventure-evidence.mjs','node scripts/npc-comfort-evidence.mjs','node scripts/ci-evidence.mjs validate','node scripts/fair-trial-comfort-evidence.mjs validate','node scripts/fair-trial-comfort-evidence.mjs bad','CHRONO_CPU_CHAIN=1 python tests/trial_browser.py'])assert(s.includes(token));assert.equal(s.match(/timeout-minutes: 45/g).length,2);});
+
+// Real keyboard resolution, synthetic content only: covers CI75's missed envelope.
+test('full 960x640 WebGL preference gate retains original-size exact restoration',()=>{const f=fixture('fair-witnesses','webgl',false,960,640);assert.equal(assertWitnessComfort(f.r,()=>f.raw,id,'fair-witnesses','webgl').length,3);});
+test('the WebGL envelope never enlarges the CPU policy',()=>{const f=fixture('courtroom','cpu-canvas2d',false,960,640);assert.throws(()=>assertWitnessComfort(f.r,()=>f.raw,id,'courtroom','cpu-canvas2d'),/original CPU policy/);});
+test('matching receipts do not excuse a changed restored canvas',()=>{const f=fixture('fair-witnesses','webgl',false,960,640),other=fixture('fair-witnesses','webgl',false,960,639).raw;const last=f.r.phases[2];last.image.bytes=other.length;last.image.sha256=sha(other);assert.throws(()=>assertWitnessComfort(f.r,p=>p==='restored.png'?other:f.raw,id,'fair-witnesses','webgl'),/dimensions/);});

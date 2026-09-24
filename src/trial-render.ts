@@ -14,7 +14,7 @@ import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
 /** Cached, distinct interior/field sets; camera and game rules stay outside this renderer. */
 export function buildTrial(scene:Scene,shadow:ShadowGenerator){
  type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};
- const views=new Map<TrialMap,View>();const motion=new NpcMotion();
+ const views=new Map<TrialMap,View>();const motion=new NpcMotion(scene);
  function build(map:TrialMap):View{
   const root=new TransformNode('trial-'+map,scene),mats=new Map<string,StandardMaterial>(),surface=materialSet(scene,map);
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(map+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
@@ -90,14 +90,14 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const points=windowMesh.getBoundingInfo().boundingBox.vectorsWorld.map(v=>Vector3.Project(v,Matrix.Identity(),scene.getTransformMatrix(),viewport));
   return {left:Math.min(...points.map(v=>v.x))/e.getRenderWidth(),right:Math.max(...points.map(v=>v.x))/e.getRenderWidth(),top:Math.min(...points.map(v=>v.y))/e.getRenderHeight(),bottom:Math.max(...points.map(v=>v.y))/e.getRenderHeight()};
  }
- return {inspect:()=>({motion:motion.inspect(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State){
+ return {inspect:()=>({motion:motion.inspect(),forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false){
   if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));
   for(const [map,v] of views){const on=map===s.chapter;v.root.setEnabled(on);if(!on)continue;
    v.enemies.forEach((m,i)=>{const e=s.enemies[i];m.setEnabled(s.mode==='battle'&&!!e&&e.hp>0);if(e)m.position.set(e.x,.95,e.z);});
    const tankFrame=tankVisualFrame(s.ticks,s.mode==='battle');
    v.tank.forEach((m,i)=>{const e=s.enemies[i];m.setEnabled(!s.trial.tankWon&&(s.mode!=='battle'||!!e&&e.hp>0));if(v.tankFrame!==tankFrame){const t=(m.material as StandardMaterial).diffuseTexture as DynamicTexture;drawTankPart(t.getContext() as CanvasRenderingContext2D,['head','body','wheel'][i] as 'head'|'body'|'wheel',tankFrame);t.update();}});v.tankFrame=tankFrame;
    v.guards.forEach(m=>m.setEnabled(map==='guardia1000'?s.trial.stage==='flight':map==='cellblock'?!s.trial.cellOpen:true));
-   if(v.gate){v.gate.setEnabled(map==='guardia1000'?s.trial.stage==='flight':!s.trial.cellOpen);if(map==='guardia1000')v.gate.rotation.z=s.ticks/180;}
+   if(v.gate){v.gate.setEnabled(map==='guardia1000'?s.trial.stage==='flight':!s.trial.cellOpen);if(map==='guardia1000')v.gate.rotation.z=reducedMotion?0:s.ticks/180;}
    if(v.fritz)v.fritz.setEnabled(!s.trial.fritzFreed);
    if(v.marle)v.marle.setEnabled(s.trial.stage==='flight'&&!s.trial.marleJoined);
    const currentWitness=s.trial.hearing&&(s.trial.question===1||s.trial.question===2)?witnessScenes(s)[s.trial.hearing.heard-1]?.kind:null;
@@ -105,6 +105,6 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    if(v.parcel)v.parcel.setEnabled(jailGift(s)>0&&!s.trial.hearing?.giftTaken);
    if(v.lid)v.lid.rotation.z=s.trial.suppliesTaken?-.6:0;
   }
-  motion.draw(s.ticks);
+  motion.draw(s.ticks,reducedMotion);
  }};
 }

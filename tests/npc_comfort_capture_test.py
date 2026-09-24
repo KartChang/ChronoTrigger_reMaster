@@ -1,3 +1,4 @@
+from fair_trial_preservation import restore_fair_trial_if_declared
 """Pure protocol fixtures and negative cases; not browser/media-device evidence."""
 import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
@@ -60,10 +61,11 @@ class NpcComfortProtocolTests(unittest.TestCase):
             with self.subTest(key=key,bad=bad),self.assertRaises(AssertionError):assert_phase(v,snap(p),False)
     def test_inverse_preserves_exact_D_source_and_does_not_hide_external_edits(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();h=lambda s:hashlib.sha256(s.encode()).hexdigest()
+            raw=restore_fair_trial_if_declared(name,(ROOT/name).read_text());h=lambda s:hashlib.sha256(s.encode()).hexdigest()
             with self.subTest(name=name):
                 self.assertEqual(h(restore_npc_comfort_source(name,raw)),SPEC['originalSha256'][name])
                 with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw+edits[0]['after'])
+                self.assertIn(edits[0]['after'],raw)
                 with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw.replace(edits[0]['after'],''))
                 self.assertNotEqual(h(restore_npc_comfort_source(name,raw+'\n# outside delta')),SPEC['originalSha256'][name])
 if __name__=='__main__':unittest.main()

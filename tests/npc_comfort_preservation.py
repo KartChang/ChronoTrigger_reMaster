@@ -1,8 +1,10 @@
+from fair_trial_preservation import restore_fair_trial_if_declared
 """Strict E -> D offline source inverse, never a runtime/evidence transform."""
 import json
 from pathlib import Path
 SPEC = json.loads((Path(__file__).parent / 'baselines/vq03e-declared-npc-comfort-edits.json').read_text())
 def restore_npc_comfort_source(name, source):
+    source=restore_fair_trial_if_declared(name,source)
     edits = SPEC['files'].get(name)
     if not edits: raise ValueError('undeclared NPC comfort source')
     for e in reversed(edits):
@@ -10,5 +12,6 @@ def restore_npc_comfort_source(name, source):
         source = source.replace(e['after'], e['before'], 1)
     return source
 def restore_npc_comfort_if_declared(name, source):
+    source=restore_fair_trial_if_declared(name,source)
     edits = SPEC['files'].get(name, [])
     return restore_npc_comfort_source(name, source) if edits and any(e['after'] in source for e in edits) else source

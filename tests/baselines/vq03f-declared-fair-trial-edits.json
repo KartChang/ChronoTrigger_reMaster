@@ -1,0 +1,243 @@
+{
+  "schema": "chrono-offline-source-inverse-v1",
+  "batch": "VQ03F",
+  "baseSourceSha": "344fa860b5c8153b007f75912e16926d966862fa",
+  "scope": "Precisely declared F->E source fragments; never a native evidence/state transformer.",
+  "files": {
+    ".github/workflows/ci.yml": [
+      {
+        "before": "        run: node scripts/npc-comfort-evidence.mjs\n      - name: Verify complete same-source validation evidence\n",
+        "after": "        run: node scripts/npc-comfort-evidence.mjs\n      - name: Verify native fair and trial motion preference restoration\n        if: always()\n        run: node scripts/fair-trial-comfort-evidence.mjs validate\n      - name: Verify complete same-source validation evidence\n"
+      },
+      {
+        "before": "        run: python tests/equipment_browser.py\n      - name: Verify complete same-source witness-lane evidence\n",
+        "after": "        run: python tests/equipment_browser.py\n      - name: Verify native fair witness preference restoration\n        if: always() && matrix.route == 'bad'\n        run: node scripts/fair-trial-comfort-evidence.mjs bad\n      - name: Verify complete same-source witness-lane evidence\n"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "import {mkdir,readFile,writeFile} from 'node:fs/promises';\nconst buildInfo={version:'0.9.52',batch:'VQ03E',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test(buildInfo.sourceSha))throw Error('Invalid source SHA');\n",
+        "after": "import {mkdir,readFile,writeFile} from 'node:fs/promises';\nconst buildInfo={version:'0.9.53',batch:'VQ03F',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test(buildInfo.sourceSha))throw Error('Invalid source SHA');\n"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {npcComfortIfDeclared} from '../tests/helpers/npc-comfort-baseline.mjs';\n",
+        "after": "import {fairTrialIfDeclared} from '../tests/helpers/fair-trial-baseline.mjs';\nimport {npcComfortIfDeclared} from '../tests/helpers/npc-comfort-baseline.mjs';\n"
+      },
+      {
+        "before": "import {visibilityIfDeclared} from '../tests/helpers/visibility-baseline.mjs';\nconst npcComfortPlugin={name:'exact-ci72-npc-comfort',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|kingdom-render|rescue-render|story-npc-motion)\\.ts$/},args=>({contents:npcComfortIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\nconst visibilityPlugin={name:'exact-ci71-visibility',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|cpu-raster|cpu-scene)\\.ts$/},args=>({contents:visibilityIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\n",
+        "after": "import {visibilityIfDeclared} from '../tests/helpers/visibility-baseline.mjs';\nconst npcComfortPlugin={name:'exact-ci72-npc-comfort',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|kingdom-render|rescue-render|story-npc-motion|fair-render|fair-conduct-render|trial-render|npc-motion)\\.ts$/},args=>({contents:npcComfortIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\nconst visibilityPlugin={name:'exact-ci71-visibility',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|cpu-raster|cpu-scene)\\.ts$/},args=>({contents:visibilityIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\n"
+      },
+      {
+        "before": "await build({entryPoints:['src/pixel-art.ts'],bundle:true,outfile:'.test/pixel-art.mjs',format:'esm',platform:'node'});\nfor(const name of ['woodland-occlusion','field-enemy-palette','town-landmark','town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/npc-comfort-original.mjs',format:'esm',platform:'node',packages:'external',plugins:[npcComfortPlugin]});\n",
+        "after": "await build({entryPoints:['src/pixel-art.ts'],bundle:true,outfile:'.test/pixel-art.mjs',format:'esm',platform:'node'});\nfor(const name of ['npc-motion','trial-render','woodland-occlusion','field-enemy-palette','town-landmark','town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/fair-trial-original.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci73-fair-trial',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](render|fair-render|fair-conduct-render|trial-render|npc-motion)\\.ts$/},args=>({contents:fairTrialIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/npc-comfort-original.mjs',format:'esm',platform:'node',packages:'external',plugins:[npcComfortPlugin]});\n"
+      },
+      {
+        "before": "await build({stdin:{contents:signBaseline('scripts/village-detail-evidence.mjs',readFileSync('scripts/village-detail-evidence.mjs','utf8')),loader:'js',resolveDir:process.cwd()+'/scripts'},bundle:true,outfile:'.test/sign-baseline-village-detail-evidence.mjs',format:'esm',platform:'node'});\nconst r=spawnSync(process.execPath,['--test','tests/npc-comfort.test.mjs','tests/npc-comfort-evidence.test.mjs','tests/woodland-occlusion.test.mjs','tests/cpu-blend-facing.test.mjs','tests/visibility-evidence.test.mjs','tests/field-enemy-palette.test.mjs','tests/field-enemy-evidence.test.mjs','tests/town-landmark.test.mjs','tests/town-motion-evidence.test.mjs','tests/town-building-occlusion.test.mjs','tests/town-building-evidence.test.mjs','tests/town-sign-occlusion.test.mjs','tests/town-route-evidence.test.mjs','tests/town-camera.test.mjs','tests/town-camera-evidence.test.mjs','tests/sign-readability.test.mjs','tests/cpu-era-failure.test.mjs','tests/village-detail.test.mjs','tests/readability.test.mjs','tests/pause-access-evidence.test.mjs','tests/village-art.test.mjs','tests/village-integration.test.mjs','tests/woodland-art.test.mjs','tests/woodland-integration.test.mjs','tests/story-npc-art.test.mjs','tests/story-npc-motion.test.mjs','tests/cpu-raster-work.test.mjs','tests/cpu-adventure-evidence.test.mjs','tests/cpu-minification-fractional.test.mjs','tests/cpu-era-route.test.mjs','tests/cpu-era-evidence.test.mjs','tests/cpu-minification.test.mjs','tests/runtime-info.test.mjs','tests/cpu-optimization.test.mjs','tests/cpu-evidence.test.mjs','tests/cpu-raster.test.mjs','tests/cpu-scene.test.mjs','tests/actor-playback-evidence.test.mjs','tests/actor-playback.test.mjs','tests/render-preserved.test.mjs','tests/render-evidence.test.mjs','tests/render-capability.test.mjs','tests/scene-audio.test.mjs','tests/core.test.mjs','tests/fair.test.mjs','tests/opening.test.mjs','tests/kingdom.test.mjs','tests/input-boundary.test.mjs','tests/quality.test.mjs','tests/asset-export.test.mjs','tests/targeting.test.mjs','tests/reference-art.test.mjs','tests/navigation.test.mjs','tests/pages-package.test.mjs','tests/rescue.test.mjs','tests/rescue-approach.test.mjs','tests/rescue-art.test.mjs','tests/prologue.test.mjs','tests/trial.test.mjs','tests/trial-route.test.mjs','tests/trial-art.test.mjs','tests/art-profile.test.mjs','tests/hd-hero-art.test.mjs','tests/witness.test.mjs','tests/witness-art.test.mjs','tests/keyboard.test.mjs','tests/live-actors.test.mjs','tests/equipment.test.mjs','tests/modal-focus.test.mjs','tests/save-import.test.mjs','tests/inventory-sections.test.mjs','tests/presentation-pause.test.mjs','tests/meeting-approach.test.mjs','tests/early-camera-motion.test.mjs','tests/early-camera-view.test.mjs','tests/sprite-contact.test.mjs','tests/retained-party-art.test.mjs','tests/festival-integration.test.mjs','tests/ci-evidence.test.mjs','tests/equipment-route.test.mjs','tests/fair-ground.test.mjs','tests/exploration-hud.test.mjs','tests/fair-scenery-motion.test.mjs','tests/fair-finish.test.mjs','tests/fair-cohesion.test.mjs','tests/fair-paving.test.mjs','tests/pause-keyboard.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);\n",
+        "after": "await build({stdin:{contents:signBaseline('scripts/village-detail-evidence.mjs',readFileSync('scripts/village-detail-evidence.mjs','utf8')),loader:'js',resolveDir:process.cwd()+'/scripts'},bundle:true,outfile:'.test/sign-baseline-village-detail-evidence.mjs',format:'esm',platform:'node'});\nconst r=spawnSync(process.execPath,['--test','tests/fair-trial-comfort.test.mjs','tests/fair-trial-comfort-evidence.test.mjs','tests/npc-comfort.test.mjs','tests/npc-comfort-evidence.test.mjs','tests/woodland-occlusion.test.mjs','tests/cpu-blend-facing.test.mjs','tests/visibility-evidence.test.mjs','tests/field-enemy-palette.test.mjs','tests/field-enemy-evidence.test.mjs','tests/town-landmark.test.mjs','tests/town-motion-evidence.test.mjs','tests/town-building-occlusion.test.mjs','tests/town-building-evidence.test.mjs','tests/town-sign-occlusion.test.mjs','tests/town-route-evidence.test.mjs','tests/town-camera.test.mjs','tests/town-camera-evidence.test.mjs','tests/sign-readability.test.mjs','tests/cpu-era-failure.test.mjs','tests/village-detail.test.mjs','tests/readability.test.mjs','tests/pause-access-evidence.test.mjs','tests/village-art.test.mjs','tests/village-integration.test.mjs','tests/woodland-art.test.mjs','tests/woodland-integration.test.mjs','tests/story-npc-art.test.mjs','tests/story-npc-motion.test.mjs','tests/cpu-raster-work.test.mjs','tests/cpu-adventure-evidence.test.mjs','tests/cpu-minification-fractional.test.mjs','tests/cpu-era-route.test.mjs','tests/cpu-era-evidence.test.mjs','tests/cpu-minification.test.mjs','tests/runtime-info.test.mjs','tests/cpu-optimization.test.mjs','tests/cpu-evidence.test.mjs','tests/cpu-raster.test.mjs','tests/cpu-scene.test.mjs','tests/actor-playback-evidence.test.mjs','tests/actor-playback.test.mjs','tests/render-preserved.test.mjs','tests/render-evidence.test.mjs','tests/render-capability.test.mjs','tests/scene-audio.test.mjs','tests/core.test.mjs','tests/fair.test.mjs','tests/opening.test.mjs','tests/kingdom.test.mjs','tests/input-boundary.test.mjs','tests/quality.test.mjs','tests/asset-export.test.mjs','tests/targeting.test.mjs','tests/reference-art.test.mjs','tests/navigation.test.mjs','tests/pages-package.test.mjs','tests/rescue.test.mjs','tests/rescue-approach.test.mjs','tests/rescue-art.test.mjs','tests/prologue.test.mjs','tests/trial.test.mjs','tests/trial-route.test.mjs','tests/trial-art.test.mjs','tests/art-profile.test.mjs','tests/hd-hero-art.test.mjs','tests/witness.test.mjs','tests/witness-art.test.mjs','tests/keyboard.test.mjs','tests/live-actors.test.mjs','tests/equipment.test.mjs','tests/modal-focus.test.mjs','tests/save-import.test.mjs','tests/inventory-sections.test.mjs','tests/presentation-pause.test.mjs','tests/meeting-approach.test.mjs','tests/early-camera-motion.test.mjs','tests/early-camera-view.test.mjs','tests/sprite-contact.test.mjs','tests/retained-party-art.test.mjs','tests/festival-integration.test.mjs','tests/ci-evidence.test.mjs','tests/equipment-route.test.mjs','tests/fair-ground.test.mjs','tests/exploration-hud.test.mjs','tests/fair-scenery-motion.test.mjs','tests/fair-finish.test.mjs','tests/fair-cohesion.test.mjs','tests/fair-paving.test.mjs','tests/pause-keyboard.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);\n"
+      }
+    ],
+    "src/fair-conduct-render.ts": [
+      {
+        "before": "export function buildFairConduct(scene:Scene,parent:TransformNode){\n const motion=new NpcMotion();\n const contacts:(SpriteContact&{height:number;width:number})[]=[];\n",
+        "after": "export function buildFairConduct(scene:Scene,parent:TransformNode){\n const motion=new NpcMotion(scene);\n const contacts:(SpriteContact&{height:number;width:number})[]=[];\n"
+      },
+      {
+        "before": " root.setEnabled(false);\n return {inspect:()=>({...motion.inspect(),contacts:inspectSpriteContacts(contacts),groundingApproved:false}),draw(s:State){\n  const c=s.prologue.conduct,on=conductActive(s);root.setEnabled(on);if(!on||!c)return;motion.draw(s.ticks);\n  const up=scene.activeCamera?.getDirection(Vector3.Up());\n",
+        "after": " root.setEnabled(false);\n return {inspect:()=>({...motion.inspect(),contacts:inspectSpriteContacts(contacts),groundingApproved:false}),draw(s:State,reducedMotion=false){\n  const c=s.prologue.conduct,on=conductActive(s);root.setEnabled(on);if(!on||!c)return;motion.draw(s.ticks,reducedMotion);\n  const up=scene.activeCamera?.getDirection(Vector3.Up());\n"
+      }
+    ],
+    "src/fair-render.ts": [
+      {
+        "before": "  const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8,subdivisions:32},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;shadeFairGround(ground);\n  const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion();\n  const contacts:(SpriteContact&{height:number})[]=[];\n",
+        "after": "  const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8,subdivisions:32},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;shadeFairGround(ground);\n  const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion(scene);\n  const contacts:(SpriteContact&{height:number})[]=[];\n"
+      },
+      {
+        "before": "    banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});\n    conductView.draw(s);vendorMotion.draw(s.ticks);\n    lucca.setEnabled(s.rescue.stage!=='returned');\n",
+        "after": "    banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});\n    conductView.draw(s,reducedMotion);vendorMotion.draw(s.ticks,reducedMotion);\n    lucca.setEnabled(s.rescue.stage!=='returned');\n"
+      }
+    ],
+    "src/npc-motion.ts": [
+      {
+        "before": "import {DynamicTexture,Mesh,StandardMaterial} from '@babylonjs/core';\nimport {ambientFrame,MOTION_PROFILE} from './actor-motion';\nimport {drawWitness} from './witness-art';\nimport type {WitnessArtKind} from './witness-art';\n/** Cache textures and repaint only changed poses; never relocate a quest actor. */\nexport class NpcMotion {\n private actors:{mesh:Mesh;kind:WitnessArtKind;frame:number;seed:number}[]=[];\n add(mesh:Mesh,kind:WitnessArtKind):Mesh{this.actors.push({mesh,kind,frame:-1,seed:this.actors.length});return mesh;}\n draw(ticks:number):void{\n  for(const a of this.actors){if(!a.mesh.isEnabled())continue;const f=ambientFrame(ticks,a.seed);if(f===a.frame)continue;\n   const tex=(a.mesh.material as StandardMaterial).diffuseTexture as DynamicTexture;\n   drawWitness(tex.getContext() as CanvasRenderingContext2D,a.kind,f);tex.update();a.frame=f;\n  }\n }\n inspect(){return {profile:MOTION_PROFILE,actors:this.actors.filter(a=>a.mesh.isEnabled()).map(a=>({name:a.mesh.name,kind:a.kind,frame:a.frame}))};}\n}\n",
+        "after": "import {DynamicTexture,Mesh,StandardMaterial,Scene} from '@babylonjs/core';\nimport {ambientFrame,MOTION_PROFILE} from './actor-motion';\nimport {drawWitness,WITNESS_SIZE} from './witness-art';\nimport type {WitnessArtKind} from './witness-art';\n/** Borrow each existing NPC texture; release bindings, never relocate quest actors. */\nexport class NpcMotion {\n private reducedMotion=false;\n private lastTick:number|null=null;\n private nextSeed=0;\n private actors:{mesh:Mesh;kind:WitnessArtKind;frame:number;seed:number;uploads:number}[]=[];\n constructor(private readonly scene:Scene){scene.onDisposeObservable.addOnce(()=>{this.actors=[];});}\n add(mesh:Mesh,kind:WitnessArtKind):Mesh{\n  if(this.scene.isDisposed||mesh.isDisposed()||mesh.getScene()!==this.scene)throw new Error('Invalid witness scene ownership');\n  if(this.actors.some(a=>a.mesh===mesh))throw new Error('Duplicate witness binding');\n  const tex=(mesh.material as StandardMaterial)?.diffuseTexture as DynamicTexture;\n  if(!(tex instanceof DynamicTexture)||tex.getSize().width!==WITNESS_SIZE.w||tex.getSize().height!==WITNESS_SIZE.h)throw new Error('Witness cell mismatch');\n  if(this.actors.some(a=>(a.mesh.material as StandardMaterial)?.diffuseTexture===tex))throw new Error('Witness texture must be private');\n  this.actors.push({mesh,kind,frame:-1,seed:this.nextSeed++,uploads:0});\n  // Keep surviving stagger phases stable when another mesh is removed.\n  mesh.onDisposeObservable.addOnce(()=>{this.actors=this.actors.filter(a=>a.mesh!==mesh);});\n  return mesh;\n }\n draw(ticks:number,reducedMotion=false):void{\n  if(!Number.isSafeInteger(ticks)||ticks<0||typeof reducedMotion!=='boolean')throw new Error('Invalid witness presentation input');\n  this.reducedMotion=reducedMotion;this.lastTick=ticks;\n  for(const a of this.actors){if(a.mesh.isDisposed()||!a.mesh.isEnabled()||!a.mesh.isVisible||a.mesh.visibility<=0)continue;\n   const f=reducedMotion?0:ambientFrame(ticks,a.seed);if(f===a.frame)continue;\n   const tex=(a.mesh.material as StandardMaterial).diffuseTexture as DynamicTexture;\n   drawWitness(tex.getContext() as CanvasRenderingContext2D,a.kind,f);tex.update();a.frame=f;a.uploads++;\n  }\n }\n inspect(){return {profile:MOTION_PROFILE,motion:{profile:'vq03f-witness-motion-preference',clock:'simulation-ticks',tick:this.lastTick,reducedMotion:this.reducedMotion,bindingCount:this.actors.length,stateMutation:false},actors:this.actors.filter(a=>!a.mesh.isDisposed()&&a.mesh.isEnabled()&&a.mesh.isVisible&&a.mesh.visibility>0).map(a=>({name:a.mesh.name,kind:a.kind,seed:a.seed,frame:a.frame,uploads:a.uploads,cell:{...((a.mesh.material as StandardMaterial).diffuseTexture as DynamicTexture).getSize()}}))};}\n}\n"
+      }
+    ],
+    "src/render.ts": [
+      {
+        "before": "    if(fair)this.fairWorld.draw(s,this.time);\n    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s);\n    for(const effect of frameEffects)this.effect(effect,s);\n",
+        "after": "    if(fair)this.fairWorld.draw(s,this.time);\n    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s,this.reducedMotion?.matches??false);\n    for(const effect of frameEffects)this.effect(effect,s);\n"
+      }
+    ],
+    "src/trial-render.ts": [
+      {
+        "before": " type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};\n const views=new Map<TrialMap,View>();const motion=new NpcMotion();\n function build(map:TrialMap):View{\n",
+        "after": " type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};\n const views=new Map<TrialMap,View>();const motion=new NpcMotion(scene);\n function build(map:TrialMap):View{\n"
+      },
+      {
+        "before": " }\n return {inspect:()=>({motion:motion.inspect(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State){\n  if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));\n",
+        "after": " }\n return {inspect:()=>({motion:motion.inspect(),forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false){\n  if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));\n"
+      },
+      {
+        "before": "   v.guards.forEach(m=>m.setEnabled(map==='guardia1000'?s.trial.stage==='flight':map==='cellblock'?!s.trial.cellOpen:true));\n   if(v.gate){v.gate.setEnabled(map==='guardia1000'?s.trial.stage==='flight':!s.trial.cellOpen);if(map==='guardia1000')v.gate.rotation.z=s.ticks/180;}\n   if(v.fritz)v.fritz.setEnabled(!s.trial.fritzFreed);\n",
+        "after": "   v.guards.forEach(m=>m.setEnabled(map==='guardia1000'?s.trial.stage==='flight':map==='cellblock'?!s.trial.cellOpen:true));\n   if(v.gate){v.gate.setEnabled(map==='guardia1000'?s.trial.stage==='flight':!s.trial.cellOpen);if(map==='guardia1000')v.gate.rotation.z=reducedMotion?0:s.ticks/180;}\n   if(v.fritz)v.fritz.setEnabled(!s.trial.fritzFreed);\n"
+      },
+      {
+        "before": "  }\n  motion.draw(s.ticks);\n }};\n",
+        "after": "  }\n  motion.draw(s.ticks,reducedMotion);\n }};\n"
+      }
+    ],
+    "tests/cpu_journey_support_test.py": [
+      {
+        "before": "from town_camera_preservation import restore_landmark_if_declared\n",
+        "after": "from fair_trial_preservation import restore_fair_trial_if_declared\nfrom town_camera_preservation import restore_landmark_if_declared\n"
+      },
+      {
+        "before": "        for stage,expected in pinned['journeys'].items():\n            with self.subTest(stage=stage):self.assertEqual(normalized((ROOT/'tests'/f'{stage}_browser.py').read_text()),expected)\n        for name,expected in pinned['files'].items():\n",
+        "after": "        for stage,expected in pinned['journeys'].items():\n            with self.subTest(stage=stage):self.assertEqual(normalized(restore_fair_trial_if_declared(f'tests/{stage}_browser.py',(ROOT/'tests'/f'{stage}_browser.py').read_text())),expected)\n        for name,expected in pinned['files'].items():\n"
+      }
+    ],
+    "tests/cpu_renderer_browser.py": [
+      {
+        "before": "\"\"\"Default auto fallback with native WebGL disabled, never a synthetic GPU context.\n",
+        "after": "from witness_comfort_capture import observe_witness_comfort\n\"\"\"Default auto fallback with native WebGL disabled, never a synthetic GPU context.\n"
+      },
+      {
+        "before": "    assert snap(page) == frozen\n    for name, size in [('desktop', {'width': 960, 'height': 640}), ('portrait', {'width': 390, 'height': 844}),\n",
+        "after": "    assert snap(page) == frozen\n    case['fairTrialComfort'] = observe_witness_comfort(page, OUT, 'fair-vendors', snap)\n    for name, size in [('desktop', {'width': 960, 'height': 640}), ('portrait', {'width': 390, 'height': 844}),\n"
+      }
+    ],
+    "tests/festival-integration.test.mjs": [
+      {
+        "before": "import {runtimeBaselineBytes} from './helpers/runtime-baseline.mjs';\n",
+        "after": "import {fairTrialIfDeclared} from './helpers/fair-trial-baseline.mjs';\nimport {runtimeBaselineBytes} from './helpers/runtime-baseline.mjs';\n"
+      },
+      {
+        "before": "test('saved painters/kit are not repainted and held renderer remains exact',()=>{\n for(const [p,h] of Object.entries({\"src/early-art.ts\": \"12b0f9db63ff3cf0e22bda3a758ca3d3a33995c6c74c4c7b431a8a94f38a4b10\", \"src/surface-layout.ts\": \"5a0e6520e80dbd609b6e5ebaab93c78e5be1a67b5b3068261336a36d8d7fb995\", \"src/early-kit.ts\": \"b66cbaf7778652424f75c257d41f6b83211b3b426e95b3dd59cb42b5f4b4faea\", \"src/hd-hero-art.ts\": \"5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a\", \"src/witness-art.ts\": \"a1b671039b2fda7a4f504d825b1e08b326b2dd8c03e03f4029e7381612751ea2\", \"src/fair-conduct-render.ts\": \"56907ec0a785c3cb9cb0119372ac9bd3cb6a572330f458a75f44ee89f515849a\", \"src/fair-data.ts\": \"2b8468df90484e17b346aef4e3ecd0205a68ff49bff40a455dbf2b38904e2115\", \"src/core.ts\": \"d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d\", \"src/main.ts\": \"89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120\", \"src/input.ts\": \"f4e49695188d941194c2bcdbc737fa7e0bc9f8d5f1d7d04ca6a325c50d2dded8\", \"src/early-comfort.ts\": \"1e0785e83acbe50490a40d2b18586de00649d9d3314ea63538af9b6217dfec1b\", \"src/camera-motion.ts\": \"204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44\", \"src/sprite-contact.ts\": \"52bf06b4245d85fdec9def280c504b6c9fc4ed57e8baafea9b8c9698deb8f0fa\"}))assert.equal(sha(runtimeBaselineBytes(p,readFileSync(p))),h,p);\n const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.from(`blob ${b.length}\\0`)).update(b).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');\n",
+        "after": "test('saved painters/kit are not repainted and held renderer remains exact',()=>{\n for(const [p,h] of Object.entries({\"src/early-art.ts\": \"12b0f9db63ff3cf0e22bda3a758ca3d3a33995c6c74c4c7b431a8a94f38a4b10\", \"src/surface-layout.ts\": \"5a0e6520e80dbd609b6e5ebaab93c78e5be1a67b5b3068261336a36d8d7fb995\", \"src/early-kit.ts\": \"b66cbaf7778652424f75c257d41f6b83211b3b426e95b3dd59cb42b5f4b4faea\", \"src/hd-hero-art.ts\": \"5669a62f90149d6162036190ebae9616cb76db39b8bb36ca4d60c246a65ec39a\", \"src/witness-art.ts\": \"a1b671039b2fda7a4f504d825b1e08b326b2dd8c03e03f4029e7381612751ea2\", \"src/fair-conduct-render.ts\": \"56907ec0a785c3cb9cb0119372ac9bd3cb6a572330f458a75f44ee89f515849a\", \"src/fair-data.ts\": \"2b8468df90484e17b346aef4e3ecd0205a68ff49bff40a455dbf2b38904e2115\", \"src/core.ts\": \"d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d\", \"src/main.ts\": \"89c2980be9219b0cd80408b10524250e9a97afa3321a39acb782f8cfc484d120\", \"src/input.ts\": \"f4e49695188d941194c2bcdbc737fa7e0bc9f8d5f1d7d04ca6a325c50d2dded8\", \"src/early-comfort.ts\": \"1e0785e83acbe50490a40d2b18586de00649d9d3314ea63538af9b6217dfec1b\", \"src/camera-motion.ts\": \"204c37b179202f7672aaecc144cdf8ca2524ba307489ac7c5573957bd372ac44\", \"src/sprite-contact.ts\": \"52bf06b4245d85fdec9def280c504b6c9fc4ed57e8baafea9b8c9698deb8f0fa\"}))assert.equal(sha(runtimeBaselineBytes(p,Buffer.from(fairTrialIfDeclared(p,readFileSync(p,'utf8'))))),h,p);\n const b=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.from(`blob ${b.length}\\0`)).update(b).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');\n"
+      }
+    ],
+    "tests/helpers/npc-comfort-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';\n",
+        "after": "import {fairTrialIfDeclared} from './fair-trial-baseline.mjs';\nimport {readFileSync} from 'node:fs';\n"
+      },
+      {
+        "before": "export function npcComfortBaseline(name,source){\n const edits=spec.files[name];if(!edits)throw Error('Undeclared NPC comfort source: '+name);\n",
+        "after": "export function npcComfortBaseline(name,source){\n source=fairTrialIfDeclared(name,source);\n const edits=spec.files[name];if(!edits)throw Error('Undeclared NPC comfort source: '+name);\n"
+      },
+      {
+        "before": "}\nexport const npcComfortIfDeclared=(name,source)=>Object.hasOwn(spec.files,name)&&spec.files[name].some(e=>source.includes(e.after))?npcComfortBaseline(name,source):source;\n",
+        "after": "}\nexport const npcComfortIfDeclared=(name,source)=>{source=fairTrialIfDeclared(name,source);return Object.hasOwn(spec.files,name)&&spec.files[name].some(e=>source.includes(e.after))?npcComfortBaseline(name,source):source;};\n"
+      }
+    ],
+    "tests/keyboard_browser.py": [
+      {
+        "before": "\"\"\"Real keyboard-led regressions. Read-only game hooks; no fake saves/state/clocks.\n",
+        "after": "from witness_comfort_capture import observe_witness_comfort\n\"\"\"Real keyboard-led regressions. Read-only game hooks; no fake saves/state/clocks.\n"
+      },
+      {
+        "before": "server=subprocess.Popen([sys.executable,'-m','http.server','4186','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)\nchecks=[];errors=[];observations=[]\ndef snap(p):return p.evaluate('window.__CHRONO_TEST__.snapshot()')\n",
+        "after": "server=subprocess.Popen([sys.executable,'-m','http.server','4186','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)\nchecks=[];errors=[];observations=[];fair_trial_comfort=[]\ndef snap(p):return p.evaluate('window.__CHRONO_TEST__.snapshot()')\n"
+      },
+      {
+        "before": "    assert snap(p)['ticks']==frozen and view(p)['poses']==v['poses'] and view(p)['fairMotion']==v['fairMotion']\n    p.keyboard.press('Enter');wait(p,f's.ticks>{frozen}',100)\n",
+        "after": "    assert snap(p)['ticks']==frozen and view(p)['poses']==v['poses'] and view(p)['fairMotion']==v['fairMotion']\n    fair_trial_comfort.append(observe_witness_comfort(p, OUT, 'fair-witnesses', snap))\n    p.keyboard.press('Enter');wait(p,f's.ticks>{frozen}',100)\n"
+      },
+      {
+        "before": "  finally:\n    (OUT/'keyboard-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');b.close()\n",
+        "after": "  finally:\n    report['fairTrialComfort']=fair_trial_comfort\n    (OUT/'keyboard-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');b.close()\n"
+      }
+    ],
+    "tests/live-actors.test.mjs": [
+      {
+        "before": "test('unlit alpha actor uses one authored palette contribution and excludes unrelated materials',()=>{const e=new NullEngine(),s=new Scene(e),t=new Texture(null,s),m=new StandardMaterial('actor',s);m.diffuseTexture=m.emissiveTexture=t;m.disableLighting=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.emissiveColor=new Color3(.52,.52,.52);const label=new StandardMaterial('label',s),lit=new StandardMaterial('wall',s);label.disableLighting=true;const pass=new PixelPalettePass();pass.apply(s);assert(m.useEmissiveAsIllumination);assert.deepEqual(m.emissiveColor.asArray(),[0,0,0]);assert(!label.useEmissiveAsIllumination);assert(!lit.useEmissiveAsIllumination);assert.equal(pass.count,1);pass.apply(s);assert.equal(pass.count,1);s.dispose();e.dispose();});\ntest('production connects animation to actual visible NPCs and preserves state/collision boundaries',()=>{for(const file of ['fair-conduct-render','trial-render'])assert.match(readFileSync('src/'+file+'.ts','utf8'),/motion.draw\\(s.ticks\\)/);const s=readFileSync('src/render.ts','utf8');assert.match(s,/palettePass.apply\\(this.scene\\)/);assert.match(s,/groundActor/);assert.match(s,/sample\\(s.ticks,p.walking,s.mode==='battle',/);assert.doesNotMatch(readFileSync('src/npc-motion.ts','utf8'),/Object.assign\\(s|\\.hp\\s*=|\\.position\\.set/);});\n\n",
+        "after": "test('unlit alpha actor uses one authored palette contribution and excludes unrelated materials',()=>{const e=new NullEngine(),s=new Scene(e),t=new Texture(null,s),m=new StandardMaterial('actor',s);m.diffuseTexture=m.emissiveTexture=t;m.disableLighting=true;m.transparencyMode=Material.MATERIAL_ALPHATEST;m.emissiveColor=new Color3(.52,.52,.52);const label=new StandardMaterial('label',s),lit=new StandardMaterial('wall',s);label.disableLighting=true;const pass=new PixelPalettePass();pass.apply(s);assert(m.useEmissiveAsIllumination);assert.deepEqual(m.emissiveColor.asArray(),[0,0,0]);assert(!label.useEmissiveAsIllumination);assert(!lit.useEmissiveAsIllumination);assert.equal(pass.count,1);pass.apply(s);assert.equal(pass.count,1);s.dispose();e.dispose();});\ntest('production connects animation to actual visible NPCs and preserves state/collision boundaries',()=>{for(const file of ['fair-conduct-render','trial-render'])assert.match(readFileSync('src/'+file+'.ts','utf8'),/motion.draw\\(s.ticks,reducedMotion\\)/);const s=readFileSync('src/render.ts','utf8');assert.match(s,/palettePass.apply\\(this.scene\\)/);assert.match(s,/groundActor/);assert.match(s,/sample\\(s.ticks,p.walking,s.mode==='battle',/);assert.doesNotMatch(readFileSync('src/npc-motion.ts','utf8'),/Object.assign\\(s|\\.hp\\s*=|\\.position\\.set/);});\n\n"
+      }
+    ],
+    "tests/npc-comfort.test.mjs": [
+      {
+        "before": "import test from 'node:test';\n",
+        "after": "import {fairTrialIfDeclared} from './helpers/fair-trial-baseline.mjs';\nimport test from 'node:test';\n"
+      },
+      {
+        "before": "for(const [name,edits] of Object.entries(spec.files))test('strict E inverse matches exact D: '+name,()=>{\n const raw=readFileSync(name,'utf8'),restored=npcComfortBaseline(name,raw),hash=s=>createHash('sha256').update(s).digest('hex');assert.equal(hash(restored),spec.originalSha256[name]);\n assert.throws(()=>npcComfortBaseline(name,raw+edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(hash(npcComfortBaseline(name,raw+'\\n// external change')),spec.originalSha256[name]);\n});\n",
+        "after": "for(const [name,edits] of Object.entries(spec.files))test('strict E inverse matches exact D: '+name,()=>{\n const raw=fairTrialIfDeclared(name,readFileSync(name,'utf8')),restored=npcComfortBaseline(name,raw),hash=s=>createHash('sha256').update(s).digest('hex');assert.equal(hash(restored),spec.originalSha256[name]);\n assert(raw.includes(edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw+edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(hash(npcComfortBaseline(name,raw+'\\n// external change')),spec.originalSha256[name]);\n});\n"
+      }
+    ],
+    "tests/npc_comfort_capture_test.py": [
+      {
+        "before": "\"\"\"Pure protocol fixtures and negative cases; not browser/media-device evidence.\"\"\"\n",
+        "after": "from fair_trial_preservation import restore_fair_trial_if_declared\n\"\"\"Pure protocol fixtures and negative cases; not browser/media-device evidence.\"\"\"\n"
+      },
+      {
+        "before": "        for name,edits in SPEC['files'].items():\n            raw=(ROOT/name).read_text();h=lambda s:hashlib.sha256(s.encode()).hexdigest()\n            with self.subTest(name=name):\n",
+        "after": "        for name,edits in SPEC['files'].items():\n            raw=restore_fair_trial_if_declared(name,(ROOT/name).read_text());h=lambda s:hashlib.sha256(s.encode()).hexdigest()\n            with self.subTest(name=name):\n"
+      },
+      {
+        "before": "                with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw+edits[0]['after'])\n                with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw.replace(edits[0]['after'],''))\n",
+        "after": "                with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw+edits[0]['after'])\n                self.assertIn(edits[0]['after'],raw)\n                with self.assertRaises(AssertionError):restore_npc_comfort_source(name,raw.replace(edits[0]['after'],''))\n"
+      }
+    ],
+    "tests/npc_comfort_preservation.py": [
+      {
+        "before": "\"\"\"Strict E -> D offline source inverse, never a runtime/evidence transform.\"\"\"\n",
+        "after": "from fair_trial_preservation import restore_fair_trial_if_declared\n\"\"\"Strict E -> D offline source inverse, never a runtime/evidence transform.\"\"\"\n"
+      },
+      {
+        "before": "def restore_npc_comfort_source(name, source):\n    edits = SPEC['files'].get(name)\n",
+        "after": "def restore_npc_comfort_source(name, source):\n    source=restore_fair_trial_if_declared(name,source)\n    edits = SPEC['files'].get(name)\n"
+      },
+      {
+        "before": "def restore_npc_comfort_if_declared(name, source):\n    edits = SPEC['files'].get(name, [])\n",
+        "after": "def restore_npc_comfort_if_declared(name, source):\n    source=restore_fair_trial_if_declared(name,source)\n    edits = SPEC['files'].get(name, [])\n"
+      }
+    ],
+    "tests/trial_browser.py": [
+      {
+        "before": "\"\"\"Same-run, real UI continuation from rescue to trial, prison, tank, reunion and 2300.\n",
+        "after": "from witness_comfort_capture import observe_witness_comfort\n\"\"\"Same-run, real UI continuation from rescue to trial, prison, tank, reunion and 2300.\n"
+      },
+      {
+        "before": "checks,errors,waits,requests=[],[],[],[]\nserver=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)\n",
+        "after": "checks,errors,waits,requests=[],[],[],[]\nfair_trial_comfort=[]\nserver=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)\n"
+      },
+      {
+        "before": "    if shot:page.screenshot(path=str(OUT/shot))\n    if choice is not None:\n",
+        "after": "    if shot:page.screenshot(path=str(OUT/shot))\n    # Observe only original CPU dialogs; no additional interaction or clock allowance.\n    if cpu.enabled:\n        state=snap(page)\n        key='courtroom' if state['chapter']=='courtroom' and state['trial']['choice']=='collision' else 'forest-gate' if state['chapter']=='guardia1000' and state['trial']['stage']=='flight' else None\n        if key and not any(r['key']==key for r in fair_trial_comfort):\n            fair_trial_comfort.append(observe_witness_comfort(page, OUT, key, snap))\n    if choice is not None:\n"
+      },
+      {
+        "before": "        finally:\n            if 'report' in locals():(OUT/'trial-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')\n",
+        "after": "        finally:\n            if 'report' in locals():report['fairTrialComfort']=fair_trial_comfort\n            if 'report' in locals():(OUT/'trial-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')\n"
+      }
+    ],
+    "tests/witness-art.test.mjs": [
+      {
+        "before": "test('runtime, export and browser all consume the new NPCs and framing evidence',()=>{\n const read=p=>readFileSync(p,'utf8');assert.match(read('src/trial-render.ts'),/drawWitness\\(ctx,'judge'\\),48,64/);assert.match(read('src/fair-render.ts'),/conductView.draw\\(s\\)/);\n assert.match(read('scripts/asset-export.mjs'),/witness.drawWitness/);assert.match(read('tests/witness_browser.py'),/windowBounds/);\n",
+        "after": "test('runtime, export and browser all consume the new NPCs and framing evidence',()=>{\n const read=p=>readFileSync(p,'utf8');assert.match(read('src/trial-render.ts'),/drawWitness\\(ctx,'judge'\\),48,64/);assert.match(read('src/fair-render.ts'),/conductView.draw\\(s,reducedMotion\\)/);\n assert.match(read('scripts/asset-export.mjs'),/witness.drawWitness/);assert.match(read('tests/witness_browser.py'),/windowBounds/);\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    ".github/workflows/ci.yml": "aec0df5c71fb47d00143fdbc259b608e495a0d91fed11af60788e2f91f1a557c",
+    "scripts/build.mjs": "edd920286be705bc6e8381c36757ce9b38ed77dc6303dba3065bc9ed45d4ae78",
+    "scripts/test.mjs": "03323b54777621db7ef8b5eec65a7b498b69bb7f1c3dbda264a9b0ffb6b67b9a",
+    "src/fair-conduct-render.ts": "56907ec0a785c3cb9cb0119372ac9bd3cb6a572330f458a75f44ee89f515849a",
+    "src/fair-render.ts": "8e6a244ecc7be9d2d71b189514b757fc8b6c50a5ddd4111d843d1744eac25f3f",
+    "src/npc-motion.ts": "9190bb1030bfadfe717599519a5a4a8a2d871d3b21e2bc8adbd73354a29f8f51",
+    "src/render.ts": "12cd94c229052bafc9fa0a129a0b2d81f5b23b21b1aa5826a29e39b5b3ad2be4",
+    "src/trial-render.ts": "b2e8f3130317847cb0193ada83e7ad5e810af46d7c8072b146b04f26e571ccaa",
+    "tests/cpu_journey_support_test.py": "21c721e91b39b82b508301ac79c132f3cdd452ee8392350715387c5ad3dafc53",
+    "tests/cpu_renderer_browser.py": "7c8de712435cd1876d8bec25603a934e0e960653ff00489bab465ca02da5453f",
+    "tests/festival-integration.test.mjs": "57fdd9c6c15fbadd0e68481b68fdaee338736b505bc23673b2ac1f4dc98c9a31",
+    "tests/helpers/npc-comfort-baseline.mjs": "ab88414957d6ea86a87f25787f5ed888d87de2874d698bcec3d62649e8a93478",
+    "tests/keyboard_browser.py": "cbdd09d058bda2bd1233689297f30e3f847e9d346c56297dc3fc6071722cb7f3",
+    "tests/live-actors.test.mjs": "d9a3c5ed4a602b9e25cbbc9523568266a4657173e18b47c69336680efcb1584d",
+    "tests/npc-comfort.test.mjs": "508f4c97c885f2539e14a38607de35f711cb357b33907ed8bc3633435b6c7721",
+    "tests/npc_comfort_capture_test.py": "497293d63033da9bf9c09d001ae2877d0e99058844c98b37a03102e8ab080975",
+    "tests/npc_comfort_preservation.py": "70033bd3025033103532b038c1b08a481637e7e160dd36cb3ca629983601e85c",
+    "tests/trial_browser.py": "15d17fa4dedfe0980dc5996ab51a413a86d8505a30a7769173b0ab9e9097b2fb",
+    "tests/witness-art.test.mjs": "c270af7c3cbaff1fdd19943a7dbe7b490bff589c329f56340a32ffd1db9f366b"
+  }
+}

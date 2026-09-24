@@ -1,3 +1,4 @@
+from witness_comfort_capture import observe_witness_comfort
 """Real keyboard-led regressions. Read-only game hooks; no fake saves/state/clocks.
 Native import uses Playwright's file chooser with a save exported by this journey.
 """
@@ -9,7 +10,7 @@ from playwright.sync_api import sync_playwright
 from modal_browser import record_modal_boundary
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'test-results'/'keyboard';OUT.mkdir(parents=True,exist_ok=True)
 server=subprocess.Popen([sys.executable,'-m','http.server','4186','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-checks=[];errors=[];observations=[]
+checks=[];errors=[];observations=[];fair_trial_comfort=[]
 def snap(p):return p.evaluate('window.__CHRONO_TEST__.snapshot()')
 def view(p):return p.evaluate('window.__CHRONO_TEST__.view()')
 def focus(p):return p.evaluate('document.activeElement?.id')
@@ -75,6 +76,7 @@ try:
     p.wait_for_function('(f)=>JSON.stringify(window.__CHRONO_TEST__.view().fairMotion.actors.map(a=>a.frame))!==JSON.stringify(f)',arg=before,timeout=60000)
     p.keyboard.press('Escape');frozen=snap(p)['ticks'];v=view(p);p.wait_for_timeout(300)
     assert snap(p)['ticks']==frozen and view(p)['poses']==v['poses'] and view(p)['fairMotion']==v['fairMotion']
+    fair_trial_comfort.append(observe_witness_comfort(p, OUT, 'fair-witnesses', snap))
     p.keyboard.press('Enter');wait(p,f's.ticks>{frozen}',100)
     passed('actual idle/NPC textures change; runtime single-emission material flags; pause freezes all and Enter resumes')
     open_game(p,2)
@@ -146,6 +148,7 @@ try:
     except Exception as observation:report['observationError']=str(observation)
     raise
   finally:
+    report['fairTrialComfort']=fair_trial_comfort
     (OUT/'keyboard-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');b.close()
 finally:
  server.terminate()

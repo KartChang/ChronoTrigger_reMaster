@@ -47,7 +47,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
   drawFairPlaza(t.getContext() as CanvasRenderingContext2D);t.anisotropicFilteringLevel=4;t.update(true);
   const groundMat=new StandardMaterial('fair-ground-material',scene);groundMat.diffuseTexture=t;groundMat.specularColor=Color3.Black();
   const ground=attach(MeshBuilder.CreateGround('fair-ground',{width:26.8,height:20.8,subdivisions:32},scene),groundMat,false);ground.position.z=1;ground.position.y=.04;shadeFairGround(ground);
-  const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion();
+  const festival=buildFestivalKit(scene,root,shadow),vendorMotion=new NpcMotion(scene);
   const contacts:(SpriteContact&{height:number})[]=[];
   // Stone bell arch, bronze bell and flower frieze follow the reference's landmarks.
   for(const x of [-4.7,-2.3]){
@@ -154,7 +154,7 @@ export function buildFair(scene:Scene,shadow:ShadowGenerator){
     finish.draw();
     scenery=sceneryPose(s.ticks,reducedMotion);
     banners.forEach((b,i)=>{const pose=bannerPose(scenery.tick,i,reducedMotion);b.rotation.set(pose.x,0,pose.z);});
-    conductView.draw(s);vendorMotion.draw(s.ticks);
+    conductView.draw(s,reducedMotion);vendorMotion.draw(s.ticks,reducedMotion);
     lucca.setEnabled(s.rescue.stage!=='returned');
     const up=scene.activeCamera?.getDirection(Vector3.Up());
     for(const a of contacts){a.shadow.setEnabled(a.mesh.isEnabled());if(up&&a.mesh.isEnabled())placeSpriteContact(a.mesh,a.shadow,a.foot,up,a.height,a.pivotY,a.cellHeight,.86,.42);}

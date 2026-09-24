@@ -1,3 +1,4 @@
+import {fairTrialIfDeclared} from './helpers/fair-trial-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -62,8 +63,8 @@ test('World forwards its existing media preference to kingdom and rescue; normal
 });
 const spec=JSON.parse(readFileSync('tests/baselines/vq03e-declared-npc-comfort-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('strict E inverse matches exact D: '+name,()=>{
- const raw=readFileSync(name,'utf8'),restored=npcComfortBaseline(name,raw),hash=s=>createHash('sha256').update(s).digest('hex');assert.equal(hash(restored),spec.originalSha256[name]);
- assert.throws(()=>npcComfortBaseline(name,raw+edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(hash(npcComfortBaseline(name,raw+'\n// external change')),spec.originalSha256[name]);
+ const raw=fairTrialIfDeclared(name,readFileSync(name,'utf8')),restored=npcComfortBaseline(name,raw),hash=s=>createHash('sha256').update(s).digest('hex');assert.equal(hash(restored),spec.originalSha256[name]);
+ assert(raw.includes(edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw+edits[0].after));assert.throws(()=>npcComfortBaseline(name,raw.replace(edits[0].after,'')));assert.notEqual(hash(npcComfortBaseline(name,raw+'\n// external change')),spec.originalSha256[name]);
 });
 test('new gate is additive; original workflow inputs, budgets and retained art are untouched',()=>{
  const workflow=readFileSync('.github/workflows/ci.yml','utf8');assert(workflow.includes('run: node scripts/npc-comfort-evidence.mjs'));assert(workflow.includes('run: node scripts/cpu-adventure-evidence.mjs'));assert(workflow.includes('run: node scripts/cpu-era-evidence.mjs'));assert(workflow.includes('timeout-minutes: 45'));

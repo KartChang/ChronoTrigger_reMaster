@@ -71,6 +71,9 @@ jobs:
       - name: Verify same-source native NPC reduced-motion and restoration
         if: always()
         run: node scripts/npc-comfort-evidence.mjs
+      - name: Verify native fair and trial motion preference restoration
+        if: always()
+        run: node scripts/fair-trial-comfort-evidence.mjs validate
       - name: Verify complete same-source validation evidence
         if: always()
         run: node scripts/ci-evidence.mjs validate
@@ -136,6 +139,9 @@ jobs:
       - name: Test actual merchant, equipment, economy, v8 reload and equipped combat
         if: matrix.route == 'good'
         run: python tests/equipment_browser.py
+      - name: Verify native fair witness preference restoration
+        if: always() && matrix.route == 'bad'
+        run: node scripts/fair-trial-comfort-evidence.mjs bad
       - name: Verify complete same-source witness-lane evidence
         if: always()
         run: node scripts/ci-evidence.mjs ${{ matrix.route }}

@@ -21,7 +21,7 @@ for(const ratio of [1.5,1365/900,650/900,390/844])test(`court framing reserves m
  const top=(4.1*26+6.65*23)/Math.hypot(23,26),normalized=.5-top/(2*cameraHalf('courtroom',ratio));assert(normalized>=.065);
 });
 test('runtime, export and browser all consume the new NPCs and framing evidence',()=>{
- const read=p=>readFileSync(p,'utf8');assert.match(read('src/trial-render.ts'),/drawWitness\(ctx,'judge'\),48,64/);assert.match(read('src/fair-render.ts'),/conductView.draw\(s\)/);
+ const read=p=>readFileSync(p,'utf8');assert.match(read('src/trial-render.ts'),/drawWitness\(ctx,'judge'\),48,64/);assert.match(read('src/fair-render.ts'),/conductView.draw\(s,reducedMotion\)/);
  assert.match(read('scripts/asset-export.mjs'),/witness.drawWitness/);assert.match(read('tests/witness_browser.py'),/windowBounds/);
  const ci=read('.github/workflows/ci.yml');assert.match(ci,/route: \[good, bad\]/);assert.match(ci,/python tests\/rescue_browser.py/);assert.match(ci,/python tests\/trial_browser.py/);
  assert.doesNotMatch(read('tests/witness_browser.py'),/\.evaluate\([^\n]*(?:Object.assign|s\.chapter\s*=|\.hp\s*=)/);

@@ -1,3 +1,4 @@
+from fair_trial_preservation import restore_fair_trial_if_declared
 from town_camera_preservation import restore_landmark_if_declared
 from woodland_preservation import restore_woodland_source
 from cpu_render_preservation import restore_render_source
@@ -242,7 +243,7 @@ class PreservationTests(unittest.TestCase):
     def test_original_webgl_ast_reverses_exactly_after_only_declared_cpu_wires(self):
         pinned=json.loads((ROOT/'tests/cpu-journey-preservation.json').read_text())
         for stage,expected in pinned['journeys'].items():
-            with self.subTest(stage=stage):self.assertEqual(normalized((ROOT/'tests'/f'{stage}_browser.py').read_text()),expected)
+            with self.subTest(stage=stage):self.assertEqual(normalized(restore_fair_trial_if_declared(f'tests/{stage}_browser.py',(ROOT/'tests'/f'{stage}_browser.py').read_text())),expected)
         for name,expected in pinned['files'].items():
             with self.subTest(path=name):
                 raw=(ROOT/name).read_bytes()

@@ -1,3 +1,4 @@
+from witness_comfort_capture import observe_witness_comfort
 """Same-run, real UI continuation from rescue to trial, prison, tank, reunion and 2300.
 No state injection, constructed saves, teleports, ROM input or accelerated clocks.
 Alternate route reloads only the cell save exported by this very browser journey.
@@ -15,6 +16,7 @@ cpu=CpuJourney('trial',ROOT)
 OUT=cpu.output(ROOT/'test-results'/'trial');OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=cpu.source(ROOT/'test-results'/'rescue'/'rescue-returned-v5.json')
 checks,errors,waits,requests=[],[],[],[]
+fair_trial_comfort=[]
 server=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):
@@ -48,6 +50,12 @@ def talk(page,title,choice=None,shot=None):
     page.keyboard.press('e');page.wait_for_selector('#dialog:not([hidden])')
     actual=page.locator('#dialog-title').inner_text();assert title in actual,{'expected':title,'actual':actual,'state':snap(page)}
     if shot:page.screenshot(path=str(OUT/shot))
+    # Observe only original CPU dialogs; no additional interaction or clock allowance.
+    if cpu.enabled:
+        state=snap(page)
+        key='courtroom' if state['chapter']=='courtroom' and state['trial']['choice']=='collision' else 'forest-gate' if state['chapter']=='guardia1000' and state['trial']['stage']=='flight' else None
+        if key and not any(r['key']==key for r in fair_trial_comfort):
+            fair_trial_comfort.append(observe_witness_comfort(page, OUT, key, snap))
     if choice is not None:
         assert snap(page)['trial']['choice'] is not None
         page.click('#choice-yes' if choice else '#choice-no')
@@ -218,6 +226,7 @@ try:
             except Exception as e:report['observationError']=str(e)
             raise
         finally:
+            if 'report' in locals():report['fairTrialComfort']=fair_trial_comfort
             if 'report' in locals():(OUT/'trial-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             browser.close()
 finally:

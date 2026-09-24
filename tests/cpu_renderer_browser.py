@@ -1,3 +1,4 @@
+from witness_comfort_capture import observe_witness_comfort
 """Default auto fallback with native WebGL disabled, never a synthetic GPU context.
 Independent CI-only journey; original full WebGL/story/audio suites remain required.
 Only normal buttons, keyboard and the shared native chooser change game state.
@@ -183,6 +184,7 @@ def observe_fair(page):
     page.wait_for_timeout(350)
     page.keyboard.up('a')
     assert snap(page) == frozen
+    case['fairTrialComfort'] = observe_witness_comfort(page, OUT, 'fair-vendors', snap)
     for name, size in [('desktop', {'width': 960, 'height': 640}), ('portrait', {'width': 390, 'height': 844}),
                        ('short-landscape', {'width': 844, 'height': 390})]:
         page.set_viewport_size(size)

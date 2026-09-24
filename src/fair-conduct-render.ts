@@ -8,7 +8,7 @@ import {CONDUCT_POINTS} from './fair-conduct-data';
 import {drawWitness,drawFairProp,WITNESS_SIZE} from './witness-art';
 /** Visual witnesses read real conduct state; rendering never grants quest completion. */
 export function buildFairConduct(scene:Scene,parent:TransformNode){
- const motion=new NpcMotion();
+ const motion=new NpcMotion(scene);
  const contacts:(SpriteContact&{height:number;width:number})[]=[];
  const root=new TransformNode('fair-conduct',scene);root.parent=parent;
  const sprite=(id:string,x:number,z:number,w:number,h:number,pixels:number,draw:(c:CanvasRenderingContext2D)=>void)=>{
@@ -26,8 +26,8 @@ export function buildFairConduct(scene:Scene,parent:TransformNode){
  const mat=new StandardMaterial('fair-conduct-label',scene);mat.diffuseTexture=text;mat.emissiveTexture=text;mat.opacityTexture=text;mat.disableLighting=true;mat.backFaceCulling=false;
  const label=MeshBuilder.CreatePlane('fair-conduct-label',{width:3.8,height:.48},scene);label.material=mat;label.parent=root;label.billboardMode=Mesh.BILLBOARDMODE_ALL;let lastLabel='';
  root.setEnabled(false);
- return {inspect:()=>({...motion.inspect(),contacts:inspectSpriteContacts(contacts),groundingApproved:false}),draw(s:State){
-  const c=s.prologue.conduct,on=conductActive(s);root.setEnabled(on);if(!on||!c)return;motion.draw(s.ticks);
+ return {inspect:()=>({...motion.inspect(),contacts:inspectSpriteContacts(contacts),groundingApproved:false}),draw(s:State,reducedMotion=false){
+  const c=s.prologue.conduct,on=conductActive(s);root.setEnabled(on);if(!on||!c)return;motion.draw(s.ticks,reducedMotion);
   const up=scene.activeCamera?.getDirection(Vector3.Up());
   if(up)for(const a of contacts)placeSpriteContact(a.mesh,a.shadow,a.foot,up,a.height,a.pivotY,a.cellHeight,a.width*.56,.36);
   meal.mesh.setEnabled(!c.lunchEaten);catSprite.mesh.position.set(c.cat.x,.40,c.cat.z);catSprite.mesh.scaling.x=c.cat.facing===3?-1:1;

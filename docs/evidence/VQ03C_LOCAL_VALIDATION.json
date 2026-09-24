@@ -1,0 +1,212 @@
+{
+  "schema": "chrono-local-validation-v1",
+  "batch": "VQ03C",
+  "version": "0.9.50",
+  "publicationParent": "b2e3c134d56b6df157dd9b72d23400050cf656ad",
+  "publishedSource": "62469eb87e3c736a99d970d555d4155fab4b8e79",
+  "sourceTree": "b226e44083a186005d4930915b6a9e44ac962e11",
+  "programFiles": 413,
+  "changedFiles": [
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 2211,
+      "sha256": "60f911a41c6d097cd87c32fb49a22fa7f438c5ff8356c2388be970877188d2e4",
+      "gitBlob": "96d5804579574328fde335ba5d71698bb2a53918"
+    },
+    {
+      "path": "scripts/cpu-era-evidence.mjs",
+      "bytes": 14307,
+      "sha256": "8dd593dc9cab6e1c2b55b996375cf598e1c93495f43fa3954eb6e453f3707f11",
+      "gitBlob": "3f6aa708976fc6f5659606994654a08ec66bbd3e"
+    },
+    {
+      "path": "scripts/field-enemy-evidence.mjs",
+      "bytes": 5910,
+      "sha256": "6a45b8ff6adf2605cb33b3f34f9f5ce59408034a87430c07dcb852733a721190",
+      "gitBlob": "aa61c2d871a0bb23c1d3eb676db7ede9d3a0e4fd"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "bytes": 9777,
+      "sha256": "dcc3bbcf065bf7b24b2e44f72fbdbc269330571b273f48396e933cc9f8095724",
+      "gitBlob": "2698d84ec0afcf139e0774d25754634251bd5c2a"
+    },
+    {
+      "path": "src/field-enemy-palette.ts",
+      "bytes": 3243,
+      "sha256": "a1712b65ff3e485272f6ab89689227b7fdd0dbdbe9686fb1b008c9e4266e11a4",
+      "gitBlob": "a398aa1db64541313c3b1db94406ca19b3b87ef2"
+    },
+    {
+      "path": "src/render.ts",
+      "bytes": 38988,
+      "sha256": "e89a6d628300c4e4680b719705dc0ebb97a21d9f86ee63cd76cf49c0fe4ad7f1",
+      "gitBlob": "d202d8ea1b316e6a7e30e4948e21cd43d439f332"
+    },
+    {
+      "path": "tests/baselines/vq03c-declared-enemy-palette-edits.json",
+      "bytes": 9569,
+      "sha256": "bcffc52dbf397a3492cf23016c611768125df2dff129b125ba7bb981c91e6a20",
+      "gitBlob": "f873aa7746ded7fea97a806b3754a7c08318dffa"
+    },
+    {
+      "path": "tests/cpu_era_route.py",
+      "bytes": 13153,
+      "sha256": "01bc95f65fbfb89961433ce1a7db56858ec7f1e35cac9e12f6aafafd47eabc52",
+      "gitBlob": "40e955b65ad73f50512d23ed34b3fce6564ca072"
+    },
+    {
+      "path": "tests/field-enemy-evidence.test.mjs",
+      "bytes": 6694,
+      "sha256": "2867cf5a98b5b24d35ff4d32a49655101369cad03604f1ec4237cdc94b6c5916",
+      "gitBlob": "38b63b06009346ebcfc7bd8de3cc04b5e90020bd"
+    },
+    {
+      "path": "tests/field-enemy-palette.test.mjs",
+      "bytes": 8989,
+      "sha256": "7a801d3c4c8f46a3dcab3ecdbd1c19ce406d5ee9aee208c3d057aac3561027d5",
+      "gitBlob": "b7b71f04cedad9a8ff68c9b61178488e1f8dae13"
+    },
+    {
+      "path": "tests/field_enemy_capture.py",
+      "bytes": 1736,
+      "sha256": "d73df79103e2092c6f4e0974e9a1bdc9b4e3940f767c70d529e9ed6ad09516a4",
+      "gitBlob": "eda70e316a4eca9617298449e36d097473984bbc"
+    },
+    {
+      "path": "tests/field_enemy_capture_test.py",
+      "bytes": 2562,
+      "sha256": "fab4dbada5893adb3486145c57eafeb897d3c7e66bd0109f5b4831fef2c7365b",
+      "gitBlob": "2bbf23bd31f240353a4808d6e50fd4f52e90b4db"
+    },
+    {
+      "path": "tests/helpers/field-enemy-baseline.mjs",
+      "bytes": 781,
+      "sha256": "659a71e1991715ff5ba2326588ca34fed61aba3ef31b123f246dbf15313038e9",
+      "gitBlob": "d20b4729708ac63b60ab8cbe329b2f044eabb66a"
+    },
+    {
+      "path": "tests/helpers/landmark-baseline.mjs",
+      "bytes": 925,
+      "sha256": "feec6e9eccf0fd51ea63bd2cfc202445bc073fd51e997123d499f0362367105e",
+      "gitBlob": "de31005aefcb524f191a83e7d4131945b2f117c3"
+    },
+    {
+      "path": "tests/story-npc-art.test.mjs",
+      "bytes": 3616,
+      "sha256": "8811d338471bfe7e5a903c7abe33432b3df1d9e0b306060f12458d8e3df29771",
+      "gitBlob": "a9d147be85a85a10f08839a479fbadd61321ebfa"
+    },
+    {
+      "path": "tests/story_npc_preservation_test.py",
+      "bytes": 4779,
+      "sha256": "ba2d05097b960d4ea39741c22b1c10c90d9714653c462acab4cddd2ca6748277",
+      "gitBlob": "e50409f9e11785b1cb3df6a1d43b8862a86bde07"
+    },
+    {
+      "path": "tests/town-building-occlusion.test.mjs",
+      "bytes": 9372,
+      "sha256": "607c32b3cb5b55a83d48d72a3cc7405e633616de70686ed0809d1d67c0645a68",
+      "gitBlob": "79018e437bbbbcb22eda4ba12a150fafcab96ca1"
+    },
+    {
+      "path": "tests/town-camera.test.mjs",
+      "bytes": 10752,
+      "sha256": "443ce4ff72f53d1a2ad1d03e0f54bf1fd0eeeb587e30c695b60e5eb415bb633d",
+      "gitBlob": "bf5cf1ce5b7ffaf3289b62fc4a9dc1bfb8a0e2c8"
+    },
+    {
+      "path": "tests/town-landmark.test.mjs",
+      "bytes": 8128,
+      "sha256": "3edf2a545bcfef0c6c3c9cb0d7807b5bfc27cfce8812fffb00945159d7eedd43",
+      "gitBlob": "07de72a919dfca1c3bc0cb818845f0706d4cdba8"
+    },
+    {
+      "path": "tests/town_camera_preservation.py",
+      "bytes": 2776,
+      "sha256": "c06b30ac1b4fe98e57004c94415b2c4918f60fbaeb6c26b8e11d12244197f57f",
+      "gitBlob": "5e7b32a8fe15a4690c3533473b8d8fea4d8ab7c3"
+    }
+  ],
+  "nodeTests": 1843,
+  "pythonTests": 377,
+  "previousNodeTests": 1782,
+  "previousPythonTests": 373,
+  "fullNpmCheck": true,
+  "assets": true,
+  "typecheck": true,
+  "build": true,
+  "diffCheck": true,
+  "lockedInputs": 413,
+  "lockedInputsUnchanged": true,
+  "results": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "finishedUtc": "2026-09-24T08:12:52.459260+00:00"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "*_test.py"
+      ],
+      "exitCode": 0,
+      "finishedUtc": "2026-09-24T08:12:55.437084+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "finishedUtc": "2026-09-24T08:12:55.444047+00:00"
+    }
+  ],
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "noLocalBrowser": true,
+  "nativeAccepted": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "physicalDeviceApproved": false,
+  "longSessionApproved": false,
+  "motionComfortApproved": false,
+  "newScore": null,
+  "changes": [
+    "Only runtime src/render.ts and new field-enemy-palette.ts: preserve existing canyon/forest imp palette via existing unlit emission path; restore all original technical-lab material settings. No painter, geometry, game rules or engine changes.",
+    "Same existing native CPU era route adds two read-only actual-canvas PNGs before existing canyon/forest encounters. Independently decode bounded CRC-checked PNG scanlines, verify original texture samples and exact actual colors per visible imp, and append both file receipts to existing era ledger.",
+    "Strict C-to-B source-only inverse preserves older assertions. Old NPC negative tests now normalize C before mutating so the mutation cannot silently become a no-op. Existing numeric thresholds, routes, images and video remain."
+  ],
+  "offlineOnly": {
+    "originalCI70BoundaryStates": 2,
+    "DPRs": [
+      1,
+      2
+    ],
+    "nativeObserverJavaScriptExecutedAgainstWorldPort": true,
+    "independentPngColorsVerified": true,
+    "nonFieldChapters": 10,
+    "orientations": 2,
+    "warmReturnCycles": 6,
+    "note": "Unit Canvas is rect-only, not a local browser or new native evidence."
+  },
+  "interruptions": "First host-limited complete check interrupted; not a pass. Initial draft lab test incorrectly compared a returned scene to a fresh scene rather than the matching baseline journey; corrected test only. Earlier full checks found old NPC negative substitutions became no-ops after the new observer prefix; normalized exact B before negative mutation and added explicit non-no-op assertions. All earlier failure/interruption logs retained.",
+  "scriptsTree": "09404d508e0cc733d65d5e3e04c4e507499f9a3f",
+  "srcTree": "d341bd058d4f015707e7ba8e33d504f33864977f",
+  "testsTree": "02c59e2989241b8429aa5feac9b773c670f810c8",
+  "publishedRootTree": "b226e44083a186005d4930915b6a9e44ac962e11",
+  "sourceTreeMatched": true,
+  "runId": "35976206740",
+  "runNumber": 71,
+  "cloudFileId": "17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu"
+}

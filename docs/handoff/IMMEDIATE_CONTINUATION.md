@@ -1,32 +1,32 @@
-# 立即接續 — CI70 checkpoint only
+# 立即接續 — CI71 checkpoint only
 
-用GitHub connector接KartChang/ChronoTrigger_reMaster，必要時Drive。立即續作，不盤點／審計／重新規劃；只讀STATUS、本檔、CI70_CHECKPOINT，確認main一次與同run一次。文件HEAD不同仍接同source/run。不索取ROM/token/手動證據。
+用GitHub connector接KartChang/ChronoTrigger_reMaster，必要時Drive。立即續作，不盤點／歷史審計／重規劃；先讀STATUS、本檔及CI71_CHECKPOINT，main一次、同run一次。文件HEAD不同仍接同source/run，不索取ROM/token/手動證據。
 
-Current root：**T05-early-visual-cohesion**。Execution terminal：**CI70-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI70_CHECKPOINT。文件 HEAD 不是另一遊戲 source。
+Current root：**T05-early-visual-cohesion**。Execution terminal：**CI71-pending-full-validation**。Authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI71_CHECKPOINT。文件 HEAD 不是另一遊戲 source。
 
-VQ03B／0.9.49 source **4c3df07c1a6e067afbd3d42f423481d8e406f9c6**；root tree **439cc6b946698b701a91e4b9ed7aebf408540110**；parent **fdc8f1b13fb35a70dbe82b35f9732b7309f7a483**。21 檔一次 non-force 發布，405 程式檔與已測快照匹配，main 已回讀。唯一 **CI70／35953426299**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 in_progress/null，created **2026-09-24T03:54:55Z**、updated **2026-09-24T03:55:00Z**（台灣 **2026-09-24 11:55:00**）。只查一次，未讀 CI70 jobs/artifacts/Pages；B 尚未原生接受。
+VQ03C／0.9.50 source **62469eb87e3c736a99d970d555d4155fab4b8e79**；root tree **b226e44083a186005d4930915b6a9e44ac962e11**；parent **b2e3c134d56b6df157dd9b72d23400050cf656ad**。20 檔一次 non-force 發布，413 程式檔與最終已測快照匹配，三個程式子樹及完整 root tree 一致，main 已回讀。唯一 **CI71／35976206740**，workflow360357259／.github/workflows/ci.yml，push／attempt1；exact source 全 event/state count1。最後 queued/null，created/updated **2026-09-24T08:36:12Z**（台灣 **2026-09-24 16:36:12**）。只查一次，未讀 CI71 jobs/artifacts/Pages；C 尚未原生接受。
 
-## 已做，不重做
+## 已完成，不重做
 
-Runtime 只改 src/render.ts 並新增 src/town-landmark.ts。Truce 直式取景先計算必須保留的 p0/p1/guest 所需範圍，再評估原 inn-sign 的額外縮放成本。可選地標採進入1.5／退出1.6倍的幾何遲滯；成本太高只移除地標取景要求，不隱藏或移動招牌。所有在場隊員仍為必要對象，沒有裁切 P2 的 zoom ceiling。重用原 EarlyCameraMotion、安全 bounds、fixed-tick 平滑、state identity／非Truce／橫向重置。不改角色尺度、任何場景幾何／材質／位置、Z 招牌與 A 建築淡化、core/main/input/time/save/collision 或 CPU 品質門檻。
+Runtime 只改 src/render.ts 並新增 src/field-enemy-palette.ts。山道／森林的三個既有小怪 sprite 接回現有 preservePixelPalette 單一 unlit emission 配色流程，去除舊灰色自發光、環境光及高光相加；diffuse/emissive 使用同一原貼圖，不重畫 drawImp。記住原材質設定，離開這兩章或 dispose 時還原；重複 draw 不累加材質或貼圖。不改原24×32 nearest-alpha、圖像內容、模型／位置／尺度、敵人數值／出現規則、相機、Z/A/B遮擋與取景、core/main/input/time/save/collision 或 CPU品質／記憶體。
 
-同一個原 Playwright CPU context/page 與原 home→fair→600AD 旅程啟用 public record_video，原生路線、六段Truce走位、四停點及20張PNG不變。context.close 後保存 era600/native-session.webm，以新source/run/HTML及 bytes/SHA256 綁定，再刪除唯一冗餘 staging 副本；失敗保留第一個原始錯誤。固定錄影畫幅960×844，host-monotonic-us提供起訖及四停點定位。這是近似導覽時間，不是逐幀精確對時；不錄音、不宣稱裝置／長時間／流暢性已通過。原靜態 stop 記錄 motionVideo=false 保留，完整影片另外在 parent CPU report.nativeVideo。
+同一原生 CPU 600AD 旅程，在原山道與森林遇敵之前各追加一次唯讀觀察及實際 CPU PNG：field-canyon-canvas.png、field-forest-canvas.png。不輸入新按鍵、不寫 state、不插入新走位或暫停；原20張村莊圖、全部旅程與 native-session.webm 保留。observer 核對當前 state／tick、可見敵人 owner、原貼圖五個 RGBA 點、材質與投影，保存可取得觀察後才拋錯。獨立 verifier 解碼同一原始 PNG 的有界 RGB/RGBA scanline，驗 CRC／bytes／hash／IHDR及實際像素配色數量；山道3隻／森林2隻必須各有藍、金色，群組有深色輪廓，不只相信材質旗標。兩份原始 PNG 追加到既有 era ledger，七份 ledger 與所有舊斷言不減。
 
-完整1782Node／373Python／assets/typecheck/build/check/diff已通過；locked405輸入指紋與21改檔全保存。CI69/Pages63收據已正式結案，本輪沿用。不要因舊CI69 pending、A或Z快照再重做；現在是B/CI70。
+最終 locked 完整 npm run check 通過：**1843 Node、377 Python、assets、typecheck、build、diff check**，比 B 增加61 Node／4 Python。413 項最終輸入指紋未變；npm check exit0 完成UTC2026-09-24T08:12:52.459260，Python及diff於08:12:55完成且exit0。74項針對性測試通過。原CI70山道／森林遇敵前 state 僅作離線回歸，DPR1/2、真實observer JS配合production World port及獨立PNG gate均驗；10個非field章節兩方向像素／幾何、相同往返旅程的lab材質還原、六次warm-cache資源不增均驗。單元Canvas不是本機browser或新原生畫面。
 
-## 直接接續
+首輪完整check遭本機host時限中止不算通過。初稿lab測試誤把返回場景與全新場景比較，改為相同旅程基準；舊NPC負測試因新增inspect前綴而可能沒有真的修改字串，改先還原精確B再突變並強制檢查非no-op。C→exact B是嚴格test-only source inverse，不改原報告、存檔或遊戲state；原數字／hash斷言不放寬。失敗、中斷與最終logs均保留，沒有本機browser。
 
-CI70 queued/in_progress 只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure 處理同run首個實際root及原artifact/source-failure，不放寬斷言。Success 依 CI70_CHECKPOINT 完成全部原reports、20PNG、七ledger逐byte/hash、新原生影片、正確Drive原ZIP下載回驗，以及 matching Pages/source/playable/staged/deployed HTML 後才接受B。新HTML必須用B同run來源；local source=null、A/CI69 hash不能當新基準。先親看出口人物及連續城鎮路線、鏡頭／建物／招牌過渡，再續前段人物植物道具材質、尺度輪廓、完整動畫與合法音訊、長時間及實體裝置觀察。
+CI70_ACCEPTANCE已獨立發布，沿用已閉環技術結果；仍保留原速動態審查，不能把2fps抽樣誤稱原速播放。
 
-新增獨立 landmark 幾何驗證，核對實際 candidates、全部劇情在場 owner、1.5/1.6 遲滯決策；出口必須不再強留遠旅店，實際 P0 高度仍>=30px。新增影片來源、完整關閉 context、WebM header、bytes/hash、單調時間及四停點覆蓋檢查，原 era ledger 追加影片檔案列。這不是影片解碼或流暢度驗收；成功後仍須取得完整原片、確認可解碼並觀看實際走位、遮擋淡化及取景變化，不能只看 header 或綠勾。
+CI71 queued/in_progress只保存回報，不長等、輪詢、rerun/dispatch/cancel或另推source。Failure處理同run首個實際root與原artifact/source-failure，不放寬門檻。Success依CI71_CHECKPOINT核對完整原reports、七ledger逐byte/hash、原20張村莊圖與新增2張實際field PNG、完整影片及同CI Pages/source/HTML；原始ZIP放指定Drive並下載驗hash/CRC/parent後才接受C。先親看山道／森林小怪藍金配色、深色輪廓及與人物／背景的分離，再續植物遮住下肢、原速移動及淡化舒適性、全角色動畫與合法音訊。不得以像素數字、離線fixture或綠勾宣稱美術完成；不重開CI70已閉環的技術證據。
 
-原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A素材與操作、三view12PNG及四停點8PNG、全paused state、Tab/Space、恢復viewport及native resume不減；只追加 B 地標決策與原session影片，沒有以新增項目替換舊門檻。
+## 最小恢復與完整範圍
 
-## 最小恢復
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。C已測包 **17PqOqK16Wn4LM8HlxaZ8nfnVXp_75tVu／Chrono-CI70-accepted-VQ03C-tested-batch.zip**，**2045961bytes**，SHA256 **801681286c565e1ec3298646414cecb24008e12b5ac77ebd4f698e5ca8a3ddfc**；已下載回驗parent/hash/CRC/54manifest/413程式tar及Git blob。development/VQ03C-tested-program-snapshot.tar.gz是assembled已測程式，非published Git archive，不含進度docs（THIRD_PARTY除外）。包內publishedSource=null是封裝前歷史；C現已發布，不重送，最新文件只讀main。
 
-唯一 Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。B 已測包 **1GazRKfFsIlESBqM7NHdvKxBQgeZ8y2qf／Chrono-CI69-accepted-VQ03B-tested-batch.zip**，**950818bytes**，SHA256 **50716b0add56e2920becaf88cdc8bc64e5268495619e8adf654b856ec822d4e5**；已下載回驗 parent/hash/CRC/21manifest/405程式tar與Git blob。development/VQ03B-tested-program-snapshot.tar.gz 為 assembled 已測程式，非 published Git archive；不含進度docs（THIRD_PARTY除外）。包內 publishedSource=null 為封裝前歷史，B 現已發布，不重送；最新文件只讀 main。
+CI70／Pages64七個未修改原ZIP、完整影片及review包 **1BCla-ZC2E0oHLCdFJQEQyEhlWCMB0hV9／Chrono-CI70-VQ03B-evidence.zip**，87991208bytes，SHA256 **ab139df4f8213f4fc8a7b26aa34fe517f5c226629dc497b9b64afbd6797f2227**；已下載回驗parent/hash/CRC/29manifest及七個內層ZIP。既有CI69及更早結案不重驗；歷史failure不回填success。
 
-## 全範圍與限制
+原三job／13主報告／9native加完整CPU兩旅程／600／救援／審判，audio/actor.playback/HUD/normal-paused-reduced/grounded ATB/touch/equipmentv8/fulltrial、同run本人v4-v5-v7／alternate own cell、67腿／4遇敵／2props／17里程碑／6窗口、七ledger每byte/hash均保留。Q/R/S/T/U/V/W/X/Y/Z/A/B素材與操作、三viewport12PNG及四停點8PNG、全paused state、Tab/Space、viewport恢復及native resume不減。B錄影原片必須保留；完整解碼及抽樣畫格不等於原速動態、長時間／真機／聆聽認證。
 
 T03：隱含規則、版本差異、全拓樸及數值忠實。T04：完整成長、報酬掉落、經濟道具飾品、角色學習與雙三人技。T05：全美術、完整動畫、合法音訊，前段實際品質優先。T06：完整未來與其餘時代主支線結局。T07：全範圍整體>=90／各面向>=80%、required assets／five gates／zero critical，及實體裝置輸入、FPS/frame time、載入、記憶體、背景、存檔、音訊。T08：每批實作測試、一次source、matching完整CI、正確Drive原檔回讀及[skip ci]文件。分母不縮；2300抵達不是完整未來。舊30分stale；無新美術90分、長時間、真機或全遊戲認證。
 

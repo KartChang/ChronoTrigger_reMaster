@@ -1,20 +1,105 @@
 {
-  "schema":"chrono-development-continuation-v1","repository":"KartChang/ChronoTrigger_reMaster","branch":"main","currentRoot":"T05-early-visual-cohesion","executionTerminal":"T05-field-foe-action-animation","stage":"ready-for-implementation",
-  "baseSourceSha":"32672b15a8df76ff243f7840ef95a9b8b817a052","baseSourceTree":"e2584ffecb08463567c192e94aa6a9840cf2658a","baseBatch":"VQ03M","baseVersion":"0.9.60","newSourcePublished":false,"unpublishedCandidate":false,"activeValidation":false,"newRunId":null,
-  "latestAccepted":{"runId":"36179274810","runNumber":84,"pagesRunId":"36182739088","pagesRunNumber":78,"receipt":"docs/evidence/CI84_ACCEPTANCE.json","closedCheckpoint":"docs/evidence/CI84_CHECKPOINT.json","scope":"Bounded original native technical/static/sampled;Mframes0/1/2 only,not completeanimation/nativespeed/listening/device/longsession/wholegame."},
-  "minimumStartup":["Read docs/STATUS.md and this checkpoint; confirm main once. The immediate handoff text supplies all identities. Do not reread all history or repeat accepted CI84/Pages78/ledgers.","If only a documentation successor is present, proceed directly to remainingWork. Only follow a genuinely newer checkpoint/source; archived false/null in tested packages never authorizes resubmitting M."],
-  "remainingWork":[
-    "Continue the existing T05 full actor/enemy animation gap, starting with field-foe action presentation and source-bound native recoil evidence. Keep already accepted M rest/ambient/ready frames and cache/clock/resource behavior; do not remake the four-pose foundation.",
-    "Read relevant src/field-enemy-motion.ts, src/imp-motion.ts, src/render.ts and actual action/effect production in src/core.ts. Existing Effect/damageAlly records a hit target but not an enemy attacker. Never infer an attacker from target-only data or create fake events/state. Any action presentation must derive from actual existing actions without changing damage,ATB,collision,save schemas or death timing to pass.",
-    "Native recoil frame3 was not observed in the three structured CI84 observation points (all hurtTick=null). It remains an evidence gap, not a proven runtime failure. Preserve native routes/keys/ticks/waits/captures and original assertions; gather only honest source-bound observations. Do not rerun the already accepted CI84 to manufacture a positive event.",
-    "Batch the feasible related action/animation changes and regressions, then publish one non-force main source and inspect its unique matching CI. Do not stop after a single unit change; do not create a bootstrap CI,parallel candidate,PR or branch.",
-    "After this batch continue existing wider actor/plant/prop scale-outline and composition, compressed canyon/court space, overlapping trees, complete lawful audio/listening and original-speed movement/fade/viewport comfort. Early quality remains first; do not expand later eras merely because a CI is green."
+  "schema": "chrono-t05-animation-checkpoint-v2",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "authorityRef": "main",
+  "phase": "published-N-matching-CI85-in-progress",
+  "root": "T05-early-visual-cohesion",
+  "developmentTerminal": "T05-field-foe-action-animation",
+  "version": "0.9.61",
+  "batch": "VQ03N",
+  "sourcePublished": true,
+  "publishedSourceSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+  "publishedSourceTree": "bbea6d5ff42cd634518b61b5bf78d6003e46e5e2",
+  "sourceParentDocumentSha": "16bcb048c107d1c3b073fddbed936d14c32d4503",
+  "sourceCommitMessage": "feat: source-bound field foe action and native recoil checks (VQ03N)",
+  "sourceReadbackVerified": true,
+  "testedProgramTreeReadbackVerified": true,
+  "sourceChanges": 21,
+  "latestAcceptedSource": {
+    "sha": "32672b15a8df76ff243f7840ef95a9b8b817a052",
+    "tree": "e2584ffecb08463567c192e94aa6a9840cf2658a",
+    "batch": "VQ03M",
+    "version": "0.9.60",
+    "ci": 84,
+    "pages": 78,
+    "acceptance": "docs/evidence/CI84_ACCEPTANCE.json",
+    "closed": true,
+    "revalidatedThisBatch": false
+  },
+  "unpublishedCandidate": null,
+  "activeValidation": {
+    "id": 36195520068,
+    "number": 85,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "event": "push",
+    "attempt": 1,
+    "headSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+    "headBranch": "main",
+    "status": "in_progress",
+    "conclusion": null,
+    "createdAt": "2026-09-25T22:12:06Z",
+    "providerUpdatedAt": "2026-09-25T22:12:10Z",
+    "sourceMatched": true,
+    "allEventAllStateExactShaRunCount": 1
+  },
+  "testReceipt": "docs/evidence/VQ03N_TESTED_BATCH.json",
+  "validationCheckpoint": "docs/evidence/CI85_CHECKPOINT.json",
+  "cloudTestedPackage": {
+    "fileId": "1G_CAXzv-aWc18UzKO3bNWafAhTbecnd2",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "name": "Chrono-VQ03N-field-foe-action-tested.zip",
+    "bytes": 1072604,
+    "sha256": "d6aa83145205e835a6ba0732b336c625edf6da194f2bcef37f71af11027d63d1",
+    "manifestEntries": 31,
+    "programInputs": 509,
+    "snapshotFiles": 510,
+    "downloadVerified": true,
+    "snapshotFilesVerified": 510
+  },
+  "nativeRecoilVerified": false,
+  "nativeAttackVerified": false,
+  "fullAnimationComplete": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "remainingWork": [
+    {
+      "id": "CI85-matching-native-review",
+      "state": "waiting-for-provider-completion",
+      "work": "先讀本checkpoint與STATUS。只接唯一CI85 run36195520068/source517426f；不要重跑CI84或重送M/N。若仍queued/in_progress，保存接續點，不長時間輪詢或另外dispatch。"
+    },
+    {
+      "id": "T05-native-recoil-and-source-action-evidence",
+      "state": "not-yet-verified",
+      "work": "CI85完成後取得未修改原始artifact；先核field-enemy-action/field-enemy-action-report.json、recoil-observation.json、action-observation.json與原PNG。以exact N checker唯讀核living frame3及同一真實source action的frame4/5、tick和實際RGBA。JSON/texture history不是同步framebuffer。若失敗，只修實際terminal，不改遊戲規則或原門檻。"
+    },
+    {
+      "id": "T08-CI85-original-evidence",
+      "state": "pending",
+      "work": "核matching CI85三jobs、既有主報告/chooser/CPU600救援審判及同source ledgers；成功時核matching Pages的selected source/artifact與原HTML。原始ZIP/reports/影片/source/manifest存指定Drive並實際回讀，才寫有界接受。"
+    },
+    {
+      "id": "T05-full-animation",
+      "state": "open",
+      "work": "在N原生結果之後接續既有角色與敵人的完整方向、移動、攻擊/受擊/死亡呈現及完整遊玩證據。M四姿態與N兩個手臂出手姿態不等於完整動畫；不重新製作已完成基礎。"
+    },
+    {
+      "id": "T05-early-composition-audio-comfort",
+      "state": "open",
+      "work": "續人物/植物/道具尺度輪廓與原作構圖、山道/法庭壓縮空間及重疊樹列、完整合法音訊與實際聆聽、原速走位/淡化/viewport舒適性。前段品質优先，不以CI綠勾提前擴後段。"
+    }
   ],
-  "confirmedNativeMotion":{"cpuCanyon":{"tick":1146,"frames":[0,0,0]},"cpuForest":{"tick":883,"frames":[1,0]},"openingWebglBattle":{"tick":912,"frames":[2,2,2]},"sampledRgbaChecked":true,"recoilVerified":false,"openingJsonAfterScreenshotNotFrameExact":true},
-  "recovery":{"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","evidence":{"fileId":"1k-EnihB3KS3k1791bR3rAZXVzhPVhucx","name":"Chrono-CI84-reviewed-evidence.zip","bytes":91590088,"sha256":"2ecd1b7a1f2696722106a36266a53fb42dd5bf24d7e180e36f9fdc2abddbd288","exactSourceArchive":"originals/CI84-browser-evidence.zip -> source-32672b15a8df76ff243f7840ef95a9b8b817a052.tar.gz","downloadVerified":true},"testedProgram":{"fileId":"1YOjQHTPvlwkBuNd__o6lz6rTI6JDCBhk","name":"Chrono-VQ03M-field-foe-motion-tested.zip","bytes":1279540,"sha256":"7a72c83dc65fa4b64b79e31caa2c26bcbdab3ca224a6b879c351d97801759d76","snapshot":"program-snapshot.tar.gz","snapshotFiles":504,"programInputs":500,"scope":"Previously verified assembled tested snapshot,not published Git archive/current docs. M is published. Do not reapply old progress or resubmit."}},
-  "priorDevelopmentTests":{"node":2333,"python":424,"newNode":31,"newPython":8,"scope":"Historical M final tests,not rerun or newly developed in this handoff."},
-  "restrictions":"Main only/singleAI/non-force;no branch,PR,parallel candidate or collision-prevention system. Preserve TS/Babylon/esbuild,fixedATB,A*,InputBoundary,P1/P2/autonomous third,v1-v8. No P3,ARPG,framework remake,held furniture promotion or localbrowser. Never fabricate native game/time/save/collision or relax original<.12,tick,single30s,250ms/256,CPUquality/memory. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE:node_modules only,retain esbuild hardlink,no oldsource/config/bootstrapCI. PrivateROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM/media/fonts/credentials never public. All outputs GitHub/designatedDrive/readback;docs skipci;temporary container not authority.",
-  "heldPrologueBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a",
-  "fullScope":"T03 full rules/version/topology/numerics;T04 complete growth/rewards/drops/economy/items/accessories/learning/party/double-triple techs;T05 all art/modeling/animation/lawful audio;T06 all eras/main-side stories/endings,2300arrival not fullfuture;T07 overall>=90/each>=80%,requiredassets/fivegates/zerocritical and realdevices/input/FPS/frame-time/load/memory/background/saves/audio;T08 everybatch fulltests/one source/matchingCI/cloudoriginals/readback.",
-  "ci77RemainsFailed":true,"ci75RemainsFailed":true,"ci71RetrospectiveAcceptance":false,"fullEnemyAnimationComplete":false,"artApproved":false,"motionComfortApproved":false,"listeningVerified":false,"physicalDeviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null
+  "restrictions": [
+    "main only; non-force; no branch/PR/parallel candidate/multi-writer mechanisms",
+    "No local browser or fabricated native game/time/save/collision state",
+    "Do not change damage, ATB, collision, death timing or v1-v8 saves for animation/evidence",
+    "Original routes/keys/waits/captures/assertions preserved; N native scenario is additive",
+    "Keep <.12, original ticks, single30s,250ms/256 and CPU quality/memory gates",
+    "Held VQ01Z/mother furniture is not promoted or indirectly replaced",
+    "Do not expose private ROM/media/fonts/credentials",
+    "Docs [skip ci]; current main docs outrank source archives and prepublication package fields",
+    "T03-T08 complete scope unchanged; no new score, audio listening, original-speed or device certification"
+  ]
 }

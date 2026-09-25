@@ -1,0 +1,202 @@
+{
+  "schema": "chrono-tested-development-batch-v1",
+  "batch": "VQ03N",
+  "version": "0.9.61",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "baseDocumentSha": "16bcb048c107d1c3b073fddbed936d14c32d4503",
+  "baseSourceSha": "32672b15a8df76ff243f7840ef95a9b8b817a052",
+  "sourcePublishedAtPackaging": false,
+  "publishedSourceShaAtPackaging": null,
+  "root": "T05-early-visual-cohesion",
+  "terminal": "T05-field-foe-action-animation",
+  "changedFiles": 21,
+  "programInputs": 509,
+  "snapshotFiles": 510,
+  "testResults": {
+    "checkExit": 0,
+    "node": 2360,
+    "nodeFail": 0,
+    "nodeSkipped": 0,
+    "newNode": 27,
+    "python": 434,
+    "pythonFail": 0,
+    "newPython": 10,
+    "typecheck": "passed",
+    "assetCheck": "passed",
+    "qualityCheck": "passed-but-release-blocked-stale-score-not-current",
+    "build": "passed",
+    "nodeDurationMs": 124616.323744,
+    "pythonDurationSeconds": 5.121
+  },
+  "verification": "Frozen 21 changed files identical before/after final npm run check; full Python suite on same final files. No local browser. Node core comparison and CPU textures are unit/offline only, not native evidence.",
+  "coreBlob": "38f1dae7b96d16f0f64e60007d12d5ad34699eb9",
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeRecoilVerified": false,
+  "nativeAttackVerified": false,
+  "fullAnimationComplete": false,
+  "artApproved": false,
+  "wholeGameAccepted": false,
+  "historicalCI84": "Already accepted/closed; not fetched or revalidated. Only original evidence ZIP hash checked to restore exact source.",
+  "limitations": [
+    "Added real delivered enemy-action index/tick/origin/target metadata only; damage/ATB/death/collision/saves unchanged.",
+    "Two additive authored arm strike/follow-through poses; M frames0-3 unchanged; not directional movement/death/full animation.",
+    "History is bounded actual texture RGBA after pose update, not framebuffer, screenshot synchronization or comfort evidence.",
+    "New additive native scenario requires real-key nonlethal recoil and same-action frames4/5; pending matching new-source CI.",
+    "Snapshot includes program inputs and unchanged THIRD_PARTY only; it is not a published Git archive nor current progress docs.",
+    "Packaging false/null fields are historical once N is published. Follow GitHub checkpoint; never resubmit M/N based on this package."
+  ],
+  "initialFailures": "First Node pass had three test-port/fixture failures (old core hash, defeat fixture tick, Size prototype comparison), fixed with strict declared inverses or new unit fixture corrections. Final 2360 passed. Python source-preservation/test-prefix issues fixed; final 434 passed. No original native thresholds or assertions relaxed.",
+  "sourcePublished": true,
+  "publishedSourceSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+  "publishedSourceTree": "bbea6d5ff42cd634518b61b5bf78d6003e46e5e2",
+  "sourceReadbackVerified": true,
+  "testedTreeReadback": {
+    "frozenFiles": 21,
+    "allFrozenHashesMatch": true,
+    "root": "bbea6d5ff42cd634518b61b5bf78d6003e46e5e2",
+    "programSubtreesMatch": {
+      "src": "a0295cd07c5977736571788465da320b49bd8379",
+      "scripts": "2ca3e5dc88c3a8372ebe8020a30e1ed2bdee275b",
+      "tests": "fdd3c84e3a39e9b6a78a2923c1c8f4497e0e320c",
+      ".github": "3ee9fd81209b4d539e3b52977e793848e94964f4"
+    },
+    "retainedLiveDocsTree": "96884ce9b4db28c891e0bca331df86df6b085983"
+  },
+  "cloudTestedPackage": {
+    "fileId": "1G_CAXzv-aWc18UzKO3bNWafAhTbecnd2",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "name": "Chrono-VQ03N-field-foe-action-tested.zip",
+    "bytes": 1072604,
+    "sha256": "d6aa83145205e835a6ba0732b336c625edf6da194f2bcef37f71af11027d63d1",
+    "manifestEntries": 31,
+    "programInputs": 509,
+    "snapshotFiles": 510,
+    "downloadVerified": true,
+    "snapshotFilesVerified": 510
+  },
+  "matchingCI": {
+    "id": 36195520068,
+    "number": 85,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "event": "push",
+    "attempt": 1,
+    "headSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+    "headBranch": "main",
+    "status": "in_progress",
+    "conclusion": null,
+    "createdAt": "2026-09-25T22:12:06Z",
+    "providerUpdatedAt": "2026-09-25T22:12:10Z",
+    "sourceMatched": true,
+    "allEventAllStateExactShaRunCount": 1
+  },
+  "changedFileManifest": {
+    ".github/workflows/ci.yml": {
+      "bytes": 6662,
+      "sha256": "95d1b19d6c1396e6f6466aaed2d294125e6f3153f0c07bb63263724987f41958",
+      "blob": "df6eda2f0063356aed1af6dfc7fc29aa08b51d88"
+    },
+    "scripts/build.mjs": {
+      "bytes": 2211,
+      "sha256": "aeb4256440c25c203e9556c146c885b95622f3b493e37788cb5fc54805187f46",
+      "blob": "cce103a13740531135d90b84c575460ee6d1c66d"
+    },
+    "scripts/test.mjs": {
+      "bytes": 16174,
+      "sha256": "826df34ec535f56ea4ae9e792faad293d8e794682096e69ee17270eec163a2dd",
+      "blob": "04df449d920c7945db89fe220ca860b82286d790"
+    },
+    "src/core.ts": {
+      "bytes": 60500,
+      "sha256": "2c73c935b19d725f94c08d89549abecedd1b6a6f6372ea1c52bd9857aa69a9d8",
+      "blob": "38f1dae7b96d16f0f64e60007d12d5ad34699eb9"
+    },
+    "src/field-enemy-motion.ts": {
+      "bytes": 6651,
+      "sha256": "44975e4083332e9de8e15b339f619f515120da37489c93e7ce36de0bfadb830e",
+      "blob": "eba791554aa71bc41f9b5e36a834e323cdbfbfc5"
+    },
+    "src/imp-action.ts": {
+      "bytes": 1781,
+      "sha256": "99e46bbacd72885ba9a56b6ac7edd2e601d1380fd0468309f260d9a87286c9a9",
+      "blob": "a59e5f0c09fd43c49420612656650583335fd409"
+    },
+    "tests/action_n_preservation.py": {
+      "bytes": 740,
+      "sha256": "6a8d6ea64ec0d68add85e89fafd4c4ddd42a07c212d7fcbd7434923c2a034249",
+      "blob": "841415931c343e8e902623997532f064360c4d5f"
+    },
+    "tests/baselines/vq03n-declared-action-edits.json": {
+      "bytes": 4721,
+      "sha256": "deb480411610f5506402b7055f11a5ec63d6def2ce22af2845d2c605c1a372e1",
+      "blob": "15d339f51377b5470a88265d314e57b4f539c968"
+    },
+    "tests/baselines/vq03n-unchanged-inputs.json": {
+      "bytes": 1158,
+      "sha256": "64a18c881e6e3887cec09af9756bb72825adaa54792d66143a4a2e3082c09b82",
+      "blob": "98d76b5d8965145ed82ecf630ee28a60fe193bd5"
+    },
+    "tests/cpu_journey_support_test.py": {
+      "bytes": 17453,
+      "sha256": "7df13c4984fa3893b7ec418e5d77fa44698ed64155d30ee958847bc77368e458",
+      "blob": "d4a682499e24ad74a41ca094ab77d15149c30998"
+    },
+    "tests/field_enemy_action.py": {
+      "bytes": 5243,
+      "sha256": "e58b48a786eb83c67dee7c24055d392066631513c8c7d037e1e27e545a92ce70",
+      "blob": "053990d86bf0b5fd4a183d37f7f697e35faf3dac"
+    },
+    "tests/field_enemy_action_browser.py": {
+      "bytes": 11090,
+      "sha256": "cdab47d9a1a219e0c272146941354f8cf9a1f9d4b45d208a2c939e12ddd6980f",
+      "blob": "3cdff7db45006cc6a95a4603cb9066f2a740024e"
+    },
+    "tests/field_enemy_action_test.py": {
+      "bytes": 6560,
+      "sha256": "4f32dbb7083918c03ce900361b7607675a3c9415e2803a30e07cc443279861cc",
+      "blob": "2513f97dad9d43db01bfe5becdeda48514700152"
+    },
+    "tests/field_enemy_motion.py": {
+      "bytes": 2953,
+      "sha256": "a05e9fe6c3618ed2126782c2d152576e072046fd206f0bf2a47ac79654223761",
+      "blob": "fa4c563b1461c131768e7a1cbc2438c0c6642c76"
+    },
+    "tests/helpers/action-n-baseline.mjs": {
+      "bytes": 739,
+      "sha256": "66b62f7b4c0446d54cee8b683ed766bcf4ae2089ecfd952794cc7590b36ce768",
+      "blob": "395ea40a33ce4e269b3f3ff3ec8ef303a270064a"
+    },
+    "tests/helpers/imp-m-baseline.mjs": {
+      "bytes": 789,
+      "sha256": "7160742fb4337f8fff8ff7ad2d6af4d79eef7db5beffa45268d72a007d21de28",
+      "blob": "62c51ac3383ef1fb1e1f7149d597541c189de956"
+    },
+    "tests/helpers/runtime-baseline.mjs": {
+      "bytes": 1022,
+      "sha256": "224b4b61e29595e87f3dbbf8fb40522c8c186cb2d14d4e397d04195da7b8253a",
+      "blob": "8d0cd4765ff29ead1507a90c0127699908d135bb"
+    },
+    "tests/imp-action.test.mjs": {
+      "bytes": 12149,
+      "sha256": "e16ef752454d668d869505f497530981742c17739252ff2234d97e1946adee71",
+      "blob": "42638a0a2f389f797ee0318e453c33ed30ebb057"
+    },
+    "tests/imp-motion.test.mjs": {
+      "bytes": 14454,
+      "sha256": "fdbc687e7cc91d72054707dd3a0e50dd4809da4bdd29783ac93e8449c2ac7f6c",
+      "blob": "2531a9168fc653b61edd8588469f6690ff726b99"
+    },
+    "tests/imp_m_preservation.py": {
+      "bytes": 895,
+      "sha256": "24b24d47c8de55eaa2ff5ab873f748a941b13262d0008fc0fd4583de247b3a51",
+      "blob": "bcb48f981fcfecdf68b4a10bda419e5f9cd42056"
+    },
+    "tests/imp_m_preservation_test.py": {
+      "bytes": 1404,
+      "sha256": "bdd242e4bf033be4583c7a1370fb002d2887cb1d0710ef39dcd835610ff73297",
+      "blob": "8a011b169ea84ab5574600dbaf7b5eb7b32396bb"
+    }
+  },
+  "packagingFieldsAreHistorical": true
+}

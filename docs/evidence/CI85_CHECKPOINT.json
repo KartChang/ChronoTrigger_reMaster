@@ -1,0 +1,47 @@
+{
+  "schema": "chrono-matching-ci-checkpoint-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "batch": "VQ03N",
+  "version": "0.9.61",
+  "sourceSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+  "sourceTree": "bbea6d5ff42cd634518b61b5bf78d6003e46e5e2",
+  "providerObservation": {
+    "id": 36195520068,
+    "number": 85,
+    "workflowId": 360357259,
+    "path": ".github/workflows/ci.yml",
+    "event": "push",
+    "attempt": 1,
+    "headSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+    "headBranch": "main",
+    "status": "in_progress",
+    "conclusion": null,
+    "createdAt": "2026-09-25T22:12:06Z",
+    "providerUpdatedAt": "2026-09-25T22:12:10Z",
+    "sourceMatched": true,
+    "allEventAllStateExactShaRunCount": 1
+  },
+  "accepted": false,
+  "closed": false,
+  "nativeRecoilVerified": false,
+  "nativeAttackVerified": false,
+  "rawArtifactsDownloaded": false,
+  "rawEvidenceCloudReadback": false,
+  "matchingPagesReviewed": false,
+  "localBrowserUsed": false,
+  "nextAction": "Resume only this exact-source CI85 after completion; do not dispatch or resubmit source. Pending is not failure and not acceptance.",
+  "remainingReview": [
+    "CI85-matching-native-review",
+    "T05-native-recoil-and-source-action-evidence",
+    "T08-CI85-original-evidence"
+  ],
+  "nativeReport": "field-enemy-action/field-enemy-action-report.json",
+  "nativeChecker": "tests/field_enemy_action.py",
+  "notes": [
+    "Provider status is the recorded observation, not a promise about later status.",
+    "M CI84/Pages78 acceptance unchanged and not revalidated.",
+    "N local 2360 Node/434 Python passing is not native evidence.",
+    "All original reports and thresholds must remain unchanged."
+  ]
+}

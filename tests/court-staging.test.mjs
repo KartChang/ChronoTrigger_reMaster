@@ -1,11 +1,12 @@
+import {detailJIfDeclared} from './helpers/detail-j-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {Vector3} from '@babylonjs/core';
-import {buildTrial} from '../.test/trial-render.mjs';
+import {buildTrial} from '../.test/detail-j-prior-trial.mjs'; // Historical I port; current J has separate tests.
 import {buildTrial as priorTrial} from '../.test/staging-i-prior-trial.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/detail-j-prior-world.mjs';
 import {World as PriorWorld} from '../.test/staging-i-prior.mjs';
 import {bindCourtStaging} from '../.test/court-staging.mjs';
 import {drawWoodlandOak} from '../.test/woodland-art.mjs';
@@ -56,5 +57,5 @@ for(const [w,h] of [[192,128],[96,160],[160,96]])test(`current I offline ${w}x${
 });
 test('other eight fair/trial maps retain exact CI79 offline pixels and mesh geometry',()=>{const r=rig(192,128);try{for(const chapter of ['fair','hall1000','cellblock','execution','prisonstairs','warden','prisonbridge','futuregate']){const s=createState(chapter==='fair'?'bedroom':chapter);s.chapter=chapter;s.mode='explore';s.ticks=140;if(chapter==='fair')s.prologue.stage='fair';const original=structuredClone(s);r.a.draw(s,0,false);r.b.draw(structuredClone(s),0,false);assert.equal(Buffer.compare(Buffer.from(r.ca.pixels()),Buffer.from(r.cb.pixels())),0,chapter);assert.deepEqual(geometry(r.a.scene),geometry(r.b.scene));assert.deepEqual(s,original);}}finally{r.close();}});
 const spec=JSON.parse(readFileSync('tests/baselines/vq03i-declared-staging-edits.json'));
-for(const [name,edits] of Object.entries(spec.files))test('I exact CI79 inverse and missing/duplicate guards: '+name,()=>{const raw=readFileSync(name,'utf8'),original=stagingIBaseline(name,raw);assert.equal(sha(original),spec.originalSha256[name]);assert.equal(stagingIIfDeclared(name,original),original);for(const e of edits){assert.throws(()=>stagingIBaseline(name,raw.replace(e.after,'')));assert.throws(()=>stagingIBaseline(name,raw+e.after));}assert.notEqual(sha(stagingIBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);});
+for(const [name,edits] of Object.entries(spec.files))test('I exact CI79 inverse and missing/duplicate guards: '+name,()=>{const raw=detailJIfDeclared(name,readFileSync(name,'utf8')),original=stagingIBaseline(name,raw);assert.equal(sha(original),spec.originalSha256[name]);assert.equal(stagingIIfDeclared(name,original),original);for(const e of edits){assert.throws(()=>stagingIBaseline(name,raw.replace(e.after,'')));assert.throws(()=>stagingIBaseline(name,raw+e.after));}assert.notEqual(sha(stagingIBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);});
 test('I has no clock, gameplay, collision or network writes; held prologue preserved',()=>{assert.doesNotMatch(readFileSync('src/court-staging.ts','utf8'),/Math\.random|Date\.|performance\.|setTimeout|setInterval|document|window|fetch\(|TRIAL_SOLIDS|\.ticks|\.players/);const held=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(`blob ${held.length}\0`).update(held).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');assert.equal(fixture.run,'36109184360');});

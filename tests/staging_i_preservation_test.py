@@ -1,3 +1,4 @@
+from detail_j_preservation import restore_detail_j_if_declared
 """I offline source pins, not native gameplay evidence."""
 import unittest,hashlib
 from pathlib import Path
@@ -11,7 +12,7 @@ class StagingIPreservationTests(unittest.TestCase):
             self.assertEqual(restore_staging_i_if_declared(n,original),original)
     def test_missing_duplicate_and_unrelated(self):
         for n,edits in SPEC['files'].items():
-            raw=(ROOT/n).read_text()
+            raw=restore_detail_j_if_declared(n,(ROOT/n).read_text())
             for e in edits:
                 for bad in [raw.replace(e['after'],''),raw+e['after']]:
                     with self.assertRaises(AssertionError): restore_staging_i_source(n,bad)

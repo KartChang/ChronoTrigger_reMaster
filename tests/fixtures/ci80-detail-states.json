@@ -1,0 +1,301 @@
+{
+  "source": "b0f4b3f4bfbb233fcdc6cee5b06cd1fd29e0786b",
+  "run": "36117413556",
+  "scope": "Unmodified released native beforeStates for explicit offline Node geometry tests. Not browser injection.",
+  "reports": {
+    "courtroom": {
+      "path": "browser/cpu-renderer/trial/fair-trial-comfort/courtroom/report.json",
+      "reportSha256": "5ea33871c7fd290ec5c2e7c1854c4e9fb61cb8e06e6c9f5bc2f74fab22efdf39"
+    },
+    "forest-gate": {
+      "path": "browser/cpu-renderer/trial/fair-trial-comfort/forest-gate/report.json",
+      "reportSha256": "2baa8ac6117203299392a2be1a61474f7367ef12c449383f56ee0a8aa0328821"
+    }
+  },
+  "states": {
+    "courtroom": {
+      "equipment": null,
+      "trial": {
+        "hearing": null,
+        "stage": "court",
+        "history": "{\"version\":5,\"chapter\":\"fair\",\"era\":\"present\",\"joined\":true,\"flags\":{\"won\":false,\"repaired\":false,\"visitedFuture\":false},\"fair\":{\"bellHeard\":false,\"gatoWon\":true,\"luccaMet\":true,\"telepodTested\":true},\"opening\":{\"phase\":\"vista\",\"canyonWon\":true},\"kingdom\":{\"phase\":\"rescue\",\"heardYear\":true,\"forestWon\":true},\"players\":[{\"x\":0,\"z\":-7.133333333333326,\"hp\":120,\"mp\":18},{\"x\":0.03333333333333363,\"z\":-7.133333333333326,\"hp\":120,\"mp\":18}],\"rescue\":{\"stage\":\"returned\",\"organOpen\":true,\"guardsWon\":true,\"yakraWon\":true,\"chancellorFreed\":true,\"chestOpened\":true,\"tonics\":2,\"guest\":{\"x\":-0.00007731331472060439,\"z\":-5.48106319898197,\"hp\":140,\"mp\":16}}}",
+        "fade": 0,
+        "choice": "collision",
+        "question": 0,
+        "blamedMarle": null,
+        "wealthMotive": null,
+        "verdict": "pending",
+        "knocks": 0,
+        "days": 0,
+        "route": "unknown",
+        "cellOpen": false,
+        "guardsWon": false,
+        "fritzFreed": false,
+        "luccaJoined": false,
+        "marleJoined": false,
+        "manualRead": false,
+        "suppliesTaken": false,
+        "tankWon": false,
+        "encounter": "none",
+        "ethers": 0,
+        "experience": 0,
+        "headRepairs": 0
+      },
+      "prologue": {
+        "conduct": null,
+        "stage": "legacy",
+        "elapsed": 0,
+        "first": "unknown",
+        "checkedMarle": false,
+        "pendantPicked": false,
+        "pendantReturned": false,
+        "motherTalked": false,
+        "choice": null,
+        "transition": null
+      },
+      "followPlan": {
+        "chapter": "",
+        "goal": {
+          "x": 0,
+          "z": 0
+        },
+        "points": [],
+        "repathAt": 0
+      },
+      "mode": "explore",
+      "era": "present",
+      "joined": true,
+      "players": [
+        {
+          "x": 0,
+          "z": -2,
+          "hp": 120,
+          "mp": 18,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        },
+        {
+          "x": 0.8,
+          "z": -2,
+          "hp": 120,
+          "mp": 18,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        }
+      ],
+      "enemies": [],
+      "flags": {
+        "won": false,
+        "repaired": false,
+        "visitedFuture": false
+      },
+      "targets": [
+        null,
+        null
+      ],
+      "combo": [
+        false,
+        false
+      ],
+      "log": [
+        "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+      ],
+      "effects": [],
+      "ticks": 894,
+      "enemyTurn": 0,
+      "chapter": "courtroom",
+      "fair": {
+        "bellHeard": false,
+        "gatoWon": true,
+        "luccaMet": true,
+        "telepodTested": true
+      },
+      "opening": {
+        "phase": "vista",
+        "elapsed": 0,
+        "canyonWon": true
+      },
+      "kingdom": {
+        "phase": "rescue",
+        "heardYear": true,
+        "forestWon": true,
+        "elapsed": 0
+      },
+      "rescue": {
+        "stage": "returned",
+        "organOpen": true,
+        "guardsWon": true,
+        "yakraWon": true,
+        "chancellorFreed": true,
+        "chestOpened": true,
+        "tonics": 2,
+        "guest": {
+          "x": -0.8,
+          "z": -2,
+          "hp": 140,
+          "mp": 16,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        },
+        "guestPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "encounter": "none",
+        "enemyActions": 0
+      }
+    },
+    "forest-gate": {
+      "equipment": null,
+      "trial": {
+        "hearing": null,
+        "stage": "flight",
+        "history": "{\"version\":5,\"chapter\":\"fair\",\"era\":\"present\",\"joined\":true,\"flags\":{\"won\":false,\"repaired\":false,\"visitedFuture\":false},\"fair\":{\"bellHeard\":false,\"gatoWon\":true,\"luccaMet\":true,\"telepodTested\":true},\"opening\":{\"phase\":\"vista\",\"canyonWon\":true},\"kingdom\":{\"phase\":\"rescue\",\"heardYear\":true,\"forestWon\":true},\"players\":[{\"x\":0,\"z\":-7.133333333333326,\"hp\":120,\"mp\":18},{\"x\":0.03333333333333363,\"z\":-7.133333333333326,\"hp\":120,\"mp\":18}],\"rescue\":{\"stage\":\"returned\",\"organOpen\":true,\"guardsWon\":true,\"yakraWon\":true,\"chancellorFreed\":true,\"chestOpened\":true,\"tonics\":2,\"guest\":{\"x\":-0.00007731331472060439,\"z\":-5.48106319898197,\"hp\":140,\"mp\":16}}}",
+        "fade": 0.32,
+        "choice": null,
+        "question": 3,
+        "blamedMarle": false,
+        "wealthMotive": false,
+        "verdict": "not-guilty",
+        "knocks": 3,
+        "days": 0,
+        "route": "breakout",
+        "cellOpen": true,
+        "guardsWon": true,
+        "fritzFreed": true,
+        "luccaJoined": true,
+        "marleJoined": true,
+        "manualRead": true,
+        "suppliesTaken": true,
+        "tankWon": true,
+        "encounter": "none",
+        "ethers": 1,
+        "experience": 160,
+        "headRepairs": 1
+      },
+      "prologue": {
+        "conduct": null,
+        "stage": "legacy",
+        "elapsed": 0,
+        "first": "unknown",
+        "checkedMarle": false,
+        "pendantPicked": false,
+        "pendantReturned": false,
+        "motherTalked": false,
+        "choice": null,
+        "transition": null
+      },
+      "followPlan": {
+        "chapter": "",
+        "goal": {
+          "x": 0,
+          "z": 0
+        },
+        "points": [],
+        "repathAt": 0
+      },
+      "mode": "explore",
+      "era": "present",
+      "joined": true,
+      "players": [
+        {
+          "x": 0,
+          "z": 5.3,
+          "hp": 94,
+          "mp": 0,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        },
+        {
+          "x": 0.8,
+          "z": 5.3,
+          "hp": 58,
+          "mp": 18,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        }
+      ],
+      "enemies": [],
+      "flags": {
+        "won": false,
+        "repaired": false,
+        "visitedFuture": false
+      },
+      "targets": [
+        null,
+        null
+      ],
+      "combo": [
+        false,
+        false
+      ],
+      "log": [
+        "P2 \u653b\u64ca\uff1a30 \u50b7\u5bb3\u3002",
+        "P1 \u653b\u64ca\uff1a30 \u50b7\u5bb3\u3002",
+        "P2 \u653b\u64ca\uff1a30 \u50b7\u5bb3\u3002",
+        "P1 \u653b\u64ca\uff1a30 \u50b7\u5bb3\u3002",
+        "\u9f8d\u6230\u8eca\u505c\u6b62\u904b\u8f49\u3002\u540a\u6a4b\u7684\u53e6\u4e00\u5074\u91cd\u65b0\u9732\u51fa\u901a\u8def\u3002"
+      ],
+      "effects": [],
+      "ticks": 2598,
+      "enemyTurn": 4,
+      "chapter": "guardia1000",
+      "fair": {
+        "bellHeard": false,
+        "gatoWon": true,
+        "luccaMet": true,
+        "telepodTested": true
+      },
+      "opening": {
+        "phase": "vista",
+        "elapsed": 0,
+        "canyonWon": true
+      },
+      "kingdom": {
+        "phase": "rescue",
+        "heardYear": true,
+        "forestWon": true,
+        "elapsed": 0
+      },
+      "rescue": {
+        "stage": "returned",
+        "organOpen": true,
+        "guardsWon": true,
+        "yakraWon": true,
+        "chancellorFreed": true,
+        "chestOpened": true,
+        "tonics": 3,
+        "guest": {
+          "x": -0.8,
+          "z": 5.3,
+          "hp": 140,
+          "mp": 16,
+          "atb": 0,
+          "facing": 2,
+          "walking": false
+        },
+        "guestPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "encounter": "none",
+        "enemyActions": 0
+      }
+    }
+  }
+}

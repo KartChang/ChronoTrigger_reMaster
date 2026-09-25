@@ -8,7 +8,8 @@ import {Scene,Mesh,MeshBuilder,TransformNode,Color3,Vector3,Matrix,StandardMater
 import type {State} from './core';
 import {TRIAL_SOLIDS,trialMap} from './trial-data';
 import type {TrialMap} from './trial-data';
-import {drawWoodlandOak} from './woodland-art';
+import {drawTrialOak} from './trial-detail-art';
+import {courtDaisSurface,courtDaisUV} from './trial-detail';
 import {bindCourtStaging} from './court-staging';
 import {drawTrialSceneryFloor,courtFixtureDetails} from './trial-scenery-art';
 import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
@@ -40,8 +41,9 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const guard=(x:number,z:number)=>motion.add(picture('guard',x,z,1.2,1.7,ctx=>drawWitness(ctx,'guard'),48,64),'guard');
   if(map==='courtroom'){
    for(const p of courtFixtureDetails())box(p.name,p.x,p.y,p.z,p.w,p.h,p.d,p.color);
+   const daisSurface=courtDaisSurface(scene);
    for(let i=0;i<3;i++){
-    const platform=MeshBuilder.CreateCylinder('court-curved-dais',{diameter:10-i*.8,height:.24,tessellation:28},scene);platform.parent=root;platform.position.set(0,.14+i*.23,4);platform.material=mat(i%2?'#817957':'#55594e');
+    const platform=MeshBuilder.CreateCylinder('court-curved-dais',{diameter:10-i*.8,height:.24,tessellation:28,faceUV:courtDaisUV()},scene);platform.parent=root;platform.position.set(0,.14+i*.23,4);platform.material=daisSurface;
    }
    v.window=picture('royal-stained-glass',0,6.65,4,2.6,drawCourtWindow,64,80,2.8,false);
    for(const side of [-1,1])for(let i=0;i<4;i++){box('velvet-curtain',side*(4.3+i*.26),2.65,6.45,.34,4.2-i*.35,.16,i%2?'#7d393c':'#9b4b46');box('curtain-gold-edge',side*(4.3+i*.26),.42+i*.18,6.39,.35,.09,.1,'#c9ac65');}
@@ -51,8 +53,9 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    box('defendant-stand',0,.43,-1.2,1.5,.7,.7,'#a3854b');
    for(let i=0;i<7;i++){const side=i<4?-1:1,z=1+(i%4)*1.28;box('jury-tier',side*5.5,.3,z,2.3,.5,1.2,'#817c64');v.jurors.push(picture('juror-'+i,side*5.4,z,1,1.4,ctx=>drawWitness(ctx,i%2?'merchant':'defender'),48,64,1.05));}
   }else if(map==='guardia1000'){
-   for(const side of [-1,1])for(let z=-6;z<=6;z+=2){if(side===1&&z>=2)continue;picture('tree',side*(4.5+(z%3)*.2),z,3.6,4.5,drawWoodlandOak,64,80);}
-   for(const x of [-6,-3,2,7])picture('canopy',x,6.8,3.6,4.6,drawWoodlandOak,64,80);
+   let oakIndex=0;const oak=()=>{const variant=oakIndex++%4;return (c:CanvasRenderingContext2D)=>drawTrialOak(c,variant);};
+   for(const side of [-1,1])for(let z=-6;z<=6;z+=2){if(side===1&&z>=2)continue;picture('tree',side*(4.5+(z%3)*.2),z,3.6,4.5,oak(),64,80);}
+   for(const x of [-6,-3,2,7])picture('canopy',x,6.8,3.6,4.6,oak(),64,80);
    const gate=MeshBuilder.CreateTorus('forest-time-gate',{diameter:1.7,thickness:.18,tessellation:32},scene);gate.parent=root;gate.position.set(5.5,1.35,4);gate.rotation.x=Math.PI/2;const gm=mat('#739dc1');gm.emissiveColor=Color3.FromHexString('#628ed0');gate.material=gm;v.gate=gate;
    for(const x of [-1.3,0,1.3])v.guards.push(guard(x,-4.5));door(0,6.7,'castle-path');
   }else if(map==='hall1000'){

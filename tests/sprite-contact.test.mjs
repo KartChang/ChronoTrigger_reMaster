@@ -1,3 +1,4 @@
+import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NullEngine,Scene,FreeCamera,Vector3,Mesh,MeshBuilder,TransformNode} from '@babylonjs/core/index.js';
@@ -36,7 +37,7 @@ test('contact inspection excludes inactive actors and returns copies rather than
 const end=Symbol('after-production-grounding');
 function drawContact(s,lunge={time:1,dx:0,dz:0}){
  const k=setup(),idle=()=>({pose:'idle',frame:0});
- const port={scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,
+ const port={fieldEnemyMotion:new FieldEnemyMotion(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,
   prologueWorld:{draw(){}},fairWorld:{draw(){}},kingdomWorld:{draw(){}},rescueWorld:{draw(){}},trialWorld:{draw(){}},
   heroes:[{mesh:k.plane('player-0')},{mesh:k.plane('player-1')}],guest:{mesh:k.plane('guest')},actorShadows:[0,1,2].map(i=>k.shadow('shadow-'+i)),
   markers:[k.plane('marker0'),k.plane('marker1')],labels:[k.plane('label0'),k.plane('label1')],targetMarkers:[k.plane('target0'),k.plane('target1')],

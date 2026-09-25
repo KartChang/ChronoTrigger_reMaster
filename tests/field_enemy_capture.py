@@ -1,6 +1,7 @@
 """Read-only additive observation in the existing native CPU session. No input or state writes."""
 import base64
 import hashlib
+from field_enemy_motion import assert_field_enemy_motion
 
 SCRIPT = r'''() => {
  const api=window.__CHRONO_TEST__,state=api.snapshot(),view=api.view(),c=document.getElementById('world');
@@ -14,7 +15,7 @@ SCRIPT = r'''() => {
    }
   return {id:r.id,values};
  });
- return {profile:'vq03c-native-field-enemies',state,art,renderer:view.renderer,
+ return {profile:'vq03c-native-field-enemies',state,art,renderer:view.renderer,motion:view.fieldEnemyMotion,
   canvas:{width:c.width,height:c.height,source:'actual-cpu-canvas',palette:colors,counts},
   png:c.toDataURL('image/png'),physicalDevice:false,artApproved:false};
 }'''
@@ -31,3 +32,4 @@ def observe_field_enemies(page, out, chapter, target):
     record['canvasImage'] = {'path': path.name, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
     assert record['state']['chapter'] == chapter
     assert record['art']['active'] is True
+    assert_field_enemy_motion(record)

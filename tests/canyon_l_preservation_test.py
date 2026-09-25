@@ -1,3 +1,4 @@
+from imp_m_preservation import restore_imp_m_if_declared
 """Source provenance only; no browser or gameplay replay."""
 import hashlib,unittest
 from pathlib import Path
@@ -11,7 +12,7 @@ class CanyonLPreservationTests(unittest.TestCase):
             self.assertEqual(restore_canyon_l_if_declared(n,original),original)
     def test_negative_guards(self):
         for n,edits in SPEC['files'].items():
-            raw=(ROOT/n).read_text()
+            raw=restore_imp_m_if_declared(n,(ROOT/n).read_text())
             for e in edits:
                 for bad in [raw.replace(e['after'],''),raw+e['after']]:
                     with self.assertRaises(AssertionError):restore_canyon_l_source(n,bad)

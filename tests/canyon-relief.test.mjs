@@ -1,3 +1,4 @@
+import {impMIfDeclared} from './helpers/imp-m-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
@@ -69,7 +70,7 @@ test('L repeated draws, hidden scene and disposal do not grow resources or updat
  const r=rig(128,96);try{const s=structuredClone(fixture.state);r.a.draw(s,0,false);r.a.draw(createState('fair'),0,false);r.a.draw(s,0,false);const counts=[r.a.scene.meshes.length,r.a.scene.materials.length,r.a.scene.textures.length],t=r.a.scene.textures.find(t=>t.name==='canyon-tree');let uploads=0;t.update=()=>uploads++;const cliff=r.a.scene.meshes.find(m=>m.name==='terrace-cliff'),vertices=cliff.getVerticesData('position');for(let i=0;i<20;i++){r.a.draw(s,0,false);r.a.draw(createState('fair'),0,false);}assert.equal(uploads,0);assert.equal(cliff.getVerticesData('position'),vertices);assert.deepEqual([r.a.scene.meshes.length,r.a.scene.materials.length,r.a.scene.textures.length],counts);r.a.scene.dispose();assert.equal(r.a.scene.meshes.length,0);assert.equal(r.a.scene.textures.length,0);}finally{r.close();}
 });
 for(const name of Object.keys(canyonLSpec.files))test('L strict original whole-file hash and missing/duplicate/unrelated guards: '+name,()=>{
- const raw=readFileSync(name,'utf8'),prior=canyonLBaseline(name,raw);assert.equal(sha(prior),canyonLSpec.originalSha256[name]);assert.equal(canyonLIfDeclared(name,prior),prior);for(const e of canyonLSpec.files[name]){assert.throws(()=>canyonLBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonLBaseline(name,raw+e.after));}assert.notEqual(sha(canyonLBaseline(name,raw+'\n// unrelated')),canyonLSpec.originalSha256[name]);
+ const raw=impMIfDeclared(name,readFileSync(name,'utf8')),prior=canyonLBaseline(name,raw);assert.equal(sha(prior),canyonLSpec.originalSha256[name]);assert.equal(canyonLIfDeclared(name,prior),prior);for(const e of canyonLSpec.files[name]){assert.throws(()=>canyonLBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonLBaseline(name,raw+e.after));}assert.notEqual(sha(canyonLBaseline(name,raw+'\n// unrelated')),canyonLSpec.originalSha256[name]);
 });
 test('L original fixture, renderer, held home and unknown inverse are bound explicitly',()=>{
  assert.equal(sha(readFileSync('tests/baselines/ci82-canyon-render.ts')),canyonLSpec.originalSha256['src/canyon-render.ts']);assert.equal(fixture.sourceSha,'64732e5907e653f5e2fb7ed20f70856ed7f5da00');assert.equal(fixture.runId,'36157428126');const p=readFileSync('src/prologue-render.ts');assert.equal(createHash('sha1').update(Buffer.from('blob '+p.length+'\0')).update(p).digest('hex'),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');assert.throws(()=>canyonLBaseline('src/core.ts',''));

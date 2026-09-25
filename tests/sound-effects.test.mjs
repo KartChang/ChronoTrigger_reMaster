@@ -1,3 +1,4 @@
+import {impMIfDeclared} from './helpers/imp-m-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -104,7 +105,7 @@ test('diagnostic effect counters are detached, not physical listening or full au
 // music scores, authored visuals, CPU decoder, native route or frozen-state gates.
 const preserved=JSON.parse(readFileSync('tests/fixtures/audio-g-preserved.json','utf8'));
 for(const [path,sha] of Object.entries(preserved.files))test('G preserves exact source '+path,()=>{
- assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),sha);
+ assert.equal(createHash('sha256').update(impMIfDeclared(path,readFileSync(path,'utf8'))).digest('hex'),sha);
 });
 
 test('the retained no-argument effect API uses the 440 interaction motif',()=>{

@@ -5,14 +5,17 @@ import tempfile
 import unittest
 from pathlib import Path
 from field_enemy_capture import observe_field_enemies, SCRIPT
+from field_enemy_motion_test import fixture as motion_fixture
 
 class Page:
     def __init__(self, chapter='canyon', active=True):
         self.chapter, self.active, self.calls = chapter, active, []
     def evaluate(self, script):
         self.calls.append(script)
-        return {'state': {'chapter': self.chapter}, 'art': {'active': self.active},
-                'png': 'data:image/png;base64,'+base64.b64encode(b'unit-only-png-bytes').decode()}
+        result=motion_fixture(self.chapter)  # Explicit synthetic observer plumbing only.
+        result['art']['active']=self.active
+        result['png']='data:image/png;base64,'+base64.b64encode(b'unit-only-png-bytes').decode()
+        return result
 
 class CaptureTests(unittest.TestCase):
     def test_one_read_no_keys_and_bytes_persisted(self):

@@ -5,6 +5,7 @@ from native_chooser import arm_native_chooser, chooser_observation, assert_one_c
 from pathlib import Path
 import json, math, subprocess, sys, time
 from native_import import import_save, import_context
+from field_enemy_motion import observe_field_enemy_battle
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -105,6 +106,7 @@ try:
             assert snap(page)['players'][1]['atb']==0
             assert page.locator('[data-slot="0"][data-action="combo"]').is_disabled()
             page.screenshot(path=str(OUT/'05-canyon-battle.png'))
+            observe_field_enemy_battle(page, OUT)
             for _ in range(3):
                 wait_game(page,'s.players[0].atb>=1',budget=180,modes=('battle',))
                 page.click('[data-slot="0"][data-action="skill"]')

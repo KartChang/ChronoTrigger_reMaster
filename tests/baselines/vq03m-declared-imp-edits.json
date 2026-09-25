@@ -1,0 +1,189 @@
+{
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "",
+        "after": "import {FieldEnemyMotion} from './field-enemy-motion';\n"
+      },
+      {
+        "before": "",
+        "after": "  private fieldEnemyMotion=new FieldEnemyMotion();\n"
+      },
+      {
+        "before": "  inspect(){return {woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}\n",
+        "after": "  inspect(){return {fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}\n"
+      },
+      {
+        "before": "    this.scene.onDisposeObservable.add(()=>{this.fieldEnemyPalette.reset();this.heroFrames.clear();});\n",
+        "after": "    this.scene.onDisposeObservable.add(()=>{this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});\n"
+      },
+      {
+        "before": "",
+        "after": "    this.fieldEnemyMotion.receive(s,e);\n"
+      },
+      {
+        "before": "",
+        "after": "    this.fieldEnemyMotion.reset();\n"
+      },
+      {
+        "before": "      this.foes.forEach(f=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();}else this.drawEnemy(f);});\n",
+        "after": "      this.foes.forEach((f,i)=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();this.fieldEnemyMotion.seedOriginal(f,i);}else this.drawEnemy(f);});\n"
+      },
+      {
+        "before": "",
+        "after": "    this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);\n"
+      },
+      {
+        "before": "",
+        "after": "      this.fieldEnemyMotion.update(f,i);\n"
+      }
+    ],
+    "tests/field_enemy_capture.py": [
+      {
+        "before": "import hashlib",
+        "after": "import hashlib\nfrom field_enemy_motion import assert_field_enemy_motion"
+      },
+      {
+        "before": "return {profile:'vq03c-native-field-enemies',state,art,renderer:view.renderer,",
+        "after": "return {profile:'vq03c-native-field-enemies',state,art,renderer:view.renderer,motion:view.fieldEnemyMotion,"
+      },
+      {
+        "before": "    assert record['art']['active'] is True",
+        "after": "    assert record['art']['active'] is True\n    assert_field_enemy_motion(record)"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "for(const name of ['canyon-relief'",
+        "after": "for(const name of ['imp-motion','field-enemy-motion','canyon-relief'"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test',",
+        "after": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/imp-m-prior-world.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci83-field-foes',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},()=>({contents:readFileSync('tests/baselines/ci83-render.ts','utf8'),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/imp-motion.test.mjs',"
+      }
+    ],
+    "scripts/asset-export.mjs": [
+      {
+        "before": "for(const name of ['canyon-canopy-art'",
+        "after": "for(const name of ['imp-motion','canyon-canopy-art'"
+      },
+      {
+        "before": "const sources=['src/canyon-canopy-art.ts'",
+        "after": "const sources=['src/imp-motion.ts','src/canyon-canopy-art.ts'"
+      },
+      {
+        "before": "for(const [id,w,h,draw] of [['canyon-canopy-atlas'",
+        "after": "for(const [id,w,h,draw] of [...[0,1,2,3].map(f=>['imp-pose-'+f,24,32,c=>modules['imp-motion'].drawImpFrame(c,f)]),['canyon-canopy-atlas'"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.59',batch:'VQ03L'",
+        "after": "version:'0.9.60',batch:'VQ03M'"
+      }
+    ],
+    "tests/opening_browser.py": [
+      {
+        "before": "from native_import import import_save, import_context",
+        "after": "from native_import import import_save, import_context\nfrom field_enemy_motion import observe_field_enemy_battle"
+      },
+      {
+        "before": "            page.screenshot(path=str(OUT/'05-canyon-battle.png'))",
+        "after": "            page.screenshot(path=str(OUT/'05-canyon-battle.png'))\n            observe_field_enemy_battle(page, OUT)"
+      }
+    ],
+    "tests/festival-integration.test.mjs": [
+      {
+        "before": "",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\n"
+      },
+      {
+        "before": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n",
+        "after": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={fieldEnemyMotion:new FieldEnemyMotion(),floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n"
+      }
+    ],
+    "tests/presentation-pause.test.mjs": [
+      {
+        "before": "",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\n"
+      },
+      {
+        "before": " const port={chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n"
+      },
+      {
+        "before": " const port={floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n"
+      },
+      {
+        "before": " const port={presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n"
+      }
+    ],
+    "tests/sprite-contact.test.mjs": [
+      {
+        "before": "",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\n"
+      },
+      {
+        "before": " const port={scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n"
+      }
+    ],
+    "tests/sound-effects.test.mjs": [
+      {
+        "before": "",
+        "after": "import {impMIfDeclared} from './helpers/imp-m-baseline.mjs';\n"
+      },
+      {
+        "before": " assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),sha);\n",
+        "after": " assert.equal(createHash('sha256').update(impMIfDeclared(path,readFileSync(path,'utf8'))).digest('hex'),sha);\n"
+      }
+    ],
+    "tests/field_enemy_capture_test.py": [
+      {
+        "before": "",
+        "after": "from field_enemy_motion_test import fixture as motion_fixture\n"
+      },
+      {
+        "before": "        return {'state': {'chapter': self.chapter}, 'art': {'active': self.active},\n                'png': 'data:image/png;base64,'+base64.b64encode(b'unit-only-png-bytes').decode()}\n",
+        "after": "        result=motion_fixture(self.chapter)  # Explicit synthetic observer plumbing only.\n        result['art']['active']=self.active\n        result['png']='data:image/png;base64,'+base64.b64encode(b'unit-only-png-bytes').decode()\n        return result\n"
+      }
+    ],
+    "tests/canyon-relief.test.mjs": [
+      {
+        "before": "",
+        "after": "import {impMIfDeclared} from './helpers/imp-m-baseline.mjs';\n"
+      },
+      {
+        "before": " const raw=readFileSync(name,'utf8'),prior=canyonLBaseline(name,raw);assert.equal(sha(prior),canyonLSpec.originalSha256[name]);assert.equal(canyonLIfDeclared(name,prior),prior);for(const e of canyonLSpec.files[name]){assert.throws(()=>canyonLBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonLBaseline(name,raw+e.after));}assert.notEqual(sha(canyonLBaseline(name,raw+'\\n// unrelated')),canyonLSpec.originalSha256[name]);\n",
+        "after": " const raw=impMIfDeclared(name,readFileSync(name,'utf8')),prior=canyonLBaseline(name,raw);assert.equal(sha(prior),canyonLSpec.originalSha256[name]);assert.equal(canyonLIfDeclared(name,prior),prior);for(const e of canyonLSpec.files[name]){assert.throws(()=>canyonLBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonLBaseline(name,raw+e.after));}assert.notEqual(sha(canyonLBaseline(name,raw+'\\n// unrelated')),canyonLSpec.originalSha256[name]);\n"
+      }
+    ],
+    "tests/canyon_l_preservation_test.py": [
+      {
+        "before": "",
+        "after": "from imp_m_preservation import restore_imp_m_if_declared\n"
+      },
+      {
+        "before": "            raw=(ROOT/n).read_text()\n",
+        "after": "            raw=restore_imp_m_if_declared(n,(ROOT/n).read_text())\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "d76abf3d4a9df2c11fe446c02a03a2d4480941c1d49c03134d5ea2ea3ef39293",
+    "tests/field_enemy_capture.py": "d73df79103e2092c6f4e0974e9a1bdc9b4e3940f767c70d529e9ed6ad09516a4",
+    "scripts/test.mjs": "653bbbd6a07a31bde59c5c90032ace148c70a239cfb49485c7e53d9aeb90c904",
+    "scripts/asset-export.mjs": "629ad3bfff6ca7d01b6490eab2ddcf4b089b2932da374288e51c90f533fe10b8",
+    "scripts/build.mjs": "2cf932f8a991c952938a9c9b096eecde37f205b336a63eef76f0ac2fc3f95384",
+    "tests/opening_browser.py": "a346ed4de479e074a378e80efb3c580f02cee7c2aa0003ad3b6fb32c9d426edb",
+    "tests/festival-integration.test.mjs": "1841266e123cb17034d6c5d2fe8139e92104c07a60c61bc519f159db45923bf5",
+    "tests/presentation-pause.test.mjs": "c151f69abe31a9e82907b3fad0f81944fda4c7c05d61a02fc0842b4974a55505",
+    "tests/sprite-contact.test.mjs": "d98f52f84418e1a3cfa0c4f4ed4a59007a1f9da6a0127fa57468babd10220de6",
+    "tests/sound-effects.test.mjs": "4405f41e57e4c391bb6fe5632ff7f50c3092919206ad869b755ac049ff617621",
+    "tests/field_enemy_capture_test.py": "fab4dbada5893adb3486145c57eafeb897d3c7e66bd0109f5b4831fef2c7365b",
+    "tests/canyon-relief.test.mjs": "7d0f560e5061af4d030e7de03f954ae38ebe9310db72d36a5a1eaf8236ff7dc8",
+    "tests/canyon_l_preservation_test.py": "40961b1dd9990e3c2517f8906d252fbab0e1bef078c20cc1e518bce1f7a3273d"
+  }
+}

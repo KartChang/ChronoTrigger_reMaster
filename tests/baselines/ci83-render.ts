@@ -14,7 +14,6 @@ import {observeCameraSubjects,projectCameraSubjects} from './early-camera-view';
 import type {CameraSubject} from './early-camera-view';
 import {PixelPalettePass} from './pixel-presentation';
 import {FieldEnemyPalette} from './field-enemy-palette';
-import {FieldEnemyMotion} from './field-enemy-motion';
 import {WoodlandOcclusion} from './woodland-occlusion';
 import {MOTION_PROFILE} from './actor-motion';
 import {drawHDHero,HD_ART} from './hd-hero-art';
@@ -102,13 +101,12 @@ export class World {
   private drawFrames=0;
   private palettePass=new PixelPalettePass();
   private fieldEnemyPalette=new FieldEnemyPalette();
-  private fieldEnemyMotion=new FieldEnemyMotion();
   private woodlandOcclusion:WoodlandOcclusion;
   private actorShadows:Mesh[]=[];
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
@@ -119,7 +117,7 @@ export class World {
     this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
     this.scene=new Scene(this.engine);
     this.woodlandOcclusion=new WoodlandOcclusion(this.scene);
-    this.scene.onDisposeObservable.add(()=>{this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});
+    this.scene.onDisposeObservable.add(()=>{this.fieldEnemyPalette.reset();this.heroFrames.clear();});
     this.scene.clearColor=Color4.FromHexString('#15292fff');
     this.scene.fogMode=Scene.FOGMODE_EXP2;this.scene.fogDensity=0.010;this.scene.fogColor=color('#a7b2aa');
     this.scene.ambientColor=Color3.Black();
@@ -282,7 +280,6 @@ export class World {
     const mesh=MeshBuilder.CreatePlane('label',{width,height:width/4},this.scene);mesh.material=mat;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   }
   private effect(e:Effect,s:State):void {
-    this.fieldEnemyMotion.receive(s,e);
     if(e.guest)this.guestPose.trigger(e.kind==='heal'?'cast':'attack',s.ticks);
     else if(e.kind==='hit'&&guestKind(s)&&Math.hypot(s.rescue.guest.x-e.x,s.rescue.guest.z-e.z)<.2)this.guestPose.trigger('hurt',s.ticks);
     if(e.actor!==undefined)this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',s.ticks);
@@ -316,7 +313,6 @@ export class World {
       list.length=0;
     }
     this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
-    this.fieldEnemyMotion.reset();
     this.contacts=[];this.contactHistory=[];
     this.fairWorld?.resetOcclusion?.();
     this.townSignOcclusion?.reset();
@@ -334,14 +330,13 @@ export class World {
     if(this.chapter!==s.chapter){
       this.chapter=s.chapter;this.resize();this.guestPose.reset();this.posePlayers.forEach(p=>p.reset());this.labRoot.setEnabled(!adventure);this.fairWorld.root.setEnabled(fair);this.canyonWorld.root.setEnabled(canyon);
       this.scene.fogDensity=adventure?0:.01;
-      this.foes.forEach((f,i)=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();this.fieldEnemyMotion.seedOriginal(f,i);}else this.drawEnemy(f);});
+      this.foes.forEach(f=>{if(canyon||forest){drawImp(f.texture.getContext() as CanvasRenderingContext2D);f.texture.update();}else this.drawEnemy(f);});
       for(const light of this.scene.lights)if(light instanceof PointLight)light.setEnabled(!adventure);
       this.era=null;
     }
     this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':(prologueMap(s.chapter)||(trialMap(s.chapter)&&!['guardia1000','prisonbridge'].includes(s.chapter)))?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
     this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s,this.reducedMotion?.matches??false);
-    this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);
     for(const effect of frameEffects)this.effect(effect,s);
     if(s.era!==this.era||s.flags.repaired!==this.flag){
       this.era=s.era;this.flag=s.flags.repaired;const future=s.era==='future';
@@ -378,7 +373,6 @@ export class World {
       const enemy=s.enemies[i];const visible=(s.chapter==='lab'||canyon||forest)&&(s.mode==='battle'?!!enemy&&enemy.hp>0:s.mode==='explore'&&(forest?!s.kingdom.forestWon:canyon?!s.opening.canyonWon:!s.flags.won)&&i<(canyon?3:2));
       const positions=[{x:-1.8,z:2.4},{x:1.8,z:3},{x:.2,z:1.5}];const position=enemy??(forest?{x:i===0?-1.8:1.8,z:2.8}:canyon?positions[i]!:{x:i===0?-2:2,z:4.5});
       f.mesh.setEnabled(visible);f.mesh.scaling.y=canyon||forest?1.3:1;f.mesh.position.set(position.x,canyon||forest?1.0:.86+Math.sin(this.time*2+i)*.035,position.z);
-      this.fieldEnemyMotion.update(f,i);
     });
     const kind=guestKind(s),g=s.rescue.guest;this.guestVisible=!!kind;this.guest.mesh.setEnabled(!!kind);
     if(kind){

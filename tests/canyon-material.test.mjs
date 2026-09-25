@@ -1,10 +1,12 @@
+import {canyonLIfDeclared} from './helpers/canyon-l-baseline.mjs';
+// Historical K vs CI81 comparison uses explicit pre-L ports. Current L has separate tests.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {buildCanyon} from '../.test/canyon-render.mjs';
+import {buildCanyon} from '../.test/canyon-l-prior-canyon.mjs';
 import {buildCanyon as oldCanyon} from '../.test/canyon-prior.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/canyon-l-prior-world.mjs';
 import {World as OldWorld} from '../.test/canyon-prior-world.mjs';
 import {drawCanyonFloor,drawCanyonRock,drawCanyonTurf,canyonPathBounds,CANYON_ART} from '../.test/canyon-art.mjs';
 import {drawWoodlandOak} from '../.test/woodland-art.mjs';
@@ -54,7 +56,7 @@ test('K repeated draws/hidden scene never repaint textures or grow scene resourc
  const r=rig(128,96);try{const s=structuredClone(fixture.state);r.a.draw(s,0,false);const selected=r.a.scene.textures.filter(t=>['canyon-floor','stratified-rock','canyon-turf','canyon-tree'].includes(t.name));assert.equal(selected.length,4);const counts=[r.a.scene.meshes.length,r.a.scene.materials.length,r.a.scene.textures.length];let uploads=0;for(const t of selected)t.update=()=>{uploads++;};for(let i=0;i<20;i++){r.a.draw(s,0,false);r.a.draw(createState('fair'),0,false);}assert.equal(uploads,0);assert.deepEqual([r.a.scene.meshes.length,r.a.scene.materials.length,r.a.scene.textures.length],counts);assert.equal(r.a.scene.getTransformNodeByName('truce-canyon-600').isEnabled(),false);r.a.scene.dispose();assert.equal(r.a.scene.textures.length,0);assert.equal(r.a.scene.meshes.length,0);}finally{r.close();}
 });
 for(const [name,edits] of Object.entries(canyonKSpec.files))test('K strict CI81 script inverse and negative guards: '+name,()=>{
- const raw=readFileSync(name,'utf8'),prior=canyonKBaseline(name,raw);assert.equal(sha(prior),canyonKSpec.originalSha256[name]);assert.equal(canyonKIfDeclared(name,prior),prior);for(const e of edits){assert.throws(()=>canyonKBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonKBaseline(name,raw+e.after));}assert.notEqual(sha(canyonKBaseline(name,raw+'\n// unrelated')),canyonKSpec.originalSha256[name]);
+ const raw=canyonLIfDeclared(name,readFileSync(name,'utf8')),prior=canyonKBaseline(name,raw);assert.equal(sha(prior),canyonKSpec.originalSha256[name]);assert.equal(canyonKIfDeclared(name,prior),prior);for(const e of edits){assert.throws(()=>canyonKBaseline(name,raw.replace(e.after,'')));assert.throws(()=>canyonKBaseline(name,raw+e.after));}assert.notEqual(sha(canyonKBaseline(name,raw+'\n// unrelated')),canyonKSpec.originalSha256[name]);
 });
 test('K undeclared script is rejected; export registration is explicit and marks no asset approved',()=>{
  assert.throws(()=>canyonKBaseline('src/core.ts',''));const source=readFileSync('scripts/asset-export.mjs','utf8');for(const id of ['canyon-floor','canyon-rock','canyon-turf','canyon-oak'])assert(source.includes("'"+id+"'"));assert(source.includes("stage:'reference-review-not-approved'"));

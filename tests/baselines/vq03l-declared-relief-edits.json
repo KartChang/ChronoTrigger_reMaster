@@ -1,0 +1,63 @@
+{
+  "schema": "chrono-exact-canyon-l-edits-v1",
+  "files": {
+    "src/canyon-render.ts": [
+      {
+        "before": "import {drawWoodlandOak} from './woodland-art';",
+        "after": "import {canyonTerrace} from './canyon-relief';\nimport {CANYON_CANOPY,drawCanyonCanopyAtlas,canyonCanopyUV} from './canyon-canopy-art';"
+      },
+      {
+        "before": "for(const rock of CANYON_ROCKS){box('terrace-cliff',rock.x,rock.h/2,rock.z,rock.w,rock.h,rock.d,rm);box('terrace-turf',rock.x,rock.h+.04,rock.z,rock.w+.1,.12,rock.d+.1,turf);}",
+        "after": "for(const [i,rock] of CANYON_ROCKS.entries()){\n    const cliff=canyonTerrace(scene,'terrace-cliff',rock.w,rock.h,rock.d,i),cap=canyonTerrace(scene,'terrace-turf',rock.w+.1,.12,rock.d+.1,i,true);\n    for(const m of [cliff,cap]){m.parent=root;m.receiveShadows=true;}\n    cliff.position.set(rock.x,rock.h/2,rock.z);cliff.material=rm;shadow.addShadowCaster(cliff);\n    cap.position.set(rock.x,rock.h+.04,rock.z);cap.material=turf;\n  }"
+      },
+      {
+        "before": "new DynamicTexture('canyon-tree',{width:64,height:80},scene,false,Texture.NEAREST_SAMPLINGMODE);treeTex.hasAlpha=true;drawWoodlandOak(treeTex.getContext() as CanvasRenderingContext2D);treeTex.update();",
+        "after": "new DynamicTexture('canyon-tree',CANYON_CANOPY,scene,false,Texture.NEAREST_SAMPLINGMODE);treeTex.hasAlpha=true;treeTex.wrapU=treeTex.wrapV=Texture.CLAMP_ADDRESSMODE;drawCanyonCanopyAtlas(treeTex.getContext() as CanvasRenderingContext2D);treeTex.update();"
+      },
+      {
+        "before": "for(const [x,z] of [[-9,9],[9,9],[-10,-6],[9,-7],[-9,-4],[9,2],[-7,10],[6,10]]){",
+        "after": "for(const [i,[x,z]] of [[-9,9],[9,9],[-10,-6],[9,-7],[-9,-4],[9,2],[-7,10],[6,10]].entries()){"
+      },
+      {
+        "before": "m.position.set(x!,2.6,z!);}",
+        "after": "m.position.set(x!,2.6,z!);m.setVerticesData('uv',canyonCanopyUV(m.getVerticesData('uv')!,[0,2,1,3,2,0,3,1][i]!),false);}"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.58',batch:'VQ03K'",
+        "after": "version:'0.9.59',batch:'VQ03L'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "['canyon-art','canyon-render'",
+        "after": "['canyon-relief','canyon-canopy-art','canyon-art','canyon-render'"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test','tests/canyon-material.test.mjs'",
+        "after": "const canyonLPrior={name:'exact-ci82-canyon',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]canyon-render\\.ts$/},()=>({contents:readFileSync('tests/baselines/ci82-canyon-render.ts','utf8'),loader:'ts'}));}};\nfor(const [entry,name] of [['tests/cpu-entry.ts','world'],['src/canyon-render.ts','canyon']])await esbuild({entryPoints:[entry],bundle:true,outfile:`.test/canyon-l-prior-${name}.mjs`,format:'esm',platform:'node',packages:'external',plugins:[canyonLPrior]});\nconst r=spawnSync(process.execPath,['--test','tests/canyon-relief.test.mjs','tests/canyon-material.test.mjs'"
+      }
+    ],
+    "scripts/asset-export.mjs": [
+      {
+        "before": "['canyon-art','woodland-art'",
+        "after": "['canyon-canopy-art','canyon-art','woodland-art'"
+      },
+      {
+        "before": "['src/canyon-art.ts'",
+        "after": "['src/canyon-canopy-art.ts','src/trial-detail-art.ts','src/canyon-relief.ts','src/canyon-art.ts'"
+      },
+      {
+        "before": "[['canyon-oak',64,80,modules['woodland-art'].drawWoodlandOak]",
+        "after": "[['canyon-canopy-atlas',272,80,modules['canyon-canopy-art'].drawCanyonCanopyAtlas],['canyon-oak',64,80,modules['woodland-art'].drawWoodlandOak]"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/canyon-render.ts": "cf633574510c4608091a0bdf51620e24406d855355f51afdae0e8047d79fa1c1",
+    "scripts/build.mjs": "8fd0be0a2663528d2f54957ca5505713020d5abe413c60f1a94c4267c7d52edc",
+    "scripts/test.mjs": "13a6d6bf59110e37bfc8781ee42c65d509ddb5fc5ee0c33431d5546ac14bf457",
+    "scripts/asset-export.mjs": "27c693bd7613d5b150f3dc8c747425375100d0a2d6ce409e3b0adefa3184f742"
+  }
+}

@@ -1,6 +1,7 @@
 """Source provenance checks only; not browser gameplay."""
 import unittest,hashlib
 from pathlib import Path
+from canyon_l_preservation import restore_canyon_l_if_declared
 from canyon_k_preservation import SPEC,restore_canyon_k_source,restore_canyon_k_if_declared
 ROOT=Path(__file__).resolve().parents[1]
 class CanyonKPreservationTests(unittest.TestCase):
@@ -11,7 +12,7 @@ class CanyonKPreservationTests(unittest.TestCase):
             self.assertEqual(restore_canyon_k_if_declared(n,original),original)
     def test_missing_duplicate_and_unrelated(self):
         for n,edits in SPEC['files'].items():
-            raw=(ROOT/n).read_text()
+            raw=restore_canyon_l_if_declared(n,(ROOT/n).read_text())
             for e in edits:
                 for bad in [raw.replace(e['after'],''),raw+e['after']]:
                     with self.assertRaises(AssertionError):restore_canyon_k_source(n,bad)

@@ -1,0 +1,65 @@
+{
+  "schema": "chrono-vq03i-declared-staging-edits-v1",
+  "source": "1dd4686f30c2fb7b6e67524131468dca90e6730a",
+  "files": {
+    "src/trial-render.ts": [
+      {
+        "before": "import {drawTree} from './pixel-art';",
+        "after": "import {drawWoodlandOak} from './woodland-art';\nimport {bindCourtStaging} from './court-staging';"
+      },
+      {
+        "before": "window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};",
+        "after": "window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh;staging?:ReturnType<typeof bindCourtStaging>};"
+      },
+      {
+        "before": "z,3.6,4.5,drawTree,64,80);",
+        "after": "z,3.6,4.5,drawWoodlandOak,64,80);"
+      },
+      {
+        "before": "x,6.8,3.6,4.6,drawTree,64,80);",
+        "after": "x,6.8,3.6,4.6,drawWoodlandOak,64,80);"
+      },
+      {
+        "before": "  root.setEnabled(false);return v;",
+        "after": "  if(map==='courtroom')v.staging=bindCourtStaging(root);\n  root.setEnabled(false);return v;"
+      },
+      {
+        "before": "return {inspect:()=>({motion:motion.inspect(),forestGate:",
+        "after": "return {inspect:()=>({motion:motion.inspect(),courtStaging:views.get('courtroom')?.staging?.inspect()??null,forestGate:"
+      },
+      {
+        "before": "  motion.draw(s.ticks,reducedMotion);",
+        "after": "  motion.draw(s.ticks,reducedMotion);\n  views.get('courtroom')?.staging?.draw();"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.55',batch:'VQ03H'",
+        "after": "version:'0.9.56',batch:'VQ03I'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {sceneryHIfDeclared} from '../tests/helpers/scenery-h-baseline.mjs';",
+        "after": "import {stagingIIfDeclared} from '../tests/helpers/staging-i-baseline.mjs';\nimport {sceneryHIfDeclared} from '../tests/helpers/scenery-h-baseline.mjs';"
+      },
+      {
+        "before": "['trial-scenery-art','npc-motion'",
+        "after": "['court-staging','trial-scenery-art','npc-motion'"
+      },
+      {
+        "before": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/scenery-h-prior.mjs'",
+        "after": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/staging-i-prior.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci79-staging',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]trial-render\\.ts$/},args=>({contents:stagingIIfDeclared('src/trial-render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nawait esbuild({entryPoints:['src/trial-render.ts'],bundle:true,outfile:'.test/staging-i-prior-trial.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci79-trial',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]trial-render\\.ts$/},args=>({contents:stagingIIfDeclared('src/trial-render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/scenery-h-prior.mjs'"
+      },
+      {
+        "before": "['--test','tests/trial-scenery.test.mjs'",
+        "after": "['--test','tests/court-staging.test.mjs','tests/trial-scenery.test.mjs'"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/trial-render.ts": "7499fd586d8de2bbe5369cb8214b1acb4eb26c7781f9ce8aa3fb21435e93b6fb",
+    "scripts/build.mjs": "e06b37b47a78ddcb7c875030d2c94a26b1b5c398e58ed5e636683ef4f77c3a8c",
+    "scripts/test.mjs": "006e661bf39378b46c00539d83c08c64fe95398156a49b8d8ba08b83ca11ddc1"
+  }
+}

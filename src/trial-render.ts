@@ -8,12 +8,13 @@ import {Scene,Mesh,MeshBuilder,TransformNode,Color3,Vector3,Matrix,StandardMater
 import type {State} from './core';
 import {TRIAL_SOLIDS,trialMap} from './trial-data';
 import type {TrialMap} from './trial-data';
-import {drawTree} from './pixel-art';
+import {drawWoodlandOak} from './woodland-art';
+import {bindCourtStaging} from './court-staging';
 import {drawTrialSceneryFloor,courtFixtureDetails} from './trial-scenery-art';
 import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
 /** Cached, distinct interior/field sets; camera and game rules stay outside this renderer. */
 export function buildTrial(scene:Scene,shadow:ShadowGenerator){
- type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh};
+ type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh;staging?:ReturnType<typeof bindCourtStaging>};
  const views=new Map<TrialMap,View>();const motion=new NpcMotion(scene);
  function build(map:TrialMap):View{
   const root=new TransformNode('trial-'+map,scene),mats=new Map<string,StandardMaterial>(),surface=materialSet(scene,map);
@@ -50,8 +51,8 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    box('defendant-stand',0,.43,-1.2,1.5,.7,.7,'#a3854b');
    for(let i=0;i<7;i++){const side=i<4?-1:1,z=1+(i%4)*1.28;box('jury-tier',side*5.5,.3,z,2.3,.5,1.2,'#817c64');v.jurors.push(picture('juror-'+i,side*5.4,z,1,1.4,ctx=>drawWitness(ctx,i%2?'merchant':'defender'),48,64,1.05));}
   }else if(map==='guardia1000'){
-   for(const side of [-1,1])for(let z=-6;z<=6;z+=2){if(side===1&&z>=2)continue;picture('tree',side*(4.5+(z%3)*.2),z,3.6,4.5,drawTree,64,80);}
-   for(const x of [-6,-3,2,7])picture('canopy',x,6.8,3.6,4.6,drawTree,64,80);
+   for(const side of [-1,1])for(let z=-6;z<=6;z+=2){if(side===1&&z>=2)continue;picture('tree',side*(4.5+(z%3)*.2),z,3.6,4.5,drawWoodlandOak,64,80);}
+   for(const x of [-6,-3,2,7])picture('canopy',x,6.8,3.6,4.6,drawWoodlandOak,64,80);
    const gate=MeshBuilder.CreateTorus('forest-time-gate',{diameter:1.7,thickness:.18,tessellation:32},scene);gate.parent=root;gate.position.set(5.5,1.35,4);gate.rotation.x=Math.PI/2;const gm=mat('#739dc1');gm.emissiveColor=Color3.FromHexString('#628ed0');gate.material=gm;v.gate=gate;
    for(const x of [-1.3,0,1.3])v.guards.push(guard(x,-4.5));door(0,6.7,'castle-path');
   }else if(map==='hall1000'){
@@ -83,6 +84,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    for(const x of [-5.5,5.5])box('broken-rib',x,2.5,5.5,.35,5,.4,'#8b9286');box('sealed-door',0,1.4,6.7,3,2.8,.25,'#63747a');box('red-indicator',1.3,1.7,6.5,.14,.2,.05,'#b06957');
   }
   if(map==='cellblock'||map==='prisonstairs'){for(let i=0;i<2;i++)v.enemies.push(guard(i?1.4:-1.4,map==='cellblock'?-1.6:1.5));}
+  if(map==='courtroom')v.staging=bindCourtStaging(root);
   root.setEnabled(false);return v;
  }
  function windowBounds(){
@@ -91,7 +93,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const points=windowMesh.getBoundingInfo().boundingBox.vectorsWorld.map(v=>Vector3.Project(v,Matrix.Identity(),scene.getTransformMatrix(),viewport));
   return {left:Math.min(...points.map(v=>v.x))/e.getRenderWidth(),right:Math.max(...points.map(v=>v.x))/e.getRenderWidth(),top:Math.min(...points.map(v=>v.y))/e.getRenderHeight(),bottom:Math.max(...points.map(v=>v.y))/e.getRenderHeight()};
  }
- return {inspect:()=>({motion:motion.inspect(),forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false){
+ return {inspect:()=>({motion:motion.inspect(),courtStaging:views.get('courtroom')?.staging?.inspect()??null,forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false){
   if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));
   for(const [map,v] of views){const on=map===s.chapter;v.root.setEnabled(on);if(!on)continue;
    v.enemies.forEach((m,i)=>{const e=s.enemies[i];m.setEnabled(s.mode==='battle'&&!!e&&e.hp>0);if(e)m.position.set(e.x,.95,e.z);});
@@ -107,5 +109,6 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    if(v.lid)v.lid.rotation.z=s.trial.suppliesTaken?-.6:0;
   }
   motion.draw(s.ticks,reducedMotion);
+  views.get('courtroom')?.staging?.draw();
  }};
 }

@@ -1,11 +1,13 @@
+import {stagingIIfDeclared} from './helpers/staging-i-baseline.mjs';
+// Historical H vs CI78 port; current I is covered in court-staging.test.mjs.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {drawTrialSceneryFloor,trialSceneryPixel,courtFixtureDetails,TRIAL_SCENERY} from '../.test/trial-scenery-art.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {World,createState} from '../.test/staging-i-prior.mjs';
 import {World as PriorWorld} from '../.test/scenery-h-prior.mjs';
-import {buildTrial} from '../.test/trial-render.mjs';
+import {buildTrial} from '../.test/staging-i-prior-trial.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';
 import {festivalTestScene} from './festival-test-scene.mjs';
 import {surface} from '../scripts/asset-export.mjs';
@@ -85,7 +87,7 @@ test('all eight other fair/trial maps retain exact CI78 offline pixels and origi
 });
 const spec=JSON.parse(readFileSync('tests/baselines/vq03h-declared-scenery-edits.json'));
 for(const [name,edits] of Object.entries(spec.files))test('H strict inverse preserves exact CI78 and rejects missing/duplicate hunks and retains unrelated bytes: '+name,()=>{
- const raw=readFileSync(name,'utf8'),original=sceneryHBaseline(name,raw);assert.equal(sha(original),spec.originalSha256[name]);assert.equal(sceneryHIfDeclared(name,original),original);
+ const raw=stagingIIfDeclared(name,readFileSync(name,'utf8')),original=sceneryHBaseline(name,raw);assert.equal(sha(original),spec.originalSha256[name]);assert.equal(sceneryHIfDeclared(name,original),original);
  for(const e of edits){assert.throws(()=>sceneryHBaseline(name,raw.replace(e.after,'')));assert.throws(()=>sceneryHBaseline(name,raw+e.after));}
  assert.notEqual(sha(sceneryHBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);
  assert(sceneryHBaseline(name,raw+'\n// unrelated').endsWith('\n// unrelated'));

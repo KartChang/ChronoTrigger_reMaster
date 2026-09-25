@@ -1,4 +1,5 @@
 """Offline text regressions only; no browser/state/report alteration."""
+from staging_i_preservation import restore_staging_i_if_declared
 import unittest,hashlib
 from pathlib import Path
 from scenery_h_preservation import SPEC,restore_scenery_h_source,restore_scenery_h_if_declared
@@ -11,7 +12,7 @@ class SceneryHPreservationTests(unittest.TestCase):
                 self.assertEqual(restore_scenery_h_if_declared(n,base),base)
     def test_missing_duplicate_and_unrelated_rejected(self):
         for n,edits in SPEC['files'].items():
-            raw=(ROOT/n).read_text()
+            raw=restore_staging_i_if_declared(n,(ROOT/n).read_text())  # Test the original H hunks after the declared I inverse.
             for e in edits:
                 for bad in [raw.replace(e['after'],''),raw+e['after']]:
                     with self.subTest(path=n),self.assertRaises(AssertionError):restore_scenery_h_source(n,bad)

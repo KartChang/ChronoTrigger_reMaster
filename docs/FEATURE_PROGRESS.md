@@ -1,31 +1,29 @@
-# 功能進度 — VQ03H 場景製作已發布，CI79待驗收
+# 功能進度 — VQ03I 已發布，CI80待驗收
 
-動態authority為STATUS／TODO／IMMEDIATE_CONTINUATION／CI79_CHECKPOINT。Root **T05-early-visual-cohesion**；terminal **CI79-trial-scenery-evidence**。VQ03H／0.9.55 source **1dd4686f30c2fb7b6e67524131468dca90e6730a**，tree **59f9f7474dab2850dd80aac330efafeb7b21e9ae**。Matching **CI79／36109184360**，push/attempt1，最後in_progress/null（provider updated2026-09-25T07:44:28Z），尚未accepted，不重送。
+Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI80_CHECKPOINT。Root **T05-early-visual-cohesion**；terminal **CI80-court-canopy-evidence**。VQ03I／0.9.56 source **b0f4b3f4bfbb233fcdc6cee5b06cd1fd29e0786b**，tree **6479f59e11849e807664ee8e2d1099bddfe7b7cc**。Matching **CI80／36117413556**，push/attempt1，發布後一次觀察queued/null（provider updated2026-09-25T09:15:24Z）。I尚未原生accepted，不重送。
 
-## 本轮實作完成
+## 本輪實作
 
-森林時門沿用原16×14地面與384×352 nearest texture；以大塊苔地、低對比中央土徑與通往原gate的分支替換地面密集亮點。葉片採稀疏成對筆畫，避開視覺步行區。樹木、gate、玩家／NPC、攝影機、碰撞與故事不變；不把這項改動當整個森林構圖已完成。
+法庭14張既有角色卡片以原witness pivot62/64、actual camera up和現有支撐面對齊腳底；法官與兩位訴訟人物用.72、證人.49、陪審員.55，另加.04腳底間隙。原x/z變成腳底錨點，渲染卡中心隨相機補償，不改劇情／遊戲位置或碰撞。七陪審員顯示高度1.7／寬1.2，原姿態／cell／NPC current-tick減少動態還原政策保留。隱藏不寫入，dispose清除引用，新增courtStaging唯讀實際腳底及誤差觀察；沒有新增mesh/texture。
 
-法庭地面改低對比石板／地毯，在原七陪審台、法官講台與被告席加31薄飾面。原平台、彩窗、窗簾、角色座標／動作／比例保持，不增加碰撞家具。既有root快取、隱藏場景停用、資源釋放行為有針對測試。不是重造法庭、新增章節或完整美術通過。
+1000AD逃亡森林原15張樹木卡改用已存在、未修改的drawWoodlandOak，減少舊亮點型葉片。64×80 nearest-alpha、原樹木位置／幾何／尺度／數量不變；不改全域woodland-art或其他森林。H地面384×352／16×14／y=.02與31家具薄飾面、時門、玩家、鏡頭、故事、G音訊、native captures/routes/assertions/workflow保留。Runtime只改trial-render.ts並新增court-staging.ts，整批14程式／測試檔一次發布。
 
-新增兩張review PNG以同一runtime painter匯出，畫素相同；非ROM抽取、外部素材或新runtime網路請求。Runtime只修改trial-render.ts與新增trial-scenery-art.ts；G音訊、camera修復、core、native routes/captures/assertions/workflow均保留。H source共16個程式／測試檔，一次non-force發布。
+## 回歸與界線
 
-## 測試與界線
+最終 **2245Node／407Python通過，Node零fail／零skip**；新增16Node＋3Python，16targeted通過，pre-I兩針對斷言失敗。完整assets/typecheck/build/check/diff及465程式輸入前後／發布前指紋一致；469快照另含四root文件。三種viewport、三組相機角度、全部支撐bindings、隱藏／dispose、精確偏好還原、Hground與其他八地圖原pixels均已測。原生CI79的beforeState只作明示Nodeofflinefixture，不注入瀏覽器。
 
-最終2229Node／404Python通過，Node零fail／零skip，新增24Node＋3Python。完整assets/typecheck/build/check/diff與458程式輸入前後／發布前指紋一致；462快照另含四root文件。三種viewport驗證新H地面、原geometry/state、同tick偏好精確還原；其他八張fair/trial地圖保持原offlinepixels。未修改CI78 released fullstate僅作Node離線fixture；沒有本機瀏覽器或新原生接受。
+12精確片段／三原檔fullhash及missing/duplicate/unrelated負測試於Node/Python鏡像。歷史H對CI78只在pre-I port測，當前I独立測試；不把I像素冒充舊版、不改native evidence。第一輪timeout／兩個unit缺陷、PythonH負測試輸入修正前logs保留，最後全套重新跑過，詳VQ03I_TESTED_BATCH。
 
-H五檔十三精確片段inverse保留原完整雜湊和負向測試，Node／Python鏡像。歷史F/E比較標明pre-H port，currentH另外測；不是忽略整檔、修改原生報告或拿新美術冒充原pixels。最初typecheck/inverse失敗與過大Buffer diff終止log留存，終止run不當證明；最終pre-H四targetedassertions真實失敗，currentH24targeted通過。完整收據VQ03H_TESTED_BATCH。
+離線全尺寸看courtroom-before／courtroom-after／forest-gate-after，實際buffer542×361；不是CI80原生截图。Node畫布不含文字／曲線；樹冠重複／重疊和法庭平台／空間壓縮仍開放，無新美術分數。這輪没有完成全角色動畫、原速舒適性或實際聆聽。
 
-## 已接受的技術基準
+## CI79／Pages73已有界接受
 
-CI78／Pages72現在是最新有界接受：三job、CPU600救援審判、十ledger173列、原fair-vendors逐byte還原與source-bound部署通過；555原檔未改。102原圖皆contact，只有2張全尺寸；175.88秒原片352連續2fps樣本／六表，沒有原速播放／音軌／聆聽或真機認證。完整收據CI78_ACCEPTANCE；不重驗CI76與更早接受工作。CI77／CI75仍failure，CI71historicalaccepted=false。
+CI79三job與原chooser、完整CPU600／救援／審判、十ledger173列核對完成，570原檔未改；fair-vendors前後PNG byte相同。Pages73 selectedCI79/sourceH/artifact10853380936、playable/staged/deployed HTML5737166bytes／SHA256 ef74cac63d775c11f7bd7008363c2c8010c864d5efb8f36ce984e5ce47a45a05一致，public exactHTTP step成功。收據CI79_ACCEPTANCE於876cea59提交並回讀，不能用它代替CI80。
 
-G自製七組音型／最多3聲部每型／總level<=.04／尾音<=.5s／16voice／master.55，節點失敗清理、hold/mute/reset/dispose与實際analyser讀取保持。這不是完整原作OST、實際聽感或音量安全認證。Camera同tick偏好精確還原和失效邊界已由CI78技術驗證，不在H重做。
+CI79視覺只102contact／2fullsize原圖、168.4秒原片337個2fps樣本／6表；沒有fullsize影片樣本、原速播放、音軌聆聽、真機或長時間認證。CI79取代CI78作有界基準；CI77／CI75failure及CI71歷史accepted=false保留。
 
-## 雲端與接續
+## 持久交付與剩餘範圍
 
-H包 **1HHFaTQ0bkUEk3qvd7WaMpTzKJjPTlaUL**（Chrono-VQ03H-trial-scenery-tested.zip），1116344bytes／SHA256 **0a8110419032cbea0fa1871404e0e85c647b3ced6236c88bd27562fabc77c209**；50manifest／16files／462快照／logs已下載parent/hash/CRC回验。CI78包 **1c7wxq1v7elzKMrRfWKpgUkwEc2rdph_M**，91355191bytes／SHA256 **b8d989542822d3f54cfe931b1022217555103a5ab689b68e8ce99f63089c20cc**，七原ZIP／28manifest已回驗。均在指定folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。最新進度只讀GitHubmain，封裝前false不觸發重送。
+I包 **Chrono-VQ03I-court-canopy-tested.zip／1MVnJyLotTvO3P7Y0HAwkshn49i0L_S0F**，1161444bytes，SHA256 **9be8f6bf7e52ded25ce22da2b4a3198c2dacc1dd7dc742ea00e0dc91f23deda4**，51manifest／469快照／14檔／logs已下載核parent/size/hash/CRC。CI79原生包 **Chrono-CI79-reviewed-evidence.zip／1QmVKR7e8YXm3sH-GFtI7H2lVOPV0MpN8**，90393537bytes，SHA256 **59b68dabf639ea9cdad8e86e0ec8fe1b16e6617851f07225bfa68ea7485144e7**，七未改ZIP／32manifest已回驗。皆在指定folder，非僅臨時容器。前者是assembled測試快照，不是新CI或當前docs；發布前false不得重送。
 
-CI79原生完整journeys／十ledger／H場景與既有音訊回歸／matchingPages／Drive原檔保存仍待完成。之後繼續T05人物植物道具尺度輪廓／構圖、樹冠雜訊、法庭平台與角色尺度、完整動畫、合法完整音訊與聆聽、原速移動淡化viewport舒適性。不能因unit全綠把這些標為完成。
-
-完整T03規則版本拓樸數值、T04成長報酬掉落經濟道具飾品學習換人雙三人技、T05全部美術建模動畫音訊、T06所有時代主支線結局、T07整體>=90／各面向>=80%与requiredassets/fivegates/zerocritical/真機測量、T08每批完整CI及原始產物回讀均保留。2300抵達不是完整未來；舊30/100屬舊runtime，releaseBLOCKED，無新score或全遊戲認證。STATUS全部main-only/heldprologue/no-local-browser/native state与時間CPU品質記憶體限制不變。
+先完成CI80原圖／原片／原三job完整旅程與matchingPages、Drive保存下載回驗，再續更廣人物植物道具尺度輪廓／構圖、法庭平台／空間與樹冠重複、完整動畫／合法完整音訊與聆聽、原速走位淡化viewport舒適性。T03全規則版本拓樸數值、T04完整成長經濟掉落學習雙三人技、T05全美術建模動畫音訊、T06全時代支線結局、T07整體>=90／各面向>=80%與requiredassets/fivegates/zerocritical和真機測量、T08每批完整CI／原始產物回讀皆保留；2300抵達不是完整未來。沿用STATUS所有heldprologue/no-local-browser及state時間CPU限制，release仍BLOCKED，無全遊戲認證。

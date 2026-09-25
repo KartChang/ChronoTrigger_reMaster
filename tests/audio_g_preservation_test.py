@@ -1,3 +1,4 @@
+from scenery_h_preservation import restore_scenery_h_if_declared
 """Source-only inverse regression; synthetic text mutations, no native evidence."""
 import hashlib,unittest
 from pathlib import Path
@@ -9,13 +10,13 @@ class AudioGPreservationTests(unittest.TestCase):
     def test_exact_ci76_and_legacy_f_pins(self):
         for name in SPEC['files']:
             with self.subTest(name=name):
-                raw=(ROOT/name).read_text();base=restore_audio_g_source(name,raw)
+                raw=restore_scenery_h_if_declared(name,(ROOT/name).read_text());base=restore_audio_g_source(name,raw)
                 self.assertEqual(sha(base),SPEC['originalSha256'][name])
                 self.assertEqual(restore_audio_g_if_declared(name,base),base)
                 self.assertEqual(sha(restore_fair_trial_source(name,raw)),FAIR['originalSha256'][name])
     def test_every_missing_duplicate_or_altered_fragment_is_rejected(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text()
+            raw=restore_scenery_h_if_declared(name,(ROOT/name).read_text())
             for e in edits:
                 with self.subTest(name=name):
                     self.assertEqual(raw.count(e['after']),1)
@@ -23,7 +24,7 @@ class AudioGPreservationTests(unittest.TestCase):
                         with self.assertRaises(AssertionError):restore_audio_g_source(name,modified)
     def test_unrelated_text_is_never_erased(self):
         for name in SPEC['files']:
-            raw=(ROOT/name).read_text()+'\n# unrelated'
+            raw=restore_scenery_h_if_declared(name,(ROOT/name).read_text())+'\n# unrelated'
             value=restore_audio_g_source(name,raw)
             self.assertTrue(value.endswith('\n# unrelated'))
             self.assertNotEqual(sha(value),SPEC['originalSha256'][name])

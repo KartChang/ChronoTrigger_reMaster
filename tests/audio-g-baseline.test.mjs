@@ -1,3 +1,4 @@
+import {sceneryHIfDeclared} from './helpers/scenery-h-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -9,13 +10,13 @@ const fair=JSON.parse(readFileSync('tests/baselines/vq03f-declared-fair-trial-ed
 const sha=s=>createHash('sha256').update(s).digest('hex');
 for(const [name,edits] of Object.entries(spec.files)){
  test('G inverse preserves the exact CI76 and F-to-E build/test pins: '+name,()=>{
-  const raw=readFileSync(name,'utf8'),base=audioGBaseline(name,raw);
+  const raw=sceneryHIfDeclared(name,readFileSync(name,'utf8')),base=audioGBaseline(name,raw);
   assert.equal(sha(base),spec.originalSha256[name]);assert.equal(audioGIfDeclared(name,base),base);
   assert.equal(sha(fairTrialBaseline(name,raw)),fair.originalSha256[name]);
   assert.notEqual(sha(audioGBaseline(name,raw+'\n// unrelated')),spec.originalSha256[name]);
  });
  edits.forEach((e,i)=>test(`G inverse rejects missing/duplicate/altered hunk ${name}/${i}`,()=>{
-  const raw=readFileSync(name,'utf8');assert.equal(raw.split(e.after).length,2);
+  const raw=sceneryHIfDeclared(name,readFileSync(name,'utf8'));assert.equal(raw.split(e.after).length,2);
   assert.throws(()=>audioGBaseline(name,raw.replace(e.after,'')));
   assert.throws(()=>audioGBaseline(name,raw+e.after));
   assert.throws(()=>audioGBaseline(name,raw.replace(e.after,e.after.slice(0,-1)+'?')));

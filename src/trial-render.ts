@@ -9,7 +9,7 @@ import type {State} from './core';
 import {TRIAL_SOLIDS,trialMap} from './trial-data';
 import type {TrialMap} from './trial-data';
 import {drawTree} from './pixel-art';
-import {drawSurface} from './world-art';
+import {drawTrialSceneryFloor,courtFixtureDetails} from './trial-scenery-art';
 import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
 /** Cached, distinct interior/field sets; camera and game rules stay outside this renderer. */
 export function buildTrial(scene:Scene,shadow:ShadowGenerator){
@@ -26,7 +26,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const v:View={root,guards:[],enemies:[],tank:[],jurors:[],witnesses:[],npcs:[],tankFrame:-1};
   const floorTexture=new DynamicTexture(map+'-floor',{width:384,height:352},scene,false,Texture.NEAREST_SAMPLINGMODE);
   const c=floorTexture.getContext() as CanvasRenderingContext2D;
-  if(map==='guardia1000')drawSurface(c,384,352,'forest');else drawTrialFloor(c,384,352,map==='courtroom'?'court':map==='prisonbridge'?'bridge':map==='futuregate'?'future':'prison');floorTexture.update();
+  if(map==='guardia1000'||map==='courtroom')drawTrialSceneryFloor(c,384,352,map);else drawTrialFloor(c,384,352,map==='prisonbridge'?'bridge':map==='futuregate'?'future':'prison');floorTexture.update();
   const fm=new StandardMaterial(map+'-ground-material',scene);fm.diffuseTexture=floorTexture;fm.specularColor=Color3.Black();
   const f=MeshBuilder.CreateGround(map+'-ground',{width:ART_PROFILE.bridge.width,height:ART_PROFILE.bridge.depth},scene);f.parent=root;f.position.y=.02;f.material=fm;f.receiveShadows=true;
   if(map!=='prisonbridge'&&map!=='guardia1000'){
@@ -38,6 +38,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const door=(x:number,z:number,n='door')=>{box(n+'-left',x-1,1,z,.28,2,.45,'#a29d83');box(n+'-right',x+1,1,z,.28,2,.45,'#a29d83');box(n+'-arch',x,2.08,z,2.4,.22,.48,'#b9b197');};
   const guard=(x:number,z:number)=>motion.add(picture('guard',x,z,1.2,1.7,ctx=>drawWitness(ctx,'guard'),48,64),'guard');
   if(map==='courtroom'){
+   for(const p of courtFixtureDetails())box(p.name,p.x,p.y,p.z,p.w,p.h,p.d,p.color);
    for(let i=0;i<3;i++){
     const platform=MeshBuilder.CreateCylinder('court-curved-dais',{diameter:10-i*.8,height:.24,tessellation:28},scene);platform.parent=root;platform.position.set(0,.14+i*.23,4);platform.material=mat(i%2?'#817957':'#55594e');
    }

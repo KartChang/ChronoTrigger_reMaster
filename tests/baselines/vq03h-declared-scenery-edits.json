@@ -1,0 +1,75 @@
+{
+  "schema": "chrono-strict-scenery-h-inverse-v1",
+  "source": "c65fa91afd407d69976a4ca8e58855d3fff9cc34",
+  "files": {
+    "src/trial-render.ts": [
+      {
+        "before": "import {drawSurface} from './world-art';",
+        "after": "import {drawTrialSceneryFloor,courtFixtureDetails} from './trial-scenery-art';"
+      },
+      {
+        "before": "if(map==='guardia1000')drawSurface(c,384,352,'forest');else drawTrialFloor(c,384,352,map==='courtroom'?'court':map==='prisonbridge'?'bridge':map==='futuregate'?'future':'prison');",
+        "after": "if(map==='guardia1000'||map==='courtroom')drawTrialSceneryFloor(c,384,352,map);else drawTrialFloor(c,384,352,map==='prisonbridge'?'bridge':map==='futuregate'?'future':'prison');"
+      },
+      {
+        "before": "  if(map==='courtroom'){\n   for(let i=0;i<3;i++){",
+        "after": "  if(map==='courtroom'){\n   for(const p of courtFixtureDetails())box(p.name,p.x,p.y,p.z,p.w,p.h,p.d,p.color);\n   for(let i=0;i<3;i++){"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.54',batch:'VQ03G'",
+        "after": "version:'0.9.55',batch:'VQ03H'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {fairTrialIfDeclared}",
+        "after": "import {sceneryHIfDeclared} from '../tests/helpers/scenery-h-baseline.mjs';\nimport {fairTrialIfDeclared}"
+      },
+      {
+        "before": "for(const name of ['npc-motion'",
+        "after": "for(const name of ['trial-scenery-art','npc-motion'"
+      },
+      {
+        "before": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/fair-trial-original.mjs'",
+        "after": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/scenery-h-prior.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci78-scenery',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]trial-render\\.ts$/},args=>({contents:sceneryHIfDeclared('src/trial-render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/fair-trial-original.mjs'"
+      },
+      {
+        "before": "['--test','tests/fair-trial-comfort.test.mjs'",
+        "after": "['--test','tests/trial-scenery.test.mjs','tests/fair-trial-comfort.test.mjs'"
+      }
+    ],
+    "tests/fair-trial-comfort.test.mjs": [
+      {
+        "before": "import {World,createState} from '../.test/cpu-entry.mjs';",
+        "after": "import {createState} from '../.test/cpu-entry.mjs';\nimport {World} from '../.test/scenery-h-prior.mjs';"
+      },
+      {
+        "before": "World normal-mode CPU bytes equal exact E across fair and trial maps; reduce/restoration never changes game state",
+        "after": "Historical F motion: strict H-scenery inverse preserves exact E bytes; current H has separate restoration tests"
+      }
+    ],
+    "tests/audio-g-baseline.test.mjs": [
+      {
+        "before": "import test from 'node:test';",
+        "after": "import {sceneryHIfDeclared} from './helpers/scenery-h-baseline.mjs';\nimport test from 'node:test';"
+      },
+      {
+        "before": "const raw=readFileSync(name,'utf8'),base=audioGBaseline(name,raw);",
+        "after": "const raw=sceneryHIfDeclared(name,readFileSync(name,'utf8')),base=audioGBaseline(name,raw);"
+      },
+      {
+        "before": "const raw=readFileSync(name,'utf8');assert.equal(raw.split(e.after).length,2);",
+        "after": "const raw=sceneryHIfDeclared(name,readFileSync(name,'utf8'));assert.equal(raw.split(e.after).length,2);"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/trial-render.ts": "ba2778def16b9e3ed62235dde7e8840c20a9b3907d6c14f8084b59579342b673",
+    "scripts/build.mjs": "a293656e766370a32ddbe8f8e6a79541cc6ccfe74919b5dd54aabc00424eb43a",
+    "scripts/test.mjs": "7c354083db1b1ab5d067cdac980fef86ea97fdbfe774f3f412fd83569fd3c629",
+    "tests/fair-trial-comfort.test.mjs": "871580f67ab02d1b2c66ef90160fded6f356948e413f3178d78d17f7160a56a2",
+    "tests/audio-g-baseline.test.mjs": "d9edf73e7ebd0e8c831c9b8f428b50bc96427a1c4a0326c5fabbe2209f4aa57e"
+  }
+}

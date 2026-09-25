@@ -7,7 +7,8 @@ import {NullEngine,Scene,MeshBuilder,DynamicTexture,StandardMaterial,Texture} fr
 import {NpcMotion} from '../.test/npc-motion.mjs';
 import {WITNESS_KINDS,drawWitness} from '../.test/witness-art.mjs';
 import {ambientFrame} from '../.test/actor-motion.mjs';
-import {World,createState} from '../.test/cpu-entry.mjs';
+import {createState} from '../.test/cpu-entry.mjs';
+import {World} from '../.test/scenery-h-prior.mjs';
 import {World as EWorld} from '../.test/fair-trial-original.mjs';
 import {buildTrial} from '../.test/trial-render.mjs';
 import {buildFairConduct} from '../.test/fair-conduct-render.mjs';
@@ -49,7 +50,7 @@ test('trial forest gate rests under reduce and restores exact authored phase; ge
 test('necessary cat follow position/facing and prison gate open state are not frozen by reduce',()=>{const p=festivalTestScene();try{const parent=MeshBuilder.CreateBox('unit-parent',{},p.scene),fair=buildFairConduct(p.scene,parent),s=createState('bedroom');s.chapter='fair';s.prologue.stage='fair';s.prologue.conduct.cat.following=true;s.prologue.conduct.cat.x=2;s.prologue.conduct.cat.z=3;s.prologue.conduct.cat.facing=3;s.ticks=140;const before=structuredClone(s);fair.draw(s,true);const cat=p.scene.getMeshByName('fair-following-cat');assert.deepEqual(cat.position.asArray(),[2,.4,3]);assert.equal(cat.scaling.x,-1);assert.deepEqual(s,before);
  const trial=buildTrial(p.scene,p.shadow),cell=createState('cellblock');cell.trial.stage='cell';cell.ticks=140;trial.draw(cell,true);const gate=p.scene.getMeshByName('cellblock-locked-gate');assert(gate.isEnabled());cell.trial.cellOpen=true;const opened=structuredClone(cell);trial.draw(cell,true);assert(!gate.isEnabled());assert.deepEqual(cell,opened);
 }finally{p.dispose();}});
-test('World normal-mode CPU bytes equal exact E across fair and trial maps; reduce/restoration never changes game state',()=>{
+test('Historical F motion: strict H-scenery inverse preserves exact E bytes; current H has separate restoration tests',()=>{
  const old={window:globalThis.window,document:globalThis.document,matchMedia:globalThis.matchMedia};const media={matches:false,addEventListener(){},removeEventListener(){}};
  const doc={createElement:t=>t==='canvas'?cpuTestCanvas(1,1).canvas:{style:{}},getElementById:()=>null,addEventListener(){},removeEventListener(){}};
  globalThis.matchMedia=()=>media;globalThis.document=doc;globalThis.window={devicePixelRatio:1,matchMedia:()=>media,addEventListener(){},removeEventListener(){},navigator:{}};let a,b;

@@ -1,0 +1,51 @@
+{
+  "schema": "chrono-declared-source-edits-v1",
+  "baseSource": "235fcf143a853cdeb8599b3f8703b090542eda5a",
+  "scope": "Exact script-only inverse for historical tests; never native evidence. Current canyon runtime tested directly against explicit CI81 module.",
+  "files": {
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.57',batch:'VQ03J'",
+        "after": "version:'0.9.58',batch:'VQ03K'"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "['trial-detail-art','trial-detail'",
+        "after": "['canyon-art','canyon-render','trial-detail-art','trial-detail'"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,",
+        "after": "await esbuild({stdin:{contents:readFileSync('tests/baselines/ci81-canyon-render.ts','utf8'),loader:'ts',resolveDir:process.cwd()+'/src'},bundle:true,outfile:'.test/canyon-prior.mjs',format:'esm',platform:'node',packages:'external'});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/canyon-prior-world.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-ci81-canyon',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]canyon-render\\.ts$/},()=>({contents:readFileSync('tests/baselines/ci81-canyon-render.ts','utf8'),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,"
+      },
+      {
+        "before": "['--test','tests/trial-detail.test.mjs'",
+        "after": "['--test','tests/canyon-material.test.mjs','tests/trial-detail.test.mjs'"
+      }
+    ],
+    "scripts/asset-export.mjs": [
+      {
+        "before": "['pixel-art','hero-art','world-art'",
+        "after": "['canyon-art','woodland-art','pixel-art','hero-art','world-art'"
+      },
+      {
+        "before": "const sources=['src/early-art.ts'",
+        "after": "const sources=['src/canyon-art.ts','src/canyon-render.ts','src/woodland-art.ts','src/surface-layout.ts','src/early-art.ts'"
+      },
+      {
+        "before": "[['imp',24,32,art.drawImp]",
+        "after": "[['canyon-oak',64,80,modules['woodland-art'].drawWoodlandOak],['imp',24,32,art.drawImp]"
+      },
+      {
+        "before": "['regional-mountain',64,48,materials.drawMountain]",
+        "after": "['canyon-floor',512,448,modules['canyon-art'].drawCanyonFloor],['canyon-rock',64,64,modules['canyon-art'].drawCanyonRock],['canyon-turf',64,64,modules['canyon-art'].drawCanyonTurf],['regional-mountain',64,48,materials.drawMountain]"
+      }
+    ]
+  },
+  "originalSha256": {
+    "scripts/build.mjs": "6c49651c7ab0ee67cbd1e0e8a540317f61d3795f40aa96217fc6e34f52996004",
+    "scripts/test.mjs": "2570c7632c4a3c740f7e483fae3532db7e88502139320b2bf3164b50fb79e5bf",
+    "scripts/asset-export.mjs": "4016db9ed7989bdff86ca38664a3c37221a2e0deb2d973028a225b81da276152"
+  },
+  "priorCanyonSha256": "05eb1f32f8b3e0033522735ceca78c62e03477d6d61f8d5482cc132e82d93d85"
+}

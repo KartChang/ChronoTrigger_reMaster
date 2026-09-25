@@ -1,8 +1,10 @@
 """Source-only exact J inverse, not a native evidence transform."""
+from canyon_k_preservation import restore_canyon_k_if_declared
 import json
 from pathlib import Path
 SPEC=json.loads((Path(__file__).parent/'baselines/vq03j-declared-detail-edits.json').read_text())
 def restore_detail_j_source(name,source):
+    source=restore_canyon_k_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits: raise ValueError('Undeclared J source')
     for e in reversed(edits):
@@ -10,5 +12,6 @@ def restore_detail_j_source(name,source):
         source=source.replace(e['after'],e['before'],1)
     return source
 def restore_detail_j_if_declared(name,source):
+    source=restore_canyon_k_if_declared(name,source)
     edits=SPEC['files'].get(name,[])
     return restore_detail_j_source(name,source) if any(e['after'] in source for e in edits) else source

@@ -1,4 +1,5 @@
 """J offline source pins, not native gameplay evidence."""
+from canyon_k_preservation import restore_canyon_k_if_declared
 import unittest,hashlib
 from pathlib import Path
 from detail_j_preservation import SPEC,restore_detail_j_source,restore_detail_j_if_declared
@@ -11,7 +12,7 @@ class DetailJPreservationTests(unittest.TestCase):
             self.assertEqual(restore_detail_j_if_declared(n,original),original)
     def test_missing_duplicate_and_unrelated(self):
         for n,edits in SPEC['files'].items():
-            raw=(ROOT/n).read_text()
+            raw=restore_canyon_k_if_declared(n,(ROOT/n).read_text())
             for e in edits:
                 for bad in [raw.replace(e['after'],''),raw+e['after']]:
                     with self.assertRaises(AssertionError): restore_detail_j_source(n,bad)

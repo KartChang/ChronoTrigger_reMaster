@@ -1,0 +1,151 @@
+{
+  "schema": "chrono-original-native-state-fixture-v1",
+  "sourceSha": "235fcf143a853cdeb8599b3f8703b090542eda5a",
+  "runId": "36125796673",
+  "reportPath": "cpu-renderer/era600/report.json",
+  "jsonPointer": "/fieldEnemies/canyon/state",
+  "scope": "Unmodified source-bound observation for explicit offline Node tests only. Never injected into browser.",
+  "state": {
+    "equipment": null,
+    "trial": {
+      "hearing": null,
+      "stage": "none",
+      "history": null,
+      "fade": 0,
+      "choice": null,
+      "question": 0,
+      "blamedMarle": null,
+      "wealthMotive": null,
+      "verdict": "pending",
+      "knocks": 0,
+      "days": 0,
+      "route": "unknown",
+      "cellOpen": false,
+      "guardsWon": false,
+      "fritzFreed": false,
+      "luccaJoined": false,
+      "marleJoined": false,
+      "manualRead": false,
+      "suppliesTaken": false,
+      "tankWon": false,
+      "encounter": "none",
+      "ethers": 0,
+      "experience": 0,
+      "headRepairs": 0
+    },
+    "prologue": {
+      "conduct": null,
+      "stage": "legacy",
+      "elapsed": 0,
+      "first": "unknown",
+      "checkedMarle": false,
+      "pendantPicked": false,
+      "pendantReturned": false,
+      "motherTalked": false,
+      "choice": null,
+      "transition": null
+    },
+    "followPlan": {
+      "chapter": "",
+      "goal": {
+        "x": 0,
+        "z": 0
+      },
+      "points": [],
+      "repathAt": 0
+    },
+    "mode": "explore",
+    "era": "middle",
+    "joined": true,
+    "players": [
+      {
+        "x": 0,
+        "z": 8,
+        "hp": 120,
+        "mp": 18,
+        "atb": 0,
+        "facing": 0,
+        "walking": false
+      },
+      {
+        "x": 0,
+        "z": 8,
+        "hp": 120,
+        "mp": 18,
+        "atb": 0,
+        "facing": 0,
+        "walking": false
+      }
+    ],
+    "enemies": [],
+    "flags": {
+      "won": false,
+      "repaired": false,
+      "visitedFuture": false
+    },
+    "targets": [
+      null,
+      null
+    ],
+    "combo": [
+      false,
+      false
+    ],
+    "log": [
+      "已讀取存檔。",
+      "項鍊突然發光，平台上方的空間開始扭曲。",
+      "瑪兒消失在光裡。平台上只剩下一條項鍊。",
+      "鳥鳴取代了廣場的喧鬧。這裡……不是千年祭。"
+    ],
+    "effects": [],
+    "ticks": 1130,
+    "enemyTurn": 0,
+    "chapter": "canyon",
+    "fair": {
+      "bellHeard": false,
+      "gatoWon": true,
+      "luccaMet": true,
+      "telepodTested": true
+    },
+    "opening": {
+      "phase": "canyon",
+      "elapsed": 0,
+      "canyonWon": false
+    },
+    "kingdom": {
+      "phase": "none",
+      "heardYear": false,
+      "forestWon": false,
+      "elapsed": 0
+    },
+    "rescue": {
+      "stage": "none",
+      "organOpen": false,
+      "guardsWon": false,
+      "yakraWon": false,
+      "chancellorFreed": false,
+      "chestOpened": false,
+      "tonics": 0,
+      "guest": {
+        "x": 0,
+        "z": -5,
+        "hp": 140,
+        "mp": 16,
+        "atb": 0,
+        "facing": 2,
+        "walking": false
+      },
+      "guestPlan": {
+        "chapter": "",
+        "goal": {
+          "x": 0,
+          "z": 0
+        },
+        "points": [],
+        "repathAt": 0
+      },
+      "encounter": "none",
+      "enemyActions": 0
+    }
+  }
+}

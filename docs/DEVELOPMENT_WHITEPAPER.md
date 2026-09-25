@@ -1,90 +1,73 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本 **product-vq03k-ci82**。目前authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI82_CHECKPOINT。唯一root **T05-early-visual-cohesion**，terminal **CI82-canyon-material-evidence**。歷史原收據、失敗與產物不改寫。
+版本product-vq03l-ci83。動態authority為STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/CI83_CHECKPOINT；歷史收據／失敗／原產物不改寫。
 
-**VQ03K／0.9.58** source **64732e5907e653f5e2fb7ed20f70856ed7f5da00**，tree **a126f073e0e648898dfbd1da06ba9ac7d12b05f1**，parent **027639920ca508d4aa544b4da05b64450a996384**。16程式／測試檔一次non-force發布並回讀，完整tree等於已測程式＋當時main docs b2a40748976bb582024ab8751869e084150681bc。Matching **CI82／36157428126**，push/attempt1，last observed in_progress/null，provider updated2026-09-25T15:55:44Z；尚未原生接受。最新有界基準 **CI81／Pages75** 已在本輪開始前接受，不重驗。
+Repository **KartChang/ChronoTrigger_reMaster**，唯一 **main**；single AI／non-force。Root **T05-early-visual-cohesion**，terminal **CI83-canyon-relief-evidence**。目前 **VQ03L／0.9.59** source **897823dbb73401e453913497f08b96a56cef4109**，source tree **264d4c14534132bbc981b6edee63fffa1ce18af8**，parent **1f0492959069b6219105da7d7986b3fa4277b94b**。17程式／測試檔已一次發布並回讀；完整Git root等於已測程式加當時main docs tree **487c777c89e4ba32667db45400a5c1c6fd6e43b9**。L/K/J及更早批次不重送。
 
-## 一、完整產品目標與品質標準
+Matching **CI83／36169357410**，workflow360357259/.github/workflows/ci.yml，push/attempt1，發布後一次觀察 **in_progress/null**，provider updated **2026-09-25T17:47:51Z（台灣2026-09-26 01:47:51）**。Exact source全event/state共1run，沒有extra dispatch/rerun。未讀CI83 jobs/artifacts、未matchingPages接受、L accepted=false。續作只查exactrun一次；仍active保存checkpoint，不輪詢到中斷。
 
-完整HD-2D重製：像素人物搭配立體場景，保留原作辨識度、世界背景與構圖、縮尺大地圖、城鎮／室內切換、原地ATB、單人及同機雙人共畫面、全部時代主支線與結局。先改善前段實際美術、建模、完整動畫、遮擋、HUD、操作及音訊，再擴後段；不是縮成前段展示，也不因CI綠勾提早扩後段。
+## 一、完整產品目標與品質
 
-整體>=90、各面向>=80%必須由實際畫面／遊玩／裝置證據及required assets、five gates、zero critical支持。測試數量／文件完整度／新特效不是美術分數。原工具30/100為較舊runtime評分卡，不是K目前分數；release仍BLOCKED，沒有新增全遊戲認證。
+完整HD-2D重製：像素人物搭配立體場景，原作辨識度／世界背景／構圖、縮尺大地圖、城鎮與室內切換、原地ATB、單人和同機雙人共畫面、全部時代主支線與結局。先改善前段實際美術、建模、完整動畫、遮擋、HUD、操作和音訊，再擴後段。完整目標不縮成展示，CI綠勾／測試數量不能換成美術分數。整體>=90／各面向>=80%須由實際畫面、遊玩、裝置證據及requiredassets/fivegates/zerocritical支持；目前無新score或全遊戲接受。
 
-## 二、架構、遊戲狀態與固定行為
+## 二、架構及不變遊戲行為
 
-保留TypeScript、Babylon.js、esbuild與既有package/lock。玩家執行自含HTML不需要ROM、Python、帳號或後端。Controls → main固定1/60秒 → core規則 → render/HUD/audio；音畫只呈現既有狀態，不決定傷害、資源、碰撞或故事。CPU/WebGL共用場景與規則，不另造低品質關卡。
+TypeScript/Babylon/esbuild與固定package/lock保留，自含HTML供玩家執行不需要ROM/Python/後端。Controls→main固定1/60秒→core規則→render/HUD/audio；呈現不能決定傷害、資源、碰撞、劇情。CPU與WebGL共用場景規則，不造第二套低品質關卡。
 
-暫停、背景、對話、背包、原生選檔與context loss凍結模擬，恢復不補跑背景時間。InputBoundary清舊輸入；A*遵守碰撞。P1克羅諾、P2依故事；露卡加入／回歸、瑪兒／青蛙自主第三、獨立選敵及雙確認合技保留。無P3，不改ARPG或重造框架。
+暫停、背景、對話、背包、原生選檔及context loss凍結模擬；恢復不補跑背景時間。InputBoundary清理舊輸入、A*遵守碰撞。P1克羅諾/P2依故事、自主第三、獨立選敵及雙確認合技維持；沒有P3／ARPG。v1–v8存檔白名單與IndexedDB/JSON相容，未知舊行為不造證詞，查看不強制改写。診斷與render/audio偏好不存入遊戲；守恆檢查不是防作弊簽章。
 
-IndexedDB與JSON白名單v1–v8相容；舊檔未知行為不造證詞，查看不強制改寫。守恆檢查不是防作弊簽章。Render/audio偏好與診斷不放進遊戲存檔。禁止原生game/time/save/collision注入或改走位/sleep/tick/畫質取巧。Node離線fixture／歷史比較port須明示，不能變更原生state/PNG/report或冒充原生播放。
+禁止native game/time/save/collision注入，禁止改走位/sleep/tick/畫質以通過。Node fixture只能明示離線，歷史pre-change port不能冒充當前原生畫面。
 
-## 三、保留玩法與未完成遊戲內容
+## 三、目前遊玩範圍與缺口
 
-家中醒來／樓梯、縮尺世界、祭典行為／初遇、項鍊異變、600年山道／托魯斯／森林／王城、皇后消失、露卡合作、修道院青蛙／管風琴暗門／亞克拉救援返鄉、護送審判、兩條越獄、弗里茲與露卡、龍戰車三部位、重聚時門及2300抵達等現有流程保留。**2300抵達不是完整未來篇**，全時代主支線及結局仍需完成。
+保留家中醒來／樓梯、縮尺世界、祭典行為／初遇、項鍊異變、600山道／托魯斯／森林／王城、皇后消失／露卡合作、修道院青蛙／管風琴暗門／亞克拉救援返鄉、護送審判、兩條越獄、弗里茲／露卡、龍戰車三部位、重聚時門及2300抵達。2300抵達不是完整未來篇，後續全時代主支線與結局未完成。
 
-梅爾基歐13商品、武器／身體／頭部裝備、相容份數、金幣庫存守恆、交易上限及裝備後戰鬥保持。400G、價格及普通攻防增減仍是明示暫定值，不冒稱完整原作數值；經驗紀錄不是完整成長。T04仍含完整成長、學習、報酬掉落、消耗品經濟、飾品、換人與雙三人技。
+現有13商品、三裝備位、相容與份數、金幣庫存守恆、交易上限／裝備戰鬥保留。400G與價格／普通攻防增減是明示暫定值，經驗紀錄不是完整成長系統。完整成長、報酬掉落、消耗品經濟、飾品、技能學習、換人、雙三人技仍按T04完成。
 
-## 四、CPU、既有美術與相機
+## 四、保留的前段呈現與CPU
 
-先嘗試WebGL2/1；失敗使用真正CPU triangle/texture/depth至Canvas2D。保留640×480pixel cap、最大邊1280、原tiers、32MiB/512entries及120活動FrameWindow。CPU不提供shadow map/glow/specular/postprocessing，不承諾GPU同畫質或真機流暢。P row-span/packed-clear沿用；J/K舊CPU平滑預設OFF，opaque-affine可縮圖混合、alpha與透視仍nearest，關閉/dispose釋放mip。Nodebenchmark與六短窗口不等於原生長時間FPS；此處J/K指既有CPU批次，非新VQ03J/K場景批次。
+先嘗試WebGL2/1，失敗採真正CPU triangle/texture/depth至Canvas2D；640×480pixelcap／最大邊1280／原tiers／32MiB和512entries／120活動FrameWindow不變。CPU不提供shadowmap/glow/specular/postprocess，不承諾與GPU同品質或真機流暢。既有row-span/packed-clear、預設OFF的opaque-affine minification保留；alpha與透視nearest，關閉/dispose釋放mip。短窗口與Node benchmark不是長時間FPS認證。
 
-角色像素片段、固定tick動畫／實際步伐/cache、相機接地、祭典道具棚布／地面、探索HUD／touch、光照銅材質、樹根陰影／石材倒角／caster合併保留。Q七storyNPC四姿勢；R戶外地表樹冠蕨類；S六64×64建材與80×40自繪INN/床；T五花箱與響應式暫停；U Space原生checkbox；V八窗框窗櫺玻璃pane；W旅店招牌XY2.75/anchor[-4.7,2.4,-3.4]均保留。技術證據不等於全美術核准。
+既有角色固定tick動畫／實際步伐與cache、接地、HUD/觸控、祭典材質、光照銅材質／rootshadows、村莊detail、玻璃窗、NPC原四姿勢、plant遮擋及heldhome規則保留。Town X/Y必要角色取景、Z招牌.30、A104mesh遮擋.16與9tick/12tick保持、B必要隊伍優先與地標1.5/1.6遲滯不重做。C fieldenemy單一unlitemission與原drawImp24×32nearestalpha保留。D下肢保護與透明背面修正，E/F NPC減少動態frame0/currenttick還原／隱藏停更／dispose，CI78同tick可逆camera偏好還原皆保留。
 
-X直式Truce同buffer構圖與HUD安全區[.045,.955,.12,.80]；Y以完整故事state推導在場角色，joined不是在場證據。Z招牌.30；A四棟共104mesh遮擋群組.16、9tick指數/12tick保持與私有blend還原不變。B必要隊伍優先，可選旅店地標1.5/1.6幾何遲滯，成本高只移除地標取景要求，不隱藏mesh或裁切P2/guest。
+H森林地面／法庭低對比石板及31薄飾面；I14法庭卡actualcamera/pivot腳底錨定、7成人陪審員、15原樹卡；J原平台cap/edge與4樹冠變體；K山道512×448原路徑、64×64層岩／共用草面都已发布並沿用既有有界接受，不因L重新製作。L只改下節明列的8mesh輪廓与8樹卡UV／atlas，沒有改heldhome或這些遊戲規則。
 
-C山道／森林小怪preservePixelPalette單一unlit emission、原drawImp/24×32nearest-alpha、五RGBA採樣、位置尺度／數值／出現規則不改；原PNG/CRC gate與村莊證據共存。D植物alpha保護下肢／腳底與CPU透明建物背面修正保留。E/F既有NPC減少動態frame0/current-tick還原、隱藏不更新／dispose釋放、穩定seed與私有貼圖；森林時門只停非必要旋轉，任務動作不凍結。
+## 五、G音訊保留與聆聽界線
 
-CI78鏡頭修復保留相同tick/context/target/viewport/actor安全框的原緩動frame；進reduced安全snap，反向精確還原。時間／context／ratio／base／actor／bounds／reset改變即失效。不耗正常緩動時間，不加timer/native state寫入。以上均不重做。
+7組自製合成音型與7段配樂保留，不取ROM/原OST/第三方採樣。每型<=3聲部、level總和<=.04、尾音<=.5秒，共用16聲部/master.55，單audio-clock無timer，超額丟棄不排隊補播。Main觸發點／dialog-hold立即停止不變，不延後對話以求聲音完整。部分graph／connect/start/stop失败與dispose獨立清理，成功排程計數不回填；analyser1024Float32重用但讀真實值，hold不造零。現有原生music/analyser/hold/import/mute支持的是實際測到的範圍；七音型unit及無音軌影片不是完整觸發、聆聽或裝置音量安全認證。
 
-## 五、G音訊與H/I/J場景既有成果
+## 六、最新已接受CI82／Pages76
 
-G七種自製合成音型保留：262管風琴、330攻擊降頻、440互動單音、520技能滑音、620恢復、660鐘聲/合技、800時門，其他合法40–4000Hz保留單音。每型最多3聲部、level總和<=.04、尾音<=.5秒，共用16聲部/master.55；這是排程參數，不是聽感／音量安全／完整配樂認證。無ROM/原OST/第三方採樣/外部音訊服務，七段自製配樂非完整OST。
+**CI82／36157428126、Pages76／36161247227** 已有界接受；sourceK64732e5907e653f5e2fb7ed20f70856ed7f5da00。三jobs／原chooser／完整CPU600救援審判／十ledger173列唯讀重算逐byte相同，578原檔不改。Selectedartifact10875890674；playable/staged/deployed HTML5742708bytes、SHA256 **8da134dabaa4eb11226e06f946ff31b1a625d141f0eda44a6e8ddaad44be4c33**一致，public exactHTTP provider step通過。Fair-vendors原PNG精確還原。
 
-單一audio-clock，不加timer/simulation tick；不足聲部丟棄不排隊補播，滿載可只播部分音型。Main觸發點不變，緊接dialog/hold的音效仍可能立即停止，不延後對話或放寬hold。完整graph建立才持有，部分建立/connect/start/stop例外與dispose獨立清理handler/node/close；成功排程計數不因取消改寫。Hold/mute/reset/dispose立即關master、stop/disconnect。Analyser重用1024Float32且讀真值，hold不造零、dispose不再讀。原生驗收僅支持實際music/analyser/hold/import/mute，七音型unit不證明都已原生觸發或聆聽。
+102原圖以4聯絡表全看，只有山道／法庭reduced／森林時門reduced共3張全尺寸，其餘99縮圖。172.28秒原片18169575bytes／SHA256 **8a766e5f98b56c92100e70d2ca2a883979c2ca2713610584ce2cd8f2afe2549b**全decode，345連續2fps樣本／6表已看；無全尺寸影片樣本／原速播放／音軌聆聽／真機／長時間接受。收據 **CI82_ACCEPTANCE.json** 於parent1f049295建立並回讀，不重验CI82或CI81以前已接受工作。CI77/75 failure與CI71歷史accepted=false不回填。
 
-H保留原guardia1000/courtroom384×352nearest、world16×14/y=.02地面幾何：低對比苔地／中央土徑／通往原gate分支，法庭石板細邊地毯、原家具31薄飾面。沒有新增碰撞家具或重建場景。
+## 七、L岩台輪廓與共用樹冠atlas
 
-I法庭14既有角色卡以原witness pivot62/64與actual camera up對齊支撐面：法官與訴訟人物.72、證人.49、陪審員.55，+.04脚底間隙；原x/z為脚底錨點，僅補償渲染卡中心，不改遊戲碰撞座標。七陪審員height1.7/width1.2，隱藏停止更新、dispose移除binding，不新增mesh/texture。原guardia1000的15樹卡整合既有oak。
+Runtime只改 **src/canyon-render.ts**，新增 **src/canyon-relief.ts、src/canyon-canopy-art.ts**。原4岩台與4草頂改為8邊形切角輪廓：頂角退縮、底角最多裁.035，保留原AABB／錨點／高度／shadow caster清單，**碰撞與導航仍使用原矩形規則**。不是把所有幾何說成不變；8個mesh的vertices/indices/UV有明確改動，每個48vertices/28triangles，共增加128triangles。
 
-J三個原法庭平台圓柱共用128×160nearest opaque cap/edge atlas與分區UV，未改支撐面／幾何／人物接地。原15樹卡使用四種靜態樹冠輪廓的穩定序列，保留既有樹根接觸像素、位置尺度數量；無逐幀重畫。J原source **235fcf143a853cdeb8599b3f8703b090542eda5a** 已發布，15檔／473inputs／477snapshot、2264Node410Python屬既有成果，本輪不重做。樹冠重疊、法庭壓縮構圖仍需改善。
+原8樹卡使用單一272×80nearest-alpha atlas，4種既有且未改J樹冠各64×80，左右各2透明欄，固定UV分配，不做鏡像光照或逐幀隨機變化。原樹卡位置／數量／尺度保留；mesh/material/texture數量不增，atlas原始RGBA增加66560bytes，這不是完整原生記憶體或FPS證明。K地面／岩壁／草面painter及C小怪配色、camera、Gaudio、劇情、原生routes/captures/assertions/workflow保持。
 
-## 六、已接受CI81及中斷恢復
+## 八、L回歸、測試保存与剩餘驗收
 
-本輪初始main **587e14d6671513e08c74e66711d58797d4f1b855** 已有 **CI81_ACCEPTANCE.json**，但STATUS/白皮書/TODO/handoff與CI80/81checkpoint等待內容落後。直接根據最新收據恢复J，確認此HEAD相对J只新增兩份文件；不重跑CI80/81、不將舊queued敘述當真。現在已同步所有目前文件並按原收據關閉舊checkpoint，不改原接受／失敗報告。
+最終 **2302Node通過／0fail／0skip、416Python通過**。新增20Node＋3Python；20新targeted與38合併targeted（包含18既有K）通過，pre-L舊runtime兩項新斷言確實fail。完整check/typecheck/build/assets/export/diff通過，**490非文件程式輸入**前後與發布前指紋相同；494assembled快照另含4rootdocs。
 
-最新有界接受 **CI81／36125796673、Pages75／36128075047**，Jroot **b2741de9f8c759b27139174a996167c7ed74f1db**。原三jobs成功／conditional skips保留，chooser、CPU600救援審判與十ledger173列逐byte相同、570原檔未改；sourcearchive root匹配。Pages selectedCI81/sourceJ/artifact10860835779，playable/staged/deployed HTML **5741404bytes**／SHA256 **f17b04b039dbb2f6cb5df0630292af6bd2dd6bfcc0ba6fe833950b00bb176f67**相同，publicHTTP step通過。這些是先前已保存的驗收，本輪只恢復原檔，沒有重驗或本機HTTP/browser。
+回歸涵蓋封閉mesh／外向法線／bounds／cap外緣、私有資料／非法輸入、atlas gutters／UV、3viewport、新pixels／原state-camera-enemies／精確偏好還原、其他8map原pixels、靜態資源／隱藏／dispose。新atlas匯出由獨立PNG CRC與Pillow解碼比對runtime RGBA；原4K匯出byte相同。4原檔11精確L片段與CI82 fullhash、missing/duplicate/unrelated負測試保留；歷史KvsCI81明示pre-L，當前L獨立測試，不轉換原生證據。
 
-CI81原圖102contact／3fullsize（courtroom、forest-gate、field-canyon），其餘99縮圖。178.24秒原片／19108932bytes，SHA256 **bd78ed00ee238ddea3ad873fcb34c14f30cd832c62240eec04873de492a63f42**，完整decode及356連續2fps樣本／六表，無fullsize影片樣本／原速／音軌聆聽／真機／長時間認證。這指出山道亮紋、磚格岩壁與草面干擾，成為K實作依據。
+初始typecheck FloatArray型別、targeted上下表面反向頂點排序，以及第一輪完整Node2302中3個歷史K負測試輸入問題均已修正並保留失敗logs；最後全套重跑，不回填舊failure。詳 **evidence/VQ03L_TESTED_BATCH.json**。
 
-CI80/更早原收據保留且不重驗。CI77相機76像素差異失敗、CI75WebGL PNG上限失敗依然failure，各後續修復不回填舊run。CI71未完成視覺審查的歷史accepted=false不回填。
+先完成 **CI83_CHECKPOINT.remainingReview**：原三jobs／主報告／chooser／完整CPU600救援審判／十ledger，特別新山道切角面／底部碰撞辨識／4樹冠atlas與C敵人可見性，以及G音訊與既有場景回歸。核matchingPages exactsource/run/artifact/HTML/publicHTTP及原ZIP指定Drive下載回讀後，才有界接受。失敗只修同root實際缺口，不改路線／時間／畫質／斷言。
 
-## 七、K山道材質與可重建測試
+L只完成輪廓和樹冠差異實作；壓縮山道／法庭構圖、樹木重疊、更廣人物植物道具尺度輪廓、完整角色動畫、完整合法音訊／實際聆聽、原速移動／淡化／viewport舒適性仍開放。已看L離線before/after全尺寸542×361（requested678×452），Node不繪文字／曲線，不是CI83原圖／原速遊玩。無新score，舊30/100屬舊runtime，release仍BLOCKED。
 
-Runtime只改canyon-render.ts、新增canyon-art.ts。原512×448地面／world24×22/y=.05/z=1與sin路徑外形保留；低對比苔地土路、稀疏成組邊缘草葉與24小石取代密集亮紋。原64×64岩壁改不規則沉積層／開放裂隙。各既有terrace-turf共用一張新64×64貼圖，其原始RGBA16384bytes不是完整GPU/CPU記憶體量測。原8張64×80nearest-alpha樹卡接未改drawWoodlandOak。
+## 九、完整未完成範圍
 
-原mesh數量／UV／transform／shadowcaster／material數量、所有碰撞資料、角色、C小怪palette、相機、Gaudio、H/I/J、main/core與native routes/captures/assertions/workflow逐程式範圍保持。只多一張共用turf texture，不新增地形物件。四個runtime-painter review exports（canyon-floor/rock/turf/oak）byte相同且獨立PNG解碼，不是原素材抽取或最終核准資產。
+T03完整隱含規則／版本差異／拓樸數值；T04完整成長／報酬掉落／經濟道具飾品／學習換人／雙三人技；T05全部美術建模動畫合法音訊，前段實際品質優先；T06所有時代主支線結局，2300抵達不是完整未來；T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical及真機input/FPS/frame-time/load/memory/background/save/audio；T08每批完整check／一次source／matchingCI／原始產物雲端回讀。分母不縮，無全美術／真機／長時間／全遊戲認證。
 
-**2282Node全pass、零fail/skip；413Pythonpass**，新增18Node＋3Python。18targetedpass，舊CI81canyon在兩項新runtime斷言fail，明示離線回歸不是原生失敗。完整assets/typecheck/build/check/diff通過，481非文件inputs前後與發布前一致，485assembledsnapshot加四rootdocs。三viewport192×128/96×160/160×96檢查新畫面／原state-geometry-camera-enemy、精確偏好還原；另外八張map原offlinepixels相同。重複draw/隱藏不upload／不增生，dispose釋放。
+## 十、持久交付與固定限制
 
-K三script八精確片段inverse與原CI81 fullhash/NodePython missing-duplicate-unrelated guards保留；J歷史script先剝除明示K片段，當前K runtime對exact舊canyon module獨立測試。歷史port不是當前原生證據。匯出checker首次誤查dist/assets後改為dist/art，保留診斷、不改runtime/native斷言。
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。L包 **Chrono-VQ03L-canyon-relief-tested.zip／10ksiEetVGovT6j7LSTtGmzGvbrkpAD_2**，1126895bytes／SHA256 **3aaf3fa31c5e806e30617ff31f58fc9ca196e196c9ce426ca5305eaaa621177f**；17差異／494snapshot／完整與失敗logs／離線图／atlas匯出／54manifest，已實際下載核parent/size/hash/CRC/manifest/tar。根program-snapshot.tar.gz為assembled已測程式，不是publishedGitarchive／最新docs；發布前false/null不得重送L。
 
-離線before/after requested678×452、actual542×361，Node rect-onlycanvas不含文字/曲線；已實際檢視，不是CI82原圖／原速遊玩。原CI81完整state僅作明示Nodefixture，不注入browser。地面材質較安靜，但箱狀平台、視野壓縮／樹卡重複未結案。完整收據 **VQ03K_TESTED_BATCH.json**。
+CI82原始包 **Chrono-CI82-reviewed-evidence.zip／1nItZC2tjiHlwhTnxAI9zeBidXz5Pr0ZN**，89076905bytes／SHA256 **6b9970febb18997d795237231b4a64d68c6b64a8d3e03752e79b741da1f480d4**，7未改原ZIP／33manifest／exactsource/movie/reports/review已存同folder並實際下載回驗。更早恢复點保留DELIVERY_INDEX，臨時容器不是權威。
 
-發布root **a126f073e0e648898dfbd1da06ba9ac7d12b05f1**由已測src acf72241、tests2edf16ba、scripts0123f295、其餘原程式與實際main docs b2a40748組合，remote root完全一致。一次source與唯一matchingCI82已識別；尚未accepted，不能拿CI81原生或Kunit當CI82結果。
-
-## 八、完整剩餘工作與交付治理
-
-直接完成CI82_CHECKPOINT.remainingReview。只查exactrun一次，active保存不久等；完成後核同source/run/HTML三jobs／主報告／chooser／CPU600救援審判／十ledger／Gaudio，特別新山道PNG／同run影片與原敵人palette、資源/quality/exactrestore gates。保留原擷取／走位／tick／sleep／畫質，不以CI81舊圖或Koffline代替。MatchingPages selectedCI/source/artifact/exactHTML/publicHTTP及原ZIP/source/movie/report/review正確Drive保存下載回讀後，才有界accepted；失敗只修真實同root缺口。
-
-支持成功續T05更廣人物植物道具尺度輪廓、原作構圖、山道箱狀平台與樹冠重複、法庭壓縮空間、完整角色動畫、完整合法音訊／實際聆聽及原速移動／淡化／viewport舒適性。不重做accepted批次，不提前擴後段。
-
-T03：隱含規則／版本差異／完整拓樸與數值忠實。
-T04：完整成長／報酬掉落／經濟道具飾品／學習換人及雙三人技。
-T05：全部美術／建模／完整動畫／合法完整音訊，前段實際品質優先。
-T06：所有時代／主支線／結局，2300抵達不是完整未來。
-T07：整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio。
-T08：每批完整實作測試／一次source／完整matchingCI／原始產物雲端保存回讀。
-
-唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。K包 **11ksb0vJbgJMa-uWUWlJAI-Y4d-IpvC4u**／1007203bytes／SHA256 **2ba644a51aa4883a255a2ede56111675cf379c1714c887b53c7702ea63904e30**，16差異／485snapshot／48manifest／logs/offline/exports已實際下載核parent/size/hash/CRC/tar。CI81原包 **1kXO-zxI4b0Yb8ycaV6AdqZagL-ugrKnn**、J已測包 **1A4URAW8CREMtET8qTuj3LDHFQTF6x7OP**及更早恢復點保留DELIVERY_INDEX；舊archive prepublicationfalse不能重送，進度以GitHubmain為準。
-
-Main only/singleAI/non-force、不建branch/PR/平行candidate或防撞。Held VQ01Z／母親家具不提升、換管道或間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**固定。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules／esbuildhardlink，不覆舊config或開bootstrapCI。原<.12／tick／單一30秒／250ms256／CPU品質記憶體不放寬。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM／原媒體／字型／憑證不公開。文件[skip ci]且回讀，臨時容器不是權威。無新美術分數、原速／聆聽／真機／長時間或全遊戲接受。
+Main only/non-force/no branch/PR/平行candidate／防撞機制。保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8；無P3/ARPG/框架重造。禁止本機browser、native game/time/save/collision造數，不能放寬<.12、原tick、單一30秒、250ms/256、CPU畫質記憶體。Held家具不提升／間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules並保留esbuildhardlink，不覆舊config或開bootstrapCI。私人ROM／原媒體／字型／憑證不公開；文件[skip ci]，成果雲端保存並回讀。

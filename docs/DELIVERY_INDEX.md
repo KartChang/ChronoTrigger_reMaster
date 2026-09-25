@@ -1,18 +1,44 @@
-# Delivery index — VQ03L published / CI83 checkpoint
+# Delivery index — VQ03M published / CI84 checkpoint
 
-Repository **KartChang/ChronoTrigger_reMaster**，唯一 **main**；single AI／non-force。Root **T05-early-visual-cohesion**，terminal **CI83-canyon-relief-evidence**。目前 **VQ03L／0.9.59** source **897823dbb73401e453913497f08b96a56cef4109**，source tree **264d4c14534132bbc981b6edee63fffa1ce18af8**，parent **1f0492959069b6219105da7d7986b3fa4277b94b**。17程式／測試檔已一次發布並回讀；完整Git root等於已測程式加當時main docs tree **487c777c89e4ba32667db45400a5c1c6fd6e43b9**。L/K/J及更早批次不重送。
+Repository **KartChang/ChronoTrigger_reMaster**，唯一main／singleAI／non-force。Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／CI84_CHECKPOINT。Root **T05-early-visual-cohesion**，terminal **CI84-field-foe-motion-evidence**。M0.9.60 source **32672b15a8df76ff243f7840ef95a9b8b817a052**，tree **e2584ffecb08463567c192e94aa6a9840cf2658a**，parent **86dbf83505a8da7f9b839f6d654a735c287124c2**，25檔已一次發布并回讀，fulltree匹配已測程式加當時main文件。
 
-Matching **CI83／36169357410**，workflow360357259/.github/workflows/ci.yml，push/attempt1，發布後一次觀察 **in_progress/null**，provider updated **2026-09-25T17:47:51Z（台灣2026-09-26 01:47:51）**。Exact source全event/state共1run，沒有extra dispatch/rerun。未讀CI83 jobs/artifacts、未matchingPages接受、L accepted=false。續作只查exactrun一次；仍active保存checkpoint，不輪詢到中斷。
+Matching **CI84／36179274810**，push/attempt1，last observed in_progress/null，provider updated2026-09-25T19:22:38Z；尚未原生或matchingPages接受。最新有界基準CI83／Pages77，不再是CI82。只查exactrun一次，active保存不久等；M/L/K/J及更早不重送。
 
-## 本輪已測包與CI82原始證據
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。所有已測快照都是assembled程式，不是publishedGitarchive/currentdocs；封裝前false/null不得觸發重送。原始證據包保留未修改providerZIP。以下歷史回驗沿用，不因交接重跑；最新進度以GitHubmain為準。
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。L包 **Chrono-VQ03L-canyon-relief-tested.zip／10ksiEetVGovT6j7LSTtGmzGvbrkpAD_2**，1126895bytes／SHA256 **3aaf3fa31c5e806e30617ff31f58fc9ca196e196c9ce426ca5305eaaa621177f**；17差異／494snapshot／完整與失敗logs／離線图／atlas匯出／54manifest，已實際下載核parent/size/hash/CRC/manifest/tar。根program-snapshot.tar.gz為assembled已測程式，不是publishedGitarchive／最新docs；發布前false/null不得重送L。
+## M已測動畫批次 — 已實際下載回驗
 
-CI82原始包 **Chrono-CI82-reviewed-evidence.zip／1nItZC2tjiHlwhTnxAI9zeBidXz5Pr0ZN**，89076905bytes／SHA256 **6b9970febb18997d795237231b4a64d68c6b64a8d3e03752e79b741da1f480d4**，7未改原ZIP／33manifest／exactsource/movie/reports/review已存同folder並實際下載回驗。更早恢复點保留DELIVERY_INDEX，臨時容器不是權威。
+**Chrono-VQ03M-field-foe-motion-tested.zip**
+File **1YOjQHTPvlwkBuNd__o6lz6rTI6JDCBhk**
+Bytes **1279540**
+SHA256 **7a72c83dc65fa4b64b79e31caa2c26bcbdab3ca224a6b879c351d97801759d76**
+
+25變更檔，根program-snapshot.tar.gz含504檔（500非文件inputs＋4rootdocs），最終2333Node／424Python與31Mtargeted／pre-M2fail、完整與早期失敗logs、指紋、四姿態export與offlineobserver資料、90manifest。Connector實際下載核parent/size/hash/CRC/manifest/tarmembers完成。正式publishedsource／tree／run與完整hash證明見 **VQ03M_TESTED_BATCH.json**，不回寫原封裝中的歷史false。
+
+四手臂姿態保留原frame0、face/feet/Cpalette，固定ticks與原hit事件；隱藏不upload、進場不重複、零新增mesh/material/texture。CPU原capture及opening原戰鬥截圖後追加唯讀觀察，原按鍵／路線／等待／PNG／budget保持。JSON不與前張PNG精確同幀；CI84未驗收，特別受擊正向native發生未證明。Offline圖與四export不能替代原生接受或完整動畫。
+
+## CI83／Pages77已接受原始證據 — 已實際下載回驗
+
+**Chrono-CI83-reviewed-evidence.zip**
+File **1hjxKhDgg7P4bcU-WxH8SRsfyG4ykMJee**
+Bytes **90790903**
+SHA256 **eb8e1029f9b9be4641f0ddc7357518c732f012527a0e1046a1cc349a35383b2d**
+
+七份未改ZIP：CI83 browser/good/bad/playable/art-review與Pages77 staged/deployed，含exactsource／原reports／movie，加review／39manifest；實際下載核parent/size/hash/外內CRC/manifest。CI83 **36169357410**／Pages77 **36171776438**，sourceL **897823dbb73401e453913497f08b96a56cef4109**；接受收據 **CI83_ACCEPTANCE.json** 在 **86dbf83505a8da7f9b839f6d654a735c287124c2** 提交並回讀。
+
+原580檔不改／十ledger173列byte相同，三job／chooser／完整CPU600救援審判通過，fair-vendors原PNG還原相同。Selectedartifact10881020674；playable/staged/deployed HTML **5744867bytes**／SHA256 **4fed5cc782a623338f9dd30b3675363ce8d08b9e2572d466b9058c4bbae00cd2** 相同，public exactHTTP provider step成功；Pages workflowhead faf81e73是文件不是game source。
+
+102contact／3fullsize原圖（山道、法庭、森林時門），其他99只縮圖。169.28秒／18161348bytes原片SHA256 **f5d2215f0600ec7b6978521e3149678965c81b1be75d7a8763db01d7974324a8** 全解碼／339連續2fps樣本／6表；無fullsize movie樣本、原速播放、音軌聆聽、真機或長時間認證。限定接受不等於完整美術或全遊戲完成。
+
+## 保留L與CI82 — 不重驗、不重送
+
+L包 **Chrono-VQ03L-canyon-relief-tested.zip／10ksiEetVGovT6j7LSTtGmzGvbrkpAD_2**，1126895bytes／SHA256 **3aaf3fa31c5e806e30617ff31f58fc9ca196e196c9ce426ca5305eaaa621177f**；17差異／494snapshot／54manifest及完整失敗logs／offline／atlas，既有下載核parent/hash/CRC/tar保留。L原2302Node416Python與20新Node3Python是歷史成果，不算M新增。
+
+CI82原包 **Chrono-CI82-reviewed-evidence.zip／1nItZC2tjiHlwhTnxAI9zeBidXz5Pr0ZN**，89076905bytes／SHA256 **6b9970febb18997d795237231b4a64d68c6b64a8d3e03752e79b741da1f480d4**，7原ZIP／33manifest；CI82／Pages76和CI82_ACCEPTANCE沿用。102contact3fullsize、172.28秒345個2fps樣本不是原速／聆聽。
 
 ## 保留K／J／CI81／CI80恢復點 — 不重驗
 
-K已測：**Chrono-VQ03K-canyon-material-tested.zip／11ksb0vJbgJMa-uWUWlJAI-Y4d-IpvC4u**，1007203bytes，SHA256 **2ba644a51aa4883a255a2ede56111675cf379c1714c887b53c7702ea63904e30**，16差異／485snapshot／48manifest，原2282Node413Python；是K歷史成果，不算L新增。
+K已測：**Chrono-VQ03K-canyon-material-tested.zip／11ksb0vJbgJMa-uWUWlJAI-Y4d-IpvC4u**，1007203bytes，SHA256 **2ba644a51aa4883a255a2ede56111675cf379c1714c887b53c7702ea63904e30**，16差異／485snapshot／48manifest，原2282Node413Python。
 
 CI81原生：**Chrono-CI81-reviewed-evidence.zip／1kXO-zxI4b0Yb8ycaV6AdqZagL-ugrKnn**，90823168bytes，SHA256 **69fe41e525c66f94bbb5b7f793434f033e024f89157aa3289baf304c44987f07**，7ZIP/32manifest；Jsource235fcf143a853cdeb8599b3f8703b090542eda5a，CI81/Pages75接受收據CI81_ACCEPTANCE。102contact3fullsize／178.24秒356個2fps樣本，非原速／聆聽。
 
@@ -26,7 +52,7 @@ CI79原生：**Chrono-CI79-reviewed-evidence.zip／1QmVKR7e8YXm3sH-GFtI7H2lVOPV0
 
 ## 更早恢復點 — 既有回驗沿用
 
-**H已測場景**：Chrono-VQ03H-trial-scenery-tested.zip，file **1HHFaTQ0bkUEk3qvd7WaMpTzKJjPTlaUL**，1116344bytes／SHA256 **0a8110419032cbea0fa1871404e0e85c647b3ced6236c88bd27562fabc77c209**。16差異／462快照／50manifest、2229Node404Python原logs保留，不作I新增成果或最新docs。
+**H已測場景**：Chrono-VQ03H-trial-scenery-tested.zip，file **1HHFaTQ0bkUEk3qvd7WaMpTzKJjPTlaUL**，1116344bytes／SHA256 **0a8110419032cbea0fa1871404e0e85c647b3ced6236c88bd27562fabc77c209**。16差異／462快照／50manifest、2229Node404Python原logs保留。
 
 **CI78／Pages72原始證據**：Chrono-CI78-reviewed-evidence.zip，file **1c7wxq1v7elzKMrRfWKpgUkwEc2rdph_M**，91355191bytes／SHA256 **b8d989542822d3f54cfe931b1022217555103a5ab689b68e8ce99f63089c20cc**。七ZIP／28manifest；CI78_ACCEPTANCE commit49d9c9d4c8959e0f00c9c3b21efa5ce9b9adb5bc。原555files／十ledger173列、102contact2fullsize、175.88秒352個2fpssample界線保留，不是原速／聆聽。
 
@@ -52,10 +78,10 @@ CI79原生：**Chrono-CI79-reviewed-evidence.zip／1QmVKR7e8YXm3sH-GFtI7H2lVOPV0
 
 ## 最短接續
 
-先完成 **CI83_CHECKPOINT.remainingReview**：原三jobs／主報告／chooser／完整CPU600救援審判／十ledger，特別新山道切角面／底部碰撞辨識／4樹冠atlas與C敵人可見性，以及G音訊與既有場景回歸。核matchingPages exactsource/run/artifact/HTML/publicHTTP及原ZIP指定Drive下載回讀後，才有界接受。失敗只修同root實際缺口，不改路線／時間／畫質／斷言。
+讀STATUS／IMMEDIATE_CONTINUATION／CI84_CHECKPOINT後只查exactCI84一次。Active保存，不久等；完成則檢查同source/run/HTML原產物、兩處MmotionJSON／原PNG、完整旅程／十ledger及matchingPages。原生觀察追加不更改原路線與門檻，沒有正向native受擊證據就不宣稱驗證。原ZIP/source/movie/reports/review指定Drive保存並實際下載回讀後才有界接受。
 
-L只完成輪廓和樹冠差異實作；壓縮山道／法庭構圖、樹木重疊、更廣人物植物道具尺度輪廓、完整角色動畫、完整合法音訊／實際聆聽、原速移動／淡化／viewport舒適性仍開放。已看L離線before/after全尺寸542×361（requested678×452），Node不繪文字／曲線，不是CI83原圖／原速遊玩。無新score，舊30/100屬舊runtime，release仍BLOCKED。
+四姿態不等於完整角色動畫；尺度構圖、山道／法庭壓縮空間、樹木重疊、完整合法音訊／聆聽與原速走位淡化viewport仍開放。T03–T08全範圍、requiredassets/fivegates/zerocritical／真機與品質分母不縮，2300非完整未來，無新score。
 
-Main only/non-force/no branch/PR/平行candidate／防撞機制。保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8；無P3/ARPG/框架重造。禁止本機browser、native game/time/save/collision造數，不能放寬<.12、原tick、單一30秒、250ms/256、CPU畫質記憶體。Held家具不提升／間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules並保留esbuildhardlink，不覆舊config或開bootstrapCI。私人ROM／原媒體／字型／憑證不公開；文件[skip ci]，成果雲端保存並回讀。
+Main only/non-force、TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8保留；無P3/ARPG/框架重造／平行candidate。本機browser與native game/time/save/collision造數禁止；<.12／原tick／單一30秒／250ms-256／CPU畫質記憶體不放寬。Held家具不提升或間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules／保留esbuildhardlink，不覆舊source/config／不開bootstrapCI。私人ROM／原媒體／字型／憑證不公開；docs[skip ci]並回讀。
 
-當時文件SHA run count=0不是永久沒有run的承諾，下游Pages可能以文件HEAD運行。
+文件SHA在某次觀察run count=0不是永久不會有run的承諾；下游Pages可能以文件HEAD運行。

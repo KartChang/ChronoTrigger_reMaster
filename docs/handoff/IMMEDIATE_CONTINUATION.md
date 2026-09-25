@@ -1,37 +1,41 @@
-# 立即接續 — CI80-court-canopy-evidence
+# 立即接續 — CI82-canyon-material-evidence
 
-立即使用GitHub connector接手 **KartChang/ChronoTrigger_reMaster**，必要時使用既有Google Drive connector。只讀STATUS及 **docs/evidence/CI80_CHECKPOINT.json**，確認main一次；不是repository盤點、歷史審計、重新規劃或重做已完成工作。不索取ROM/token/手動證據。唯一branch **main**，singleAI/non-force，不建PR、平行candidate或多人防撞。
+立即使用GitHub connector接手 **KartChang/ChronoTrigger_reMaster**，需要恢復原檔才使用Google Drive connector。只讀STATUS與 **docs/evidence/CI82_CHECKPOINT.json**，確認main一次，直接做remainingReview；不是盤點／歷史審計／重規劃。不索取ROM/token/手動證據。唯一branch **main**，singleAI/non-force，不建branch/PR/平行candidate或防撞機制。
 
 ## 唯一目前位置
 
-Root **T05-early-visual-cohesion**；terminal **CI80-court-canopy-evidence**。目前 **VQ03I／0.9.56** source **b0f4b3f4bfbb233fcdc6cee5b06cd1fd29e0786b**，tree **6479f59e11849e807664ee8e2d1099bddfe7b7cc**，publication parent **876cea59ec4a4832406aec1b14554d84cef2380a**。14程式／測試檔已一次non-force發布並回讀；完整tree等於已測程式＋當時main docs tree720126e88660c47049997a895b4d3b93358cdd88。**I/H/G/camera修復均已發布，不重送。**
+Root **T05-early-visual-cohesion**；terminal **CI82-canyon-material-evidence**。**VQ03K／0.9.58** source **64732e5907e653f5e2fb7ed20f70856ed7f5da00**，tree **a126f073e0e648898dfbd1da06ba9ac7d12b05f1**，parent **027639920ca508d4aa544b4da05b64450a996384**。16檔已一次non-force發布並回讀，完整tree＝已測程式＋當時docs tree **b2a40748976bb582024ab8751869e084150681bc**。**K/J/I/H/G及camera修復皆已發布，不重送。**
 
-Matching **CI80／36117413556**，workflow360357259/.github/workflows/ci.yml，push/attempt1。發布後一次觀察 **queued/null**，provider created/updated **2026-09-25T09:15:24Z（台灣17:15:24）**，exactsource全event/state run count=1，無額外dispatch/rerun。續作查本run一次；仍active保存checkpoint，不反覆輪詢到中斷。CI80尚未原生accepted、尚未matchingPages接受。
+Matching **CI82／36157428126**，workflow360357259/.github/workflows/ci.yml，push/attempt1。唯一matching查詢last observed **in_progress/null**，provider updated **2026-09-25T15:55:44Z／台灣2026-09-25 23:55:44**，沒有額外dispatch/rerun。尚未jobs/artifacts或matchingPages接受。續作只查本run一次；仍active保存，不反覆輪詢到中斷。
 
-## 已完成，不重驗或重做
+## 已完成，不重做
 
-CI79 **36109184360**／Pages73 **36111225598**，sourceH **1dd4686f30c2fb7b6e67524131468dca90e6730a**，已有界accepted。原三jobs／chooser／完整CPU600救援審判／十ledger173列逐byte相同、570原檔未改，fair-vendors before/restored一致。Selectedartifact10853380936、playable/staged/deployedHTML5737166bytes／SHA256 **ef74cac63d775c11f7bd7008363c2c8010c864d5efb8f36ce984e5ce47a45a05**一致，publicHTTP provider step成功。收據 **CI79_ACCEPTANCE.json**於parent876cea59提交並回讀，不重驗CI79與更早基準。
+前兩次中斷雖未回覆，已發布J並保存CI81_ACCEPTANCE；本輪初始main **587e14d6671513e08c74e66711d58797d4f1b855**相对J source只有CI81兩份新增文件。舊STATUS/handoff/CI80/CI81checkpoint等待敘述落後，現在已同步；不能依舊checkbox或archive false重開接受工作。
 
-CI79原圖只102contact／2fullsize（forest-gate及courtroom reduced）；其餘100僅縮圖。168.4秒原片全decode、337連續2fps樣本／6表已看，無fullsize影片樣本／原速播放／音軌聆聽／真機／長時間認證。CI77、CI75仍failure，CI71歷史accepted=false不回填。
+最新有界基準 **CI81／36125796673、Pages75／36128075047**，Jsource **235fcf143a853cdeb8599b3f8703b090542eda5a**，receipt **CI81_ACCEPTANCE.json**。原三job／chooser／CPU600救援審判／十ledger173列與570原檔不改；selectedartifact10860835779，HTML5741404bytes／SHA256 **f17b04b039dbb2f6cb5df0630292af6bd2dd6bfcc0ba6fe833950b00bb176f67**相同/publicHTTP通過。這是已接受結果，本輪未重驗，不再查舊run。
 
-I runtime只改trial-render.ts、新增court-staging.ts：14既有法庭NPC依actual camera up／原pivot與既有支撐面接地，原x/z脚底錨點保留；七陪審員height1.7／width1.2。原guardia1000的15卡片用未改既有drawWoodlandOak，64×80nearest-alpha／原數量位置幾何尺度不變。H地面與31薄飾面、原gate、camera/audio/gameplay/nativecapture/routes/assertions/workflow保留。隱藏停止寫入、dispose清引用，不新增mesh/texture；courtStaging只讀觀察。
+CI81只102contact／3fullsize原圖（courtroom、forest-gate、field-canyon），178.24秒原片356個2fps樣本／六表；不是原速播放或聆聽／真機／長時間。CI77/75維持failure、CI71歷史accepted=false。CI80已按原CI80_ACCEPTANCE關閉，不追溯造success。
 
-最終 **2245Node零fail零skip／407Python通過**，16新Node＋3新Python、16targetedpass、pre-I2assertionsfail。完整check/assets/typecheck/build/diff、465非文件程式指紋前後及發布前一致；469快照另含四root文件。三viewport／相機角度／支撐／資源／精確偏好還原／八其他地圖pixels已測。三檔12精確inverse片段和CI79 fullhash、Node/Python負測試保持，歷史Hport明示pre-I，當前I獨立驗證；native證據不改。原失败logs保留。收據 **VQ03I_TESTED_BATCH.json**。
+K runtime只改canyon-render.ts及新增canyon-art.ts：原512×448/world24×22/.05地面與sin路徑輪廓，低對比苔地土路；64×64層状岩壁／共用草面；8原樹卡用未改drawWoodlandOak。原mesh/UV/transform/caster/material數量、碰撞、角色/Cpalette/camera/audio、H/I/J和native route/capture/assertion/workflow不改。新增一張共用turf texture，非每平台資源。四同runtime匯出為review-not-approved。
 
-離線court-before/after與forest-after三張全尺寸已看，實際CPUbuffer542×361；不含文字曲線，不是CI80原圖。樹冠重複／重疊與法庭平台／空間構圖仍開放，無新score或完整美術認證。
+最終 **2282Node零fail零skip／413Python**，新增18Node＋3Python，18targetedpass、pre-K兩舊runtime斷言fail。完整check/assets/typecheck/build/diff與481非文件inputs前後/發布前一致，485snapshot另含四rootdocs。三viewport／state-camera-enemy／精確偏好還原／八其他map pixels／資源生命週期已測；三script八K精確片段＋原CI81hash/NodePython負測試保留。匯出獨立checker錯路徑修正紀錄亦保存。詳 **VQ03K_TESTED_BATCH.json**。
 
-## 雲端恢復
+K離線before/after是Node CPU，requested678×452/actual542×361，不繪文字曲線；不是CI82原圖。山道箱狀平台、視野壓縮／樹冠重複、法庭構圖與完整動畫音訊仍開放，不自評新分數。
 
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。I已測包 **Chrono-VQ03I-court-canopy-tested.zip**，ID **1MVnJyLotTvO3P7Y0HAwkshn49i0L_S0F**，**1161444bytes**，SHA256 **9be8f6bf7e52ded25ce22da2b4a3198c2dacc1dd7dc742ea00e0dc91f23deda4**；14差異／469snapshot／logs／offline／51manifest已實際下載核parent/size/hash/CRC。根目錄program-snapshot.tar.gz是assembled已測程式，不是publishedGitarchive或最新docs。包內sourcePublished=false屬發布前；I已發布，不再套包重送。
+## 正確雲端恢復
 
-CI79原包 **Chrono-CI79-reviewed-evidence.zip**，ID **1QmVKR7e8YXm3sH-GFtI7H2lVOPV0MpN8**，**90393537bytes**，SHA256 **59b68dabf639ea9cdad8e86e0ec8fe1b16e6617851f07225bfa68ea7485144e7**，七未改原ZIP／32manifest已實際下載核parent/size/hash/外內CRC。僅恢復需要時下載整包hash，不重做接受技術工作。進度讀GitHubmain，臨時容器不可信。
+唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-## 直接執行 remainingReview
+K包 **Chrono-VQ03K-canyon-material-tested.zip**，ID **11ksb0vJbgJMa-uWUWlJAI-Y4d-IpvC4u**，1007203bytes，SHA256 **2ba644a51aa4883a255a2ede56111675cf379c1714c887b53c7702ea63904e30**；16檔/485snapshot/logs/offline/4exports/48manifest，實際下載核parent/size/hash/CRC/manifest/tar。根program-snapshot.tar.gz非publishedGitarchive／當前docs，包內sourcePublished=false是發布前歷史，K不能重送。
 
-查CI80完成後，核同source/run/HTML三jobs／全部主報告／nativechooser／十ledger／完整CPU600救援審判／G音訊原回歸。特別看I原生法庭腳底／陪審員比例／證人與森林15樹冠、gate／隊伍辨識，保留原state/frame/texture/resource/quality/精確還原門檻。不能以CI79舊PNG或I離線圖代替CI80，不改capture/route/tick/sleep/quality。
+CI81原始包 **1kXO-zxI4b0Yb8ycaV6AdqZagL-ugrKnn**／90823168bytes／SHA256 **69fe41e525c66f94bbb5b7f793434f033e024f89157aa3289baf304c44987f07**；七ZIP/32manifest已有驗收，本輪只為恢復核整包hash。J已測恢復 **1A4URAW8CREMtET8qTuj3LDHFQTF6x7OP**，其477snapshot/2264Node410Python是前批，不算本輪新增。進度一律最新GitHubmain，臨時容器不是權威。
 
-原圖原片review明列fullsize/contact/sample，不把decode或2fps稱原速／聆聽。MatchingPages selectedCI/source/artifact/exactHTML/publicHTTP及實際原ZIP/source/movie/report/review存正確Drive並實際下載回讀後，才有界accepted；失败僅修實際同root缺口，不放寬斷言。
+## 直接完成remainingReview
 
-支持成功後續T05更廣尺度輪廓／原作構圖、法庭平台／空間與樹冠重複、完整角色動畫、完整合法音訊／實際聆聽、原速移動淡化viewport舒適性。T03–T08完整範圍不縮，2300非完整未來，無全美術／真機／長時間／全遊戲接受。不要重做已接受批次或提前擴後段。
+完成CI82後核同source/run/HTML原三jobs、完整CPU600救援審判、chooser、十ledger和G音訊原回歸。特別看新山道原PNG／同run影片的地面岩壁草面樹卡、角色小怪辨識；保留原frame/state/resource/quality/exactrestore門檻，不用CI81舊圖或Koffline代替，不改capture/route/tick/sleep/quality。
 
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8；無P3/ARPG/框架重造／人造native game/time/save/collision。不能放寬<.12、原ticks、單一30秒、250ms/256、CPU品質記憶體。Held VQ01Z／母親家具不提升、換管道或間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。禁止本機browser；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules並保留esbuild hardlink，不覆舊source/config或開bootstrapCI。私人ROM1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM／原媒體／字型／憑證不公開。文件[skip ci]，所有成果寫回GitHub／指定Drive並回讀。
+原圖原片明列fullsize/contact/sample，不把decode或抽樣稱原速／聆聽。核matchingPages selectedCI/source/artifact、exactHTML/publicHTTP，原ZIP/source/movie/reports/review存指定Drive並實際下載回讀後，才有界accepted；failure只修本root實際缺口。
+
+支持成功再續T05更廣尺度輪廓／原作構圖、箱狀山道平台／樹冠重複與法庭壓縮空間、完整動畫／合法完整音訊與聆聽、原速移動淡化viewport。T03–T08完整範圍不縮、2300抵達非完整未來。TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8保留；無P3/ARPG/框架重造或native state造數；不放寬<.12／原tick／單一30秒／250ms256／CPU品質記憶體。
+
+Held家具不提升／間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**；禁止本機browser。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules並保留esbuildhardlink，不覆舊config／開bootstrapCI。私人ROM/原媒體/字型/憑證不公開。所有文件[skip ci]、成果存GitHub／正確Drive並回讀。

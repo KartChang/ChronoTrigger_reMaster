@@ -1,29 +1,31 @@
-# Execution TODO — CI78-frozen-camera-restoration-evidence
+# Execution TODO — CI79-trial-scenery-evidence
 
-Authority：STATUS、handoff/IMMEDIATE_CONTINUATION、evidence/CI78_CHECKPOINT。main only／single AI／non-force；root T05-early-visual-cohesion。Source **c65fa91afd407d69976a4ca8e58855d3fff9cc34**、tree **76a4efda08985cc8d668319905a00ae907993c89**，G0.9.54 camera修復已發布，不重送。
+Authority：STATUS／handoff/IMMEDIATE_CONTINUATION／evidence/CI79_CHECKPOINT。main only、single AI、non-force；root **T05-early-visual-cohesion**。VQ03H／0.9.55 source **1dd4686f30c2fb7b6e67524131468dca90e6730a**、tree **59f9f7474dab2850dd80aac330efafeb7b21e9ae**；已發布，不重送。
 
-## 本輪已完成
+## 本輪完成
 
-- [x] CI77原CPU fair-vendors精確還原失敗已定位；原PNG差76pixels，原始state/NPC觀察與四artifactZIP保留，未重驗CI76或重做G音訊。
-- [x] 可逆同tick鏡頭偏好還原；精確target/context身份與tick/context/viewport/target/actor/bounds/reset失效處理；正常安全取景／動態政策不變。
-- [x] +14Node回歸／38camera tests；修前37測試34pass3fail，修後全pass。明示offlineCPU差22至0，不是新nativeCI。
-- [x] 原camera pin保留，五片段test-only inverse與missing/duplicate/unrelated負測試，不改nativecapture/assertions/routes/workflow/audio。
-- [x] 最終2205Node/401Python、assets/typecheck/build/check/diff、451程式輸入指紋通過；455檔快照另含四root文件。
-- [x] 新Drive包1S1kHlFoN-aeirWHVcB-9ouA-VrdnGix-：54893149bytes、四未改原ZIP/24manifest/快照/logs，下載parent/hash/CRC回驗。
-- [x] 六檔一次non-force發布，全root與已測程式+當時docs一致；matchingCI78 **36054333321**已建立。
+- [x] CI78／Pages72同source完整技術驗收：三jobs／CPU600救援審判／原chooser／十ledger173列、原fair-vendors精確還原、selectedartifact及HTML/publicHTTP。原圖與影片有界審查、七原ZIP／28manifest存正確Drive並下載回驗。CI78_ACCEPTANCE已發布，舊failure不改寫。
+- [x] H既有森林時門地面低對比苔地／中央土徑與時門分支；法庭石板／地毯與原家具31薄飾面。384×352／16×14／nearest、鏡頭、碰撞、角色、gate、故事和音訊不變。
+- [x] 新增兩張同runtime painter匯出；root/cache/hide/dispose、三viewport還原與八其他地圖原pixels回歸。這些是Node offline測試，不是原生新畫面接受。
+- [x] 24新Node＋3新Python；final2229Node零fail／零skip、404Python、完整check/build/typecheck/assets/diff、458輸入指紋一致。13精確H片段／5原檔hash＋Node/Python負測試保留；pre-H四針對斷言失敗、當前24針對通過。
+- [x] H16檔、462快照／logs／50manifest封裝存Drive1HHFaTQ0bkUEk3qvd7WaMpTzKJjPTlaUL並下載核parent/size/hash/CRC。原失敗logs保留。
+- [x] 16程式／測試檔一次non-force發布，fulltree等於已測程式＋當時main文件；matching **CI79／36109184360**已識別，push/attempt1/in_progress/null。
 
 ## 唯一目前驗證 — 未完成
 
-- [ ] 續作只查exact CI78一次；發布後last observed queued/null at2026-09-24T20:21:37Z。仍active即保存，不持續輪詢或重送修復。
-- [ ] 同source/run/HTML三job主報告/nativechooser/完整CPU600救援審判/十ledger；特别確認fair-vendors原PNG精確还原及原state/frame/quality斷言。
-- [ ] 保留原G music/analyser/hold/import/mute/16voice/.55master門檻；原圖原片審查明列全尺寸/contact/sample，不能當原速播放或完整聆聽。
-- [ ] matchingPages selectedCI/source/artifact/HTML/publicHTTP及原ZIP/source/movie/report指定Drive回讀，完成後才有界accepted。失敗保留原狀、修同root。
+- [ ] 續作只查exact CI79一次；仍active保存checkpoint，不輪詢到中斷、不重送H、不得將archive內false當未發布。
+- [ ] 同source/run/HTML核原三jobs、主報告、chooser、完整CPU600救援審判、十ledger；保留原條件skip與所有真實failure。
+- [ ] 特別核H法庭與森林時門原生PNG、原state/frame/逐byte偏好還原、遮擋／幾何／畫質／資源門檻；不把H離線圖或CI78舊圖當CI79證據，不修改路線/tick/sleep/PNG。
+- [ ] 保留G music/analyser/hold/import/mute/16voice/.55master回歸。原圖與同run影片明列fullsize/contact/sample範圍，不冒稱原速／聆聽。
+- [ ] matchingPages selectedCI/source/artifact/HTML/publicHTTP；七原ZIP或本run實際產物、exactsource/movie/reports/review正確Drive保存及實際下載回讀後才有界accepted。failure只修本root真實缺口。
 
 ## 接續T05 — 未完成
 
-- [ ] 人物／植物／道具製作品質、尺度輪廓與原作構圖，包括已記錄森林時門地面雜訊、法庭稀疏；不重做C/Z/A/B/D/E/F/G。
-- [ ] 原速移動／淡化／viewport舒適性、完整角色動畫、完整自製或合法授權音訊與實際聆聽。鏡頭單元修復不等於原速品質接受。
+- [ ] 人物／植物／道具尺度輪廓與原作構圖；樹冠仍有雜訊，法庭平台／角色尺度及整体豐富度仍需改善。H地面与薄飾面實作完成不等於整場美術核准。
+- [ ] 完整角色動畫、完整自製或合法授權音訊／實際聆聽、原速移動／淡化／viewport舒適性。先前鏡頭修復、聲部unit、無音軌sample不能代替品質驗收。
 
-完整T03規則版本拓樸數值；T04成長報酬掉落經濟道具飾品學習雙三人技；T05全美術建模動畫音訊；T06所有時代主支線結局；T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio；T08每批測試／一次source／完整CI／原檔雲端回讀均保留。2300抵達不是完整未來。無新score／真機／長時間／全遊戲認證。
+## 完整產品範圍不縮
 
-沿用STATUS的main-only/non-force/heldprologue/no-local-browser/私人素材/原tick時間CPU畫質記憶體門檻；禁止人造native game/time/save/collision state。CI77與CI75保留failure，CI71historicalaccepted=false，CI76仍最後有界基準。
+T03隱含規則／版本差異／完整拓樸數值；T04完整成長／報酬掉落／經濟道具飾品／學習／換人／雙三人技；T05全部美術建模動畫合法音訊；T06所有時代主支線結局，2300抵達不是完整未來；T07整體>=90、各面向>=80%、requiredassets/fivegates/zerocritical及真機input/FPS/frame-time/load/memory/background/save/audio；T08每批完整測試／一次source／matchingCI／原始產物雲端回讀。沒有新分數／全美術／真機／長時間／全遊戲接受。
+
+沿用STATUS的原native state／route/time/CPU品質記憶體、main-only、heldprologue、no-local-browser及私有素材限制。不重做C/Z/A/B/D/E/F/G、camera修復或重驗CI78與更早接受工作。CI77／CI75保留failure，CI71歷史accepted=false。

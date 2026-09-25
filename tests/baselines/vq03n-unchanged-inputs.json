@@ -1,0 +1,14 @@
+{
+  "src/imp-motion.ts": "55b5601beef643686355eca4dedfcc6cef33232bbb82c51a725d1794d78bde54",
+  "src/pixel-art.ts": "a1778394e05c2aa08a146aa31cc7b61ca757b50cb7625e64289057215aac41c5",
+  "src/render.ts": "a46d3421ab56d2b173512d10490f04b26dfcba4af7eac3bd1cc7a566ddff0c5b",
+  "src/prologue-render.ts": "4acab4a7f71aa5dda5640b48958658df9549dfb55c2ce63f7f0bb476aacb52af",
+  "src/input-boundary.ts": "80ddeaa0d7120b08aee850fe1b830b2b11fe1db41cfc29715ef9c2682dd8d7c0",
+  "tests/opening_browser.py": "b63e36b14bc8a1129e00ad4932364f5b274435b74f2c5ad109460b8701257768",
+  "tests/kingdom_browser.py": "6c5e30e617a8cdaee998c7d7e8d5163ebf0e19583267775f9ca4e4b6eec15e29",
+  "tests/cpu_era_route.py": "01bc95f65fbfb89961433ce1a7db56858ec7f1e35cac9e12f6aafafd47eabc52",
+  "tests/cpu_renderer_browser.py": "bcc30926d176f8f9685fe38f1835d79bade41df68b69cb90744644995c2735be",
+  "scripts/ci-evidence.mjs": "51185a4338ae5010a195ab6b6a10f57dd91e56eb2728f27f1445538f8ac6dc60",
+  "scripts/cpu-evidence.mjs": "2527e5879adb2649b0b7168cd8fb07f042424e6113c41a18ffcc37357ed61e50",
+  "scripts/field-enemy-evidence.mjs": "6a45b8ff6adf2605cb33b3f34f9f5ce59408034a87430c07dcb852733a721190"
+}

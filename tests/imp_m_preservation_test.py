@@ -1,6 +1,7 @@
 """Source pinning only, no native state/evidence transforms."""
 import hashlib,unittest
 from pathlib import Path
+from action_n_preservation import restore_action_n_if_declared
 from imp_m_preservation import SPEC,restore_imp_m_source,restore_imp_m_if_declared
 ROOT=Path(__file__).resolve().parents[1]
 class ImpMSourceTests(unittest.TestCase):
@@ -11,7 +12,7 @@ class ImpMSourceTests(unittest.TestCase):
             self.assertEqual(restore_imp_m_if_declared(n,old),old)
     def test_missing_duplicate_unrelated(self):
         for n,edits in SPEC['files'].items():
-            s=(ROOT/n).read_text()
+            s=restore_action_n_if_declared(n,(ROOT/n).read_text())
             for e in edits:
                 for bad in [s+e['after'],s.replace(e['after'],'',1)]:
                     with self.assertRaises(AssertionError):restore_imp_m_source(n,bad)

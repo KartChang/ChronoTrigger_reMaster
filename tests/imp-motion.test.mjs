@@ -1,3 +1,4 @@
+import {actionNIfDeclared} from './helpers/action-n-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
@@ -26,7 +27,7 @@ const resources=w=>[w.scene.meshes.length,w.scene.materials.length,w.scene.textu
 const geo=w=>w.scene.meshes.map(m=>[m.name,m.position.asArray(),m.scaling.asArray(),m.rotation.asArray(),m.getTotalVertices(),m.getTotalIndices()]);
 function battle(s){s.mode='battle';s.enemies=[{x:-1.8,z:2.4,hp:30,atb:.7,kind:'imp'},{x:1.8,z:3,hp:30,atb:0,kind:'imp'}];return s;}
 for(const name of Object.keys(impMSpec.files))test('M exact original source and negative guards: '+name,()=>{
- const s=readFileSync(name,'utf8'),before=impMBaseline(name,s);assert.equal(hash(before),impMSpec.originalSha256[name]);assert.equal(impMIfDeclared(name,before),before);
+ const s=actionNIfDeclared(name,readFileSync(name,'utf8')),before=impMBaseline(name,s);assert.equal(hash(before),impMSpec.originalSha256[name]);assert.equal(impMIfDeclared(name,before),before);
  for(const e of impMSpec.files[name]){assert.throws(()=>impMBaseline(name,s+e.after));assert.throws(()=>impMBaseline(name,s.replace(e.after,'')));}
  assert.notEqual(hash(impMBaseline(name,s+'\n// unrelated drift\n')),impMSpec.originalSha256[name]);
 });

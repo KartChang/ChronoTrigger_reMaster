@@ -27,7 +27,8 @@ export type Slot = 0 | 1;
 export type Vec = { x: number; z: number };
 export type Actor = Vec & { hp: number; mp: number; atb: number; facing: number; walking: boolean };
 export type Enemy = Vec & { hp: number; atb: number; kind?:'naga'|'hench'|'yakra'|'prisonGuard'|'tankHead'|'tankBody'|'tankWheel'; maxHp?:number };
-export type Effect = { x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
+export type EnemyAction = { index:number; tick:number; origin:Vec; target:Vec };
+export type Effect = { enemyAction?:EnemyAction; x: number; z: number; text: string; kind: 'hit' | 'heal' | 'combo'; actor?:Slot; guest?:boolean; origin?:Vec; style?:'slash'|'shot'|'fire'|'spin' };
 export type Flags = { repaired: boolean; won: boolean; visitedFuture: boolean };
 export type State = {
   equipment:EquipmentState|null;
@@ -193,7 +194,7 @@ export function step(s: State, input: Input, delta: number): void {
       e.atb=0;const alive=livingAllies(s);if(!alive.length)break;
       const pulse=e.kind==='yakra'&&++s.rescue.enemyActions%3===0;
       const targets=pulse?alive:[alive[s.enemyTurn++%alive.length]!];
-      for(const target of targets)damageAlly(s,target,e.kind==='yakra'?(pulse?12:18):12);
+      for(const target of targets)damageAlly(s,target,e.kind==='yakra'?(pulse?12:18):12,e);
       if(pulse)log(s,'亞克拉甩出尖刺，掃向整支隊伍！');
     }
   }
@@ -438,9 +439,11 @@ function livingAllies(s:State):Actor[]{
  if(guestKind(s)&&s.rescue.guest.hp>0)allies.push(s.rescue.guest);
  return allies;
 }
-function damageAlly(s:State,p:Actor,amount:number):void{
+function damageAlly(s:State,p:Actor,amount:number,attacker:Enemy):void{
  amount=Math.max(1,amount-equipmentBonuses(s.equipment,p===s.rescue.guest?(guestKind(s)??'frog'):partyMember(s,s.players.indexOf(p) as Slot)).defense);
- p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit'});
+ p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit',
+  // Presentation metadata on the real delivered attack, never inferred from its target.
+  ...((s.chapter==='canyon'||s.chapter==='forest')?{enemyAction:{index:s.enemies.indexOf(attacker),tick:s.ticks,origin:{x:attacker.x,z:attacker.z},target:{x:p.x,z:p.z}}}:{})});
  if(p.hp===0){p.atb=0;const i=s.players.indexOf(p);if(i>=0)s.combo[i as Slot]=false;}
 }
 function placeGuest(s:State):void{

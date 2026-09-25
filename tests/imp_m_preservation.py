@@ -1,8 +1,10 @@
 """Exact source-only M inverse. Never converts native reports or pixels."""
 import json
+from action_n_preservation import restore_action_n_if_declared
 from pathlib import Path
 SPEC=json.loads((Path(__file__).parent/'baselines/vq03m-declared-imp-edits.json').read_text())
 def restore_imp_m_source(name,source):
+    source=restore_action_n_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits: raise ValueError('Undeclared M source')
     for e in reversed(edits):
@@ -11,4 +13,5 @@ def restore_imp_m_source(name,source):
     return source
 
 def restore_imp_m_if_declared(name,source):
+    source=restore_action_n_if_declared(name,source)
     return restore_imp_m_source(name,source) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source

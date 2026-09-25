@@ -38,6 +38,8 @@ jobs:
         run: python tests/fair_browser.py
       - name: Test pendant story, lone canyon battle and v3 save reload
         run: python tests/opening_browser.py
+      - name: Test real-input nonlethal recoil and source-identified field foe action
+        run: python tests/field_enemy_action_browser.py
       - name: Test Truce, Guardia, queen disappearance, Lucca co-op and v4 saves
         run: python tests/kingdom_browser.py
       - name: Test explicit targets and reference-art animation in real gameplay

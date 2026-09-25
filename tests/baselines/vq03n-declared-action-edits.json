@@ -1,0 +1,81 @@
+{
+  "baseSource": "32672b15a8df76ff243f7840ef95a9b8b817a052",
+  "files": {
+    "src/core.ts": [
+      {
+        "before": "export type Effect = {",
+        "after": "export type EnemyAction = { index:number; tick:number; origin:Vec; target:Vec };\nexport type Effect = { enemyAction?:EnemyAction;"
+      },
+      {
+        "before": "damageAlly(s,target,e.kind==='yakra'?(pulse?12:18):12);",
+        "after": "damageAlly(s,target,e.kind==='yakra'?(pulse?12:18):12,e);"
+      },
+      {
+        "before": "function damageAlly(s:State,p:Actor,amount:number):void{",
+        "after": "function damageAlly(s:State,p:Actor,amount:number,attacker:Enemy):void{"
+      },
+      {
+        "before": "p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit'});",
+        "after": "p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit',\n  // Presentation metadata on the real delivered attack, never inferred from its target.\n  ...((s.chapter==='canyon'||s.chapter==='forest')?{enemyAction:{index:s.enemies.indexOf(attacker),tick:s.ticks,origin:{x:attacker.x,z:attacker.z},target:{x:p.x,z:p.z}}}:{})});"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {detailJIfDeclared}",
+        "after": "import {actionNBaseline} from '../tests/helpers/action-n-baseline.mjs';\nimport {detailJIfDeclared}"
+      },
+      {
+        "before": "await build({entryPoints:['src/core.ts'],bundle:true,outfile:'.test/core.mjs',format:'esm',platform:'node'});",
+        "after": "await build({entryPoints:['src/core.ts'],bundle:true,outfile:'.test/core.mjs',format:'esm',platform:'node'});\nawait build({entryPoints:['src/imp-action.ts'],bundle:true,outfile:'.test/imp-action.mjs',format:'esm',platform:'node'});\nawait esbuild({stdin:{contents:actionNBaseline('src/core.ts',readFileSync('src/core.ts','utf8')),loader:'ts',resolveDir:process.cwd()+'/src'},bundle:true,outfile:'.test/action-n-prior-core.mjs',format:'esm',platform:'node'});"
+      },
+      {
+        "before": "'tests/pause-keyboard.test.mjs'],{stdio:'inherit'});",
+        "after": "'tests/pause-keyboard.test.mjs','tests/imp-action.test.mjs'],{stdio:'inherit'});"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.60',batch:'VQ03M'",
+        "after": "version:'0.9.61',batch:'VQ03N'"
+      }
+    ],
+    "tests/field_enemy_motion.py": [
+      {
+        "before": "masks=[[0,0,1,0],[0,1,0,0],[1,1,0,0],[0,0,0,1]]",
+        "after": "masks=[[0,0,1,0],[0,1,0,0],[1,1,0,0],[0,0,0,1],[0,1,0,1],[0,0,1,1]]"
+      },
+      {
+        "before": "        if m['reducedMotion']: expected=0",
+        "after": "        attack=a.get('attackTick')\n        if attack is not None:\n            assert m['actionProfile']=='vq03n-field-imp-action'\n            assert type(attack) is int and 0<=attack<=tick and s['mode']=='battle'\n        if m['reducedMotion']: expected=0"
+      },
+      {
+        "before": "        elif m['battle']: expected=1",
+        "after": "        elif attack is not None and tick-attack<24: expected=4 if tick-attack<8 else 5 if tick-attack<16 else 2\n        elif m['battle']: expected=1"
+      }
+    ],
+    ".github/workflows/ci.yml": [
+      {
+        "before": "      - name: Test Truce, Guardia, queen disappearance, Lucca co-op and v4 saves",
+        "after": "      - name: Test real-input nonlethal recoil and source-identified field foe action\n        run: python tests/field_enemy_action_browser.py\n      - name: Test Truce, Guardia, queen disappearance, Lucca co-op and v4 saves"
+      }
+    ],
+    "tests/cpu_journey_support_test.py": [
+      {
+        "before": "from fair_trial_preservation import restore_fair_trial_if_declared\n",
+        "after": "from action_n_preservation import restore_action_n_if_declared\nfrom fair_trial_preservation import restore_fair_trial_if_declared\n"
+      },
+      {
+        "before": "raw=(ROOT/name).read_bytes()",
+        "after": "raw=(ROOT/name).read_bytes()\n                if name=='src/core.ts':raw=restore_action_n_if_declared(name,raw.decode()).encode()"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/core.ts": "d8a7cf8f2f0bf9f66715a22e4a4896f6b74415b19e48c660e392bd56278ecd6d",
+    "scripts/test.mjs": "14032ccb6ef5354b83ffe1ef34b8de30f27f44597c1398f40d2064d27fce4060",
+    "scripts/build.mjs": "18f99e55677dc3870d82873135bad32e3fa46f98b009186b419d6998f5fb7329",
+    "tests/field_enemy_motion.py": "9ff7f7056db2c70d0a14fa6a589f775585a36f3b8e847fa2044fdabd61b4ffa7",
+    ".github/workflows/ci.yml": "bf0f3caa3dcb23f27086943a2d040ad64af4f13089aa53125ced59d8cc6254f6",
+    "tests/cpu_journey_support_test.py": "6ec87f0e4acde3c835b4be782f3a1d2e0641f1756c8c197f6850fbcb4e942950"
+  }
+}

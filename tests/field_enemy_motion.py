@@ -10,7 +10,7 @@ def assert_field_enemy_motion(record):
     assert s['chapter'] in ['canyon','forest'] and s['mode'] in ['explore','battle']
     count=sum(e['hp']>0 for e in s['enemies'][:3]) if s['mode']=='battle' else (3 if s['chapter']=='canyon' else 2)
     assert len(actors)==count
-    masks=[[0,0,1,0],[0,1,0,0],[1,1,0,0],[0,0,0,1]]
+    masks=[[0,0,1,0],[0,1,0,0],[1,1,0,0],[0,0,0,1],[0,1,0,1],[0,0,1,1]]
     for a in actors:
         i=a['index']; assert type(i) is int and i in range(3) and a['name']=='enemy-'+str(i)
         assert a['cell']=={'width':24,'height':32} and a['tick']==tick
@@ -18,8 +18,13 @@ def assert_field_enemy_motion(record):
         hurt=a['hurtTick']
         assert hurt is None or (type(hurt) is int and 0<=hurt<=tick)
         if s['mode']=='explore': assert hurt is None
+        attack=a.get('attackTick')
+        if attack is not None:
+            assert m['actionProfile']=='vq03n-field-imp-action'
+            assert type(attack) is int and 0<=attack<=tick and s['mode']=='battle'
         if m['reducedMotion']: expected=0
         elif hurt is not None and tick-hurt<18: expected=3
+        elif attack is not None and tick-attack<24: expected=4 if tick-attack<8 else 5 if tick-attack<16 else 2
         elif m['battle']: expected=1 if ((tick+i*11)//24)%4==3 else 2
         else: expected=int((tick+i*37)%180>=150)
         assert a['frame']==expected

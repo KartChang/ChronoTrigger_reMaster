@@ -1,3 +1,4 @@
+import {actionNIfDeclared} from './action-n-baseline.mjs';
 import {frozenCameraBaseline} from './frozen-camera-baseline.mjs';
 import {pauseBaseline} from './pause-baseline.mjs';
 import {readFileSync} from 'node:fs';
@@ -11,4 +12,4 @@ export function runtimeBaseline(source){
  }
  return source;
 }
-export const runtimeBaselineBytes=(path,bytes)=>path==='src/camera-motion.ts'?Buffer.from(frozenCameraBaseline(bytes.toString('utf8'))):path==='src/main.ts'?runtimeBaseline(bytes.toString('utf8')):bytes;
+export const runtimeBaselineBytes=(path,bytes)=>path==='src/core.ts'?Buffer.from(actionNIfDeclared(path,bytes.toString('utf8'))):path==='src/camera-motion.ts'?Buffer.from(frozenCameraBaseline(bytes.toString('utf8'))):path==='src/main.ts'?runtimeBaseline(bytes.toString('utf8')):bytes;

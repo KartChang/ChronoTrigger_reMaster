@@ -1,105 +1,11 @@
 {
-  "schema": "chrono-t05-animation-checkpoint-v2",
-  "repository": "KartChang/ChronoTrigger_reMaster",
-  "branch": "main",
-  "authorityRef": "main",
-  "phase": "published-N-matching-CI85-in-progress",
-  "root": "T05-early-visual-cohesion",
-  "developmentTerminal": "T05-field-foe-action-animation",
-  "version": "0.9.61",
-  "batch": "VQ03N",
-  "sourcePublished": true,
-  "publishedSourceSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
-  "publishedSourceTree": "bbea6d5ff42cd634518b61b5bf78d6003e46e5e2",
-  "sourceParentDocumentSha": "16bcb048c107d1c3b073fddbed936d14c32d4503",
-  "sourceCommitMessage": "feat: source-bound field foe action and native recoil checks (VQ03N)",
-  "sourceReadbackVerified": true,
-  "testedProgramTreeReadbackVerified": true,
-  "sourceChanges": 21,
-  "latestAcceptedSource": {
-    "sha": "32672b15a8df76ff243f7840ef95a9b8b817a052",
-    "tree": "e2584ffecb08463567c192e94aa6a9840cf2658a",
-    "batch": "VQ03M",
-    "version": "0.9.60",
-    "ci": 84,
-    "pages": 78,
-    "acceptance": "docs/evidence/CI84_ACCEPTANCE.json",
-    "closed": true,
-    "revalidatedThisBatch": false
-  },
-  "unpublishedCandidate": null,
-  "activeValidation": {
-    "id": 36195520068,
-    "number": 85,
-    "workflowId": 360357259,
-    "path": ".github/workflows/ci.yml",
-    "event": "push",
-    "attempt": 1,
-    "headSha": "517426f3979244ce9ae2bcddc5a0518533e1500b",
-    "headBranch": "main",
-    "status": "in_progress",
-    "conclusion": null,
-    "createdAt": "2026-09-25T22:12:06Z",
-    "providerUpdatedAt": "2026-09-25T22:12:10Z",
-    "sourceMatched": true,
-    "allEventAllStateExactShaRunCount": 1
-  },
-  "testReceipt": "docs/evidence/VQ03N_TESTED_BATCH.json",
-  "validationCheckpoint": "docs/evidence/CI85_CHECKPOINT.json",
-  "cloudTestedPackage": {
-    "fileId": "1G_CAXzv-aWc18UzKO3bNWafAhTbecnd2",
-    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
-    "name": "Chrono-VQ03N-field-foe-action-tested.zip",
-    "bytes": 1072604,
-    "sha256": "d6aa83145205e835a6ba0732b336c625edf6da194f2bcef37f71af11027d63d1",
-    "manifestEntries": 31,
-    "programInputs": 509,
-    "snapshotFiles": 510,
-    "downloadVerified": true,
-    "snapshotFilesVerified": 510
-  },
-  "nativeRecoilVerified": false,
-  "nativeAttackVerified": false,
-  "fullAnimationComplete": false,
-  "artApproved": false,
-  "wholeGameAccepted": false,
-  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
-  "remainingWork": [
-    {
-      "id": "CI85-matching-native-review",
-      "state": "waiting-for-provider-completion",
-      "work": "先讀本checkpoint與STATUS。只接唯一CI85 run36195520068/source517426f；不要重跑CI84或重送M/N。若仍queued/in_progress，保存接續點，不長時間輪詢或另外dispatch。"
-    },
-    {
-      "id": "T05-native-recoil-and-source-action-evidence",
-      "state": "not-yet-verified",
-      "work": "CI85完成後取得未修改原始artifact；先核field-enemy-action/field-enemy-action-report.json、recoil-observation.json、action-observation.json與原PNG。以exact N checker唯讀核living frame3及同一真實source action的frame4/5、tick和實際RGBA。JSON/texture history不是同步framebuffer。若失敗，只修實際terminal，不改遊戲規則或原門檻。"
-    },
-    {
-      "id": "T08-CI85-original-evidence",
-      "state": "pending",
-      "work": "核matching CI85三jobs、既有主報告/chooser/CPU600救援審判及同source ledgers；成功時核matching Pages的selected source/artifact與原HTML。原始ZIP/reports/影片/source/manifest存指定Drive並實際回讀，才寫有界接受。"
-    },
-    {
-      "id": "T05-full-animation",
-      "state": "open",
-      "work": "在N原生結果之後接續既有角色與敵人的完整方向、移動、攻擊/受擊/死亡呈現及完整遊玩證據。M四姿態與N兩個手臂出手姿態不等於完整動畫；不重新製作已完成基礎。"
-    },
-    {
-      "id": "T05-early-composition-audio-comfort",
-      "state": "open",
-      "work": "續人物/植物/道具尺度輪廓與原作構圖、山道/法庭壓縮空間及重疊樹列、完整合法音訊與實際聆聽、原速走位/淡化/viewport舒適性。前段品質优先，不以CI綠勾提前擴後段。"
-    }
-  ],
-  "restrictions": [
-    "main only; non-force; no branch/PR/parallel candidate/multi-writer mechanisms",
-    "No local browser or fabricated native game/time/save/collision state",
-    "Do not change damage, ATB, collision, death timing or v1-v8 saves for animation/evidence",
-    "Original routes/keys/waits/captures/assertions preserved; N native scenario is additive",
-    "Keep <.12, original ticks, single30s,250ms/256 and CPU quality/memory gates",
-    "Held VQ01Z/mother furniture is not promoted or indirectly replaced",
-    "Do not expose private ROM/media/fonts/credentials",
-    "Docs [skip ci]; current main docs outrank source archives and prepublication package fields",
-    "T03-T08 complete scope unchanged; no new score, audio listening, original-speed or device certification"
-  ]
+ "schema":"chrono-t05-animation-checkpoint-v3","repository":"KartChang/ChronoTrigger_reMaster","branch":"main","root":"T05-early-visual-cohesion","developmentTerminal":"T05-field-foe-action-animation","phase":"O-tested-cloud-verified-publication-in-progress",
+ "publishedSourceSha":"517426f3979244ce9ae2bcddc5a0518533e1500b","publishedSourceTree":"bbea6d5ff42cd634518b61b5bf78d6003e46e5e2","publishedBatch":"VQ03N","publishedVersion":"0.9.61","latestAcceptedReceipt":"docs/evidence/CI85_ACCEPTANCE.json","ci85Closed":true,"pages79Accepted":true,"activeValidation":null,
+ "preparedBatch":"VQ03O","preparedVersion":"0.9.62","unpublishedCandidate":true,"newSourcePublished":false,"sourceCommitCreated":false,"ci86Created":false,
+ "cloudTestedPackage":{"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1hBerRJsROrDa6YY0pXXloUVm1iSTerVM","name":"Chrono-VQ03O-field-foe-body-tested.zip","bytes":1105642,"sha256":"c38285c734adc51dd6e949c84f286b616b2bdbdc9b5bd008da9b2bb1fab4c724","manifestEntries":38,"snapshotFiles":518,"programInputs":517,"downloadVerified":true,"manifestAndSnapshotVerified":true},
+ "preparedTests":{"node":2401,"nodeFail":0,"nodeSkipped":0,"newNode":41,"python":442,"pythonFail":0,"newPython":8,"checkExit":0,"frozenInputHashesUnchanged":true,"localBrowserUsed":false},
+ "preparedProgramSubtrees":{"src":"dbea26ac9eab94186127f2c14bf422b908256d60","scripts":"65bc5dd2fa4a7d1251867d09f7c694eb4ddd46de","tests":"98beccbe4806ff451ff95468013b5d47a7d23b18",".github":"3ee9fd81209b4d539e3b52977e793848e94964f4"},
+ "remainingWork":[{"id":"publish-tested-O-once","work":"Finish transporting the exact 20 tested changed files from the verified O package. Read back matching program subtrees, retain current main docs, then one non-force source commit on main and its unique matching CI. No additional branch/PR/candidate, no bootstrap or duplicate dispatch. Only if genuinely newer checkpoint/source exists follow it. Never resubmit published M/N."},{"id":"O-native-body-and-remnant-evidence","work":"After new CI completes, check original field-enemy-action/field-enemy-body-report.json and additive suffix normal-input lethal hit plus actual transform/texture history. O native body/death remain unverified. Keep original N route/assertions and full current CI gates."},{"id":"T05-full-animation-and-early-quality","work":"Continue full character/enemy directional movement and animation, composition/scale, canyon/court compression and overlapping trees, complete lawful audio/listening and original-speed comfort. Body displacement and a short remnant are not full directional sprite animation. T03-T08 complete scope unchanged."}],
+ "nativeRecoilVerified":true,"nativeAttackVerified":true,"nativeBodyVerified":false,"nativeDeathVerified":false,"fullAnimationComplete":false,"artApproved":false,"wholeGameAccepted":false,
+ "restrictions":"main only/singleAI/non-force/no branch/PR/parallel candidate. No local browser or fabricated native game/time/save/collision; preserve damage,ATB,logical death,collision,v1-v8. Keep original tick/routes/waits/assertions/<.12/single30s/250ms/256/CPU quality-memory gates. Held prologue blob2711a74185aacf3c6bddf9db85ba99a2afbc507a. No held furniture promotion,private ROM/media/fonts/credentials. Docs skip-ci. Temporary container is not authority; latest main checkpoint outranks packaging false/null. CI77/75 failure and CI71 historical false preserved."
 }

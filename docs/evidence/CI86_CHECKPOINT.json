@@ -1,0 +1,9 @@
+{
+ "schema":"chrono-matching-ci-checkpoint-v1","repository":"KartChang/ChronoTrigger_reMaster","branch":"main","batch":"VQ03O","version":"0.9.62","sourceSha":"116bcd03b431e12135bbadf6584d6a06b826f639","sourceTree":"00abe47a184d80e60bfec5435bd0e7af86c6bc8a",
+ "providerObservation":{"id":36219307419,"number":86,"workflowId":360357259,"path":".github/workflows/ci.yml","event":"push","attempt":1,"headSha":"116bcd03b431e12135bbadf6584d6a06b826f639","headBranch":"main","status":"queued","conclusion":null,"createdAt":"2026-09-26T04:56:18Z","providerUpdatedAt":"2026-09-26T04:56:18Z","sourceMatched":true,"allEventAllStateExactShaRunCount":1},
+ "accepted":false,"closed":false,"nativeBodyVerified":false,"nativeDeathVerified":false,"rawArtifactsDownloaded":false,"rawEvidenceCloudReadback":false,"matchingPagesReviewed":false,"localBrowserUsed":false,
+ "nativeReport":"field-enemy-action/field-enemy-body-report.json","nativeChecker":"tests/field_enemy_body.py","requiredOriginalReport":"field-enemy-action/field-enemy-action-report.json",
+ "remainingReview":["CI86-matching-native-review","T05-native-body-remnant-evidence","T08-CI86-original-evidence"],
+ "nextAction":"Resume only this exact-source run after completion. Pending is not failure/acceptance. Do not dispatch again or resubmit O. Continue T05 after bounded original-evidence review.",
+ "notes":["Provider status is the last observed value, not a promise about later state.","CI85/Pages79 already accepted/closed in separate CI85_ACCEPTANCE; do not revalidate.","2401Node/442Python plus offline CPU fixture pixels are not native evidence.","Original N route and assertions retained; O new suffix uses ordinary target selection/attack after original N checks.","No fabricated game/time/save/collision, no local browser, no relaxed original gates."]
+}

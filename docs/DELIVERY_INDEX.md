@@ -1,38 +1,35 @@
-# Delivery index — VQ03N published / CI85 pending
+# Delivery index — O published / CI86 pending / N accepted
 
-Repository **KartChang/ChronoTrigger_reMaster**，main only／singleAI／non-force。Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／T05_ANIMATION_CHECKPOINT。Root **T05-early-visual-cohesion**；terminal **T05-field-foe-action-animation**。
+唯一main、singleAI、non-force。Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／T05_ANIMATION_CHECKPOINT。Root T05-early-visual-cohesion，terminal T05-field-foe-action-animation。Published **VQ03O／0.9.62** source **116bcd03b431e12135bbadf6584d6a06b826f639**／tree **00abe47a184d80e60bfec5435bd0e7af86c6bc8a**。CI86／36219307419最後queued，原生O未接受；不重送。
 
-最新published **VQ03N／0.9.61** source **517426f3979244ce9ae2bcddc5a0518533e1500b**、tree **bbea6d5ff42cd634518b61b5bf78d6003e46e5e2**。唯一matching **CI85／36195520068**，最後回讀in_progress（provider updated2026-09-25T22:12:10Z），尚未取得原始artifact或接受。沒有未發布candidate，不重送N。CI84/Pages78依原收據仍為最新已接受基準，本輪沒有重驗。
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。以下兩包本輪均已實際下載核metadata parent/size、整包SHA256、CRC和manifest；O另外核全部snapshot檔hash。臨時環境不是權威；封裝前false/null不是當前發布狀態。
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。臨時容器不可靠，main進度勝過所有快照中的歷史文件／封裝前false/null。
+## O已測開發包
 
-## N已測、已發布程式批次
+**Chrono-VQ03O-field-foe-body-tested.zip**
+File **1hBerRJsROrDa6YY0pXXloUVm1iSTerVM**
+Bytes **1105642**
+SHA256 **c38285c734adc51dd6e949c84f286b616b2bdbdc9b5bd008da9b2bb1fab4c724**
 
-**Chrono-VQ03N-field-foe-action-tested.zip**
-File **1G_CAXzv-aWc18UzKO3bNWafAhTbecnd2**
-Bytes **1072604**
-SHA256 **d6aa83145205e835a6ba0732b336c625edf6da194f2bcef37f71af11027d63d1**
+20差異／38manifest／518program-snapshot檔（517非文件inputs＋未改THIRD_PARTY）、完整2401Node/442Python與早期失敗log、sourcepatch、全檔hash、CPU離線死亡比對。不是publishedGitarchive或最新進度文件；O source已發布，不重送。詳細VQ03O_TESTED_BATCH；原生待CI86_CHECKPOINT。
 
-已實際下載回讀parent/name/size/完整ZIPsha/CRC、31manifest與510快照檔hash。內含21改動、509非文件inputs＋原THIRD_PARTY、manifest、完整check/Node/Python、新27Node target及初始失敗logs。最終2360Node/434Python、asset/typecheck/build通過；Node0fail/0skip，Python0fail。無node_modules/ROM/字型/憑證。
+## CI85／Pages79最新原始證據包
 
-根 **program-snapshot.tar.gz** 是assembled開發快照，不是published Git archive；不含當前進度文件，不能覆蓋main docs。包中sourcePublishedAtPackaging=false/null為封裝歷史，發布後follow **evidence/VQ03N_TESTED_BATCH.json** 與 **T05_ANIMATION_CHECKPOINT**，不得重送N。遠端發布後四個program subtree與已測快照完全匹配。
+**Chrono-CI85-reviewed-evidence.zip**
+File **1Y2eBSYn36UbXfzMreaiC9vWXoIjYupvd**
+Bytes **89299477**
+SHA256 **4d91262210c17c73e08a94364e09f0c5db4c94898ffeb13e78d022bdeb13146d**
 
-原生受擊/出手仍待CI85，unit/離線CPU texture不是native。Report預定路徑 **field-enemy-action/field-enemy-action-report.json**，recoil/action-observation.json及原PNG；checker **tests/field_enemy_action.py**。CI85_CHECKPOINT accepted=false/closed=false；未保存的CI85 ZIP或Pages不虛構ID或hash。
+七未修改providerZIP（browser/good/bad/playable/art-review/Pagesstaged/Pagesdeployed），18manifest、原reports/影片/source及本輪review。590CI原regular files未改、Pages11files另列，artifact.tar不展開計入分母；十ledger173列逐byte，sourcearchive root匹配。
 
-## CI84／Pages78已接受原始證據 — 沿用，不重驗
+CI85／36195520068及Pages79／36198492443 success；selectedsourceN517426f、artifact10891066376。HTML5750873bytes，SHA256 **a897ece28d57ca8f2998a8e174848a7d5189fbdf83844892a1db76c944bd516e**，playable/staged/deployed逐byte同，providerpublicexactHTTP成功。原生recoil1、source-pairedattack3組，只限實際texture觀察；106PNG縮圖／4表、僅action06/07全尺寸，104縮圖。本輪未decode影片／原速播放／聆聽／真機。接受收據CI85_ACCEPTANCE，checkpointclosed；不重驗。
 
-**Chrono-CI84-reviewed-evidence.zip／1k-EnihB3KS3k1791bR3rAZXVzhPVhucx**，**91590088bytes**，SHA256 **2ecd1b7a1f2696722106a36266a53fb42dd5bf24d7e180e36f9fdc2abddbd288**。七份未修改ZIP、48manifest、原片/exactsource/reports/review沿用原實際回讀；CI84_ACCEPTANCE為限定範圍收據，CI84_CHECKPOINT closed/accepted維持。
+N exactsource恢復：包內 originals/CI85-browser-evidence.zip 的 source-517426f3979244ce9ae2bcddc5a0518533e1500b.tar.gz。只為恢復下載核hash，不重新驗收；其舊docs不可覆最新main。
 
-原十ledger173列／589原檔、100聯絡表／3fullsize、181.76秒原片364個2fps樣本及selectedartifact10884945541、HTML5748112bytes／SHA2565e3a05697472e461a91cdcb4fb86c980e8fbf01549bd5133cee6ce7cd6f0504c三方同byte，均為先前結果；本輪沒重算或重播。只驗frame0/1/2原觀察，frame3缺口不當故障。不是原速/聆聽/真機/全動畫認證。
+## N與更早持久記錄
 
-只需恢復M source時，外包 **originals/CI84-browser-evidence.zip** → **source-32672b15a8df76ff243f7840ef95a9b8b817a052.tar.gz**。本輪僅為此核舊整包hash，archive內舊docs不能覆蓋main進度。
+前一版完整索引原blob未修改保存在 **evidence/VQ03N_DELIVERY_INDEX.md**；N白皮書原blob保存 **evidence/VQ03N_WHITEPAPER.md**。它們的CI85pending／未發布O文字是歷史，不作現在authority。CI84及更早恢復点亦保留evidence/CI84_DELIVERY_INDEX及既有收據。
 
-## M已測包及歷史恢復索引
+N已測1G_CAXzv-aWc18UzKO3bNWafAhTbecnd2，1072604bytes，SHA256d6aa83145205e835a6ba0732b336c625edf6da194f2bcef37f71af11027d63d1；CI84原包1k-EnihB3KS3k1791bR3rAZXVzhPVhucx，91590088bytes，SHA2562ecd1b7a1f2696722106a36266a53fb42dd5bf24d7e180e36f9fdc2abddbd288。沿用先前回驗，不重測或重送。
 
-**Chrono-VQ03M-field-foe-motion-tested.zip／1YOjQHTPvlwkBuNd__o6lz6rTI6JDCBhk**，1279540bytes，SHA256 **7a72c83dc65fa4b64b79e31caa2c26bcbdab3ca224a6b879c351d97801759d76**。25差異／504snapshot／90manifest、歷史2333Node/424Python，原回驗保留，不重送。
-
-**此前完整delivery index逐byte保存於 docs/evidence/CI84_DELIVERY_INDEX.md**（原blob **4ee606b1a204fca91df1a7aeda513373e3fc60b8**）。此檔只供歷史恢復，不是目前狀態authority；內文「目前M／沒有CI85」是封存當時狀態。保留全部CI83/Pages77、L、CI82、K/J/CI81/CI80、I/CI79、H/CI78、CI77failure/G/CI76/F/CI75/E及更早包ID／hash／界線，不重驗或重送。原immutable版本亦在 **16bcb048c107d1c3b073fddbed936d14c32d4503:docs/DELIVERY_INDEX.md**。
-
-## 固定限制
-
-Held prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**；不提升VQ01Z/母親家具。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只node_modules/保留esbuild hardlink，不覆source/config或開bootstrapCI。私人ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM** 不公開；原媒體/字型/憑證不交付。禁止本機browser或native state/time/save/collision造數，不放寬原ticks、<.12、單一30秒、250ms/256、CPU品質與記憶體。T03–T08全部scope及品質分母依STATUS保留，無新score或全遊戲認證。所有新原產物必須存正確Drive並回讀；docs[skip ci]。
+所有no-local-browser／native造數禁止／原門檻／held家具／私人素材限制見STATUS。完整T03–T08保持，releaseBLOCKED，CI77/75failure與CI71歷史false不回填。

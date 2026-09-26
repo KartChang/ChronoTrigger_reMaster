@@ -1,0 +1,5 @@
+{
+ "schema":"chrono-matching-ci-checkpoint-v1","repository":"KartChang/ChronoTrigger_reMaster","branch":"main","batch":"VQ03P","version":"0.9.63","sourceSha":"f22a0b8de3a8d6fd0a5bb158e382b9acb0c0ec3a","sourceTree":"7ed5c5086275ed08c4cf187f6036a691032fa022",
+ "runId":36228241309,"runNumber":87,"status":"completed","conclusion":"success","pagesRunId":36230126505,"pagesRunNumber":81,"accepted":true,"closed":true,"remainingReview":[],"receipt":"docs/evidence/CI87_ACCEPTANCE.json","nativePartyActionVerified":true,"nativePartyDownVerified":false,"rawEvidenceCloudReadback":true,"wholeGameAccepted":false,
+ "scope":"Bounded source/native texture/technical and two static PNGs, not complete animation, original-speed, listening or device acceptance. Existing source recovered after interruption without resubmitting P. Continue current T05_ANIMATION_CHECKPOINT; never reopen CI87 to manufacture samples."
+}

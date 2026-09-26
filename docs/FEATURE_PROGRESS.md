@@ -1,27 +1,25 @@
-# 功能進度 — O身體動作與死亡殘影已發布，CI86原生待驗
+# 功能進度 — Q 受擊朝向連續性已發布，CI88 待原生驗證
 
-Authority：STATUS／TODO／IMMEDIATE_CONTINUATION／T05_ANIMATION_CHECKPOINT。Main only；root **T05-early-visual-cohesion**／terminal **T05-field-foe-action-animation**。最新published **VQ03O／0.9.62**，source **116bcd03b431e12135bbadf6584d6a06b826f639**，tree **00abe47a184d80e60bfec5435bd0e7af86c6bc8a**。唯一CI86／36219307419，push/attempt1，最後queued，2026-09-26T04:56:18Z；未原生接受，不重送O。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。唯一main，root **T05-early-visual-cohesion**，terminal **T05-field-foe-action-animation**。最新source **7cf434e43a2ec4d791ec45720e52a84938adb3b5**／tree **ff3530b61bff361b8e7c83150f80645608c86a2f**，**VQ03Q／0.9.64**；唯一CI88／36234759501最後in_progress/null。沒有未發布candidate；Q尚未原生接受。
 
-## 新增且完成開發測試
+## 已接受基礎
 
-出手沿真實enemyAction origin→target作0.20上限方向位移，再回到原anchor；受擊沿真實allied Effect.origin退縮0.10上限，分別24／18simulationticks。無origin不猜方向，重疊事件保留受擊優先。位置只改render mesh，原state/effects不變。
+M四姿態、N真實敵人出手兩姿態、O身體回應與獨立24tick死亡殘影、P真實角色出手朝向及保留down clip均不重做。CI87接受支持P兩次真實出手／8材質畫格，以及N/O正向觀察；**P角色原生完整倒地仍沒有樣本**。CI87_ACCEPTANCE為最新bounded收據。該次只有action08/09兩張fullsize PNG審查，無其他圖或影片播放／聆聽，不能當完整觀感核准。
 
-死亡仍在原規則時刻HP0並隱藏原敵人。只在同一state與敵人物件確實曾活著、收到致命事件時，另建24×32靜態nearest-alpha殘影，維持原palette，材質複製一次；24ticks縮短淡出並釋放。最多3殘影／9216rawRGBAbytes；不當原生memory或FPS測量。載入已死亡、換state、隱藏、reduced中死亡不補造殘影。
+## Q本輪實作
 
-Same-tick不累加、暫停固定tick、reduced立即抑制與同tick還原、expire不重播、rewind/rebase/chapter/dispose及部分建立失敗清理都有回歸。M/N姿態、face/feet/C配色與已接受cache保持，Core／ATB／傷害／死亡／碰撞／save不改。
+新增party-reaction.ts，透過既有party-combat-motion.ts接線。只有精確、唯一、活著且啟用的角色被真實交付hit擊中，才保留上一個已實際draw的朝向。不是從target猜attacker；不新增origin、不改ActorTimeline/PosePlayer、原48×64角色圖、core、render.ts、傷害/ATB/死亡/碰撞/save。
 
-20檔、最終2401Node／442Python通過，新增41＋8包含總數；517inputs不變，remote src/scripts/tests tree相同。三viewport實际CPU出手／死亡正向像素差異與24tick後精確N還原；這些都是明示離線fixture。
+未draw、初次已死、近似或重疊目標、outgoing/guest動作、heal/combo、inactive/lab等不產生虛假方向。連續實際hit按交付tick更新；同tick不累加。出手中斷→hurt保持真正已畫朝向，cast/down中斷不恢復舊受擊；reduced/pause/rewind/rebase/identity/dispose清理有回歸。最多24筆實際48×64 cell指紋，零新增GPU資源，history不是framebuffer同步。
 
-## 原生結果的界線
+## 測試與未驗證邊界
 
-CI85／Pages79本輪closed/accepted，只證明N原生living frame3一筆及三組source-paired4/5、原有技術旅程與有限靜態圖。106縮圖／2fullsize，沒有影片原速或聆聽。原報告／十ledger173列與七ZIP保存回讀。
+完整 **2530Node／0fail／0skip，474Python／0fail**，新增65Node＋17Python含在總數；asset/typecheck/build通過，535inputs前後hash一致。三viewport實際CPU繪圖在受擊換目標時與P不同，結束逐像素恢復P；獨立Python核離線2完整reaction／8cells／3differentFallbackSamples。這是離線fixture，不是native。
 
-O在N完整native路線／按鍵／等待／截圖／斷言之後追加正常選敵及普通攻擊18HP→0，收實際transform／texture／expiry報告。**CI86資料仍未取得：nativeBodyVerified=false、nativeDeathVerified=false**。不把texture/transform history當同步framebuffer。
+Q native suffix只在原N/O/P全部inputs/waits/captures/assertions之後加只讀observation/report；原buildchecker預設仍嚴格，Q傳明確expected_build。**nativeReactionVerified、nativeSelectorChangeVerified、nativePartyDownVerified皆false**，須等CI88原始證據；不造數、不改門檻。
 
-## 持久交付
+## 保存與後續
 
-O已測包 **1hBerRJsROrDa6YY0pXXloUVm1iSTerVM**，1105642bytes，SHA256c38285c734adc51dd6e949c84f286b616b2bdbdc9b5bd008da9b2bb1fab4c724；38manifest／518快照實際下載回驗。CI85原包 **1Y2eBSYn36UbXfzMreaiC9vWXoIjYupvd**，89299477bytes，SHA2564d91262210c17c73e08a94364e09f0c5db4c94898ffeb13e78d022bdeb13146d；七原ZIP／18manifest回驗。都在指定folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。包內prepublicationfalse是歷史，不重送。
+Q已測zip **16P0lwUaO1ku_2e4AhAmVTPUEfundpJj_**／1127875bytes／SHA2562dd093d6a6256073fe468b07fc6ade11b140644f6575b1cb12d9a1eff11d4d25；41manifest／536snapshot實際下載回驗。Source18檔已一次發布與tree回讀；正式狀態以STATUS/checkpoint為準，不看zip封裝false/null重送。
 
-## 尚未完成
-
-全角色／全敵人方向sprite及完整移動攻擊受擊死亡、所有遊玩證據；人物植物道具尺度／原作構圖、山道法庭壓縮與樹列重疊；完整合法音訊／實際聆聽、原速舒適性及真機。完整T03–T08分母不變，2300抵達不是完整未來。Release BLOCKED，無新score／全動畫／美術／原速／聆聽／裝置／長時間／全遊戲接受。Held、原門檻、no-local-browser、私人素材限制全部保持。
+只接唯一CI88原native/原旅程/Pages/原ZIP雲端回讀，再續全部角色敵人完整動畫及前段尺度構圖、壓縮山道法庭、重疊樹列、完整合法音訊與聆聽、原速舒適性。完整T03–T08不縮，releaseBLOCKED；無新score、全動畫、美術、原速、聆聽、真機、長時間或全遊戲接受。原held/no-local-browser/native-state/CPU/tick門檻保持。

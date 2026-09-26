@@ -147,7 +147,10 @@ try:
                   'Texture-history RGBA reads are tied to their draw ticks, not full-frame screenshot pixels.',
                   'Screenshots occur after observations; no frame-exact synchronization is claimed.',
                   'No complete direction/movement/death animation, original-speed comfort, audio or whole-game approval.'])
-            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'])
+            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.62','VQ03O'))
+            # O additive suffix: all original N actions, captures and assertions above remain.
+            from field_enemy_body import observe_native_body_suffix
+            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors)
         except Exception as exc:
             report.update(status='failed',failure=str(exc),passed=checks,errors=errors,waits=waits)
             try:

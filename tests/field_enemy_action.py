@@ -60,10 +60,10 @@ OBSERVE_SCRIPT=r'''() => {
    observation:'read-only-native-session',textureHistoryIsFramebuffer:false,physicalDevice:false,artApproved:false};
 }'''
 
-def assert_native_report(report, expected_sha):
+def assert_native_report(report, expected_sha, *, expected_build=('0.9.61','VQ03N')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert report['sourceSha']==expected_sha and report['build']['sourceSha']==expected_sha
-    assert report['build']['version']=='0.9.61' and report['build']['batch']=='VQ03N'
+    assert (report['build']['version'],report['build']['batch'])==expected_build
     assert report['status']=='passed' and report['nativeInputsOnly'] is True
     before=report['beforeAttack']; after=report['afterAttack']['state']
     assert before['chapter']==after['chapter']=='canyon' and before['mode']==after['mode']=='battle'

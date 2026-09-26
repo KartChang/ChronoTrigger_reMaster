@@ -1,0 +1,16 @@
+{
+  "src/core.ts": "2c73c935b19d725f94c08d89549abecedd1b6a6f6372ea1c52bd9857aa69a9d8",
+  "src/imp-motion.ts": "55b5601beef643686355eca4dedfcc6cef33232bbb82c51a725d1794d78bde54",
+  "src/imp-action.ts": "99e46bbacd72885ba9a56b6ac7edd2e601d1380fd0468309f260d9a87286c9a9",
+  "src/field-enemy-motion.ts": "44975e4083332e9de8e15b339f619f515120da37489c93e7ce36de0bfadb830e",
+  "src/pixel-art.ts": "a1778394e05c2aa08a146aa31cc7b61ca757b50cb7625e64289057215aac41c5",
+  "src/input-boundary.ts": "80ddeaa0d7120b08aee850fe1b830b2b11fe1db41cfc29715ef9c2682dd8d7c0",
+  "src/prologue-render.ts": "4acab4a7f71aa5dda5640b48958658df9549dfb55c2ce63f7f0bb476aacb52af",
+  "tests/opening_browser.py": "b63e36b14bc8a1129e00ad4932364f5b274435b74f2c5ad109460b8701257768",
+  "tests/cpu_renderer_browser.py": "bcc30926d176f8f9685fe38f1835d79bade41df68b69cb90744644995c2735be",
+  "tests/cpu_era_route.py": "01bc95f65fbfb89961433ce1a7db56858ec7f1e35cac9e12f6aafafd47eabc52",
+  "tests/kingdom_browser.py": "6c5e30e617a8cdaee998c7d7e8d5163ebf0e19583267775f9ca4e4b6eec15e29",
+  "tests/rescue_browser.py": "d0d8e55aeafa9e1d26fdf365d1169e267bc068e9223274c58085c6cdb0e49780",
+  "tests/trial_browser.py": "203ff610a57ea8f367eafb9fdad59ed0161b15ae584447d0e991bb0f23e8e84a",
+  ".github/workflows/ci.yml": "95d1b19d6c1396e6f6466aaed2d294125e6f3153f0c07bb63263724987f41958"
+}

@@ -3,6 +3,7 @@ import copy,hashlib,json,unittest,ast
 from pathlib import Path
 from field_enemy_action import assert_action_history,assert_native_report,MASKS,POINTS,OBSERVE_SCRIPT
 from action_n_preservation import SPEC,restore_action_n_source,restore_action_n_if_declared
+from body_o_preservation import restore_body_o_if_declared
 ROOT=Path(__file__).resolve().parents[1]
 def history_fixture():
     enemy={'x':-1.8,'z':2.4,'hp':18};rows=[]
@@ -35,10 +36,10 @@ class ActionNativeChecks(unittest.TestCase):
             with self.assertRaises((AssertionError,KeyError)):assert_native_report({'sourceSha':'b'*40},sha)
     def test_old_routes_inputs_assertions_and_held_source_byte_exact(self):
         saved=json.loads((ROOT/'tests/baselines/vq03n-unchanged-inputs.json').read_text())
-        for p,h in saved.items():self.assertEqual(hashlib.sha256((ROOT/p).read_bytes()).hexdigest(),h,p)
+        for p,h in saved.items():self.assertEqual(hashlib.sha256(restore_body_o_if_declared(p,(ROOT/p).read_text()).encode()).hexdigest(),h,p)
     def test_exact_declared_inverse_keeps_every_old_workflow_step(self):
         for p,h in SPEC['originalSha256'].items():
-            raw=(ROOT/p).read_text();old=restore_action_n_source(p,raw)
+            raw=restore_body_o_if_declared(p,(ROOT/p).read_text());old=restore_action_n_source(p,raw)
             self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h,p)
             self.assertEqual(restore_action_n_if_declared(p,old),old)
             for edit in SPEC['files'][p]:

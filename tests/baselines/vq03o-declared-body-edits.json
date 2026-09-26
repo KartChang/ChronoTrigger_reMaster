@@ -1,0 +1,185 @@
+{
+  "schema": "chrono-test-only-source-inverse-v1",
+  "scope": "Exact O to N source-only inverse; never native state/report/pixels",
+  "baseSource": "517426f3979244ce9ae2bcddc5a0518533e1500b",
+  "files": {
+    "src/render.ts": [
+      {
+        "before": "import {FieldEnemyMotion} from './field-enemy-motion';",
+        "after": "import {FieldEnemyMotion} from './field-enemy-motion';\nimport {FieldEnemyBody} from './field-enemy-body';"
+      },
+      {
+        "before": "  private fieldEnemyMotion=new FieldEnemyMotion();",
+        "after": "  private fieldEnemyMotion=new FieldEnemyMotion();\n  private fieldEnemyBody=new FieldEnemyBody();"
+      },
+      {
+        "before": "  inspect(){return {fieldEnemyMotion:this.fieldEnemyMotion.inspect(),",
+        "after": "  inspect(){return {fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),"
+      },
+      {
+        "before": "this.scene.onDisposeObservable.add(()=>{this.fieldEnemyMotion.dispose();",
+        "after": "this.scene.onDisposeObservable.add(()=>{this.fieldEnemyBody.dispose();this.fieldEnemyMotion.dispose();"
+      },
+      {
+        "before": "    this.fieldEnemyMotion.receive(s,e);",
+        "after": "    this.fieldEnemyMotion.receive(s,e);\n    this.fieldEnemyBody.receive(s,e);"
+      },
+      {
+        "before": "    this.fieldEnemyMotion.reset();",
+        "after": "    this.fieldEnemyMotion.reset();\n    this.fieldEnemyBody.reset();"
+      },
+      {
+        "before": "    this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);",
+        "after": "    this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);\n    this.fieldEnemyBody.begin(s,this.reducedMotion?.matches??false);"
+      },
+      {
+        "before": "      this.fieldEnemyMotion.update(f,i);\n    });",
+        "after": "      this.fieldEnemyMotion.update(f,i);\n      this.fieldEnemyBody.update(f,i);\n    });\n    this.fieldEnemyBody.end();"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "version:'0.9.61',batch:'VQ03N'",
+        "after": "version:'0.9.62',batch:'VQ03O'"
+      }
+    ],
+    "tests/helpers/action-n-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node:fs';",
+        "after": "import {readFileSync} from 'node:fs';\nimport {bodyOIfDeclared} from './body-o-baseline.mjs';"
+      },
+      {
+        "before": "export function actionNBaseline(name,source){const edits=",
+        "after": "export function actionNBaseline(name,source){source=bodyOIfDeclared(name,source);const edits="
+      },
+      {
+        "before": "export function actionNIfDeclared(name,source){return ",
+        "after": "export function actionNIfDeclared(name,source){source=bodyOIfDeclared(name,source);return "
+      }
+    ],
+    "tests/action_n_preservation.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from pathlib import Path\nfrom body_o_preservation import restore_body_o_if_declared"
+      },
+      {
+        "before": "def restore_action_n_source(name,source):\n    edits=",
+        "after": "def restore_action_n_source(name,source):\n    source=restore_body_o_if_declared(name,source)\n    edits="
+      },
+      {
+        "before": "def restore_action_n_if_declared(name,source):\n    return ",
+        "after": "def restore_action_n_if_declared(name,source):\n    source=restore_body_o_if_declared(name,source)\n    return "
+      }
+    ],
+    "tests/imp-action.test.mjs": [
+      {
+        "before": "import {actionNSpec,actionNBaseline,actionNIfDeclared} from './helpers/action-n-baseline.mjs';",
+        "after": "import {actionNSpec,actionNBaseline,actionNIfDeclared} from './helpers/action-n-baseline.mjs';\nimport {bodyOIfDeclared} from './helpers/body-o-baseline.mjs';"
+      },
+      {
+        "before": "assert.equal(sha(readFileSync(p)),h,p);",
+        "after": "assert.equal(sha(bodyOIfDeclared(p,readFileSync(p,'utf8'))),h,p);"
+      },
+      {
+        "before": "const raw=readFileSync(name,'utf8'),old=actionNBaseline(name,raw)",
+        "after": "const raw=bodyOIfDeclared(name,readFileSync(name,'utf8')),old=actionNBaseline(name,raw)"
+      }
+    ],
+    "tests/field_enemy_action_test.py": [
+      {
+        "before": "from action_n_preservation import SPEC,restore_action_n_source,restore_action_n_if_declared",
+        "after": "from action_n_preservation import SPEC,restore_action_n_source,restore_action_n_if_declared\nfrom body_o_preservation import restore_body_o_if_declared"
+      },
+      {
+        "before": "hashlib.sha256((ROOT/p).read_bytes()).hexdigest()",
+        "after": "hashlib.sha256(restore_body_o_if_declared(p,(ROOT/p).read_text()).encode()).hexdigest()"
+      },
+      {
+        "before": "raw=(ROOT/p).read_text();old=restore_action_n_source(p,raw)",
+        "after": "raw=restore_body_o_if_declared(p,(ROOT/p).read_text());old=restore_action_n_source(p,raw)"
+      }
+    ],
+    "tests/field_enemy_action.py": [
+      {
+        "before": "def assert_native_report(report, expected_sha):",
+        "after": "def assert_native_report(report, expected_sha, *, expected_build=('0.9.61','VQ03N')):"
+      },
+      {
+        "before": "assert report['build']['version']=='0.9.61' and report['build']['batch']=='VQ03N'",
+        "after": "assert (report['build']['version'],report['build']['batch'])==expected_build"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {actionNBaseline} from '../tests/helpers/action-n-baseline.mjs';",
+        "after": "import {actionNBaseline} from '../tests/helpers/action-n-baseline.mjs';\nimport {bodyOBaseline} from '../tests/helpers/body-o-baseline.mjs';"
+      },
+      {
+        "before": "for(const name of ['imp-motion','field-enemy-motion'",
+        "after": "for(const name of ['field-enemy-body','imp-motion','field-enemy-motion'"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test',",
+        "after": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/body-o-prior-world.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-N-render-before-body-response',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:bodyOBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/field-enemy-body.test.mjs',"
+      }
+    ],
+    "tests/field_enemy_action_browser.py": [
+      {
+        "before": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'])",
+        "after": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.62','VQ03O'))\n            # O additive suffix: all original N actions, captures and assertions above remain.\n            from field_enemy_body import observe_native_body_suffix\n            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors)"
+      }
+    ],
+    "tests/festival-integration.test.mjs": [
+      {
+        "before": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\nimport {FieldEnemyBody} from '../.test/field-enemy-body.mjs';"
+      },
+      {
+        "before": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={fieldEnemyMotion:new FieldEnemyMotion(),floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n",
+        "after": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n"
+      }
+    ],
+    "tests/presentation-pause.test.mjs": [
+      {
+        "before": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\nimport {FieldEnemyBody} from '../.test/field-enemy-body.mjs';"
+      },
+      {
+        "before": " const port={fieldEnemyMotion:new FieldEnemyMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n"
+      },
+      {
+        "before": " const port={fieldEnemyMotion:new FieldEnemyMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n"
+      },
+      {
+        "before": " const port={fieldEnemyMotion:new FieldEnemyMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n"
+      }
+    ],
+    "tests/sprite-contact.test.mjs": [
+      {
+        "before": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';",
+        "after": "import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';\nimport {FieldEnemyBody} from '../.test/field-enemy-body.mjs';"
+      },
+      {
+        "before": " const port={fieldEnemyMotion:new FieldEnemyMotion(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n",
+        "after": " const port={fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/render.ts": "a46d3421ab56d2b173512d10490f04b26dfcba4af7eac3bd1cc7a566ddff0c5b",
+    "scripts/build.mjs": "aeb4256440c25c203e9556c146c885b95622f3b493e37788cb5fc54805187f46",
+    "tests/helpers/action-n-baseline.mjs": "66b62f7b4c0446d54cee8b683ed766bcf4ae2089ecfd952794cc7590b36ce768",
+    "tests/action_n_preservation.py": "6a8d6ea64ec0d68add85e89fafd4c4ddd42a07c212d7fcbd7434923c2a034249",
+    "tests/imp-action.test.mjs": "e16ef752454d668d869505f497530981742c17739252ff2234d97e1946adee71",
+    "tests/field_enemy_action_test.py": "4f32dbb7083918c03ce900361b7607675a3c9415e2803a30e07cc443279861cc",
+    "tests/field_enemy_action.py": "e58b48a786eb83c67dee7c24055d392066631513c8c7d037e1e27e545a92ce70",
+    "scripts/test.mjs": "826df34ec535f56ea4ae9e792faad293d8e794682096e69ee17270eec163a2dd",
+    "tests/field_enemy_action_browser.py": "cdab47d9a1a219e0c272146941354f8cf9a1f9d4b45d208a2c939e12ddd6980f",
+    "tests/festival-integration.test.mjs": "bbcf50f374d0f6e81544c2db11d86a470a75eb320f8bfbc2e41d54f720abaa8c",
+    "tests/presentation-pause.test.mjs": "0ac63f04bf81ec47e43e0ecf533a9439937d5e964d326d6f5451a2a493d1a930",
+    "tests/sprite-contact.test.mjs": "3a02159665e42861eba5ab91789f880573fefef42ec1700288074e610a82383c"
+  }
+}

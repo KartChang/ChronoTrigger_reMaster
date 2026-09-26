@@ -11,6 +11,7 @@ import {World} from '../.test/cpu-entry.mjs';
 import {surface} from '../scripts/asset-export.mjs';
 import {cpuTestCanvas} from './cpu-test-canvas.mjs';
 import {actionNSpec,actionNBaseline,actionNIfDeclared} from './helpers/action-n-baseline.mjs';
+import {bodyOIfDeclared} from './helpers/body-o-baseline.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${Buffer.byteLength(b)}\0`).update(b).digest('hex');
 const withoutMetadata=s=>{s=structuredClone(s);for(const e of s.effects)delete e.enemyAction;return s;};
@@ -27,14 +28,14 @@ const frame=f=>{const s=surface(24,32);drawImpActionFrame(s.ink,f);return s.rgba
 const masks=[[0,0,1,0],[0,1,0,0],[1,1,0,0],[0,0,0,1],[0,1,0,1],[0,0,1,1]];
 const checkSamples=a=>{assert.equal(a.samples.length,4);for(const [i,p] of a.samples.entries()){assert.deepEqual([p.x,p.y],[[3,19],[3,20],[3,25],[21,22]][i]);assert.deepEqual(p.rgba,masks[a.frame][i]?[70,131,145,255]:[0,0,0,0]);}};
 for(const name of Object.keys(actionNSpec.files))test('N exact inverse and negative source guards: '+name,()=>{
- const raw=readFileSync(name,'utf8'),old=actionNBaseline(name,raw);assert.equal(sha(old),actionNSpec.originalSha256[name]);assert.equal(actionNIfDeclared(name,old),old);
+ const raw=bodyOIfDeclared(name,readFileSync(name,'utf8')),old=actionNBaseline(name,raw);assert.equal(sha(old),actionNSpec.originalSha256[name]);assert.equal(actionNIfDeclared(name,old),old);
  for(const e of actionNSpec.files[name]){assert.throws(()=>actionNBaseline(name,raw+e.after));assert.throws(()=>actionNBaseline(name,raw.replace(e.after,'')));}
  assert.notEqual(sha(actionNBaseline(name,raw+'\n// unrelated drift\n')),actionNSpec.originalSha256[name]);
 });
 test('N retains held prologue and M runtime foundation byte-for-byte',()=>{
  assert.equal(blob(readFileSync('src/prologue-render.ts')),'2711a74185aacf3c6bddf9db85ba99a2afbc507a');
  const orig=JSON.parse(readFileSync('tests/baselines/vq03n-unchanged-inputs.json','utf8'));
- for(const [p,h] of Object.entries(orig))assert.equal(sha(readFileSync(p)),h,p);
+ for(const [p,h] of Object.entries(orig))assert.equal(sha(bodyOIfDeclared(p,readFileSync(p,'utf8'))),h,p);
 });
 for(const chapter of ['canyon','forest','lab','fair'])test('N pure-rule parity against exact M core for '+chapter,()=>{
  const a=battle(chapter),b=structuredClone(a);

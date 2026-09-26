@@ -1,0 +1,237 @@
+{
+  "schema": "chrono-declared-source-inverse-v1",
+  "batch": "VQ03T",
+  "baseSourceSha": "f14c9ac42581b80d6028bb00fad0fbcf5695f5eb",
+  "scope": "Source-only offline regression; never native game/report/pixels",
+  "files": {
+    "scripts/build.mjs": [
+      {
+        "before": "const buildInfo={version:'0.9.66',batch:'VQ03S',sourceSha:process.env.GITHUB_SHA??null};\n",
+        "after": "const buildInfo={version:'0.9.67',batch:'VQ03T',sourceSha:process.env.GITHUB_SHA??null};\n"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "",
+        "after": "import {rescueBodyTBaseline} from '../tests/helpers/rescue-body-t-baseline.mjs';\n"
+      },
+      {
+        "before": "for(const name of ['rescue-enemy-art','rescue-enemy-motion','combat-timing','party-combat-motion','field-enemy-body','imp-motion','field-enemy-motion','canyon-relief','canyon-canopy-art','canyon-art','canyon-render','trial-detail-art','trial-detail','court-staging','trial-scenery-art','npc-motion','trial-render','woodland-occlusion','field-enemy-palette','town-landmark','town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','sound-effect-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\n",
+        "after": "for(const name of ['rescue-enemy-body','rescue-enemy-art','rescue-enemy-motion','combat-timing','party-combat-motion','field-enemy-body','imp-motion','field-enemy-motion','canyon-relief','canyon-canopy-art','canyon-art','canyon-render','trial-detail-art','trial-detail','court-staging','trial-scenery-art','npc-motion','trial-render','woodland-occlusion','field-enemy-palette','town-landmark','town-building-occlusion','town-sign-occlusion','town-camera','village-detail-art','village-detail','village-planter-art','village-art','village-finish','woodland-art','story-npc-art','story-npc-motion','cpu-minification','frame-window','runtime-info','cpu-raster','cpu-engine','cpu-scene','actor-timeline','hero-frame-cache','render-capability','render-status','music-score','sound-effect-score','scene-audio','hero-art','pose-player','world-art','navigation','rescue-data','rescue-art','prologue-data','prologue-art','trial-data','trial-art','trial-rules','art-profile','material-art','hd-hero-art','fair-conduct-data','fair-conduct','trial-hearing','witness-art','actor-motion','keyboard-policy','input','pixel-presentation','equipment','modal-focus','equipment-ui','save-import','presentation-state','early-comfort','camera-motion','early-camera-view','sprite-contact','fair-conduct-render','early-art','surface-layout','early-kit','festival-kit','early-occlusion','fair-occlusion-points','fair-render','fair-ground','fair-scenery-motion','fair-finish','fair-cohesion','fair-paving','render'])await build({entryPoints:[`src/${name}.ts`],bundle:true,outfile:`.test/${name}.mjs`,format:'esm',platform:'node',packages:'external'});\n"
+      },
+      {
+        "before": "const r=spawnSync(process.execPath,['--test','tests/rescue-enemy-motion.test.mjs','tests/party-reaction.test.mjs','tests/party-combat-motion.test.mjs','tests/field-enemy-body.test.mjs','tests/imp-motion.test.mjs','tests/canyon-relief.test.mjs','tests/canyon-material.test.mjs','tests/trial-detail.test.mjs','tests/court-staging.test.mjs','tests/trial-scenery.test.mjs','tests/fair-trial-comfort.test.mjs','tests/fair-trial-comfort-evidence.test.mjs','tests/npc-comfort.test.mjs','tests/npc-comfort-evidence.test.mjs','tests/woodland-occlusion.test.mjs','tests/cpu-blend-facing.test.mjs','tests/visibility-evidence.test.mjs','tests/field-enemy-palette.test.mjs','tests/field-enemy-evidence.test.mjs','tests/town-landmark.test.mjs','tests/town-motion-evidence.test.mjs','tests/town-building-occlusion.test.mjs','tests/town-building-evidence.test.mjs','tests/town-sign-occlusion.test.mjs','tests/town-route-evidence.test.mjs','tests/town-camera.test.mjs','tests/town-camera-evidence.test.mjs','tests/sign-readability.test.mjs','tests/cpu-era-failure.test.mjs','tests/village-detail.test.mjs','tests/readability.test.mjs','tests/pause-access-evidence.test.mjs','tests/village-art.test.mjs','tests/village-integration.test.mjs','tests/woodland-art.test.mjs','tests/woodland-integration.test.mjs','tests/story-npc-art.test.mjs','tests/story-npc-motion.test.mjs','tests/cpu-raster-work.test.mjs','tests/cpu-adventure-evidence.test.mjs','tests/cpu-minification-fractional.test.mjs','tests/cpu-era-route.test.mjs','tests/cpu-era-evidence.test.mjs','tests/cpu-minification.test.mjs','tests/runtime-info.test.mjs','tests/cpu-optimization.test.mjs','tests/cpu-evidence.test.mjs','tests/cpu-raster.test.mjs','tests/cpu-scene.test.mjs','tests/actor-playback-evidence.test.mjs','tests/actor-playback.test.mjs','tests/render-preserved.test.mjs','tests/render-evidence.test.mjs','tests/render-capability.test.mjs','tests/scene-audio.test.mjs','tests/sound-effects.test.mjs','tests/audio-lifecycle.test.mjs','tests/audio-g-baseline.test.mjs','tests/webgl-canvas-png.test.mjs','tests/core.test.mjs','tests/fair.test.mjs','tests/opening.test.mjs','tests/kingdom.test.mjs','tests/input-boundary.test.mjs','tests/quality.test.mjs','tests/asset-export.test.mjs','tests/targeting.test.mjs','tests/reference-art.test.mjs','tests/navigation.test.mjs','tests/pages-package.test.mjs','tests/rescue.test.mjs','tests/rescue-approach.test.mjs','tests/rescue-art.test.mjs','tests/prologue.test.mjs','tests/trial.test.mjs','tests/trial-route.test.mjs','tests/trial-art.test.mjs','tests/art-profile.test.mjs','tests/hd-hero-art.test.mjs','tests/witness.test.mjs','tests/witness-art.test.mjs','tests/keyboard.test.mjs','tests/live-actors.test.mjs','tests/equipment.test.mjs','tests/modal-focus.test.mjs','tests/save-import.test.mjs','tests/inventory-sections.test.mjs','tests/presentation-pause.test.mjs','tests/meeting-approach.test.mjs','tests/early-camera-motion.test.mjs','tests/early-camera-view.test.mjs','tests/sprite-contact.test.mjs','tests/retained-party-art.test.mjs','tests/festival-integration.test.mjs','tests/ci-evidence.test.mjs','tests/equipment-route.test.mjs','tests/fair-ground.test.mjs','tests/exploration-hud.test.mjs','tests/fair-scenery-motion.test.mjs','tests/fair-finish.test.mjs','tests/fair-cohesion.test.mjs','tests/fair-paving.test.mjs','tests/pause-keyboard.test.mjs','tests/imp-action.test.mjs','tests/combat-timing.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);\n",
+        "after": "await esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/rescue-body-t-prior-world.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'exact-S-before-rescue-body',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]render\\.ts$/},args=>({contents:rescueBodyTBaseline('src/render.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/rescue-enemy-body.test.mjs','tests/rescue-enemy-motion.test.mjs','tests/party-reaction.test.mjs','tests/party-combat-motion.test.mjs','tests/field-enemy-body.test.mjs','tests/imp-motion.test.mjs','tests/canyon-relief.test.mjs','tests/canyon-material.test.mjs','tests/trial-detail.test.mjs','tests/court-staging.test.mjs','tests/trial-scenery.test.mjs','tests/fair-trial-comfort.test.mjs','tests/fair-trial-comfort-evidence.test.mjs','tests/npc-comfort.test.mjs','tests/npc-comfort-evidence.test.mjs','tests/woodland-occlusion.test.mjs','tests/cpu-blend-facing.test.mjs','tests/visibility-evidence.test.mjs','tests/field-enemy-palette.test.mjs','tests/field-enemy-evidence.test.mjs','tests/town-landmark.test.mjs','tests/town-motion-evidence.test.mjs','tests/town-building-occlusion.test.mjs','tests/town-building-evidence.test.mjs','tests/town-sign-occlusion.test.mjs','tests/town-route-evidence.test.mjs','tests/town-camera.test.mjs','tests/town-camera-evidence.test.mjs','tests/sign-readability.test.mjs','tests/cpu-era-failure.test.mjs','tests/village-detail.test.mjs','tests/readability.test.mjs','tests/pause-access-evidence.test.mjs','tests/village-art.test.mjs','tests/village-integration.test.mjs','tests/woodland-art.test.mjs','tests/woodland-integration.test.mjs','tests/story-npc-art.test.mjs','tests/story-npc-motion.test.mjs','tests/cpu-raster-work.test.mjs','tests/cpu-adventure-evidence.test.mjs','tests/cpu-minification-fractional.test.mjs','tests/cpu-era-route.test.mjs','tests/cpu-era-evidence.test.mjs','tests/cpu-minification.test.mjs','tests/runtime-info.test.mjs','tests/cpu-optimization.test.mjs','tests/cpu-evidence.test.mjs','tests/cpu-raster.test.mjs','tests/cpu-scene.test.mjs','tests/actor-playback-evidence.test.mjs','tests/actor-playback.test.mjs','tests/render-preserved.test.mjs','tests/render-evidence.test.mjs','tests/render-capability.test.mjs','tests/scene-audio.test.mjs','tests/sound-effects.test.mjs','tests/audio-lifecycle.test.mjs','tests/audio-g-baseline.test.mjs','tests/webgl-canvas-png.test.mjs','tests/core.test.mjs','tests/fair.test.mjs','tests/opening.test.mjs','tests/kingdom.test.mjs','tests/input-boundary.test.mjs','tests/quality.test.mjs','tests/asset-export.test.mjs','tests/targeting.test.mjs','tests/reference-art.test.mjs','tests/navigation.test.mjs','tests/pages-package.test.mjs','tests/rescue.test.mjs','tests/rescue-approach.test.mjs','tests/rescue-art.test.mjs','tests/prologue.test.mjs','tests/trial.test.mjs','tests/trial-route.test.mjs','tests/trial-art.test.mjs','tests/art-profile.test.mjs','tests/hd-hero-art.test.mjs','tests/witness.test.mjs','tests/witness-art.test.mjs','tests/keyboard.test.mjs','tests/live-actors.test.mjs','tests/equipment.test.mjs','tests/modal-focus.test.mjs','tests/save-import.test.mjs','tests/inventory-sections.test.mjs','tests/presentation-pause.test.mjs','tests/meeting-approach.test.mjs','tests/early-camera-motion.test.mjs','tests/early-camera-view.test.mjs','tests/sprite-contact.test.mjs','tests/retained-party-art.test.mjs','tests/festival-integration.test.mjs','tests/ci-evidence.test.mjs','tests/equipment-route.test.mjs','tests/fair-ground.test.mjs','tests/exploration-hud.test.mjs','tests/fair-scenery-motion.test.mjs','tests/fair-finish.test.mjs','tests/fair-cohesion.test.mjs','tests/fair-paving.test.mjs','tests/pause-keyboard.test.mjs','tests/imp-action.test.mjs','tests/combat-timing.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);\n"
+      }
+    ],
+    "src/render.ts": [
+      {
+        "before": "",
+        "after": "import {RescueEnemyBody} from './rescue-enemy-body';\n"
+      },
+      {
+        "before": "",
+        "after": "  private rescueEnemyBody=new RescueEnemyBody();\n"
+      },
+      {
+        "before": "  inspect(){return {rescueEnemyMotion:this.rescueEnemyMotion.inspect(),combatTiming:this.combatTiming.inspect(),partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}\n",
+        "after": "  inspect(){return {rescueEnemyBody:this.rescueEnemyBody.inspect(),rescueEnemyMotion:this.rescueEnemyMotion.inspect(),combatTiming:this.combatTiming.inspect(),partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}\n"
+      },
+      {
+        "before": "    this.scene.onDisposeObservable.add(()=>{this.combatTiming.dispose();this.floats.length=0;this.slashes.length=0;this.lunges.forEach(stopLunge);this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.rescueEnemyMotion.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});\n",
+        "after": "    this.scene.onDisposeObservable.add(()=>{this.combatTiming.dispose();this.floats.length=0;this.slashes.length=0;this.lunges.forEach(stopLunge);this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.rescueEnemyBody.dispose();this.rescueEnemyMotion.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});\n"
+      },
+      {
+        "before": "",
+        "after": "    this.rescueEnemyBody.receive(s,e);\n"
+      },
+      {
+        "before": "",
+        "after": "    this.rescueEnemyBody.reset();\n"
+      },
+      {
+        "before": "",
+        "after": "    this.rescueEnemyBody.begin(s,this.reducedMotion?.matches??false);\n"
+      },
+      {
+        "before": "",
+        "after": "    if(inRescue){if(s.enemies[0]?.kind==='yakra')this.rescueEnemyBody.update(this.yakra,0);else this.rescueFoes.forEach((sprite,i)=>this.rescueEnemyBody.update(sprite,i));}\n    this.rescueEnemyBody.end();\n"
+      }
+    ],
+    "tests/festival-integration.test.mjs": [
+      {
+        "before": "",
+        "after": "import {RescueEnemyBody} from '../.test/rescue-enemy-body.mjs';\n"
+      },
+      {
+        "before": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n",
+        "after": "test('fresh-state reset removes old fade even when import ticks equal previous ticks',()=>{const k=simple();try{k.update(200);assert.equal(k.m.visibility,.3);const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),rescueEnemyBody:new RescueEnemyBody(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[],slashes:[],posePlayers:[{reset(){}}],guestPose:{reset(){}},poseHistory:[],lunges:[],fairWorld:{resetOcclusion:()=>k.o.reset()}};World.prototype.resetTransientPresentation.call(port);assert.equal(k.m.visibility,1);assert.equal(k.o.inspect().tick,null);k.update(200,[]);assert.equal(k.m.visibility,1);}finally{k.close();}});\n"
+      }
+    ],
+    "tests/field_enemy_action_browser.py": [
+      {
+        "before": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.66','VQ03S'))\n",
+        "after": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.67','VQ03T'))\n"
+      },
+      {
+        "before": "            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))\n",
+        "after": "            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.67','VQ03T'))\n"
+      },
+      {
+        "before": "            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))\n",
+        "after": "            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.67','VQ03T'))\n"
+      },
+      {
+        "before": "            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))\n",
+        "after": "            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.67','VQ03T'))\n"
+      },
+      {
+        "before": "            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))\n",
+        "after": "            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.67','VQ03T'))\n"
+      }
+    ],
+    "tests/helpers/rescue-s-baseline.mjs": [
+      {
+        "before": "",
+        "after": "import {rescueBodyTIfDeclared} from './rescue-body-t-baseline.mjs';\n"
+      },
+      {
+        "before": "export function rescueSBaseline(name,source,verifyBase=true){const edits=rescueSSpec.files[name];if(!edits)throw Error('Undeclared S source: '+name);\n",
+        "after": "export function rescueSBaseline(name,source,verifyBase=true){source=rescueBodyTIfDeclared(name,source);const edits=rescueSSpec.files[name];if(!edits)throw Error('Undeclared S source: '+name);\n"
+      },
+      {
+        "before": "export function rescueSIfDeclared(name,source){return rescueSSpec.files[name]?.some(e=>source.includes(e.after))?rescueSBaseline(name,source,false):source;}\n",
+        "after": "export function rescueSIfDeclared(name,source){source=rescueBodyTIfDeclared(name,source);return rescueSSpec.files[name]?.some(e=>source.includes(e.after))?rescueSBaseline(name,source,false):source;}\n"
+      }
+    ],
+    "tests/presentation-pause.test.mjs": [
+      {
+        "before": "",
+        "after": "import {RescueEnemyBody} from '../.test/rescue-enemy-body.mjs';\n"
+      },
+      {
+        "before": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n",
+        "after": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),rescueEnemyBody:new RescueEnemyBody(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,\n"
+      },
+      {
+        "before": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n",
+        "after": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),rescueEnemyBody:new RescueEnemyBody(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};\n"
+      },
+      {
+        "before": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n",
+        "after": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),rescueEnemyBody:new RescueEnemyBody(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};\n"
+      }
+    ],
+    "tests/rescue-enemy-motion.test.mjs": [
+      {
+        "before": "",
+        "after": "import {rescueBodyTIfDeclared} from './helpers/rescue-body-t-baseline.mjs';\n"
+      },
+      {
+        "before": "for(const name of Object.keys(rescueSSpec.files))test('S exact inverse and missing/duplicate/unrelated rejection '+name,()=>{const raw=readFileSync(name,'utf8'),old=rescueSBaseline(name,raw),e=rescueSSpec.files[name][0];assert.equal(sha(old),rescueSSpec.originalSha256[name]);assert.equal(rescueSIfDeclared(name,old),old);for(const bad of[raw+e.after,raw.replace(e.after,''),raw+'\\n// unrelated\\n'])assert.throws(()=>rescueSBaseline(name,bad));});\n",
+        "after": "for(const name of Object.keys(rescueSSpec.files))test('S exact inverse and missing/duplicate/unrelated rejection '+name,()=>{const raw=rescueBodyTIfDeclared(name,readFileSync(name,'utf8')),old=rescueSBaseline(name,raw),e=rescueSSpec.files[name][0];assert.equal(sha(old),rescueSSpec.originalSha256[name]);assert.equal(rescueSIfDeclared(name,old),old);for(const bad of[raw+e.after,raw.replace(e.after,''),raw+'\\n// unrelated\\n'])assert.throws(()=>rescueSBaseline(name,bad));});\n"
+      }
+    ],
+    "tests/rescue_browser.py": [
+      {
+        "before": "",
+        "after": "from rescue_enemy_body import capture_rescue_body, write_body_report\n"
+      },
+      {
+        "before": "",
+        "after": "rescue_body_observations={}\n"
+      },
+      {
+        "before": "",
+        "after": "    capture_rescue_body(page,OUT,snap(page)['chapter']+'-victory',rescue_body_observations)\n"
+      },
+      {
+        "before": "",
+        "after": "            capture_rescue_body(page,OUT,'naga',rescue_body_observations)\n"
+      },
+      {
+        "before": "",
+        "after": "            capture_rescue_body(page,OUT,'guards',rescue_body_observations)\n"
+      },
+      {
+        "before": "",
+        "after": "            capture_rescue_body(page,OUT,'yakra',rescue_body_observations)\n"
+      },
+      {
+        "before": "            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors)\n",
+        "after": "            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.67','VQ03T'))\n            write_body_report(OUT,rescue_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors)\n"
+      }
+    ],
+    "tests/rescue_enemy_motion.py": [
+      {
+        "before": "def assert_rescue_report(r,expected_sha,*,require_attack=True):\n",
+        "after": "def assert_rescue_report(r,expected_sha,*,require_attack=True,expected_build=('0.9.66','VQ03S')):\n"
+      },
+      {
+        "before": "    assert (r['build']['version'],r['build']['batch'])==('0.9.66','VQ03S')\n",
+        "after": "    assert (r['build']['version'],r['build']['batch'])==expected_build\n"
+      },
+      {
+        "before": "def write_rescue_report(out,observations,build,source_sha,errors):\n",
+        "after": "def write_rescue_report(out,observations,build,source_sha,errors,*,expected_build=('0.9.66','VQ03S')):\n"
+      },
+      {
+        "before": "        r['status']='passed';r['positiveSamples']=assert_rescue_report(r,source_sha)\n",
+        "after": "        r['status']='passed';r['positiveSamples']=assert_rescue_report(r,source_sha,expected_build=expected_build)\n"
+      }
+    ],
+    "tests/rescue_enemy_motion_test.py": [
+      {
+        "before": "",
+        "after": "from rescue_body_t_preservation import restore_rescue_body_t_if_declared\n"
+      },
+      {
+        "before": "        name='tests/rescue_browser.py';raw=(ROOT/name).read_text();old=restore_rescue_s_source(name,raw)\n",
+        "after": "        name='tests/rescue_browser.py';raw=restore_rescue_body_t_if_declared(name,(ROOT/name).read_text());old=restore_rescue_s_source(name,raw)\n"
+      },
+      {
+        "before": "            raw=(ROOT/name).read_text();old=restore_rescue_s_source(name,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)\n",
+        "after": "            raw=restore_rescue_body_t_if_declared(name,(ROOT/name).read_text());old=restore_rescue_s_source(name,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)\n"
+      }
+    ],
+    "tests/rescue_s_preservation.py": [
+      {
+        "before": "\"\"\"Exact source-only S -> R; never transform native reports, game state or pixels.\"\"\"\n",
+        "after": "from rescue_body_t_preservation import restore_rescue_body_t_if_declared\n\"\"\"Exact source-only S -> R; never transform native reports, game state or pixels.\"\"\"\n"
+      },
+      {
+        "before": "def restore_rescue_s_source(name,source,verify_base=True):\n    edits=SPEC['files'].get(name)\n",
+        "after": "def restore_rescue_s_source(name,source,verify_base=True):\n    source=restore_rescue_body_t_if_declared(name,source)\n    edits=SPEC['files'].get(name)\n"
+      },
+      {
+        "before": "def restore_rescue_s_if_declared(name,source):\n    return restore_rescue_s_source(name,source,verify_base=False) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source\n",
+        "after": "def restore_rescue_s_if_declared(name,source):\n    source=restore_rescue_body_t_if_declared(name,source)\n    return restore_rescue_s_source(name,source,verify_base=False) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source\n"
+      }
+    ],
+    "tests/sprite-contact.test.mjs": [
+      {
+        "before": "",
+        "after": "import {RescueEnemyBody} from '../.test/rescue-enemy-body.mjs';\n"
+      },
+      {
+        "before": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n",
+        "after": " const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),rescueEnemyBody:new RescueEnemyBody(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),scene:k.scene,camera:k.camera,chapter:s.chapter,presentationState:s,era:s.era,flag:s.flags.repaired,time:0,\n"
+      }
+    ]
+  },
+  "originalSha256": {
+    "scripts/build.mjs": "fdaa216e72adcfb1bde0f31eabe8ee526371c4a233eec7248eedb1701605ce62",
+    "scripts/test.mjs": "e4e371a376514d95ef0feb1d20cd98ec04ccd6452ce0fcfb191f3260fbae2253",
+    "src/render.ts": "dba4593cadc9fdb726007f935155e15154d0c4e2f5ee3cc2616590b649c05734",
+    "tests/festival-integration.test.mjs": "70e83bd76127a251fcfa1106f185c01273bd19da132542fd046c571b14543733",
+    "tests/field_enemy_action_browser.py": "651b02da29629f54b492d0484b53ebf48a42cd1083bcb082766e1e7eaf30fe07",
+    "tests/helpers/rescue-s-baseline.mjs": "5e2a1ea0530b6859fefb234d98c065f58ed8b428b910fcab395aa4ee457864f3",
+    "tests/presentation-pause.test.mjs": "b39187061dc17828f10f50df96e4e30e0b8a0c890de4a5bb61f42e3636314f0a",
+    "tests/rescue-enemy-motion.test.mjs": "e8fc22d14d58de3e06b6fbd0afebe8a9bc36ee719d973919586b4423ba59043d",
+    "tests/rescue_browser.py": "87a36f86727545163d196ec2653bee641449aefa67935b82233549465eeba98e",
+    "tests/rescue_enemy_motion.py": "2d915b0d8636734490ca0bfa652cbb31bc217d7ca0753dc5a28c5f7fcc87fc3a",
+    "tests/rescue_enemy_motion_test.py": "82bcc52cf04d0e2280a9d8793588715d235816faf5ea90990bdc371359aede7b",
+    "tests/rescue_s_preservation.py": "594addf293425db16dccc6a6d7f8d5b676e3c4b10442945d5c2942961326b451",
+    "tests/sprite-contact.test.mjs": "e75426259571b4851b73eefaf7e78899d0ff3e07b83e5a33f064aa0c3c9e2a42"
+  }
+}

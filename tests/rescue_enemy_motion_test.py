@@ -1,3 +1,4 @@
+from rescue_body_t_preservation import restore_rescue_body_t_if_declared
 """S verifier tests: explicit synthetic fixtures, not provider/native observations."""
 import unittest,copy,hashlib,inspect,json
 from pathlib import Path
@@ -98,13 +99,13 @@ class RescueMotion(unittest.TestCase):
         for term in ['page.keyboard','page.click','wait_for','sleep','setTimeout','requestAnimationFrame']:self.assertNotIn(term,source)
         self.assertNotIn('=',OBSERVE_SCRIPT.split('return ')[1].replace('=>',''))
     def test_original_rescue_route_exact_source_inverse(self):
-        name='tests/rescue_browser.py';raw=(ROOT/name).read_text();old=restore_rescue_s_source(name,raw)
+        name='tests/rescue_browser.py';raw=restore_rescue_body_t_if_declared(name,(ROOT/name).read_text());old=restore_rescue_s_source(name,raw)
         self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][name])
         self.assertEqual(raw.count('capture_rescue_enemies(page,OUT,'),3)
         self.assertEqual(raw.count('page.screenshot('),old.count('page.screenshot('))
     def test_all_declared_source_inverses_with_negative_missing_duplicate_drift(self):
         for name,h in SPEC['originalSha256'].items():
-            raw=(ROOT/name).read_text();old=restore_rescue_s_source(name,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
+            raw=restore_rescue_body_t_if_declared(name,(ROOT/name).read_text());old=restore_rescue_s_source(name,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
             self.assertEqual(restore_rescue_s_if_declared(name,old),old);e=SPEC['files'][name][0]
             for bad in [raw+e['after'],raw.replace(e['after'],''),raw+'\n# unrelated\n']:
                 with self.assertRaises(AssertionError):restore_rescue_s_source(name,bad)

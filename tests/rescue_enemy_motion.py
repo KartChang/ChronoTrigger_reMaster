@@ -59,10 +59,10 @@ def assert_rescue_history(o):
         counts[k]+=1
     return {'textureSamples':len(m['history']),'observedKinds':counts,'sourceActions':len(actions),'pairedStrikeFollow':sum({2,3}<=g['frames'] for g in actions.values()),'recoverySequences':sum({2,3,1}<=g['frames'] for g in actions.values()),'livingRecoilEvents':len(hurts)}
 
-def assert_rescue_report(r,expected_sha,*,require_attack=True):
+def assert_rescue_report(r,expected_sha,*,require_attack=True,expected_build=('0.9.66','VQ03S')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert r['sourceSha']==r['build']['sourceSha']==expected_sha
-    assert (r['build']['version'],r['build']['batch'])==('0.9.66','VQ03S')
+    assert (r['build']['version'],r['build']['batch'])==expected_build
     assert r['status']=='passed' and r['errors']==[] and r['nativeInputsOnly'] is True
     for name in ['physicalDevice','artApproved','fullAnimationComplete','framebufferSynchronized']:assert r[name] is False
     assert list(r['observations'])==['naga','guards','yakra']
@@ -80,12 +80,12 @@ def capture_rescue_enemies(page,out,label,observations):
     observations[label]=o
     assert_rescue_history(o)
 
-def write_rescue_report(out,observations,build,source_sha,errors):
+def write_rescue_report(out,observations,build,source_sha,errors,*,expected_build=('0.9.66','VQ03S')):
     """Independent report; does not rewrite the original rescue journey report."""
     r={'status':'running','sourceSha':source_sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'fullAnimationComplete':False,'artApproved':False,'framebufferSynchronized':False,'observations':observations,'errors':list(errors)}
     try:
         assert not errors,errors
-        r['status']='passed';r['positiveSamples']=assert_rescue_report(r,source_sha)
+        r['status']='passed';r['positiveSamples']=assert_rescue_report(r,source_sha,expected_build=expected_build)
         r['limitations']=['Texture-cell fingerprints only; later screenshots are not synchronized framebuffer evidence.','No additional routes, keys, waits or state/time/save/collision injection.','Limited authored arm poses, not full directional animation or original-speed/device/audio/whole-game approval.']
     except Exception as exc:
         r.update(status='failed',failure=str(exc));raise

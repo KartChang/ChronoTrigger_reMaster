@@ -1,43 +1,45 @@
-# 立即接續 — Q 已發布，只接 CI88，不重送 P/Q
+# 立即接續 — R已發布，只接CI89，不重送Q/R
 
-請立即用GitHub connector，必要時指定Drive，接手KartChang/ChronoTrigger_reMaster。不是盤點／歷史審計／重規劃，不索取ROM/token/重貼資料/手動證據。唯一main、singleAI/nonforce，不建branch/PR/parallelcandidate/multiwriter。
+立即使用GitHub connector，必要時指定Drive接手KartChang/ChronoTrigger_reMaster。不是盤點、歷史審計、重規劃；不索取ROM/token/重貼資料/手動證據。唯一main、singleAI/nonforce，無branch/PR/parallelcandidate/multiwriter機制。
 
 ## 最少確認與唯一位置
 
-先讀 **docs/STATUS.md** 與 **docs/evidence/T05_ANIMATION_CHECKPOINT.json**，main確認一次；只跟真正更新source/checkpoint，不看全部歷史。Root **T05-early-visual-cohesion**；terminal **T05-field-foe-action-animation**。
+先讀 **docs/STATUS.md** 與 **docs/evidence/T05_ANIMATION_CHECKPOINT.json**，main確認一次，只跟真正更新source/checkpoint，不重讀全部歷史。Root **T05-early-visual-cohesion**，terminal **T05-field-foe-action-animation**。
 
-最新source **7cf434e43a2ec4d791ec45720e52a84938adb3b5**，root **ff3530b61bff361b8e7c83150f80645608c86a2f**，**VQ03Q／0.9.64**，parent文件 **8da50ceb1efa2ec5122a1303e4571524c8bfb220**。18檔一次發布，source保留當時最新main docs。Remote src4954ffa7451829f3b4718513179236f7cd996fc2／scripts7f76b26b28e6871f1b461d70216f6bcdc3773553／testsb4d7c15679c6da60a1766091d0bb4abcfe4e7341均吻合已測版；workflow不變。
+Published **VQ03R／0.9.65** source **2175dba2fde6e58bcd0548dc750b16a4eeded319**，root **310ca4ddb5ae78db3279f6c61d1c9017a30f039c**，parent文件 **7da11e86704db9414beb5b47947916ce42dbfdd2**。20檔（12modified/8new）一次source。Remote src **08ce39ccc5a3d06c65f619dfe919df785973e85f**、scripts **58e6d622872d109f429997c6c641cb674c97a148**、tests **bf1ab81e9fcc5c5a17f8078ff48efd7bdf8c2b5a**等於已測版；workflow不改。Source保留當時最新main docs。
 
-唯一 **CI88／36234759501**，workflow360357259／.github/workflows/ci.yml，push/attempt1／exactQ／main，全event/state共1run。最後 **in_progress/null**，updated **2026-09-26T10:06:12Z（台灣18:06:12）**。這只是記錄觀察；沒有未發布candidate，不重送Q、不另dispatch。當前文件為source後[skipci]進度，以maincheckpoint為準。
+唯一 **CI89／36249382768**，workflow360357259/.github/workflows/ci.yml，push/attempt1/main/exactR，全event/state共1run。最後 **queued/null**，provider2026-09-26T14:41:50Z（台灣2026-09-26 22:41:50）。僅記錄觀察，不保證現在仍相同。沒有未發布candidate，不重送R、不另dispatch。當前main文件是R後[skip ci]進度，以checkpoint為準，包內發布前false/null及舊parent是歷史。
 
-## 已完成，不重驗
+## 本批實作與測試，不重做
 
-前次中斷P已發布但checkpoint未跟上；本輪恢復P f22a0b8de3a8d6fd0a5bb158e382b9acb0c0ec3a，沒有重送P或重跑P開發測試。**CI87／36228241309、Pages81／36230126505已boundedaccepted/closed**。原checker2partyactions／8cells，N/O正向報告、十ledger173列逐byte、609原檔hash/sourcearchive/部署HTML核對；七原ZIP指定Drive實際回驗。收據CI87_ACCEPTANCE。P native完整倒地仍缺，不能因CI綠勾勾選。
+R修復三個render-delta時鐘：突進、刀光、傷害文字在同simulationtick重畫仍推進。以真實Effect交付tick算絕對age，保留.42/.55sine突進、.6秒刀光、>1.25秒數字/.8上升。Same-tick/pause不動，reduced零突進/刀光隱藏/必要數字靜止，同tick偏好復原保持phase。Hurt/dead/inactive/mode/identity中止突進，脚底shadow同步；rewind/rebase/scene/reset/dispose清理；24筆實際source-transform-expiry，零額外GPUresources。
 
-Q僅修受擊朝向連續性：精確唯一活著target的真實hit保持上一個真正draw朝向，不推測attacker、不新增origin、不改timeline/painter/rules。Repeatedhit／same-tick／reduced／pause／cast-down中斷／identity／rewind/rebase/dispose／24rowhistory／零GPU資源合批回歸。原render/core/MNO/48×64sprites/timelines/inputs/save/workflow都不變。
+Core、poses/HD sprites、M/N/O/P/Qcontrollers、input、damage/ATB/death/collision/v1-v8save、workflow、heldprologue均未改。完整 **2576Node/0fail/0skip、490Python/0fail**；新46/16含總數，asset/typecheck/buildpass，543inputs前後hash同。三viewport離線actualCPUactortriangles、same-tickframe一致與到期0transients；independentPython1source/9rows/1completecombinedevent。CPUunitcanvas不畫文字/curve，不當native刀光/數字pixels。12files34hunksourceinverse保留所有歷史斷言，不轉native資料。
 
-完整 **2530Node／0fail／0skip、474Python／0fail**，65Node＋17Python新增包含其中；asset/typecheck/build通過，535inputs前後hash一致。三viewport真CPU畫面正向差異及結束逐像素P復原，離線2完整reaction8cells／3differentFallbackSamples是syntheticfixture，不是native。詳VQ03Q_TESTED_BATCH。
+初次fullcheck受工具180秒上限中斷；partiallog不算pass/productfailure。同frozeninputs完整重跑通過，未調測試門檻。傳送中未提交test筆誤已修成exact已測bytes；整棵programtree匹配才發布。Receipt **VQ03R_TESTED_BATCH.json**。不因容器清除重做R或重送。
 
-## 直接下一步
+## 已結案，不重驗
 
-CI88若queued/in_progress，保存接續點，不長時間輪詢。完成後取未修改原artifact，先核 **field-enemy-action/party-reaction-report.json** 及 **party-reaction-observation.json**，使用exactQ **tests/party_reaction.py**唯讀核priorDraw、真實targethit、原tick/phase/48×64指紋。Q suffix只加read，原N/O/P按鍵路線等待截圖斷言保持；P/N/Ochecker使用顯式Q expected_build，舊預設仍嚴格。
+**Q／CI88／Pages82** 是最新有界accepted基準。CI88/36234759501，Qsource7cf434e43a2ec4d791ec45720e52a84938adb3b5，及Pages82/36236803130均completed/success。CI88_ACCEPTANCE與CI88_CHECKPOINT已closed；原生1reaction4cells，0selector-change/0party-down，N/O/P原正向保持。十ledger173列、611原檔/source/HTML與七原ZIP雲端回驗完成。只看action06/09兩張fullsize，無contact/其他PNG/video decode/play/聆聽/真機，不擴張認證。不重驗CI88/87/86及更早批次。
 
-**nativeReactionVerified/nativeSelectorChangeVerified/nativePartyDownVerified仍false**。正向或完整樣本只能以原native實際observations計數；不同selector方向或down缺樣本是證據缺口，不造nativestate或重跑acceptedCI87。History不是同步framebuffer。
+## 下一步直接做
 
-同批核原P/N/O報告、主報告／chooser／CPU600救援審判／same-source ledgers、matchingPages selectedCI/source/artifact及原HTML。原始ZIP/reports/video/source/manifest存指定Drive並實際下載回讀才boundedacceptance；失敗只修真正terminal，不任意重做accepted基礎。
+只接CI89。若queued/in_progress就保存可靠點，不輪詢到中斷、不另dispatch。完成後取得未改原artifact **field-enemy-action/combat-timing-report.json** 與 **combat-timing-observation.json**，用exactR **tests/combat_timing.py**唯讀核真實交付source、三效果tick/phase/transform及expiry/disposal，至少一組同source完整三效果序列。**nativeCombatTimingVerified=false**尚未驗；same-tick/pause/reduced離線回歸不能自動提升成native。
 
-之後接完整角色／敵人方向移動attack/hurt/down/death與真實遊玩，人物植物道具尺度輪廓／原作構圖、壓縮山道法庭／重疊樹列、完整合法音訊與聆聽、原速走位淡化viewport舒適性。可行相關項目合批完整測試後一次新source/matchingCI，不做小改就停，不因綠CI擴後段。
+原Q/P/O/N報告以明列R expected_build核對，不修改原JSON/pixels/state。Suffix只在原全部keys/routes/waits/screenshots/assertions後讀資料。完整原主報告/nativechooser/CPU600救援審判/same-source ledgers、matchingPages選CI/source/artifact/HTML一併核；原ZIP/reports/video/source/manifest放指定Drive並實際下載回驗後才boundedacceptance。Histories不是同步framebuffer。Missing selector-change/down保持gap；失敗只修真terminal，不放寬或造數。
 
-## 雲端恢复
+之後按T05續完整方向sprite、全角色/敵人move/attack/hurt/down/death與實際遊玩；人物植物道具尺度輪廓/原作構圖、山道法庭壓縮/樹列、全合法音訊/聆聽、原速movement/fade/viewport舒適性。先前M–Q不重做，R接受後也保留；前段品質優先，不因CI綠勾擴後段。
+
+## 雲端恢復
 
 唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-Q已測 **Chrono-VQ03Q-party-reaction-tested.zip／16P0lwUaO1ku_2e4AhAmVTPUEfundpJj_**，1127875bytes，SHA256 **2dd093d6a6256073fe468b07fc6ade11b140644f6575b1cb12d9a1eff11d4d25**。41manifest／536snapshot（535inputs＋THIRD_PARTY）實際下載核parent/size/hash/CRC/manifest/snapshot。assembled快照不是publishedGitarchive／最新docs，封裝false/null歷史，Q已發布，不重送。
+**R tested** Chrono-VQ03R-combat-timing-tested.zip／**14LzErkCJX_pWgJt5VqEyxZLdufdbXDJE**，1291610bytes，SHA256 **1f04bea09c75c3185144d9e557bd46380e7b3603a26b1e5224b6d30dafdd63bc**。下載核parent/size/hash/CRC/43manifest/544snapshot完成。program-snapshot為543inputs＋THIRD_PARTY的assembled快照，不是publishedGitarchive/currentdocs；原working包內存，false/null歷史，不重送R。
 
-CI87原始 **Chrono-CI87-reviewed-evidence.zip／1fp3_q1D8jTOrg8xCeLr5n7BZafFkSli2**，89039149bytes，SHA256 **c2b12d802dc95a9c6e6684880e13a839d6b534c16602d85ae9864a79bd7c6615**。七原ZIP／14manifest外內CRC與hash下載回驗。僅2fullsize action08/09，無其他圖／影片／聆聽，不擴張接受。更早恢復鏈保留DELIVERY_INDEX與CI88_PREVIOUS_DELIVERY_INDEX。
+**CI88 originals** Chrono-CI88-reviewed-evidence.zip／**1vLwhZttA4zvkXtSSD2jyElt2deHy6fZg**，89323797bytes，SHA256 **c112f2ea3bebd03a306be4f1e899349c0335d3b45ed2e00754ca427fe635eb68**。七未改ZIP/24manifest已實際下载核外內CRC/hash。更早恢復鏈保留DELIVERY_INDEX與CI89_PREVIOUS_DELIVERY_INDEX；只為恢復下載，不重驗已接受工作。Archive docs不覆main。
 
-## 完整範圍／固定限制
+## 固定完整範圍／限制
 
-T03完整規則版本拓樸數值；T04完整成長報酬掉落經濟道具飾品學習換人雙三人技；T05全部美術建模動畫合法音訊；T06全部時代主支線結局，2300非完整未來；T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical及真機input/FPS/frame-time/load/memory/background/save/audio；T08每批完整測試／一次source／matchingCI／原始產物雲端回讀不縮。
+T03全規則版本拓樸數值；T04完整成長報酬掉落經濟道具飾品學習換人雙三人技；T05全美術建模動畫合法音訊；T06所有時代主支線結局，2300非完整未來；T07整體>=90/各面向>=80%、requiredassets/fivegates/zerocritical及真機input/FPS/frame-time/load/memory/background/save/audio；T08每批完整測試/一次source/matchingCI/原產物雲端回讀。不縮完整分母；無newscore/fullanimation/art/originalspeed/listening/device/longsession/wholegameapproval。
 
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8，無P3/ARPG/框架重造。No localbrowser/native game-time-save-collision造數，不放寬原<.12/ticks/routes/keys/waits/captures/assertions/single30s/250ms-256/CPUquality-memory。Heldprologue **2711a74185aacf3c6bddf9db85ba99a2afbc507a**／母親家具不提升或間接替換。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**只node_modules且保留esbuildhardlink，不覆舊source/config，不開bootstrapCI。私人ROM **1yMJ5jL8UeUi60D60BZ9Ffy1cyme3EpvM**及media/fonts/credentials不公開。雲端回讀／docs[skip ci]，臨時環境非權威；CI77/75failure、CI71歷史false保留。無新score／全動畫／美術／原速／聆聽／真機／長時間／全遊戲核准。
+保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8，無P3/ARPG/新框架。No localbrowser/native game-time-save-collision造數，不放寬<.12/原ticks/routes/keys/waits/captures/assertions/單一30秒/250ms-256/CPUquality-memory。Held家具不提升/間接替換，prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。Toolchain **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**只node_modules/esbuildhardlink，不覆舊source/config或bootstrapCI。私人ROM/media/fonts/credentials不公開。所有成果GitHub/指定Drive/readback，docs[skip ci]，臨時容器非權威。CI77/75failure、CI71歷史false保留。

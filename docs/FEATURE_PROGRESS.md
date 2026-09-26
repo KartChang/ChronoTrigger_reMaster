@@ -1,25 +1,27 @@
-# 功能進度 — Q 受擊朝向連續性已發布，CI88 待原生驗證
+# 功能進度 — R戰鬥呈現時鐘已發布，CI89待原生驗證
 
-Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。唯一main，root **T05-early-visual-cohesion**，terminal **T05-field-foe-action-animation**。最新source **7cf434e43a2ec4d791ec45720e52a84938adb3b5**／tree **ff3530b61bff361b8e7c83150f80645608c86a2f**，**VQ03Q／0.9.64**；唯一CI88／36234759501最後in_progress/null。沒有未發布candidate；Q尚未原生接受。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。唯一main，root **T05-early-visual-cohesion**，terminal **T05-field-foe-action-animation**。Published **R／0.9.65** source **2175dba2fde6e58bcd0548dc750b16a4eeded319**／tree **310ca4ddb5ae78db3279f6c61d1c9017a30f039c**。唯一CI89／36249382768，最後queued/null（provider2026-09-26T14:41:50Z）。沒有未發布candidate，不重送R。
 
 ## 已接受基礎
 
-M四姿態、N真實敵人出手兩姿態、O身體回應與獨立24tick死亡殘影、P真實角色出手朝向及保留down clip均不重做。CI87接受支持P兩次真實出手／8材質畫格，以及N/O正向觀察；**P角色原生完整倒地仍沒有樣本**。CI87_ACCEPTANCE為最新bounded收據。該次只有action08/09兩張fullsize PNG審查，無其他圖或影片播放／聆聽，不能當完整觀感核准。
+M四姿態、N真實敵方出手、O有方向身體回應及24tick死亡殘影、P角色真實出手朝向/down clip、Q保留實際已繪製受擊朝向維持。CI88／Pages82已boundedaccepted/closed，Q1完整受擊/4cells，但0differentFallback及0party-down。原N/O/P正向、十ledger173列/source/HTML與七ZIP回驗保留；只看action06/09兩張fullsize，無影片/原速/聆聽/真機。不可擴張接受或重驗已結案工作。
 
-## Q本輪實作
+## R本批實作
 
-新增party-reaction.ts，透過既有party-combat-motion.ts接線。只有精確、唯一、活著且啟用的角色被真實交付hit擊中，才保留上一個已實際draw的朝向。不是從target猜attacker；不新增origin、不改ActorTimeline/PosePlayer、原48×64角色圖、core、render.ts、傷害/ATB/死亡/碰撞/save。
+ExactQ離線重現：simulation tick143不變，重複draw仍使突進、刀光與傷害文字前進。新增combat-timing.ts透過render.ts接線，按真實Effect交付tick算絕對age，修復render-delta累加；不造action/time。原.42秒/.55距離突進、.6秒刀光曲線、>1.25秒文字到期與.8上升保留。
 
-未draw、初次已死、近似或重疊目標、outgoing/guest動作、heal/combo、inactive/lab等不產生虛假方向。連續實際hit按交付tick更新；同tick不累加。出手中斷→hurt保持真正已畫朝向，cast/down中斷不恢復舊受擊；reduced/pause/rewind/rebase/identity/dispose清理有回歸。最多24筆實際48×64 cell指紋，零新增GPU資源，history不是framebuffer同步。
+同tick/pause不動；reduced零突進、隱藏刀光、必要文字靜止，切回按同tick還原phase。受擊/死亡/停用/模式/identity更換中止突進，不移動邏輯位置；影子跟隨實際脚底。Rewind/rebase/scene/reset/dispose清理引用與ownedeffect資源；最多24筆實際source/transform/expiry歷史、零新增GPU物件，history不是同步framebuffer。
 
-## 測試與未驗證邊界
+Runtime只新增clock並修改render wiring；core、ActorTimeline/PosePlayer、HD圖、M/N/O/P/Qcontrollers、InputBoundary、傷害ATB死亡碰撞v1-v8save及原workflow不改。Native suffix僅在原N/O/P/Q全部路線按鍵等待截圖斷言後新增唯讀JSON/檢查；原checkers用明列R expected_build，預設舊build仍嚴格。
 
-完整 **2530Node／0fail／0skip，474Python／0fail**，新增65Node＋17Python含在總數；asset/typecheck/build通過，535inputs前後hash一致。三viewport實際CPU繪圖在受擊換目標時與P不同，結束逐像素恢復P；獨立Python核離線2完整reaction／8cells／3differentFallbackSamples。這是離線fixture，不是native。
+## 測試及證據界線
 
-Q native suffix只在原N/O/P全部inputs/waits/captures/assertions之後加只讀observation/report；原buildchecker預設仍嚴格，Q傳明確expected_build。**nativeReactionVerified、nativeSelectorChangeVerified、nativePartyDownVerified皆false**，須等CI88原始證據；不造數、不改門檻。
+完整 **2576Node/0fail/0skip，490Python/0fail**；新增46/16已含總數；asset/typecheck/buildpass、543inputs前後一致。三viewportCPU實際actortriangles正向差異、same-tickframe一致和效果到期0資源；獨立Python核1source/9rows/1completecombinedevent。這些都是離線，CPU測試canvas不畫文字/curve，不能宣稱stroke/numbernativepixels。
+
+初次fullcheck被工具180秒上限中斷，同版本完整重跑pass；partiallog與早期working包保留，不調門檻。20檔remote程式樹與frozen包匹配後一次發布。**nativeCombatTimingVerified=false；nativeSelectorChangeVerified=false；nativePartyDownVerified=false**，須原始CI89證據，不把檢查器存在或unitpass当nativeacceptance。
 
 ## 保存與後續
 
-Q已測zip **16P0lwUaO1ku_2e4AhAmVTPUEfundpJj_**／1127875bytes／SHA2562dd093d6a6256073fe468b07fc6ade11b140644f6575b1cb12d9a1eff11d4d25；41manifest／536snapshot實際下載回驗。Source18檔已一次發布與tree回讀；正式狀態以STATUS/checkpoint為準，不看zip封裝false/null重送。
+R包 **14LzErkCJX_pWgJt5VqEyxZLdufdbXDJE**，1291610bytes，SHA2561f04bea09c75c3185144d9e557bd46380e7b3603a26b1e5224b6d30dafdd63bc，43manifest/544snapshot已實際下載回驗。CI88包 **1vLwhZttA4zvkXtSSD2jyElt2deHy6fZg** 已驗回，詳細DELIVERY_INDEX。最新main checkpoint優先於包內歷史false/null與舊parent。
 
-只接唯一CI88原native/原旅程/Pages/原ZIP雲端回讀，再續全部角色敵人完整動畫及前段尺度構圖、壓縮山道法庭、重疊樹列、完整合法音訊與聆聽、原速舒適性。完整T03–T08不縮，releaseBLOCKED；無新score、全動畫、美術、原速、聆聽、真機、長時間或全遊戲接受。原held/no-local-browser/native-state/CPU/tick門檻保持。
+接CI89 timing及完整原報告/Pages/原產物回讀；之後續全角色/敵人方向與完整動畫、尺度輪廓/構圖、山道法庭壓縮/樹列、全合法音訊/聆聽與原速舒適性。完整T03–T08及真機品質門檻維持；2300非完整未來，無新score，releaseBLOCKED。所有mainonly/nonforce/heldprologue/no-localbrowser/native-state原門檻與私人素材限制不變。

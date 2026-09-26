@@ -3,6 +3,7 @@ import unittest,json,copy,hashlib
 from pathlib import Path
 from party_combat import GOLDEN,assert_party_history,assert_party_report,clip_frame
 from party_p_preservation import SPEC,restore_party_p_source,restore_party_p_if_declared
+from reaction_q_preservation import restore_reaction_q_if_declared
 ROOT=Path(__file__).resolve().parent.parent
 SHA='a'*40
 
@@ -57,7 +58,7 @@ class PartyCombat(unittest.TestCase):
         for forbidden in ('page.click','page.keyboard','wait_for','time.sleep','setTimeout','requestAnimationFrame'):self.assertNotIn(forbidden,code)
     def test_exact_P_to_O_inverse_and_drift_failures(self):
         for p,h in SPEC['originalSha256'].items():
-            raw=(ROOT/p).read_text();old=restore_party_p_source(p,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
+            raw=restore_reaction_q_if_declared(p,(ROOT/p).read_text());old=restore_party_p_source(p,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
             self.assertEqual(restore_party_p_if_declared(p,old),old)
             self.assertEqual(restore_party_p_if_declared(p,raw+'\n# drift\n'),old+'\n# drift\n')
             e=SPEC['files'][p][0]

@@ -1,0 +1,262 @@
+{
+  "schema": "retained-hd-party-hurt-cells-v1",
+  "scope": "offline retained authored painter cells,not native",
+  "cells": {
+    "crono/hurt/0/0": {
+      "fnv1a32": 4162841882,
+      "sha256": "20ed6a1a5fac2128844c772f02f3245e18df22ca2049a96746d8b571ad6ca8f4"
+    },
+    "crono/hurt/0/1": {
+      "fnv1a32": 4162841882,
+      "sha256": "20ed6a1a5fac2128844c772f02f3245e18df22ca2049a96746d8b571ad6ca8f4"
+    },
+    "crono/hurt/0/2": {
+      "fnv1a32": 3688776989,
+      "sha256": "e7e0c33e3a4e5b2cca1426373272eb5c52b6bd2320f496e553a72062b1df8dd9"
+    },
+    "crono/hurt/0/3": {
+      "fnv1a32": 3996273870,
+      "sha256": "85cc7294b4fe3744b870a89ff36f67d968241d4ebe955a59c465af2d3a3dbfec"
+    },
+    "crono/hurt/1/0": {
+      "fnv1a32": 1293484401,
+      "sha256": "191767f6748066a44847689c24960e015099a28c2bd20683b66495a8a2f14eed"
+    },
+    "crono/hurt/1/1": {
+      "fnv1a32": 1293484401,
+      "sha256": "191767f6748066a44847689c24960e015099a28c2bd20683b66495a8a2f14eed"
+    },
+    "crono/hurt/1/2": {
+      "fnv1a32": 1193346007,
+      "sha256": "8bcfa2fd3f2c236afbf7edb105bc1778b44f65e99cac39c53a9796b0be74dd77"
+    },
+    "crono/hurt/1/3": {
+      "fnv1a32": 836272377,
+      "sha256": "ea6c8c173e75ef2e22a51242fcce5795f01ba575bed3929fbbd4bc4793884340"
+    },
+    "crono/hurt/2/0": {
+      "fnv1a32": 2221591346,
+      "sha256": "f85b2d6d01e1334938ed0f1a8747887c1e3ff7874dc94f0674e1285fe250bd72"
+    },
+    "crono/hurt/2/1": {
+      "fnv1a32": 2221591346,
+      "sha256": "f85b2d6d01e1334938ed0f1a8747887c1e3ff7874dc94f0674e1285fe250bd72"
+    },
+    "crono/hurt/2/2": {
+      "fnv1a32": 484249329,
+      "sha256": "604a9b2cfa17680fda452bee3cf7e4ea17d744bf6be65cf8eb6326b773fa5c97"
+    },
+    "crono/hurt/2/3": {
+      "fnv1a32": 3725603554,
+      "sha256": "56ac7084b4745485cc27f61b6654b2b3d7c79861a364b2287ebe5851bdf46906"
+    },
+    "crono/hurt/3/0": {
+      "fnv1a32": 3503650525,
+      "sha256": "7f5b4cc46f31a334770d25d17ce1cc1d60769378b8ef15ba1718542956d4d23a"
+    },
+    "crono/hurt/3/1": {
+      "fnv1a32": 3503650525,
+      "sha256": "7f5b4cc46f31a334770d25d17ce1cc1d60769378b8ef15ba1718542956d4d23a"
+    },
+    "crono/hurt/3/2": {
+      "fnv1a32": 3824142047,
+      "sha256": "18cc17a6250182b88b38de52f847a7c4506388befb1c3c03a4dae5c7de83a521"
+    },
+    "crono/hurt/3/3": {
+      "fnv1a32": 1813912733,
+      "sha256": "24801e95e285e53c43aad5b3351631143a59e74dee61a85a3b560c31f2e3ba6c"
+    },
+    "marle/hurt/0/0": {
+      "fnv1a32": 1800921258,
+      "sha256": "e29ae921265fd4457d29476df4ee434679b0341e1a6e3d9ac6fef3eb75dd7281"
+    },
+    "marle/hurt/0/1": {
+      "fnv1a32": 1800921258,
+      "sha256": "e29ae921265fd4457d29476df4ee434679b0341e1a6e3d9ac6fef3eb75dd7281"
+    },
+    "marle/hurt/0/2": {
+      "fnv1a32": 1500132231,
+      "sha256": "c729f222bbdf122f9eca6def1061a34c1f4ea593482511da40ebb2d634242a27"
+    },
+    "marle/hurt/0/3": {
+      "fnv1a32": 1783276558,
+      "sha256": "33979c017bdf716e61ed3e2218ce7cb1e003896d386ee5a7e9e54d2c3d28e9ea"
+    },
+    "marle/hurt/1/0": {
+      "fnv1a32": 2273413854,
+      "sha256": "31ef5c486fe192327686234f10fbaa65d54f3f4b897147c9e5d9fc64fcc4a38b"
+    },
+    "marle/hurt/1/1": {
+      "fnv1a32": 2273413854,
+      "sha256": "31ef5c486fe192327686234f10fbaa65d54f3f4b897147c9e5d9fc64fcc4a38b"
+    },
+    "marle/hurt/1/2": {
+      "fnv1a32": 1365126411,
+      "sha256": "86545a80aeb98915879effb20c28f2975b341422ee8b3a013bd0c9e2ed9643e7"
+    },
+    "marle/hurt/1/3": {
+      "fnv1a32": 2013618193,
+      "sha256": "ab21dceb1f4db2edeb58cca902f086a55f6081ff8325f098793901e6e5365235"
+    },
+    "marle/hurt/2/0": {
+      "fnv1a32": 2066033739,
+      "sha256": "e8a71d08300eb2083983277e9693797c49cf2116aaac0453d7fb1ecffceef68e"
+    },
+    "marle/hurt/2/1": {
+      "fnv1a32": 2066033739,
+      "sha256": "e8a71d08300eb2083983277e9693797c49cf2116aaac0453d7fb1ecffceef68e"
+    },
+    "marle/hurt/2/2": {
+      "fnv1a32": 3800405942,
+      "sha256": "5d04f0640c7826ce380f5ba31fe7e1e091276b9829a891afcfc77cc306cdda0a"
+    },
+    "marle/hurt/2/3": {
+      "fnv1a32": 4121727691,
+      "sha256": "e9582255c25facad106e57916499fe69f556f1e6581bb5dc710f198c0baf786b"
+    },
+    "marle/hurt/3/0": {
+      "fnv1a32": 2962900550,
+      "sha256": "8d12ebd1dd859d5e35d5a7c93019f3e04a0f65d68795780bb7f57bcbaa929cc4"
+    },
+    "marle/hurt/3/1": {
+      "fnv1a32": 2962900550,
+      "sha256": "8d12ebd1dd859d5e35d5a7c93019f3e04a0f65d68795780bb7f57bcbaa929cc4"
+    },
+    "marle/hurt/3/2": {
+      "fnv1a32": 3586416895,
+      "sha256": "9ae2a7b42e05d22c760d787d7e9671c03b5166467b741cd6ddb58ace67765f8a"
+    },
+    "marle/hurt/3/3": {
+      "fnv1a32": 63091345,
+      "sha256": "40333dda6d38dcfb4fd167b648156472e32409b2209e02540739927e813c5064"
+    },
+    "lucca/hurt/0/0": {
+      "fnv1a32": 2845039484,
+      "sha256": "e072563c061d026db845f64ece87575d94af2d5f2ac65db533ddc6a72b14e8d7"
+    },
+    "lucca/hurt/0/1": {
+      "fnv1a32": 2845039484,
+      "sha256": "e072563c061d026db845f64ece87575d94af2d5f2ac65db533ddc6a72b14e8d7"
+    },
+    "lucca/hurt/0/2": {
+      "fnv1a32": 1897011027,
+      "sha256": "9519ea47de020ee9c04ea2214e0bdc3e55faf5340764db4b034863e926e073a6"
+    },
+    "lucca/hurt/0/3": {
+      "fnv1a32": 1244981228,
+      "sha256": "d9342ff5c905b5d37b4695af1dbad14d1aef83617f460652f8d2526d95835784"
+    },
+    "lucca/hurt/1/0": {
+      "fnv1a32": 460458609,
+      "sha256": "88a80a489f111143b063f238f66a84ebdb709c79aae174452241545cfcc95aa6"
+    },
+    "lucca/hurt/1/1": {
+      "fnv1a32": 460458609,
+      "sha256": "88a80a489f111143b063f238f66a84ebdb709c79aae174452241545cfcc95aa6"
+    },
+    "lucca/hurt/1/2": {
+      "fnv1a32": 2639054992,
+      "sha256": "1deb719c0db9f8a3cc5cf49b363e33a507fe988c4675771c1a40b265779d4d23"
+    },
+    "lucca/hurt/1/3": {
+      "fnv1a32": 960984923,
+      "sha256": "d5c56fb311db26da54eda55744fcbe35ed2fc81acc579562a497c74576bf1710"
+    },
+    "lucca/hurt/2/0": {
+      "fnv1a32": 3969133695,
+      "sha256": "b8d90b93a05c535e39f2fa5a9457f4a9f7f6ed5d88eaaadb32c35ed9317c3738"
+    },
+    "lucca/hurt/2/1": {
+      "fnv1a32": 3969133695,
+      "sha256": "b8d90b93a05c535e39f2fa5a9457f4a9f7f6ed5d88eaaadb32c35ed9317c3738"
+    },
+    "lucca/hurt/2/2": {
+      "fnv1a32": 1310306611,
+      "sha256": "3d2844aa47d3b2f81349edbe12a89dfaa56d908c12251b7a7ff741fde873d21e"
+    },
+    "lucca/hurt/2/3": {
+      "fnv1a32": 1355044991,
+      "sha256": "758089d92b18cfe3c19e71c64e6d524c13e580366fd550965a73b32bae2bb4a0"
+    },
+    "lucca/hurt/3/0": {
+      "fnv1a32": 1054637013,
+      "sha256": "5d6658c721650adb1525bb95a60a604ee5b6812388669ef6c5387c9dffb9e46a"
+    },
+    "lucca/hurt/3/1": {
+      "fnv1a32": 1054637013,
+      "sha256": "5d6658c721650adb1525bb95a60a604ee5b6812388669ef6c5387c9dffb9e46a"
+    },
+    "lucca/hurt/3/2": {
+      "fnv1a32": 300266696,
+      "sha256": "7d1a48406680718604b47dff93976a5a75210eb539a1d207779ec1f5e9006379"
+    },
+    "lucca/hurt/3/3": {
+      "fnv1a32": 3032777687,
+      "sha256": "77b98dd15f00f83bf83d6f5ca1f42fa253a2b3edfbca156b81721516cd25ff96"
+    },
+    "frog/hurt/0/0": {
+      "fnv1a32": 3440467044,
+      "sha256": "6053b910e89a97823be73252391bd54e1bbb4c31052ab0c1d06fcea041c75008"
+    },
+    "frog/hurt/0/1": {
+      "fnv1a32": 3440467044,
+      "sha256": "6053b910e89a97823be73252391bd54e1bbb4c31052ab0c1d06fcea041c75008"
+    },
+    "frog/hurt/0/2": {
+      "fnv1a32": 2478649235,
+      "sha256": "e42f3fa9fb4afa862e2fa1b0d3ca4d8ab2ccd6ad6b2ae8a416f22181bcdc8ba9"
+    },
+    "frog/hurt/0/3": {
+      "fnv1a32": 528252836,
+      "sha256": "4728d3f4bbe847387f9ffaf9e58f0a2edec9ad9d299828d132f7c71317c0d31d"
+    },
+    "frog/hurt/1/0": {
+      "fnv1a32": 102599724,
+      "sha256": "b8cb2947f2caf261cc5c5bde364e15bb8f2c73ca4bf0da329f4384d03458415a"
+    },
+    "frog/hurt/1/1": {
+      "fnv1a32": 102599724,
+      "sha256": "b8cb2947f2caf261cc5c5bde364e15bb8f2c73ca4bf0da329f4384d03458415a"
+    },
+    "frog/hurt/1/2": {
+      "fnv1a32": 943085808,
+      "sha256": "bdcda2f0677fb03bf9f60b0aeb543ddf00f53e62d0d03cf62a14524528025d71"
+    },
+    "frog/hurt/1/3": {
+      "fnv1a32": 3168500972,
+      "sha256": "05b0fd3c90c4d14a8638fbfc01bf32679e2b905470af253e561ab69fc8970c0a"
+    },
+    "frog/hurt/2/0": {
+      "fnv1a32": 899981593,
+      "sha256": "8bc36b21990781a612bf686714646118f7016205916d1806503ab533149e1115"
+    },
+    "frog/hurt/2/1": {
+      "fnv1a32": 899981593,
+      "sha256": "8bc36b21990781a612bf686714646118f7016205916d1806503ab533149e1115"
+    },
+    "frog/hurt/2/2": {
+      "fnv1a32": 489803095,
+      "sha256": "da8910a977f17001f2c25b5efc4143eddf97a2c093097d1456201d39cf3fb46b"
+    },
+    "frog/hurt/2/3": {
+      "fnv1a32": 1349493561,
+      "sha256": "ec38267d42ee4cd5889a9a049af281a34a94ce94647f4ff88a052b2231077bdd"
+    },
+    "frog/hurt/3/0": {
+      "fnv1a32": 1343714284,
+      "sha256": "49e2ba236905a594394c704791c65a7143eb7121db917989e3a683ec12a97f54"
+    },
+    "frog/hurt/3/1": {
+      "fnv1a32": 1343714284,
+      "sha256": "49e2ba236905a594394c704791c65a7143eb7121db917989e3a683ec12a97f54"
+    },
+    "frog/hurt/3/2": {
+      "fnv1a32": 3418683992,
+      "sha256": "b593089b9c07de0237f6ab41aba105f4507518d1bbc5e38a38f8a267eeb359c6"
+    },
+    "frog/hurt/3/3": {
+      "fnv1a32": 427228236,
+      "sha256": "9b449c86e2596bd87b248335a62792e78876980e50bc143345eee5833495627f"
+    }
+  }
+}

@@ -58,16 +58,16 @@ def assert_party_history(record,*,require_action=False):
     if require_action:assert actions,'No actual outgoing party action observed'
     return {'sourceActions':len(actions),'actionFrameSamples':action_frames,'observedFalls':len(downs),'completeObservedFalls':sum(v=={0,1,2,3} for v in downs.values())}
 
-def assert_party_report(report,expected_sha):
+def assert_party_report(report,expected_sha,*,expected_build=('0.9.63','VQ03P')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert report['sourceSha']==report['build']['sourceSha']==expected_sha
-    assert (report['build']['version'],report['build']['batch'])==('0.9.63','VQ03P')
+    assert (report['build']['version'],report['build']['batch'])==expected_build
     assert report['status']=='passed' and report['nativeInputsOnly'] is True and report['errors']==[]
     assert report['physicalDevice'] is False and report['fullAnimationComplete'] is False and report['artApproved'] is False
     assert report['framebufferSynchronized'] is False
     return assert_party_history(report['observation'],require_action=True)
 
-def observe_party_suffix(page,out,build,source_sha,errors):
+def observe_party_suffix(page,out,build,source_sha,errors,*,expected_build=('0.9.63','VQ03P')):
     """After every existing N/O route/key/wait/capture/assertion. No added inputs/waits.
     Native down absence remains an evidence gap; do not invent or force a death.
     """
@@ -77,7 +77,7 @@ def observe_party_suffix(page,out,build,source_sha,errors):
         (out/'party-combat-observation.json').write_text(json.dumps(v,ensure_ascii=False,indent=2),encoding='utf-8')
         assert not errors,errors
         r.update(status='passed',errors=list(errors))
-        r['positiveSamples']=assert_party_report(r,source_sha)
+        r['positiveSamples']=assert_party_report(r,source_sha,expected_build=expected_build)
         r['nativeDownObserved']=r['positiveSamples']['completeObservedFalls']>0
         r['limitations']=['Source-facing actual canvas cells only; no claim of synchronized framebuffer or complete clip unless all phases observed.','An absent native down sequence stays open, even if offline unit/CPU tests pass.','Original N/O keys, waits, captures and thresholds unchanged; this suffix only reads.']
     except Exception as exc:

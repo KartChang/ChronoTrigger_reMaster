@@ -1,4 +1,5 @@
 import {activeSlot,guestKind} from './core';
+import {PartyReactionMotion} from './party-reaction';
 import type {State,Effect,Vec} from './core';
 import {CLIP_MS} from './hero-art';
 import type {PoseSample} from './pose-player';
@@ -27,6 +28,7 @@ export function rgbaFingerprint(bytes:ArrayLike<number>):number{
  let h=2166136261;for(let i=0;i<bytes.length;i++)h=Math.imul(h^bytes[i]!,16777619);return h>>>0;
 }
 export class PartyCombatMotion {
+ private reactions=new PartyReactionMotion();
  private state:State|null=null;
  private chapter='';
  private tick:number|null=null;
@@ -48,6 +50,7 @@ export class PartyCombatMotion {
   if(this.disposed)return;
   if(this.state!==s||this.chapter!==s.chapter||(this.tick!==null&&s.ticks<this.tick))this.reset();
   this.state=s;this.chapter=s.chapter;this.tick=s.ticks;this.reduced=reduced;
+  this.reactions.begin(s,reduced,this.actors(s));
   this.actors(s).forEach((entry,i)=>{
    const old=this.previous[i];
    if(!entry){this.previous[i]=null;this.locks[i]=null;this.downs[i]=null;this.current[i]=null;this.pending[i]=null;this.keys[i]=null;return;}
@@ -65,6 +68,7 @@ export class PartyCombatMotion {
   });
  }
  receive(s:State,e:Effect):void{
+  this.reactions.receive(s,e);
   if(this.disposed||s!==this.state||s.chapter==='lab'||(s.mode!=='battle'&&s.mode!=='victory')||e.enemyAction||!finite(e.origin)||!finite(e))return;
   // Only explicit outgoing ownership. Target-only hits and origin-less combos never identify an actor.
   const i=e.guest===true&&e.actor===undefined?2:e.guest!==true&&(e.actor===0||e.actor===1)?e.actor:null;
@@ -91,6 +95,7 @@ export class PartyCombatMotion {
     else if(base.pose==='hurt'||base.pose==='down')this.locks[slot]=null;
    }
   }
+  result.facing=this.reactions.sample(slot,result);
   this.current[slot]={...result};
   if(cause&&s.chapter!=='lab'){
    const key=`${cause.kind}/${cause.tick}/${result.pose}/${result.frame}/${result.facing}/${this.reduced}`;
@@ -105,11 +110,12 @@ export class PartyCombatMotion {
  /** Read the actual existing canvas only on a newly observed pose, after normal drawing.
   * Failure is explicit diagnostic data, never a fabricated hash or a gameplay failure. */
  recordDraw(slot:number,read:()=>{width:number;height:number;data:ArrayLike<number>}):void{
+  this.reactions.recordDraw(slot,read);
   const row=this.pending[slot];if(!row||this.disposed)return;this.pending[slot]=null;
   try{const p=read();if(p.width!==48||p.height!==64||p.data.length!==48*64*4)throw Error('Unexpected party cell');row.texture={width:p.width,height:p.height,fnv1a32:rgbaFingerprint(p.data)};}
   catch{this.readFailures++;}
  }
- reset():void{this.state=null;this.chapter='';this.tick=null;this.previous.fill(null);this.locks.fill(null);this.downs.fill(null);this.current.fill(null);this.pending.fill(null);this.keys.fill(null);this.history=[];this.dropped=0;this.readFailures=0;}
- dispose():void{this.reset();this.disposed=true;}
- inspect(){return {profile:PARTY_COMBAT.id,tick:this.tick,chapter:this.chapter,reducedMotion:this.reduced,disposed:this.disposed,historyLimit:PARTY_COMBAT.historyLimit,historyDropped:this.dropped,textureReadFailures:this.readFailures,current:structuredClone(this.current),history:structuredClone(this.history),stateMutation:false,additionalGpuResources:0,approved:false};}
+ reset():void{this.reactions.reset();this.state=null;this.chapter='';this.tick=null;this.previous.fill(null);this.locks.fill(null);this.downs.fill(null);this.current.fill(null);this.pending.fill(null);this.keys.fill(null);this.history=[];this.dropped=0;this.readFailures=0;}
+ dispose():void{this.reset();this.reactions.dispose();this.disposed=true;}
+ inspect(){return {profile:PARTY_COMBAT.id,tick:this.tick,chapter:this.chapter,reducedMotion:this.reduced,disposed:this.disposed,historyLimit:PARTY_COMBAT.historyLimit,historyDropped:this.dropped,textureReadFailures:this.readFailures,current:structuredClone(this.current),history:structuredClone(this.history),reactions:this.reactions.inspect(),stateMutation:false,additionalGpuResources:0,approved:false};}
 }

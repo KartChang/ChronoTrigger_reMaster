@@ -1,33 +1,30 @@
-# Delivery index — R published / CI89 pending / Q accepted
+# Delivery index — S published / CI90 pending / R accepted
 
-唯一 **KartChang/ChronoTrigger_reMaster main**，singleAI/nonforce。Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。Root T05-early-visual-cohesion，terminal T05-field-foe-action-animation。唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
+唯一KartChang/ChronoTrigger_reMaster main，singleAI/nonforce。Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。Root T05-early-visual-cohesion；terminal T05-field-foe-action-animation。唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-Published **R／0.9.65** source **2175dba2fde6e58bcd0548dc750b16a4eeded319**，root **310ca4ddb5ae78db3279f6c61d1c9017a30f039c**。唯一CI89／36249382768最後queued/null、provider2026-09-26T14:41:50Z，R原始產物/Pages尚未取得或接受。沒有未發布candidate，不重送R。
+Published **S／0.9.66** source **f14c9ac42581b80d6028bb00fad0fbcf5695f5eb**，tree **f2192325d0bb13d9f04be5016762ff1c579f07a4**，parent a3d34df9150f5901b1c5e72759c1c25d6fdf09e6。唯一CI90／36261482173最後in_progress/null；S原始native產物／matchingPages尚未接受。沒有未發布candidate，勿重送S。
 
-## R已測程式 — 本輪下載回驗
+## S final已測程式 — 本次下載恢復驗證
 
-**Chrono-VQ03R-combat-timing-tested.zip**
-File **14LzErkCJX_pWgJt5VqEyxZLdufdbXDJE**
-Bytes **1291610**
-SHA256 **1f04bea09c75c3185144d9e557bd46380e7b3603a26b1e5224b6d30dafdd63bc**
+**Chrono-VQ03S-rescue-enemy-tested.zip**
+File **1QG4Ws5XaOT0P_D9J4tndKO8C4mpco5M7**
+Bytes **1611479**
+SHA256 **dab441851eebd14b87c8a2485241e7c32cd769ad3ebdcc56b40c9fac8898983a**
 
-20差異檔（12修改/8新增），543programinputs＋THIRD_PARTY共544snapshot，43manifest，完整2576Node/490Pythonlogs、46/16新增回歸、三viewport離線actorpixels與timing觀察、12檔34hunk strict sourceinverse及source.patch。Parent/size/hash/outerCRC/manifest/544snapshot hashes均實際下載核對。初期同ID working包保留在final intermediate/working-recovery.zip；不是第二candidate。工具180秒中斷partiallog保留，完整同檔案重跑pass，沒有改門檻。
+27差異檔／77manifest／554snapshot（553programinputs＋THIRD_PARTY）、中斷前完整2684Node／509Python logs、108/19新增回歸、17檔42hunk source-only inverse、source.patch、離線三敵種/三viewport/15PNG與早期失敗紀錄。早期working版本保留intermediate/，同ID final包是唯一S候選的封存。
 
-Program-snapshot.tar.gz是assembled已測程式，不是publishedGitarchive或最新docs。包內false/null與較早parent f99ecae是歷史；實際source parent為7da11e86704db9414beb5b47947916ce42dbfdd2。R已發布，必須跟maincheckpoint。所有remote src/scripts/tests匹配；正式收據VQ03R_TESTED_BATCH。Native timing仍待CI89，不把CPU fixture/transformhistory當同步framebuffer或原速認證。
+本次實際下載核parent/size/hash/CRC、77manifest、554snapshot、27changes及所有程式樹。原final logs/exit0已回讀，不重新執行完整測試。Remote src db4a89ed3d3f0a082495810a57d22e05e4d3f9c5／scripts6d9a1d34523590577b2b026409217386bf7eb535／tests3427ec8d6552814db7525e6b4fd1488e87aec007匹配；source只改27程式/測試/build檔，docs/workflow不改。詳VQ03S_TESTED_BATCH。
 
-## CI88／Pages82原始證據 — 已接受及下載回驗
+Program-snapshot是assembled已測程式，不是published Git archive或最新docs。包內false/null與舊parent、舊STATUS的typecheck-only均不能作現在authority；S已發布，讀main checkpoint。
 
-**Chrono-CI88-reviewed-evidence.zip**
-File **1vLwhZttA4zvkXtSSD2jyElt2deHy6fZg**
-Bytes **89323797**
-SHA256 **c112f2ea3bebd03a306be4f1e899349c0335d3b45ed2e00754ca427fe635eb68**
+## CI89／Pages83原始證據 — 已接受，不重驗
 
-七未改providerZIP（browser/good/bad/playable/art-review、Pages82staged/deployed）＋24manifest，原reports/video/exactQsource。Parent/size/hash/外內CRC/manifest實際下載回驗；611regular原檔hash不變，十ledger173列逐byte。Qsource7cf434e43a2ec4d791ec45720e52a84938adb3b5；CI88/36234759501、Pages82/36236803130、selectedartifact10904178389。HTML5768047bytes，SHA256 **92e1103925ea8f90c5762692d27fc1b9112366d620cd394115776ed54491e9a4**，playable/staged/deployed一致、providerpublicexactHTTP成功。
+**Chrono-CI89-reviewed-evidence.zip／1_BZHn1fac-wxLh55NrB_KbFqxG74AIK7**，**88219255bytes**，SHA256 **0388fd71aba6ca5260fcf01998e37223bfaaf28ff54a8e97e9276f793b49bedc**。沿用既有下載回驗與CI89_ACCEPTANCE，不在本次重做。
 
-原生Q1完整reaction/4cells，0differentFallback、0party-down，N/O/P正向保留。只看action06/09兩張fullsizePNG，無其他PNG/contact/video decode/play/listening/device；history不是同步framebuffer。CI88_ACCEPTANCE與closedCI88_CHECKPOINT為有界收據，不重驗。需要exactQsource只取原browserZIP的source archive；archive docs不得覆蓋main。
+Rsource2175dba2fde6e58bcd0548dc750b16a4eeded319／CI89 36249382768／Pages83 36250705764，七原ZIP/14manifest、十ledger173列、617原檔及source/HTML一致等範圍見原收據。一組完整source timing事件；僅rescue07/action06兩張fullsize，無影片/聆聽/真機認證。不提升成S接受。
 
-## 更早恢復點與不可覆蓋界線
+## 歷史恢復與固定界線
 
-完整前一版索引原blob存 **evidence/CI89_PREVIOUS_DELIVERY_INDEX.md**，包含Q已測包16P0lwUaO1ku_2e4AhAmVTPUEfundpJj_及CI87原包1fp3_q1D8jTOrg8xCeLr5n7BZafFkSli2、P已測包與更早鏈結。更早索引CI88_PREVIOUS_DELIVERY_INDEX／VQ03N_DELIVERY_INDEX、CI86/85/84原收據均保留，不為交接重驗或重送。
+前一版完整交付索引原blob保留 **evidence/CI90_PREVIOUS_DELIVERY_INDEX.md**，R已測包14LzErkCJX_pWgJt5VqEyxZLdufdbXDJE及CI88原包1vLwhZttA4zvkXtSSD2jyElt2deHy6fZg、更早鏈結保留。不用archive docs覆蓋main，不重驗已接受章節。
 
-全部成果在此folder/GitHub，臨時容器不是權威。恢復工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/保留esbuildhardlink，不用舊source/config；不開bootstrapCI。私人ROM/media/fonts/credentials不公開，held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及家具限制不变。Mainonly/nonforce/no branchPRparallelcandidate，no localbrowser/native state-time-save-collision造數；原native門檻及完整T03–T08不縮。文件skipci，雲端readback後才宣告保存完成。
+Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules並保留esbuildhardlink，不覆舊source/config或bootstrapCI。私人ROM/media/fonts/credentials不公開；heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／家具不提升。No localbrowser/native-state造數；原門檻及完整T03–T08不縮，docs skipci/cloudreadback，臨時容器不是權威。

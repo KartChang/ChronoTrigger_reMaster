@@ -1,3 +1,4 @@
+from party_p_preservation import restore_party_p_if_declared
 """Synthetic offline fixtures for fail-closed checker tests; never native evidence."""
 import ast,copy,hashlib,json,math,unittest
 from pathlib import Path
@@ -42,7 +43,7 @@ class BodyEvidence(unittest.TestCase):
             with self.assertRaises((AssertionError,KeyError)):assert_body_report(r,sha)
     def test_source_only_inverse_exact_and_negative(self):
         for p,expected in SPEC['originalSha256'].items():
-            raw=(ROOT/p).read_text();old=restore_body_o_source(p,raw)
+            raw=restore_party_p_if_declared(p,(ROOT/p).read_text());old=restore_body_o_source(p,raw)
             self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),expected,p)
             self.assertEqual(restore_body_o_if_declared(p,old),old)
             for e in SPEC['files'][p]:
@@ -50,7 +51,7 @@ class BodyEvidence(unittest.TestCase):
                 with self.assertRaises(AssertionError):restore_body_o_source(p,raw.replace(e['after'],''))
             self.assertNotEqual(hashlib.sha256(restore_body_o_source(p,raw+'\n# unrelated drift\n').encode()).hexdigest(),expected,p)
     def test_existing_native_scenario_is_retained_with_only_explicit_suffix_and_build_binding(self):
-        p='tests/field_enemy_action_browser.py';raw=(ROOT/p).read_text();old=restore_body_o_source(p,raw)
+        p='tests/field_enemy_action_browser.py';raw=restore_party_p_if_declared(p,(ROOT/p).read_text());old=restore_body_o_source(p,raw)
         self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][p])
         self.assertLess(raw.index("report['positiveSamples']=assert_native_report"),raw.index('observe_native_body_suffix(page'))
         self.assertIn('expected_build=(\'0.9.62\',\'VQ03O\')',raw);ast.parse(raw)

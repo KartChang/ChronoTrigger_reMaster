@@ -83,10 +83,10 @@ def assert_body_history(record,*,positive_motion=False,positive_death=False):
     if positive_death:assert completed>0 and r['active']==0 and r['created']>0,'No witnessed and expired death remnant'
     return {'pairedBodyActions':pairs,'positiveBodyRecoils':len(recoils),'completeRemnants':completed}
 
-def assert_body_report(report,expected_sha):
+def assert_body_report(report,expected_sha,*,expected_build=('0.9.62','VQ03O')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert report['sourceSha']==report['build']['sourceSha']==expected_sha
-    assert (report['build']['version'],report['build']['batch'])==('0.9.62','VQ03O')
+    assert (report['build']['version'],report['build']['batch'])==expected_build
     assert report['status']=='passed' and report['nativeInputsOnly'] is True and report['errors']==[]
     a=report['beforeLethal']['state'];b=report['afterLethal']['state'];i=report['targetIndex']
     assert sorted(e['hp'] for e in a['enemies'])==[18,48,48] and a['enemies'][i]['hp']==18
@@ -101,7 +101,7 @@ def assert_body_report(report,expected_sha):
     assert report['physicalDevice'] is False and report['artApproved'] is False and report['wholeGameAccepted'] is False
     return {**motion,'completeRemnants':death['completeRemnants']}
 
-def observe_native_body_suffix(page,out,build,source_sha,errors):
+def observe_native_body_suffix(page,out,build,source_sha,errors,*,expected_build=('0.9.62','VQ03O')):
     """An additive suffix, after every original N key/wait/capture/assertion.
     Does not change input timing of the existing N scenario. No injected native state.
     """
@@ -138,7 +138,7 @@ def observe_native_body_suffix(page,out,build,source_sha,errors):
         capture('expired');page.screenshot(path=str(out/'09-after-body-expiry-observation.png'))
         assert not errors,errors
         r.update(status='passed',errors=list(errors),limitations=['Transform/texture histories are draw-tick observations, not synchronized framebuffer captures.','Native suffix only; not original-speed comfort, listening, physical-device or full-animation approval.'])
-        r['positiveSamples']=assert_body_report(r,source_sha)
+        r['positiveSamples']=assert_body_report(r,source_sha,expected_build=expected_build)
     except Exception as exc:
         r.update(status='failed',failure=str(exc),errors=list(errors))
         try:capture('failureObservation')

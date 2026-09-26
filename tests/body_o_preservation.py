@@ -1,8 +1,10 @@
+from party_p_preservation import restore_party_p_if_declared
 """Exact test-only O -> N source inverse; not applied to native evidence."""
 import json
 from pathlib import Path
 SPEC=json.loads((Path(__file__).parent/'baselines/vq03o-declared-body-edits.json').read_text())
 def restore_body_o_source(name,source):
+    source=restore_party_p_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits: raise ValueError('Undeclared O source')
     for e in reversed(edits):
@@ -11,4 +13,5 @@ def restore_body_o_source(name,source):
     return source
 
 def restore_body_o_if_declared(name,source):
+    source=restore_party_p_if_declared(name,source)
     return restore_body_o_source(name,source) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source

@@ -107,10 +107,10 @@ def assert_body_observation(o):
             'cancelledRemnants':sum(g['cause']['kind']=='death' and 'cancelled' in g['phases'] for g in groups.values()),
             'historySamples':len(hist)}
 
-def assert_body_report(r,expected_sha,*,require_action=True):
+def assert_body_report(r,expected_sha,*,require_action=True,expected_build=('0.9.67','VQ03T')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert r['sourceSha']==r['build']['sourceSha']==expected_sha
-    assert (r['build']['version'],r['build']['batch'])==('0.9.67','VQ03T')
+    assert (r['build']['version'],r['build']['batch'])==expected_build
     assert r['status']=='passed' and r['errors']==[] and r['nativeInputsOnly'] is True
     for k in ('artApproved','fullAnimationComplete','framebufferSynchronized','physicalDevice'):assert r[k] is False
     required=['naga','cathedral-victory','guards','passage-victory','yakra','sanctum-victory']
@@ -130,11 +130,11 @@ def capture_rescue_body(page,out,label,observations):
     observations[label]=o
     assert_body_observation(o)
 
-def write_body_report(out,observations,build,source_sha,errors):
+def write_body_report(out,observations,build,source_sha,errors,*,expected_build=('0.9.67','VQ03T')):
     r={'status':'running','sourceSha':source_sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'fullAnimationComplete':False,'artApproved':False,'framebufferSynchronized':False,'observations':observations,'errors':list(errors)}
     try:
         assert not errors,errors
-        r['status']='passed';r['positiveSamples']=assert_body_report(r,source_sha)
+        r['status']='passed';r['positiveSamples']=assert_body_report(r,source_sha,expected_build=expected_build)
         r['limitations']=['Actual transforms/static texture copies only; histories are not synchronous framebuffer or original-speed comfort.', 'Existing normal inputs and budgets unchanged; no native state/time/save/collision injection.', 'Victory may freeze simulation before remnant expiry. Missing death phases remain gaps, not fabricated completion.']
     except Exception as exc:
         r.update(status='failed',failure=str(exc));raise

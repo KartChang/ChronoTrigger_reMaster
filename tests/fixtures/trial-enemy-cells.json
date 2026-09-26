@@ -1,0 +1,125 @@
+{
+  "scope": "offline authored cell fixture,not native evidence",
+  "cells": {
+    "prisonGuard/0": {
+      "width": 48,
+      "height": 64,
+      "fnv1a32": 740907492,
+      "sha256": "ebf80480beccb536a25b6c44be0b5b9a2debe88c9d6ec410762e5e2735ee9151"
+    },
+    "prisonGuard/1": {
+      "width": 48,
+      "height": 64,
+      "fnv1a32": 1987756555,
+      "sha256": "07af51202bf05c1e71558a89969413d1cf16d757c5032571449e380292a197d9"
+    },
+    "prisonGuard/2": {
+      "width": 48,
+      "height": 64,
+      "fnv1a32": 2370118456,
+      "sha256": "d207a3ee0674af66d766079b91fd2256f1eb0603dad03152b0198b56d364d993"
+    },
+    "prisonGuard/3": {
+      "width": 48,
+      "height": 64,
+      "fnv1a32": 224704892,
+      "sha256": "4616af4cf67151f743090d4565b1a51894b98bd8d9088a2ac6a943fe5fdd33b6"
+    },
+    "prisonGuard/4": {
+      "width": 48,
+      "height": 64,
+      "fnv1a32": 710361707,
+      "sha256": "aafa361d32c2b69a0de9d8d673a7dec49548ff5fa2952f241db600b6dcb37b23"
+    },
+    "tankHead/0": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 3580526278,
+      "sha256": "4ba343207485d822101c8773ef40e5b897038336ca718240fdb0dc7498185db3"
+    },
+    "tankHead/1": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 208486982,
+      "sha256": "4c083c2678cad9ebba672b0d6fb42ebc176aa8e1ce0c01d13d74b7bc2548cbd9"
+    },
+    "tankHead/2": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 243044792,
+      "sha256": "155c54c384938c7fe9c70bc8bc071c769f86376fd8714c33685d1f975bb39cdf"
+    },
+    "tankHead/3": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 913811575,
+      "sha256": "773027adbf7a11f888cbe6b8a85bd3a10bd864868312436a6c6794d7eb1f66f5"
+    },
+    "tankHead/4": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 2408312616,
+      "sha256": "eacc05c8626fea046a86eb76b0fb503d0ffb26f22c184cfb3471760edb9113d1"
+    },
+    "tankBody/0": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 361985915,
+      "sha256": "e8eb6ab192c2c23f0e0892f653e62f5abbe6a9b3bacaf4fc0d6a15ee85dbded4"
+    },
+    "tankBody/1": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 3644327505,
+      "sha256": "35815f0eadc1e9f04d81496f055db0cdc9eb243fdee932acfa3789d072b21f4f"
+    },
+    "tankBody/2": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 4274817222,
+      "sha256": "c7f9273d8eb254a7888b1e55b6c3ffb11961c87acd5e105436b71e9f1990c2ee"
+    },
+    "tankBody/3": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 3164768014,
+      "sha256": "ba224234ae72f81819bac2bb581a6992cd937d7b502062d547600895c67c7ae1"
+    },
+    "tankBody/4": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 1291468072,
+      "sha256": "19adcd0798619d41f8ec357032ad4b4bd736285441fe9c43571fa4ce4e309d23"
+    },
+    "tankWheel/0": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 12260081,
+      "sha256": "95dd8e10a1b721ea1348031df7143a4c38ebdaebbf2390ad3dd85c795131f30c"
+    },
+    "tankWheel/1": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 1656819679,
+      "sha256": "a67d780280e886c376d7b258086394dcaf25fb4c9af7e5c534f70cea70c9c8ea"
+    },
+    "tankWheel/2": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 1949874092,
+      "sha256": "41d3020f22d98dfeacad1de432c1f61cac319071b7c7aa5ec1ad3fa3fc37225c"
+    },
+    "tankWheel/3": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 2536383686,
+      "sha256": "41576d1980bc5adbc4270da6787c8bc6aee42525def6145f307147aa2d83154a"
+    },
+    "tankWheel/4": {
+      "width": 64,
+      "height": 64,
+      "fnv1a32": 4272137721,
+      "sha256": "614541a60b37746ab97e9e8253aa877322e3b106bdf8a301b4fc05757d696cfb"
+    }
+  }
+}

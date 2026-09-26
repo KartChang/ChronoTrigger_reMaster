@@ -360,7 +360,7 @@ export class World {
     }
     this.prologueWorld.draw(s);this.prologueKind=s.chapter==='overworld1000'?'overworld':(prologueMap(s.chapter)||(trialMap(s.chapter)&&!['guardia1000','prisonbridge'].includes(s.chapter)))?'interior':'field';
     if(fair)this.fairWorld.draw(s,this.time);
-    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s,this.reducedMotion?.matches??false);
+    this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s,this.reducedMotion?.matches??false,frameEffects);
     this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);
     this.fieldEnemyBody.begin(s,this.reducedMotion?.matches??false);
     this.rescueEnemyMotion.begin(s,this.reducedMotion?.matches??false);

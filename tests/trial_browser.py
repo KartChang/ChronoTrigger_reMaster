@@ -1,3 +1,4 @@
+from trial_enemy_motion import capture_trial_motion,write_trial_motion_report
 from witness_comfort_capture import observe_witness_comfort
 """Same-run, real UI continuation from rescue to trial, prison, tank, reunion and 2300.
 No state injection, constructed saves, teleports, ROM input or accelerated clocks.
@@ -17,6 +18,7 @@ OUT=cpu.output(ROOT/'test-results'/'trial');OUT.mkdir(parents=True,exist_ok=True
 SOURCE=cpu.source(ROOT/'test-results'/'rescue'/'rescue-returned-v5.json')
 checks,errors,waits,requests=[],[],[],[]
 fair_trial_comfort=[]
+trial_enemy_observations={}
 server=subprocess.Popen([sys.executable,'-m','http.server','4183','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):
@@ -98,6 +100,7 @@ def fight(page):
                 page.keyboard.press(tonic if a['hp']<55 and s['rescue']['tonics']>0 else skill if i==0 and a['mp']>=3 else attack)
         if snap(page)['mode']=='victory':break
     assert snap(page)['mode']=='victory',snap(page)
+    capture_trial_motion(page,OUT,snap(page)['trial']['encounter']+'-victory',trial_enemy_observations)
     page.click('#continue');stable(page)
 
 def to_warden(page):
@@ -168,6 +171,7 @@ try:
             second_frame=page.evaluate('window.__CHRONO_TEST__.view().trialMaps.tankFrame')
             assert {first_frame,second_frame}=={0,1}
             page.screenshot(path=str(OUT/'07a-dragon-animation.png'))
+            capture_trial_motion(page,OUT,'tank-animation',trial_enemy_observations)
             page.keyboard.press('r')
             assert snap(page)['targets'][0]==1
             wait_game(page,'s.players[0].atb>=1 && s.players[1].atb>=1',210,('battle',))
@@ -179,6 +183,7 @@ try:
             assert snap(page)['enemies'][1]['hp']>after['enemies'][1]['hp']
             record_hd_party(page,OUT,'07-native-party-battle')
             page.screenshot(path=str(OUT/'07-dragon-tank.png'))
+            capture_trial_motion(page,OUT,'tank-repair',trial_enemy_observations)
             passed('horizontal bridge has three live independently targeted parts; fire is blocked on head and actual head action repairs damaged body')
             wait_game(page,'s.players[1].atb>=1',210,('battle',));page.click('#bag')
             frozen=snap(page);paused_tank_frame=page.evaluate('window.__CHRONO_TEST__.view().trialMaps.tankFrame');page.keyboard.press('j');page.keyboard.press('r');page.wait_for_timeout(250)
@@ -218,6 +223,7 @@ try:
             passed('same-browser real cell export also supports declining wait, three-day execution rescue and merged escape without false Fritz/XP flags')
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4183/','data:','blob:'))],requests
+            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors)
             report={'status':'passed','assetProfile':'snes-reference-hd2d-r1','tankVisualFrames':[first_frame,second_frame],'passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'rescue/rescue-returned-v5.json from preceding same-run journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'alternateRouteSaveSha256':hashlib.sha256((OUT/'trial-cell-v7.json').read_bytes()).hexdigest(),'limitations':['Reconstructed prison topology and combat balance, not exact original maps or data.','Missing fair witness cases and original seven-juror algorithm are not certified; unknown facts remain unknown.','Three prison days use explicit rest transitions, not original clock timing.','XP recorded, not a finished leveling/equipment/roster system.','Only arrival in 2300 is implemented here; full future route remains open.','Native CPU keyboard evidence; no physical device/music/90-point/full-game acceptance.' if cpu.enabled else 'Software-GPU keyboard evidence; no physical device/music/90-point/full-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}

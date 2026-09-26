@@ -20,6 +20,8 @@ export class NpcMotion {
   mesh.onDisposeObservable.addOnce(()=>{this.actors=this.actors.filter(a=>a.mesh!==mesh);});
   return mesh;
  }
+ /** Hand off a borrowed texture without changing surviving ambient seeds or GPU ownership. */
+ release(mesh:Mesh):boolean{const before=this.actors.length;this.actors=this.actors.filter(a=>a.mesh!==mesh);return this.actors.length!==before;}
  draw(ticks:number,reducedMotion=false):void{
   if(!Number.isSafeInteger(ticks)||ticks<0||typeof reducedMotion!=='boolean')throw new Error('Invalid witness presentation input');
   this.reducedMotion=reducedMotion;this.lastTick=ticks;

@@ -1,3 +1,4 @@
+from trial_u_preservation import restore_trial_u_if_declared
 """Synthetic/offline T fixtures; none of these tests is native gameplay evidence."""
 import copy,hashlib,json,unittest,tempfile,inspect
 from pathlib import Path
@@ -107,7 +108,7 @@ class RescueBody(unittest.TestCase):
         self.assertGreater(sum(x['sourceActions'] for x in assert_rescue_report(r,SHA,expected_build=('0.9.67','VQ03T')).values()),0)
     def test_all_declared_source_inverses_reject_missing_duplicate_unrelated(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();base=restore_rescue_body_t_source(name,raw);self.assertEqual(hashlib.sha256(base.encode()).hexdigest(),SPEC['originalSha256'][name])
+            raw=restore_trial_u_if_declared(name,(ROOT/name).read_text());base=restore_rescue_body_t_source(name,raw);self.assertEqual(hashlib.sha256(base.encode()).hexdigest(),SPEC['originalSha256'][name])
             self.assertEqual(restore_rescue_body_t_if_declared(name,base),base)
             for bad in (raw+edits[0]['after'],raw.replace(edits[0]['after'],''),raw+'\n# unrelated\n'):
                 with self.assertRaises(AssertionError):restore_rescue_body_t_source(name,bad)

@@ -1,0 +1,224 @@
+{
+  "schema": "source-only-declared-edits",
+  "batch": "VQ03U",
+  "baseSourceSha": "c5e0359e87c991e495566f7444042ee972f4df9d",
+  "scope": "Exact source inverse for retained tests only. Never applied to native state/reports/pixels.",
+  "files": {
+    "scripts/build.mjs": [
+      {
+        "before": "\nconst buildInfo={version:'0.9.67',batch:'VQ03T',sourceSha:process.env.GITHUB_S",
+        "after": "\nconst buildInfo={version:'0.9.68',batch:'VQ03U',sourceSha:process.env.GITHUB_S"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "import {rescueBodyTBaseline} fro",
+        "after": "import {trialUBaseline} from '../tests/helpers/trial-u-baseline.mjs';\nimport {rescueBodyTBaseline} fro"
+      },
+      {
+        "before": "rm:'node'});\nfor(const name of ['rescue-enemy-body','rescue-enem",
+        "after": "rm:'node'});\nfor(const name of ['trial-enemy-art','trial-enemy-motion','rescue-enemy-body','rescue-enem"
+      },
+      {
+        "before": "')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/rescue-enemy-body.test.",
+        "after": "')),loader:'ts'}));}}]});\nconst trialUPrior={name:'exact-T-before-trial-enemy-motion',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](npc-motion|trial-render|trial-rules|render)\\.ts$/},args=>({contents:trialUBaseline('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}};\nawait esbuild({entryPoints:['src/core.ts'],bundle:true,outfile:'.test/trial-u-prior-core.mjs',format:'esm',platform:'node',plugins:[trialUPrior]});\nawait esbuild({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/trial-u-prior-world.mjs',format:'esm',platform:'node',packages:'external',plugins:[trialUPrior]});\nconst r=spawnSync(process.execPath,['--test','tests/trial-enemy-motion.test.mjs','tests/rescue-enemy-body.test."
+      }
+    ],
+    "src/npc-motion.ts": [
+      {
+        "before": "!==mesh);});\n  return mesh;\n }\n draw(ticks:number,reducedMotion=",
+        "after": "!==mesh);});\n  return mesh;\n }\n /** Hand off a borrowed texture without changing surviving ambient seeds or GPU ownership. */\n release(mesh:Mesh):boolean{const before=this.actors.length;this.actors=this.actors.filter(a=>a.mesh!==mesh);return this.actors.length!==before;}\n draw(ticks:number,reducedMotion="
+      }
+    ],
+    "src/render.ts": [
+      {
+        "before": "is.reducedMotion?.matches??false);\n    this.fieldEnemyMotion.beg",
+        "after": "is.reducedMotion?.matches??false,frameEffects);\n    this.fieldEnemyMotion.beg"
+      }
+    ],
+    "src/trial-render.ts": [
+      {
+        "before": "import {NpcMotion} from './npc-m",
+        "after": "import {TrialEnemyMotion} from './trial-enemy-motion';\nimport {NpcMotion} from './npc-m"
+      },
+      {
+        "before": "ylonjs/core';\nimport type {State} from './core';\nimport {TRIAL_S",
+        "after": "ylonjs/core';\nimport type {State,Effect} from './core';\nimport {TRIAL_S"
+      },
+      {
+        "before": "Map,View>();const motion=new NpcMotion(scene);\n function build(m",
+        "after": "Map,View>();const motion=new NpcMotion(scene),enemies=new TrialEnemyMotion(scene);\n function build(m"
+      },
+      {
+        "before": "sonstairs'){for(let i=0;i<2;i++)v.enemies.push(guard(i?1.4:-1.4,map==='cellblock'?-1.6:1.5));}\n  if(map==='courtroom')v.stagin",
+        "after": "sonstairs'){for(let i=0;i<2;i++){const m=guard(i?1.4:-1.4,map==='cellblock'?-1.6:1.5);motion.release(m);v.enemies.push(m);enemies.bind(m,'prisonGuard',i,map);}}\n  v.tank.forEach((m,i)=>enemies.bind(m,(['tankHead','tankBody','tankWheel'] as const)[i]!,i,map));\n  if(map==='courtroom')v.stagin"
+      },
+      {
+        "before": "t:()=>({motion:motion.inspect(),courtStaging:views.get('courtroo",
+        "after": "t:()=>({motion:motion.inspect(),enemyMotion:enemies.inspect(),courtStaging:views.get('courtroo"
+      },
+      {
+        "before": "draw(s:State,reducedMotion=false){\n  if(trialMap(s.chapter)&&!vi",
+        "after": "draw(s:State,reducedMotion=false,frameEffects:readonly Effect[]=[]){\n  if(trialMap(s.chapter)&&!vi"
+      },
+      {
+        "before": ".mode!=='battle'||!!e&&e.hp>0));if(v.tankFrame!==tankFrame){const t=(m.material as StandardMaterial).diffuseTexture as DynamicTexture;drawTankPart(t.getContext() as CanvasRenderingContext2D,['head','body','wheel'][i] as 'head'|'body'|'wheel',tankFrame);t.update();}});v.tankFrame=tankFrame;\n   v.g",
+        "after": ".mode!=='battle'||!!e&&e.hp>0));});v.tankFrame=tankFrame;\n   v.g"
+      },
+      {
+        "before": "ion.draw(s.ticks,reducedMotion);\n  views.get('courtroom')?.stagi",
+        "after": "ion.draw(s.ticks,reducedMotion);enemies.draw(s,reducedMotion,frameEffects);\n  const bridge=views.get('prisonbridge');if(bridge?.root.isEnabled())bridge.tankFrame=enemies.drawnFrame(bridge.tank[1]!)??bridge.tankFrame;\n  views.get('courtroom')?.stagi"
+      }
+    ],
+    "src/trial-rules.ts": [
+      {
+        "before": ".z,text:`+${amount}`,kind:'heal'});}}\n   if(healed){s.trial.head",
+        "after": ".z,text:`+${amount}`,kind:'heal',enemyAction:{index:s.enemies.indexOf(e),tick:s.ticks,origin:{x:e.x,z:e.z},target:{x:target.x,z:target.z}}});}}\n   if(healed){s.trial.head"
+      },
+      {
+        "before": ".x,z:a.z,text:`−${n}`,kind:'hit'});if(a.hp===0){a.atb=0;s.combo[",
+        "after": ".x,z:a.z,text:`−${n}`,kind:'hit',enemyAction:{index:s.enemies.indexOf(e),tick:s.ticks,origin:{x:e.x,z:e.z},target:{x:a.x,z:a.z}}});if(a.hp===0){a.atb=0;s.combo["
+      }
+    ],
+    "tests/field_enemy_action_browser.py": [
+      {
+        "before": "HUB_SHA'],expected_build=('0.9.67','VQ03T'))\n            # O additive suf",
+        "after": "HUB_SHA'],expected_build=('0.9.68','VQ03U'))\n            # O additive suf"
+      },
+      {
+        "before": "'],errors,expected_build=('0.9.67','VQ03T'))\n            from party_comba",
+        "after": "'],errors,expected_build=('0.9.68','VQ03U'))\n            from party_comba"
+      },
+      {
+        "before": "'],errors,expected_build=('0.9.67','VQ03T'))\n            from party_react",
+        "after": "'],errors,expected_build=('0.9.68','VQ03U'))\n            from party_react"
+      },
+      {
+        "before": "'],errors,expected_build=('0.9.67','VQ03T'))\n            from combat_timi",
+        "after": "'],errors,expected_build=('0.9.68','VQ03U'))\n            from combat_timi"
+      },
+      {
+        "before": "'],errors,expected_build=('0.9.67','VQ03T'))\n        except Exception as ",
+        "after": "'],errors,expected_build=('0.9.68','VQ03U'))\n        except Exception as "
+      }
+    ],
+    "tests/helpers/rescue-body-t-baseline.mjs": [
+      {
+        "before": "import {readFileSync} from 'node",
+        "after": "import {trialUIfDeclared} from './trial-u-baseline.mjs';\nimport {readFileSync} from 'node"
+      },
+      {
+        "before": "ne(name,source,verifyBase=true){const edits=rescueBodyTSpec.file",
+        "after": "ne(name,source,verifyBase=true){source=trialUIfDeclared(name,source);const edits=rescueBodyTSpec.file"
+      },
+      {
+        "before": "cueBodyTIfDeclared(name,source){return rescueBodyTSpec.files[nam",
+        "after": "cueBodyTIfDeclared(name,source){source=trialUIfDeclared(name,source);return rescueBodyTSpec.files[nam"
+      }
+    ],
+    "tests/rescue-enemy-body.test.mjs": [
+      {
+        "before": "import {rescueBodyTSpec,rescueBo",
+        "after": "import {trialUIfDeclared} from './helpers/trial-u-baseline.mjs';\nimport {rescueBodyTSpec,rescueBo"
+      },
+      {
+        "before": "rejection '+name,()=>{const raw=readFileSync(name,'utf8'),old=rescueBodyTBaseline(name,r",
+        "after": "rejection '+name,()=>{const raw=trialUIfDeclared(name,readFileSync(name,'utf8')),old=rescueBodyTBaseline(name,r"
+      }
+    ],
+    "tests/rescue_body_t_preservation.py": [
+      {
+        "before": "\"\"\"Exact source-only T -> S. Nat",
+        "after": "from trial_u_preservation import restore_trial_u_if_declared\n\"\"\"Exact source-only T -> S. Nat"
+      },
+      {
+        "before": "e(name,source,verify_base=True):\n    edits=SPEC['files'].get(nam",
+        "after": "e(name,source,verify_base=True):\n    source=restore_trial_u_if_declared(name,source)\n    edits=SPEC['files'].get(nam"
+      },
+      {
+        "before": "t_if_declared(name,source):\n    return restore_rescue_body_t_sou",
+        "after": "t_if_declared(name,source):\n    source=restore_trial_u_if_declared(name,source)\n    return restore_rescue_body_t_sou"
+      }
+    ],
+    "tests/rescue_browser.py": [
+      {
+        "before": "'],errors,expected_build=('0.9.67','VQ03T'))\n            write_body_repor",
+        "after": "'],errors,expected_build=('0.9.68','VQ03U'))\n            write_body_repor"
+      },
+      {
+        "before": ",os.environ['GITHUB_SHA'],errors)\n            report={'status':'",
+        "after": ",os.environ['GITHUB_SHA'],errors,expected_build=('0.9.68','VQ03U'))\n            report={'status':'"
+      }
+    ],
+    "tests/rescue_enemy_body.py": [
+      {
+        "before": "pected_sha,*,require_action=True):\n    assert re.fullmatch('[0-9",
+        "after": "pected_sha,*,require_action=True,expected_build=('0.9.67','VQ03T')):\n    assert re.fullmatch('[0-9"
+      },
+      {
+        "before": "version'],r['build']['batch'])==('0.9.67','VQ03T')\n    assert r['status']=='passed",
+        "after": "version'],r['build']['batch'])==expected_build\n    assert r['status']=='passed"
+      },
+      {
+        "before": "rvations,build,source_sha,errors):\n    r={'status':'running','so",
+        "after": "rvations,build,source_sha,errors,*,expected_build=('0.9.67','VQ03T')):\n    r={'status':'running','so"
+      },
+      {
+        "before": "=assert_body_report(r,source_sha)\n        r['limitations']=['Act",
+        "after": "=assert_body_report(r,source_sha,expected_build=expected_build)\n        r['limitations']=['Act"
+      }
+    ],
+    "tests/rescue_enemy_body_test.py": [
+      {
+        "before": "\"\"\"Synthetic/offline T fixtures;",
+        "after": "from trial_u_preservation import restore_trial_u_if_declared\n\"\"\"Synthetic/offline T fixtures;"
+      },
+      {
+        "before": "iles'].items():\n            raw=(ROOT/name).read_text();base=restore_rescue_body_t_sou",
+        "after": "iles'].items():\n            raw=restore_trial_u_if_declared(name,(ROOT/name).read_text());base=restore_rescue_body_t_sou"
+      }
+    ],
+    "tests/trial_browser.py": [
+      {
+        "before": "from witness_comfort_capture imp",
+        "after": "from trial_enemy_motion import capture_trial_motion,write_trial_motion_report\nfrom witness_comfort_capture imp"
+      },
+      {
+        "before": "],[],[],[]\nfair_trial_comfort=[]\nserver=subprocess.Popen([sys.ex",
+        "after": "],[],[],[]\nfair_trial_comfort=[]\ntrial_enemy_observations={}\nserver=subprocess.Popen([sys.ex"
+      },
+      {
+        "before": "ge)['mode']=='victory',snap(page)\n    page.click('#continue');st",
+        "after": "ge)['mode']=='victory',snap(page)\n    capture_trial_motion(page,OUT,snap(page)['trial']['encounter']+'-victory',trial_enemy_observations)\n    page.click('#continue');st"
+      },
+      {
+        "before": "on-animation.png'))\n            page.keyboard.press('r')\n       ",
+        "after": "on-animation.png'))\n            capture_trial_motion(page,OUT,'tank-animation',trial_enemy_observations)\n            page.keyboard.press('r')\n       "
+      },
+      {
+        "before": "th=str(OUT/'07-dragon-tank.png'))\n            passed('horizontal",
+        "after": "th=str(OUT/'07-dragon-tank.png'))\n            capture_trial_motion(page,OUT,'tank-repair',trial_enemy_observations)\n            passed('horizontal"
+      },
+      {
+        "before": "'blob:'))],requests\n            report={'status':'passed','asset",
+        "after": "'blob:'))],requests\n            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors)\n            report={'status':'passed','asset"
+      }
+    ]
+  },
+  "originalSha256": {
+    "scripts/build.mjs": "71ec130a9142d19ecaa4f98ea53a7c83a42d991cea937ac99b9bd4370b257e35",
+    "scripts/test.mjs": "078e295edfb75e7dd3c2c2657bee49be96b48b0d71817aad4185eb3675a5fad6",
+    "src/npc-motion.ts": "5ab4f2aae21d7a0985d6961fb48eacbd0cd0752f036c1041f8f109c5b2629039",
+    "src/render.ts": "e5d91e29c2220665630ad4a1cb5607f311dbe6161d5ea0894c3955ed12cfa42f",
+    "src/trial-render.ts": "3521aa9381f412dff23398ae448f89cc6ec8811c55fa3c2e6049357b6476c080",
+    "src/trial-rules.ts": "25fdd7d1cf08e1a4b4f28c94bad8b4586d96dfcd67ec06e2a37b859b0da30958",
+    "tests/field_enemy_action_browser.py": "c6b7d22c2901728bb2bdd5b7f8e21372ba696d690ff4d3e6a6145f6b30acd6dd",
+    "tests/helpers/rescue-body-t-baseline.mjs": "69b31ea943dcd7394d074434ecb5c3282aef54b53d239b0d46afa842c4c36d72",
+    "tests/rescue-enemy-body.test.mjs": "2d38c3cc2f1e765bdb31013e1cf0c37e2416a400a5837992658608994bc2edaf",
+    "tests/rescue_body_t_preservation.py": "3e4048ef8fca42e99673858cdfb156a92fccb356d75b1a7304610757f4af4e1f",
+    "tests/rescue_browser.py": "bd2c61287ed04a014bce58674185e247ff0663657ec6dfd420f202c5b409760e",
+    "tests/rescue_enemy_body.py": "d7f710854750a0941cfa0e1619af5852e977660d30f43b45bf3d5fe17047c2e7",
+    "tests/rescue_enemy_body_test.py": "ac6f019e009024a29b3571a075a3e93aa06a6a7c0a072baa2a3c33fb1bb7a4f2",
+    "tests/trial_browser.py": "203ff610a57ea8f367eafb9fdad59ed0161b15ae584447d0e991bb0f23e8e84a"
+  }
+}

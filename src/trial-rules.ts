@@ -157,12 +157,12 @@ export function tickTrialEnemies(s:State,dt:number):void{
  for(const e of s.enemies){
   if(e.hp<=0)continue;e.atb+=dt*(e.kind==='tankHead'?.18:.14);if(e.atb<1)continue;e.atb=0;
   if(e.kind==='tankHead'){
-   let healed=false;for(const target of s.enemies){if(target!==e&&target.hp>0&&target.hp<(target.maxHp??target.hp)){const amount=Math.min(35,target.maxHp!-target.hp);target.hp+=amount;healed=true;s.effects.push({x:target.x,z:target.z,text:`+${amount}`,kind:'heal'});}}
+   let healed=false;for(const target of s.enemies){if(target!==e&&target.hp>0&&target.hp<(target.maxHp??target.hp)){const amount=Math.min(35,target.maxHp!-target.hp);target.hp+=amount;healed=true;s.effects.push({x:target.x,z:target.z,text:`+${amount}`,kind:'heal',enemyAction:{index:s.enemies.indexOf(e),tick:s.ticks,origin:{x:e.x,z:e.z},target:{x:target.x,z:target.z}}});}}
    if(healed){s.trial.headRepairs++;log(s,'龍戰車頭部修復了受損部位。');}continue;
   }
   const allies=alive();if(!allies.length)return;
   const targets=e.kind==='tankWheel'?allies:[allies[s.enemyTurn++%allies.length]!];
-  for(const a of targets){const base=e.kind==='tankBody'?16:e.kind==='tankWheel'?10:7,n=Math.max(1,base-equipmentBonuses(s.equipment,s.players.indexOf(a)===0?'crono':'lucca').defense);a.hp=Math.max(0,a.hp-n);s.effects.push({x:a.x,z:a.z,text:`−${n}`,kind:'hit'});if(a.hp===0){a.atb=0;s.combo[s.players.indexOf(a) as Slot]=false;}}
+  for(const a of targets){const base=e.kind==='tankBody'?16:e.kind==='tankWheel'?10:7,n=Math.max(1,base-equipmentBonuses(s.equipment,s.players.indexOf(a)===0?'crono':'lucca').defense);a.hp=Math.max(0,a.hp-n);s.effects.push({x:a.x,z:a.z,text:`−${n}`,kind:'hit',enemyAction:{index:s.enemies.indexOf(e),tick:s.ticks,origin:{x:e.x,z:e.z},target:{x:a.x,z:a.z}}});if(a.hp===0){a.atb=0;s.combo[s.players.indexOf(a) as Slot]=false;}}
  }
 }
 export function finishTrialBattle(s:State):void{

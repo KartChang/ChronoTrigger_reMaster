@@ -8,6 +8,7 @@ from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from rescue_route import approach_supply_chest, approach_organ, input_context
 from native_import import import_save, import_context
+from rescue_enemy_motion import capture_rescue_enemies, write_rescue_report
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -19,6 +20,7 @@ checks, errors, waits, requests=[], [], [], []
 feedback_geometry=[]
 chest_approaches=[]
 organ_approaches=[]
+rescue_enemy_observations={}
 server=subprocess.Popen([sys.executable,'-m','http.server','4181','--bind','127.0.0.1'],cwd=ROOT/'dist',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def snap(page):return page.evaluate('window.__CHRONO_TEST__.snapshot()')
 def passed(name):
@@ -123,6 +125,7 @@ try:
             assert len(snap(page)['enemies'])==3 and snap(page)['mode']=='battle'
             wait_view(page,'!v.guest.visible')
             page.screenshot(path=str(OUT/'02-naga-ambush.png'))
+            capture_rescue_enemies(page,OUT,'naga',rescue_enemy_observations)
             fight(page)
             assert snap(page)['rescue']['stage']=='cleared'
             move(page,'z',4.4);move(page,'x',.5);talk(page,'青蛙加入')
@@ -166,6 +169,7 @@ try:
             assert snap(page)['ticks']==frozen['ticks'] and snap(page)['rescue']['guest']==frozen['rescue']['guest']
             page.keyboard.press('Escape');page.wait_for_function('!window.__CHRONO_TEST__.paused()')
             page.screenshot(path=str(OUT/'06-three-actor-battle.png'))
+            capture_rescue_enemies(page,OUT,'guards',rescue_enemy_observations)
             passed('Frog spends his own ATB to damage an enemy while both human gauges remain full; pause freezes him')
             fight(page);assert snap(page)['rescue']['guardsWon'] is True
             move(page,'x',0);move(page,'z',8.3);talk(page,'深處')
@@ -189,6 +193,7 @@ try:
             page.set_viewport_size({'width':1200,'height':800})
             passed('actual recovery message clears content-sized battle panels at desktop and narrow portrait widths')
             page.screenshot(path=str(OUT/'07-yakra-battle.png'))
+            capture_rescue_enemies(page,OUT,'yakra',rescue_enemy_observations)
             passed('Yakra is an actual HP-based encounter; a real tonic input consumes stock and ATB, not MP')
             fight(page)
             assert snap(page)['rescue']['yakraWon'] is True and snap(page)['rescue']['stage']=='allied'
@@ -227,6 +232,7 @@ try:
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4181/','data:','blob:'))],requests
             passed('party walks back through the kingdom and time gate; v5 reload retains the completed rescue in 1000 AD')
+            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors)
             report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'feedbackGeometry':feedback_geometry,'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}

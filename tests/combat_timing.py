@@ -54,22 +54,22 @@ def assert_timing_history(observation,*,require_complete=False):
     if require_complete:assert joined>0,'No complete real delivered lunge/stroke/number event observed'
     return {'sourceEvents':len(sources),'transformSamples':len(m['history']),'completeLunges':complete['lunge'],'completeStrokes':complete['stroke'],'completeNumbers':complete['number'],'completeCombinedEvents':joined}
 
-def assert_timing_report(report,expected_sha):
+def assert_timing_report(report,expected_sha,*,expected_build=('0.9.65','VQ03R')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert report['sourceSha']==report['build']['sourceSha']==expected_sha
-    assert (report['build']['version'],report['build']['batch'])==('0.9.65','VQ03R')
+    assert (report['build']['version'],report['build']['batch'])==expected_build
     assert report['status']=='passed' and report['errors']==[] and report['nativeInputsOnly'] is True
     for key in ['physicalDevice','fullAnimationComplete','artApproved','framebufferSynchronized']:assert report[key] is False
     return assert_timing_history(report['observation'],require_complete=True)
 
-def observe_timing_suffix(page,out,build,source_sha,errors):
+def observe_timing_suffix(page,out,build,source_sha,errors,*,expected_build=('0.9.65','VQ03R')):
     """Append only reads after all original N/O/P/Q operations and assertions."""
     r={'status':'running','sourceSha':source_sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'fullAnimationComplete':False,'artApproved':False,'framebufferSynchronized':False}
     try:
         v=page.evaluate(OBSERVE_SCRIPT);r['observation']=v
         (out/'combat-timing-observation.json').write_text(json.dumps(v,ensure_ascii=False,indent=2),encoding='utf-8')
         assert not errors,errors
-        r.update(status='passed',errors=list(errors));r['positiveSamples']=assert_timing_report(r,source_sha)
+        r.update(status='passed',errors=list(errors));r['positiveSamples']=assert_timing_report(r,source_sha,expected_build=expected_build)
         r['limitations']=['Actual mesh transform/expiry history, not synchronized framebuffer or original-speed comfort.','No gameplay input, wait, time, save or collision injection; all prior routes retained.','No physical-device, full-animation, audio listening or whole-game acceptance.']
     except Exception as exc:
         r.update(status='failed',failure=str(exc),errors=list(errors));raise

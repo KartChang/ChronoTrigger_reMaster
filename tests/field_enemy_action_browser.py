@@ -147,16 +147,16 @@ try:
                   'Texture-history RGBA reads are tied to their draw ticks, not full-frame screenshot pixels.',
                   'Screenshots occur after observations; no frame-exact synchronization is claimed.',
                   'No complete direction/movement/death animation, original-speed comfort, audio or whole-game approval.'])
-            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.65','VQ03R'))
+            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.66','VQ03S'))
             # O additive suffix: all original N actions, captures and assertions above remain.
             from field_enemy_body import observe_native_body_suffix
-            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.65','VQ03R'))
+            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))
             from party_combat import observe_party_suffix
-            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.65','VQ03R'))
+            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))
             from party_reaction import observe_reaction_suffix
-            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.65','VQ03R'))
+            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))
             from combat_timing import observe_timing_suffix
-            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors)
+            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.66','VQ03S'))
         except Exception as exc:
             report.update(status='failed',failure=str(exc),passed=checks,errors=errors,waits=waits)
             try:

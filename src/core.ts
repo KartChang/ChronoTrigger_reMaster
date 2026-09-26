@@ -443,7 +443,7 @@ function damageAlly(s:State,p:Actor,amount:number,attacker:Enemy):void{
  amount=Math.max(1,amount-equipmentBonuses(s.equipment,p===s.rescue.guest?(guestKind(s)??'frog'):partyMember(s,s.players.indexOf(p) as Slot)).defense);
  p.hp=Math.max(0,p.hp-amount);s.effects.push({x:p.x,z:p.z,text:`−${amount}`,kind:'hit',
   // Presentation metadata on the real delivered attack, never inferred from its target.
-  ...((s.chapter==='canyon'||s.chapter==='forest')?{enemyAction:{index:s.enemies.indexOf(attacker),tick:s.ticks,origin:{x:attacker.x,z:attacker.z},target:{x:p.x,z:p.z}}}:{})});
+  ...((s.chapter==='canyon'||s.chapter==='forest'||rescueMap(s.chapter))?{enemyAction:{index:s.enemies.indexOf(attacker),tick:s.ticks,origin:{x:attacker.x,z:attacker.z},target:{x:p.x,z:p.z}}}:{})});
  if(p.hp===0){p.atb=0;const i=s.players.indexOf(p);if(i>=0)s.combo[i as Slot]=false;}
 }
 function placeGuest(s:State):void{

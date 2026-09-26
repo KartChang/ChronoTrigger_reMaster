@@ -1,3 +1,4 @@
+from rescue_s_preservation import restore_rescue_s_if_declared
 """R synthetic verifier/negative tests. None of these fixtures are native evidence."""
 import unittest,copy,math,inspect,json,hashlib
 from pathlib import Path
@@ -84,7 +85,7 @@ class Timing(unittest.TestCase):
         self.assertNotIn('=',OBSERVE_SCRIPT.split('return ')[1].replace('=>',''))
     def test_all_exact_R_source_inverses_and_negative_drift(self):
         for name,h in SPEC['originalSha256'].items():
-            raw=(ROOT/name).read_text();old=restore_combat_timing_r_source(name,raw)
+            raw=restore_rescue_s_if_declared(name,(ROOT/name).read_text());old=restore_combat_timing_r_source(name,raw)
             self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h);self.assertEqual(restore_combat_timing_r_if_declared(name,old),old)
             e=SPEC['files'][name][0]
             for bad in [raw+e['after'],raw.replace(e['after'],''),raw+'\n# unrelated\n']:

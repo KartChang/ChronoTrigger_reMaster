@@ -16,6 +16,7 @@ import {PixelPalettePass} from './pixel-presentation';
 import {FieldEnemyPalette} from './field-enemy-palette';
 import {FieldEnemyMotion} from './field-enemy-motion';
 import {FieldEnemyBody} from './field-enemy-body';
+import {RescueEnemyMotion} from './rescue-enemy-motion';
 import {WoodlandOcclusion} from './woodland-occlusion';
 import {MOTION_PROFILE} from './actor-motion';
 import {drawHDHero,HD_ART} from './hd-hero-art';
@@ -27,7 +28,6 @@ import {buildPrologue} from './prologue-render';
 import {prologueMap} from './prologue-data';
 import {buildRescue} from './rescue-render';
 import {rescueMap} from './rescue-data';
-import {drawYakra,drawNaga} from './rescue-art';
 import {ActorTimeline,victoryFrame} from './actor-timeline';
 import {PartyCombatMotion} from './party-combat-motion';
 import {CombatTiming,COMBAT_TIMING,lungePush,stopLunge} from './combat-timing';
@@ -110,12 +110,13 @@ export class World {
   private fieldEnemyPalette=new FieldEnemyPalette();
   private fieldEnemyMotion=new FieldEnemyMotion();
   private fieldEnemyBody=new FieldEnemyBody();
+  private rescueEnemyMotion=new RescueEnemyMotion();
   private woodlandOcclusion:WoodlandOcclusion;
   private actorShadows:Mesh[]=[];
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {combatTiming:this.combatTiming.inspect(),partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {rescueEnemyMotion:this.rescueEnemyMotion.inspect(),combatTiming:this.combatTiming.inspect(),partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
@@ -126,7 +127,7 @@ export class World {
     this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
     this.scene=new Scene(this.engine);
     this.woodlandOcclusion=new WoodlandOcclusion(this.scene);
-    this.scene.onDisposeObservable.add(()=>{this.combatTiming.dispose();this.floats.length=0;this.slashes.length=0;this.lunges.forEach(stopLunge);this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});
+    this.scene.onDisposeObservable.add(()=>{this.combatTiming.dispose();this.floats.length=0;this.slashes.length=0;this.lunges.forEach(stopLunge);this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.rescueEnemyMotion.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});
     this.scene.clearColor=Color4.FromHexString('#15292fff');
     this.scene.fogMode=Scene.FOGMODE_EXP2;this.scene.fogDensity=0.010;this.scene.fogColor=color('#a7b2aa');
     this.scene.ambientColor=Color3.Black();
@@ -293,6 +294,7 @@ export class World {
     this.partyCombat.receive(s,e);
     this.fieldEnemyMotion.receive(s,e);
     this.fieldEnemyBody.receive(s,e);
+    this.rescueEnemyMotion.receive(s,e);
     if(e.guest)this.guestPose.trigger(e.kind==='heal'?'cast':'attack',s.ticks);
     else if(e.kind==='hit'&&guestKind(s)&&Math.hypot(s.rescue.guest.x-e.x,s.rescue.guest.z-e.z)<.2)this.guestPose.trigger('hurt',s.ticks);
     if(e.actor!==undefined)this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',s.ticks);
@@ -328,6 +330,7 @@ export class World {
     this.posePlayers.forEach(p=>p.reset());this.guestPose.reset();
     this.fieldEnemyMotion.reset();
     this.fieldEnemyBody.reset();
+    this.rescueEnemyMotion.reset();
     this.partyCombat.reset();
     this.contacts=[];this.contactHistory=[];
     this.fairWorld?.resetOcclusion?.();
@@ -356,6 +359,7 @@ export class World {
     this.kingdomWorld.draw(s,this.reducedMotion?.matches??false);this.rescueWorld.draw(s,this.reducedMotion?.matches??false);this.trialWorld.draw(s,this.reducedMotion?.matches??false);
     this.fieldEnemyMotion.begin(s,this.reducedMotion?.matches??false);
     this.fieldEnemyBody.begin(s,this.reducedMotion?.matches??false);
+    this.rescueEnemyMotion.begin(s,this.reducedMotion?.matches??false);
     this.partyCombat.begin(s,this.reducedMotion?.matches??false);
     for(const effect of frameEffects)this.effect(effect,s);
     if(s.era!==this.era||s.flags.repaired!==this.flag){
@@ -414,8 +418,8 @@ export class World {
     }
     const inRescue=rescueMap(s.chapter),boss=inRescue&&s.mode==='battle'&&s.enemies[0]?.kind==='yakra'&&s.enemies[0]!.hp>0;
     this.yakra.mesh.setEnabled(!!boss);
-    if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
-    this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
+    if(boss){const e=s.enemies[0]!;this.yakra.mesh.position.set(e.x,1.68,e.z);this.rescueEnemyMotion.update(this.yakra,0);}
+    this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){sprite.mesh.position.set(e.x,1.02,e.z);this.rescueEnemyMotion.update(sprite,i);}});
     this.groundActors(s);
     this.lunges.forEach((l,i)=>{
       if(!l.cue)return;

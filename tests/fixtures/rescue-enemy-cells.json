@@ -1,0 +1,97 @@
+{
+  "profile": "vq03s-rescue-enemy-poses",
+  "scope": "Authored fixed cell fingerprints; not original ROM assets or native evidence.",
+  "approved": false,
+  "cells": {
+    "naga/0": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 2578193625,
+      "sha256": "d7c8193538c2a818a4c5b16228d52e696e4efc1fc6109a7f21a79f9e2aeaec71"
+    },
+    "naga/1": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 3565858993,
+      "sha256": "ada8ab8f9a6be6d389186cf89a1634a763d0b83dc7f1d24dca5e363f55129213"
+    },
+    "naga/2": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 571312049,
+      "sha256": "7fcba2dd9a858ba76d31f357d7134b6721ebbe37329f329e91c286425272f757"
+    },
+    "naga/3": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 248698513,
+      "sha256": "9976c9a67bf492b23b5622830fcf686e92da5cba4b8a122b60decb9bfad13364"
+    },
+    "naga/4": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 3812686817,
+      "sha256": "57209ca979a3bf235d04a80e7cc5f179f93fb970034481a589a71afa720157f0"
+    },
+    "hench/0": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 3849317906,
+      "sha256": "5b11d057e6c78eb3bf9f7894ee1e14c304a464b60b3e0ffa6d1e0a11c94b8c99"
+    },
+    "hench/1": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 2405317688,
+      "sha256": "5b5b53372a233214fb9a8b4533e9c4f26feddcad8eaf191a56318b82c0dae954"
+    },
+    "hench/2": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 4189571128,
+      "sha256": "5fb98e50e613e28c0e36168fae8160044ee6eb9d24c201019fa23ab7323a7d36"
+    },
+    "hench/3": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 3458338272,
+      "sha256": "973f6fcf9165fe474ce4fd2f9bcd6b098f5791844c34e98c6f71fe86b1e4f4e0"
+    },
+    "hench/4": {
+      "width": 24,
+      "height": 32,
+      "fnv1a32": 2738403972,
+      "sha256": "3c445cc6c6a3d3db1eaa00484d8140e0ab5e3c1649e358214d08a9ff6b2d2d43"
+    },
+    "yakra/0": {
+      "width": 48,
+      "height": 48,
+      "fnv1a32": 3464235381,
+      "sha256": "e6cde1f2cc682f855246d124eea3d61d477f0050107ecaae9ec5f888167f54f2"
+    },
+    "yakra/1": {
+      "width": 48,
+      "height": 48,
+      "fnv1a32": 286436936,
+      "sha256": "f0588e76bc3228ec5b1466f6bc271c1207f5fe4bec28e714c62f964c0d255298"
+    },
+    "yakra/2": {
+      "width": 48,
+      "height": 48,
+      "fnv1a32": 862333265,
+      "sha256": "24f5388c3f3f89eec4c8f0f09820cbca3f6809ddc5ed2421926122bf5f084c23"
+    },
+    "yakra/3": {
+      "width": 48,
+      "height": 48,
+      "fnv1a32": 2298897532,
+      "sha256": "8dd012f509c93608aed0ce100657488bb89099e91a2dbef6af38b4cdd542576d"
+    },
+    "yakra/4": {
+      "width": 48,
+      "height": 48,
+      "fnv1a32": 4078044364,
+      "sha256": "7fff9b0b5a027914057b154910967ed3de0c3be92b69bbee297e5b0db5b7f62a"
+    }
+  }
+}

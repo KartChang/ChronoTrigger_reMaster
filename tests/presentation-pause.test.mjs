@@ -1,3 +1,4 @@
+import {RescueEnemyMotion} from '../.test/rescue-enemy-motion.mjs';
 import {CombatTiming} from '../.test/combat-timing.mjs';
 import {PartyCombatMotion} from '../.test/party-combat-motion.mjs';
 import {FieldEnemyMotion} from '../.test/field-enemy-motion.mjs';
@@ -12,7 +13,7 @@ import {createState,beginBattle,step,IDLE,action,leaveBattle} from '../.test/cor
 const stop=Symbol('end-of-effect-stage');
 function effectStage(state,animate,effects=[]){
  const delivered=[];
- const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,
+ const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),chapter:state.chapter,presentationState:state,time:0,era:state.era,flag:state.flags.repaired,
   prologueWorld:{draw(){}},fairWorld:{draw(){}},kingdomWorld:{draw(){}},rescueWorld:{draw(){}},trialWorld:{draw(){}},
   effect:e=>delivered.push(e),posePlayers:[{sample(){throw stop;}}]};
  assert.throws(()=>World.prototype.draw.call(port,state,1/60,animate,effects),e=>e===stop);
@@ -45,7 +46,7 @@ test('frame owner transfers ordered effects exactly once and preserves queue ide
 });
 function presentationPort(){
  const disposals=[],owned=id=>({mesh:{material:{dispose:(...args)=>disposals.push([id,'material',...args])},dispose:()=>disposals.push([id,'mesh'])},time:0});
- const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};
+ const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),floats:[owned('number')],slashes:[owned('stroke')],posePlayers:[{reset:()=>disposals.push(['p1'])},{reset:()=>disposals.push(['p2'])}],guestPose:{reset:()=>disposals.push(['guest'])},poseHistory:[{}],guestView:{pose:'hurt',frame:3},lunges:[{time:0,dx:.5,dz:.4},{time:.2,dx:-.5,dz:.1}]};
  return {port,disposals};
 }
 test('same-scene state replacement clears old numbers, strokes, lunges and pose history',()=>{
@@ -57,7 +58,7 @@ test('same-scene state replacement clears old numbers, strokes, lunges and pose 
 });
 test('production resets presentation on a new state identity even with the same chapter',()=>{
  const s=createState('fair');let resets=0;
- const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};
+ const port={combatTiming:new CombatTiming(),fieldEnemyMotion:new FieldEnemyMotion(),rescueEnemyMotion:new RescueEnemyMotion(),fieldEnemyBody:new FieldEnemyBody(),partyCombat:new PartyCombatMotion(),presentationState:createState('fair'),chapter:'fair',resetTransientPresentation(){resets++;},time:0,prologueWorld:{draw(){throw stop;}}};
  for(let i=0;i<2;i++)assert.throws(()=>World.prototype.draw.call(port,s,0,false),e=>e===stop);
  assert.equal(resets,1);assert.equal(port.presentationState,s);
  s.chapter='home';port.resize=()=>{throw stop;};assert.throws(()=>World.prototype.draw.call(port,s,0,false),e=>e===stop);

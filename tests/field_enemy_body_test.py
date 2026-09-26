@@ -1,3 +1,4 @@
+from rescue_s_preservation import restore_rescue_s_if_declared
 from party_p_preservation import restore_party_p_if_declared
 """Synthetic offline fixtures for fail-closed checker tests; never native evidence."""
 import ast,copy,hashlib,json,math,unittest
@@ -55,7 +56,7 @@ class BodyEvidence(unittest.TestCase):
         self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][p])
         self.assertLess(raw.index("report['positiveSamples']=assert_native_report"),raw.index('observe_native_body_suffix(page'))
         self.assertIn('expected_build=(\'0.9.62\',\'VQ03O\')',raw);ast.parse(raw)
-        for p,h in json.loads((ROOT/'tests/baselines/vq03o-unchanged-inputs.json').read_text()).items():self.assertEqual(hashlib.sha256((ROOT/p).read_bytes()).hexdigest(),h,p)
+        for p,h in json.loads((ROOT/'tests/baselines/vq03o-unchanged-inputs.json').read_text()).items():self.assertEqual(hashlib.sha256(restore_rescue_s_if_declared(p,(ROOT/p).read_text()).encode()).hexdigest(),h,p)
     def test_observer_and_harness_do_not_mutate_native_state(self):
         s=(ROOT/'tests/field_enemy_body.py').read_text();ast.parse(s)
         for banned in ['setState','set_ticks','dispatchEvent','localStorage','Object.assign','add_init_script','clock.install','set_system_time']:

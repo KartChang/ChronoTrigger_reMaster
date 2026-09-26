@@ -42,15 +42,15 @@ def assert_reaction_history(record,*,require_hit=False):
     if require_hit:assert groups,'No real delivered party reaction observed'
     return {'deliveredHits':len(groups),'reactionFrameSamples':len(m['history']),'completeObservedReactions':sum(g['frames']=={0,1,2,3} for g in groups.values()),'differentFallbackSamples':different}
 
-def assert_reaction_report(report,expected_sha):
+def assert_reaction_report(report,expected_sha,*,expected_build=('0.9.64','VQ03Q')):
     assert re.fullmatch('[0-9a-f]{40}',expected_sha)
     assert report['sourceSha']==report['build']['sourceSha']==expected_sha
-    assert (report['build']['version'],report['build']['batch'])==('0.9.64','VQ03Q')
+    assert (report['build']['version'],report['build']['batch'])==expected_build
     assert report['status']=='passed' and report['nativeInputsOnly'] is True and report['errors']==[]
     assert report['physicalDevice'] is False and report['fullAnimationComplete'] is False and report['artApproved'] is False and report['framebufferSynchronized'] is False
     return assert_reaction_history(report['observation'],require_hit=True)
 
-def observe_reaction_suffix(page,out,build,source_sha,errors):
+def observe_reaction_suffix(page,out,build,source_sha,errors,*,expected_build=('0.9.64','VQ03Q')):
     """Append only reads after every original N/O/P input, wait, capture and assertion."""
     r={'status':'running','sourceSha':source_sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'fullAnimationComplete':False,'artApproved':False,'framebufferSynchronized':False}
     try:
@@ -58,7 +58,7 @@ def observe_reaction_suffix(page,out,build,source_sha,errors):
         (out/'party-reaction-observation.json').write_text(json.dumps(v,ensure_ascii=False,indent=2),encoding='utf-8')
         assert not errors,errors
         r.update(status='passed',errors=list(errors))
-        r['positiveSamples']=assert_reaction_report(r,source_sha)
+        r['positiveSamples']=assert_reaction_report(r,source_sha,expected_build=expected_build)
         r['limitations']=['Only delivered target hits and previously drawn facing; no attacker inferred from target-only data.','History is actual retained canvas cells, not synchronous framebuffer or full animation approval.','No original route, input, wait, capture or threshold changed. Missing native selector-change and down coverage remains open.']
     except Exception as exc:
         r.update(status='failed',failure=str(exc),errors=list(errors));raise

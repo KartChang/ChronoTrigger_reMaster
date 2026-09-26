@@ -30,6 +30,8 @@ import {rescueMap} from './rescue-data';
 import {drawYakra,drawNaga} from './rescue-art';
 import {ActorTimeline,victoryFrame} from './actor-timeline';
 import {PartyCombatMotion} from './party-combat-motion';
+import {CombatTiming,COMBAT_TIMING,lungePush,stopLunge} from './combat-timing';
+import type {TimedCombatMesh,CombatLunge} from './combat-timing';
 import type {HeroPose} from './hero-art';
 import type {PoseSample} from './pose-player';
 import {buildKingdom} from './kingdom-render';
@@ -71,7 +73,7 @@ export class World {
   private markers:Mesh[]=[];
   private labels:Mesh[]=[];
   private particles:Mesh[]=[];
-  private floats:{mesh:Mesh;time:number}[]=[];
+  private floats:TimedCombatMesh[]=[];
   private portal:Mesh;
   private crystal:Mesh;
   private repairs:TransformNode;
@@ -93,8 +95,9 @@ export class World {
   private yakra:Sprite;
   private guestVisible=false;
   private kingdomWorld:ReturnType<typeof buildKingdom>;
-  private slashes:{mesh:Mesh;time:number}[]=[];
-  private lunges:{time:number;dx:number;dz:number}[]=[{time:1,dx:0,dz:0},{time:1,dx:0,dz:0}];
+  private slashes:TimedCombatMesh[]=[];
+  private combatTiming=new CombatTiming();
+  private lunges:CombatLunge[]=[{time:1,dx:0,dz:0},{time:1,dx:0,dz:0}];
   private canyonWorld:ReturnType<typeof buildCanyon>;
   private chapter:State['chapter']|null=null;
   private partyCombat=new PartyCombatMotion();
@@ -112,7 +115,7 @@ export class World {
   private contacts:SpriteContact[]=[];
   private contactHistory:ReturnType<typeof inspectSpriteContacts>[number][]=[];
   private presentationState:State|null=null;
-  inspect(){return {partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
+  inspect(){return {combatTiming:this.combatTiming.inspect(),partyCombat:this.partyCombat.inspect(),fieldEnemyBody:this.fieldEnemyBody.inspect(),fieldEnemyMotion:this.fieldEnemyMotion.inspect(),woodlandOcclusion:this.woodlandOcclusion.inspect(),fieldEnemyArt:this.fieldEnemyPalette.inspect(this.chapter,this.foes,this.camera,this.presentationState?.ticks??null),storyNpcs:{kingdom:this.kingdomWorld.inspectNpcs(),rescue:this.rescueWorld.inspectNpcs()},actorPlayback:{profile:'vq02c-tick-and-distance-playback',actors:this.posePlayers.map(p=>p.inspect()),guest:this.guestPose.inspect(),cache:this.heroFrames.inspect()},renderer:this.inspectRenderer(),grounding:{profile:'vq01l-texture-foot-contact',actors:inspectSpriteContacts(this.contacts),history:this.contactHistory.map(v=>({...v,foot:{...v.foot},actualFoot:{...v.actualFoot},shadow:{...v.shadow},scale:{...v.scale}})),approved:false},earlyComfort:this.inspectEarlyCamera(),transient:{floats:this.floats.length,strokes:this.slashes.length},fairMotion:this.fairWorld.inspect(),festivalOcclusion:this.fairWorld.inspectOcclusion(),townSignOcclusion:this.townSignOcclusion.inspect(),townBuildingOcclusion:this.townBuildingOcclusion.inspect(),presentation:{profile:MOTION_PROFILE,paletteMode:'single-unlit-emission',actors:this.heroes.map(s=>({name:s.mesh.name,emissionOnly:s.material.useEmissiveAsIllumination,emissiveColor:s.material.emissiveColor.asArray(),texture:s.texture.getSize(),position:s.mesh.position.asArray()})),normalizedMaterials:this.palettePass.count},actorArt:{profile:HD_ART.id,nativeCell:{w:HD_ART.width,h:HD_ART.height},textures:this.heroes.map(h=>h.texture.getSize()),guestTexture:this.guest.texture.getSize(),approved:false},trialMaps:this.trialWorld.inspect(),prologue:this.prologueWorld.inspect(),mapKind:this.prologueKind,guest:{visible:this.guestVisible,pose:{...this.guestView}},rescueMaps:this.rescueWorld.inspect(),frame:this.drawFrames,poses:this.poseViews.map(p=>({...p})),history:this.poseHistory.map(h=>({...h})),meshes:this.scene.meshes.filter(m=>m.isEnabled()).length,chapter:this.chapter};}
   private materials=new Map<string,StandardMaterial>();
   constructor(canvas:HTMLCanvasElement){
     // Babylon tries WebGL2, then WebGL1 on this same canvas. The browser alone
@@ -123,7 +126,7 @@ export class World {
     this.engine.setHardwareScalingLevel(this.rendering.scale(canvas.clientWidth,canvas.clientHeight,window.devicePixelRatio));
     this.scene=new Scene(this.engine);
     this.woodlandOcclusion=new WoodlandOcclusion(this.scene);
-    this.scene.onDisposeObservable.add(()=>{this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});
+    this.scene.onDisposeObservable.add(()=>{this.combatTiming.dispose();this.floats.length=0;this.slashes.length=0;this.lunges.forEach(stopLunge);this.partyCombat.dispose();this.fieldEnemyBody.dispose();this.fieldEnemyMotion.dispose();this.fieldEnemyPalette.reset();this.heroFrames.clear();});
     this.scene.clearColor=Color4.FromHexString('#15292fff');
     this.scene.fogMode=Scene.FOGMODE_EXP2;this.scene.fogDensity=0.010;this.scene.fogColor=color('#a7b2aa');
     this.scene.ambientColor=Color3.Black();
@@ -286,6 +289,7 @@ export class World {
     const mesh=MeshBuilder.CreatePlane('label',{width,height:width/4},this.scene);mesh.material=mat;mesh.billboardMode=Mesh.BILLBOARDMODE_ALL;mesh.position.set(x,y,z);return mesh;
   }
   private effect(e:Effect,s:State):void {
+    const source=this.combatTiming.delivered(e);
     this.partyCombat.receive(s,e);
     this.fieldEnemyMotion.receive(s,e);
     this.fieldEnemyBody.receive(s,e);
@@ -294,14 +298,14 @@ export class World {
     if(e.actor!==undefined)this.posePlayers[e.actor]!.trigger(e.style==='fire'||e.style==='spin'?'cast':'attack',s.ticks);
     else if(e.kind==='combo')this.posePlayers.forEach((player,i)=>{if(activeSlot(s,i as 0|1))player.trigger('cast',s.ticks);});
     else if(e.kind==='hit')s.players.forEach((p,i)=>{if(activeSlot(s,i as 0|1)&&Math.hypot(p.x-e.x,p.z-e.z)<.2)this.posePlayers[i]!.trigger('hurt',s.ticks);});
-    const mesh=this.label(e.kind==='combo'?'✦ '+e.text:e.text,e.x,2.2,e.z,e.kind==='combo'?'#f8d68a':'#fff2d6',1.7);this.floats.push({mesh,time:0});
+    const mesh=this.label(e.kind==='combo'?'✦ '+e.text:e.text,e.x,2.2,e.z,e.kind==='combo'?'#f8d68a':'#fff2d6',1.7);this.floats.push({mesh,time:0,cue:this.combatTiming.cue(source)});
     if(e.style){
-      if(e.actor!==undefined&&e.origin){const d=Math.hypot(e.x-e.origin.x,e.z-e.origin.z)||1;this.lunges[e.actor]={time:0,dx:(e.x-e.origin.x)/d*.55,dz:(e.z-e.origin.z)/d*.55};}
+      if(e.actor!==undefined&&e.origin){const d=Math.hypot(e.x-e.origin.x,e.z-e.origin.z)||1;this.lunges[e.actor]={time:0,dx:(e.x-e.origin.x)/d*COMBAT_TIMING.lungeDistance,dz:(e.z-e.origin.z)/d*COMBAT_TIMING.lungeDistance,cue:this.combatTiming.cue(source),owner:s.players[e.actor],identity:e.actor===0?'crono':s.kingdom.phase==='rescue'?'lucca':'marle'};}
       const t=new DynamicTexture('battle-stroke',{width:64,height:64},this.scene,false,Texture.NEAREST_SAMPLINGMODE);t.hasAlpha=true;
       const c=t.getContext() as CanvasRenderingContext2D;c.clearRect(0,0,64,64);c.lineWidth=4;c.strokeStyle=e.style==='fire'?'#ffae58':e.style==='shot'?'#b6eaf0':'#fff3b4';
       c.beginPath();if(e.style==='spin'){c.arc(32,32,24,-.4,Math.PI*1.6);}else if(e.style==='fire'){c.moveTo(15,52);c.lineTo(28,10);c.lineTo(32,33);c.lineTo(46,16);c.lineTo(42,52);}else{c.moveTo(8,50);c.quadraticCurveTo(22,12,57,9);}c.stroke();t.update();
       const m=new StandardMaterial('battle-stroke',this.scene);m.diffuseTexture=t;m.emissiveTexture=t;m.opacityTexture=t;m.disableLighting=true;m.backFaceCulling=false;
-      const fx=MeshBuilder.CreatePlane('battle-stroke',{width:2.3,height:2.3},this.scene);fx.material=m;fx.billboardMode=Mesh.BILLBOARDMODE_ALL;fx.position.set(e.x,1.3,e.z);this.slashes.push({mesh:fx,time:0});
+      const fx=MeshBuilder.CreatePlane('battle-stroke',{width:2.3,height:2.3},this.scene);fx.material=m;fx.billboardMode=Mesh.BILLBOARDMODE_ALL;fx.position.set(e.x,1.3,e.z);this.slashes.push({mesh:fx,time:0,cue:this.combatTiming.cue(source)});
     }
 
   }
@@ -331,12 +335,13 @@ export class World {
     this.townBuildingOcclusion?.reset();
     this.woodlandOcclusion?.reset();
     this.poseHistory.length=0;this.guestView={pose:'idle',frame:0};
-    this.lunges.forEach(l=>{l.time=1;l.dx=0;l.dz=0;});
+    this.lunges.forEach(stopLunge);this.combatTiming.reset();
   }
   draw(s:State,delta:number,animate:boolean,frameEffects:readonly Effect[]=[]):void {
-    if(this.presentationState!==s||this.chapter!==s.chapter){
+    if(this.presentationState!==s||this.chapter!==s.chapter||this.combatTiming.rewound(s.ticks)){
       this.resetTransientPresentation();this.presentationState=s;
     }
+    this.combatTiming.begin(s.ticks,this.reducedMotion?.matches??false);
     const dt=animate?Math.min(delta,.05):0;this.time+=dt;
     const fair=s.chapter==='fair',canyon=s.chapter==='canyon',forest=s.chapter==='forest',adventure=s.chapter!=='lab';
     if(this.chapter!==s.chapter){
@@ -379,7 +384,11 @@ export class World {
       const combat=this.partyCombat.sample(i,pose,facing);
       const sprite=this.heroes[i]!;this.drawHero(sprite,i,combat.facing,pose.frame,adventure,i===1&&s.kingdom.phase==='rescue',pose.pose);
       this.partyCombat.recordDraw(i,()=>sprite.texture.getContext().getImageData(0,0,48,64));
-      const l=this.lunges[i]!;l.time+=dt;const push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
+      const l=this.lunges[i]!;
+      if(l.cue)l.time=this.combatTiming.seconds(l.cue);
+      const allowed=activeSlot(s,i as 0|1)&&p.hp>0&&(s.mode==='battle'||s.mode==='victory')&&pose.pose!=='hurt'&&pose.pose!=='down'&&(!l.cue||(l.owner===p&&l.identity===(i===0?'crono':s.kingdom.phase==='rescue'?'lucca':'marle')));
+      if(l.cue&&!allowed){l.dx=0;l.dz=0;}
+      const push=lungePush(l.time,this.reducedMotion?.matches??false);
       sprite.mesh.position.set(p.x+l.dx*push,1.02+(p.walking?Math.sin(this.time*15)*.035:0),p.z+l.dz*push);sprite.mesh.setEnabled(activeSlot(s,i as 0|1));
       this.markers[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));this.labels[i]!.setEnabled(s.joined&&activeSlot(s,i as 0|1));
       const vanish=i===1&&s.opening.phase==='resonance'?Math.max(.05,1-s.opening.elapsed/2):1;const scale=s.chapter==='overworld1000'?ART_PROFILE.actors.worldScale:ART_PROFILE.actors.fieldScale;sprite.mesh.scaling.set(vanish*scale,vanish*scale,scale);if(s.chapter==='overworld1000')sprite.mesh.position.y=.43;if(s.prologue.stage==='waking'&&s.prologue.elapsed<1.8)sprite.mesh.position.set(3.6,1.35,1.6);
@@ -408,6 +417,14 @@ export class World {
     if(boss){const e=s.enemies[0]!,f=e.atb>.78?Math.floor(this.time*12)%2:0;if(this.yakra.last!==String(f)){drawYakra(this.yakra.texture.getContext() as CanvasRenderingContext2D,f);this.yakra.texture.update();this.yakra.last=String(f);}this.yakra.mesh.position.set(e.x,1.68,e.z);}
     this.rescueFoes.forEach((sprite,i)=>{const e=s.enemies[i],visible=inRescue&&s.mode==='battle'&&!!e&&e.hp>0&&e.kind!=='yakra';sprite.mesh.setEnabled(visible);if(visible&&e){if(sprite.last!==e.kind){sprite.last=e.kind??'';drawNaga(sprite.texture.getContext() as CanvasRenderingContext2D,e.kind==='hench');sprite.texture.update();}sprite.mesh.position.set(e.x,1.02,e.z);}});
     this.groundActors(s);
+    this.lunges.forEach((l,i)=>{
+      if(!l.cue)return;
+      const p=s.players[i]!,mesh=this.heroes[i]!.mesh,pose=this.poseViews[i]!;
+      const cancelled=!activeSlot(s,i as 0|1)||p.hp<=0||(s.mode!=='battle'&&s.mode!=='victory')||pose.pose==='hurt'||pose.pose==='down'||l.owner!==p||l.identity!==(i===0?'crono':s.kingdom.phase==='rescue'?'lucca':'marle');
+      const status=cancelled?'interrupted':l.time>=COMBAT_TIMING.lungeSeconds?'expired':'active';
+      this.combatTiming.record('lunge',l.cue,l.time,{position:mesh.position.asArray(),enabled:mesh.isEnabled(),disposed:mesh.isDisposed(),logical:{x:p.x,z:p.z},shadow:this.actorShadows[i]!.position.asArray(),offset:{x:l.dx*lungePush(l.time,this.reducedMotion?.matches??false),z:l.dz*lungePush(l.time,this.reducedMotion?.matches??false)}},status);
+      if(status!=='active')stopLunge(l);
+    });
     const midX=activeSlot(s,1)?(s.players[0].x+s.players[1].x)/2:s.players[0].x,midZ=activeSlot(s,1)?(s.players[0].z+s.players[1].z)/2:s.players[0].z;
     const fixed=prologueMap(s.chapter)||s.chapter==='prisonbridge'||s.chapter==='courtroom';const tx=fixed?0:adventure?Math.max(-4,Math.min(4,midX*.72)):midX*.18,tz=fixed?0:midZ*(adventure?.72:.16)+1;
     const ratio=this.engine.getRenderWidth()/Math.max(1,this.engine.getRenderHeight());
@@ -420,8 +437,20 @@ export class World {
     this.woodlandOcclusion.update(s.ticks,s.chapter,[...this.heroes.map((h,i)=>({id:'p'+i,mesh:h.mesh})),{id:'guest',mesh:this.guest.mesh}],this.reducedMotion?.matches??false);
     this.portal.rotation.z=Math.sin(this.time)*.08;this.crystal.rotation.y=this.time*.4;
     this.particles.forEach((p,i)=>{p.setEnabled(!prologueMap(s.chapter));p.position.y=.65+(i%5)*.35+Math.sin(this.time*.6+i)*.22;});
-    for(let i=this.floats.length-1;i>=0;i--){const f=this.floats[i]!;f.time+=dt;f.mesh.position.y+=dt*.8;if(f.time>1.25){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}}
-    for(let i=this.slashes.length-1;i>=0;i--){const v=this.slashes[i]!;v.time+=dt;v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=Math.max(0,1-v.time/.6);if(v.time>.6){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}}
+    for(let i=this.floats.length-1;i>=0;i--){
+      const f=this.floats[i]!;f.time=this.combatTiming.seconds(f.cue);
+      f.mesh.position.y=2.2+(this.reducedMotion?.matches?0:f.time*COMBAT_TIMING.numberRise);
+      const expired=f.time>COMBAT_TIMING.numberSeconds;
+      if(expired){f.mesh.material?.dispose(true,true);f.mesh.dispose();this.floats.splice(i,1);}
+      this.combatTiming.record('number',f.cue,f.time,{position:f.mesh.position.asArray(),enabled:f.mesh.isEnabled(),disposed:f.mesh.isDisposed()},expired?'expired':'active');
+    }
+    for(let i=this.slashes.length-1;i>=0;i--){
+      const v=this.slashes[i]!;v.time=this.combatTiming.seconds(v.cue);
+      v.mesh.scaling.setAll(1+v.time*.6);(v.mesh.material as StandardMaterial).alpha=this.reducedMotion?.matches?0:Math.max(0,1-v.time/COMBAT_TIMING.strokeSeconds);v.mesh.setEnabled(!(this.reducedMotion?.matches??false));
+      const expired=v.time>COMBAT_TIMING.strokeSeconds,alpha=(v.mesh.material as StandardMaterial).alpha;
+      if(expired){v.mesh.material?.dispose(true,true);v.mesh.dispose();this.slashes.splice(i,1);}
+      this.combatTiming.record('stroke',v.cue,v.time,{position:v.mesh.position.asArray(),scale:v.mesh.scaling.asArray(),alpha,enabled:v.mesh.isEnabled(),disposed:v.mesh.isDisposed()},expired?'expired':'active');
+    }
     this.palettePass.apply(this.scene);
     renderCompatibleScene(this.engine,this.scene);this.drawFrames++;
   }
@@ -431,7 +460,7 @@ export class World {
     s.players.forEach((p,i)=>{
       const mesh=this.heroes[i]!.mesh,shadow=this.actorShadows[i]!,shown=adventure&&awake&&activeSlot(s,i as 0|1);
       shadow.setEnabled(shown);if(!shown)return;
-      const l=this.lunges[i]!,push=Math.sin(Math.min(1,l.time/.42)*Math.PI);
+      const l=this.lunges[i]!,push=lungePush(l.time,this.reducedMotion?.matches??false);
       const foot={x:p.x+l.dx*push,y:.14,z:p.z+l.dz*push};
       placeSpriteContact(mesh,shadow,foot,up,1.85,HD_ART.pivot.y,HD_ART.height);
       this.contacts.push({id:'p'+i,mesh,shadow,foot,pivotY:HD_ART.pivot.y,cellHeight:HD_ART.height});

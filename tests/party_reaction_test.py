@@ -1,4 +1,5 @@
 """Q synthetic verifier and source inverse tests; not native evidence."""
+from combat_timing_r_preservation import restore_combat_timing_r_if_declared
 import unittest,copy,hashlib,inspect
 from pathlib import Path
 from party_reaction import GOLDEN,assert_reaction_history,assert_reaction_report,observe_reaction_suffix,OBSERVE_SCRIPT
@@ -68,7 +69,7 @@ class Reaction(unittest.TestCase):
         self.assertNotIn('=',OBSERVE_SCRIPT.split('return ')[1].replace('=>',''))
     def test_strict_Q_to_P_inverse_and_drift(self):
         for p,h in SPEC['originalSha256'].items():
-            raw=(ROOT/p).read_text();old=restore_reaction_q_source(p,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
+            raw=restore_combat_timing_r_if_declared(p,(ROOT/p).read_text());old=restore_reaction_q_source(p,raw);self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),h)
             self.assertEqual(restore_reaction_q_if_declared(p,old),old)
             self.assertEqual(restore_reaction_q_if_declared(p,raw+'\n# drift\n'),old+'\n# drift\n')
             e=SPEC['files'][p][0]

@@ -1,30 +1,31 @@
-# Delivery index — VQ04B美術已测发布／CI98原始失敗保存
+# Delivery index — VQ04C美術已測發布／CI99 Pages93原始包保存
 
-Authority：STATUS/TODO/checkpointv35；唯一main/singleAI/nonforce。唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。上版完整索引blob5ae77fd579a23070e97ac4fa56c35190625d99ee原封留在 **evidence/VQ04B_PREVIOUS_DELIVERY_INDEX.md**，舊鏈只用必要bytes恢復，不重驗歷史。
+Authority：STATUS/TODO/checkpointv36。唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。舊B完整索引blob399f282bbf7c1c704e2ab712f43a89c72ce70880保存在 **evidence/VQ04C_PREVIOUS_DELIVERY_INDEX.md**；只為必要bytes恢復，不重驗歷史。
 
-## 唯一本輪完整包
+## C最終已測開發包
 
-**Chrono-VQ04B-production-art-tested.zip**
-File **1y1rv5lVly36x6abap1CBKLcyb8e5JGGr**
-Bytes **34093917**
-SHA256 **56b9d85ad8791f5dda3313e6ea1c7e395b5d1b001c714d8978b32dac74e40eb6**
+**Chrono-VQ04C-production-art-tested.zip**／file **1krZ_U705oJiiBbgX9wOfyw73G3tPAUzt**。
+Bytes **2528924**；SHA256 **f5f6df4d7d56d8b127e61ba710d87cd6e801899b75527d04da0af99b62e897ca**。
 
-實際下載回驗parent/size/hash/ZIPCRC、96manifest exact集合及逐檔內容、四innerCI98ZIP CRC、634programsnapshot逐byte一致；checked2026-09-27T18:48:57.284805+00:00。source **b5e92d92940e28344f4a9f5a618050d513f6253a**／tree **7499f0798c4111789f81153288901de0ccd897f9**和已測tree一致，21source/test檔一次non-force發布，matchingCI99/36342361270目前in_progress（2026-09-27T18:54:22Z）。
+已於2026-09-27T20:46:22.409791+00:00真正下載核對parent/size/hash/ZIPCRC、88manifest exact集合／逐檔內容，program-vq04c.tar.gz內650檔與已測source逐byte相同。包含20changes、16runtimePNG、成功／失敗logs、作者OFFLINE場景圖／driver、來源及保護manifests。snapshot不含docs，不能覆蓋最新main文件。
 
-changes/：本輪21檔。review/program-snapshot.tar.gz：634檔最終程式快照，不含docs。runtime-art/production-vq04a/：13環境PNG，profile為B；runtime-art/production-vq04b/：8款配角×4格圖集＋森林地表共9PNG及manifest。logs/：full-check-final.log與python-full-final.log/exit0，及所有先前failure/typing/working attempts。review/：來源與preservationmap、測試收據、CI98真失敗診斷、標示OFFLINE的作者工作圖及driver。local-build-not-deployment/：sourceSha=null，不是部署證據。
+Source **0aefa412e71d522dc1b667b9fcdf850f8cf4e65c**／tree **7f352b9553cbb7c4ffdf3283454b1f524c66677d**，20檔一次non-forcepush；remote完整tree等於已測tree。CI100/36349691934 exact C目前in_progress，updated2026-09-27T20:53:43Z。包內sourcePublishedAtPackaging=false/cloudReadbackAtPackaging=false只是封裝時歷史，後續真發布／回驗見VQ04C_TEST_RECEIPT，不可因此重送或重跑。
 
-original/：CI98-browser-evidence.zip（artifact10938680683）、CI98-art-review-kit.zip（10938745410）、CI98-witness-good-evidence.zip（10938223342）、CI98-witness-bad-evidence.zip（10937634883）。原始資料未改寫，hash/size見evidence/CI98_TERMINAL.json及包內review/CI98-originals-review.json。CI98仍failure，沒有playable接受，不rerun。
+## CI99／Pages93原始與限定審查包
 
-復原最終B優先用review/program-snapshot.tar.gz，必要時changes/；只恢復程式，不用舊docs覆蓋main。恢復原A可從original/CI98-browser-evidence.zip的source-4dc7449ff41a6b87e452c45184198b3c9a1929e2.tar.gz取必要bytes。不要因封裝sourcePublishedAtPackaging=false/cloudReadbackAtPackaging=false重送source或重跑完整tests；v2receipt/checkpoint已記錄真實後續發布與回驗。
+**Chrono-CI99-Pages93-reviewed-evidence.zip**／file **1d7iHSDTGUyLRqmy8Ckxy7r3EEXoX5nie**。
+Bytes **102263339**；SHA256 **69bb250407d2914821611344b35cef946b518cc2001d7224fccc3c155014d29b**。
 
-## 早期checkpoint與前代
+已於2026-09-27T20:40:58.394029+00:00真正下載回驗parent/size/hash/外內ZIPCRC／10manifest精確內容。original/七份provider原ZIP：CI99 browser、art-kit、playable、good、bad，以及Pages93 staged、github-pages。review/包含readonly來源／原ZIPinventory／deployment／lane29entries與四static圖片紀錄及driver。原生報告沒改寫。
 
-本輪early **Chrono-VQ04B-art-development-checkpoint.zip／1-aWddwHGVjlsTqu99V2lBUWTjIKEbMBc**，18113bytes／SHA31dc562d29f602f9aa941fdb90209ffbd98af1e2fa8bd23992d655e7d5d0a60f，已下載回驗，但只是未完實驗、現由final取代；不可覆蓋final或當成另一candidate。
+B source **b5e92d92940e28344f4a9f5a618050d513f6253a**。CI99/36342361270與Pages93/36344129732成功；Pages選CI99 playable10939069149。遊戲HTML5827427bytes，SHA **d4176273eca7defd963a6b456c7a0f2127d568e4ee4466488cf5a3f08f9265a1**，playable/staged/Pages tar相同。Tar9payload檔匹配，staging空.nojekyll未包入，不宣稱10項全同。範圍不是全motionledger／video／聆聽／真機／90分批准。
 
-A已測包 **1IkkI26IMQX83OWLIsUK_ETUsmI_MN_q-**（57499039bytes／SHA18d310dd0509c832031b40e606a5546f0e226974f67a805ca9eabbbb9dbcce6d），source4dc7449...、CI98failure；其原環境實作保留但裁切由B修。更早Z/Y/W完整包沿封存索引，保持既有有界接受與失敗狀態，不整包重審。
+需要 exact B bytes 時，從 original/CI99-browser-evidence.zip 內 source-b5e92d92940e28344f4a9f5a618050d513f6253a.tar.gz 取必要檔案；其docs是當时舊歷史，不可覆蓋main。
 
-工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 僅node_modules/esbuildhardlink，不覆source/config，不bootstrapCI。main高於臨時container和歷史旗標；docs[skip ci]，ROM/media/fonts/credentials私有。
+## 恢復規則及前代
 
-## 下一交付
+C早期 **Chrono-VQ04C-art-recovery-checkpoint.zip／1zQnl_JWz6SLXi5KD2W1N33YGjbU_ijRi** 只是不完整開發保存，已被final取代；metadata parent確認，不冒稱該早期包已做完整下載回驗。不是另一candidate。中斷前只有作者圖不等於已發布C，本輪source已從exactB重新實際開發測試並發布。
 
-只接CI99 exactB新native畫面/source/匹配Pages並保留新原始包；不長poll，不duplicatepush/dispatch，不rerunCI98。繼續實際美術與全角色／動作資產，不在對話生成展示圖。B仍未達concept等級，art/fullAnimation/wholegamefalse、score=null、releaseBLOCKED，T03-T08完整分母不縮。
+B最終開發包 **1y1rv5lVly36x6abap1CBKLcyb8e5JGGr**，A包 **1IkkI26IMQX83OWLIsUK_ETUsmI_MN_q-** 及更早鏈沿封存索引。CI93/95/98failure保留，W/Y已有有界接受不重做。
+
+工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只恢復node_modules/esbuildhardlink，不覆source/config或bootstrapCI。ROM/media/fonts/credentials私有，main與本索引高於臨時container。新CIpending保存checkpoint不長poll；全成果GitHub/正確Drive/readback，docs[skip ci]。

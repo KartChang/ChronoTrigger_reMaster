@@ -1,23 +1,23 @@
-# 功能進度 — VQ04B實際美術／CI99 pending
+# 功能進度 — VQ04C前段場景美術／CI100 pending
 
-Authority：STATUS/TODO/checkpointv35。source **b5e92d92940e28344f4a9f5a618050d513f6253a**，tree7499f0798c4111789f81153288901de0ccd897f9，21檔合批。CI99/36342361270 exactsource push/attempt1最後in_progress；尚無Bnative/Pages/art批准。
+Authority：STATUS/TODO/checkpointv36。Source **0aefa412e71d522dc1b667b9fcdf850f8cf4e65c**，tree **7f352b9553cbb7c4ffdf3283454b1f524c66677d**。20檔合批一次sourcepush；CI100/36349691934 exact C最後in_progress。沒有Cnative/Pages/art批准。
 
-## 實際增量
+## 本批實際增量
 
-山道安靜通路／低噪草皮、四款分叉樹及不等形葉團、三層角形遠山與遠林已接正式應用。1000森林原有384×352地面texture重繪原三段道路，不另配GPU資源／不改collision。
+12場景root：城堡、王后房、修道院、地下通道、祭壇、1000王城、囚室、刑場、監獄樓梯、典獄室、監獄橋、山道。地板／牆面／柱體／木家具／布料／鐵件／彩窗以16組自編程式像素套入正式應用；柱圈與雕槽、山道外岸低矮植被共64個靜態構件。不是整座建築重建或所有美術批准。
 
-法庭修正CI98彩窗上緣裁切：保留zoom/angle/target，orthographic上下界同移+1.2；五種viewports離線保留原.065安全區通過。新增四組側柱12parts、不放進行走廊道；陪審木料去重複金框。
+新增rawRGBA共3,936,256bytes，lazy共享、重返場景不反覆上傳；不宣稱整遊戲記憶體。保留原橋面／void界線與透明囚門alpha .42，不改原actors、camera、geometrytransform、collision、ATB、save、frameEffects。原A/B法庭、山道、1000森林與法庭配角色料仍保留。held home在current C framebuffer與B一致。
 
-法庭配角8款×4既有ambient格增加色料／形體明暗；保持48×64/alpha/keyline/pivot/clocks，非方向動作重畫。Borrowed texture更新不累積、切章節還原／回場重套／dispose釋放。最大24bindings/589824CPUbytes，GPU新增0。Party/guest/enemy與mother原畫師未改；不能列作全角色美術完成。
+build新增dist/art/production-vq04c的16PNG＋manifest，解碼逐byte等於runtime。主assets/manifest.json本批未改；這些是本批資產，不代表required assets全完成。全部檔案保存在專案Drive而非對話圖片。
 
-13環境＋8配角圖集＋1森林地表＝22本輪buildPNG，與runtime來源同像素，存在Drive專案包runtime-art/。不是22新增貼圖，不是concept/backplate交付。
+## 測試／來源結果
 
-## 測試與限制
+完整3220Node、609Python、asset/typecheck/build通過，新增60Node/4Python，625其他inputs byte-exact。新C整合使用真正currentapp：12root pixels改變，State／角色源格／變換／相機與原診斷不變；十個非目標場景逐pixel保持、資源重用／釋放／橫直取景測試通過。frozenBcomponent與currentC分開；原native／golden／held斷言不動。全部失敗與成功logs已持久。
 
-3160Node/605Python/asset/typecheck/build通過，新增50Node/4Python。613inputs及原native routes/assertions/golden/core/held hashes未改。Acomponent凍結A，新Bintegration直接currentapp，涵蓋實際CPU像素、State/actors/geometry保留、4arg effects、borroweduploads／上限／非目標場景還原。成功與失敗attempt均保存。
+CI99/Pages93本批完成限定審查：3lane／29entry hash、7ZIP、exact B playable與Pages payload一致，四張原生static圖片看過；法庭裁切阻塞在B新路線上解除。Pages少一個空.nojekyll marker已如實記錄。不是新完整動畫ledger、video、聆聽或裝置批准；CI98仍failure。
 
-CI98本身failure、不rerun／回填：三條路線top約.020705<.065，14NPC尺寸正確，JSerrors空，原20s timeout；不是CPU raster故障，後續native lanes skipped。Bfix尚待獨立原生證據。
+## 仍未完成
 
-概念圖等級、全party/enemy/NPC方向與move/attack/hurt/down/death、前段完整構圖/尺度/遮擋、合法完整音訊/聆聽/原速/真機長時段未完成。newScore=null，releaseBLOCKED，所有完整品質批准false；不以CI數或工作PNG灌分。
+完整party/enemy/NPC四方向與move/attack/hurt/down/death重畫，本批新增姿勢0，不能把環境材質視為角色美術完成。山道北端銜接、剩餘前段構圖、概念級質感與遮擋、合法完整音訊／聆聽／原速／真機長時段仍open。art/fullAnimation/wholegamefalse，newScore=null，releaseBLOCKED。
 
-完整已測包 **1y1rv5lVly36x6abap1CBKLcyb8e5JGGr** 已存唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並下載驗parent/size/SHA/CRC/96manifest與634snapshot逐byte一致，含21changes、22PNG及四CI98原ZIP。收據evidence/VQ04B_TEST_RECEIPT.json；next美術優先不變。
+持久收據：evidence/VQ04C_TEST_RECEIPT.json與CI99_PAGES93_REVIEW.json。C包 **1krZ_U705oJiiBbgX9wOfyw73G3tPAUzt**（88manifest/650snapshot/16PNG）；CI99包 **1d7iHSDTGUyLRqmy8Ckxy7r3EEXoX5nie**（7原ZIP/10manifest），皆指定folder真正下載回驗。下一開發批次沿原TODO角色／敵人與場景品質主線，先接CI100新證據，不重跑C。

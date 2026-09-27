@@ -1,46 +1,15 @@
-# 立即執行型接續 — VQ04B美術已發布／CI99驗證中
+# 立即執行交接 — VQ04C／CI100／美術優先
 
-立即使用GitHub connector，必要時Drive connector，續KartChang/ChronoTrigger_reMaster。唯一main／singleAI／non-force，沒有其他使用者；不建branch/PR/parallelcandidate/multiwriter。不做repository盤點、歷史審計或重做已接受功能，不要求ROM/token/手動截圖/造數。
+立即使用GitHub connector，必要時Drive；KartChang/ChronoTrigger_reMaster唯一main。先STATUS＋T05_ANIMATION_CHECKPOINT v36，main確認一次，依TODO續作。不是盤點／歷史審计／重規劃，不重做B/C或已接受W/Y，不要求重貼ROM/token／手動截圖／造數。singleAI/nonforce，不開branch/PR/parallelcandidate/multiwriter。
 
-**使用者優先要求美術程式開發，目標是認可的山道／法庭概念品質，不是在對話生成圖片。** 已生成或匯出的素材必須進專案資料夾。不要把下一輪又全用來做動畫邊界維護；完整人物敵人重製仍須完成，B配角色料finish不等於全角色重畫。
+C source **0aefa412e71d522dc1b667b9fcdf850f8cf4e65c**，tree **7f352b9553cbb7c4ffdf3283454b1f524c66677d**，0.9.76。一次20檔sourcepush，3220Node/609Python/asset/typecheck/build完成，remote完整tree等於已測；沒有未發布candidate。CI100 **36349691934** push/attempt1 exactC，最後in_progress，updated2026-09-27T20:53:43Z。不要duplicatepush/dispatch或重新跑已測C，pending不長poll。
 
-## 最少讀取與唯一位置
+本批12root（11室內／橋＋山道）16表面/64靜態構件、3,936,256新增rawRGBAbytes，正式入口同scene接入；不改camera/state/actorcells/collision。625其他inputs byte-exact；原native/timing/route/keys/capture/assertion/golden/held保持。C新增16PNG與runtime逐pixel同源；不是完整人物重畫，新增party/enemy pose0。B法庭與森林美術保留。
 
-先讀STATUS及evidence/T05_ANIMATION_CHECKPOINT **v35**，確認main一次後照TODO續。遊戲 **VQ04B0.9.75 source b5e92d92940e28344f4a9f5a618050d513f6253a**；tree **7499f0798c4111789f81153288901de0ccd897f9**，sourceparent09b58835a05deab472b2f7f2202b0a4a7be8b433。這份後續docs以Bsource為parent，只有docs/[skip ci]；最新文件HEAD看main，不能當遊戲source。
+CI99/Pages93已success；7原ZIP、3lane29entryhash、B playable/Pages payload與四張static原圖限定審查完成。B法庭裁切阻塞在原native路線上關閉，CI98仍failure；不擴張成完整motion/device/art批准。Pages tar9payload匹配，staging另有空.nojekyll未打包已明示。現有Tank/Yakra完整death/Hench outgoing/Pdown/Qselector gaps照留，別拿缺樣本當runtime故障或更改等待湊證據。
 
-唯一matching **CI99/36342361270** push/attempt1/exactB，最後 **in_progress**，providerupdated **2026-09-27T18:54:22Z**。本輪一次sourcepush，無manualdispatch或未發布candidate。不重送B、不rerunCI98/97/96/94，不長poll。
+唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。C最終包 **1krZ_U705oJiiBbgX9wOfyw73G3tPAUzt**，2528924bytes、SHAf5f6df4d7d56d8b127e61ba710d87cd6e801899b75527d04da0af99b62e897ca，88manifest/650snapshot/16PNG/20changes/full logs，已真正下載逐byte回驗。用program-vq04c.tar.gz恢復程式；沒有docs，不覆main。CI99包 **1d7iHSDTGUyLRqmy8Ckxy7r3EEXoX5nie**，102263339bytes、SHA69bb250407d2914821611344b35cef946b518cc2001d7224fccc3c155014d29b，7ZIP/10manifest亦完整下載回驗。早期1zQnl_JWz6SLXi5KD2W1N33YGjbU_ijRi被final取代。包內封裝false旗標不是目前狀態。
 
-## 已完成，直接沿用
+下一步：只取CI100 newnative art/必要動態/source＋matchingPages，留原ZIP與readback；再接既有全party/enemy/NPC方向／move/attack/hurt/down/death重畫，以及C場景遮擋／明暗／柱體／橋界與山道北端銜接。這輪不能又全部變成animationedge修理，也不能再以材質數量代替完整角色。認可concept品質仍未達，先前段舒適、再後段。
 
-CI98/36338351176實際completed/failure，updated2026-09-27T18:04:13Z：trial/witnessgood/bad皆原20s courtwindowtop-safe等待失敗，top約.020705<.065；14NPC均48×64，JSerrors空。後續software/native skipped、無playable。**不是CPU raster失敗**。四原ZIP保存未改，CI98不rerun、不回填accepted。收據evidence/CI98_TERMINAL.json。
-
-B法庭保持max(7.8,9/aspect)zoom、angle/target，以orthographic上下界同移+1.2修上緣。離線finaltop.09762804197989591，5viewports原.065条件通過。4組側柱12parts／安靜陪審木紋；山道低噪路面/四款分叉oak不等形葉團/三層角形遠山；1000森林原384×352floor直接重畫，不新增GPUtexture、不改三段原路線/碰撞。
-
-配角僅法庭supportingcast借用原texture.update做pigment/form，8style×4原ambientframes=32cells，不是新32pose；alpha/darkkeyline/pivot/clocks不變。24binding/589824CPUbytes上限，新GPUtextures0，反覆upload不累積/退出還原/回場重套/dispose清自己。Party/guest/enemy/mother不綁；本輪不是完整方向戰鬥重製。
-
-完整 **3160Node/605Python/asset/typecheck/build** 通過，新增50Node/4Python；613原程式inputs/native/routes/golden/core/held exacthash保留。Acomponent明確凍結A、新Bcurrentapp integration實際驗CPUpixels/State&geometry不變/4arg effects/castresource/heldframe。原hash透過boundedsource-onlyinverse保留，禁止native資料輸入。第一fulltest21sourceinverse因$字串展開fail已修callback，原expectedhash不改，所有attempts保存。不要重跑已測整批，除非再真改程式。
-
-21變更檔一次non-force發布，GitHub整tree等於testedtree。傳輸未提交tree的rootsource筆誤已在push前替換為correcttestedblob37dea0c01d3a10422e2e61726701255245bb09c1，不是main故障，也不需再修。未發布candidate為null。
-
-## 持久包與恢復
-
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
-**Chrono-VQ04B-production-art-tested.zip／1y1rv5lVly36x6abap1CBKLcyb8e5JGGr**
-**34093917bytes／SHA25656b9d85ad8791f5dda3313e6ea1c7e395b5d1b001c714d8978b32dac74e40eb6**。
-已真正下載驗parent/size/hash/外內CRC/96manifest exact集合、634snapshot逐byte一致；checked2026-09-27T18:48:57.284805+00:00。
-
-changes/21files；review/program-snapshot.tar.gz/634programmefiles，不含docs；runtime-art/13環境+8castatlas+1forest=22PNG及manifest（不是22新GPUtexture）；logs/完整成功失敗；original/四原CI98ZIP；review/真CI98診斷/來源/工作PNG與OFFLINEdriver；local-build-not-deployment sourceSha=null不屬部署。封裝false旗標是歷史，以本v35/v2receipt為準。
-
-優先恢復finalsnapshot，不能覆蓋最新main docs。early **1-aWddwHGVjlsTqu99V2lBUWTjIKEbMBc**僅未完實驗，已superseded，不能拿來替final。需要A原程式時從original/CI98-browser-evidence.zip/source-4dc7449ff41a6b87e452c45184198b3c9a1929e2.tar.gz取必要bytes。前代鏈看DELIVERY_INDEX只用恢復，不重驗。
-
-工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只node_modules/esbuildhardlink，不覆source/config、不bootstrapCI。臨時/mnt/data不可信，main/正確Drive權威。
-
-## 下一步
-
-Root T05-early-visual-cohesion；execution T05-early-production-art；next **T05-early-production-art-canyon-court**。接唯一CI99新原生結果/山道法庭森林actualPNG/source/匹配Pages；pending保存點、failure定位真正原因。不拿concept或OFFLINEfixture當native，不改wait/route/key/tick/capture/assertion/golden或注入state/time/save/collision湊證據。
-
-依實際新畫面續樹冠尺度/內輪廓/遮擋、地面噪訊、岩壁/遠山接縫、法庭安全構圖/側柱遮擋/配角可讀性，再續完整party/enemy/NPC方向与move/attack/hurt/down/death、全部前段場景/原作縮尺地圖/城鎮、合法完整音訊/聆聽/原速/真機長時段。合批開發全tests後一次source/CI，別逐小項停。
-
-目前尚未concept等級，沒有newScore/全藝術批准。Y/CI96/Pages90有界收據及W已accepted基礎保持closed；Z/CI97/Pages91provider成功未作整包新接受；CI93/95/98failure都不回填。Tank/Yakra完整death/Henchoutgoing/Pdown/Qselector原生gap保留不搶走美術主線。
-
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8；heldprologueblob2711a74185aacf3c6bddf9db85ba99a2afbc507a與母親家具不得直接/間接替換。原<.12/單一30秒/250ms-256/CPUqualitymemory不放寬。ROM/media/fonts/credentials私有，No localbrowser/native造數。T03-T08完整分母不縮、2300抵達非完整未來，整體>=90/each>=80%/requiredassets/fivegates/zerocritical及真機量測仍必需。fullAnimation/art/originalspeed/listening/device/longsession/wholegamefalse，newScore=null，releaseBLOCKED。所有成果GitHub/正確Drive/readback，docs[skip ci]。
+T03-T08全scope/全時代主支線結局保持，2300抵達非完整未來；整體>=90/各面向>=80%/requiredassets/fivegates/zerocritical與真機/原速/聆聽/長時段仍須證據。art/fullAnimation/wholegame等批准false，score=null，releaseBLOCKED。保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8。Heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a/母親家具不得直接或間接變動；No localbrowser/native造數，原<.12/單一30秒/250ms-256/CPUmemory品質不放寬。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink。ROM/media/fonts/credentials私有。全部成果GitHub/指定Drive/readback，docs[skip ci]。

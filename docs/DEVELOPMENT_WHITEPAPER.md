@@ -1,79 +1,73 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本 **product-vq03v-ci93-pending**。動態 authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/T05_ANIMATION_CHECKPOINT。唯一 main、singleAI、non-force；root **T05-early-visual-cohesion**，terminal **T05-field-foe-action-animation**。本次更新前的完整白皮書原 blob **4c56c1209c8965e15296d84ba08da4666e52afca** 保存在 **evidence/CI93_PREVIOUS_WHITEPAPER.md**。歷史設計、接受收據、失敗與恢復鏈保留，舊狀態不作目前發布 authority。
+版本 **product-vq03w-ci94-pending**。動態authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/T05_ANIMATION_CHECKPOINT。唯一main、singleAI、non-force；root **T05-early-visual-cohesion**，development terminal **T05-field-foe-action-animation**，execution terminal **T05-trial-repair-history-eviction**。前版完整白皮書原blob **d042c23d93a599657812856b4acb3c224ea70c4a** 保留於 **evidence/CI94_PREVIOUS_WHITEPAPER.md**，歷史設計與原收據不改寫；舊狀態不作目前發布authority。
 
 ## 一、完整產品與品質目標
 
-完整《超時空之鑰》HD-2D 重製，像素角色＋立體場景，瀏覽器優先；保留原作辨識度、世界背景、場景構圖、縮尺大地圖、城鎮／室內切換、原地 ATB、單人及同機雙人共畫面，涵蓋全部時代主支線與結局。先改善前段人物、場景、完整動畫、遮擋、HUD、操作與音訊；不縮成展示，不因 CI 綠勾提早擴後段。
+完整《超時空之鑰》HD-2D重製，像素角色＋立體場景，瀏覽器優先；保留原作辨識度、世界背景、場景構圖、縮尺大地圖、城鎮／室內切換、原地ATB、單人及同機雙人共畫面，涵蓋全部時代主支線與結局。先改善前段人物、場景、完整動畫、遮擋、HUD、操作與音訊；不縮成展示，不因CI綠勾提早擴後段。
 
-品質需整體 >=90／各面向 >=80%、required assets／five gates／zero critical，並有實際畫面、遊玩及真機測量支持。測試數、文件、匯出圖或新增效果不是美術分數。工具歷史 30/100 不是 V 當前評分；release BLOCKED，沒有新 score 或全遊戲接受。
+品質需整體>=90／各面向>=80%、required assets／five gates／zero critical，並由實際畫面、遊玩及真機測量支持。測試數、文件、匯出圖或新增效果不是美術分數。工具歷史30/100不是W目前評分；release BLOCKED，沒有新score、全動畫、美術、原速、聆聽、真機、長時間或全遊戲接受。
 
 ## 二、架構與不可變行為
 
-保留 TypeScript／Babylon.js／esbuild 與固定依賴、單一自含 HTML；玩家不需 ROM、Python、帳號或後端。Controls → 固定 1/60 秒 simulation → core → render／HUD／audio；呈現不決定傷害、ATB、死亡、碰撞或劇情。CPU／WebGL 共用場景與規則，無 GPU 時用真正 CPU triangle／texture／depth 回退，不能建立低品質第二關卡。
+保留TypeScript／Babylon.js／esbuild與固定依賴、單一自含HTML；玩家不需ROM、Python、帳號或後端。Controls→固定1/60秒simulation→core→render/HUD/audio；呈現不能決定傷害、ATB、死亡、碰撞或劇情。CPU/WebGL共用場景規則，無GPU走真正CPU triangle/texture/depth回退，不建立第二套低品質關卡。
 
-暫停、背景、對話、背包、native 選檔與 context loss 凍結 simulation；恢復不補跑背景時間。InputBoundary 清舊輸入，A* 遵守原碰撞。P1 克羅諾、P2 依劇情、瑪兒／露卡／青蛙自主第三、獨立選敵與雙確認合技保持；不加 P3、不改 ARPG、不重造框架。V1–v8 白名單 IndexedDB／JSON 相容；診斷、動畫 cache、呈現 metadata 不入 save，不造舊版證詞。
+暫停、背景、對話、背包、native選檔與context loss凍結simulation；恢復不補跑背景時間。InputBoundary清舊輸入，A*遵守碰撞。P1克羅諾、P2依劇情、瑪兒／露卡／青蛙自主第三、獨立選敵與雙確認合技保持；不加P3、不改ARPG、不重造框架。V1–v8白名單IndexedDB/JSON相容；診斷、動畫cache及呈現metadata不入save，不造旧版行為證詞。
 
-CPU 原 640×480 cap、最大邊 1280、tiers、32 MiB／512 entries、120 活動 FrameWindow 保留。CPU 不承諾 GPU shadow／glow／specular／postprocess 品質；packed clear／row span、預設 OFF opaque-affine minification、alpha／perspective nearest 與 mip 釋放不變。Node benchmark 與短 window 不是真機或長時間流暢認證。
+CPU原640×480cap、最大邊1280、tiers、32MiB／512entries、120活動FrameWindow保持。CPU不承諾GPU shadow/glow/specular/postprocess品質；packedclear/rowspan、預設OFF opaque-affine minification、alpha/perspective nearest及mip釋放不變。Nodebenchmark及短window不能替代真機與長時間流暢認證。
 
-## 三、既有遊玩與完整缺口
+## 三、既有流程與完整缺口
 
-保留家中醒來／樓梯、縮尺世界、祭典行為／初遇／項鍊異變、600 山道／托魯斯／森林／王城、皇后消失／露卡合作、修道院青蛙／管風琴暗門／亞克拉救援返鄉、護送審判、兩條越獄、弗里茲／露卡、龍戰車三部位、重聚時門與 2300 抵達。**2300 抵達不是完整未來篇**；全部時代主支線結局仍要完成。
+家中醒來／樓梯、縮尺世界、祭典行為／初遇／項鍊異變、600山道／托魯斯／森林／王城、皇后消失／露卡合作、修道院青蛙／管風琴暗門／亞克拉救援返鄉、護送審判、兩條越獄、弗里茲／露卡、龍戰車三部位、重聚時門與2300抵達維持。**2300抵達不是完整未來篇**，全部時代主支線結局仍須完成。
 
-現有 13 商品、武器／身體／頭部裝備、角色相容與份數、金幣庫存守恆、交易上限及裝備後戰鬥保持。400G、價格與普通攻防為明示暫定值，不冒稱原作完整數值。T03 全規則／版本差異／拓樸／數值；T04 完整成長、報酬掉落、消耗品經濟、飾品、學習、換人與雙三人技仍開放。
+既有13商品、武器／身體／頭部裝備、角色相容與份數、金幣庫存守恆、交易上限及裝備後戰鬥保持；400G、價格與普通攻防仍為明示暫定值，不冒稱完整原作數值。T03全部規則／版本差異／拓樸／數值忠實；T04完整成長、報酬掉落、消耗品經濟、飾品、學習、換人及雙三人技仍開放。
 
 ## 四、保留的美術、動畫、相機與音訊
 
-HD hero 固定 tick／實際步伐／cache／接地，NPC 姿態、遮擋取景與 landmark 遲滯、植物下肢保護、祭典材質、村莊窗框玻璃等保持。C field enemy unlit emission／24×32 nearest alpha／五採樣；M 原四姿態、N 真實出手来源、O field 方向身體回應與 24 tick 殘影、P 角色出手朝向／down clip、Q 保留實際 draw 受擊方向、R 突進／刀光／數字 simulation 時鐘、S 修道院 Naga／Hench／Yakra 手臂姿態、T 修道院身體與死亡殘影、U 監獄守衛與龍戰車各部位姿態／真實修復均不重做。H／I／J／K／L 森林時門、法庭陪審員接地、山道地面岩壁、8 切角平台與 8 樹卡／4 冠 atlas 保持。
+HDhero固定tick／實際步伐／cache／接地、NPC姿態、遮擋取景與landmark遲滯、植物下肢保護、祭典材質、村莊窗框玻璃等保持。C fieldenemy unlit emission／24×32 nearestalpha／五採樣；M原四姿態、N真實來源、O field方向身體／24tick殘影、P角色出手朝向／downclip、Q保持實際draw受擊朝向、R突進刀光數字simulation時鐘、S修道院手臂姿態、T修道院身體／殘影、U守衛及龍戰車各部位姿態與真實修復，均不重做。H/I/J/K/L森林時門、法庭陪審員接地、山道地面岩壁、8切角平台與8樹卡／4冠atlas保留。
 
-Q 不猜 attacker／origin、不延長原 90／90／100／130 ms hurt clip。R 保留 0.42 秒／0.55 距離突進、0.6 秒刀光、>1.25 秒數字 expiry 與 0.8 上升，依實際 Effect 交付 tick 計算；同 tick／pause 不推進，reduced 零突進、刀光隱藏、必要文字靜止。S 原 rest、Yakra ready 及 rescue-art 保留。T 不重構 O field controller。U 戰鬥守衛材質只由戰鬥控制器更新，其他 NPC 節奏保持；頭部修復、多受擊目標不重複啟動同一 source，零傷害不冒充受擊。V 不修改 M–U 原圖與這些控制器。
+Q不猜attacker/origin、不延長原90/90/100/130ms hurtclip。R保留0.42秒／0.55距離突進、0.6秒刀光、>1.25秒數字expiry與0.8上升，以實際Effect交付tick計算；同tick/pause不動，reduced零突進／刀光隱藏／必要文字靜止。S原rest、Yakraready與rescue-art保留。U避免戰鬥守衛材質被一般NPC更新覆寫，頭部真正修復、多目標只啟動同來源一次、零傷害不誤播受擊。
 
-Held VQ01Z／母親家具不得提升或間接替換；src/prologue-render.ts 固定 blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。呈現 history 只記錄實際材質或 transform，不等於同步 framebuffer、原速播放或美術核准。
+V已實作但未接受：借U原mesh/art，守衛24tick/.20出手、車體-.08反作用、車輪.10位移依真實來源；龍頭只修復，不造攻擊。HP-loss+origin支持18tick/.10退縮，未知origin只中止出手。原HP0立即停用原敵人，另有独立48×64/64×64一次材質copy、24tick縮短淡出、最多3個／49152rawRGBAbytes；屬需要釋放的暫態GPU/CPU資源，不是零新增物件或總memory/FPS證據。V實作與原畫圖在W保持，不因CI93失敗重造既有身體動作，也不冒稱V已接受。
 
-G 七組自製合成音型／七段配樂不取 ROM／原 OST／第三方採樣；每型 <=3 聲部、level <=.04、尾音 <=.5 秒，共用 16 聲部／master .55，單 audio-clock、無額外 timer，超額丟棄不補播。Dialog hold 立即停止，graph／connect／start／stop 失敗與 dispose 獨立清理；analyser 1024 讀真訊號，不造零。Graph／unit／無音軌影片不代替完整音訊、實際聆聽或裝置音量安全。V 未改 audio。
+Held VQ01Z／母親家具不得提升或間接替換，src/prologue-render.ts固定blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。呈現history只能支持實際觀察到的材質／transform，不等於同步framebuffer、原速播放或美術認證。
 
-## 五、V 監獄與龍戰車身體／死亡呈現
+G七組自製合成音型／七段配樂不取ROM、原OST或第三方採樣；每型<=3聲部、level<=.04、尾音<=.5秒，共用16聲部／master.55，單audio-clock無額外timer，超額丟棄不補播。Dialoghold立即停止，graph/connect/start/stop失敗與dispose獨立清理；analyser1024讀真訊號不造零。Graph/unit/無音軌影片不代替完整音訊、實際聆聽與裝置音量安全；W不改audio。
 
-**VQ03V／0.9.69** 已一次發布：source **a8aeaf2414875b3ab82518e4373b69ae17d88648**，root **2fb99bb4b30ea4f89760595519bba986f90377cf**，parent 文件 **1d5b513697a265603596751288ed07f703e7e2f5**。20 檔（11 修改／9 新增），remote src／scripts／tests 與完整測試的凍結版吻合；source 保留 live main docs 與原 workflow。
+## 五、CI93失敗與W保留策略
 
-Runtime 新增 trial-enemy-body.ts 並接 trial-render.ts，借用 U 原 mesh／art，不改 core、trial-rules、damage、ATB、logical death、collision 或 save。真實 enemyAction origin／target 支持守衛 24 tick／.20 出手、車體 -.08 反作用、車輪 .10 位移；龍頭維持真正修復姿態，不虛構攻擊。实际 HP 下降及已知 origin 才支持 18 tick／.10 受擊退縮；無 origin 的實際受擊只中斷既有出手，不猜方向。多目標交付不重複觸發自身動作，邏輯位置保持不動。
+CI93／36301106757、V sourcea8aeaf2414875b3ab82518e4373b69ae17d88648已completed/failure，沒有V原生接受。原遊玩head repair斷言已通過，但後續motion report為 **No actual head repair action**：tank-repair tick699、headRepairs1、history24、historyDropped64、retainedrepair0。ExactV離線production renderer先真正draw出repair2/3/1，再被後续idle FIFO全部擠掉，證實記錄保留缺陷。不能以headRepairs或離線紀錄重建／填補遺失native畫格，原CI93報告與失敗保持。
 
-守衛、龍頭、車體、車輪仍在原 HP0 時刻立即停用原 mesh；另以一次實際材質 copy 建立獨立 48×64／64×64 靜態殘影，24 simulation ticks 內按原幾何與相機 up 縮短／淡出／釋放。最多 3 個、49152 raw RGBA bytes，這是設計上限，不是原生總記憶體或 FPS 證據。殘影是有限、獨立擁有並需釋放的 GPU／CPU 資源，不能宣稱 V 零新增暫態 GPU 物件；也不因此延後原敵人的死亡、碰撞或選敵判定。
+Published **VQ03W／0.9.70** source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**，root **bdac0b30a9bb53e37f12264327c607dcb9b140c5**，parent文件 **532c956e196e58889cb84dd808f57da63a4b1ecf**。20檔一次nonforce；runtime只新增trial-motion-history.ts並修改trial-enemy-motion.ts的診斷存放與生命週期，沒有改動戰鬥規則、動畫clip或實際畫圖。
 
-同 tick 重畫不累加，pause 保持 simulation phase；reduced 清理殘影且不重播已死亡物件。同 tick／reduced、hidden、state owner／reload、rewind、chapter／defeat／dispose，以及材質讀取、upload、mesh allocation 失敗後清理均有回歸。History 上限 24，actual source／transform／copy 指紋不等於同步畫面或原速舒適性證據。
+24筆總上限保持，overflow依序移除無cause的idle、同chapter/index/敵種/操作且已有較新event的row、同一event/frame/reduced偏好的重複phase，最後才移除最舊唯一row。只選擇移除既有樣本，不修改留下的cause/tick/cell，不補frame或生成event。Policy vq03w-semantic-trial-history與idle/superseded/duplicate/capacity counters完整披露overflow，counter和等於historyDropped。選擇後仍為原tick順序，但**不保證連續timeline**；不同保留優先權也不構成全過程已觀察。
 
-在原 trial 六個 battle／victory 邊界追加唯讀觀察，原路線、按鍵、等待、截圖、斷言與 workflow 保持。Exact V tests/trial_enemy_body.py 核對真正來源的位移、HP-loss、原敵人立即停用、靜態 copy 與 expiry。U checker 保留嚴格舊 default，V 顯式傳 expected_build；原 U／N–T 報告不改寫、不轉換。Victory 可能在最後死亡的完整 phase 前停止 simulation，缺樣本仍列缺口，不修改 tick／等待或遊戲狀態湊證據。
+新encounter owner清除同一State中上一場的舊證據；victory保留實際上一場樣本直到owner更換。Borrowedmesh dispose只清自己的chapter/index歷史。State/rewind/chapter/dispose清理；same-tick、reduced往返、hidden、peer flood、缺修復不造數、inspect深複本均有回歸。W沒有新增GPU物件，也不改damage/ATB/death/collision/save、V身體/殘影或M-U美術。
 
-## 六、完整測試、恢復與原生接受界線
+原native repair、outgoing action及positive body要求都保留；只明列W expected_build並加policy/counter/chronology contract。原routes/keys/waits/screenshots/assertions及workflow不改，不增加觀察等待湊樣本。Strict12file26hunk source-only inverse恢復原V sourcehash，用於歷史斷言，不轉native state/report/pixels。
 
-中斷前 final **2913 Node／0 fail／0 skip、569 Python／0 fail**；新增 65 Node／20 Python 已包含於總數。Asset／typecheck／build 通過，**582 program inputs＋4 root docs＝586 frozen inputs** 前後 hash 一致，另未改 THIRD_PARTY 共 587 snapshot。三種 viewport、四類死亡、三類出手的離線 actual CPU 正向像素、同 tick 畫面一致及 exact U 還原有回歸。Unit canvas 不繪文字／curve，不宣稱相應原生像素證據。12 個 offline PNG 在開發期匯出，只曾檢視兩張原小尺寸；本次發布恢復未新增圖片、影片或聆聽檢視。
+## 六、完整測試與原生界線
 
-11 檔／27 hunk 的嚴格 source-only inverse 及 missing／duplicate／unrelated drift 負向檢查保持；它只處理歷史 source，不轉換 native state／report／pixels。初期 offline DOM port、資源數量期望、PNG Buffer 介面失敗與工具中斷紀錄均保留；修正離線介面並維持原斷言後，最終全套通過。詳細 **VQ03V_TESTED_BATCH.json** 與原封存 logs，不放寬原生 gates。
+本輪final **2950Node／0fail／0skip、582Python／0fail**，新增37Node/13Python含總數；asset/typecheck/build通過。594frozeninputs＝590programinputs＋4rootdocs，另THIRD_PARTY共595檔，前後hash不變。三viewport/drawcadence（192×128/7、256×160/11、240×180/19）的production CPU對照逐次驗證corestate/pixels/resources等於exactV；W保留同一組已draw修復2/3/1而V在後續idle消失。這些皆離線fixtures，不是真機、原速或native修復驗收。
 
-本次從 v26 中斷點實際下載 final 包，核對 59 manifest／587 snapshot／20 changes、原 final logs／exit0 及凍結輸入；**未重新執行已完成開發測試，也沒有重做 V**。補齊 exact frozen 檔案傳輸，三個遠端程式樹匹配才一次發布。傳輸中的未提交 binary 筆誤已換回原封存 bytes，沒有發布錯誤 blob、沒有修改已測 source／tests／門檻。包內 false／null、old parent effa760 與 partial7-file tree 是發布前歷史，不能據此再次提交 V。
+Container於檔案傳輸途中重置，從同一已下載回驗的W包恢復exact檔案與hash，沒有重做實作或再執行完整測試。一次未提交script傳輸重複項改回原已測bytes，完整src/scripts/tests吻合才一次source發布。原frozenreceipt/hash/logs在W包review/，正式source映射见VQ03W_TESTED_BATCH。無W測試failure，不把CI93failure消除或混算為W結果。
 
-最新有界 accepted 仍為 **U source074776a5cb2157937bfaf7d9bd8dbc40d8bff6d7／CI92／Pages86**。既有 CI92_ACCEPTANCE 與 closed checkpoint、原 ZIP 雲端回驗保持，本次不重驗。CPU wheel、Hench 出手、完整 Yakra 死亡、P 原生完整倒地與 Q 原生受擊換目標仍有缺口。既有更正記錄已指出 U 文件 SHA29e859... 不存在，不將它當成 published HEAD。
+最新boundedaccepted仍 **U／CI92／Pages86**，原接受與雲端回驗沿用，不重驗。CI93僅完成失敗診斷與四原ZIP封存；後續CPU/fallback/ledger gates未執行，不能當通過，不宣稱CI93playable或matchingPages成功。本輪沒有native圖片檢视、video播放、聆聽或真機評測。
 
-V 唯一 matching **CI93／36301106757**，workflow360357259／.github/workflows/ci.yml，push／attempt1／main／exact V。最後 provider 觀察 **in_progress／conclusion null**，created **2026-09-27T06:46:52Z**、updated **2026-09-27T06:46:57Z（台灣2026-09-27 14:46:57）**。此為記錄的觀察，不保證之後仍相同。**nativeTrialBodyVerified=false、nativeTrialDeathVerified=false**；CI93 原始產物與 matching Pages 尚未核對，不以 unit pass、checker 存在或 CI 執行中代替接受。
+W唯一matching **CI94／36307776528**，push/attempt1/main/exactW；最後provider觀察 **in_progress/null**，created2026-09-27T08:56:21Z、updated **2026-09-27T08:56:24Z（台灣2026-09-27 16:56:24）**。只是記錄時狀態，nativeRepairRetentionVerified／nativeTrialBodyVerifiedOnW／nativeTrialDeathVerifiedOnW仍false。CI94原始reports/Pages未核，不能由unitpass或修復存在先行接受。
 
-## 七、接續與完整分母
+## 七、直接接續與全範圍分母
 
-開始只讀 STATUS／checkpoint、main 確認一次，只接 CI93。Queued／in_progress 保存可靠點，不長輪詢、不另 dispatch、不重送 V。完成後用 exact V checker 唯讀核 trial/trial-enemy-body-report.json 與六個 trial-body-{cellguards-victory,stairguards-victory,tank-animation,tank-repair,tank-victory,stairguards-victory-2}-observation.json，分別核 WebGL／CPU lane 的真正 source 與 phase；缺死亡階段如實列出。
+只讀STATUS/checkpoint並確認main一次，接唯一CI94。Pending保存可靠點，不長輪詢、不另dispatch、不重送W。完成後用exactW trial_enemy_motion.py／trial_history_contract.py核WebGL和CPU trial-motion原報告及六observations：真實head repair/outgoing、24row／原tick/cell／counter；再核Vbody/death及原N-U報告、main/nativechooser/CPU600/rescue/trial/same-sourceledgers、matchingPages selectedCI/source/artifact/HTML。未改原ZIP/reports/video/exactsource/manifest指定Drive下載回驗後才boundedacceptance。CI93永遠failure，不從其未跑gates借pass；缺phase保持gap，只修實際terminal。
 
-原 U／N–T、完整 main／native chooser／CPU600／rescue／trial／same-source ledgers 與 matching Pages selected CI／source／artifact／HTML 一併核對。未修改原 ZIP／reports／video／exact source／manifest 存指定 Drive，實際下載回驗後才 bounded acceptance。Green CI 不等於全遊戲認證，history 不是同步 framebuffer；只修真正失敗 terminal，不造原生狀態、時間或正向樣本。
+T03全部規則、版本差異、拓樸、數值忠實。T04完整成長、報酬掉落、經濟、道具、飾品、學習、換人、雙三人技。T05全部美術／建模、全party/enemy方向sprites/move/attack/hurt/down/death/實際遊玩、人物植物道具尺度輪廓、原作構圖、山道法庭壓縮／重疊樹列、完整合法音訊與聆聽、原速走位／淡化／viewport舒適性。T06全部時代主支線結局，2300抵達不是完整未來。T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical，加真機input/FPS/frame-time/load/memory/background/save/audio。T08每批fulltests/onesource/matchingCI/cloudoriginalreadback。
 
-T03 完整規則、版本差異、拓樸與數值忠實。T04 完整成長、報酬掉落、經濟、道具、飾品、學習、換人、雙三人技。T05 全角色／敵人方向 sprites 與移動／攻擊／受擊／倒地／死亡／實際遊玩，全部美術／建模、人物植物道具尺度輪廓與原作構圖、山道法庭壓縮空間／重疊樹列、合法完整音訊與實際聆聽、原速走位／淡化／viewport 舒適性。T06 全部時代主支線與結局，2300 抵達不算完整未來。T07 整體 >=90／各面向 >=80%、required assets／five gates／zero critical，加上真機 input／FPS／frame time／load／memory／background／save／audio。T08 每批完整測試、一次 source、matching CI 與原始產物雲端回讀。
-
-完整分母不縮；有限 body／殘影不關閉完整動畫，已接受 M–U 及 V 接受後都不重做。前段實際品質優先，不因綠勾擴後段。沒有新 score、完整動畫、美術、原速、聆聽、真機、長時間或全遊戲核准。
+CPUwheel、Hench出手、完整Yakra死亡、Pdown及Q受擊中換目標仍有原生樣本缺口。M-U已接受基礎不重做；V/W待當輪證據，不回填。W僅診斷保留與lifecycle，不能關閉完整動畫。前段實際品質優先，不因CI綠勾擴後段；完整分母不縮。
 
 ## 八、持久交付與固定限制
 
-唯一 Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。Wfinal **Chrono-VQ03W-trial-history-tested.zip／1bbUqQj0BFZ6CTsGTDntQMb2ySU9KV_rS**，1298160bytes，SHA256 **03502f61fffcc06307f868026af30f6c4ca28aefbbdfbdcbe1194ade234d22c6**，43manifest/595snapshot/20changes實際下載回驗。changes/及review/changed-files.json為發布inputs；snapshot在review/program-snapshot.tar.gz，完整紀錄在review/。Assembled快照不是publishedGitarchive/currentdocs；包內false/null、parent293d6d是歷史，actualparent532c956，W已發布不再提交。
 
-V final **Chrono-VQ03V-trial-body-tested.zip／1UOO0T74CcGE95AW3oswKMtxT_OmoyRaT**，**1585595 bytes**，SHA256 **7ad6830ee15b83caa4b9c05daaf1674fd015a98bd75d60f85c703fb964907e7e**。本次實際下載核 parent／size／hash／CRC／59 manifest／587 snapshot／20 changes。早期 working 與原測試紀錄保留 intermediate/，不是平行 candidate。
+CI93failed **1pz9pcUPtzI694DDAOaHd64hlmMo81oPO**，50697084bytes，SHA256 **ec4ddf3c2c38e2c5ad7c5d07c55ddb093ae16d9cb2bcd4477a0eb18be6b5d360**，四未改providerZIP／5manifest，parent,size,hash,外內CRC/manifest已下載回驗。它是失敗證據，不是接受。CI92與V及更早恢復鏈在DELIVERY_INDEX／CI94_PREVIOUS_DELIVERY_INDEX，不重驗；缺失的U文件SHA29e859...沿用既有更正，不當authority。
 
-CI92 原包 **Chrono-CI92-reviewed-evidence.zip／1QiSj6Mfu72DQxALGADhCwmFREwjVpnOq**，89695950 bytes，SHA256 **dbfac36aeab1a976df133e17312cce19a31c9320902ebb19b6a2ef1ec43637fd**，19 manifest 沿用既有驗回，本次不重做。前版完整交付索引原 blob **1188d2885efe841ebd3f812c1f1fac0f9fd7b6eb** 保留在 **evidence/CI93_PREVIOUS_DELIVERY_INDEX.md**；U／T／更早封存鏈、CI91 與更早收據詳 DELIVERY_INDEX。
-
-Snapshot 是 assembled 已測 inputs，不是 published Git archive 或當前進度文件。Main checkpoint 優先於暫存、包內 false／null、較早 parent 或歷史 docs，不能覆蓋最新進度或重送 V。Main only／singleAI／non-force，不建立 branch／PR／parallel candidate／multiwriter 機制。
-
-禁止 local browser 或 native game／time／save／collision 造數，不放寬原 ticks／routes／keys／waits／captures／assertions／<.12／單一30秒／250ms-256／CPU 畫質與記憶體門檻。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只恢復 node_modules、保留 esbuild hardlink，不覆舊 source／config、不開 bootstrap CI。Held prologue／母親家具不提升或間接替換；ROM／media／fonts／credentials 私人不公開。所有成果 GitHub／指定 Drive／readback，docs 使用 [skip ci]；臨時容器不是權威。CI77／75 failure、CI71 歷史 false 保留，不回填接受。
+Mainonly/singleAI/nonforce，不建branch/PR/parallelcandidate/multiwriter。No localbrowser/native game-time-save-collision造數，不放寬原ticks/routes/keys/waits/captures/assertions/<.12/單一30秒/250ms-256/CPUquality-memory。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只node_modules、保留esbuildhardlink，不覆舊source/config或另開bootstrapCI。Held家具／prologue不可提升或間接替換，ROM/media/fonts/credentials私有。全部成果GitHub/指定Drive/readback，docs[skip ci]；main優先於temporarycontainer與archive舊docs。CI77/75/93failure、CI71歷史false維持，不回填。

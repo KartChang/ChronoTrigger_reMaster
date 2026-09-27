@@ -1,0 +1,15 @@
+{
+  "schema":"chrono-failed-native-terminal-v1",
+  "repository":"KartChang/ChronoTrigger_reMaster","branch":"main",
+  "sourceSha":"a8aeaf2414875b3ab82518e4373b69ae17d88648","sourceTree":"2fb99bb4b30ea4f89760595519bba986f90377cf",
+  "ciId":36301106757,"ciNumber":93,"event":"push","attempt":1,"status":"completed","conclusion":"failure","accepted":false,
+  "terminal":"T05-trial-repair-history-eviction","failure":"No actual head repair action",
+  "originalReport":"trial/trial-enemy-motion-report.json",
+  "observed":{"tick":699,"actualHeadRepairs":1,"retainedHistory":24,"historyDropped":64,"retainedRepairRows":0},
+  "diagnosis":"The original gameplay repair assertion passed, but the later animation report has no retained head-repair row. Exact V production-renderer offline reproduction drew repair frames 2/3/1, then idle rows evicted all repair rows by tick287. This demonstrates the bounded FIFO retention defect; it does not reconstruct lost native frames or turn CI93 into a pass.",
+  "offlineReproduction":{"scope":"offline only","earlyRepairRows":1,"completeRepairRows":3,"lateRepairRows":0,"lateTick":287,"historyDropped":27},
+  "rawReportsModified":false,"localBrowserUsed":false,"previousAcceptedCIRevalidated":false,
+  "cloud":{"folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","fileId":"1pz9pcUPtzI694DDAOaHd64hlmMo81oPO","name":"Chrono-CI93-failed-evidence.zip","bytes":50697084,"sha256":"ec4ddf3c2c38e2c5ad7c5d07c55ddb093ae16d9cb2bcd4477a0eb18be6b5d360","originalZipCount":4,"manifestEntries":5,"downloadVerified":true,"outerInnerCrcManifestVerified":true},
+  "limitations":["Post-trial CPU/fallback/ledger gates were skipped; no complete validation acceptance.","No playable or successful matching Pages artifact is claimed for failed CI93.","No images, original-speed video, audio or physical device were reviewed in this diagnosis."],
+  "nextAction":"Publish the already fully tested W correction once, then review only its matching CI. Never rerun or relabel CI93 as accepted."
+}

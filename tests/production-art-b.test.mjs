@@ -1,7 +1,7 @@
-/** CURRENT B application/CPU integration. Offline fixtures are not native evidence. */
+/** FROZEN B application/CPU integration; current C has its own actual-app tests. Offline fixtures are not native evidence. */
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
-import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';
+import {ArtDirectedWorld as Current} from '../.test/art-directed-world-b.mjs';
 import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-a.mjs';
 import {World,createState} from '../.test/cpu-entry.mjs';
 import {productionWorldRig} from './helpers/production-world-rig.mjs';

@@ -1,0 +1,127 @@
+{
+  "schema": "chrono-vq04c-declared-source-only-edits-v1",
+  "files": {
+    "scripts/build.mjs": {
+      "sha256": "e3b1774ff11754fe9e41d95a2138ca55eea3dfa24a6f9fdb11047ea678baba7e",
+      "hunks": [
+        {
+          "before": "import {exportProductionActors} from './production-actor-export.mjs';\nimport {exportProductionArt} from './production-art-export.mjs';\nimport {exportAssets} from './asset-export.mjs';\nimport {runQuality} from './quality.mjs';\nimport {build} from 'esbuild';\nimport {mkdir,readFile,writeFile} from 'node:fs/promises';\nconst buildInfo={version:'0.9.75',batch:'VQ04B',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test",
+          "after": "import {exportEarlyScenes} from './early-scene-export.mjs';\nimport {exportProductionActors} from './production-actor-export.mjs';\nimport {exportProductionArt} from './production-art-export.mjs';\nimport {exportAssets} from './asset-export.mjs';\nimport {runQuality} from './quality.mjs';\nimport {build} from 'esbuild';\nimport {mkdir,readFile,writeFile} from 'node:fs/promises';\nconst buildInfo={version:'0.9.76',batch:'VQ04C',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test"
+        },
+        {
+          "before": "ionArt('dist/art/production-vq04a');\nawait exportProductionActors('dist/art/production-vq04b');\nconst quality=await runQuality();\nawait writeFile('dist/QUALITY_STATUS.json',JSON.stringify(",
+          "after": "ionArt('dist/art/production-vq04a');\nawait exportProductionActors('dist/art/production-vq04b');\nawait exportEarlyScenes('dist/art/production-vq04c');\nconst quality=await runQuality();\nawait writeFile('dist/QUALITY_STATUS.json',JSON.stringify("
+        }
+      ]
+    },
+    "scripts/test.mjs": {
+      "sha256": "0599247fe0ddf5b482783397ff403b066472ece02b711c0edd3d0598ef7b7819",
+      "hunks": [
+        {
+          "before": "import {artBIfDeclared} from '../tests/helpers/production-art-b-baseline.mjs';\nimport {trialHist",
+          "after": "import {artCIfDeclared} from '../tests/helpers/early-scene-c-baseline.mjs';\nimport {artBIfDeclared} from '../tests/helpers/production-art-b-baseline.mjs';\nimport {trialHist"
+        },
+        {
+          "before": "ame of ['production-art','production-environment','production-actor-finish','art-directed-world'])await esbuild({entryPoints:['src/'+name+'.ts'],bundle:true,outfile:'.test/'+name+'.mjs',format:'esm',platform:'node',packages:'external'});\n// Frozen VQ04A component regressions remain distinct from current B application tests.\nawait esbuild({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-a.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'declared-B-to-A-components',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](art-directed-world|production-art|production-environment)\\.ts$/},args=>({contents:artBIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/production-art-b.test.mjs','tests/production-cast.test.mjs','tests/production-art-b-sou",
+          "after": "ame of ['production-art','production-environment','production-actor-finish','art-directed-world','early-scene-art','early-scene-finish'])await esbuild({entryPoints:['src/'+name+'.ts'],bundle:true,outfile:'.test/'+name+'.mjs',format:'esm',platform:'node',packages:'external'});\n// Frozen B component; C integration below always uses the actual production entry.\nawait esbuild({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-b.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'declared-C-to-B-component',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]art-directed-world\\.ts$/},args=>({contents:artCIfDeclared('src/art-directed-world.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\n// Frozen VQ04A component regressions remain distinct from current B application tests.\nawait esbuild({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-a.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'declared-B-to-A-components',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](art-directed-world|production-art|production-environment)\\.ts$/},args=>({contents:artBIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/early-scene-art.test.mjs','tests/early-scene-integration.test.mjs','tests/early-scene-source.test.mjs','tests/production-art-b.test.mjs','tests/production-cast.test.mjs','tests/production-art-b-sou"
+        }
+      ]
+    },
+    "src/art-directed-world.ts": {
+      "sha256": "801f1c67e706ba0195e7529afa0b6c4288f3f45e6575ea35ee289c061eb1c694",
+      "hunks": [
+        {
+          "before": "import {World} from './render';\nimport type {State,Effect} from './core';\nimport {installProduct",
+          "after": "import {installEarlySceneFinish} from './early-scene-finish';\nimport {World} from './render';\nimport type {State,Effect} from './core';\nimport {installProduct"
+        },
+        {
+          "before": "est/device/quality bypass).\n */\nexport class ArtDirectedWorld extends World {\n private readonly actorFinish:ReturnType<typeof installProductionActorFinish>;\n private readonl",
+          "after": "est/device/quality bypass).\n */\nexport class ArtDirectedWorld extends World {\n private readonly earlySceneFinish:ReturnType<typeof installEarlySceneFinish>;\n private readonly actorFinish:ReturnType<typeof installProductionActorFinish>;\n private readonl"
+        },
+        {
+          "before": "t=installProductionEnvironment(scene);\n  this.actorFinish=installProductionActorFinish(scene);\n }\n override draw(state:State,dt:number,animate:boolean,frameEffects:readonly Effect[]=[]):void{this.actorFinish.begin(state.chapter);super.draw(state,dt,animate,frameEffects);}\n inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect()};}\n override inspect(){return {...super.inspect(),productionArt:this.inspectPro",
+          "after": "t=installProductionEnvironment(scene);\n  this.actorFinish=installProductionActorFinish(scene);\n  this.earlySceneFinish=installEarlySceneFinish(scene);\n }\n override draw(state:State,dt:number,animate:boolean,frameEffects:readonly Effect[]=[]):void{this.actorFinish.begin(state.chapter);super.draw(state,dt,animate,frameEffects);}\n inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect(),earlyScenes:this.earlySceneFinish.inspect()};}\n override inspect(){return {...super.inspect(),productionArt:this.inspectPro"
+        }
+      ]
+    },
+    "tests/current_build_test.py": {
+      "sha256": "819a17f562830671d242618b1c3e85b614851cc35aa336ae2718e381a3b3973e",
+      "hunks": [
+        {
+          "before": ":5,'tests/rescue_browser.py':2,'tests/trial_browser.py':2}\nDECL=\"const buildInfo={version:'0.9.75',batch:'VQ04B',sourceSha:process.env.GITHUB_SHA??null};\"\nclass CurrentBuild(unittest.TestCase):\n    def test_producer_not_report_is_authority(self):\n        self.assertEqual(EXPECTED_BUILD,('0.9.75','VQ04B'))\n        self.assertEqual(expected_build_from_source('// declaration\\n'+DECL+'\\n'),EXPECTED_BUILD)\n    def test_invalid_missing_duplicate_and_ambiguous_declaration_fail_closed(self):\n        for raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.75','NaN'),DECL.replace('VQ04B','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\\nconst buildInfo=untrusted;',DECL.replace(\"version:'0.9.75'\",'version:report.version')]:\n            with self.subTest(raw=raw),self.assertRaises(ValueErr",
+          "after": ":5,'tests/rescue_browser.py':2,'tests/trial_browser.py':2}\nDECL=\"const buildInfo={version:'0.9.76',batch:'VQ04C',sourceSha:process.env.GITHUB_SHA??null};\"\nclass CurrentBuild(unittest.TestCase):\n    def test_producer_not_report_is_authority(self):\n        self.assertEqual(EXPECTED_BUILD,('0.9.76','VQ04C'))\n        self.assertEqual(expected_build_from_source('// declaration\\n'+DECL+'\\n'),EXPECTED_BUILD)\n    def test_invalid_missing_duplicate_and_ambiguous_declaration_fail_closed(self):\n        for raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.76','NaN'),DECL.replace('VQ04C','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\\nconst buildInfo=untrusted;',DECL.replace(\"version:'0.9.76'\",'version:report.version')]:\n            with self.subTest(raw=raw),self.assertRaises(ValueErr"
+        }
+      ]
+    },
+    "tests/helpers/production-art-b-baseline.mjs": {
+      "sha256": "75a06b87581703e352c6b8168718f9806bea0dfa0c6f3eb6b8628e3d53a90b72",
+      "hunks": [
+        {
+          "before": "/** B -> A exact SOURCE compatibility only. Native reports, pixels, fixtures,\n * gameplay and checks are never transformed. Current B tests use the real app. */\nimport {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';\nexport const artBSpec=JSON.parse(readFileSync(new URL('../baselines/vq04b-declared-art-edits.json',import.meta.url),'utf8'));\nexport function artBBaseline(name,source,verify=true){\n const e=artBSpec.files[name];if(!e)throw Error('Undeclared B source: '+name);\n for(const h of [...e.hunks].reverse()){if(!h.after||source.split(h.after).length!==2)throw Error('B source missing/duplicate/drift: '+name);source=source.replace(h.after,()=>h.before);}\n if(verify&&createHash('sha256').update(source).digest('hex')!==e.sha256)throw Error('B unrelated source drift: '+name);return source;\n}\nexport function artBIfDeclared(name,source){return artBSpec.files[name]&&artBSpec.files[name].hunks.some(h=>source.includes(h.after))?artBBaseline(name,source,false):source;}\nexport function artBFrozenBytes(name,data){return artBSpec.files[name]?Buffer.from(artBBaseline(name,data.toString('utf8'))):data;}\nexport function artBIsNew(name){return artBSpec.newPaths.includes(name);}\n",
+          "after": "import {artCIfDeclared,artCFrozenBytes,artCIsNew} from './early-scene-c-baseline.mjs';\n/** B -> A exact SOURCE compatibility only. Native reports, pixels, fixtures,\n * gameplay and checks are never transformed. Current B tests use the real app. */\nimport {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';\nexport const artBSpec=JSON.parse(readFileSync(new URL('../baselines/vq04b-declared-art-edits.json',import.meta.url),'utf8'));\nexport function artBBaseline(name,source,verify=true){\n source=artCIfDeclared(name,source);\n const e=artBSpec.files[name];if(!e)throw Error('Undeclared B source: '+name);\n for(const h of [...e.hunks].reverse()){if(!h.after||source.split(h.after).length!==2)throw Error('B source missing/duplicate/drift: '+name);source=source.replace(h.after,()=>h.before);}\n if(verify&&createHash('sha256').update(source).digest('hex')!==e.sha256)throw Error('B unrelated source drift: '+name);return source;\n}\nexport function artBIfDeclared(name,source){source=artCIfDeclared(name,source);return artBSpec.files[name]&&artBSpec.files[name].hunks.some(h=>source.includes(h.after))?artBBaseline(name,source,false):source;}\nexport function artBFrozenBytes(name,data){data=artCFrozenBytes(name,data);return artBSpec.files[name]?Buffer.from(artBBaseline(name,data.toString('utf8'))):data;}\nexport function artBIsNew(name){return artBSpec.newPaths.includes(name)||artCIsNew(name);}\n"
+        }
+      ]
+    },
+    "tests/production-art-b-source.test.mjs": {
+      "sha256": "cc2c099843ff0a4f6fe10241327c530bc50133cecb8b5ee5e9e6de0946cf7641",
+      "hunks": [
+        {
+          "before": "import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdi",
+          "after": "import {artCIsNew,artCFrozenBytes,artCIfDeclared} from './helpers/early-scene-c-baseline.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdi"
+        },
+        {
+          "before": ";}}for(const r of pin.roots)walk(r);\n const rows=names.sort().filter(n=>!pin.exclude.includes(n)).map(n=>[n,sha(readFileSync(n))]);assert.equal(rows.length,pin.expectedCount);assert.equal(sha(JSON.stringify(rows)),pin.sha256);\n for(const name of ['tests/trial_browser.py','tests/party_combat.py','tests/party_reaction.py','tests/fixtures/party-combat-frames.json','tests/fixtures/party-reaction-frames.json','src/core.ts','src/render.ts','src/prologue-render.ts','.github/workflows/ci.yml'])assert(rows.some(([n])=>n===name),name);\n});\ntest('new source uses only actual app, no native mode or route relaxation',()=>{\n const entry=readFileSync('src/art-directed-world.ts','utf8'),pass=readFileSync('src/production-actor-finish.ts','utf8');assert(entry.includes('super.draw(state,dt,animate,frameEffects)'));assert(entry.includes('this.actorFinish.begin(state.chapter)'));\n assert(!/setTimeout|setInterval|requestAnimationFrame|location|navigator|fetch\\(|localStorage/.test(pass));assert(pass.includes(\"const enabledChapter='courtroom'\"));assert.equal(pass.includes('sourceSha'),false);\n const build=readFileSync('scripts/build.mjs','utf8');assert(build.includes(\"version:'0.9.75',batch:'VQ04B'\"));assert(build.includes(\"await exportPr",
+          "after": ";}}for(const r of pin.roots)walk(r);\n const rows=names.sort().filter(n=>!pin.exclude.includes(n)&&!artCIsNew(n)).map(n=>[n,sha(artCFrozenBytes(n,readFileSync(n)))]);assert.equal(rows.length,pin.expectedCount);assert.equal(sha(JSON.stringify(rows)),pin.sha256);\n for(const name of ['tests/trial_browser.py','tests/party_combat.py','tests/party_reaction.py','tests/fixtures/party-combat-frames.json','tests/fixtures/party-reaction-frames.json','src/core.ts','src/render.ts','src/prologue-render.ts','.github/workflows/ci.yml'])assert(rows.some(([n])=>n===name),name);\n});\ntest('new source uses only actual app, no native mode or route relaxation',()=>{\n const entry=readFileSync('src/art-directed-world.ts','utf8'),pass=readFileSync('src/production-actor-finish.ts','utf8');assert(entry.includes('super.draw(state,dt,animate,frameEffects)'));assert(entry.includes('this.actorFinish.begin(state.chapter)'));\n assert(!/setTimeout|setInterval|requestAnimationFrame|location|navigator|fetch\\(|localStorage/.test(pass));assert(pass.includes(\"const enabledChapter='courtroom'\"));assert.equal(pass.includes('sourceSha'),false);\n const build=artCIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8'));assert(build.includes(\"version:'0.9.75',batch:'VQ04B'\"));assert(build.includes(\"await exportPr"
+        }
+      ]
+    },
+    "tests/production-art-b.test.mjs": {
+      "sha256": "04a2708ede79c5d09dd11ce2dfee8dac23046f471d70333e7d29961c32eb68d7",
+      "hunks": [
+        {
+          "before": "/** CURRENT B application/CPU integration. Offline fixtures are not native evidence. */\nimport test from 'node:test';import assert from 'node:assert/strict';\nimport {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';\nimport {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';\nimport {ArtDirectedWorld as Prior} from '../.test/art-directed-world-a.mjs';\nimport {Worl",
+          "after": "/** FROZEN B application/CPU integration; current C has its own actual-app tests. Offline fixtures are not native evidence. */\nimport test from 'node:test';import assert from 'node:assert/strict';\nimport {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';\nimport {ArtDirectedWorld as Current} from '../.test/art-directed-world-b.mjs';\nimport {ArtDirectedWorld as Prior} from '../.test/art-directed-world-a.mjs';\nimport {Worl"
+        }
+      ]
+    },
+    "tests/production_art_b_preservation.py": {
+      "sha256": "892a9960882076c6b395cec5aa80bec8e30940e2cbf78cc1849ecd6200417c4b",
+      "hunks": [
+        {
+          "before": "\"\"\"Exact source-only B -> A compatibility. Never accepts native/game/pixel data.\"\"\"\nimport hashlib,json\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[1]\nSPEC=json.loads((ROOT/'tests/baselines/vq04b-declared-art-edits.json').read_text())\ndef restore_art_b_source(name,source,verify=True):\n    e=SPEC['files'].get(name)\n    if not e:raise ValueError('Undeclared B source')\n    for h in",
+          "after": "from early_scene_c_preservation import SPEC as C_SPEC,restore_art_c_if_declared,art_c_frozen_bytes\n\"\"\"Exact source-only B -> A compatibility. Never accepts native/game/pixel data.\"\"\"\nimport hashlib,json\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[1]\nSPEC=json.loads((ROOT/'tests/baselines/vq04b-declared-art-edits.json').read_text())\nSPEC['newPaths']+=C_SPEC['newPaths']\ndef restore_art_b_source(name,source,verify=True):\n    source=restore_art_c_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    if not e:raise ValueError('Undeclared B source')\n    for h in"
+        },
+        {
+          "before": "    return source\n\ndef restore_art_b_if_declared(name,source):\n    e=SPEC['files'].get(name)\n    return restore_art_b_source(name,source,False) if e and any(h['after'] in source for h in e['hunks']) else source\n\ndef art_b_frozen_bytes(name,data):\n    return restore_art_b_source(name,data.decode()).encode() if name in SPEC['files'] else data",
+          "after": "    return source\n\ndef restore_art_b_if_declared(name,source):\n    source=restore_art_c_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    return restore_art_b_source(name,source,False) if e and any(h['after'] in source for h in e['hunks']) else source\n\ndef art_b_frozen_bytes(name,data):\n    data=art_c_frozen_bytes(name,data)\n    return restore_art_b_source(name,data.decode()).encode() if name in SPEC['files'] else data"
+        }
+      ]
+    },
+    "tests/production_art_b_test.py": {
+      "sha256": "2628d701e6ec8257aa1b898f8b2a40482881ca968c4628fe6ae10457b9c0da78",
+      "hunks": [
+        {
+          "before": "\"\"\"New B source checks only. No native wait, route, state or report is changed.\"\"\"\nimport hashli",
+          "after": "from early_scene_c_preservation import SPEC as C_SPEC,restore_art_c_if_declared,art_c_frozen_bytes\n\"\"\"New B source checks only. No native wait, route, state or report is changed.\"\"\"\nimport hashli"
+        },
+        {
+          "before": "    if p.is_file():names.append(p.relative_to(ROOT).as_posix())\n        rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in sorted(names) if n not in pin['exclude']]\n        self.assertEqual(len(rows),pin['expectedCount']);self.assertEqual(hashlib.sha256(json.dumps(rows,separators=(',',':')).encode()).hexdigest(),pin['sha256'])\n    def test_new_build_and_prior_a_build_are_independently_bound_to_source(self):\n        from current_build import EXPECTED_BUILD,expected_build_from_source\n        self.assertEqual(EXPECTED_BUILD,('0.9.75','VQ04B'))\n        self.assertEqual(expected_build_from_source(restore_art_b_source('s",
+          "after": "    if p.is_file():names.append(p.relative_to(ROOT).as_posix())\n        rows=[[n,hashlib.sha256(art_c_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in sorted(names) if n not in pin['exclude'] and n not in C_SPEC['newPaths']]\n        self.assertEqual(len(rows),pin['expectedCount']);self.assertEqual(hashlib.sha256(json.dumps(rows,separators=(',',':')).encode()).hexdigest(),pin['sha256'])\n    def test_new_build_and_prior_a_build_are_independently_bound_to_source(self):\n        from current_build import EXPECTED_BUILD,expected_build_from_source\n        self.assertEqual(expected_build_from_source(restore_art_c_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.75','VQ04B'))\n        self.assertEqual(expected_build_from_source(restore_art_b_source('s"
+        }
+      ]
+    }
+  },
+  "newPaths": [
+    "scripts/early-scene-export.mjs",
+    "src/early-scene-art.ts",
+    "src/early-scene-finish.ts",
+    "tests/baselines/vq04c-declared-art-edits.json",
+    "tests/baselines/vq04c-unchanged-inputs.json",
+    "tests/early-scene-art.test.mjs",
+    "tests/early-scene-integration.test.mjs",
+    "tests/early-scene-source.test.mjs",
+    "tests/early_scene_c_preservation.py",
+    "tests/early_scene_c_test.py",
+    "tests/helpers/early-scene-c-baseline.mjs"
+  ]
+}

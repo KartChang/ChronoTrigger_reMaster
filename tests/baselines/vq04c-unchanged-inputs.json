@@ -1,0 +1,42 @@
+{
+  "schema": "chrono-vq04c-unchanged-aggregate-v1",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "scripts/build.mjs",
+    "scripts/early-scene-export.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/early-scene-art.ts",
+    "src/early-scene-finish.ts",
+    "tests/baselines/vq04c-declared-art-edits.json",
+    "tests/baselines/vq04c-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/early-scene-art.test.mjs",
+    "tests/early-scene-integration.test.mjs",
+    "tests/early-scene-source.test.mjs",
+    "tests/early_scene_c_preservation.py",
+    "tests/early_scene_c_test.py",
+    "tests/helpers/early-scene-c-baseline.mjs",
+    "tests/helpers/production-art-b-baseline.mjs",
+    "tests/production-art-b-source.test.mjs",
+    "tests/production-art-b.test.mjs",
+    "tests/production_art_b_preservation.py",
+    "tests/production_art_b_test.py"
+  ],
+  "expectedCount": 625,
+  "sha256": "660ac5c0b3e6932f8aedb2da31abbf416ee0f5d035719cb52bfadceb980d278a"
+}

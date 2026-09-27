@@ -1,3 +1,4 @@
+from early_scene_c_preservation import SPEC as C_SPEC,restore_art_c_if_declared,art_c_frozen_bytes
 """New B source checks only. No native wait, route, state or report is changed."""
 import hashlib,json,unittest
 from production_art_b_preservation import ROOT,SPEC,restore_art_b_source
@@ -17,10 +18,10 @@ class ProductionArtB(unittest.TestCase):
                 if '__pycache__' in p.parts or p.suffix=='.pyc':continue
                 self.assertFalse(p.is_symlink())
                 if p.is_file():names.append(p.relative_to(ROOT).as_posix())
-        rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in sorted(names) if n not in pin['exclude']]
+        rows=[[n,hashlib.sha256(art_c_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in sorted(names) if n not in pin['exclude'] and n not in C_SPEC['newPaths']]
         self.assertEqual(len(rows),pin['expectedCount']);self.assertEqual(hashlib.sha256(json.dumps(rows,separators=(',',':')).encode()).hexdigest(),pin['sha256'])
     def test_new_build_and_prior_a_build_are_independently_bound_to_source(self):
         from current_build import EXPECTED_BUILD,expected_build_from_source
-        self.assertEqual(EXPECTED_BUILD,('0.9.75','VQ04B'))
+        self.assertEqual(expected_build_from_source(restore_art_c_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.75','VQ04B'))
         self.assertEqual(expected_build_from_source(restore_art_b_source('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.74','VQ04A'))
 if __name__=='__main__':unittest.main()

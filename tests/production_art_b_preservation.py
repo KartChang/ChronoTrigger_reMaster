@@ -1,9 +1,12 @@
+from early_scene_c_preservation import SPEC as C_SPEC,restore_art_c_if_declared,art_c_frozen_bytes
 """Exact source-only B -> A compatibility. Never accepts native/game/pixel data."""
 import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SPEC=json.loads((ROOT/'tests/baselines/vq04b-declared-art-edits.json').read_text())
+SPEC['newPaths']+=C_SPEC['newPaths']
 def restore_art_b_source(name,source,verify=True):
+    source=restore_art_c_if_declared(name,source)
     e=SPEC['files'].get(name)
     if not e:raise ValueError('Undeclared B source')
     for h in reversed(e['hunks']):
@@ -13,8 +16,10 @@ def restore_art_b_source(name,source,verify=True):
     return source
 
 def restore_art_b_if_declared(name,source):
+    source=restore_art_c_if_declared(name,source)
     e=SPEC['files'].get(name)
     return restore_art_b_source(name,source,False) if e and any(h['after'] in source for h in e['hunks']) else source
 
 def art_b_frozen_bytes(name,data):
+    data=art_c_frozen_bytes(name,data)
     return restore_art_b_source(name,data.decode()).encode() if name in SPEC['files'] else data

@@ -1,27 +1,21 @@
-# 功能進度 — W觀察保留與生命週期修正已發布，CI94待原生驗證
+# 功能進度 — W 原生保留驗證完成，完整動畫仍開放
 
-Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。唯一main、root T05-early-visual-cohesion、development terminal T05-field-foe-action-animation；execution terminal T05-trial-repair-history-eviction。**VQ03W／0.9.70** source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**、tree **bdac0b30a9bb53e37f12264327c607dcb9b140c5**；唯一 **CI94／36307776528**，最後in_progress/null（provider2026-09-27T08:56:24Z）。無未發布candidate，不重送W。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT v30。Source W0.9.70 **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**。CI94／36307776528及Pages88／36309871443均success，當輪13原生報告與10source ledgers唯讀驗證，原始產物雲端下載回驗完成。本輪沒有改runtime、tests、資產或workflow，沒有新CI。
 
-## 已接受與未接受的邊界
+## 已確認的增量
 
-M原四姿態、N真實敵方來源、O field身體與殘影、P角色出手/downclip、Q受擊朝向、Rsimulation效果時鐘、S修道院姿態、T修道院身體/殘影、U守衛/龍戰車姿態及真正修復均保留。最新boundedaccepted仍 **U／CI92／Pages86**，不重驗。V身體/死亡呈現已實作，但 **CI93failure，沒有接受V**。CPUwheel/Hench outgoing/完整Yakra death/Pdown/Qselector-change缺口保持。
+W原24筆上限、優先保留真實動作的history策略，在WebGL及CPU原生report均保留head repair 1/2/3格；policy/counter/原tick/actualcell正確。CI93 diagnostic retention缺陷以W新證據關閉，CI93本身仍failure。CPU wheel tank-victory event1529同樣觀察1/2/3出手格，先前「CPUwheel未觀察」狀態已更新，不能再重開為零樣本。
 
-CI93原遊玩修復已發生，後續材質報告卻沒有保留head repair：tick699、headRepairs1、24rows、64dropped、0repair。ExactV離線重現真正draw2/3/1被idle FIFO移除；證明的是記錄保留缺陷，不是由counter證明遺失原生畫格。原報告、失敗與後續gates未執行的界線均保留，詳CI93_TERMINAL及CI93_CHECKPOINT。
+V既有body實作在W上已取得正向body action、recoil及守衛完整start/fading/late/expired death-copy樣本。接受的是這些當輪來源/transform/texture樣本；不等於V當年的CI93通過，也不等於全Tank死亡皆完整。M-U基礎及V-W實作均保留，不重新做。
 
-## W合批修正
+## 尚缺的實際樣本
 
-Runtime只新增trial-motion-history.ts並接trial-enemy-motion.ts。維持24筆總上限，先移除idle，再移除同角色/同操作已由新事件取代的row、同事件重複phase，最後才移除最舊唯一row。保留原始row物件資料/來源/tick/actualcell，沒有造幀或新事件；新增policy與四類eviction counter，披露非連續timeline。
+WebGL tank-victory無保留death；CPU tankBody tick2337只有start/fading。Yakra WebGL缺death row、CPU有不完整death。Hench outgoing仍0、party observedFalls0、Q differentFallbackSamples0。這些是未完整觀察，不應在尚未定位前一律稱為程式故障；下一步依TODO針對生命週期/保留/勝利停時與真實出手定位。不得改原native等待/路線或造數補齊。
 
-Victory保留上一場實際樣本直到新owner進場；同一State更換encounter物件不會繼承舊repair證據。借用mesh dispose清除自己的chapter/index紀錄。Same-tick/reduced/hidden/reload/rewind/chapter/dispose/inspect複本均有回歸。原畫圖、poses、GPU物件數、core/trialrules/body/傷害ATB死亡碰撞save不變。
+完整party/enemy方向sprites與move/attack/hurt/down/death、前段尺度輪廓/原作構圖/山道法庭/樹列、合法完整音訊及聆聽、原速/真機/長時段仍開放。Source/cell/transform histories不是同步framebuffer，boundary間重複觀察不能加總成獨立事件。本輪未看圖、播放video、聆聽或測真機，無新分數，不以綠CI等同品質90。
 
-既有head repair、outgoing action與positive body斷言仍必須通過；W只加policy/counter contract與明列expected_build，原native路線按鍵等待截圖斷言不放寬。歷史source-only inverse完整恢復V的原hash，不轉換native state/reports/pixels。History可證明實際保留的draw觀察，但不能宣稱連續播放或同步framebuffer。
+## 可恢复成果
 
-## 完整測試及保存
+Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；**Chrono-CI94-reviewed-evidence.zip／1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**，89144663bytes／SHA2569ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29，7原ZIP/17manifest已下載回驗。review/native-phase-coverage.json保留精確事件格與死亡缺口；review/trial-readonly-review.json、additional-native-readonly-review.json與ledger-readonly-review.json保存完整結果。舊W2950Node/582Python已測包及CI93失敗包在DELIVERY_INDEX，不重跑。
 
-本輪完整 **2950Node/0fail/0skip、582Python/0fail**，新增37Node/13Python含總數，asset/typecheck/buildpass。594frozeninputs＋THIRD_PARTY共595檔前後hash一致。三viewport/drawcadence的production CPU對照驗證：W保留原已draw修復cells，V丟失；核心state、畫面pixels與資源數完全相同。這些全部是離線開發測試，不是native/原速/美術/真機認證。
-
-全20檔一次發布，src/scripts/tests匹配已測版。容器於傳輸期間重置，由同一已回驗雲端包恢復exact檔案；未重做W或再跑全套。Wfinal **1bbUqQj0BFZ6CTsGTDntQMb2ySU9KV_rS**，1298160bytes／SHA25603502f61fffcc06307f868026af30f6c4ca28aefbbdfbdcbe1194ade234d22c6，43manifest/595snapshot下載回驗。CI93failed原包 **1pz9pcUPtzI694DDAOaHd64hlmMo81oPO** 同樣下載回驗；詳DELIVERY_INDEX及VQ03W_TESTED_BATCH。
-
-## 接續
-
-CI94原生retention／Vbody及完整native journey、CPU與matchingPages原產物仍未核，nativeRepairRetentionVerified=false；只接唯一matchingrun，不重送W或重跑CI93。之後續全角色敵人方向及完整動畫、全遊玩、構圖尺度/山道法庭/樹列、合法完整音訊/聆聽/原速/真機。T03–T08完整分母與原門檻不縮，heldprologue及私人素材限制保持；無newscore，releaseBLOCKED。
+T03-T08完整分母不縮，2300抵達非完整未來，held家具/prologue及原門檻保持；releaseBLOCKED，fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null。

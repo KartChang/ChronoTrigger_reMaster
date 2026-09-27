@@ -1,43 +1,28 @@
-# Delivery index — W published / CI94 pending / CI93 failed / U accepted
+# Delivery index — CI94／Pages88 有界原生驗收完成
 
-唯一KartChang/ChronoTrigger_reMaster main／singleAI／nonforce。Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT。Root T05-early-visual-cohesion，development terminal T05-field-foe-action-animation，execution terminal T05-trial-repair-history-eviction。唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT v30。唯一KartChang/ChronoTrigger_reMaster main，singleAI/nonforce。Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-Published **W／0.9.70** source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**，root **bdac0b30a9bb53e37f12264327c607dcb9b140c5**，actual parent **532c956e196e58889cb84dd808f57da63a4b1ecf**。唯一matching **CI94／36307776528** 最後in_progress/null、provider2026-09-27T08:56:24Z；W原始native/matchingPages尚未取得或接受。無未發布candidate，不重送W。
+## 本輪原生驗證與原始產物
 
-## W final已測程式 — 本輪下載回驗
+**Chrono-CI94-reviewed-evidence.zip**
+File **1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**
+Bytes **89144663**
+SHA256 **9ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29**
 
-**Chrono-VQ03W-trial-history-tested.zip**
-File **1bbUqQj0BFZ6CTsGTDntQMb2ySU9KV_rS**
-Bytes **1298160**
-SHA256 **03502f61fffcc06307f868026af30f6c4ca28aefbbdfbdcbe1194ade234d22c6**
+已下載回驗parent/size/hash、外層CRC、17manifest與7內層ZIP CRC；每個原ZIP亦匹配provider digest。包內original/為CI94 browser/good/bad/playable/art-review與Pages88 staged/github-pages七原ZIP，未修改。review/包含trial-readonly-review.json、additional-native-readonly-review.json、ledger-readonly-review.json、native-phase-coverage.json、provider-artifact-manifest.json、source-archive-review.json、pages-readonly-review.json、review-summary.json、verify-ledgers.mjs及ledger-review.log。
 
-20變更（12modified/8new）；43manifest、595snapshot（590programinputs＋4rootdocs＋THIRD_PARTY）。包含完整2950Node/582Python logs與exit0、新37/13回歸、12file26hunk source-only inverse、exactV失效重現、三viewport/cadence實際離線CPU對照、source.patch、逐檔manifest。Original W full測試無失敗；CI93失敗原始資料另包保存。
+CI94 source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**／root **bdac0b30a9bb53e37f12264327c607dcb9b140c5**，W0.9.70。13原生report/10原source ledgers唯讀檢核pass；兩lane修復1/2/3格/CPUwheel樣本已驗；body完整死亡僅守衛樣本，不宣稱Tank完整。CI94 id36307776528、Pages88 id36309871443均success；收據 **evidence/CI94_ACCEPTANCE.json**。
 
-路徑：**changes/** 是20個exact檔案；**review/changed-files.json** 是blob/bytes/SHA256；**review/program-snapshot.tar.gz** 與 **review/snapshot-files.json** 為595快照；**review/** 還有原始測試紀錄/凍結前後hash/收據，**offline/** 為三組離線production對照。不是過往包的根目錄snapshot格式，恢復時用此路徑。
+原exact Git source為original/CI94-browser-evidence.zip中的 **source-70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a.tar.gz**，948檔/root重算匹配，tarSHA256775612fda5ba0f0b25e81b13b284440fee42d808f33f820bca2fb3fdc210ae4a。其docs是source當時歷史，恢復程式不可覆蓋最新main docs。包內cloudReadbackAtPackaging=false是封裝歷史，現在已實際下載回驗。
 
-實際下載核parent/size/hash/outerCRC/43manifest/595snapshot與20changes後，容器在傳輸中重置；由已驗附件恢复並再次核整包hash，不重跑測試。Remote src **5fd0da0727442fdcfc5fa0a4285c224c140e2ad3**／scripts **499137123047bbf90b6a8023347e09ea5b4be6e1**／tests **55da156f09f2cd801164aaea23249f306b1b4582**完全吻合。Source只20程式/測試/build檔，docs/workflow不改。正式關係見VQ03W_TESTED_BATCH。
+Pages實際selectedCI94/sourceW/playable10928725618；HTML5803620bytes／SHA256876d846e66ad207903bd620cf03d23872260891f2aebdc3fbf3b405fb701d37c。五playable檔及九部署tar檔與staged同名檔逐byte相同；staged空.nojekyll不在tar，已披露。Provider公開HTTP/hash step通過，非本輪獨立HTTP擷取。
 
-Snapshot為assembled已測inputs，不是publishedGitarchive或當前docs。包內false/null、parent293d6d與v28未發布旗標都是封裝歷史；Wactualparent532c956，現在已發布，不能因容器消失再次提交。
+## 已完成開發包與失敗原始證據，不重做
 
-## CI93失敗原始證據 — 保存且回驗，不是接受
+W已測 **Chrono-VQ03W-trial-history-tested.zip／1bbUqQj0BFZ6CTsGTDntQMb2ySU9KV_rS**，1298160bytes，SHA25603502f61fffcc06307f868026af30f6c4ca28aefbbdfbdcbe1194ade234d22c6，43manifest/595snapshot/20changes及2950Node/582Python完整測試，前輪已下載回驗。changes/與review/program-snapshot.tar.gz是已測assembledinputs，不是當前Git/docs。W已發布且CI94新驗收，不因舊false/null/pending旗標重送或重跑。
 
-**Chrono-CI93-failed-evidence.zip**
-File **1pz9pcUPtzI694DDAOaHd64hlmMo81oPO**
-Bytes **50697084**
-SHA256 **ec4ddf3c2c38e2c5ad7c5d07c55ddb093ae16d9cb2bcd4477a0eb18be6b5d360**
+CI93失敗原包 **Chrono-CI93-failed-evidence.zip／1pz9pcUPtzI694DDAOaHd64hlmMo81oPO**，50697084bytes，SHA256ec4ddf3c2c38e2c5ad7c5d07c55ddb093ae16d9cb2bcd4477a0eb18be6b5d360，前輪已下載回驗。CI93始終failure，不回填；沒有CI93playable或成功matchingPages宣稱。
 
-四份未修改providerZIP（browser／good／bad／art-review）與獨立diagnosis、5manifest。已下載核parent/size/hash/外內CRC/manifest；exactV原source archive root匹配2fb99bb4b30ea4f89760595519bba986f90377cf。原native report不改寫。
+U/CI92/Pages86與更早accepted均closed，不重驗。CI92原包1QiSj6Mfu72DQxALGADhCwmFREwjVpnOq；V已測包1UOO0T74CcGE95AW3oswKMtxT_OmoyRaT；詳細歷史保持於 **evidence/CI94_PRE_ACCEPTANCE_DELIVERY_INDEX.md**（完整原blob264fb94de0f4b9b3cbe4b50e4b8b70046465b92d），再接CI94_PREVIOUS_DELIVERY_INDEX鏈。
 
-CI93／36301106757，source **a8aeaf2414875b3ab82518e4373b69ae17d88648**，completed/failure。Original trial修復遊玩斷言通過，後續motion report **No actual head repair action**：tick699、headRepairs1、24retained/64dropped/repair0。ExactV離線renderer只重現記錄eviction，不能重建lostnativecells。原CPU/fallback/ledger後續gates未執行；**沒有CI93playable或成功matchingPages的宣稱**，不造七ZIP或完整ledger接受。
-
-收據 **CI93_TERMINAL.json** 及closed-as-failed **CI93_CHECKPOINT.json**；accepted=false永遠保留，W/CI94只作新的接續，不能回填舊failure。此輪沒有檢視native圖片、播放影片、聆聽或真機測試。
-
-## 最新接受基準與歷史恢復
-
-最新boundedaccepted **U／CI92／Pages86**，source **074776a5cb2157937bfaf7d9bd8dbc40d8bff6d7**，原CI92_ACCEPTANCE不重驗。原包 **Chrono-CI92-reviewed-evidence.zip／1QiSj6Mfu72DQxALGADhCwmFREwjVpnOq**，89695950bytes／SHA256 **dbfac36aeab1a976df133e17312cce19a31c9320902ebb19b6a2ef1ec43637fd**，19manifest沿用既有下載回驗。CPUwheel/Hench outgoing/完整Yakra death/Pdown/Qselector-change缺口未關閉。
-
-V已測包 **Chrono-VQ03V-trial-body-tested.zip／1UOO0T74CcGE95AW3oswKMtxT_OmoyRaT**，1585595bytes／SHA256 **7ad6830ee15b83caa4b9c05daaf1674fd015a98bd75d60f85c703fb964907e7e**，59manifest/587snapshot及2913Node/569Python為歷史結果，不重做或重送V。程式存在不代表其CI93通過。
-
-前一版完整索引原blob **2f7d53a14da6be1600f412a3ea37b21eb27d6369** 保留於 **evidence/CI94_PREVIOUS_DELIVERY_INDEX.md**；前版白皮書原blob **d042c23d93a599657812856b4acb3c224ea70c4a** 保留於 **evidence/CI94_PREVIOUS_WHITEPAPER.md**。更早U/T/S、CI91/90及其它恢復鏈完整留在前代索引，不重驗歷史。不存在的U文件SHA29e859...保持既有更正，不當publishedauthority。
-
-Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/保留esbuildhardlink，不覆source/config/bootstrap。Heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a與家具限制不变。私人ROM/media/fonts/credentials不公開，no localbrowser/native-state造數；原門檻與完整T03–T08不縮。所有成果GitHub/指定Drive/readback，docs[skip ci]；main優先於temporarycontainer和archive docs。
+所有產物為有界開發/原生技術證據，不是完整遊戲、美術、原速、聆聽或真機批准。下一項見TODO；無新source/activeCI/candidate。Held家具/prologue及私人素材限制保持。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink；臨時環境非權威。

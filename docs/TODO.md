@@ -1,28 +1,26 @@
-# Execution TODO — W已發布，接唯一CI94；CI93失敗保持
+# Execution TODO — CI94／Pages88 有界驗收完成，續 T05 動畫缺口
 
-Authority：STATUS／evidence/T05_ANIMATION_CHECKPOINT／handoff/IMMEDIATE_CONTINUATION。Mainonly/singleAI/nonforce；root T05-early-visual-cohesion，development terminal T05-field-foe-action-animation，execution terminal T05-trial-repair-history-eviction。
+Authority：STATUS／evidence/T05_ANIMATION_CHECKPOINT v30／handoff/IMMEDIATE_CONTINUATION。唯一main/singleAI/nonforce，不建立branch/PR/parallelcandidate/multiwriter。Root T05-early-visual-cohesion；development/execution terminal T05-field-foe-action-animation。
 
-**VQ03W／0.9.70** source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**，tree **bdac0b30a9bb53e37f12264327c607dcb9b140c5**。唯一 **CI94／36307776528**，push/attempt1，最後in_progress/null、provider2026-09-27T08:56:24Z。沒有未發布candidate，不重送W。CI93 failure不是等待或accepted；最新接受基準仍U/CI92/Pages86。
+目前source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**／tree **bdac0b30a9bb53e37f12264327c607dcb9b140c5**／W0.9.70。CI94=36307776528、Pages88=36309871443已完成success並有界驗收。沒有activeCI、沒有未發布candidate。本輪沒有改source或開新CI；W完整2950Node/582Python與發布已完成，不再跑一次。CI93failure與CI92以前closed基礎不重驗。
 
-## 本批已完成，不重做
+## 本輪已關閉，不重做
 
-- [x] 定位CI93實際failure：原遊玩修復已發生，後續idle FIFO使實際材質修復紀錄消失。ExactV離線重現；保留四原ZIP與獨立診斷、5manifest，指定Drive下載回驗。原native資料未重寫，不回填V接受。
-- [x] W於原24筆上限內分別處理idle／superseded同角色操作／duplicatephase／capacity，披露counter，不造frame或event；同場次新owner、借用mesh dispose舊證據清理。
-- [x] 37Node與13Python新增回歸納入完整2950Node/582Python，asset/typecheck/build通過，595凍結檔hash一致。三viewport/cadence真實離線CPU畫面／state／resources與V相同。保留所有原正向與負向斷言。
-- [x] W20檔一次nonforce source，src/scripts/tests匹配完整已測版；43manifest/595snapshot雲端下載回驗，容器重置後由同一包恢復，未重做W或重跑完整tests。唯一matchingCI94已建立。
+- [x] CI94原生retention：兩lane六observations，head repair真實1/2/3格、outgoing、24row/policy/counter/chronology，原checker唯讀通過。
+- [x] CI94完整證據：13當輪原生報告、10原source ledgers、main/native chooser/CPU600/rescue/trial、Pages88選中CI/source/artifact/HTML一致；7providerZIP/17manifest指定Drive下載回驗。
+- [x] CPU wheel原生出手「未觀察」缺口：tank-victory event1529真實1/2/3格已觀察。不是完整動畫或真機接受。
+- [x] W上V body正向位移與守衛完整death-copy樣本確認；V原CI93不回填accepted。完整Tank死亡仍不在此勾選範圍。
 
-## 唯一當前接續
+## 唯一下一項：T05-trial-rescue-death-and-action-coverage
 
-- [ ] **CI94原生retention**：exactW tests/trial_enemy_motion.py與trial_history_contract.py核原trial-motion報告／六observations（WebGL/CPU）。必須真實source-owned head repair/outgoing，24row/counter/chronology正確；不得從headRepairs counter或離線fixture補native。保留所有原keys/routes/waits/captures/assertions。
-- [ ] **CI94完整產物**：V body/death及N-U報告、main/nativechooser/CPU600/rescue/trial/ledgers、matchingPages selectedCI/source/artifact/HTML；未改ZIP/reports/video/exactsource/manifest指定Drive下載回驗後才boundedacceptance。CI93後續gates未跑不能借用pass；pending不長輪詢或duplicate dispatch，只修真正失敗terminal。
-- [ ] **T05全動畫／全遊玩**：party/enemy方向sprites、move/attack/hurt/down/death。CPUwheel/Hench outgoing/完整Yakra death/Pdown/Qselector-change仍缺樣本。W只修診斷retention及lifecycle，不是美術／動畫完成。M-U已接受基礎不重做，V不因實作存在而冒稱已接受。
+- [ ] **Tank/Yakra死亡覆蓋**。原WebGL tank-victory沒有death row；CPU tankBody tick2337僅start/fading，缺late/expired。CPU Yakra有1個不完整death，WebGL沒有保留；先區分未播放/未留存/勝利停止simulation，不能先宣稱runtime故障。從src/trial-enemy-body.ts、src/rescue-enemy-body.ts及已留存原報告的相應生命週期入手；若實際檔名不同依source imports定位。保留已接受動作，不重造整套renderer。
+- [ ] **Hench outgoing、P down、Q selector-change**仍缺原生樣本。本輪Hench outgoing0；P observedFalls0；Q differentFallbackSamples0。不得改原native路線、按鍵、wait/tick/capture/assertion或注入存檔/碰撞/狀態補樣本；只修實際定位的程式問題，未能取得則如實保留gap。
+- [ ] 同一T05續party/enemy全方向sprites、move/attack/hurt/down/death與實際遊玩；完成可合批項目及全套tests後一次source／matchingCI，不做一小項就重複開CI。
 
-## 後續前段品質
+## 前段品質與完整分母
 
-人物／植物／道具尺度輪廓與原作構圖；山道／法庭壓縮空間與重疊樹列；完整合法音訊與實際聆聽；原速走位／淡化／viewport舒適性與真機。先改善實際前段品質，不因CI綠勾提前擴後段。
+人物/植物/道具尺度輪廓、原作構圖、山道法庭壓縮與重疊樹列；合法完整音訊及聆聽；原速走位/淡化/viewport與真機舒適性。不得因CI綠勾提早擴後段。
 
-## 完整T03–T08與固定限制
+T03全規則版本/拓樸/數值；T04完整成長/報酬/掉落/經濟/道具/飾品/學習/換人/雙三人技；T05全美術建模動畫音訊；T06全時代主支線結局，2300非完整未來；T07整體>=90/各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio；T08每批fulltests/onesource/matchingCI/原始產物雲端下載回驗。ReleaseBLOCKED、無newscore/fullanimation/art/originalspeed/listening/device/wholegameapproval。
 
-T03全規則版本差異拓樸數值；T04完整成長報酬掉落經濟道具飾品學習換人雙三人技；T05全美術建模動畫合法音訊；T06所有時代主支線結局，2300抵達非完整未來；T07整體>=90／各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio；T08每批fulltests/onesource/matchingCI/cloudoriginalreadback。ReleaseBLOCKED，無newscore/fullanimation/art/originalspeed/listening/device/wholegameapproval。
-
-Mainonly/nonforce/no branchPRparallelcandidate/multiwriter。No localbrowser/native game-time-save-collision造數，原<.12/ticks/routes/keys/waits/captures/assertions/single30s/250ms-256/CPUquality-memory不放寬。Heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／家具／私人素材限制不變。Docs[skip ci]/cloudreadback，臨時容器非權威；CI77/75/93failure及CI71歷史false不回填。
+完整限制沿STATUS/白皮書，heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。原<.12/單一30秒/250ms-256/CPUquality-memory不放寬，no localbrowser/native造數。CI93failure、CI77/75failure、CI71歷史false保留。只讀STATUS/checkpoint、main確認一次後直接做未完成項，不重讀全部歷史。

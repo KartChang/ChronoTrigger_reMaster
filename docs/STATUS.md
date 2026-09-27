@@ -1,33 +1,30 @@
-# Status — W已發布，唯一CI94執行中；CI93保持failure
+# Status — CI94／Pages88 已完成有界原生驗收，直接續 T05
 
-Authority：本檔與 evidence/T05_ANIMATION_CHECKPOINT.json v29，另見TODO及handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster main、singleAI、non-force。Root **T05-early-visual-cohesion**；development terminal **T05-field-foe-action-animation**；execution terminal **T05-trial-repair-history-eviction**。只讀STATUS/checkpoint並確認main一次，依remainingWork接續，不重讀歷史。
+Authority：本檔、TODO、evidence/T05_ANIMATION_CHECKPOINT.json v30、handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster main；single AI、non-force，沒有其他使用者，不建立分支／PR／平行 candidate 或多人防撞。
 
 ## 唯一目前位置
 
-**VQ03W／0.9.70 已一次發布並回讀**。Source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**，root **bdac0b30a9bb53e37f12264327c607dcb9b140c5**，parent文件 **532c956e196e58889cb84dd808f57da63a4b1ecf**。20檔（12修改／8新增），remote src/scripts/tests與完整測試凍結版一致；source保留live docs及原workflow。沒有未發布candidate，不重送W。
+VQ03W／0.9.70 source **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**；source tree **bdac0b30a9bb53e37f12264327c607dcb9b140c5**。本次只提交文件與驗收收據，parent main **2808545d099bb9f0dbb1db87e8dc91478984f3da**；沒有新 source、未發布 candidate 或 active validation，不重送 W／重跑完整測試／另開 CI。
 
-唯一 matching **CI94／36307776528**，workflow360357259／.github/workflows/ci.yml，push/attempt1/main/exactW。最後provider觀察 **in_progress／conclusion null**；created2026-09-27T08:56:21Z、updated **2026-09-27T08:56:24Z（台灣2026-09-27 16:56:24）**。該source全event/state共1run。這是記錄觀察，不保證之後仍相同；詳CI94_CHECKPOINT，尚未accepted，不另dispatch或長輪詢。
+**CI94／36307776528**，push／attempt1／exact W，completed/success，provider updated **2026-09-27T09:35:42Z（台灣17:35:42）**。**Pages88／36309871443** completed/success，updated **2026-09-27T09:36:16Z（台灣17:36:16）**。Pages workflow HEAD 是文件2808545，但 deployment.json 實際選擇 CI94／W source／playable artifact10928725618，並非拿文件 HEAD 當遊戲來源。
 
-## 本輪失敗定位與合批修正
+## 本輪已完成，不重做
 
-CI93／36301106757 completed/failure，V沒有被接受，最新有界accepted仍U／CI92／Pages86。CI93原本「龍頭實際修復車體」遊玩斷言已通過，但後面的動畫報告失敗 **No actual head repair action**：tank-repair觀察tick699、headRepairs1、保留24筆／移除64筆、repair0筆。ExactV離線production renderer重現修復2/3/1實際畫格被後續idle擠出；不能用counter重建已遺失的native畫格。CI93原報告不改寫、不重跑，不回填accepted；後續CPU/fallback/ledger gates未執行，不冒稱通過。
+1. 以 exact W 原 checker 唯讀驗證 WebGL、CPU 各六個 trial-motion／trial-body 原觀察；13份當輪N-W原生報告及10份來源 ledger全部通過，ledger與原始內容完全一致。未跑本地瀏覽器，未重寫native資料、遊戲狀態、原tick、路線、按鍵、等待或斷言。
+2. WebGL head repair event545、CPU event576 都保留真實1/2/3材質格，24筆上限、原tick順序與eviction counters吻合。CI93的repair-history terminal在W當輪證據上關閉；CI93本身仍failure，不能回填。
+3. CPU tank-victory的wheel attack event1529有1/2/3格；舊CPU車輪出手「未觀察」缺口已關閉，僅限這次來源/材質樣本。兩lane有正向body動作、受擊與守衛完整death-copy樣本，但**完整龍戰車死亡階段仍未驗收**。
+4. 七份provider原ZIP大小、digest與CRC全部核對。保留的948檔exact source Git archive重算root與已發布tree一致；Pages九個部署檔與staged同名檔逐byte一致，五個playable檔完整一致。Staged另有空的.nojekyll，未包含於provider部署tar，不能宣稱整份封存檔案集合相同。HTML5803620bytes／SHA256876d846e66ad207903bd620cf03d23872260891f2aebdc3fbf3b405fb701d37c；provider公開HTTP/hash step通過，本輪未另做公開HTTP擷取。
+5. 全部原ZIP與獨立review已上傳指定Drive並真正下載核parent/size/hash/外內CRC/17manifest。原包內cloudReadbackAtPackaging=false只是封裝時歷史；最新收據CI94_ACCEPTANCE為準。
 
-W只修材質觀察的保留與生命週期，不改戰鬥或動畫。24筆總上限不變；依序移除idle、同角色同操作已由較新事件取代的紀錄、重複phase，最後才移除最舊唯一紀錄，並記錄各類eviction。留存row維持真實來源、原tick與實際材質，沒有補幀或造事件。新encounter owner與借用mesh釋放時清除自己的舊證據；victory仍可讀原戰鬥history。原head repair、outgoing與body正向斷言維持，原路線／按鍵／等待／截圖／門檻不變。
+## 已保存
 
-## 完整測試、封存與容器恢復
+唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
+**Chrono-CI94-reviewed-evidence.zip／1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**，**89144663bytes**，SHA256 **9ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29**。17manifest＝7原ZIP＋10獨立review檔。原始ZIP在original/；結果、ledger driver及覆蓋表在review/；exactsource在original/CI94-browser-evidence.zip內source-70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a.tar.gz。Current docs只以main為準。
 
-本輪完整 **2950Node／0fail／0skip、582Python／0fail**；新增37Node＋13Python已包含。Asset/typecheck/build通過。594frozeninputs＝590programinputs＋4rootdocs，另THIRD_PARTY共595檔，前後hash一致。三viewport與三draw cadence離線production CPU：state/pixels/resources與exactV相同，W保留真實已draw修復cells而V丟失。這不是native、原速、美術或真機證據。12file26hunk source-only inverse及負向檢查保留原斷言，絕不轉native資料。
+## 直接接續
 
-工具容器在傳輸途中重置；從已下載回驗的W包恢復exact檔案，重新核整包hash後接上GitHub已有tree，不重做實作或重跑已完成測試。未提交script傳輸中的重複項已換回原已測bytes，最終完整程式樹匹配才一次發布；沒有把錯誤中間tree發布。詳VQ03W_TESTED_BATCH。
+Root **T05-early-visual-cohesion**；development／execution terminal **T05-field-foe-action-animation**。下一項 **T05-trial-rescue-death-and-action-coverage**：保留既有M-W，先針對完整Tank／Yakra死亡、Hench出手、Pdown、Q受擊中selector-change尚缺樣本定位，區分未播放、未留存及勝利停時；缺樣本不直接等於runtime缺陷。不得用多等幾秒、改原tick/輸入路線或補寫報告湊證據，不重做已接受W。再續全角色/敵人方向與完整動畫、前段尺度輪廓/構圖、山道法庭/樹列、合法完整音訊/實際聆聽、原速及真機品質。依TODO合批開發與完整測試後一次source/CI。
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。Wfinal **Chrono-VQ03W-trial-history-tested.zip／1bbUqQj0BFZ6CTsGTDntQMb2ySU9KV_rS**，**1298160bytes**，SHA256 **03502f61fffcc06307f868026af30f6c4ca28aefbbdfbdcbe1194ade234d22c6**；43manifest／595snapshot／20changes已下載核parent,size,hash,CRC與逐檔。包內false/null、parent293d6d屬發布前歷史；snapshot位於review/program-snapshot.tar.gz，不是publishedGitarchive或當前docs。
+本輪接受僅限exact W技術與來源/材質/transform樣本，不是同步framebuffer、原速影片、聆聽、美術、真機、長時段或全遊戲接受。本輪沒有圖片檢視或影片播放；newScore=null，releaseBLOCKED。T03-T08完整分母及原門檻不縮，2300抵達不是完整未來。
 
-CI93失敗原包 **Chrono-CI93-failed-evidence.zip／1pz9pcUPtzI694DDAOaHd64hlmMo81oPO**，50697084bytes，SHA256 **ec4ddf3c2c38e2c5ad7c5d07c55ddb093ae16d9cb2bcd4477a0eb18be6b5d360**；四未修改providerZIP＋獨立診斷／5manifest，已實際下載核外內CRC及manifest。此包是失敗證據，不是接受；無CI93playable或成功matchingPages宣稱。
-
-## 直接接續與完整限制
-
-只接CI94；完成後以exactW原checker核WebGL／CPU trial-motion原報告與六observations、真實head repair/outgoing與24筆保留策略／counter一致，核原Vbody/death及全N-U報告、main/nativechooser/CPU600/rescue/trial/ledgers，再核matchingPages selectedCI/source/artifact/HTML。未改原ZIP/reports/video/exactsource/manifest指定Drive下載回驗後才boundedacceptance。W原生仍false；CI93failure保持；CI92/Pages86與更早接受不重驗。
-
-其後全角色／敵人方向sprites與move/attack/hurt/down/death、實際遊玩、尺度輪廓／原作構圖、山道法庭壓縮／樹列、完整合法音訊與聆聽、原速與真機舒適性仍開放。CPUwheel/Hench出手/完整Yakra死亡/Pdown/Qselector-change缺口保留。T03完整規則版本拓樸數值、T04完整成長報酬掉落經濟道具飾品學習換人雙三人技、T05全美術建模動畫音訊、T06全時代主支線結局、T07整體>=90/各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio、T08每批fulltests/onesource/matchingCI/原產物回讀不縮；2300非完整未來，releaseBLOCKED，無新score。
-
-Mainonly/nonforce/no branchPRparallelcandidate/multiwriter。保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8。No localbrowser/native game-time-save-collision造數，不放寬原ticks/routes/keys/waits/captures/assertions/<.12/single30s/250ms-256/CPUquality-memory。Held prologue blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**／母親家具不得提升或間接替換；ROM/media/fonts/credentials私人。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink，不覆舊source/config/bootstrapCI。Docs[skip ci]/cloudreadback，臨時容器非權威；CI77/75/93failure與CI71歷史false保留。
+保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8；no localbrowser/native造數/放寬原門檻。Held prologue blob2711a74185aacf3c6bddf9db85ba99a2afbc507a與家具限制保持。ROM/media/fonts/credentials私有；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink。Docs[skip ci]／cloudreadback；臨時容器不是權威。CI77/75/93failure與CI71歷史false不回填。

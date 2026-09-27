@@ -1,7 +1,7 @@
-/** CPU component fixtures are not a browser journey, a device result, or a visual score. */
+/** Frozen VQ04A CPU component fixtures are not a browser journey, a device result, or a visual score. */
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
-import {ArtDirectedWorld} from '../.test/art-directed-world.mjs';
+import {ArtDirectedWorld} from '../.test/art-directed-world-a.mjs';
 import {World} from '../.test/cpu-entry.mjs';import {createState} from '../.test/core.mjs';
 import {productionWorldRig} from './helpers/production-world-rig.mjs';
 const canyon=JSON.parse(readFileSync('tests/fixtures/ci82-canyon-state.json')).state;

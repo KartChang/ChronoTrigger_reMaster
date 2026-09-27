@@ -1,5 +1,5 @@
 import {Color3,DynamicTexture,Material,Mesh,MeshBuilder,Scene,StandardMaterial,Texture,TransformNode,VertexBuffer} from '@babylonjs/core';
-import {paintProductionSurface,PRODUCTION_ART} from './production-art';
+import {paintProductionSurface,paintProductionForestFloor,PRODUCTION_ART} from './production-art';
 import type {ProductionSurface} from './production-art';
 import {preservePixelPalette} from './pixel-presentation';
 /** A scene-owned, lazy art finish at the application composition root.
@@ -12,6 +12,7 @@ export function installProductionEnvironment(scene:Scene){
  const textures=new Map<ProductionSurface,DynamicTexture>(),materials=new Map<string,StandardMaterial>();
  const applied=new Map<TransformNode,{chapter:string;surfaces:string[];addedMeshes:number}>();
  let uploads=0,disposed=false;
+ const refinishedExistingTextures:string[]=[];
  const texture=(kind:ProductionSurface):DynamicTexture=>{
   let t=textures.get(kind);if(t)return t;
   const pixels=paintProductionSurface(kind);t=new DynamicTexture('production-'+kind,{width:pixels.width,height:pixels.height},scene,false,Texture.NEAREST_SAMPLINGMODE);
@@ -75,7 +76,24 @@ export function installProductionEnvironment(scene:Scene){
     }
    }
    box(root,'court-cornice',0,4.21,7.02,15.9,.24,.64,'court-stone');
-  }else if(chapter==='guardia1000')trees(root,/^guardia1000(tree|canopy)$/);
+   // Side pilasters frame the aisle, outside the entire existing jury/actor corridor.
+   for(const side of [-1,1])for(const z of [-4.8,-.8]){
+    const x=side*7.7,tag=side+'-'+z;
+    box(root,'court-side-plinth-'+tag,x,.20,z,.88,.40,.92,'court-stone');
+    box(root,'court-side-pillar-'+tag,x,1.61,z,.51,2.42,.56,'court-stone');
+    box(root,'court-side-cap-'+tag,x,2.90,z,.92,.22,.96,'court-stone');
+   }
+  }else if(chapter==='guardia1000'){
+   trees(root,/^guardia1000(tree|canopy)$/);
+   const floor=root.getChildMeshes().find(m=>m.name==='guardia1000-ground');
+   const m=floor?.material,t=m instanceof StandardMaterial?m.diffuseTexture:null;
+   if(m instanceof StandardMaterial&&t instanceof DynamicTexture){
+    const pixels=paintProductionForestFloor(),size=t.getSize();
+    if(size.width!==pixels.width||size.height!==pixels.height)throw new Error('Forest surface ownership/size mismatch');
+    const c=t.getContext() as CanvasRenderingContext2D,image=c.createImageData(pixels.width,pixels.height);image.data.set(pixels.rgba);c.putImageData(image,0,0);t.update();
+    m.disableLighting=true;m.emissiveTexture=t;preservePixelPalette(m);surfaces.push(floor!.name);refinishedExistingTextures.push(t.name);
+   }
+  }
   // Do not touch the 600-era woodland's diagnostic texture contract or held home objects here.
   applied.set(root,{chapter,surfaces,addedMeshes:scene.meshes.length-before});root.onDisposeObservable.addOnce(()=>applied.delete(root));
  }
@@ -86,9 +104,12 @@ export function installProductionEnvironment(scene:Scene){
   }
   const court=scene.getTransformNodeByName('trial-courtroom'),camera=scene.activeCamera;
   if(court?.isEnabled()&&camera&&camera.orthoTop!==null&&camera.orthoBottom!==null){
-   // Reframe the established fixed court only. Portrait keeps both jury banks; no camera rotation.
-   const ratio=scene.getEngine().getRenderWidth()/Math.max(1,scene.getEngine().getRenderHeight()),half=Math.max(7.8,9/ratio);
-   camera.orthoTop=half;camera.orthoBottom=-half;camera.orthoLeft=-half*ratio;camera.orthoRight=half*ratio;scene.updateTransformMatrix(true);
+   // Keep the complete north-wall composition inside the HUD-safe area.
+   // A 7.8 half-height cropped the lancet window/top cornice in the native CI98 view.
+   // Shift the orthographic view upward rather than shrinking the cast to hide the crop.
+   // The original angle/target and useful zoom remain; both jury banks stay in view.
+   const ratio=scene.getEngine().getRenderWidth()/Math.max(1,scene.getEngine().getRenderHeight()),half=Math.max(7.8,9/ratio),lift=1.2;
+   camera.orthoTop=half+lift;camera.orthoBottom=-half+lift;camera.orthoLeft=-half*ratio;camera.orthoRight=half*ratio;scene.updateTransformMatrix(true);
   }
  }
  const observer=scene.onBeforeRenderObservable.add(beforeRender);
@@ -96,5 +117,5 @@ export function installProductionEnvironment(scene:Scene){
  return {inspect(){return {profile:PRODUCTION_ART.id,approved:false,disposed,uploads,textureBytes:[...textures.values()].reduce((n,t)=>{const s=t.getSize();return n+s.width*s.height*4;},0),
   textures:[...textures.entries()].map(([kind,t])=>({kind,...t.getSize(),alpha:t.hasAlpha,sampling:t.samplingMode})),
   maps:[...applied.entries()].map(([root,record])=>({chapter:record.chapter,visible:root.isEnabled(),surfaces:[...record.surfaces],addedMeshes:record.addedMeshes})),
-  source:'authored-static-pixel-surfaces-and-wall-facings',conceptImagesEmbedded:false};}};
+  refinishedExistingTextures:[...refinishedExistingTextures],source:'authored-static-pixel-surfaces-and-wall-facings',conceptImagesEmbedded:false};}};
 }

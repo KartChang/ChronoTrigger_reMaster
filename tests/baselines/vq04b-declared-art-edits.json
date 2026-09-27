@@ -1,0 +1,272 @@
+{
+  "schema": "chrono-vq04b-declared-source-only-v1",
+  "files": {
+    "scripts/build.mjs": {
+      "hunks": [
+        {
+          "before": "import {exportProduction",
+          "after": "import {exportProductionActors} from './production-actor-export.mjs';\nimport {exportProduction"
+        },
+        {
+          "before": "uildInfo={version:'0.9.74',batch:'VQ04A',sourceSha:process.env.",
+          "after": "uildInfo={version:'0.9.75',batch:'VQ04B',sourceSha:process.env."
+        },
+        {
+          "before": "art/production-vq04a');\nconst quality=await runQ",
+          "after": "art/production-vq04a');\nawait exportProductionActors('dist/art/production-vq04b');\nconst quality=await runQ"
+        }
+      ],
+      "sha256": "0f4b530fd4b4b7c049fc6bff2b72b316cca303f1fc18b6045b988eb9097e6f80"
+    },
+    "scripts/test.mjs": {
+      "hunks": [
+        {
+          "before": "import {trialHistoryWBas",
+          "after": "import {artBIfDeclared} from '../tests/helpers/production-art-b-baseline.mjs';\nimport {trialHistoryWBas"
+        },
+        {
+          "before": "roduction-environment','art-directed-world'])awa",
+          "after": "roduction-environment','production-actor-finish','art-directed-world'])awa"
+        },
+        {
+          "before": ",packages:'external'});\nconst r=spawnSync(process.execPath,['--test','tests/production-art.",
+          "after": ",packages:'external'});\n// Frozen VQ04A component regressions remain distinct from current B application tests.\nawait esbuild({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-a.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'declared-B-to-A-components',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/](art-directed-world|production-art|production-environment)\\.ts$/},args=>({contents:artBIfDeclared('src/'+args.path.split(/[\\\\/]/).at(-1),readFileSync(args.path,'utf8')),loader:'ts'}));}}]});\nconst r=spawnSync(process.execPath,['--test','tests/production-art-b.test.mjs','tests/production-cast.test.mjs','tests/production-art-b-source.test.mjs','tests/production-art."
+        }
+      ],
+      "sha256": "e2de43602ae09c4b994df088184413fa1dbb8d3a0a835ef1f339c194cb8efaba"
+    },
+    "src/art-directed-world.ts": {
+      "hunks": [
+        {
+          "before": "t {World} from './render';\nimport {installProduc",
+          "after": "t {World} from './render';\nimport type {State,Effect} from './core';\nimport {installProductionActorFinish} from './production-actor-finish';\nimport {installProduc"
+        },
+        {
+          "before": "rld {\n private readonly productionEnvironment:Re",
+          "after": "rld {\n private readonly actorFinish:ReturnType<typeof installProductionActorFinish>;\n private readonly productionEnvironment:Re"
+        },
+        {
+          "before": "ionEnvironment(scene);\n }\n inspectProductionArt(){return this.productionEnvironment.inspect();}\n override inspect(){r",
+          "after": "ionEnvironment(scene);\n  this.actorFinish=installProductionActorFinish(scene);\n }\n override draw(state:State,dt:number,animate:boolean,frameEffects:readonly Effect[]=[]):void{this.actorFinish.begin(state.chapter);super.draw(state,dt,animate,frameEffects);}\n inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect()};}\n override inspect(){r"
+        }
+      ],
+      "sha256": "4942bb311f7d749672c950cefcd443edcbc1d155df9710d7144bbee9986ccbf5"
+    },
+    "src/production-art.ts": {
+      "hunks": [
+        {
+          "before": "=Object.freeze({id:'vq04a-authored-environment',a",
+          "after": "=Object.freeze({id:'vq04b-authored-environment',a"
+        },
+        {
+          "before": "ix(c,[91,75,52],grain<.045?.32:grain<.12?.1:0);if(grain>.972)c=mix(c,[225,197,144],.27);}\n   else{c=mix([43,67",
+          "after": "ix(c,[91,75,52],grain<.012?.17:grain<.04?.045:0);if(grain>.992)c=mix(c,[225,197,144],.16);}\n   else{c=mix([43,67"
+        },
+        {
+          "before": "\n  }\n }\n for(let i=0;i<1650;i++){const x=8+Math.f",
+          "after": "\n  }\n }\n for(let i=0;i<1050;i++){const x=8+Math.f"
+        },
+        {
+          "before": "178]);}}\n for(let i=0;i<280;i++){const y=10+Math.fl",
+          "after": "178]);}}\n for(let i=0;i<185;i++){const y=10+Math.fl"
+        },
+        {
+          "before": ")*.15));\n for(let i=0;i<360;i++){const x=Math.floo",
+          "after": ")*.15));\n for(let i=0;i<210;i++){const x=Math.floo"
+        },
+        {
+          "before": "t p=new Paint(128,160),shift=[0,5,-4,2][variant]!,centers=[[34,58,29,25],[65+shift,31,30,28],[94,57+shift,26,26],[47,82,30,22],[87+shift,86,29,20],[21,81,19,17]];\n for(let y=63;y<=153;y++){const spread=y>125?Math.floor((y-125)*.45):0;p.rect(55-spread,y,19+spread*2,1,ink);p.rect(58-Math.floor(spread*.7),y,7,1,[105,87,55]);p.rect(65,y,5,1,[70,66,44]);p.pixel(59-Math.floor(spread*.7),y,[170,138,84]);}\n for(let b=0;b<7;b++){const startX=62+b%3,endX=18+hash(b,1,variant+1)*90,endY=45+hash(b,2,variant+1)*49;p.line(startX,120-b*6,endX,endY,[38,52,34],7);p.line(startX,120-b*6,endX,endY,[111,97,58],3);p.line(startX-1,119-b*6,endX-1,endY,[154,131,75]);}\n // First contour blocks: different branch silhouettes share the same root/pivot, no mirrored light.\n for(const [cx,cy,rx,ry] of centers)p.ellipse(cx!,cy!,rx!,ry!,ink);\n for(let y=1;y<116;y++)for(let x=2;x<126;x++){\n  let distance=10,lobe=0;centers.forEach(([cx,cy,rx,ry],i)=>{const d=((x-cx!)/rx!)**2+((y-cy!)/ry!)**2;if(d<distance){distance=d;lobe=i;}});\n  const contour=(field(x/5,y/4,71+variant)-.5)*.19;if(distance>1+contour)continue;\n  const [cx,cy,rx,ry]=centers[lobe]!,light=clamp(.60-(x-cx!)/rx!*.23-(y-cy!)/ry!*.34),texture=field(x/7,y/5,90+variant);\n  let c=mix([26,57,37],[143,163,70],light*.67+texture*.33);if(distance>.92)c=mix(c,ink,.7);p.pixel(x,y,c);\n }\n for(let i=0;i<1300;i++){\n  const x=3+Math.floor(hash(i,3,variant+50)*122),y=3+Math.floor(hash(i,5,variant+50)*109);\n  const at=(y*128+x)*4;if(!p.rgba[at+3]||p.rgba[at]!<30)continue;\n  const old=p.at(x,y),light=hash(i,7,variant+60);p.rect(x,y,2+Math.floor(light*2),1,mix(old,light>.52?[193,197,95]:[31,61,35],.3));p.pixel(x+1,y-1,mix(old,[174,188,82],.18));\n }\n for(let i=0;i<16;i++){const x=58+i%7,y=102+i*3;if(y<151){p.line(x,y,x-1,y+4,[48,52,36]);p.pixel(x-1,y,[176,143,82]);}}\n return p;\n}\nfunct",
+          "after": "t p=new Paint(128,160),sway=[-3,5,-6,2][variant]!;\n // Forked trunk with a continuous root; the silhouette is not six stacked discs.\n for(let y=58;y<154;y++){\n  const bend=Math.round(Math.sin((y-70)*.035+variant)*2),root=Math.max(0,(y-134)*.44),x=62+bend;\n  p.rect(x-6-root,y,15+root*2,1,ink);p.rect(x-4-root*.65,y,7+root*.45,1,[105,82,46]);\n  p.rect(x-2-root*.45,y,3,1,[159,127,71]);p.rect(x+4,y,4+root*.5,1,[48,55,35]);\n }\n const limbs:[[number,number],[number,number]][]=[[[62,113],[21+sway,64]],[[63,104],[96+sway,53]],[[62,95],[57+sway,20]],[[61,120],[104,87]],[[61,107],[36,45]]];\n for(const [a,b]of limbs){p.line(a[0],a[1],b[0],b[1],ink,6);p.line(a[0]-1,a[1],b[0],b[1],[124,104,61],3);p.line(a[0]-1,a[1],b[0]-1,b[1],[180,145,77]);}\n const clusters:{x:number;y:number;rx:number;ry:number;seed:number}[]=[];\n for(let i=0;i<41;i++){\n  const angle=i*2.399963+variant*.43,r=Math.sqrt((i+.6)/42),cx=63+sway*.4+Math.cos(angle)*r*44,cy=55+Math.sin(angle)*r*38;\n  const rx=10+hash(i,8,300+variant)*10,ry=7+hash(i,9,300+variant)*9;\n  clusters.push({x:cx,y:cy,rx,ry,seed:i+variant*51});\n }\n clusters.sort((a,b)=>b.y-a.y); // overhanging upper foliage interrupts lower clusters.\n for(const q of clusters){\n  for(let y=Math.max(2,Math.floor(q.y-q.ry-2));y<Math.min(115,q.y+q.ry+2);y++)for(let x=Math.max(2,Math.floor(q.x-q.rx-2));x<Math.min(126,q.x+q.rx+2);x++){\n   const dx=(x-q.x)/q.rx,dy=(y-q.y)/q.ry,edge=dx*dx+dy*dy;\n   const scallop=field(x/3,y/3,q.seed+600)*.18;if(edge>1+scallop)continue;\n   const light=clamp(.56-dx*.19-dy*.32+(1-q.y/110)*.10),leaf=field(x/4,y/3,q.seed+200);\n   let c=mix([22,52,36],[147,170,71],light*.78+leaf*.22);\n   if(edge>.90){const occupied=p.rgba[(y*128+x)*4+3]===255;c=mix(c,[23,46,31],occupied?.13:.53);}\n   else if(dy<-.38&&leaf>.48)c=mix(c,[205,209,104],.16);\n   // Broken leaf tips have a common top-left light, not a field of glitter dots.\n   if(y%3===0&&x%5<2&&leaf>.63&&edge<.86)c=mix(c,[195,205,101],.16);\n   p.pixel(x,y,c);\n  }\n }\n // A few fine hanging sprays and bark fissures carry the silhouette at close zoom.\n for(let i=0;i<17;i++){\n  const x=17+hash(i,4,variant+91)*94,y=76+hash(i,8,variant+91)*24;\n  if(p.rgba[(Math.floor(y)*128+Math.floor(x))*4+3])tuft(p,Math.floor(x),Math.floor(y+3),2,[96,139,57],i);\n }\n for(let i=0;i<12;i++){const x=59+i%6,y=106+i*4;if(y<151){p.line(x,y,x+1,y+6,[54,54,34]);p.pixel(x-1,y,[182,143,77]);}}\n return p;\n}\nfunct"
+        },
+        {
+          "before": "r(let x=0;x<p.width;x++)p.pixel(x,y,mix([107,145,152],[203,212,186],y/p.height));\n const shades:RGB[]=[[113,149,151],[98,132,134],[65,105,107]];\n for(let layer=0;layer<3;layer++)for(let x=0;x<p.width;x++){\n  const ridge=65+layer*33+(field(x/(72-layer*13),0,303+layer)-.5)*94+Math.sin(x*.027+layer)*14;\n  for(let y=Math.floor(ridge);y<p.height;y++){const depth=clamp((y-ridge)/110);let c=mix(shades[layer]!,[175,195,177],depth*.55);c=mix(c,[192,205,173],field(x/12,y/24,layer+71)*.16);p.pixel(x,y,c);}\n }\n for(let i=0;i<280;i++){const x=Math.floor(hash(i,3,166)*p.width),y=201+Math.floor(hash(i,5,166)*46),h=3+hash(i,7,166)*16;for(let k=0;k<h;k++){const half=(h-k)*.23;p.rect(x-half,y-k,half*2+1,1,[70,105,94]);}}\n}\nfunction courtStone(",
+          "after": "r(let x=0;x<p.width;x++){\n  let c=mix([116,166,184],[224,218,184],y/p.height);\n  const cloud=field(x/75,y/14,409)*field(x/39,y/22,801);if(y<98)c=mix(c,[237,233,209],clamp((cloud-.24)*1.8)*.7);\n  p.pixel(x,y,c);\n }\n // Unequal, angular summits: three distance layers share atmospheric perspective.\n for(let layer=0;layer<3;layer++){\n  const span=67-layer*10,knots:number[]=[];for(let i=0;i<15;i++)knots.push(34+layer*37+hash(i,19,33+layer)*72);\n  for(let x=0;x<p.width;x++){\n   const part=x/span,index=Math.floor(part),f=part-index,ridge=lerp(knots[index]!,knots[index+1]!,f)+field(x/11,0,901+layer)*9;\n   for(let y=Math.floor(ridge);y<p.height;y++){\n    const fog=clamp((y-ridge)/125)*.7,face=field(x/11,(y-x*.5)/44,177+layer);\n    let c=mix(([[104,142,155],[77,119,129],[48,91,96]] as const)[layer]!,[192,205,183],fog);\n    c=mix(c,[191,190,144],face*(1-fog)*.22);\n    const seam=(x*.29+y*.68)%19;if(seam<1.5&&y<ridge+52)c=mix(c,[52,90,102],.12*(1-layer*.2));\n    if(y<ridge+2&&layer<2)c=mix(c,[224,223,189],.25);\n    p.pixel(x,y,c);\n   }\n  }\n }\n // A distant forest, individual tapered crowns rather than rectangular skyline bars.\n for(let i=0;i<160;i++){\n  const x=Math.floor(hash(i,3,166)*p.width),y=227+Math.floor(hash(i,5,166)*24),h=4+hash(i,7,166)*13;\n  for(let k=0;k<h;k++){const half=(h-k)*.27;p.rect(x-half,y-k,half*2+1,1,mix([44,79,71],[93,127,103],hash(i,5,688)));}\n }\n}\nfunction courtStone("
+        },
+        {
+          "before": "4,y/24,815)*.45);\n  if(edge<4)c=[50,37,29];else ",
+          "after": "4,y/24,815)*.45);\n  if(emblem){if(edge<4)c=[50,37,29];else "
+        },
+        {
+          "before": "if(edge<18)c=[48,34,27];p.pixel(x,y,c);\n }\n if(emblem)crest(p,64,64,22);p.line",
+          "after": "if(edge<18)c=[48,34,27];}\n  else{if(edge<3)c=[49,35,25];else if(edge<5)c=[147,107,59];if(x%42<2)c=mix(c,[35,28,25],.4);if(y===8)c=mix(c,[216,168,89],.25);}\n  p.pixel(x,y,c);\n }\n if(emblem){crest(p,64,64,22);p.line"
+        },
+        {
+          "before": "103,106,103,[72,46,28]);\n}\nfunction velvet(p:Pai",
+          "after": "103,106,103,[72,46,28]);}\n}\nfunction velvet(p:Pai"
+        },
+        {
+          "before": ".height,rgba:p.rgba};\n}\n",
+          "after": ".height,rgba:p.rgba};\n}\n\n/** Repaint the already-owned 384x352 forest floor, with the established three\n * path segments. This does not allocate another GPU texture or alter navigation. */\nexport function paintProductionForestFloor():PixelSurface{\n const p=new Paint(384,352);\n const segment=(x:number,z:number,ax:number,az:number,bx:number,bz:number)=>{const dx=bx-ax,dz=bz-az,t=clamp(((x-ax)*dx+(z-az)*dz)/(dx*dx+dz*dz));return Math.hypot(x-ax-t*dx,z-az-t*dz);};\n const trail=(x:number,z:number)=>Math.min(segment(x,z,0,-7,-.35,-1),segment(x,z,-.35,-1,0,6.8),segment(x,z,-.1,.3,5.5,4));\n for(let y=0;y<352;y++)for(let x=0;x<384;x++){\n  const wx=(x+.5)/24-8,wz=7-(y+.5)/352*14,d=trail(wx,wz),n=field(x/43,y/39,1017),fine=field(x/8,y/7,821);\n  let c:RGB=d<.82?mix([89,76,45],[130,111,64],n*.75+fine*.25):d<1.14?mix([62,75,37],[94,95,44],n):mix([27,54,36],[67,92,45],n*.7+fine*.3);\n  const light=clamp(1-Math.abs(x-(73+y*.46))/140)*.20;c=mix(c,[204,199,103],light);\n  // Quiet walking area; paired leaf litter is outside the real trail.\n  if(d>1.5&&hash(Math.floor(x/3),Math.floor(y/2),981)>.955)c=mix(c,[124,144,62],.22);\n  p.pixel(x,y,c);\n }\n for(let i=0;i<165;i++){const x=8+Math.floor(hash(i,1,606)*368),y=8+Math.floor(hash(i,2,606)*336);if(trail(x/24-8,7-y/352*14)<1.45)continue;tuft(p,x,y,1+Math.floor(hash(i,3,606)*2),mix([60,86,39],[137,157,73],hash(i,4,606)),i);}\n return p;\n}\n"
+        }
+      ],
+      "sha256": "f8f09aacd76196a86a1ec694fd9221123adc1792d675b772343e75099c101f69"
+    },
+    "src/production-environment.ts": {
+      "hunks": [
+        {
+          "before": " {paintProductionSurface,PRODUCTION_ART} from '.",
+          "after": " {paintProductionSurface,paintProductionForestFloor,PRODUCTION_ART} from '."
+        },
+        {
+          "before": "uploads=0,disposed=false;\n const texture=(kind:P",
+          "after": "uploads=0,disposed=false;\n const refinishedExistingTextures:string[]=[];\n const texture=(kind:P"
+        },
+        {
+          "before": "4,.64,'court-stone');\n  }else if(chapter==='guardia1000')trees(root,/^guardia1000(tree|canopy)$/);\n  // Do not touch the 6",
+          "after": "4,.64,'court-stone');\n   // Side pilasters frame the aisle, outside the entire existing jury/actor corridor.\n   for(const side of [-1,1])for(const z of [-4.8,-.8]){\n    const x=side*7.7,tag=side+'-'+z;\n    box(root,'court-side-plinth-'+tag,x,.20,z,.88,.40,.92,'court-stone');\n    box(root,'court-side-pillar-'+tag,x,1.61,z,.51,2.42,.56,'court-stone');\n    box(root,'court-side-cap-'+tag,x,2.90,z,.92,.22,.96,'court-stone');\n   }\n  }else if(chapter==='guardia1000'){\n   trees(root,/^guardia1000(tree|canopy)$/);\n   const floor=root.getChildMeshes().find(m=>m.name==='guardia1000-ground');\n   const m=floor?.material,t=m instanceof StandardMaterial?m.diffuseTexture:null;\n   if(m instanceof StandardMaterial&&t instanceof DynamicTexture){\n    const pixels=paintProductionForestFloor(),size=t.getSize();\n    if(size.width!==pixels.width||size.height!==pixels.height)throw new Error('Forest surface ownership/size mismatch');\n    const c=t.getContext() as CanvasRenderingContext2D,image=c.createImageData(pixels.width,pixels.height);image.data.set(pixels.rgba);c.putImageData(image,0,0);t.update();\n    m.disableLighting=true;m.emissiveTexture=t;preservePixelPalette(m);surfaces.push(floor!.name);refinishedExistingTextures.push(t.name);\n   }\n  }\n  // Do not touch the 6"
+        },
+        {
+          "before": "hoBottom!==null){\n   // Reframe the established fixed court only. Portrait keeps both jury banks; no camera rotation.\n   const ratio=scene.g",
+          "after": "hoBottom!==null){\n   // Keep the complete north-wall composition inside the HUD-safe area.\n   // A 7.8 half-height cropped the lancet window/top cornice in the native CI98 view.\n   // Shift the orthographic view upward rather than shrinking the cast to hide the crop.\n   // The original angle/target and useful zoom remain; both jury banks stay in view.\n   const ratio=scene.g"
+        },
+        {
+          "before": "lf=Math.max(7.8,9/ratio);\n   camera.orthoTop=half;camera.orthoBottom=-half;camera.orthoLeft=-half*",
+          "after": "lf=Math.max(7.8,9/ratio),lift=1.2;\n   camera.orthoTop=half+lift;camera.orthoBottom=-half+lift;camera.orthoLeft=-half*"
+        },
+        {
+          "before": "ecord.addedMeshes})),\n  source:'authored-static-",
+          "after": "ecord.addedMeshes})),\n  refinishedExistingTextures:[...refinishedExistingTextures],source:'authored-static-"
+        }
+      ],
+      "sha256": "fc331327c5fc1ae94d15604cc4da9e7195b49d29acd49a038b73df1ba22b0d3e"
+    },
+    "tests/current_build_test.py": {
+      "hunks": [
+        {
+          "before": "uildInfo={version:'0.9.74',batch:'VQ04A',sourceSha:process.env.",
+          "after": "uildInfo={version:'0.9.75',batch:'VQ04B',sourceSha:process.env."
+        },
+        {
+          "before": "l(EXPECTED_BUILD,('0.9.74','VQ04A'))\n        self.assertE",
+          "after": "l(EXPECTED_BUILD,('0.9.75','VQ04B'))\n        self.assertE"
+        },
+        {
+          "before": "DECL,DECL.replace('0.9.74','NaN'),DECL.replace('VQ04A','report.batch'),DECL.r",
+          "after": "DECL,DECL.replace('0.9.75','NaN'),DECL.replace('VQ04B','report.batch'),DECL.r"
+        },
+        {
+          "before": ".replace(\"version:'0.9.74'\",'version:report.versi",
+          "after": ".replace(\"version:'0.9.75'\",'version:report.versi"
+        }
+      ],
+      "sha256": "dba8ef3386527fab41cc8df0a7954f25bc5f0d77e87adec0dafb4eb25a0c1280"
+    },
+    "tests/helpers/production-art-a-baseline.mjs": {
+      "hunks": [
+        {
+          "before": "/** VQ04A source-only co",
+          "after": "import {artBIfDeclared,artBFrozenBytes,artBIsNew} from './production-art-b-baseline.mjs';\n/** VQ04A source-only co"
+        },
+        {
+          "before": "urce,verifyBase=true){\n const edits=artASpec.fil",
+          "after": "urce,verifyBase=true){\n source=artBIfDeclared(name,source);\n const edits=artASpec.fil"
+        },
+        {
+          "before": "IfDeclared(name,source){return artASpec.files[na",
+          "after": "IfDeclared(name,source){source=artBIfDeclared(name,source);return artASpec.files[na"
+        },
+        {
+          "before": "FrozenBytes(name,bytes){return artASpec.files[na",
+          "after": "FrozenBytes(name,bytes){bytes=artBFrozenBytes(name,bytes);return artASpec.files[na"
+        },
+        {
+          "before": ".newPaths.includes(name);}\n",
+          "after": ".newPaths.includes(name)||artBIsNew(name);}\n"
+        }
+      ],
+      "sha256": "0f2737847edb71d0177ed5c6385bad0063d04984049a9424b3ac255736c740f7"
+    },
+    "tests/production-art-source.test.mjs": {
+      "hunks": [
+        {
+          "before": "/** Actual build integra",
+          "after": "import {artBIfDeclared,artBFrozenBytes,artBIsNew} from './helpers/production-art-b-baseline.mjs';\n/** Actual build integra"
+        },
+        {
+          "before": "'+name,()=>{\n const raw=readFileSync(name,'utf8'),old=artABaseline(name,",
+          "after": "'+name,()=>{\n const raw=artBIfDeclared(name,readFileSync(name,'utf8')),old=artABaseline(name,"
+        },
+        {
+          "before": "!pin.exclude.includes(p)).map(p=>[p,sha(readFileSync(p))]);assert.equal(rows.l",
+          "after": "!pin.exclude.includes(p)&&!artBIsNew(p)).map(p=>[p,sha(artBFrozenBytes(p,readFileSync(p)))]);assert.equal(rows.l"
+        }
+      ],
+      "sha256": "1b860f8ec69b90bd06a957aa98ae75ac906edd4010a49abe45586b06ba5f2616"
+    },
+    "tests/production-environment.test.mjs": {
+      "hunks": [
+        {
+          "before": "/** CPU component fixtures ",
+          "after": "/** Frozen VQ04A CPU component fixtures "
+        },
+        {
+          "before": ".test/art-directed-world.mjs';\nimport {World} fr",
+          "after": ".test/art-directed-world-a.mjs';\nimport {World} fr"
+        }
+      ],
+      "sha256": "bfb1351997009b29005f20f62b38d4ceffa6cd9166b47254ed78b9723ef34c1a"
+    },
+    "tests/production_art_a_preservation.py": {
+      "hunks": [
+        {
+          "before": "\"\"\"Declared source inver",
+          "after": "from production_art_b_preservation import SPEC as B_SPEC,restore_art_b_if_declared,art_b_frozen_bytes\n\"\"\"Declared source inver"
+        },
+        {
+          "before": "its.json').read_text())\ndef restore_art_a_source",
+          "after": "its.json').read_text())\nSPEC['newPaths']+=B_SPEC['newPaths']\ndef restore_art_a_source"
+        },
+        {
+          "before": "ource,verify_base=True):\n    edits=SPEC['files']",
+          "after": "ource,verify_base=True):\n    source=restore_art_b_if_declared(name,source)\n    edits=SPEC['files']"
+        },
+        {
+          "before": "lared(name,source):\n    return restore_art_a_sou",
+          "after": "lared(name,source):\n    source=restore_art_b_if_declared(name,source)\n    return restore_art_a_sou"
+        },
+        {
+          "before": "n_bytes(name,data):\n    return restore_art_a_sou",
+          "after": "n_bytes(name,data):\n    data=art_b_frozen_bytes(name,data)\n    return restore_art_a_sou"
+        }
+      ],
+      "sha256": "0f18cc063aa2e2a471517c2a094e831323783fd511b25cc4fb469af734523ced"
+    },
+    "tests/production_art_a_test.py": {
+      "hunks": [
+        {
+          "before": "\"\"\"No browser/native rou",
+          "after": "from production_art_b_preservation import SPEC as B_SPEC,restore_art_b_if_declared,art_b_frozen_bytes\n\"\"\"No browser/native rou"
+        },
+        {
+          "before": "tems():\n            raw=(ROOT/name).read_text();old=restore_art_a_sour",
+          "after": "tems():\n            raw=restore_art_b_if_declared(name,(ROOT/name).read_text());old=restore_art_a_sour"
+        },
+        {
+          "before": "rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in",
+          "after": "rows=[[n,hashlib.sha256(art_b_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in"
+        },
+        {
+          "before": "if n not in pin['exclude']]\n        self.assertE",
+          "after": "if n not in pin['exclude'] and n not in B_SPEC['newPaths']]\n        self.assertE"
+        },
+        {
+          "before": "om current_build import EXPECTED_BUILD\n        self.assertEqua",
+          "after": "om current_build import expected_build_from_source\n        EXPECTED_BUILD=expected_build_from_source(restore_art_b_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text()))\n        self.assertEqua"
+        }
+      ],
+      "sha256": "bfa8a1fa21a119f9d4cc4449f83bbedbd5aa2e34a87580f9fe2b7d60041e65e8"
+    }
+  },
+  "newPaths": [
+    "scripts/production-actor-export.mjs",
+    "src/production-actor-finish.ts",
+    "tests/baselines/vq04b-declared-art-edits.json",
+    "tests/baselines/vq04b-unchanged-inputs.json",
+    "tests/helpers/production-art-b-baseline.mjs",
+    "tests/production-art-b-source.test.mjs",
+    "tests/production-art-b.test.mjs",
+    "tests/production-cast.test.mjs",
+    "tests/production_art_b_preservation.py",
+    "tests/production_art_b_test.py"
+  ]
+}

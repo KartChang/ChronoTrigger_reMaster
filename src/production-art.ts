@@ -4,7 +4,7 @@
  */
 import {canyonPathBounds} from './canyon-art';
 export type ProductionSurface='canyon-ground'|'canyon-rock'|'canyon-turf'|'canopy-atlas'|'mountain-distance'|'court-ground'|'court-dais'|'court-stone'|'court-wood'|'court-timber'|'court-velvet'|'court-window'|'court-banner';
-export const PRODUCTION_ART=Object.freeze({id:'vq04a-authored-environment',approved:false,romPixels:false,
+export const PRODUCTION_ART=Object.freeze({id:'vq04b-authored-environment',approved:false,romPixels:false,
  dimensions:{'canyon-ground':[768,672],'canyon-rock':[128,128],'canyon-turf':[128,128],'canopy-atlas':[544,160],
   'mountain-distance':[640,256],'court-ground':[768,704],'court-dais':[256,320],'court-stone':[128,128],
   'court-wood':[128,128],'court-timber':[128,128],'court-velvet':[64,256],'court-window':[256,160],'court-banner':[96,256]} as const});
@@ -42,14 +42,14 @@ function canyonGround(p:Paint):void{
   for(let x=0;x<p.width;x++){
    const path=x>=left&&x<right,broad=field(x/68,y/60,601),grain=hash(x,y,602),fine=field(x/11,y/9,606);
    let c:RGB;
-   if(path){const center=(left+right)/2,wear=clamp(1-Math.abs(x-center)/((right-left)*.46));c=mix([123,98,61],[186,154,100],broad*.55+wear*.35+fine*.10);c=mix(c,[91,75,52],grain<.045?.32:grain<.12?.1:0);if(grain>.972)c=mix(c,[225,197,144],.27);}
+   if(path){const center=(left+right)/2,wear=clamp(1-Math.abs(x-center)/((right-left)*.46));c=mix([123,98,61],[186,154,100],broad*.55+wear*.35+fine*.10);c=mix(c,[91,75,52],grain<.012?.17:grain<.04?.045:0);if(grain>.992)c=mix(c,[225,197,144],.16);}
    else{c=mix([43,67,38],[117,139,64],broad*.75+fine*.25);const edge=Math.min(Math.abs(x-left),Math.abs(x-right));if(edge<8)c=mix(c,[128,123,65],(1-edge/8)*.6);c=mix(c,[29,58,38],grain<.08?.15:0);}
    // Large contiguous pools of warm light; the travel corridor stays quiet and readable.
    const light=clamp(1-Math.abs(x-(210+y*.23))/245)*.12;p.pixel(x,y,mix(c,[224,199,127],light));
   }
  }
- for(let i=0;i<1650;i++){const x=8+Math.floor(hash(i,2,6)*(p.width-16)),y=12+Math.floor(hash(i,3,6)*(p.height-24)),b=canyonPathBounds(y/1.5);if(x>b.left*1.5+2&&x<b.right*1.5-2)continue;tuft(p,x,y,2+Math.floor(hash(i,4,6)*4),mix([66,96,44],[152,161,79],hash(i,5,6)),i);if(i%19===0){p.rect(x,y-5,2,2,[234,216,138]);p.pixel(x+1,y-6,[255,240,178]);}}
- for(let i=0;i<280;i++){const y=10+Math.floor(hash(i,8,6)*(p.height-20)),b=canyonPathBounds(y/1.5),x=Math.floor((i%2?b.left:b.right)*1.5+(hash(i,9,6)-.5)*20),r=1+Math.floor(hash(i,10,6)*3);p.ellipse(x,y+1,r+1,2,[85,85,60]);p.ellipse(x,y,r,1,[170,159,116]);}
+ for(let i=0;i<1050;i++){const x=8+Math.floor(hash(i,2,6)*(p.width-16)),y=12+Math.floor(hash(i,3,6)*(p.height-24)),b=canyonPathBounds(y/1.5);if(x>b.left*1.5+2&&x<b.right*1.5-2)continue;tuft(p,x,y,2+Math.floor(hash(i,4,6)*4),mix([66,96,44],[152,161,79],hash(i,5,6)),i);if(i%19===0){p.rect(x,y-5,2,2,[234,216,138]);p.pixel(x+1,y-6,[255,240,178]);}}
+ for(let i=0;i<185;i++){const y=10+Math.floor(hash(i,8,6)*(p.height-20)),b=canyonPathBounds(y/1.5),x=Math.floor((i%2?b.left:b.right)*1.5+(hash(i,9,6)-.5)*20),r=1+Math.floor(hash(i,10,6)*3);p.ellipse(x,y+1,r+1,2,[85,85,60]);p.ellipse(x,y,r,1,[170,159,116]);}
 }
 function canyonRock(p:Paint):void{
  for(let y=0;y<p.height;y++)for(let x=0;x<p.width;x++){
@@ -63,36 +63,72 @@ function canyonRock(p:Paint):void{
 }
 function turf(p:Paint):void{
  for(let y=0;y<128;y++)for(let x=0;x<128;x++)p.pixel(x,y,mix([43,73,39],[130,146,67],field(x/23,y/21,617)*.85+hash(x,y,62)*.15));
- for(let i=0;i<360;i++){const x=Math.floor(hash(i,4,18)*128),y=Math.floor(hash(i,7,18)*128);tuft(p,x,y,2,mix([65,97,43],[167,171,87],hash(i,5,18)),i);}
+ for(let i=0;i<210;i++){const x=Math.floor(hash(i,4,18)*128),y=Math.floor(hash(i,7,18)*128);tuft(p,x,y,2,mix([65,97,43],[167,171,87],hash(i,5,18)),i);}
 }
 function oak(variant:number):PixelSurface{
- const p=new Paint(128,160),shift=[0,5,-4,2][variant]!,centers=[[34,58,29,25],[65+shift,31,30,28],[94,57+shift,26,26],[47,82,30,22],[87+shift,86,29,20],[21,81,19,17]];
- for(let y=63;y<=153;y++){const spread=y>125?Math.floor((y-125)*.45):0;p.rect(55-spread,y,19+spread*2,1,ink);p.rect(58-Math.floor(spread*.7),y,7,1,[105,87,55]);p.rect(65,y,5,1,[70,66,44]);p.pixel(59-Math.floor(spread*.7),y,[170,138,84]);}
- for(let b=0;b<7;b++){const startX=62+b%3,endX=18+hash(b,1,variant+1)*90,endY=45+hash(b,2,variant+1)*49;p.line(startX,120-b*6,endX,endY,[38,52,34],7);p.line(startX,120-b*6,endX,endY,[111,97,58],3);p.line(startX-1,119-b*6,endX-1,endY,[154,131,75]);}
- // First contour blocks: different branch silhouettes share the same root/pivot, no mirrored light.
- for(const [cx,cy,rx,ry] of centers)p.ellipse(cx!,cy!,rx!,ry!,ink);
- for(let y=1;y<116;y++)for(let x=2;x<126;x++){
-  let distance=10,lobe=0;centers.forEach(([cx,cy,rx,ry],i)=>{const d=((x-cx!)/rx!)**2+((y-cy!)/ry!)**2;if(d<distance){distance=d;lobe=i;}});
-  const contour=(field(x/5,y/4,71+variant)-.5)*.19;if(distance>1+contour)continue;
-  const [cx,cy,rx,ry]=centers[lobe]!,light=clamp(.60-(x-cx!)/rx!*.23-(y-cy!)/ry!*.34),texture=field(x/7,y/5,90+variant);
-  let c=mix([26,57,37],[143,163,70],light*.67+texture*.33);if(distance>.92)c=mix(c,ink,.7);p.pixel(x,y,c);
+ const p=new Paint(128,160),sway=[-3,5,-6,2][variant]!;
+ // Forked trunk with a continuous root; the silhouette is not six stacked discs.
+ for(let y=58;y<154;y++){
+  const bend=Math.round(Math.sin((y-70)*.035+variant)*2),root=Math.max(0,(y-134)*.44),x=62+bend;
+  p.rect(x-6-root,y,15+root*2,1,ink);p.rect(x-4-root*.65,y,7+root*.45,1,[105,82,46]);
+  p.rect(x-2-root*.45,y,3,1,[159,127,71]);p.rect(x+4,y,4+root*.5,1,[48,55,35]);
  }
- for(let i=0;i<1300;i++){
-  const x=3+Math.floor(hash(i,3,variant+50)*122),y=3+Math.floor(hash(i,5,variant+50)*109);
-  const at=(y*128+x)*4;if(!p.rgba[at+3]||p.rgba[at]!<30)continue;
-  const old=p.at(x,y),light=hash(i,7,variant+60);p.rect(x,y,2+Math.floor(light*2),1,mix(old,light>.52?[193,197,95]:[31,61,35],.3));p.pixel(x+1,y-1,mix(old,[174,188,82],.18));
+ const limbs:[[number,number],[number,number]][]=[[[62,113],[21+sway,64]],[[63,104],[96+sway,53]],[[62,95],[57+sway,20]],[[61,120],[104,87]],[[61,107],[36,45]]];
+ for(const [a,b]of limbs){p.line(a[0],a[1],b[0],b[1],ink,6);p.line(a[0]-1,a[1],b[0],b[1],[124,104,61],3);p.line(a[0]-1,a[1],b[0]-1,b[1],[180,145,77]);}
+ const clusters:{x:number;y:number;rx:number;ry:number;seed:number}[]=[];
+ for(let i=0;i<41;i++){
+  const angle=i*2.399963+variant*.43,r=Math.sqrt((i+.6)/42),cx=63+sway*.4+Math.cos(angle)*r*44,cy=55+Math.sin(angle)*r*38;
+  const rx=10+hash(i,8,300+variant)*10,ry=7+hash(i,9,300+variant)*9;
+  clusters.push({x:cx,y:cy,rx,ry,seed:i+variant*51});
  }
- for(let i=0;i<16;i++){const x=58+i%7,y=102+i*3;if(y<151){p.line(x,y,x-1,y+4,[48,52,36]);p.pixel(x-1,y,[176,143,82]);}}
+ clusters.sort((a,b)=>b.y-a.y); // overhanging upper foliage interrupts lower clusters.
+ for(const q of clusters){
+  for(let y=Math.max(2,Math.floor(q.y-q.ry-2));y<Math.min(115,q.y+q.ry+2);y++)for(let x=Math.max(2,Math.floor(q.x-q.rx-2));x<Math.min(126,q.x+q.rx+2);x++){
+   const dx=(x-q.x)/q.rx,dy=(y-q.y)/q.ry,edge=dx*dx+dy*dy;
+   const scallop=field(x/3,y/3,q.seed+600)*.18;if(edge>1+scallop)continue;
+   const light=clamp(.56-dx*.19-dy*.32+(1-q.y/110)*.10),leaf=field(x/4,y/3,q.seed+200);
+   let c=mix([22,52,36],[147,170,71],light*.78+leaf*.22);
+   if(edge>.90){const occupied=p.rgba[(y*128+x)*4+3]===255;c=mix(c,[23,46,31],occupied?.13:.53);}
+   else if(dy<-.38&&leaf>.48)c=mix(c,[205,209,104],.16);
+   // Broken leaf tips have a common top-left light, not a field of glitter dots.
+   if(y%3===0&&x%5<2&&leaf>.63&&edge<.86)c=mix(c,[195,205,101],.16);
+   p.pixel(x,y,c);
+  }
+ }
+ // A few fine hanging sprays and bark fissures carry the silhouette at close zoom.
+ for(let i=0;i<17;i++){
+  const x=17+hash(i,4,variant+91)*94,y=76+hash(i,8,variant+91)*24;
+  if(p.rgba[(Math.floor(y)*128+Math.floor(x))*4+3])tuft(p,Math.floor(x),Math.floor(y+3),2,[96,139,57],i);
+ }
+ for(let i=0;i<12;i++){const x=59+i%6,y=106+i*4;if(y<151){p.line(x,y,x+1,y+6,[54,54,34]);p.pixel(x-1,y,[182,143,77]);}}
  return p;
 }
 function mountains(p:Paint):void{
- for(let y=0;y<p.height;y++)for(let x=0;x<p.width;x++)p.pixel(x,y,mix([107,145,152],[203,212,186],y/p.height));
- const shades:RGB[]=[[113,149,151],[98,132,134],[65,105,107]];
- for(let layer=0;layer<3;layer++)for(let x=0;x<p.width;x++){
-  const ridge=65+layer*33+(field(x/(72-layer*13),0,303+layer)-.5)*94+Math.sin(x*.027+layer)*14;
-  for(let y=Math.floor(ridge);y<p.height;y++){const depth=clamp((y-ridge)/110);let c=mix(shades[layer]!,[175,195,177],depth*.55);c=mix(c,[192,205,173],field(x/12,y/24,layer+71)*.16);p.pixel(x,y,c);}
+ for(let y=0;y<p.height;y++)for(let x=0;x<p.width;x++){
+  let c=mix([116,166,184],[224,218,184],y/p.height);
+  const cloud=field(x/75,y/14,409)*field(x/39,y/22,801);if(y<98)c=mix(c,[237,233,209],clamp((cloud-.24)*1.8)*.7);
+  p.pixel(x,y,c);
  }
- for(let i=0;i<280;i++){const x=Math.floor(hash(i,3,166)*p.width),y=201+Math.floor(hash(i,5,166)*46),h=3+hash(i,7,166)*16;for(let k=0;k<h;k++){const half=(h-k)*.23;p.rect(x-half,y-k,half*2+1,1,[70,105,94]);}}
+ // Unequal, angular summits: three distance layers share atmospheric perspective.
+ for(let layer=0;layer<3;layer++){
+  const span=67-layer*10,knots:number[]=[];for(let i=0;i<15;i++)knots.push(34+layer*37+hash(i,19,33+layer)*72);
+  for(let x=0;x<p.width;x++){
+   const part=x/span,index=Math.floor(part),f=part-index,ridge=lerp(knots[index]!,knots[index+1]!,f)+field(x/11,0,901+layer)*9;
+   for(let y=Math.floor(ridge);y<p.height;y++){
+    const fog=clamp((y-ridge)/125)*.7,face=field(x/11,(y-x*.5)/44,177+layer);
+    let c=mix(([[104,142,155],[77,119,129],[48,91,96]] as const)[layer]!,[192,205,183],fog);
+    c=mix(c,[191,190,144],face*(1-fog)*.22);
+    const seam=(x*.29+y*.68)%19;if(seam<1.5&&y<ridge+52)c=mix(c,[52,90,102],.12*(1-layer*.2));
+    if(y<ridge+2&&layer<2)c=mix(c,[224,223,189],.25);
+    p.pixel(x,y,c);
+   }
+  }
+ }
+ // A distant forest, individual tapered crowns rather than rectangular skyline bars.
+ for(let i=0;i<160;i++){
+  const x=Math.floor(hash(i,3,166)*p.width),y=227+Math.floor(hash(i,5,166)*24),h=4+hash(i,7,166)*13;
+  for(let k=0;k<h;k++){const half=(h-k)*.27;p.rect(x-half,y-k,half*2+1,1,mix([44,79,71],[93,127,103],hash(i,5,688)));}
+ }
 }
 function courtStone(p:Paint):void{
  for(let y=0;y<p.height;y++)for(let x=0;x<p.width;x++){
@@ -132,9 +168,11 @@ function courtDais(p:Paint):void{
 function wood(p:Paint,emblem=true):void{
  for(let y=0;y<128;y++)for(let x=0;x<128;x++){
   const grain=field(x/3,y/52,715),edge=Math.min(x,127-x,y,127-y);let c=mix([63,38,27],[133,88,44],grain*.55+field(x/24,y/24,815)*.45);
-  if(edge<4)c=[50,37,29];else if(edge<7)c=[177,135,67];else if(edge<11)c=[104,68,34];else if(edge<15)c=[169,120,59];else if(edge<18)c=[48,34,27];p.pixel(x,y,c);
+  if(emblem){if(edge<4)c=[50,37,29];else if(edge<7)c=[177,135,67];else if(edge<11)c=[104,68,34];else if(edge<15)c=[169,120,59];else if(edge<18)c=[48,34,27];}
+  else{if(edge<3)c=[49,35,25];else if(edge<5)c=[147,107,59];if(x%42<2)c=mix(c,[35,28,25],.4);if(y===8)c=mix(c,[216,168,89],.25);}
+  p.pixel(x,y,c);
  }
- if(emblem)crest(p,64,64,22);p.line(22,25,106,25,[197,157,91]);p.line(22,103,106,103,[72,46,28]);
+ if(emblem){crest(p,64,64,22);p.line(22,25,106,25,[197,157,91]);p.line(22,103,106,103,[72,46,28]);}
 }
 function velvet(p:Paint,banner:boolean):void{
  for(let y=0;y<p.height;y++)for(let x=0;x<p.width;x++){
@@ -161,4 +199,22 @@ export function paintProductionSurface(kind:ProductionSurface):PixelSurface{
  case 'court-ground':courtFloor(p);break;case 'court-stone':courtStone(p);break;case 'court-dais':courtDais(p);break;
  case 'court-wood':wood(p);break;case 'court-timber':wood(p,false);break;case 'court-velvet':velvet(p,false);break;case 'court-banner':velvet(p,true);break;case 'court-window':courtWindow(p);break;}
  return {width:p.width,height:p.height,rgba:p.rgba};
+}
+
+/** Repaint the already-owned 384x352 forest floor, with the established three
+ * path segments. This does not allocate another GPU texture or alter navigation. */
+export function paintProductionForestFloor():PixelSurface{
+ const p=new Paint(384,352);
+ const segment=(x:number,z:number,ax:number,az:number,bx:number,bz:number)=>{const dx=bx-ax,dz=bz-az,t=clamp(((x-ax)*dx+(z-az)*dz)/(dx*dx+dz*dz));return Math.hypot(x-ax-t*dx,z-az-t*dz);};
+ const trail=(x:number,z:number)=>Math.min(segment(x,z,0,-7,-.35,-1),segment(x,z,-.35,-1,0,6.8),segment(x,z,-.1,.3,5.5,4));
+ for(let y=0;y<352;y++)for(let x=0;x<384;x++){
+  const wx=(x+.5)/24-8,wz=7-(y+.5)/352*14,d=trail(wx,wz),n=field(x/43,y/39,1017),fine=field(x/8,y/7,821);
+  let c:RGB=d<.82?mix([89,76,45],[130,111,64],n*.75+fine*.25):d<1.14?mix([62,75,37],[94,95,44],n):mix([27,54,36],[67,92,45],n*.7+fine*.3);
+  const light=clamp(1-Math.abs(x-(73+y*.46))/140)*.20;c=mix(c,[204,199,103],light);
+  // Quiet walking area; paired leaf litter is outside the real trail.
+  if(d>1.5&&hash(Math.floor(x/3),Math.floor(y/2),981)>.955)c=mix(c,[124,144,62],.22);
+  p.pixel(x,y,c);
+ }
+ for(let i=0;i<165;i++){const x=8+Math.floor(hash(i,1,606)*368),y=8+Math.floor(hash(i,2,606)*336);if(trail(x/24-8,7-y/352*14)<1.45)continue;tuft(p,x,y,1+Math.floor(hash(i,3,606)*2),mix([60,86,39],[137,157,73],hash(i,4,606)),i);}
+ return p;
 }

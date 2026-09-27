@@ -7,6 +7,7 @@ Alternate route reloads only the cell save exported by this very browser journey
 """
 from cpu_journey_support import CpuJourney, CPU_ARGS
 from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
+from current_build import EXPECTED_BUILD
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from native_import import import_save, import_context
@@ -228,8 +229,8 @@ try:
             passed('same-browser real cell export also supports declining wait, three-day execution rescue and merged escape without false Fritz/XP flags')
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4183/','data:','blob:'))],requests
-            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))
-            write_trial_body_report(OUT,trial_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))
+            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)
+            write_trial_body_report(OUT,trial_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)
             report={'status':'passed','assetProfile':'snes-reference-hd2d-r1','tankVisualFrames':[first_frame,second_frame],'passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'rescue/rescue-returned-v5.json from preceding same-run journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'alternateRouteSaveSha256':hashlib.sha256((OUT/'trial-cell-v7.json').read_bytes()).hexdigest(),'limitations':['Reconstructed prison topology and combat balance, not exact original maps or data.','Missing fair witness cases and original seven-juror algorithm are not certified; unknown facts remain unknown.','Three prison days use explicit rest transitions, not original clock timing.','XP recorded, not a finished leveling/equipment/roster system.','Only arrival in 2300 is implemented here; full future route remains open.','Native CPU keyboard evidence; no physical device/music/90-point/full-game acceptance.' if cpu.enabled else 'Software-GPU keyboard evidence; no physical device/music/90-point/full-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}

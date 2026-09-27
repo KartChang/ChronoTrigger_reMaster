@@ -1,0 +1,132 @@
+{
+  "schema": "chrono-vq03y-declared-field-and-build-edits-v1",
+  "sourceBase": "441c924246e79f43ab0a90ba54fbd9a60f9f2b02",
+  "scope": "source-only inverse, never observations/reports/pixels",
+  "files": {
+    "src/field-enemy-body.ts": [
+      {
+        "before": "import type {Effect,Enemy,State,Vec} from './core';",
+        "after": "import type {Effect,Enemy,State,Vec} from './core';\nimport {awaitingLethalDelivery} from './pending-death';"
+      },
+      {
+        "before": " update(sprite:FieldEnemySprite,index:number):void{",
+        "after": " private awaitingDeath(index:number):boolean{\n  const s=this.state,e=s?.enemies[index];\n  return !!s&&this.previousEnemies[index]===e&&this.previousHp[index]!>0&&this.previousMode==='battle'&&!!this.slots[index]?.shown&&awaitingLethalDelivery(s,e);\n }\n update(sprite:FieldEnemySprite,index:number):void{"
+      },
+      {
+        "before": "   if(old)old.shown=false;this.moves[index]=null;return;",
+        "after": "   if(old&&!this.awaitingDeath(index))old.shown=false;this.moves[index]=null;return;"
+      },
+      {
+        "before": "  this.previousEnemies=s.enemies.slice(0,3);this.previousHp=this.previousEnemies.map(e=>e.hp);this.previousMode=s.mode;this.previousTick=s.ticks;",
+        "after": "  // A queued real lethal event is not consumed by a paused empty-effect draw.\n  // Preserve only its already drawn owner; phase time starts at actual delivery.\n  const awaiting=s.enemies.slice(0,3).map((_,i)=>this.awaitingDeath(i));\n  this.previousEnemies=s.enemies.slice(0,3);\n  this.previousHp=this.previousEnemies.map((e,i)=>awaiting[i]?this.previousHp[i]!:e.hp);\n  if(!awaiting.some(Boolean)){this.previousMode=s.mode;this.previousTick=s.ticks;}"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "const buildInfo={version:'0.9.71',batch:'VQ03X',sourceSha:process.env.GITHUB_SHA??null};",
+        "after": "const buildInfo={version:'0.9.72',batch:'VQ03Y',sourceSha:process.env.GITHUB_SHA??null};"
+      }
+    ],
+    "tests/field_enemy_action_browser.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from current_build import EXPECTED_BUILD\nfrom pathlib import Path"
+      },
+      {
+        "before": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      }
+    ],
+    "tests/rescue_browser.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from current_build import EXPECTED_BUILD\nfrom pathlib import Path"
+      },
+      {
+        "before": "            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            write_body_report(OUT,rescue_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            write_body_report(OUT,rescue_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      }
+    ],
+    "tests/trial_browser.py": [
+      {
+        "before": "from pathlib import Path",
+        "after": "from current_build import EXPECTED_BUILD\nfrom pathlib import Path"
+      },
+      {
+        "before": "            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            write_trial_motion_report(OUT,trial_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      },
+      {
+        "before": "            write_trial_body_report(OUT,trial_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))\n",
+        "after": "            write_trial_body_report(OUT,trial_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)\n"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "const r=spawnSync(process.execPath,['--test','tests/death-delivery.test.mjs'",
+        "after": "const r=spawnSync(process.execPath,['--test','tests/field-death-delivery.test.mjs','tests/native-build-y.test.mjs','tests/death-delivery.test.mjs'"
+      }
+    ],
+    "tests/rescue-enemy-body.test.mjs": [
+      {
+        "before": "import {trialUIfDeclared} from './helpers/trial-u-baseline.mjs';\n",
+        "after": "import {nativeBuildYIfDeclared} from './helpers/native-build-y-baseline.mjs';\nimport {trialUIfDeclared} from './helpers/trial-u-baseline.mjs';\n"
+      },
+      {
+        "before": "sha(readFileSync(p))",
+        "after": "sha(nativeBuildYIfDeclared(p,readFileSync(p,'utf8')))"
+      }
+    ],
+    "tests/rescue-enemy-motion.test.mjs": [
+      {
+        "before": "import {rescueBodyTIfDeclared} from './helpers/rescue-body-t-baseline.mjs';\n",
+        "after": "import {nativeBuildYIfDeclared} from './helpers/native-build-y-baseline.mjs';\nimport {rescueBodyTIfDeclared} from './helpers/rescue-body-t-baseline.mjs';\n"
+      },
+      {
+        "before": "sha(readFileSync(p))",
+        "after": "sha(nativeBuildYIfDeclared(p,readFileSync(p,'utf8')))"
+      }
+    ],
+    "tests/rescue_enemy_body_test.py": [
+      {
+        "before": "from trial_u_preservation import restore_trial_u_if_declared\n",
+        "after": "from native_build_y_preservation import restore_native_build_y_if_declared\nfrom trial_u_preservation import restore_trial_u_if_declared\n"
+      },
+      {
+        "before": "hashlib.sha256((ROOT/name).read_bytes())",
+        "after": "hashlib.sha256(restore_native_build_y_if_declared(name,(ROOT/name).read_text()).encode())"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/field-enemy-body.ts": "c740379ef4d876599ab3c831d5dcae1ca8080f38a70189217a11e997473ecf6c",
+    "scripts/build.mjs": "700897c013e2552947c7962c486a1b6eae3983122066b768311f63bee730cfd8",
+    "tests/field_enemy_action_browser.py": "0796976cc1780f73a9cfbaf8d4def14503e4a005507e1b0fcdb48fb58dd612ae",
+    "tests/rescue_browser.py": "9d5663093d94297e574082d66b11244a58fb2693231346c75a9c4ec2a3a73d56",
+    "tests/trial_browser.py": "9688cc23df52110fcf60bc167d73e1fac87392ec2834abb4ecb521ab64a51d44",
+    "scripts/test.mjs": "5c51541cba9937d96ca95fe4d436493e3983524074484a08564011b492722194",
+    "tests/rescue-enemy-body.test.mjs": "5b3d710aa1e57fbcca1f7e4d3cfff03eca7a7004939bfa6ab28b758f7125749d",
+    "tests/rescue-enemy-motion.test.mjs": "69ced0f5bea0fa8d42b67b8009a23f61db1fb5899dee0645b9eae9cce4dd6ac1",
+    "tests/rescue_enemy_body_test.py": "be01b72e0da0d4c20ffca9ccd61865dc63597f033d6bcdb362387910f4b62265"
+  }
+}

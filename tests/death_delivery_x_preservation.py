@@ -1,9 +1,11 @@
+from native_build_y_preservation import restore_native_build_y_if_declared
 """Exact X -> W source-only inverse. Never accepts native report/state/pixels."""
 import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SPEC=json.loads((ROOT/'tests/baselines/vq03x-declared-death-delivery-edits.json').read_text())
 def restore_death_delivery_x_source(name,source,verify_base=True):
+    source=restore_native_build_y_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits:raise ValueError('Undeclared X source')
     for e in reversed(edits):
@@ -13,4 +15,5 @@ def restore_death_delivery_x_source(name,source,verify_base=True):
     return source
 
 def restore_death_delivery_x_if_declared(name,source):
+    source=restore_native_build_y_if_declared(name,source)
     return restore_death_delivery_x_source(name,source,False) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source

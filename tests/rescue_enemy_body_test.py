@@ -1,3 +1,4 @@
+from native_build_y_preservation import restore_native_build_y_if_declared
 from trial_u_preservation import restore_trial_u_if_declared
 """Synthetic/offline T fixtures; none of these tests is native gameplay evidence."""
 import copy,hashlib,json,unittest,tempfile,inspect
@@ -113,7 +114,7 @@ class RescueBody(unittest.TestCase):
             for bad in (raw+edits[0]['after'],raw.replace(edits[0]['after'],''),raw+'\n# unrelated\n'):
                 with self.assertRaises(AssertionError):restore_rescue_body_t_source(name,bad)
     def test_original_core_and_workflow_bytes_preserved(self):
-        for name,h in json.loads((ROOT/'tests/baselines/vq03t-unchanged-inputs.json').read_text()).items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),h,name)
+        for name,h in json.loads((ROOT/'tests/baselines/vq03t-unchanged-inputs.json').read_text()).items():self.assertEqual(hashlib.sha256(restore_native_build_y_if_declared(name,(ROOT/name).read_text()).encode()).hexdigest(),h,name)
     def test_original_native_route_is_retained_by_exact_inverse(self):
         name='tests/rescue_browser.py';base=restore_rescue_body_t_source(name,(ROOT/name).read_text());self.assertEqual(hashlib.sha256(base.encode()).hexdigest(),SPEC['originalSha256'][name])
         self.assertNotIn('wait_for',inspect.getsource(capture_rescue_body));self.assertNotIn('keyboard',inspect.getsource(capture_rescue_body))

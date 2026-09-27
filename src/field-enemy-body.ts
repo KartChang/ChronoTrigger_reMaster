@@ -1,5 +1,6 @@
 import {DynamicTexture,Material,Mesh,MeshBuilder,StandardMaterial,Texture,Vector3} from '@babylonjs/core';
 import type {Effect,Enemy,State,Vec} from './core';
+import {awaitingLethalDelivery} from './pending-death';
 import type {FieldEnemySprite} from './field-enemy-palette';
 import {preservePixelPalette} from './pixel-presentation';
 
@@ -82,6 +83,10 @@ export class FieldEnemyBody{
   const cause:Cause={kind:'recoil',index:i,tick:s.ticks,receivedTick:s.ticks,origin:{...e.origin},target:{x:v.x,z:v.z},effect:structuredClone(e),hpBefore:this.previousHp[i]??v.hp,hpAfter:v.hp};
   this.moves[i]={cause,direction:direction(e.origin,v)};
  }
+ private awaitingDeath(index:number):boolean{
+  const s=this.state,e=s?.enemies[index];
+  return !!s&&this.previousEnemies[index]===e&&this.previousHp[index]!>0&&this.previousMode==='battle'&&!!this.slots[index]?.shown&&awaitingLethalDelivery(s,e);
+ }
  update(sprite:FieldEnemySprite,index:number):void{
   if(this.disposed||!this.state||!field(this.state)||!Number.isInteger(index)||index<0||index>=3)return;
   const s=this.state,enemy=s.enemies[index],old=this.slots[index],pending=this.pending[index];
@@ -90,7 +95,7 @@ export class FieldEnemyBody{
    if(!this.reduced&&old?.sprite===sprite&&old.shown&&enemy&&enemy.hp<=0&&!shown(sprite))this.makeGhost(sprite,pending);
   }
   if(!enemy||enemy.hp<=0||!shown(sprite)){
-   if(old)old.shown=false;this.moves[index]=null;return;
+   if(old&&!this.awaitingDeath(index))old.shown=false;this.moves[index]=null;return;
   }
   const anchor={x:enemy.x,z:enemy.z},m=this.moves[index];let offset=zero(),phase='rest';
   if(m&&s.mode==='battle'){
@@ -121,7 +126,12 @@ export class FieldEnemyBody{
    }
    this.record(g.cause,age<FIELD_BODY.deathTicks/2?'settle':'fade',g.mesh,zero(),g.material.alpha,false);
   }
-  this.previousEnemies=s.enemies.slice(0,3);this.previousHp=this.previousEnemies.map(e=>e.hp);this.previousMode=s.mode;this.previousTick=s.ticks;
+  // A queued real lethal event is not consumed by a paused empty-effect draw.
+  // Preserve only its already drawn owner; phase time starts at actual delivery.
+  const awaiting=s.enemies.slice(0,3).map((_,i)=>this.awaitingDeath(i));
+  this.previousEnemies=s.enemies.slice(0,3);
+  this.previousHp=this.previousEnemies.map((e,i)=>awaiting[i]?this.previousHp[i]!:e.hp);
+  if(!awaiting.some(Boolean)){this.previousMode=s.mode;this.previousTick=s.ticks;}
  }
  private makeGhost(sprite:FieldEnemySprite,cause:Cause):void{
   let texture:DynamicTexture|undefined,material:StandardMaterial|undefined,mesh:Mesh|undefined;

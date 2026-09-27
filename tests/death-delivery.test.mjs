@@ -1,3 +1,4 @@
+import {nativeBuildYIfDeclared} from './helpers/native-build-y-baseline.mjs';
 /** Offline production-renderer regressions; never native/browser acceptance. */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -71,11 +72,11 @@ for(const source of ['p1','p2','guest','combo'])test('X read-only pending receip
  const s=seed('sanctum',0);lethal(s);if(source==='p2')s.effects[0].actor=1;if(source==='guest'){delete s.effects[0].actor;s.effects[0].guest=true;}if(source==='combo'){delete s.effects[0].actor;s.effects[0].kind='combo';}const before=structuredClone(s);assert(awaitingLethalDelivery(s,s.enemies[0]));assert.deepEqual(s,before);
 });
 for(const name of Object.keys(deathDeliveryXSpec.files))test('X exact inverse rejects missing/duplicate/unrelated drift '+name,()=>{
- const raw=readFileSync(name,'utf8'),old=deathDeliveryXBaseline(name,raw),e=deathDeliveryXSpec.files[name][0];assert.equal(sha(old),deathDeliveryXSpec.originalSha256[name]);assert.equal(deathDeliveryXIfDeclared(name,old),old);
+ const raw=nativeBuildYIfDeclared(name,readFileSync(name,'utf8')),old=deathDeliveryXBaseline(name,raw),e=deathDeliveryXSpec.files[name][0];assert.equal(sha(old),deathDeliveryXSpec.originalSha256[name]);assert.equal(deathDeliveryXIfDeclared(name,old),old);
  for(const bad of [raw+e.after,raw.replace(e.after,''),raw+'\n// unrelated drift\n'])assert.throws(()=>deathDeliveryXBaseline(name,bad));
 });
 test('X core/input/native routes/captures/assertions/W retention/held source remain byte-identical',()=>{
- for(const [name,h]of Object.entries(JSON.parse(readFileSync('tests/baselines/vq03x-unchanged-inputs.json'))))assert.equal(sha(readFileSync(name)),h,name);
+ for(const [name,h]of Object.entries(JSON.parse(readFileSync('tests/baselines/vq03x-unchanged-inputs.json'))))assert.equal(sha(nativeBuildYIfDeclared(name,readFileSync(name,'utf8'))),h,name);
 });
 
-test('X optional adapter preserves unrelated bytes for original downstream hashes to reject',()=>{for(const name of Object.keys(deathDeliveryXSpec.files)){const raw=readFileSync(name,'utf8'),old=deathDeliveryXBaseline(name,raw),extra='\n// unrelated\n';assert.equal(deathDeliveryXIfDeclared(name,raw+extra),old+extra);assert.notEqual(sha(deathDeliveryXIfDeclared(name,raw+extra)),deathDeliveryXSpec.originalSha256[name]);}});
+test('X optional adapter preserves unrelated bytes for original downstream hashes to reject',()=>{for(const name of Object.keys(deathDeliveryXSpec.files)){const raw=nativeBuildYIfDeclared(name,readFileSync(name,'utf8')),old=deathDeliveryXBaseline(name,raw),extra='\n// unrelated\n';assert.equal(deathDeliveryXIfDeclared(name,raw+extra),old+extra);assert.notEqual(sha(deathDeliveryXIfDeclared(name,raw+extra)),deathDeliveryXSpec.originalSha256[name]);}});

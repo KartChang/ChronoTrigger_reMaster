@@ -4,6 +4,7 @@ constructed saves, teleports or accelerated clocks. Software GPU is not hardware
 """
 from cpu_journey_support import CpuJourney, CPU_ARGS
 from native_chooser import arm_native_chooser, chooser_observation, assert_one_chooser
+from current_build import EXPECTED_BUILD
 from pathlib import Path
 import hashlib, json, math, os, subprocess, sys, time
 from rescue_route import approach_supply_chest, approach_organ, input_context
@@ -238,8 +239,8 @@ try:
             assert not errors,errors
             assert not [u for u in requests if not u.startswith(('http://127.0.0.1:4181/','data:','blob:'))],requests
             passed('party walks back through the kingdom and time gate; v5 reload retains the completed rescue in 1000 AD')
-            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))
-            write_body_report(OUT,rescue_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=('0.9.70','VQ03W'))
+            write_rescue_report(OUT,rescue_enemy_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)
+            write_body_report(OUT,rescue_body_observations,json.loads((ROOT/'dist/build-meta.json').read_text()),os.environ['GITHUB_SHA'],errors,expected_build=EXPECTED_BUILD)
             report={'status':'passed','passed':checks,'errors':errors,'waits':waits,'sourceSave':str(SOURCE.relative_to(ROOT/'test-results')) if cpu.enabled else 'kingdom/kingdom-save-v4.json from preceding same-run browser journey','sourceSaveSha256':hashlib.sha256(original).hexdigest(),'feedbackGeometry':feedback_geometry,'limitations':['Condensed cathedral layout and paraphrased events; project battle numbers, not original full dungeon or balance.','Third ally is autonomous, not a third human slot or selectable party-roster system.','Software-rendered Chromium keyboard coverage; not hardware performance or physical-controller certification.','No new original soundtrack and no 90-point art or whole-game acceptance.']}
         except Exception as exc:
             report={'status':'failed','passed':checks,'errors':errors,'waits':waits,'failure':str(exc)}

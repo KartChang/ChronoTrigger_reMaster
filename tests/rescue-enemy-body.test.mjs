@@ -1,3 +1,4 @@
+import {nativeBuildYIfDeclared} from './helpers/native-build-y-baseline.mjs';
 import {trialUIfDeclared} from './helpers/trial-u-baseline.mjs';
 import {rescueBodyTSpec,rescueBodyTBaseline,rescueBodyTIfDeclared} from './helpers/rescue-body-t-baseline.mjs';
 /** Explicit offline core/CPU fixtures, never native gameplay or device evidence. */
@@ -45,4 +46,4 @@ test('T real recoil interrupts an outgoing motion without resuming the old attac
 test('T replacing a slot removes its old-source observation instead of reattributing it',()=>{const k=rig(),s=seed();try{s.rescue.guest.hp=0;draw(k,s);actualAttack(s);draw(k,s);assert(k.w.inspect().rescueEnemyBody.history.some(h=>h.cause.index===0));s.enemies[0]=structuredClone(s.enemies[0]);draw(k,s);assert(!k.w.inspect().rescueEnemyBody.history.some(h=>h.cause.index===0));}finally{k.close();}});
 
 for(const name of Object.keys(rescueBodyTSpec.files))test('T exact inverse and missing/duplicate/unrelated rejection '+name,()=>{const raw=trialUIfDeclared(name,readFileSync(name,'utf8')),old=rescueBodyTBaseline(name,raw),e=rescueBodyTSpec.files[name][0];assert.equal(sha(old),rescueBodyTSpec.originalSha256[name]);assert.equal(rescueBodyTIfDeclared(name,old),old);for(const bad of [raw+e.after,raw.replace(e.after,''),raw+'\n// unrelated drift\n'])assert.throws(()=>rescueBodyTBaseline(name,bad));});
-test('T original core/rules/saves/art/controllers/input/workflow bytes remain exact S',()=>{for(const [p,h] of Object.entries(JSON.parse(readFileSync('tests/baselines/vq03t-unchanged-inputs.json'))))assert.equal(sha(readFileSync(p)),h,p);});
+test('T original core/rules/saves/art/controllers/input/workflow bytes remain exact S',()=>{for(const [p,h] of Object.entries(JSON.parse(readFileSync('tests/baselines/vq03t-unchanged-inputs.json'))))assert.equal(sha(nativeBuildYIfDeclared(p,readFileSync(p,'utf8'))),h,p);});

@@ -1,3 +1,4 @@
+from trial_body_v_preservation import restore_trial_body_v_if_declared
 """Synthetic/offline fixtures; none represents provider-native gameplay."""
 import copy,json,hashlib,inspect,tempfile,unittest,gzip
 from pathlib import Path
@@ -72,7 +73,7 @@ class TrialMotion(unittest.TestCase):
             old=restore_trial_u_source(name,(ROOT/name).read_text());self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][name])
     def test_source_inverse_rejects_missing_duplicate_and_unrelated_changes(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();old=restore_trial_u_source(name,raw);self.assertEqual(restore_trial_u_if_declared(name,old),old)
+            raw=restore_trial_body_v_if_declared(name,(ROOT/name).read_text());old=restore_trial_u_source(name,raw);self.assertEqual(restore_trial_u_if_declared(name,old),old)
             e=edits[0]
             for bad in (raw.replace(e['after'],'',1),raw+e['after'],raw+'\n// unrelated drift'):
                 with self.assertRaises(AssertionError):restore_trial_u_source(name,bad)

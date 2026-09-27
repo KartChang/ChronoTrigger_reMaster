@@ -1,3 +1,4 @@
+import {TrialEnemyBody} from './trial-enemy-body';
 import {TrialEnemyMotion} from './trial-enemy-motion';
 import {NpcMotion} from './npc-motion';
 import {drawWitness,drawFairProp,WITNESS_SIZE} from './witness-art';
@@ -17,7 +18,7 @@ import {drawTrialFloor,drawCourtWindow,drawTankPart} from './trial-art';
 /** Cached, distinct interior/field sets; camera and game rules stay outside this renderer. */
 export function buildTrial(scene:Scene,shadow:ShadowGenerator){
  type View={root:TransformNode;guards:Mesh[];enemies:Mesh[];tank:Mesh[];jurors:Mesh[];tankFrame:number;witnesses:Mesh[];npcs:Mesh[];window?:Mesh;parcel?:Mesh;gate?:Mesh;fritz?:Mesh;marle?:Mesh;lid?:Mesh;staging?:ReturnType<typeof bindCourtStaging>};
- const views=new Map<TrialMap,View>();const motion=new NpcMotion(scene),enemies=new TrialEnemyMotion(scene);
+ const views=new Map<TrialMap,View>();const motion=new NpcMotion(scene),enemies=new TrialEnemyMotion(scene),bodies=new TrialEnemyBody(scene);
  function build(map:TrialMap):View{
   const root=new TransformNode('trial-'+map,scene),mats=new Map<string,StandardMaterial>(),surface=materialSet(scene,map);
   const mat=(hex:string)=>{let m=mats.get(hex);if(!m){m=new StandardMaterial(map+hex,scene);m.diffuseColor=Color3.FromHexString(hex);m.specularColor=Color3.Black();mats.set(hex,m);}return m;};
@@ -87,8 +88,8 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    for(const b of TRIAL_SOLIDS.futuregate??[])box('rusted-machinery',b.x,.7,b.z,b.w,1.4,b.d,'#697776');
    for(const x of [-5.5,5.5])box('broken-rib',x,2.5,5.5,.35,5,.4,'#8b9286');box('sealed-door',0,1.4,6.7,3,2.8,.25,'#63747a');box('red-indicator',1.3,1.7,6.5,.14,.2,.05,'#b06957');
   }
-  if(map==='cellblock'||map==='prisonstairs'){for(let i=0;i<2;i++){const m=guard(i?1.4:-1.4,map==='cellblock'?-1.6:1.5);motion.release(m);v.enemies.push(m);enemies.bind(m,'prisonGuard',i,map);}}
-  v.tank.forEach((m,i)=>enemies.bind(m,(['tankHead','tankBody','tankWheel'] as const)[i]!,i,map));
+  if(map==='cellblock'||map==='prisonstairs'){for(let i=0;i<2;i++){const m=guard(i?1.4:-1.4,map==='cellblock'?-1.6:1.5);motion.release(m);v.enemies.push(m);enemies.bind(m,'prisonGuard',i,map);bodies.bind(m,'prisonGuard',i,map);}}
+  v.tank.forEach((m,i)=>{const kind=(['tankHead','tankBody','tankWheel'] as const)[i]!;enemies.bind(m,kind,i,map);bodies.bind(m,kind,i,map);});
   if(map==='courtroom')v.staging=bindCourtStaging(root);
   root.setEnabled(false);return v;
  }
@@ -98,7 +99,8 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
   const points=windowMesh.getBoundingInfo().boundingBox.vectorsWorld.map(v=>Vector3.Project(v,Matrix.Identity(),scene.getTransformMatrix(),viewport));
   return {left:Math.min(...points.map(v=>v.x))/e.getRenderWidth(),right:Math.max(...points.map(v=>v.x))/e.getRenderWidth(),top:Math.min(...points.map(v=>v.y))/e.getRenderHeight(),bottom:Math.max(...points.map(v=>v.y))/e.getRenderHeight()};
  }
- return {inspect:()=>({motion:motion.inspect(),enemyMotion:enemies.inspect(),courtStaging:views.get('courtroom')?.staging?.inspect()??null,forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false,frameEffects:readonly Effect[]=[]){
+ return {inspect:()=>({motion:motion.inspect(),enemyMotion:enemies.inspect(),enemyBody:bodies.inspect(),courtStaging:views.get('courtroom')?.staging?.inspect()??null,forestGate:(()=>{const g=views.get('guardia1000')?.gate;return g?{name:g.name,visible:g.isEnabled()&&g.isVisible&&g.visibility>0,position:g.position.asArray(),rotation:g.rotation.asArray()}:null;})(),built:[...views.keys()],visible:[...views.entries()].filter(([,v])=>v.root.isEnabled()).map(([k])=>k),assetProfile:ART_PROFILE.id,tankFrame:views.get('prisonbridge')?.tankFrame??null,windowBounds:windowBounds(),npcTextureSize:WITNESS_SIZE,npcTextures:[...views.values()].filter(v=>v.root.isEnabled()).flatMap(v=>v.npcs).map(m=>({name:m.name,...((m.material as StandardMaterial).diffuseTexture?.getSize())}))}),draw(s:State,reducedMotion=false,frameEffects:readonly Effect[]=[]){
+  bodies.beforeDraw();
   if(trialMap(s.chapter)&&!views.has(s.chapter))views.set(s.chapter,build(s.chapter));
   for(const [map,v] of views){const on=map===s.chapter;v.root.setEnabled(on);if(!on)continue;
    v.enemies.forEach((m,i)=>{const e=s.enemies[i];m.setEnabled(s.mode==='battle'&&!!e&&e.hp>0);if(e)m.position.set(e.x,.95,e.z);});
@@ -113,7 +115,7 @@ export function buildTrial(scene:Scene,shadow:ShadowGenerator){
    if(v.parcel)v.parcel.setEnabled(jailGift(s)>0&&!s.trial.hearing?.giftTaken);
    if(v.lid)v.lid.rotation.z=s.trial.suppliesTaken?-.6:0;
   }
-  motion.draw(s.ticks,reducedMotion);enemies.draw(s,reducedMotion,frameEffects);
+  motion.draw(s.ticks,reducedMotion);enemies.draw(s,reducedMotion,frameEffects);bodies.draw(s,reducedMotion,frameEffects);
   const bridge=views.get('prisonbridge');if(bridge?.root.isEnabled())bridge.tankFrame=enemies.drawnFrame(bridge.tank[1]!)??bridge.tankFrame;
   views.get('courtroom')?.staging?.draw();
  }};

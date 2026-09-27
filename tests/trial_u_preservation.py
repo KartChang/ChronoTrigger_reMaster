@@ -1,9 +1,11 @@
 """Exact U -> T source inverse. Never transforms native game/state/reports/pixels."""
+from trial_body_v_preservation import restore_trial_body_v_if_declared
 import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SPEC=json.loads((ROOT/'tests/baselines/vq03u-declared-trial-edits.json').read_text())
 def restore_trial_u_source(name,source,verify_base=True):
+    source=restore_trial_body_v_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits:raise ValueError('Undeclared U source')
     for e in reversed(edits):
@@ -13,4 +15,5 @@ def restore_trial_u_source(name,source,verify_base=True):
     return source
 
 def restore_trial_u_if_declared(name,source):
+    source=restore_trial_body_v_if_declared(name,source)
     return restore_trial_u_source(name,source,False) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source

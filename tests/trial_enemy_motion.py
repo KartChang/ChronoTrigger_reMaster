@@ -49,9 +49,9 @@ def assert_trial_observation(o):
         assert h['frame']==expected,(h['kind'],h['tick'],h['frame'],expected)
     gs=list(groups.values())
     return {'textureSamples':len(m['history']),'sourceActions':sum(g['operation']=='attack' for g in gs),'repairActions':sum(g['operation']=='repair' for g in gs),'livingRecoils':sum(g['operation']=='hurt' for g in gs),'pairedStrikeFollow':sum(g['operation']!='hurt' and {2,3}<=g['frames'] for g in gs),'completeActionClips':sum(g['operation']!='hurt' and {1,2,3}<=g['frames'] for g in gs),'guardActions':sum(g['kind']=='prisonGuard' and g['operation']=='attack' for g in gs),'bodyActions':sum(g['kind']=='tankBody' and g['operation']=='attack' for g in gs),'wheelActions':sum(g['kind']=='tankWheel' and g['operation']=='attack' for g in gs)}
-def assert_trial_report(r,expected_sha,*,require_actions=True):
+def assert_trial_report(r,expected_sha,*,require_actions=True,expected_build=('0.9.68','VQ03U')):
     assert re.fullmatch(r'[0-9a-f]{40}',expected_sha) and r['sourceSha']==r['build']['sourceSha']==expected_sha
-    assert (r['build']['version'],r['build']['batch'])==('0.9.68','VQ03U')
+    assert (r['build']['version'],r['build']['batch'])==tuple(expected_build)
     assert r['status']=='passed' and r['errors']==[] and r['nativeInputsOnly'] is True
     for name in ('physicalDevice','artApproved','fullAnimationComplete','framebufferSynchronized'):assert r[name] is False
     required=('cellguards-victory','stairguards-victory','tank-animation','tank-repair','tank-victory','stairguards-victory-2')
@@ -72,10 +72,10 @@ def capture_trial_motion(page,out,label,observations):
     o=page.evaluate(OBSERVE_SCRIPT);(out/f'trial-enemy-{key}-observation.json').write_text(json.dumps(o,ensure_ascii=False,indent=2),encoding='utf-8')
     observations[key]=o;assert_trial_observation(o)
 
-def write_trial_motion_report(out,observations,build,sha,errors):
+def write_trial_motion_report(out,observations,build,sha,errors,*,expected_build=('0.9.68','VQ03U')):
     r={'status':'running','sourceSha':sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'artApproved':False,'fullAnimationComplete':False,'framebufferSynchronized':False,'observations':observations,'errors':list(errors)}
     try:
-        r['status']='passed';r['positiveSamples']=assert_trial_report(r,sha)
+        r['status']='passed';r['positiveSamples']=assert_trial_report(r,sha,expected_build=expected_build)
         r['limitations']=['Read-only source/cell observations,not synchronized framebuffer or original-speed evidence.','Observation histories overlap: per-boundary action counts must not be added as unique events.','Missing guard/part phases stay evidence gaps; no native state/time/save/collision changes.']
     except Exception as exc:r.update(status='failed',failure=str(exc));raise
     finally:(out/'trial-enemy-motion-report.json').write_text(json.dumps(r,ensure_ascii=False,indent=2),encoding='utf-8')

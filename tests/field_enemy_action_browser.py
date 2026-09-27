@@ -147,16 +147,16 @@ try:
                   'Texture-history RGBA reads are tied to their draw ticks, not full-frame screenshot pixels.',
                   'Screenshots occur after observations; no frame-exact synchronization is claimed.',
                   'No complete direction/movement/death animation, original-speed comfort, audio or whole-game approval.'])
-            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.68','VQ03U'))
+            report['positiveSamples']=assert_native_report(report,os.environ['GITHUB_SHA'],expected_build=('0.9.69','VQ03V'))
             # O additive suffix: all original N actions, captures and assertions above remain.
             from field_enemy_body import observe_native_body_suffix
-            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.68','VQ03U'))
+            observe_native_body_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.69','VQ03V'))
             from party_combat import observe_party_suffix
-            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.68','VQ03U'))
+            observe_party_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.69','VQ03V'))
             from party_reaction import observe_reaction_suffix
-            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.68','VQ03U'))
+            observe_reaction_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.69','VQ03V'))
             from combat_timing import observe_timing_suffix
-            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.68','VQ03U'))
+            observe_timing_suffix(page,OUT,report['build'],os.environ['GITHUB_SHA'],errors,expected_build=('0.9.69','VQ03V'))
         except Exception as exc:
             report.update(status='failed',failure=str(exc),passed=checks,errors=errors,waits=waits)
             try:

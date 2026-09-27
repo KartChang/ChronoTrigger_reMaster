@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "id": 36330900305,
+    "number": 97,
+    "source": "fa109ffa446f69881745b2b2c09b78c494f4e2fc",
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-09-27T16:28:19Z",
+    "attempt": 1,
+    "event": "push"
+  },
+  "pages": {
+    "id": 36333362177,
+    "number": 91,
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-09-27T16:28:51Z",
+    "workflowHead": "781e3a34664752771056c51aeec2edd1aa61c539"
+  },
+  "browserOriginalDownloaded": true,
+  "stagedPagesBytesReviewed": false,
+  "newBoundedAcceptanceGranted": false,
+  "reason": "User reprioritized actual art; provider status and exact source restoration only, no whole original bundle review or art approval."
+}

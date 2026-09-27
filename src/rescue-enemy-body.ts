@@ -88,7 +88,10 @@ export class RescueEnemyBody{
  end():void{
   const s=this.state;if(this.disposed||!s||this.tick===null)return;
   for(let i=0;i<3;i++){
-   const g=this.ghosts[i];if(!g)continue;const age=s.ticks-g.cause.tick;
+   const g=this.ghosts[i];if(!g)continue;
+   // A live current owner invalidates the death copy, even at the same tick.
+   if(s.enemies[i]!.hp>0){g.mesh.setEnabled(false);g.material.alpha=0;this.record(g.cause,'cancelled',g.mesh,zero(),0,this.slots[i]?.sprite.mesh.isEnabled()??false,g.cell);this.release(i);continue;}
+   const age=s.ticks-g.cause.tick;
    if(age<0||age>=24){g.mesh.setEnabled(false);g.material.alpha=0;this.record(g.cause,'expired',g.mesh,zero(),g.material.alpha,false,g.cell);this.release(i);continue;}
    g.mesh.setEnabled(!this.reduced);if(this.reduced)continue;
    if(g.lastTick!==s.ticks){const t=age/24,scale=1-.7*t;g.mesh.scaling.copyFrom(g.scale);g.mesh.scaling.y*=scale;g.mesh.position.copyFrom(g.base).subtractInPlace(g.up.scale(g.height*g.scale.y*.5*(1-scale)));g.material.alpha=1-t;g.lastTick=s.ticks;}

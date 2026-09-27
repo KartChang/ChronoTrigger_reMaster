@@ -1,4 +1,4 @@
-import type {State,Effect,EnemyAction} from './core';
+import type {State,Effect,Enemy,EnemyAction} from './core';
 import type {FieldEnemySprite} from './field-enemy-palette';
 import {IMP_MOTION} from './imp-motion';
 import {IMP_ACTION,impActionFrame,drawImpActionFrame,impHurtActive} from './imp-action';
@@ -27,6 +27,8 @@ export class FieldEnemyMotion{
  private active=false;
  private disposed=false;
  private state:State|null=null;
+ private chapter='';
+ private owners:(Enemy|null)[]=[null,null,null];
  /** Record the original scene-entry drawImp upload, without repainting it. */
  seedOriginal(sprite:FieldEnemySprite,index:number):void{
   if(this.disposed)return;
@@ -36,10 +38,16 @@ export class FieldEnemyMotion{
  private clearEvents():void{this.hurts.fill(null);this.actions.fill(null);this.hurtCauses.fill(null);this.attackCauses.fill(null);this.keys.fill(null);}
  begin(s:State,reduced:boolean):void{
   if(this.disposed)return;
-  if(this.tick!==null&&s.ticks<this.tick){this.clearEvents();this.history=[];this.dropped=0;}
-  this.tick=s.ticks;this.state=s;this.reduced=reduced;this.battle=s.mode==='battle';
+  if(this.state!==s||this.chapter!==s.chapter||(this.tick!==null&&s.ticks<this.tick)){this.clearEvents();this.owners.fill(null);this.history=[];this.dropped=0;}
+  this.tick=s.ticks;this.state=s;this.chapter=s.chapter;this.reduced=reduced;this.battle=s.mode==='battle';
   this.active=s.chapter==='canyon'||s.chapter==='forest';
   if(!this.active||!this.battle)this.clearEvents();
+  // Slot numbers are not identities. A dead, removed or replaced owner cannot
+  // carry an earlier turn into a reused sprite; unrelated slots stay untouched.
+  for(let i=0;i<3;i++){
+   const enemy=this.active&&this.battle&&s.enemies[i]&&s.enemies[i]!.hp>0?s.enemies[i]!:null;
+   if(this.owners[i]!==enemy){this.hurts[i]=null;this.actions[i]=null;this.hurtCauses[i]=null;this.attackCauses[i]=null;this.keys[i]=null;this.owners[i]=enemy;}
+  }
  }
  receive(s:State,e:Effect):void{
   if(this.disposed||!this.active||s!==this.state||s.mode!=='battle')return;
@@ -49,7 +57,7 @@ export class FieldEnemyMotion{
    const foe=s.enemies[a.index];
    if(e.kind!=='hit'||e.actor!==undefined||e.guest||!Number.isInteger(a.index)||a.index<0||a.index>2||!foe||foe.hp<=0||
     !Number.isSafeInteger(a.tick)||a.tick<0||a.tick>s.ticks||s.ticks-a.tick>=IMP_ACTION.duration||
-    ![a.origin.x,a.origin.z,a.target.x,a.target.z,e.x,e.z].every(Number.isFinite)||
+    !a.origin||!a.target||![a.origin.x,a.origin.z,a.target.x,a.target.z,e.x,e.z].every(Number.isFinite)||
     a.origin.x!==foe.x||a.origin.z!==foe.z||a.target.x!==e.x||a.target.z!==e.z)return;
    if(this.actions[a.index]&&this.actions[a.index]!.tick>=a.tick)return;
    this.actions[a.index]=structuredClone(a);this.attackCauses[a.index]={kind:'attack',index:a.index,receivedTick:s.ticks,effect:structuredClone(e)};return;
@@ -79,7 +87,7 @@ export class FieldEnemyMotion{
   }
  }
  // Preserve only the physical texture cache across state rebase; no replay of old actions.
- reset():void{this.clearEvents();this.history=[];this.dropped=0;for(const slot of this.slots)if(slot){slot.hurtTick=null;slot.attackTick=null;}this.tick=null;this.state=null;this.active=false;}
+ reset():void{this.clearEvents();this.history=[];this.dropped=0;for(const slot of this.slots)if(slot){slot.hurtTick=null;slot.attackTick=null;}this.tick=null;this.state=null;this.chapter='';this.owners.fill(null);this.active=false;}
  dispose():void{this.reset();this.slots.fill(null);this.disposed=true;}
  inspect(){return {profile:IMP_MOTION.id,actionProfile:IMP_ACTION.id,active:this.active,tick:this.tick,reducedMotion:this.reduced,battle:this.battle,uploadScope:'pose-changes-only',approved:false,disposed:this.disposed,
   history:structuredClone(this.history),historyLimit:IMP_ACTION.historyLimit,historyDropped:this.dropped,

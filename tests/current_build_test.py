@@ -1,16 +1,17 @@
+from enemy_lifecycle_z_preservation import restore_lifecycle_z_if_declared
 """Offline preflight. No browser import, native report rewrite, or timing edits."""
 import ast,json,hashlib,unittest
 from pathlib import Path
 from current_build import ROOT,EXPECTED_BUILD,expected_build_from_source
 from native_build_y_preservation import SPEC,restore_native_build_y_source,restore_native_build_y_if_declared
 ROUTES={'tests/field_enemy_action_browser.py':5,'tests/rescue_browser.py':2,'tests/trial_browser.py':2}
-DECL="const buildInfo={version:'0.9.72',batch:'VQ03Y',sourceSha:process.env.GITHUB_SHA??null};"
+DECL="const buildInfo={version:'0.9.73',batch:'VQ03Z',sourceSha:process.env.GITHUB_SHA??null};"
 class CurrentBuild(unittest.TestCase):
     def test_producer_not_report_is_authority(self):
-        self.assertEqual(EXPECTED_BUILD,('0.9.72','VQ03Y'))
+        self.assertEqual(EXPECTED_BUILD,('0.9.73','VQ03Z'))
         self.assertEqual(expected_build_from_source('// declaration\n'+DECL+'\n'),EXPECTED_BUILD)
     def test_invalid_missing_duplicate_and_ambiguous_declaration_fail_closed(self):
-        for raw in ['',DECL+'\n'+DECL,DECL.replace('0.9.72','NaN'),DECL.replace('VQ03Y','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\nconst buildInfo=untrusted;',DECL.replace("version:'0.9.72'",'version:report.version')]:
+        for raw in ['',DECL+'\n'+DECL,DECL.replace('0.9.73','NaN'),DECL.replace('VQ03Z','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\nconst buildInfo=untrusted;',DECL.replace("version:'0.9.73'",'version:report.version')]:
             with self.subTest(raw=raw),self.assertRaises(ValueError):expected_build_from_source(raw)
     def test_current_native_entrypoints_all_bind_the_producer(self):
         for name,count in ROUTES.items():
@@ -20,12 +21,12 @@ class CurrentBuild(unittest.TestCase):
             self.assertTrue(all(isinstance(v,ast.Name) and v.id=='EXPECTED_BUILD' for v in binds),name)
     def test_only_metadata_argument_changed_not_native_route_or_assertions(self):
         for name in ROUTES:
-            raw=(ROOT/name).read_text();old=restore_native_build_y_source(name,raw)
+            raw=restore_lifecycle_z_if_declared(name,(ROOT/name).read_text());old=restore_native_build_y_source(name,raw)
             normalized=raw.replace('from current_build import EXPECTED_BUILD\n','').replace('expected_build=EXPECTED_BUILD',"expected_build=('0.9.70','VQ03W')")
             self.assertEqual(normalized,old,name)
     def test_all_declared_sources_round_trip_and_mutations_rejected(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();old=restore_native_build_y_source(name,raw)
+            raw=restore_lifecycle_z_if_declared(name,(ROOT/name).read_text());old=restore_native_build_y_source(name,raw)
             self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][name])
             for e in edits:
                 for bad in [raw.replace(e['after'],'',1),raw+e['after'],raw+'\n# unrelated\n']:
@@ -37,5 +38,5 @@ class CurrentBuild(unittest.TestCase):
     def test_original_checker_and_protected_input_hashes(self):
         pins=json.loads((ROOT/'tests/baselines/vq03y-unchanged-inputs.json').read_text())
         for name,digest in pins.items():
-            with self.subTest(name=name):self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest)
+            with self.subTest(name=name):self.assertEqual(hashlib.sha256(restore_lifecycle_z_if_declared(name,(ROOT/name).read_text()).encode()).hexdigest(),digest)
 if __name__=='__main__':unittest.main()

@@ -51,6 +51,12 @@ export class FieldEnemyBody{
   if(this.disposed)return;
   if(this.state!==s||this.chapter!==s.chapter||(this.tick!==null&&s.ticks<this.tick))this.reset();
   this.state=s;this.chapter=s.chapter;this.tick=s.ticks;this.reduced=reduced;
+  // A sprite is reusable, but its displacement, live witness and death copy
+  // belong to one observed enemy object, not merely to an array position.
+  for(let i=0;i<3;i++)if(this.previousEnemies[i]!==s.enemies[i]){
+   const old=this.slots[i];if(old&&!old.sprite.mesh.isDisposed()){old.sprite.mesh.position.x=old.anchor.x;old.sprite.mesh.position.z=old.anchor.z;}
+   this.cancelGhost(i);this.moves[i]=null;this.pending[i]=null;this.slots[i]=null;this.previousHp[i]=NaN;this.keys[i]=null;
+  }
   if(!field(s)||!['battle','victory'].includes(s.mode)){this.moves.fill(null);this.pending.fill(null);this.clearGhosts();}
  }
  receive(s:State,e:Effect):void{
@@ -112,6 +118,8 @@ export class FieldEnemyBody{
   const s=this.state;if(this.disposed||!s||this.tick===null)return;
   for(let i=0;i<3;i++){
    const g=this.ghosts[i];if(!g)continue;
+   // Revival cancels a transient death; it must never be counted as expiry.
+   if(!s.enemies[i]||s.enemies[i]!.hp>0){this.cancelGhost(i);continue;}
    const age=s.ticks-g.cause.tick;
    if(age<0||age>=FIELD_BODY.deathTicks||!field(s)||!['battle','victory'].includes(s.mode)){
     this.record(g.cause,'expired',g.mesh,zero(),0,false);this.release(i);continue;
@@ -157,6 +165,7 @@ export class FieldEnemyBody{
   if(this.history.length>FIELD_BODY.historyLimit){this.history.shift();this.dropped++;}
  }
  private release(index:number):void{const g=this.ghosts[index];if(!g)return;this.ghosts[index]=null;g.mesh.dispose();g.material.dispose(false,false);g.texture.dispose();this.released++;}
+ private cancelGhost(index:number):void{const g=this.ghosts[index];if(!g)return;g.mesh.setEnabled(false);g.material.alpha=0;this.record(g.cause,'cancelled',g.mesh,zero(),0,this.slots[index]?.sprite.mesh.isEnabled()??false);this.release(index);}
  private clearGhosts():void{for(let i=0;i<3;i++)this.release(i);}
  reset():void{
   for(const slot of this.slots)if(slot&&!slot.sprite.mesh.isDisposed()){slot.sprite.mesh.position.x=slot.anchor.x;slot.sprite.mesh.position.z=slot.anchor.z;}

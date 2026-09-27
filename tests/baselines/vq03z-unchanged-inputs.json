@@ -1,0 +1,39 @@
+{
+  "schema": "chrono-vq03z-unchanged-aggregate-v1",
+  "algorithm": "sha256(UTF-8 compact JSON of path-sorted [relativePath,sha256(fileBytes)] pairs); generated __pycache__ and .pyc excluded",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "scripts/build.mjs",
+    "scripts/test.mjs",
+    "src/field-enemy-body.ts",
+    "src/field-enemy-motion.ts",
+    "src/rescue-enemy-body.ts",
+    "tests/baselines/vq03z-declared-lifecycle-edits.json",
+    "tests/baselines/vq03z-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/enemy-lifecycle-source.test.mjs",
+    "tests/enemy-lifecycle.test.mjs",
+    "tests/enemy_lifecycle_z_preservation.py",
+    "tests/enemy_lifecycle_z_test.py",
+    "tests/helpers/enemy-lifecycle-z-baseline.mjs",
+    "tests/helpers/native-build-y-baseline.mjs",
+    "tests/native-build-y.test.mjs",
+    "tests/native_build_y_preservation.py"
+  ],
+  "expectedCount": 595,
+  "sha256": "5806b8104453233ae8aba1810f581b51c28ac36d05cd6e6bf1ecaccc0f1a1519"
+}

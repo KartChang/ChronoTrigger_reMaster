@@ -1,8 +1,9 @@
+import {exportProductionArt} from './production-art-export.mjs';
 import {exportAssets} from './asset-export.mjs';
 import {runQuality} from './quality.mjs';
 import {build} from 'esbuild';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
-const buildInfo={version:'0.9.73',batch:'VQ03Z',sourceSha:process.env.GITHUB_SHA??null};
+const buildInfo={version:'0.9.74',batch:'VQ04A',sourceSha:process.env.GITHUB_SHA??null};
 if(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test(buildInfo.sourceSha))throw Error('Invalid source SHA');
 const out=await build({entryPoints:['src/main.ts'],bundle:true,write:false,format:'iife',platform:'browser',target:['es2022'],minify:true,legalComments:'inline',metafile:true,define:{__CHRONO_BUILD__:JSON.stringify(buildInfo)}});
 let template=await readFile('index.html','utf8');
@@ -20,5 +21,6 @@ await writeFile('dist/build-meta.json',JSON.stringify({...buildInfo,bundled:true
 console.log(`Built self-contained dist/index.html (${(Buffer.byteLength(template)/1024/1024).toFixed(2)} MiB). No CDN, server or ROM required to play.`);
 
 await exportAssets();
+await exportProductionArt('dist/art/production-vq04a');
 const quality=await runQuality();
 await writeFile('dist/QUALITY_STATUS.json',JSON.stringify(quality,null,2));

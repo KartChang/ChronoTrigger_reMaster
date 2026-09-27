@@ -1,0 +1,202 @@
+{
+  "schema": "chrono-vq04a-declared-art-source-v1",
+  "purpose": "Frozen component tests only. Actual application is always ArtDirectedWorld and has independent integration tests. Never native or image inputs.",
+  "source": "fa109ffa446f69881745b2b2c09b78c494f4e2fc",
+  "files": {
+    "assets/manifest.json": [
+      {
+        "before": "e}]}",
+        "after": "e},{\"id\":\"early-environment-vq04a\",\"required\":true,\"stage\":\"review\",\"source\":\"src/production-art.ts; src/production-environment.ts; src/art-directed-world.ts\",\"gap\":\"13 authored runtime surfaces, canyon/court wall architecture and court reframing integrated. Exact new CI WebGL/CPU screenshots, motion/occlusion, target concept fidelity and physical-device comfort still unapproved. Existing party/enemy art is retained, not claimed as newly completed.\",\"evidence\":[\"docs/PRODUCTION_ART_VQ04A.md\",\"tests/production-art.test.mjs\",\"tests/production-environment.test.mjs\",\"scripts/production-art-export.mjs\"],\"romExtracted\":false}]}"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "import {e",
+        "after": "import {exportProductionArt} from './production-art-export.mjs';\nimport {e"
+      },
+      {
+        "before": ".73',",
+        "after": ".74',"
+      },
+      {
+        "before": "Q03Z',",
+        "after": "Q04A',"
+      },
+      {
+        "before": "();\ncons",
+        "after": "();\nawait exportProductionArt('dist/art/production-vq04a');\ncons"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "e'});\nconst ",
+        "after": "e'});\nfor(const name of ['production-art','production-environment','art-directed-world'])await esbuild({entryPoints:['src/'+name+'.ts'],bundle:true,outfile:'.test/'+name+'.mjs',format:'esm',platform:'node',packages:'external'});\nconst "
+      },
+      {
+        "before": "st',",
+        "after": "st','tests/production-art.test.mjs','tests/production-environment.test.mjs','tests/production-art-source.test.mjs',"
+      }
+    ],
+    "src/main.ts": [
+      {
+        "before": " {Wo",
+        "after": " {ArtDirectedWorld as Wo"
+      },
+      {
+        "before": "./render';",
+        "after": "./art-directed-world';"
+      }
+    ],
+    "tests/current_build_test.py": [
+      {
+        "before": "9.73',b",
+        "after": "9.74',b"
+      },
+      {
+        "before": "VQ03Z',s",
+        "after": "VQ04A',s"
+      },
+      {
+        "before": ".9.73','VQ03Z')",
+        "after": ".9.74','VQ04A')"
+      },
+      {
+        "before": ".9.73','N",
+        "after": ".9.74','N"
+      },
+      {
+        "before": "VQ03Z','",
+        "after": "VQ04A','"
+      },
+      {
+        "before": ".73'\"",
+        "after": ".74'\""
+      }
+    ],
+    "tests/enemy-lifecycle-source.test.mjs": [
+      {
+        "before": "/*",
+        "after": "import {artAIfDeclared} from './helpers/production-art-a-baseline.mjs';\n/*"
+      },
+      {
+        "before": "w=re",
+        "after": "w=artAIfDeclared(name,re"
+      },
+      {
+        "before": "8'),",
+        "after": "8')),"
+      },
+      {
+        "before": "t(re",
+        "after": "t(artAIfDeclared('scripts/build.mjs',re"
+      },
+      {
+        "before": "8').",
+        "after": "8'))."
+      }
+    ],
+    "tests/enemy_lifecycle_z_preservation.py": [
+      {
+        "before": "\"\"\"E",
+        "after": "from production_art_a_preservation import restore_art_a_if_declared\n\"\"\"E"
+      },
+      {
+        "before": "ue):\n   ",
+        "after": "ue):\n    source=restore_art_a_if_declared(name,source)\n   "
+      },
+      {
+        "before": ":\n    return",
+        "after": ":\n    source=restore_art_a_if_declared(name,source)\n    return"
+      }
+    ],
+    "tests/enemy_lifecycle_z_test.py": [
+      {
+        "before": "\"\"\"O",
+        "after": "from production_art_a_preservation import SPEC as ART_SPEC,art_a_frozen_bytes,restore_art_a_if_declared\n\"\"\"O"
+      },
+      {
+        "before": "w=(R",
+        "after": "w=restore_art_a_if_declared(name,(R"
+      },
+      {
+        "before": "xt();o",
+        "after": "xt());o"
+      },
+      {
+        "before": "6((R",
+        "after": "6(art_a_frozen_bytes(n,(R"
+      },
+      {
+        "before": "s())",
+        "after": "s()))"
+      },
+      {
+        "before": "de']",
+        "after": "de'] and n not in ART_SPEC['newPaths']"
+      }
+    ],
+    "tests/helpers/enemy-lifecycle-z-baseline.mjs": [
+      {
+        "before": "import {r",
+        "after": "import {artAIfDeclared,artAFrozenBytes,artAIsNew} from './production-art-a-baseline.mjs';\nimport {r"
+      },
+      {
+        "before": "e){\n c",
+        "after": "e){\n source=artAIfDeclared(name,source);\n c"
+      },
+      {
+        "before": "){re",
+        "after": "){source=artAIfDeclared(name,source);re"
+      },
+      {
+        "before": "(p)).m",
+        "after": "(p)&&!artAIsNew(p)).m"
+      },
+      {
+        "before": "te(rea",
+        "after": "te(artAFrozenBytes(p,rea"
+      },
+      {
+        "before": "c(p)).",
+        "after": "c(p)))."
+      }
+    ],
+    "tests/helpers/pause-baseline.mjs": [
+      {
+        "before": "import {d",
+        "after": "import {artAIfDeclared} from './production-art-a-baseline.mjs';\nimport {d"
+      },
+      {
+        "before": "e){\n i",
+        "after": "e){\n if(name==='src/main.ts')source=artAIfDeclared(name,source);\n i"
+      }
+    ]
+  },
+  "originalSha256": {
+    "assets/manifest.json": "09202ca62e1fb18f9c0aa2b7008e200a8e87521f7bde76dddeb2315befe5944a",
+    "scripts/build.mjs": "2506be2812a5a846822770ac47643dda2d0b0bbda83ada46a271dfdc6d3e53b7",
+    "scripts/test.mjs": "89f45ccf062a293f9dbb82db2358d21cd1b4ce547755257b270a98768255b7fb",
+    "src/main.ts": "c90be3662ca97cf7ec7712239c0cbd932d2bb7e72543a995f4334ed8b3250561",
+    "tests/current_build_test.py": "baa75278a003d00718951060ed11c5be8135fb182d5cd7be7a80aa6649ebb0f5",
+    "tests/enemy-lifecycle-source.test.mjs": "83de3ebe4c01ecebcf4aaedb7ca92c24892d8a665dae3394771e252a5fd128a2",
+    "tests/enemy_lifecycle_z_preservation.py": "b91c0229f399aca9741ae42d001623df48cbfcaf180e26a5de19b010fe37073b",
+    "tests/enemy_lifecycle_z_test.py": "da5b824c4c2d07d45e5ef3c7bb6423c64b3c5a9ea938f641ae9a8487a2569e0f",
+    "tests/helpers/enemy-lifecycle-z-baseline.mjs": "d8e3137750b9a174cd7ef895731aa5d64d4c6ed3dc6c5c44c013de68b030cf3a",
+    "tests/helpers/pause-baseline.mjs": "80797e6dc5e01e1002c47daa28d88542dc72c9e9dc1caaa190816ee0570f2205"
+  },
+  "newPaths": [
+    "scripts/production-art-export.mjs",
+    "src/art-directed-world.ts",
+    "src/production-art.ts",
+    "src/production-environment.ts",
+    "tests/baselines/vq04a-declared-art-edits.json",
+    "tests/baselines/vq04a-unchanged-inputs.json",
+    "tests/helpers/production-art-a-baseline.mjs",
+    "tests/helpers/production-world-rig.mjs",
+    "tests/production-art-source.test.mjs",
+    "tests/production-art.test.mjs",
+    "tests/production-environment.test.mjs",
+    "tests/production_art_a_preservation.py",
+    "tests/production_art_a_test.py"
+  ]
+}

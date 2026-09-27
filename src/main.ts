@@ -19,7 +19,7 @@ import {createState,shopAvailable,guestKind,interactRescue,useTonic,cycleTarget,
 import type {State,Slot} from './core';
 import {Controls} from './input';
 import type {Command} from './input';
-import {World} from './render';
+import {ArtDirectedWorld as World} from './art-directed-world';
 import * as storage from './save';
 
 const $=<T extends HTMLElement=HTMLElement>(id:string):T=>{const el=document.getElementById(id);if(!el)throw new Error(`Missing UI element ${id}`);return el as T;};

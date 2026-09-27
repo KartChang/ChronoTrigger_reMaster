@@ -1,0 +1,46 @@
+{
+  "schema": "chrono-vq04a-unchanged-aggregate-v1",
+  "algorithm": "sha256 UTF8 compact JSON sorted [path,sha256(file)]",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-art-export.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/main.ts",
+    "src/production-art.ts",
+    "src/production-environment.ts",
+    "tests/baselines/vq04a-declared-art-edits.json",
+    "tests/baselines/vq04a-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/enemy-lifecycle-source.test.mjs",
+    "tests/enemy_lifecycle_z_preservation.py",
+    "tests/enemy_lifecycle_z_test.py",
+    "tests/helpers/enemy-lifecycle-z-baseline.mjs",
+    "tests/helpers/pause-baseline.mjs",
+    "tests/helpers/production-art-a-baseline.mjs",
+    "tests/helpers/production-world-rig.mjs",
+    "tests/production-art-source.test.mjs",
+    "tests/production-art.test.mjs",
+    "tests/production-environment.test.mjs",
+    "tests/production_art_a_preservation.py",
+    "tests/production_art_a_test.py"
+  ],
+  "expectedCount": 601,
+  "sha256": "12013d868237996a25fc0571d7ef5008b4d02196e7bbf1c9fa491720c6eb7c2d"
+}

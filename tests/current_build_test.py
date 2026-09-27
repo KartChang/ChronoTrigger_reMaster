@@ -5,13 +5,13 @@ from pathlib import Path
 from current_build import ROOT,EXPECTED_BUILD,expected_build_from_source
 from native_build_y_preservation import SPEC,restore_native_build_y_source,restore_native_build_y_if_declared
 ROUTES={'tests/field_enemy_action_browser.py':5,'tests/rescue_browser.py':2,'tests/trial_browser.py':2}
-DECL="const buildInfo={version:'0.9.73',batch:'VQ03Z',sourceSha:process.env.GITHUB_SHA??null};"
+DECL="const buildInfo={version:'0.9.74',batch:'VQ04A',sourceSha:process.env.GITHUB_SHA??null};"
 class CurrentBuild(unittest.TestCase):
     def test_producer_not_report_is_authority(self):
-        self.assertEqual(EXPECTED_BUILD,('0.9.73','VQ03Z'))
+        self.assertEqual(EXPECTED_BUILD,('0.9.74','VQ04A'))
         self.assertEqual(expected_build_from_source('// declaration\n'+DECL+'\n'),EXPECTED_BUILD)
     def test_invalid_missing_duplicate_and_ambiguous_declaration_fail_closed(self):
-        for raw in ['',DECL+'\n'+DECL,DECL.replace('0.9.73','NaN'),DECL.replace('VQ03Z','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\nconst buildInfo=untrusted;',DECL.replace("version:'0.9.73'",'version:report.version')]:
+        for raw in ['',DECL+'\n'+DECL,DECL.replace('0.9.74','NaN'),DECL.replace('VQ04A','report.batch'),DECL.replace('process.env.GITHUB_SHA??null','report.sourceSha'),DECL+'\nconst buildInfo=untrusted;',DECL.replace("version:'0.9.74'",'version:report.version')]:
             with self.subTest(raw=raw),self.assertRaises(ValueError):expected_build_from_source(raw)
     def test_current_native_entrypoints_all_bind_the_producer(self):
         for name,count in ROUTES.items():

@@ -1,3 +1,4 @@
+from death_delivery_x_preservation import restore_death_delivery_x_if_declared
 """Offline contract and source preservation tests; never changes a native report."""
 import copy,gzip,hashlib,inspect,json,unittest
 from pathlib import Path
@@ -55,7 +56,7 @@ class TrialHistoryContract(unittest.TestCase):
             old=restore_trial_history_w_source(name,(ROOT/name).read_text());self.assertEqual(hashlib.sha256(old.encode()).hexdigest(),SPEC['originalSha256'][name])
     def test_missing_duplicate_unrelated_source_edits_rejected(self):
         for name,edits in SPEC['files'].items():
-            raw=(ROOT/name).read_text();old=restore_trial_history_w_source(name,raw);self.assertEqual(restore_trial_history_w_if_declared(name,old),old);e=edits[0]
+            raw=restore_death_delivery_x_if_declared(name,(ROOT/name).read_text());old=restore_trial_history_w_source(name,raw);self.assertEqual(restore_trial_history_w_if_declared(name,old),old);e=edits[0]
             for bad in [raw.replace(e['after'],'',1),raw+e['after'],raw+'\n// unrelated drift']:
                 with self.assertRaises(AssertionError):restore_trial_history_w_source(name,bad)
 if __name__=='__main__':unittest.main()

@@ -1,5 +1,6 @@
 import {DynamicTexture,Material,Mesh,MeshBuilder,StandardMaterial,Texture,Vector3} from '@babylonjs/core';
 import type {Effect,Enemy,State,Vec} from './core';
+import {awaitingLethalDelivery} from './pending-death';
 import type {FieldEnemySprite} from './field-enemy-palette';
 import {rescueMap} from './rescue-data';
 import {preservePixelPalette} from './pixel-presentation';
@@ -67,11 +68,15 @@ export class RescueEnemyBody{
  private cause(kind:Kind,s:State,e:Effect,i:number,tick:number,origin:Vec|null,hpBefore:number):Cause{
   const foe=s.enemies[i]!;return {kind,foeKind:foe.kind,index:i,tick,receivedTick:s.ticks,origin:origin?{x:origin.x,z:origin.z}:null,target:{x:foe.x,z:foe.z},effect:structuredClone(e),hpBefore,hpAfter:foe.hp,...(kind==='attack'?{target:{...e.enemyAction!.target}}:{})};
  }
+ private awaitingDeath(index:number):boolean{
+  const s=this.state,e=s?.enemies[index];
+  return !!s&&this.owners[index]===e&&this.previousHp[index]!>0&&this.previousMode==='battle'&&!!this.slots[index]?.shown&&awaitingLethalDelivery(s,e);
+ }
  update(sprite:FieldEnemySprite,index:number):void{
   const s=this.state;if(this.disposed||!s||!rescueMap(s.chapter)||!Number.isInteger(index)||index<0||index>=3)return;
   const e=s.enemies[index],old=this.slots[index],pending=this.pending[index];
   if(pending){this.pending[index]=null;if(!this.reduced&&old?.sprite===sprite&&old.shown&&valid(e)&&e.hp<=0&&!visible(sprite))this.makeGhost(sprite,pending);}
-  if(!valid(e)||e.hp<=0||!visible(sprite)){if(old)old.shown=false;this.moves[index]=null;return;}
+  if(!valid(e)||e.hp<=0||!visible(sprite)){if(old&&!this.awaitingDeath(index))old.shown=false;this.moves[index]=null;return;}
   const anchor={x:e.x,z:e.z},move=this.moves[index];let offset=zero();
   if(move&&s.mode==='battle'){
    const age=s.ticks-move.cause.tick,ticks=move.cause.kind==='attack'?24:18;
@@ -89,7 +94,10 @@ export class RescueEnemyBody{
    if(g.lastTick!==s.ticks){const t=age/24,scale=1-.7*t;g.mesh.scaling.copyFrom(g.scale);g.mesh.scaling.y*=scale;g.mesh.position.copyFrom(g.base).subtractInPlace(g.up.scale(g.height*g.scale.y*.5*(1-scale)));g.material.alpha=1-t;g.lastTick=s.ticks;}
    this.record(g.cause,age<12?'settle':'fade',g.mesh,zero(),g.material.alpha,false,g.cell);
   }
-  this.previousHp=s.enemies.slice(0,3).map(e=>e.hp);this.previousMode=s.mode;
+  // A paused draw cannot consume the living witness of a still-queued lethal hit.
+  const awaiting=s.enemies.slice(0,3).map((_,i)=>this.awaitingDeath(i));
+  this.previousHp=s.enemies.slice(0,3).map((e,i)=>awaiting[i]?this.previousHp[i]!:e.hp);
+  if(!awaiting.some(Boolean))this.previousMode=s.mode;
  }
  private makeGhost(sprite:FieldEnemySprite,cause:Cause):void{
   let texture:DynamicTexture|undefined,material:StandardMaterial|undefined,mesh:Mesh|undefined;

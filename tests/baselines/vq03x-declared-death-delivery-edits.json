@@ -1,0 +1,52 @@
+{
+  "schema": "chrono-vq03x-declared-death-delivery-edits-v1",
+  "sourceBase": "70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a",
+  "files": {
+    "src/trial-enemy-body.ts": [
+      {
+        "before": "import type {Effect, Enemy, State} from './core';",
+        "after": "import type {Effect, Enemy, State} from './core';\nimport {awaitingLethalDelivery} from './pending-death';"
+      },
+      {
+        "before": "   b.hp=e.hp;b.wasVisible=visible&&e.hp>0;",
+        "after": "   // Keep the observed living source across a paused, undelivered lethal event.\n   // Ghost creation above still requires the actual frame-owned delivered hit.\n   if(!awaitingLethalDelivery(s,e)){b.hp=e.hp;b.wasVisible=visible&&e.hp>0;}"
+      }
+    ],
+    "src/rescue-enemy-body.ts": [
+      {
+        "before": "import type {Effect,Enemy,State,Vec} from './core';",
+        "after": "import type {Effect,Enemy,State,Vec} from './core';\nimport {awaitingLethalDelivery} from './pending-death';"
+      },
+      {
+        "before": " update(sprite:FieldEnemySprite,index:number):void{",
+        "after": " private awaitingDeath(index:number):boolean{\n  const s=this.state,e=s?.enemies[index];\n  return !!s&&this.owners[index]===e&&this.previousHp[index]!>0&&this.previousMode==='battle'&&!!this.slots[index]?.shown&&awaitingLethalDelivery(s,e);\n }\n update(sprite:FieldEnemySprite,index:number):void{"
+      },
+      {
+        "before": "if(!valid(e)||e.hp<=0||!visible(sprite)){if(old)old.shown=false;",
+        "after": "if(!valid(e)||e.hp<=0||!visible(sprite)){if(old&&!this.awaitingDeath(index))old.shown=false;"
+      },
+      {
+        "before": "  this.previousHp=s.enemies.slice(0,3).map(e=>e.hp);this.previousMode=s.mode;",
+        "after": "  // A paused draw cannot consume the living witness of a still-queued lethal hit.\n  const awaiting=s.enemies.slice(0,3).map((_,i)=>this.awaitingDeath(i));\n  this.previousHp=s.enemies.slice(0,3).map((e,i)=>awaiting[i]?this.previousHp[i]!:e.hp);\n  if(!awaiting.some(Boolean))this.previousMode=s.mode;"
+      }
+    ],
+    "scripts/test.mjs": [
+      {
+        "before": "packages:'external',plugins:[trialWPrior]});\nconst r=spawnSync(process.execPath,['--test','tests/trial-motion-history.test.mjs','test",
+        "after": "packages:'external',plugins:[trialWPrior]});\nawait esbuild({entryPoints:['src/pending-death.ts'],bundle:true,outfile:'.test/pending-death.mjs',format:'esm',platform:'node'});\nconst r=spawnSync(process.execPath,['--test','tests/death-delivery.test.mjs','tests/trial-motion-history.test.mjs','test"
+      }
+    ],
+    "scripts/build.mjs": [
+      {
+        "before": "fs/promises';\nconst buildInfo={version:'0.9.70',batch:'VQ03W',sourceSha:process.env.GITHUB_SHA??null};\nif",
+        "after": "fs/promises';\nconst buildInfo={version:'0.9.71',batch:'VQ03X',sourceSha:process.env.GITHUB_SHA??null};\nif"
+      }
+    ]
+  },
+  "originalSha256": {
+    "src/trial-enemy-body.ts": "2fe87fa4fd6b348a1c60b7dfa662be0d35713bff15a15661438c387d01b8b5d6",
+    "src/rescue-enemy-body.ts": "298ed35db3a494a4b65f6f0a404d42a6883b2b8d29e4424b9232d0dff7cc6949",
+    "scripts/test.mjs": "45b098a335ba740a87dd41c15cf7113f3781ec04b8a07505241c4d725b6dd939",
+    "scripts/build.mjs": "2a1b34e10d798f790cdf3882b67d4aa238da7bebc03b873c0c5bc2141f1d6e46"
+  }
+}

@@ -1,5 +1,6 @@
 import {DynamicTexture, Material, Mesh, MeshBuilder, Scene, StandardMaterial, Texture, Vector3, Matrix} from '@babylonjs/core';
 import type {Effect, Enemy, State} from './core';
+import {awaitingLethalDelivery} from './pending-death';
 import {trialEnemyKind} from './trial-enemy-art';
 import type {TrialEnemyKind} from './trial-enemy-art';
 
@@ -84,7 +85,9 @@ export class TrialEnemyBody {
     else if(age>=24)this.release(b,'expired');
     else {const q=age/24;g.mesh.scaling.set(g.scale.x,g.scale.y*(1-.6*q),g.scale.z);g.mesh.position.copyFrom(g.base).subtractInPlace(g.up.scale(g.height*g.scale.y*.3*q));g.material.alpha=.82*(1-q);g.mesh.setEnabled(true);this.recordGhost(b,age===0?'start':age<12?'fading':'late');}
    }
-   b.hp=e.hp;b.wasVisible=visible&&e.hp>0;
+   // Keep the observed living source across a paused, undelivered lethal event.
+   // Ghost creation above still requires the actual frame-owned delivered hit.
+   if(!awaitingLethalDelivery(s,e)){b.hp=e.hp;b.wasVisible=visible&&e.hp>0;}
   }
  }
  private makeGhost(b:Slot,cause:Cause):void {

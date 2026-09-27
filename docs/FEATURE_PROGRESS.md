@@ -1,21 +1,25 @@
-# 功能進度 — W 原生保留驗證完成，完整動畫仍開放
+# 功能進度 — X暫停致死交接已修，CI95待原生結果
 
-Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT v30。Source W0.9.70 **70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a**。CI94／36307776528及Pages88／36309871443均success，當輪13原生報告與10source ledgers唯讀驗證，原始產物雲端下載回驗完成。本輪沒有改runtime、tests、資產或workflow，沒有新CI。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT v31。X0.9.71 source **441c924246e79f43ab0a90ba54fbd9a60f9f2b02**；matching CI95 **36320908543** push/attempt1/in_progress，provider2026-09-27T13:00:50Z。一次發布15source/test變更，沒有未發布candidate或額外dispatch。
 
-## 已確認的增量
+## 本批新增
 
-W原24筆上限、優先保留真實動作的history策略，在WebGL及CPU原生report均保留head repair 1/2/3格；policy/counter/原tick/actualcell正確。CI93 diagnostic retention缺陷以W新證據關閉，CI93本身仍failure。CPU wheel tank-victory event1529同樣觀察1/2/3出手格，先前「CPUwheel未觀察」狀態已更新，不能再重開為零樣本。
+Trial／rescue死亡來源在「真實致死事件排隊→暫停draw無交付→恢復」不再遺失。保留已實際畫過的存活來源，但只由正常交付事件建立原death copy；原24tick／copy一次／原敵人HP0停用及資源上限不變。七種敵人離線重現；清queue／owner替換／離場／首次已死／reduced delivery反例不造死亡。
 
-V既有body實作在W上已取得正向body action、recoil及守衛完整start/fading/late/expired death-copy樣本。接受的是這些當輪來源/transform/texture樣本；不等於V當年的CI93通過，也不等於全Tank死亡皆完整。M-U基礎及V-W實作均保留，不重新做。
+完整2988 Node／587 Python、asset/typecheck/build通過；新增38／5項，73檔native/gameplay等原inputs與舊hash約束保持。這是程式與離線回歸完成，不是完整動畫或真機接受。詳細收據evidence/VQ03X_TEST_RECEIPT.json。
 
-## 尚缺的實際樣本
+## 原生缺口的精確分類
 
-WebGL tank-victory無保留death；CPU tankBody tick2337只有start/fading。Yakra WebGL缺death row、CPU有不完整death。Hench outgoing仍0、party observedFalls0、Q differentFallbackSamples0。這些是未完整觀察，不應在尚未定位前一律稱為程式故障；下一步依TODO針對生命週期/保留/勝利停時與真實出手定位。不得改原native等待/路線或造數補齊。
+W原WebGL Tank/Yakra capture仍有致死事件在queue，不能聲稱已交給body但沒播放。CPU Tank death2337在2346只age9，Yakra death2341在2353只age12，尚未到24tick；勝利沒有停止simulation。原快照不支持完整死亡階段，亦未證明本批暫停缺陷曾發生在CI94。沒有修改原native報告、wait、route、tick或capture。
 
-完整party/enemy方向sprites與move/attack/hurt/down/death、前段尺度輪廓/原作構圖/山道法庭/樹列、合法完整音訊及聆聽、原速/真機/長時段仍開放。Source/cell/transform histories不是同步framebuffer，boundary間重複觀察不能加總成獨立事件。本輪未看圖、播放video、聆聽或測真機，無新分數，不以綠CI等同品質90。
+Tank／Yakra完整死亡、Hench outgoing=0、P observedFalls=0、Q differentFallbackSamples=0保持open。等待exact X新原生報告，不用離線fixtures補native樣本、不借W收據批准X。
 
-## 可恢复成果
+## 已接受與完整目標
 
-Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；**Chrono-CI94-reviewed-evidence.zip／1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**，89144663bytes／SHA2569ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29，7原ZIP/17manifest已下載回驗。review/native-phase-coverage.json保留精確事件格與死亡缺口；review/trial-readonly-review.json、additional-native-readonly-review.json與ledger-readonly-review.json保存完整結果。舊W2950Node/582Python已測包及CI93失敗包在DELIVERY_INDEX，不重跑。
+CI94／Pages88的W有界retention、head repair 1/2/3、CPUwheel event1529、V body及守衛完整death樣本仍closed；CI93仍failure。本批沒有重造M-W、W24row retention、renderer、角色資產、場景或音訊。
 
-T03-T08完整分母不縮，2300抵達非完整未來，held家具/prologue及原門檻保持；releaseBLOCKED，fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null。
+全party/enemy方向與move/attack/hurt/down/death、前段人物植物道具尺度輪廓／原作構圖／山道法庭／樹列、完整合法音訊與聆聽、原速／真機／長時段仍開放。T03-T08完整分母不縮，2300抵達非完整未來。未檢視圖片／播放影片／聆聽／測真機，所有fullAnimation/art/wholeGame批准false、newScore=null、releaseBLOCKED。
+
+## 可恢復成果
+
+指定Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；X包 **1Mkeuf5o7-_GBu4gE-rAvrim9VAbL950a**，3196498bytes／SHA25612f1e35ab1bdc592703799a23a00e49f2c6ceb026062a3385100a46c44cc4b39，254manifest／602program snapshot／15changes，已真正下載回验。四份原native觀察為唯讀，七份新結果明示offline，不混作native。Main/checkpoint優先，細節見DELIVERY_INDEX。

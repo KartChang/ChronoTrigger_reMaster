@@ -1,27 +1,39 @@
-# Status — VQ03X 已發布，CI95 驗證中
+# Status — Y 已發布，CI96 原生驗證中
 
-Authority：本檔、TODO、evidence/T05_ANIMATION_CHECKPOINT.json v31、handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster main；single AI／non-force，不建立分支、PR、平行 candidate 或多人防撞。
+Authority：本檔、TODO、evidence/T05_ANIMATION_CHECKPOINT.json **v32**、handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster main；single AI／non-force，沒有其他使用者，不建立新分支、PR、平行 candidate 或多人防撞。
 
 ## 唯一目前位置
 
-VQ03X／0.9.71 source **441c924246e79f43ab0a90ba54fbd9a60f9f2b02**；source tree **13fa12d504b4894d2f471d91331a4b73126e30a8**。Parent document HEAD 6eb361c2c2a671577af5bfe4c7987640fad3feca。本批15項程式／測試變更已一次 non-force 發布，沒有未發布 candidate。
+**VQ03Y／0.9.72** source **8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485**，source tree **257d953bca5d60c240646d9fa639c3a22384dc53**；parent main **60ebfe7bf70a906cbf67d187800f0921d96c5f68**。21 個 source/test 變更合批完成完整測試，GitHub 組成的 tree 與已測 tree 完全一致，僅一次 non-force source push，沒有 manual dispatch 或未發布 candidate。
 
-Matching **CI95／36320908543**：push／attempt1／exact X source，最後觀察 **in_progress**，provider updated **2026-09-27T13:00:50Z（台灣21:00:50）**。不另 dispatch、不重送 X、不長輪詢。本文件提交只有 docs，使用 [skip ci]。
+唯一 matching **CI96／36324453650**，push／attempt1／exact Y source，最後觀察 **in_progress**，provider updated **2026-09-27T14:01:58Z（台灣22:01:58）**。目前沒有已接受的 Y 原生證據或 matching Y Pages。這次文件提交以 Y source 為 parent，只有 docs／[skip ci]，不得拿文件 HEAD 當遊戲來源。
 
-最新已接受遊戲與部署仍為 W0.9.70／CI94／Pages88，source 70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a。X尚未取得原生或部署驗收，不能把W收據當成X收據。CI94／Pages88與更早closed維持，不重驗；CI93仍failure、不回填。
+## 本輪已完成
 
-## 本批實際完成
+1. CI95／36320908543 已 completed/failure。X producer 為0.9.71/VQ03X，但原生入口仍傳 W 的 expected_build；原 checker 在 metadata identity 拒絕後，序列驗證停止，後續 suffix/report 缺少。原失敗報告已有六項通過紀錄及實際出手觀察，未改寫、未回填 accepted，也沒有推定為動畫門檻失敗。收據 evidence/CI95_TERMINAL.json。
+2. Y 修正三條當前原生入口共九個 expected_build 綁定，從 checked-out scripts/build.mjs 的唯一標準 producer 宣告取得，**不是從 report 讀 expected 值**。缺少、格式錯誤、重複或模糊宣告一律拒絕。原 checker、路線、ticks、keys、waits、captures 與行為斷言未變；離線 AST 與 exact-source inverse 有測試。
+3. 同批修正 src/field-enemy-body.ts 的 paused lethal-source loss。山道三個、森林兩個敵人位置在 production World/core 離線測試修前五項失敗；修後五個正例及十四個取消／隱藏／換 owner／首次已死／reduced／模糊目標反例共19項通過。只保留已畫出的存活來源，仍須正常交付真實致死事件才建立原單次 copy；24tick、HP0立即停用原敵人、釋放與資源上限不變。沒有證明此缺陷曾在既存 native run 發生。
+4. 完整 **3019 Node／594 Python**，fail0／skip0，asset/typecheck/build 通過；新增31 Node／7 Python。77項保護輸入是573項未改程式輸入的子集合，不能加總。保留全部原 expected hashes，Y→X→W exact source inverse 不接受 native data，失敗／中止與最後成功 logs 一併保存。
+5. 下列兩個包均已真正下載回驗 parent、size、SHA256、CRC及逐檔manifest；Y594檔程式snapshot亦逐byte吻合。不是只上傳成功。
 
-四份既存死亡觀察已定位：WebGL Tank tick2287、Yakra tick2048仍有致死事件排隊；CPU Tank tick2346的death2337只有age9，Yakra tick2353的death2341只有age12，均未滿原24tick。勝利本身不停止simulation；缺完整死亡樣本不能直接判成播放故障。沒有修改原native報告、捕捉時點、路線、按鍵、wait或assertion。
+## 已持久保存
 
-另在production World／core.action離線回歸，重現並修正「致死事件尚未交付，暫停繪製先清掉先前存活來源，恢復後漏播死亡」：涵蓋Tank三部位、守衛、Naga、Hench、Yakra共七種。只保留已實際畫過的來源；必須收到正常frame-owned事件才建立既有殘影，不提前消耗queue或造death。清空queue、換owner、離開場景、首次已死與reduced delivery皆有否定測試。沒有證據顯示這個獨立缺陷曾發生於CI94。
+唯一 Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-完整 npm run check：**2988 Node通過／0失敗／0skip**，asset、typecheck、build通過。Python discover：**587通過**。新增38 Node／5 Python；73項原gameplay／native／held／workflow等檔案hash保持。X→W精確來源逆轉保留舊expected hashes；未放寬舊原生斷言。全部中途失敗／中止及最後成功log保留。
+**Chrono-VQ03Y-field-and-build-tested.zip／11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**：2744621bytes，SHA256 **677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0**；69manifest／594snapshot。changes/21檔，review/診斷與來源，test-results/成功失敗logs，local-build-not-deployment/不是部署。
 
-## 雲端與接續
+**Chrono-CI95-failed-evidence.zip／1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**：40517351bytes，SHA256 **f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95**；四份provider原ZIP＋兩份review＝6manifest，外內CRC及內容已驗。CI95没有playable accepted宣稱。
 
-**Chrono-VQ03X-death-delivery-tested.zip／1Mkeuf5o7-_GBu4gE-rAvrim9VAbL950a**，3196498bytes，SHA256 **12f1e35ab1bdc592703799a23a00e49f2c6ceb026062a3385100a46c44cc4b39**。指定folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**，已真正下載核對parent／size／hash／ZIP CRC／254manifest，602檔program snapshot可讀，與15項tested changes及已發布source tree對齊。包內cloudReadbackAtPackaging=false是封裝歷史，最新收據為evidence/VQ03X_TEST_RECEIPT.json。
+封裝時 sourcePublishedAtPackaging=false／cloudReadbackAtPackaging=false 是歷史；最新 GitHub 收據與 checkpoint 優先。不得因此重送 Y、重跑完整測試或 bootstrap CI。臨時容器不是權威。
 
-Root T05-early-visual-cohesion；development/execution terminal T05-field-foe-action-animation；next T05-trial-rescue-death-and-action-coverage。待CI95完成後只接exact X新原生證據與matching Pages，仍缺Tank／Yakra完整死亡、Hench outgoing、Pdown、Q selector-change。不得延長原capture或注入狀態補樣本；再續全方向／動作、前段比例輪廓構圖、山道法庭樹列、完整合法音訊與聆聽／原速／真機品質。
+## 直接接續
 
-未做圖片檢視、影片播放、聆聽或真機批准；fullAnimationComplete／artApproved／wholeGameAccepted=false，newScore=null，releaseBLOCKED。T03-T08完整分母不縮，2300抵達不是完整未來。原架構、P1/P2/自主第三、v1-v8、held prologue blob2711a74185aacf3c6bddf9db85ba99a2afbc507a／母親家具及<.12／單一30秒／250ms-256／CPU門檻保持。ROM/media/fonts/credentials私有。臨時容器非權威，詳見白皮書與TODO。
+Root **T05-early-visual-cohesion**；development/execution terminal **T05-field-foe-action-animation**；next **T05-trial-rescue-death-and-action-coverage**。使用者通知 CI96 完成後，只讀該 exact run 的新原生結果及 matching Pages；保存原ZIP、ledger與review到指定Drive並真正下載回驗。不長輪詢，不 duplicate push／dispatch。
+
+**Tank／Yakra 完整死亡、Hench outgoing、P down、Q受擊中selector-change仍open**。已知 W capture：WebGL致死事件尚排隊；CPU Tank age9、Yakra age12，未滿原24tick；勝利本身不停止simulation。不可增加等待／改capture／注入狀態湊樣本。只根據當輪真實證據關閉缺口。
+
+再續全party/enemy方向與move/attack/hurt/down/death／實際遊玩，前段尺度輪廓／原作構圖／山道法庭樹列、合法完整音訊與聆聽、原速及真機長時段品質，依TODO合批測試再一次source/CI。
+
+W／CI94／Pages88 有界接受保持closed，repair-history、CPUwheel event1529、Vbody與守衛完整death樣本不重驗。CI93及CI95自身仍failure，不能借新收據回填。X/Y尚未原生接受。本輪未看圖、播影片、聆聽或測真機，fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null，releaseBLOCKED。
+
+保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8。Held prologue blob2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不提升。No localbrowser/native game-time-save-collision造數；原<.12/單一30秒/250ms-256/CPUquality-memory不放寬。ROM/media/fonts/credentials私有；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink。T03-T08完整分母不縮，2300抵達非完整未來；全部成果GitHub/正確Drive/readback，docs[skip ci]。

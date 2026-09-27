@@ -63,6 +63,9 @@ def assert_trial_report(r,expected_sha,*,require_actions=True,expected_build=('0
     if require_actions:
         assert sum(x['sourceActions'] for x in out.values())>0,'No actual outgoing trial action'
         assert out['tank-repair']['repairActions']>0,'No actual head repair action'
+    if tuple(expected_build)==('0.9.70','VQ03W'):
+        from trial_history_contract import assert_trial_history_contract
+        for o in r['observations'].values():assert_trial_history_contract(o['motion'])
     return out
 
 def capture_trial_motion(page,out,label,observations):

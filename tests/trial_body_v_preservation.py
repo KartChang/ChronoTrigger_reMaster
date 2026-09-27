@@ -1,9 +1,11 @@
+from trial_history_w_preservation import restore_trial_history_w_if_declared
 """Exact source-only V -> U inverse. Native reports/state/pixels never enter here."""
 import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SPEC=json.loads((ROOT/'tests/baselines/vq03v-declared-trial-body-edits.json').read_text())
 def restore_trial_body_v_source(name,source,verify_base=True):
+    source=restore_trial_history_w_if_declared(name,source)
     edits=SPEC['files'].get(name)
     if not edits:raise ValueError('Undeclared V source')
     for e in reversed(edits):
@@ -13,4 +15,5 @@ def restore_trial_body_v_source(name,source,verify_base=True):
     return source
 
 def restore_trial_body_v_if_declared(name,source):
+    source=restore_trial_history_w_if_declared(name,source)
     return restore_trial_body_v_source(name,source,False) if any(e['after'] in source for e in SPEC['files'].get(name,[])) else source

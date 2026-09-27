@@ -88,9 +88,9 @@ def assert_trial_body_observation(o):
             assert all(h['cell']==rows[0]['cell'] for h in rows),'Copied texture changed'
     return {'transformSamples':len(b['history']),'positiveBodyActions':actions,'restoredBodyActions':restored,'positiveRecoils':recoils,'deathRemnants':deaths,'completeRemnants':complete}
 
-def assert_trial_body_report(r,sha,*,require_actions=True):
+def assert_trial_body_report(r,sha,*,require_actions=True,expected_build=('0.9.69','VQ03V')):
     assert re.fullmatch(r'[0-9a-f]{40}',sha) and r['sourceSha']==r['build']['sourceSha']==sha
-    assert (r['build']['version'],r['build']['batch'])==('0.9.69','VQ03V')
+    assert (r['build']['version'],r['build']['batch'])==tuple(expected_build)
     assert r['status']=='passed' and r['errors']==[] and r['nativeInputsOnly'] is True
     for k in ('physicalDevice','artApproved','fullAnimationComplete','framebufferSynchronized'):assert r[k] is False
     assert tuple(r['observations'])==BOUNDARIES
@@ -106,10 +106,10 @@ def capture_trial_body(page,out,label,observations):
     o=page.evaluate(OBSERVE_SCRIPT);(out/f'trial-body-{key}-observation.json').write_text(json.dumps(o,ensure_ascii=False,indent=2),encoding='utf-8')
     observations[key]=o;assert_trial_body_observation(o)
 
-def write_trial_body_report(out,observations,build,sha,errors):
+def write_trial_body_report(out,observations,build,sha,errors,*,expected_build=('0.9.69','VQ03V')):
     r={'status':'running','sourceSha':sha,'build':build,'nativeInputsOnly':True,'physicalDevice':False,'artApproved':False,'fullAnimationComplete':False,'framebufferSynchronized':False,'observations':observations,'errors':list(errors)}
     try:
-        r['status']='passed';r['positiveSamples']=assert_trial_body_report(r,sha)
+        r['status']='passed';r['positiveSamples']=assert_trial_body_report(r,sha,expected_build=expected_build)
         r['limitations']=['Transform/static-texture history is not synchronized framebuffer or original-speed proof.','Per-boundary histories overlap; never sum as independent events.','Victory may stop simulation before the last death expiry; missing phases remain gaps.']
     except Exception as exc:r.update(status='failed',failure=str(exc));raise
     finally:(out/'trial-enemy-body-report.json').write_text(json.dumps(r,ensure_ascii=False,indent=2),encoding='utf-8')

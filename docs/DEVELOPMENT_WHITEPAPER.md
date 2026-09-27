@@ -1,14 +1,14 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本 **product-vq03y-ci96-pending**。動態authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/T05_ANIMATION_CHECKPOINT **v32**。唯一main、singleAI/nonforce。Root T05-early-visual-cohesion，development/execution terminal T05-field-foe-action-animation。
+版本 **product-vq03z-ci97-pending**。動態authority：STATUS／TODO／handoff/IMMEDIATE_CONTINUATION／evidence/T05_ANIMATION_CHECKPOINT **v33**。唯一main、singleAI/nonforce。Root T05-early-visual-cohesion，development/execution terminal T05-field-foe-action-animation。
 
-前一版完整原文blob **66c9afeb79d4552b7614fb750f2f83fc56599708**原封保存於 **evidence/VQ03Y_PREVIOUS_WHITEPAPER.md**，其中歷史設計與未改限制仍有效；舊X/CI95 pending旗標已由本輪failure與Y/CI96接續取代，不可從封存文件倒退現況。
+前版完整原文blob **7854ddcf92ce0b4c905486132483991c3d27aa89**原封保存在 **evidence/VQ03Z_PREVIOUS_WHITEPAPER.md**；其未改設計/數值/已接受範圍仍有效，歷史Y/CI96 pending由本版已接受與Z/CI97 pending取代。更早設計鏈保留於VQ03Y_PREVIOUS_WHITEPAPER.md。不從封存旗標倒退currentmain或重讀全部歷史。
 
 ## 一、完整產品與品質目標
 
 完整《超時空之鑰》HD-2D重製：像素角色加立體場景、瀏覽器優先、保留世界背景與原作辨識度/構圖、縮尺大地圖、城鎮室內切換、原地ATB、單人及同機雙人共畫面，全部時代主支線與結局。前段人物、場景、全動畫、遮擋、HUD、操作與音訊先達舒適品質，不縮成展示，也不因CI綠勾提前擴後段。
 
-整體>=90、各面向>=80%、requiredassets/fivegates/zerocritical，必須由實際畫面、遊玩及真機量測支持。測試數、文件或匯出圖不是美術分數；工具印出的歷史30/100不是Y評分。ReleaseBLOCKED，沒有newScore、全動畫、美術、原速、聆聽、真機、長時段或全遊戲批准。
+整體>=90、各面向>=80%、requiredassets/fivegates/zerocritical，必須由實際畫面、遊玩及真機量測支持。測試數、文件或匯出圖不是美術分數；工具印出的歷史30/100不屬Y/Z新評分。ReleaseBLOCKED，newScore=null；全動畫、美術、原速、聆聽、真機、長時段與全遊戲未批准。
 
 ## 二、架構與不可變行為
 
@@ -34,30 +34,34 @@ V body守衛24tick/.20、車體-.08、車輪.10依真實來源，龍頭僅修復
 
 Held VQ01Z/母親家具不得提升或間接替換；src/prologue-render.ts固定blob **2711a74185aacf3c6bddf9db85ba99a2afbc507a**。G七自製合成音型/七段配樂不取ROM/OST/第三方採樣，每型<=3聲部/level<=.04/尾音<=.5秒，共用16聲部/master.55，單audio-clock不加timer；dialoghold立即停、失敗獨立清理、analyser1024真訊號。Graph/unit/無音軌video不能代替完整音訊或實際聆聽。
 
-## 五、X/Y致死交付與來源驗證
+## 五、X/Y交付與Z生命週期
 
-X已修trial/rescue七種敵人：真實致死事件仍排隊時，paused空effects draw不得覆蓋已繪製的存活來源。Y將同一機制補到既存FieldEnemyBody，山道三個、森林兩個位置離線重現修前5fail；修後五正例及十四反例共19pass。只讀pending條件包含同owner/先前存活/battle/已顯示/唯一真實致死事件；只有正常delivery建立原一次copy，不提前消耗queue或推算新事件。清queue、換owner、mode離開、首次已死、reduced、事前隱藏或模糊target不能生造死亡。原24tick、立即停用原敵人、釋放/資源限制均不變。此為offline production World/core回歸，不證明缺陷曾發生於CI94/95。
+X trial/rescue七類與Y field五位置已補paused lethal-source保留：只在真實致死事件仍排隊時保留已繪製、同owner、原battle/HP>0 witness，正常delivery才建立原一次copy。清queue、换owner、首次已死、reduced、隱藏/模糊target不生造死亡；原24tick/HP0停用/釋放不變。
 
-CI95失敗原因是X0.9.71/VQ03X被原生入口仍傳入的W expected_build拒絕；原checker行為正確，序列停止導致後續report未產生。Y **tests/current_build.py**從checked-out scripts/build.mjs唯一標準宣告綁定producer，不以report作expected。三入口共九個metadata參數更新；原checker defaults、原生路線/ticks/keys/waits/captures/行為斷言未變。缺少/錯誤/重複/模糊宣告failclosed；AST/exact-source及mutation tests防止退化。
+CI95的X曾被入口舊W expected_build拒絕；Y三native入口九metadata參數改由checked-out producer唯一宣告綁定expected，不從report取expected。缺少/錯誤/重複/模糊failclosed，原checker、路線/ticks/keys/waits/captures/行為斷言不變。CI95原failure保留，Y成功不回填它。
 
-Y→X→W來源逆轉僅處理明示source hunks，不接受native報告/狀態/像素，保留所有原expectedhashes並拒絕缺漏/重複/額外修改。77保護項是573未改程式輸入的子集合，不得加總充數。
+Z把FieldEnemyMotion attack/hurt來源綁實際Enemyowner，替換、移除、觀察死亡後復活、state/chapter/rewind清失效來源，其他slot及physicaltexture cache不受影響。FieldEnemyBody換owner還原anchor，取消oldlivewitness/pending/remnant；field/rescue同owner復活也立即cancel/releasecopy，記cancelled而不是假完整expiry。缺少/null origin/target直接拒絕，避免render拋錯。這些回歸使用offline production World，不冒充native觀察或修改gameplay。
 
-## 六、當前發布與原生接受邊界
+固定24tick/singlecopy/HP0原敵人停用與所有規則/資源上限保留。同一38tests在原Y9pass/29fail、Z38pass。595未改程式輸入canonical aggregate/fullmap與原expectedhashes保留；Z→Y→X來源逆轉只處理明示source hunks、拒絕缺漏重複額外修改，不能接受native資料。
 
-**Y0.9.72 source8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485**；tree **257d953bca5d60c240646d9fa639c3a22384dc53**。完整3019Node/594Python/asset/typecheck/build通過，新增31Node/7Python；21變更檔合批一次non-force發布，GitHub root等於已測tree。唯一matching **CI96/36324453650** push/attempt1，最後in_progress，providerupdated2026-09-27T14:01:58Z。沒有Y原生或部署接受，文件SHA不是遊戲source。
+## 六、當前發布與接受邊界
 
-CI95/36320908543始終failure、不rerun、不回填；四份原ZIP已保留雲端。W/CI94/Pages88有界來源/材質/transform/部署接受保持closed，包括repair-history、CPUwheel event1529真實1/2/3格、Vbody及守衛完整死亡。CI93本身亦仍failure。
+**Z0.9.73 sourcefa109ffa446f69881745b2b2c09b78c494f4e2fc**，tree **e1724fc3c1ff13979aef7ae62c86331d6fb5f6ad**。16變更檔合批一次non-force發布，GitHub三program subtrees與已測一致、currentmain其他root不變。完整 **3068Node/597Python/asset/typecheck/build通過**，新增49Node/3Python。matching **CI97/36330900305** push/attempt1/exactZ，最後in_progress（providerupdated2026-09-27T15:48:28Z）。無Z原生/部署接受；文件HEAD非game source。
 
-完整Tank/Yakra死亡仍缺：W WebGL capture致死仍排隊；CPU Tank age9、Yakra age12未滿24tick；勝利不停止simulation。Hench outgoing、Pdown、Q受擊selector-change亦未取得足夠新原生覆蓋。不得改等待/capture或注入狀態補足。History不是同步framebuffer或連續timeline，不同boundary重疊不能重算獨立樣本。本輪未看图、播video、聆聽或測真機。
+Ysource8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485／CI96/36324453650／Pages90/36326834462已completed/success並完成新原始資料有界審閱。Pagesledger選CI96/playable10933304554，HTML5804622bytes/SHA2560afdc0161d7ce73947ce005963eb79095c8138c20f867b905548400daf441d0c逐byte相同。只接受technical/source-cell-transform/部署連續性。W/CI94/Pages88 repair-history/CPUwheel1529/Vbody/守衛完整death既有接受closed；CI93/95自身failure不變。
+
+**Tank/Yakra完整death、Hench outgoing、Pdown、Q受擊selector-change仍缺**。Y WebGL致死仍排隊，CPU Tankage9/Yakraage12未滿24tick；raw所述victory可能停時未被證實。不得改wait/capture/tick或注入狀態補足；history不是同步framebuffer/完整連續timeline。本輪查看CI96山道與法庭兩原PNG，仍prototype級，沒有新分數；未播video/聆聽/真機。
 
 ## 七、下一步與全範圍分母
 
-直接續 **T05-trial-rescue-death-and-action-coverage**。CI96完成後讀該exactY的新native/ledger/原ZIP及matchingPages；保存指定Drive並真正下載回驗，不重送Y、不重驗CI94、不長輪詢。失敗只修真正定位原因，樣本不足如實open。再續全部party/enemy方向與move/attack/hurt/down/death/實際遊玩，前段尺度輪廓/原作構圖/山道法庭壓縮/重疊樹列、合法完整音訊與聆聽、原速/真機長時段。
+直接續 **T05-trial-rescue-death-and-action-coverage**：接CI97新原始報告/source ledger/matchingPages，指定Drive保存並真正下載回驗。Pending不長poll/duplicatepush/dispatch；failure只定位真terminal，樣本不足如實open。不再重送或重驗CI96/94與本批offline fulltests。
 
-T03/T04/T06完整範圍如前；T05全部美術/建模/動畫/合法音訊；T07整體>=90/各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio；T08每批完整tests/onesource/matchingCI/原始產物雲端回驗。全部分母不縮，沒有newScore或fullapproval。
+之後續全部party/enemy方向及move/attack/hurt/down/death/實際遊玩，前段人物植物物件尺度輪廓/原作構圖/山道法庭壓縮/重疊樹列、合法完整音訊/實際聆聽、原速/真機長時段。可做開發合批完整tests後一次source/CI，不逐項開CI。
+
+T03/T04/T06完整範圍如前；T05全部美術/建模/動畫/合法音訊；T07整體>=90/各面向>=80%、requiredassets/fivegates/zerocritical與真機input/FPS/frame-time/load/memory/background/save/audio；T08每批fulltests/onesource/matchingCI/原始產物雲端回驗。分母不縮，沒有newScore或fullapproval。
 
 ## 八、持久交付與治理
 
-唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。Y已測包 **Chrono-VQ03Y-field-and-build-tested.zip／11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**，2744621bytes／SHA256 **677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0**，69manifest/594snapshot；CI95失敗包 **Chrono-CI95-failed-evidence.zip／1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**，40517351bytes／SHA256 **f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95**，四原ZIP/6manifest。兩包已真正下載核parent/size/hash/CRC/逐檔；Ysnapshot逐byte一致。成功及失敗logs都保存，不只摘要。封裝false旗標是歷史，currentmain收據優先；snapshot不得覆蓋main文件，local-build不是部署。
+唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。Z已測包 **1hGbOPVJPe9QnQPraMf0N83TLOZqMufk9**，3030737bytes/SHA25661f348063f0ba7e5c0d00179c769c8f8fceb80eba1ede8bdf68efbe55ace7c8e，187manifest/611snapshot。CI96/Pages90原始包 **1gQQduODqLkfxmfyjMgXiSAGB_67EMJn7**，88515875bytes/SHA256388c5293e822918d69592f3a3153196118b6e70aef624733e6c9a03660e3c595，六原ZIP/7manifest。已真正下載核parent/size/hash/CRC/exactmanifest/逐檔；Zsnapshot逐byte一致。完整成功失敗timeoutlogs保存；localbuild不是部署，封裝false旗標是歷史，以main收據為準。snapshot不含docs；前代恢復鏈見DELIVERY_INDEX，不覆main最新文件。
 
-Mainonly/singleAI/nonforce，不建branch/PR/parallelcandidate/multiwriter。No localbrowser/native game-time-save-collision造數；不放寬原ticks/routes/keys/waits/captures/行為斷言/<.12/單一30秒/250ms-256/CPUquality-memory。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE**只node_modules/esbuildhardlink，不覆舊source/config或另開bootstrapCI。ROM/media/fonts/credentials私有。所有成果GitHub/正確Drive/readback，docs[skip ci]；main優先於臨時容器及歷史封存。CI77/75/93/95failure與CI71歷史false保持。
+Mainonly/singleAI/nonforce；no branch/PR/parallelcandidate/multiwriter/localbrowser/native game-time-save-collision造數。原ticks/routes/keys/waits/captures/行為斷言/<.12/單一30秒/250ms-256/CPUquality-memory不放寬。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink，不覆舊source/config或另開bootstrapCI。ROM/media/fonts/credentials私有。全部GitHub/正確Drive/readback，docs[skip ci]；main優先臨時容器/封存旗標。CI77/75/93/95failure與CI71歷史false保留。

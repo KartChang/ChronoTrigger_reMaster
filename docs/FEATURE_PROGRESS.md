@@ -1,23 +1,25 @@
-# 功能進度 — Y field死亡交付與原生build綁定已實作，CI96中
+# 功能進度 — Z 敵人動畫生命週期已修正，CI97中
 
-Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT v32。**Y0.9.72 source8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485**，tree257d953bca5d60c240646d9fa639c3a22384dc53；21source/test合批完整測試後一次發布。唯一matchingCI96/36324453650最後in_progress（providerupdated2026-09-27T14:01:58Z）。沒有Y原生或部署接受。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT **v33**。**Z0.9.73 sourcefa109ffa446f69881745b2b2c09b78c494f4e2fc**，treee1724fc3c1ff13979aef7ae62c86331d6fb5f6ad；16source/test合批完整測試後一次發布。matchingCI97/36330900305最後in_progress（providerupdated2026-09-27T15:48:28Z）。沒有Z原生或部署接受。
 
 ## 本批實作增量
 
-**Field死亡來源跨暫停交付**：沿用X的只讀pending-lethal辨識，補到既存FieldEnemyBody。山道三個及森林兩個位置在production World/core離線重現修前source-loss；只在真實致死事件仍排隊時保留已畫出的存活owner/HP/visibility/battle witness，正常delivery才生成原一次copy。24tick、原HP0立即停用、資源上限/释放不變。清queue、換owner、離開mode、首次已死、reduced、事前隱藏、模糊目標均不憑空產生死亡。修前19測試14pass/5fail，修後19pass。沒有聲稱此缺陷已在某次native中觀察。
+FieldEnemyMotion 不再把slot index當成持久敵人身分；attack/hurt cause綁實際Enemy，替換、移除、已觀察死亡後復活、state/chapter/rewind清掉失效動作。既存physical texture cache及未變slot不受影響，same-tick draw不重複upload。缺少/null origin/target先拒絕，避免不完整effect讓繪製中止。
 
-**Native版本入口修正**：CI95的X實際build被舊W expected_build拒絕；Y三條入口九個metadata參數改由checked-out producer唯一宣告決定，不從native report取得expected。宣告不完整、重複或模糊即failclosed。原checker和行為斷言完全保留，未改原路線/按鍵/ticks/等待/capture。新增AST/exact-source與mutation反例，不放寬接受條件。
+FieldEnemyBody 換owner還原舊anchor並清old displacement/live witness/pending；已生成死亡copy取消釋放。Field及Rescue同owner恢復HP>0時立即取消copy，不讓活人帶著舊死亡殘影。記錄cancelled，不伪稱24tick完整expiry；原HP0立即隱藏、正常交付、24tick/singlecopy/資源上限不變。Naga/Hench/Yakra、山道與森林五場景控制回歸覆蓋。
 
-**測試／来源保護**：3019Node/594Python/asset/typecheck/build通過，新增31Node/7Python。77保護項包含於573未改程式輸入，不是額外573。Y→X→W來源逆轉保留歷史expectedhashes，拒絕缺hunk/重複/額外修改；來源adapter不能處理native報告。全部失敗及成功logs已保存。
+同一組38項production World離線回歸：原Y9pass29fail，Z38pass。其他既有正反例仍通過。完整 **3068Node/597Python/asset/typecheck/build**，新增49Node（38行為＋11來源）/3Python。595未改程式輸入以canonical aggregate及完整逐檔map保留；Z→Y→X來源逆轉保留原expected hashes且拒絕缺hunk/重複/額外修改，不接受native資料。
 
-## 開發完成不等於原生接受
+## 已接受與仍未接受
 
-CI95仍failure，四個原ZIP未改寫，沒有playable accepted宣稱。其六項通過與出手觀察只用於定位，未把失敗report改成passed。CI96完成後需讀Y自己的原生原檔/ledger/部署證據，不借W收據。
+Y **CI96/36324453650、Pages90/36326834462** completed/success，新原檔/source-cell-transform/部署連續性有界接受。Pages ledger選Ysource及CI96playable10933304554；HTML5804622bytes逐byte相同。六原ZIP/7manifest已雲端下載回驗；收據evidence/CI96_ACCEPTANCE.json。這不代表全部動畫、美術90分、真機或Z接受。
 
-Tank/Yakra完整death、Hench outgoing、P observedFalls、Q differentFallbackSamples仍缺新完整原生樣本。W的CPU死亡capture age9/12未滿24，WebGL致死尚排隊；不能靠延長等待/改capture湊齊。W/CI94/Pages88的repair-history、CPUwheel event1529、Vbody/守衛完整death等有界樣本保持closed，CI93自身仍failure。
+Tank/Yakra完整death、Hench outgoing、P observedFalls、Q differentFallbackSamples仍open。Y WebGL致死尚排隊；CPU Tank age9/Yakra12未滿24tick，不能以增等待/改capture补足。raw可能victory停時的推測未被證實，原文未改。W/CI94/Pages88的repair-history、CPUwheel event1529、Vbody/守衛完整死亡既有接受保持closed。CI93及CI95自身仍failure，不rerun/回填。
 
-全party/enemy方向與move/attack/hurt/down/death、前段尺度/輪廓/原作構圖/山道法庭樹列、合法完整音訊/聆聽、原速/真機/長時段仍open。本輪未檢視圖片、播放影片、聆聽或測真機。歷史quality30/100不屬於Y新評分。fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null，releaseBLOCKED。
+全party/enemy方向及move/attack/hurt/down/death、前段尺度/輪廓/原作構圖/山道法庭樹列、合法完整音訊/聆聽、原速/真機長時段仍open。本輪實際查看CI96山道及法庭兩原PNG，仍prototype級，沒有新評分；未播放影片、聆聽或測真機。歷史quality30/100是更舊runtime，不是Y/Z新分數。fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null，releaseBLOCKED。
 
-## 持久成果
+## 持久成果與下一步
 
-folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**：Y已測包 **11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**（2744621bytes、SHA256677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0、69manifest/594snapshot）；CI95失敗原包 **1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**（40517351bytes、SHA256f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95、四原ZIP/6manifest）。兩包已真正下載核parent/size/hash/CRC/內容，Ysnapshot逐byte匹配。封裝時false旗標屬歷史，以main收據為準。T03-T08完整目標、held資產、原門檻均不變。
+folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb：Z測試包 **1hGbOPVJPe9QnQPraMf0N83TLOZqMufk9**（3030737bytes、SHA25661f348063f0ba7e5c0d00179c769c8f8fceb80eba1ede8bdf68efbe55ace7c8e、187manifest/611snapshot）；CI96/Pages90原始review包 **1gQQduODqLkfxmfyjMgXiSAGB_67EMJn7**（88515875bytes、SHA256388c5293e822918d69592f3a3153196118b6e70aef624733e6c9a03660e3c595）。兩者已真正下載核parent/size/hash/CRC/exactmanifest，Zsnapshot逐byte匹配。成功失敗/timeout日志都保存，localbuild非部署，封裝false旗標由最新main收據解釋。
+
+接CI97自己的新原生證據，pending不長poll或重送；然後依TODO合批續全動畫/早期品質，T03-T08完整分母、held資產、原門檻均不變。

@@ -1,43 +1,43 @@
-# Delivery index — Y 已測發布，CI95失敗原始包已保存
+# Delivery index — Z 已測發布，CI96／Pages90 原始證據已保存
 
-Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT **v32**。唯一KartChang/ChronoTrigger_reMaster main、singleAI/nonforce。唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
+Authority：STATUS／TODO／T05_ANIMATION_CHECKPOINT **v33**。唯一KartChang/ChronoTrigger_reMaster main/singleAI/nonforce；唯一Drivefolder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-## 本輪 Y 已測程式包
+## Z 已測程式包
 
-**Chrono-VQ03Y-field-and-build-tested.zip**
-File **11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**
-Bytes **2744621**
-SHA256 **677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0**
+**Chrono-VQ03Z-enemy-lifecycle-tested.zip／1hGbOPVJPe9QnQPraMf0N83TLOZqMufk9**
+3030737bytes／SHA256 **61f348063f0ba7e5c0d00179c769c8f8fceb80eba1ede8bdf68efbe55ace7c8e**。
 
-已真正下載回驗parent/size/hash/ZIPCRC/69manifest exact file set及內容，594program snapshot逐檔bytes匹配；checkedAt2026-09-27T13:51:42.081284+00:00。changes/為21個本批變更；review/含diagnosis、testreceipt、來源manifest、573未改程式inputs與program-snapshot.tar.gz；test-results/保留全部成功失敗logs和offline產物；local-build-not-deployment/不是provider部署。
+187manifest exactfiles／611program snapshot已真正下載驗parent/size/hash/ZIPCRC/逐檔；changes及snapshot逐byte一致，checked2026-09-27T15:47:51.449409+00:00。changes/16檔；review/program-snapshot.tar.gz（無docs）、三模組原Ysource/595fullmap/來源/CI96review/testreceipt；test-results/vq03z保留成功失敗timeout及最終logs；local-build-not-deployment sourceSha=null不是provider部署。
 
-Y／0.9.72 source **8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485**，tree **257d953bca5d60c240646d9fa639c3a22384dc53**；GitHub assembledtree等於已測tree，21檔一次non-force發布。完整 **3019Node／594Python／asset/typecheck/build通過**。唯一matching **CI96／36324453650** push/attempt1，最後in_progress，updated2026-09-27T14:01:58Z；沒有matchingYPages或Y原生接受。
+Z0.9.73 source **fa109ffa446f69881745b2b2c09b78c494f4e2fc**／tree **e1724fc3c1ff13979aef7ae62c86331d6fb5f6ad**，16source/test一次non-force發布；三programsubtree等於已測，currentmain其他root不變。完整3068Node/597Python/asset/typecheck/build通過，新增49Node/3Python。matchingCI97/36330900305 push/attempt1/exactZ最後in_progress（2026-09-27T15:48:28Z），無Z原生/Pages接受。
 
-原包v1封裝時sourcePublishedAtPackaging=false/cloudReadbackAtPackaging=false是歷史，後續實際publish/readback以 **evidence/VQ03Y_TEST_RECEIPT.json**與checkpoint為準。77保護項包含在573未改inputs中，不是額外573。恢復程式優先使用已測snapshot或changes，不覆蓋main最新docs，不重跑此批完整tests、不重送Y。
+原包封裝sourcePublishedAtPackaging=false/cloudReadbackAtPackaging=false是歷史；實際發布與下載由evidence/VQ03Z_TEST_RECEIPT.json及checkpoint紀錄。恢復只使用需要bytes；snapshot無docs，不可覆main進度；不重送Z或重跑已完成同批fulltests。
 
-## CI95失敗原始包
+## CI96／Pages90 reviewed原始包
 
-**Chrono-CI95-failed-evidence.zip**
-File **1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**
-Bytes **40517351**
-SHA256 **f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95**
+**Chrono-CI96-Pages90-reviewed-evidence.zip／1gQQduODqLkfxmfyjMgXiSAGB_67EMJn7**
+88515875bytes／SHA256 **388c5293e822918d69592f3a3153196118b6e70aef624733e6c9a03660e3c595**。
 
-四份provider原ZIP：browser evidence、witness good、witness bad、art-review kit；另兩份review＝6manifest。已真正下載驗parent/size/hash/外層及四內層ZIPCRC/逐檔，原ZIP亦核providerdigest。未修改native報告，沒有CI95playable接受宣稱。
+六provider原ZIP：CI96 browser/witness-good/witness-bad/art-review/playable及Pages90 staged-preview；加review＝7manifest。已真正下載验parent/size/hash/外層及六內ZIPCRC/exactmanifest逐檔，checked2026-09-27T15:21:42.158885+00:00，原生資料未改。
 
-CI95 **36320908543**、Xsource **441c924246e79f43ab0a90ba54fbd9a60f9f2b02**，始終failure，不rerun/回填。原field-enemy-action報告SHA256 **38ed833f0c038ffd14965fbe39aac3406b032b2e9d83a0b6bd300bb0fd925832**；X0.9.71/VQ03X被入口舊W expected_build拒絕，六項passed及實際出手觀察只用作定位，原生未接受。terminal收據 **evidence/CI95_TERMINAL.json**。
+CI96/36324453650 sourceY8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485與Pages90/36326834462 completed/success。Pagesworkflowhead是文件cbcdb...，但stagedledger明確選CI96/playable10933304554/Ysource；HTML5804622bytes／SHA2560afdc0161d7ce73947ce005963eb79095c8138c20f867b905548400daf441d0c逐byte相同。收據evidence/CI96_ACCEPTANCE.json有界technical/source-cell-transform/部署接受，不是全動畫或美術批准。Tank/Yakra完整death/Hench/P/Q仍open。
 
-CI95-browser-evidence.zip內 **source-441c924246e79f43ab0a90ba54fbd9a60f9f2b02.tar.gz**為X原source，可恢復必要bytes；不要以其舊docs覆蓋main。Y field修正及入口九個metadata綁定已有新source，不因Xfailure重做全部歷史。
+CI96-browser-evidence.zip內Ysource tar991members只按需恢復；其docs是source時歷史，不覆最新main。已接受Y不替Z验收；不重跑CI96。
 
 ## 前代恢復索引，保持closed
 
-X已測包 **1Mkeuf5o7-_GBu4gE-rAvrim9VAbL950a**，3196498bytes／SHA256 **12f1e35ab1bdc592703799a23a00e49f2c6ceb026062a3385100a46c44cc4b39**，前輪下載回驗；2988Node/587Python。X七種trial/rescue暫停交付修正保留，CI95failure不改變程式的離線測試事實，也不等於X原生接受。
+Y已測包 **11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**：2744621bytes／SHA256677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0；69manifest/594snapshot已下載回驗；3019Node/594Python。Y field delivery/producer綁定保留，原包pending歷史由CI96收據取代。
 
-W／CI94／Pages88 reviewed原包 **1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**，89144663bytes／SHA256 **9ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29**；source70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a、treebdac0b30a9bb53e37f12264327c607dcb9b140c5。此前七ZIP/17manifest已完成下載回驗及有界接受，不重驗。Original/CI94-browser-evidence.zip內source tar可恢復W必要bytes，source內docs是歷史。
+CI95失敗包 **1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**：40517351bytes／SHA256f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95；四原ZIP/6manifest下載回驗。CI95/36320908543、Xsource441c924246e79f43ab0a90ba54fbd9a60f9f2b02仍failure/no rerun/no accepted回填；原因舊W expected_build拒絕X。原報告SHA25638ed833f0c038ffd14965fbe39aac3406b032b2e9d83a0b6bd300bb0fd925832，六passed與出手觀察僅作定位，無playable接受。詳evidence/CI95_TERMINAL.json。
 
-前一份完整索引blob **8433ae456b0756e4f3988fc590221ed712933c18**原封保存於 **evidence/VQ03Y_PREVIOUS_DELIVERY_INDEX.md**；再接既有W/CI93/CI92鏈，只為恢復需要bytes使用，不讀整包歷史重驗。CI93及CI95failure保留，CI94及更早已接受範圍closed。
+X已測包 **1Mkeuf5o7-_GBu4gE-rAvrim9VAbL950a**：3196498bytes／SHA25612f1e35ab1bdc592703799a23a00e49f2c6ceb026062a3385100a46c44cc4b39，2988Node/587Python，前輪已回驗。X七種trial/rescue delivery保留，不因CI95failure重做。
+
+W/CI94/Pages88 reviewed包 **1EzKKEm3JkhvrW3wGeCxUMlUBhyHNqDtC**：89144663bytes／SHA2569ab8cc7e321d440c157d234c81f9afdd75dfe7dc71e8088ebf197767219b0b29；source70f9888ea0bc9c7cfb4fc8c4eeadac8cc917809a／treebdac0b30a9bb53e37f12264327c607dcb9b140c5。七ZIP/17manifest有界接受/下載回驗早已完成，不重驗repair-history/CPUwheel1529/Vbody/守衛death。
+
+前一索引blob9b9f2b9752d83ed13f5a1cd7f91d5f1763c90a9c原封保存於 **evidence/VQ03Z_PREVIOUS_DELIVERY_INDEX.md**，再接VQ03Y_PREVIOUS_DELIVERY_INDEX與既有W/CI93/CI92鏈。只為恢復必要bytes，不讀整包歷史審計；CI93/95failure保留，既有接受closed。
 
 ## 持久接續規則
 
-下一步從CI96自己的新原生產物/ledger及matchingPages接續。No longpoll／duplicatepush／manualdispatch。完整Tank/Yakra死亡、Hench/P/Q樣本與全動畫/全美術音訊/原速/真機仍open。fullAnimation/art/wholegamefalse，newScore=null，releaseBLOCKED；T03-T08分母不縮。
+接CI97自己的原始報告/ledger與matchingPages，不longpoll/duplicatepush/manualdispatch。全動畫、美術建模、合法音訊/聆聽、原速/真機長時段與T03-T08完整分母不縮。fullAnimation/art/wholegamefalse，newScore=null，releaseBLOCKED。
 
-臨時/mnt/data非權威；main及此folder優先。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅node_modules/esbuildhardlink，held家具/prologue不變，ROM/media/fonts/credentials私有，docs[skip ci]。所有source/tests/logs/manifests/文件須持久保存並回讀。
+臨時/mnt/data非權威，main及正確Drive優先。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink；held家具/prologue不變；ROM/media/fonts/credentials私有；docs[skip ci]。所有source/tests/logs/manifests/文件持久保存並回讀。

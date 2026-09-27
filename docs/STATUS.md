@@ -1,39 +1,35 @@
-# Status — Y 已發布，CI96 原生驗證中
+# Status — Z 已發布／CI97 驗證中；CI96／Pages90 有界接受
 
-Authority：本檔、TODO、evidence/T05_ANIMATION_CHECKPOINT.json **v32**、handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster main；single AI／non-force，沒有其他使用者，不建立新分支、PR、平行 candidate 或多人防撞。
+Authority：本檔、TODO、evidence/T05_ANIMATION_CHECKPOINT.json **v33**、handoff/IMMEDIATE_CONTINUATION。唯一 KartChang/ChronoTrigger_reMaster **main**；single AI／non-force，沒有其他使用者，不建立 branch、PR、parallel candidate 或 multiwriter。
 
 ## 唯一目前位置
 
-**VQ03Y／0.9.72** source **8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485**，source tree **257d953bca5d60c240646d9fa639c3a22384dc53**；parent main **60ebfe7bf70a906cbf67d187800f0921d96c5f68**。21 個 source/test 變更合批完成完整測試，GitHub 組成的 tree 與已測 tree 完全一致，僅一次 non-force source push，沒有 manual dispatch 或未發布 candidate。
+**VQ03Z／0.9.73 source fa109ffa446f69881745b2b2c09b78c494f4e2fc**；source tree **e1724fc3c1ff13979aef7ae62c86331d6fb5f6ad**，parent **cbcdb5601dc3afef89c97268a2883a56c3d29a5c**。16個程式／測試檔合批，完整測試後一次 non-force source push。GitHub src/scripts/tests tree 與已測 tree 完全一致；其他 root 保留 current main，未把 source tar 的舊 docs 覆蓋回 main。
 
-唯一 matching **CI96／36324453650**，push／attempt1／exact Y source，最後觀察 **in_progress**，provider updated **2026-09-27T14:01:58Z（台灣22:01:58）**。目前沒有已接受的 Y 原生證據或 matching Y Pages。這次文件提交以 Y source 為 parent，只有 docs／[skip ci]，不得拿文件 HEAD 當遊戲來源。
+唯一 matching **CI97／36330900305**，push／attempt1／exact Z，最後 **in_progress**，provider updated **2026-09-27T15:48:28Z（台灣23:48:28）**。沒有 manual dispatch、未發布 candidate、Z 原生接受或 matching Z Pages。本次後續文件提交只有 docs／[skip ci]，不可拿文件 HEAD 當遊戲 source。
 
-## 本輪已完成
+## 本輪完成
 
-1. CI95／36320908543 已 completed/failure。X producer 為0.9.71/VQ03X，但原生入口仍傳 W 的 expected_build；原 checker 在 metadata identity 拒絕後，序列驗證停止，後續 suffix/report 缺少。原失敗報告已有六項通過紀錄及實際出手觀察，未改寫、未回填 accepted，也沒有推定為動畫門檻失敗。收據 evidence/CI95_TERMINAL.json。
-2. Y 修正三條當前原生入口共九個 expected_build 綁定，從 checked-out scripts/build.mjs 的唯一標準 producer 宣告取得，**不是從 report 讀 expected 值**。缺少、格式錯誤、重複或模糊宣告一律拒絕。原 checker、路線、ticks、keys、waits、captures 與行為斷言未變；離線 AST 與 exact-source inverse 有測試。
-3. 同批修正 src/field-enemy-body.ts 的 paused lethal-source loss。山道三個、森林兩個敵人位置在 production World/core 離線測試修前五項失敗；修後五個正例及十四個取消／隱藏／換 owner／首次已死／reduced／模糊目標反例共19項通過。只保留已畫出的存活來源，仍須正常交付真實致死事件才建立原單次 copy；24tick、HP0立即停用原敵人、釋放與資源上限不變。沒有證明此缺陷曾在既存 native run 發生。
-4. 完整 **3019 Node／594 Python**，fail0／skip0，asset/typecheck/build 通過；新增31 Node／7 Python。77項保護輸入是573項未改程式輸入的子集合，不能加總。保留全部原 expected hashes，Y→X→W exact source inverse 不接受 native data，失敗／中止與最後成功 logs 一併保存。
-5. 下列兩個包均已真正下載回驗 parent、size、SHA256、CRC及逐檔manifest；Y594檔程式snapshot亦逐byte吻合。不是只上傳成功。
+**CI96／Pages90**：Y source8024dc43a4e91d0a5f9a319a5ba8c6afdadc1485 的 CI96/36324453650 completed/success，Pages90/36326834462 completed/success。已讀當輪原始報告、來源與 staged deployment ledger；Pages 選擇 CI96 及 playable artifact10933304554，play/index.html 與 CI96 index.html 逐 byte 一致（5804622bytes／SHA2560afdc0161d7ce73947ce005963eb79095c8138c20f867b905548400daf441d0c）。六原ZIP＋review已保存並下載回驗。只接受有界 technical/source-cell-transform/部署連續性，不代表完整動畫或90分。收據 evidence/CI96_ACCEPTANCE.json。
 
-## 已持久保存
+**Z敵人生命週期修正**：FieldEnemyMotion 將 attack/hurt 來源綁定實際 Enemy owner，替換、移除、已觀察死亡後復活及 state/chapter/rewind 清掉失效來源，不影響其他 slot 與實體 texture cache。FieldEnemyBody 換 owner 時還原位移、取消舊 live witness/pending/death copy；field與rescue的同 owner 恢復存活時立即釋放死亡殘影，明確記 cancelled，不偽稱完成 expiry。不完整 origin/target 直接拒絕而不拋出 renderer 例外。
+
+**驗證**：同一組38項 production World 離線回歸套回原Y為9pass/29fail，修後38pass；完整 **3068Node/597Python**，fail0/skip0，asset/typecheck/build通過。新增49Node（38行為＋11來源保護）與3Python。595未改程式輸入保留 canonical aggregate＋完整逐檔map，原expected hashes透過明示 Z→Y→X 來源逆轉保留；不接受 native資料。16檔傳輸後GitHub三程式子樹與已測完全一致。所有成功、失敗與timeout紀錄都保存，沒有以fixture當native證據。
+
+## 持久成果
 
 唯一 Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。
 
-**Chrono-VQ03Y-field-and-build-tested.zip／11OO9WpRzU6aNbsIXF7jwFxDMJkGWXTOb**：2744621bytes，SHA256 **677ac8646dfcc8b86d397c670886177434699adfbd5c7f06d17b69f8374d68b0**；69manifest／594snapshot。changes/21檔，review/診斷與來源，test-results/成功失敗logs，local-build-not-deployment/不是部署。
+**Chrono-VQ03Z-enemy-lifecycle-tested.zip／1hGbOPVJPe9QnQPraMf0N83TLOZqMufk9**：3030737bytes／SHA256 **61f348063f0ba7e5c0d00179c769c8f8fceb80eba1ede8bdf68efbe55ace7c8e**；187manifest／611program snapshot。實際下載驗parent/size/hash/ZIPCRC/exactmanifest/changes及snapshot逐byte一致，checked2026-09-27T15:47:51.449409+00:00。snapshot不含docs，需從main讀最新docs；local-build-not-deployment不是部署。包內sourcePublishedAtPackaging=false/cloudReadbackAtPackaging=false是歷史，最新GitHub收據優先。
 
-**Chrono-CI95-failed-evidence.zip／1K-0GVsXj2tkG7GPvCocofOPM-wQ__rfM**：40517351bytes，SHA256 **f31219ec7c52d1a665d3ca923f0a3b8f405e4391a60a804368655415cb86aa95**；四份provider原ZIP＋兩份review＝6manifest，外內CRC及內容已驗。CI95没有playable accepted宣稱。
+**Chrono-CI96-Pages90-reviewed-evidence.zip／1gQQduODqLkfxmfyjMgXiSAGB_67EMJn7**：88515875bytes／SHA256 **388c5293e822918d69592f3a3153196118b6e70aef624733e6c9a03660e3c595**；六原ZIP／7manifest，實際下載驗parent/size/hash/外內ZIPCRC/逐檔，checked2026-09-27T15:21:42.158885+00:00。不是僅上傳成功。
 
-封裝時 sourcePublishedAtPackaging=false／cloudReadbackAtPackaging=false 是歷史；最新 GitHub 收據與 checkpoint 優先。不得因此重送 Y、重跑完整測試或 bootstrap CI。臨時容器不是權威。
+## 直接接續與邊界
 
-## 直接接續
+Root **T05-early-visual-cohesion**；development/execution terminal **T05-field-foe-action-animation**；next **T05-trial-rescue-death-and-action-coverage**。先讀CI97當輪exact Z的新原生原檔/ledger/匹配Pages；pending保存checkpoint，不長輪詢、不重送Z/dispatch；failure只定位實際terminal。不再重跑CI96/94或同批離線完整tests，除非真正再改程式。
 
-Root **T05-early-visual-cohesion**；development/execution terminal **T05-field-foe-action-animation**；next **T05-trial-rescue-death-and-action-coverage**。使用者通知 CI96 完成後，只讀該 exact run 的新原生結果及 matching Pages；保存原ZIP、ledger與review到指定Drive並真正下載回驗。不長輪詢，不 duplicate push／dispatch。
+**Tank/Yakra完整死亡、Hench outgoing、P down、Q受擊中selector-change仍open**。Y亦未補齊；WebGL最後致死仍排隊，CPU Tank age9/Yakra age12未滿24tick。raw報告中victory可能凍結時間的推測未獲證實，原文未改；不得加等待/改capture/注入狀態湊樣本。
 
-**Tank／Yakra 完整死亡、Hench outgoing、P down、Q受擊中selector-change仍open**。已知 W capture：WebGL致死事件尚排隊；CPU Tank age9、Yakra age12，未滿原24tick；勝利本身不停止simulation。不可增加等待／改capture／注入狀態湊樣本。只根據當輪真實證據關閉缺口。
+W/CI94/Pages88有界接受、repair-history、CPUwheel event1529、Vbody與守衛完整death樣本保持closed；CI93/95自身仍failure，不rerun、不回填。Y有界接受不代表X失敗run轉成功，也不替Z驗收。本輪實際看了CI96山道與法庭兩張原PNG，仍屬prototype品質，無新分數；未播影片、聆聽或测真機。
 
-再續全party/enemy方向與move/attack/hurt/down/death／實際遊玩，前段尺度輪廓／原作構圖／山道法庭樹列、合法完整音訊與聆聽、原速及真機長時段品質，依TODO合批測試再一次source/CI。
-
-W／CI94／Pages88 有界接受保持closed，repair-history、CPUwheel event1529、Vbody與守衛完整death樣本不重驗。CI93及CI95自身仍failure，不能借新收據回填。X/Y尚未原生接受。本輪未看圖、播影片、聆聽或測真機，fullAnimationComplete/artApproved/wholeGameAccepted=false，newScore=null，releaseBLOCKED。
-
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1/P2/自主第三/v1-v8。Held prologue blob2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不提升。No localbrowser/native game-time-save-collision造數；原<.12/單一30秒/250ms-256/CPUquality-memory不放寬。ROM/media/fonts/credentials私有；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink。T03-T08完整分母不縮，2300抵達非完整未來；全部成果GitHub/正確Drive/readback，docs[skip ci]。
+保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8；原24tick/singlecopy、native路線/ticks/keys/waits/captures/斷言/<.12/單一30秒/250ms-256/CPUquality-memory不變。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a/母親家具不得提升。No localbrowser/native game-time-save-collision造數；ROM/media/fonts/credentials私有。T03-T08完整分母不縮，2300抵達非完整未來；全部party/enemy方向與動作、美術建模構圖、合法完整音訊/原速/真機長時段仍待完成。fullAnimation/art/originalspeed/listening/device/longsession/wholegame皆false，newScore=null，releaseBLOCKED。

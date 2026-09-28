@@ -1,29 +1,29 @@
-# Status — VQ04G已合批發布；唯一CI104執行中，v41
+# Status — VQ04H已發布；恢復中斷接續，CI105執行中，v42
 
-Authority：本頁／TODO／evidence/T05_ANIMATION_CHECKPOINT.json **v41**。唯一KartChang/ChronoTrigger_reMaster／main，single AI／non-force；不建分支、PR或平行candidate。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
+Authority：本頁／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v42。唯一KartChang/ChronoTrigger_reMaster／main，single AI／non-force，不建分支、PR或平行candidate。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
 
-## 目前source與唯一驗證
+## 目前source與唯一CI
 
-**VQ04G／0.9.80** source **1512fcaf3601c31834d2047042b7fbb3a61aee66**，tree **2c8416cf127f2224425a6012ad0dd17585828b87**，parent **919243172c4e00713a4f2f63e70ad8daa5b96250**。一次non-force發布後已讀回main／commit／parent／tree；27差異（14修改、13新增），703程式檔與最終已測、已回下載快照完全一致。文件另以[skip ci]提交，不新增遊戲source。
+VQ04H／0.9.81 source fb57de8eb15fc3e46e078a946766ed42e59611e4，tree 3a8641d56cf3add8c5ffb3d29b779eaedcb3f966，parent 891dbf710ee149a931515bb6a2e2bf41b7587a4b。上次中斷發生在source已發布、文件仍停v41之後；本輪讀回main／commit／tree並恢復H，不重做或重送G/H。本輪只補文件／收據，沒有新遊戲source、重新全測或另開CI。
 
-唯一 **CI104／36454035999**，push／attempt1／exact G，最後觀察 **in_progress**／conclusion=null，provider updated **2026-09-28T16:51:31Z**。不長poll、不rerun、不manual dispatch、不重送G/F/E/D。G原生與部署尚未驗收；下一步直接接這個matching run的原ZIP、來源與實際畫面／部署限定review。
+唯一CI105／36463822283，push／attempt1／exact H，最後觀察in_progress／conclusion=null，created2026-09-28T18:14:44Z，provider updated2026-09-28T18:14:49Z。pending保存接續點，不長poll、不rerun／dispatch／重送source。H原生與部署尚未確認。
 
-## 本批真正開發與測試
+## H實際模型與已恢復驗證
 
-沿用未改的E作者像素，七類故事NPC四方向ambient／greet共224欄位接入正式owned upload，比前代28前向ambient多196可選欄位。由現有存活active隊員真實位置決定朝向及近距離招呼，保留原producer frame clock；不是NPC移動／導航。112walk仍staged，四主角256combat仍runtimeApplied=false；可選欄位不代表每格已有native樣本。
+四棟托魯斯建築100結構件以Y=.33為錨點、高度比例.82；法庭被告席.50／法官台.72，含兩講台與八飾線共10件。使用私有Geometry改模型；保留原X/Z、transform、UV、材質、貼圖、camera、State及碰撞，不移動角色湊畫面。最多110 owned geometries、100320bytes幾何buffer payload，0新增mesh／texture／material。不是全場景或美術品質批准。
 
-原八NPC名稱／parent／48×64來源逐byte辨識、材質獨占、this／參數／回傳／例外、unknown fail-closed、換owner／held還原／dispose保留。0新增GPUtexture、12binding及294912CPU RGBA上限；來源frame／facing／pose未變不重上傳。原State、camera、幾何、held prologue／母親家具、native routes／waits／captures／assertions／goldens均不改。
+已恢復原始完整logs：Node3553／3553、Python629／629、assets／typecheck／quality schema／build通過；52項H專屬Node、15個非目標／held完整CPU畫面一致。CI103既存beforeState離線51條ray記錄為G6遮擋、H0；只是離線模型測試，不是新原生畫面。CPU study沒有證明中位draw更快，不能宣稱修復native效能。
 
-**完整Node3501／3501、Python625／625、assets／typecheck／quality schema／build皆通過**。76新增專屬Node含真實owned upload、全部224作者欄位PNG同源、正式current-app CPU畫面、11非target／held場景與F一致、原資源生命週期和Pages選取。703source測試前後一致；676F程式原byte、671受掃描原輸入保護通過。早期三項新增離線fixture失敗及修正紀錄保留，不改native route或放寬斷言。quality30/100是舊review，不是G新評分。
+本輪下載H包核93manifest／717source／25delta（11修改、14新增），全部sizes／SHA256／Git blobs及delta bytes相符；717個before-full hashes匹配snapshot，原after-full summary記零變更。計算Git root與已發布H tree完全一致；692G程式原byte、held prologue blob不變。原失敗／中斷／UV辨識修正logs保留。這是恢復與來源綁定，不是本輪重跑全測。
 
-## CI103成功，Pages97失敗已分開處理
+## CI104 failure／Pages98 skipped，不能回填成功
 
-F source da615f1e4a803fa8fdaddf4723ab782038e14266：CI103／36441789439 success，updated2026-09-28T15:52:41Z。五原ZIP、690source、三lane／29原始entry和兩張WebGL靜態圖限定核對完成，原檔已在指定Drive並下載回驗。完整motion／影片／聆聽／真機未批准。
+CI104／36454035999已failure，updated2026-09-28T17:28:14Z；Pages98／36458343628 skipped，updated17:28:17Z。四原ZIP、三source lanes／59原始entries之既存限定review與完整包已恢復；無playable、無G部署。CPU rescue在reunited／truce往z7.6的雙人路線用了311ticks，超過309；最後位置在<.12範圍內，但原預算仍失敗。根因與H是否修復均未證明，原30秒、250ms-256及tick門檻不放寬。
 
-Pages97／36446907519 failure，updated2026-09-28T15:52:56Z；prepare選CI失敗，staging與deploy跳過。原success-list回應沒有記錄，不能斷言provider一致性原因。G改為workflow_run直接GET並核對觸發的exact run／SHA／attempt，無較舊CI fallback；保留原artifact/provenance/digest門檻，移除獨立Pages push觸發。Pages97保持failure，不重跑。最後已限定審查部署仍E／CI102／Pages96，不假稱F部署成功。
+最後已審查部署仍E／CI102／Pages96；Pages97 failure保留。新Pages exact-run selector尚無成功部署證據，不因單測通過批准。
 
-## 持久交付與完整目標
+## 持久來源與下一步
 
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。G最終包 **1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F／Chrono-VQ04G-production-batch.zip**，**1499878bytes**／SHA256 **403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134**；68manifest／703snapshot／27delta／7PNG／完整logs。2026-09-28T16:32:37.188337Z真實下載核parent／size／hash／CRC／全部manifest／snapshot與delta bytes後才推送。snapshot program-vq04g.tar.gz不含docs或node_modules，不覆蓋main最新文件；同ID早期包已被最終包取代。
+唯一Drive folder 1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。H完整包11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t，1876159bytes，SHA256 e6eac00744fdac80f3096d52074e9def1049ac9101cf5c87d0b3e615176defd4；program-vq04h.tar.gz不含docs／node_modules。本輪已真正下載回驗，見VQ04H_RECOVERY_READBACK；包內715檔early readback只是歷史，沒有冒充最終包的pre-push回驗。
 
-詳細見DELIVERY_INDEX、PRODUCTION_ART_VQ04G與evidence/VQ04G_*、CI103_PAGES97_REVIEW。完整T03–T08、完整party/enemy/NPC方向动作death、前段構圖／尺度遮擋、縮尺大地圖、合法完整音訊／聆聽、原速／真機／長時段不縮。全部完整品質批准false、newScore=null、releaseBLOCKED。No localbrowser／native State-time-save-collision注入；原<.12／單一30秒／250ms-256／CPU品質記憶體門檻不變；ROM/media/fonts/credentials私有。
+先接CI105完成後的原ZIP／失敗或成功報告／H真實比例遮擋／Pages限定review，再續完整美術。G224 NPC ambient/greet保留，112walk與256party combat仍未啟用。全T03–T08、全party/enemy/NPC動作death、縮尺地圖切換、合法完整音訊／聆聽／原速／真機／長時段不縮。完整品質批准false、newScore=null、releaseBLOCKED。No localbrowser／native State-time-save-collision注入；ROM/media/fonts/credentials私有。文件[skip ci]，容器非權威。

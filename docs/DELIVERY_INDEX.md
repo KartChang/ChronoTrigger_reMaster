@@ -1,27 +1,28 @@
-# Delivery Index — v41，G完整測試與單次發布
+# Delivery Index — v42，H中斷恢復與CI105接續
 
-唯一KartChang/ChronoTrigger_reMaster／main；唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。前代完整索引原blob3dbb111a2ae568909deee81d1a6f5ab192b0d5bf保留於evidence/VQ04G_PREVIOUS_DELIVERY_INDEX.md，不重新審查歷史。
+唯一KartChang/ChronoTrigger_reMaster／main；唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。前索引原blob4c9648d19a4533d84f843881fb63d991808e5fab保留於evidence/VQ04H_PREVIOUS_DELIVERY_INDEX.md，不重審已接受歷史。
 
-## 最新G完整程式／素材／logs
+## H已發布程式與原驗證
 
-**Chrono-VQ04G-production-batch.zip**，fileId **1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F**。
-**1499878bytes**，SHA256 **403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134**。
-68manifest rows／703程式檔／27deltas（14modified、13new）／7PNG及224cell hashes／完整成功失敗logs／技術草稿／verifier。**program-vq04g.tar.gz**不含docs/node_modules/dist/.test，不能覆蓋main最新docs。早期同ID工作包已更新，最終provider modified2026-09-28T16:31:03.951Z。
+Chrono-VQ04H-production-batch.zip／11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t。
+1876159bytes；SHA256 e6eac00744fdac80f3096d52074e9def1049ac9101cf5c87d0b3e615176defd4。
+93manifest／717程式／25delta（11修改、14新增）、architecture-model.json、6張明示offline視圖、完整成功失敗logs及技術草稿。program-vq04h.tar.gz不含docs/node_modules；不可覆蓋main最新文件。
 
-**2026-09-28T16:32:37.188337Z**真正下載核parent／size／SHA／outerCRC／68manifest精確集合／703snapshot sizes SHA256 Git blobs及27delta bytes，一致於全測後原bytes。完整Node3501／Python625／assets／typecheck／quality schema／buildexit0，原三個新增離線fixture失敗logs保留。前後703檔一致；676F程式及671受掃描原輸入保留。新畫格eligibility不是native全格覆蓋。
+本輪2026-09-28T18:25:00.691095Z下載核parent、size、hash、CRC、全manifest／717sizes SHA256 Git blobs／25delta；計算root等於3a8641d56cf3add8c5ffb3d29b779eaedcb3f966，source fb57de8eb15fc3e46e078a946766ed42e59611e4，parent891dbf710ee149a931515bb6a2e2bf41b7587a4b。H在上次中斷前已發布，這輪沒有重送。
 
-G來源 **1512fcaf3601c31834d2047042b7fbb3a61aee66**／tree **2c8416cf127f2224425a6012ad0dd17585828b87**／parent919243172c4e00713a4f2f63e70ad8daa5b96250。一次non-force main推送並readback。唯一CI104／36454035999／push／attempt1，最後in_progress，updated2026-09-28T16:51:31Z。不可把離線成功推定native或部署完成。
+原驗證時間2026-09-28T17:50:10.595038Z，Node3553／Python629／assets／TS／quality schema／buildexit0；717個before-full hashes與snapshot一致，after-full是零變更summary而非第二份hash map。原VALIDATION sourcePublished=false是pre-push時間切片，不改寫。此輪未重新全測。
 
-## CI103／Pages97原始證據
+包內h-early-cloud-readback只證明1281055bytes／715source／23delta早期工作包的回驗，不是最終包；最終pre-push下載收據未從此次包中取得，不回填。以上最終包回驗是在source發布後本輪真正執行。
 
-Part1 **Chrono-CI103-Pages97-evidence-part1.zip**／**1XFeTpL5dPCd0jN1sivxHcxCzwmdmfA1K**：**66792383bytes**／SHA256 **f1a077376bb2ac8a1e6734b901582aeb64b7a8ad63d2b3de99ec1f36cec324eb**，1manifestentry（完整browser原ZIP）。
+## CI104／Pages98原始證據
 
-Part2 **Chrono-CI103-Pages97-evidence-part2.zip**／**1oUq6chsubZNavGfNYrRE9Pr0Ts7duzlz**：**37869450bytes**／SHA256 **3ff761e051a6d0480f368d3eed161bc1e8409ef0faca5352b85767125b9937a2**，8entries（其餘4原ZIP及review／29entry hashledger／readonly verifier／Pages97錯誤摘錄）。Pages97保存的是明示excerpt，不宣稱完整job log。
+Part1：1gjHp7a57RG5Q4qsq64HwJrZ8BxCzoYSa／Chrono-CI104-Pages98-evidence-part1.zip，60372811bytes，SHA256 983dba34aca90f373e66a21f44cde94c0bcbcbc4fb876b082baa4c49829b63fc，2manifest。
+Part2：1DM_1UdITmxNvAZrH6YzvYShugll5gAK9／Chrono-CI104-Pages98-evidence-part2.zip，36404160bytes，SHA256 1a206d30e82b5eb606ec42d045fc6cc95921ac5b3765784ba09ed891db8503a2，8manifest。
 
-兩包**2026-09-28T16:28:34.386180Z**真實回下載核parent/size/hash/outer-innerCRC及全部entry bytes。共五原ZIP，690Fsource／三source lanes／29原entry、5F-artpayload同源。CI103 success updated2026-09-28T15:52:41Z；Pages97 failure updated15:52:56Z，prepare選CI失敗，沒有staging或deploy。原success-list回應未記錄，不推定provider根因。兩張WebGL靜態圖限定review不是完整motion／video／listening／device批准。
+兩包本輪真實下載核parent／size／SHA／外內CRC及全部entry；四原ZIP与既存review一致，原CPU rescue failure report digest核對。既存三來源lane／59entry review保留，不擴充成完整motion／聆聽／真機批准。完整provider job-log archive未取得，不假稱包含；native原始report及journey已保留traceback。CI104 failure／Pages98 skipped，無playable、staging或部署。
 
-## 收據與舊來源
+## 接續與來源界線
 
-VQ04G_VALIDATION.json和VQ04G_CLOUD_READBACK.json中的sourcePublished=false保留為當時pre-push紀錄；後續VQ04G_PUBLICATION.json記sourcePublished=true及matchingCI104。checkpoint／STATUS代表目前狀態。CI103_PAGES97_REVIEW.json及CI103_CLOUD_READBACK.json記限定review與下載回驗。
+唯一CI105／36463822283／exact H／push／attempt1，最後in_progress，provider updated2026-09-28T18:14:49Z。以STATUS／checkpoint接原產物，pending不長poll，不rerun／dispatch。舊G/F/E包只作來源，不是candidate；最後已審查部署E／CI102／Pages96。
 
-F package1_319F-eMQ3rLU04pT4QxcbyDkFsSFymY、E package1K_C2XsNeKvlnIb4k2c8pQ0CGzGbu-Pu9皆前代來源，不是平行candidate。最後已審查部署仍E source870c2fb64afd42dcb7bd618f84928643c995fa94／CI10236429066870／Pages9636433628575／playable10974771022。F與G部署未確認；Pages97不rerun或回填。所有完整品質批准false，newScore=null／releaseBLOCKED，ROM/media/fonts/credentials私有，docs[skip ci]。
+新收據見evidence/VQ04H_PUBLICATION.json、VQ04H_RECOVERY_READBACK.json、VQ04H_VALIDATION.json、CI104_PAGES98_REVIEW.json、CI104_RECOVERY_READBACK.json。文件[skip ci]，完整品質批准false、newScore=null、releaseBLOCKED，ROM/media/fonts/credentials私有。

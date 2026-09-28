@@ -1,0 +1,124 @@
+{
+  "schema": "chrono-ci104-pages98-bounded-review-v1",
+  "checkedAt": "2026-09-28T17:45:08.906802+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "ci": {
+    "id": 36454035999,
+    "number": 104,
+    "status": "completed",
+    "conclusion": "failure",
+    "event": "push",
+    "attempt": 1,
+    "source": "1512fcaf3601c31834d2047042b7fbb3a61aee66",
+    "sourceTree": "2c8416cf127f2224425a6012ad0dd17585828b87",
+    "providerUpdatedAt": "2026-09-28T17:28:14Z"
+  },
+  "pages": {
+    "id": 36458343628,
+    "number": 98,
+    "conclusion": "skipped",
+    "providerUpdatedAt": "2026-09-28T17:28:17Z",
+    "selectedArtifact": null,
+    "deployed": false
+  },
+  "originalZips": [
+    {
+      "name": "CI104-browser-evidence.zip",
+      "id": 10986931611,
+      "bytes": 60371900,
+      "sha256": "58df74ac893a63d9796f4c06dcb7763b0fc4f76cfcc9c2c92a7753d30b1acdf5",
+      "crcVerified": true,
+      "rawMembers": 323
+    },
+    {
+      "name": "CI104-art-review-kit.zip",
+      "id": 10986821765,
+      "bytes": 1979637,
+      "sha256": "e59ef044817517e9a888f39dfdd7464d35eb4537bba2fe7df74ee8b4cf7ff23b",
+      "crcVerified": true,
+      "rawMembers": 212
+    },
+    {
+      "name": "CI104-witness-bad-evidence.zip",
+      "id": 10985467757,
+      "bytes": 6156130,
+      "sha256": "846681ec311543e01d9fe58f6c8740d955d17fde2eb35b1242862670e6fc39cc",
+      "crcVerified": true,
+      "rawMembers": 41
+    },
+    {
+      "name": "CI104-witness-good-evidence.zip",
+      "id": 10984484927,
+      "bytes": 28254021,
+      "sha256": "a374c3979bd770eb910a45a1243e8f8860d5b7770d77906930ff6fdd3ac82279",
+      "crcVerified": true,
+      "rawMembers": 158
+    }
+  ],
+  "playableArtifactPresent": false,
+  "sourceProgramFilesVerified": 703,
+  "sourceBoundLanes": [
+    {
+      "path": "cpu-renderer/source-ledger.json",
+      "bytes": 2570,
+      "sha256": "c020fb1a89db0a848715c60aef7b10403d1c052e0d1d0565e599107468a4a239",
+      "rawEntriesVerified": 14,
+      "htmlSha256": "4bf0291720835781d7644baa3550f3a1855304e0a392ce4e9cd2c7e9da1d92bd",
+      "htmlBytes": 5881315
+    },
+    {
+      "path": "cpu-renderer/era600/source-ledger.json",
+      "bytes": 6611,
+      "sha256": "5d8c21e65d5141be65ee1abe791eead4309848d2d65c86e13e01ef9b20d43516",
+      "rawEntriesVerified": 39,
+      "htmlSha256": "4bf0291720835781d7644baa3550f3a1855304e0a392ce4e9cd2c7e9da1d92bd",
+      "htmlBytes": 5881315
+    },
+    {
+      "path": "render-compatibility/source-ledger.json",
+      "bytes": 1278,
+      "sha256": "82f44275e2917eb707bb85d63fa97b63c8d573b658d08630b88209700b2a2ea5",
+      "rawEntriesVerified": 6,
+      "htmlSha256": "4bf0291720835781d7644baa3550f3a1855304e0a392ce4e9cd2c7e9da1d92bd",
+      "htmlBytes": 5881315
+    }
+  ],
+  "rawEntryCount": 59,
+  "failure": {
+    "report": "cpu-renderer/rescue/rescue-report.json",
+    "reportSha256": "df1a708b27305d4a20ad99d06829b5df604a38331d01f1e27baeb462186a5f1d",
+    "reason": "paired route boundary/budget",
+    "chapter": "truce",
+    "stage": "reunited",
+    "axis": "z",
+    "target": 7.6,
+    "epsilon": 0.12,
+    "startTick": 1206,
+    "lastTick": 1517,
+    "elapsedTicks": 311,
+    "allowedTicks": 309,
+    "excessTicks": 2,
+    "wallTimeoutMs": 30000,
+    "pulses": 11,
+    "lastPositions": [
+      7.599999999999995,
+      7.533333333333329
+    ],
+    "positionsWithinTolerance": true,
+    "budgetSatisfied": false,
+    "nativeAssertionsUnchanged": true,
+    "runtimeFaultProven": false,
+    "fixedByHProven": false,
+    "interpretation": "Strict native tick-budget failure after paired players reached the spatial tolerance, not a proven collision block or blank sword texture. Host scheduling/transport and rendering costs are not isolated by this trace. No budget or native route relaxation."
+  },
+  "staticScreenshotsReviewed": [
+    "kingdom/01-truce.png"
+  ],
+  "scope": "Four original ZIP byte/CRC preservation, exact G source, three already-produced source-bound ledgers and raw failure diagnosis; not complete motion/224 NPC cell coverage, native H, deployment, listening or physical-device approval. Complete provider job-log archive not downloaded; original native report and CPU journey retain failure traceback.",
+  "quality": {
+    "artApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  }
+}

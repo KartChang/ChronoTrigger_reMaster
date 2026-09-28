@@ -1,9 +1,7 @@
-# 舊E恢復入口已完成 — 請直接接v41的G／CI104
+# 恢復入口 — v42，直接使用已發布H
 
-不要再用669檔早期E工作包重畫、覆蓋或重驗已完成G/F/E。STATUS／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v41為權威；唯一main／singleAI／nonforce。
+舊E恢復流程已完成，不再從669檔恢復包續作。唯一目前遊戲source為H／0.9.81／fb57de8eb15fc3e46e078a946766ed42e59611e4；tree3a8641d56cf3add8c5ffb3d29b779eaedcb3f966。上次中斷前已推source，本輪只補最新文件與收據，不重做H。
 
-最新source1512fcaf3601c31834d2047042b7fbb3a61aee66／VQ04G0.9.80，tree2c8416cf127f2224425a6012ad0dd17585828b87；27變更、703程式、完整Node3501／Python625及assets/TS/build已過，單次source推送已接CI10436454035999。先讀這個exactrun；pending留checkpoint不長poll，不rerun／dispatch／重送。
+需要恢復程式時使用指定folder內11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t的program-vq04h.tar.gz，717files，不含docs／node_modules。最新包1876159bytes／SHA e6eac00744fdac80f3096d52074e9def1049ac9101cf5c87d0b3e615176defd4，93manifest／25delta已本輪回下載核對。不得以包內舊STATUS／early715file收據覆蓋目前權威。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink。
 
-最新完整包Drive **1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F**，1499878bytes／SHA403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134，68manifest／703snapshot／27delta／7PNG，已真實下載回驗。program-vq04g.tar.gz排除docs/node_modules，用main最新docs。唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。
-
-NPC224四方向ambient/greet欄位可由真實runtime選用；112walk與導航仍staged，256combat仍runtimeApplied=false。CI103已success有界review，Pages97選取失敗保持failure；最後已審查部署E/CI102/Pages96。完整批准仍false。原E九檔已恢復完成，舊文件及包僅來源鏈，不是另一candidate。
+讀main一次及STATUS／checkpoint／TODO，直接接唯一CI10536463822283；最後in_progress。CI104是failure、Pages98 skipped，不能等待CI104 done或重跑。H完整原logs3553Node／629Python已恢復，不重複全測；先處理matchingCI原生／部署結果。全部held、native門檻及T03–T08限制保持，No localbrowser／native造數。

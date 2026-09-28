@@ -1,0 +1,30 @@
+{
+  "schema": "chrono-ci104-pages98-cloud-readback-v1",
+  "checkedAt": "2026-09-28T17:47:31.651978+00:00",
+  "parts": [
+    {
+      "name": "Chrono-CI104-Pages98-evidence-part1.zip",
+      "bytes": 60372811,
+      "sha256": "983dba34aca90f373e66a21f44cde94c0bcbcbc4fb876b082baa4c49829b63fc",
+      "manifestEntries": 2,
+      "fileId": "1gjHp7a57RG5Q4qsq64HwJrZ8BxCzoYSa",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllManifestBytesVerified": true
+    },
+    {
+      "name": "Chrono-CI104-Pages98-evidence-part2.zip",
+      "bytes": 36404160,
+      "sha256": "1a206d30e82b5eb606ec42d045fc6cc95921ac5b3765784ba09ed891db8503a2",
+      "manifestEntries": 8,
+      "fileId": "1DM_1UdITmxNvAZrH6YzvYShugll5gAK9",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllManifestBytesVerified": true
+    }
+  ],
+  "originalZipCount": 4,
+  "playableArtifactPresent": false,
+  "ciConclusion": "failure",
+  "pagesConclusion": "skipped"
+}

@@ -1,27 +1,27 @@
-# Execution TODO — v41，G正式NPC朝向／招呼及Pages修正已發布
+# Execution TODO — v42，H已發布，直接接CI105
 
-Authority：STATUS／T05_ANIMATION_CHECKPOINT v41。唯一main／singleAI／nonforce，不建branch／PR或平行candidate。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
+Authority：STATUS／T05_ANIMATION_CHECKPOINT v42。唯一main／single AI／non-force，不建分支、PR或平行candidate。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
 
-## 本批完成，直接沿用
+## 已完成，不重做
 
-- [x] CI103／36441789439 success；五原ZIP／690Fsource／三lane29entry／兩WebGL靜態畫面限定review完成，原檔存指定Drive並下載回驗。Pages97／36446907519保持failure：prepare選CI失敗，無部署，不rerun。
-- [x] 七類NPC四方向ambient／greet224欄位接入正式ArtDirectedWorld，沿用E作者圖；真實active存活隊員位置、有限target／方向／距離滯後、原frame clock、held／cutscene／無目標還原；不移動NPC或寫State。
-- [x] 真實owned upload、unknown fail-closed、原this／參數／return／exception、換owner／尺寸／dispose／資源界線與224格PNG同源；76新增Node含actual-current整張CPUframe與11非target／held場景一致。
-- [x] Pages workflow_run使用exact trigger GET並驗證SHA／attempt／原checkRun及artifact門檻；移除獨立push選舊CI風險，保留explicit dispatch能力但本輪未執行。19新增及17原Pages測試通過。
-- [x] G→F SOURCE-only inverse及F→E/D/C/B/A傳遞；原pins／native routes/waits/captures/assertions/goldens、heldprologue保留；676F程式及671受掃描原輸入原byte。
-- [x] 完整Node3501／Python625／assets／typecheck／quality schema／build成功，703檔全測前後一致；原三項新增offline fixture失敗logs保留，不放寬native或原斷言。
-- [x] G最終68manifest／703snapshot／27delta／7PNG／完整logs存指定Drive 1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F，真正下載回驗後單次non-force source 1512fcaf3601c31834d2047042b7fbb3a61aee66／tree2c8416cf127f2224425a6012ad0dd17585828b87，接唯一CI104。
+- [x] G224 NPC四方向ambient/greet、F路緣木作及A/B/C/D已完成基礎保留；112walk與256combat仍未啟用，不冒稱完整動畫。
+- [x] H四棟建築100結構件、法庭兩講台及八飾線共10件的owned Geometry比例修正；原XZ／camera／State／碰撞／UV／actor texture不變，held prologue不改。
+- [x] H原Node3553／Python629／assets／TS／quality schema／build成功logs找回；52專屬Node與4Python、15非target／heldframe一致，H→G SOURCE-only保護及前代傳遞保留。沒有重新執行歷史全測。
+- [x] 恢復H最終Drive包11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t，真實下載核93manifest／717source／25delta，Git root等於已發布3a8641d56cf3add8c5ffb3d29b779eaedcb3f966。
+- [x] 接回上次已發布H source fb57de8eb15fc3e46e078a946766ed42e59611e4及唯一CI105／36463822283；不重送source、不另開CI。
+- [x] CI104四原ZIP及既存限定review恢復、兩Drive包重新下載核對。CI104 failure／Pages98 skipped保留，沒有G playable／部署；非完整motion或真機接受。
 
-## 立即接續，不重做G/F/E或历史驗收
+## 唯一立即接續
 
-- [ ] 只讀 **CI104／36454035999**／push／attempt1／exact G。最後觀察in_progress，updated2026-09-28T16:51:31Z。pending保存checkpoint不長poll；completed保存原ZIP／logs／manifest至指定Drive且真實下載回驗，做來源／原生NPC朝向招呼／遮擋與部署限定review。不rerun／dispatch／重送source。
-- [ ] 新Pages驗證須實際選取CI104及同源playable、staged／deployed bytes核對，不能僅因selector單測通過標記修復完成。Pages97仍failure；最後已審查部署E／CI102／Pages96。
-- [ ] 112個NPC walk欄位仍staged，尚無NPC行走導航；256party combat作者欄位runtimeApplied=false。續完整party／enemy／NPC方向attack／cast／hurt／down／death、連續動作、接地比例及真實來源相容接入，不改golden或回傳假舊像素，不縮目標。
-- [ ] 實際前段美術優先：山道／法庭／樹列／建築／家具尺度構圖、門口接縫／遮擋、原作縮尺大地圖與城鎮切換。F靜態圖仍見建築壓場／townsperson屋頂遮擋及法庭講台遮住角色下半身，不能由兩張圖判定完整motion品質；後續需真實畫面改善，不用展示圖或整輪animation-only維護取代。
-- [ ] 完整合法音訊與實際聆聽、原速、真機、長時段與全遊戲T03–T08。
+- [ ] 只讀CI105／36463822283／push／attempt1／exact H。最後in_progress，provider updated2026-09-28T18:14:49Z。pending留checkpoint不長poll；completed保存原ZIP／logs／manifest至指定Drive且下載回驗。不得rerun／dispatch／重送H。
+- [ ] 若H仍失敗，先接原生終端。CI104已知terminal為cpu-renderer/rescue/rescue-report.json、reunited／truce／z7.6雙人路線，311ticks>309；不能因位置在<.12就忽略預算。讀實際H結果後定位，不先斷言H修好或放寬route／capture／assertion／golden／單一30秒／250ms-256。
+- [ ] 若H成功，限定審查城鎮建築／招牌／居民遮擋與法庭講台比例，以及Pages實际選取CI105／exact H playable。原Pages97 failure、Pages98 skipped不回填；最後已審查部署E／CI102／Pages96。
+- [ ] 再續112NPCwalk／導航與完整party／enemy／NPC attack／cast／hurt／down／death，256combat作者欄位仍runtimeApplied=false。只用真實來源像素，不修改原native goldens或回傳假前代畫面。
+- [ ] 實際前段山道／法庭／樹列／建築家具構圖尺度、門口接縫與遮擋、原作縮尺大地圖／城鎮切換；不以展示圖或反覆animation-only維護取代美術。
+- [ ] 完整合法音訊與實際聆聽、原速／真機／長時段及全遊戲T03–T08。
 
-D探索256欄位、A/B/C/F環境及W/Y/B/C有界接受沿用。CI93／95／98與Pages97保持failure；Tank/Yakra完整native death、Hench outgoing、P down、Q受擊selector-change樣本缺口保留，不注入造數。
+## 固定完整分母
 
-T03全規則版本拓樸數值；T04成長獎勵掉落經濟道具裝備飾品學習換人雙三人技；T05全部美術建模動畫合法音訊；T06全時代主支線結局（2300抵達非完整未來）；T07整體>=90／各面向>=80%、requiredassets/fivegates/zero critical與真機；T08fulltests/onesource/matchingCI/cloud回驗，分母不縮。
+T03全規則版本拓樸數值；T04成長獎勵掉落經濟道具裝備飾品學習換人雙三人技；T05全美術建模動畫合法音訊；T06全時代主支線結局（2300抵達不是完整未來）；T07整體>=90、各面向>=80%、requiredassets/fivegates/zero critical及真機；T08fulltests/onesource/matchingCI/cloud回驗。
 
-TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8與heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／母親家具不變。不改ARPG或P3；No localbrowser/native State-time-save-collision造數，不改route/timing/capture/assertion/golden或<.12／單一30秒／250ms-256／CPU品質記憶體門檻。所有成果main或folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並回讀，docs[skip ci]；全部完整品質批准false、newScore=null、releaseBLOCKED。
+Tank/Yakra完整native death、Hench outgoing、P down、Q受擊selector-change樣本缺口不造數。W/Y/B/C有界接受沿用；CI93/95/98/104與Pages97保持failure。TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8不變，不改ARPG或加P3。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／母親家具不提升。No localbrowser/native注入；原CPU品質記憶體門檻不變。成果main或folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並回讀，docs[skip ci]。所有完整品質批准false、newScore=null、releaseBLOCKED。

@@ -1,19 +1,19 @@
-# 立即執行型交接 — v41，G已發布，接唯一CI104
+# 立即執行接續 — v42／H已發布，接CI105
 
-請立即用GitHub connector與必要Google Drive接手KartChang/ChronoTrigger_reMaster，唯一main／singleAI／nonforce。不要盤點歷史、重做G/F/E、索取ROM/token/截圖或手動證據，不建branch/PR/平行candidate。先看當前main一次與STATUS/checkpoint/TODO，再執行。
+立即用GitHub connector及必要的Drive connector接手KartChang/ChronoTrigger_reMaster。唯一main／singleAI／non-force；不建分支、PR、平行candidate或多人防撞，不重新盤點、讀全歷史、重作者H/G/F/E，不索取ROM／token／手動截圖。
 
-G0.9.80 source **1512fcaf3601c31834d2047042b7fbb3a61aee66**，tree **2c8416cf127f2224425a6012ad0dd17585828b87**，parent919243172c4e00713a4f2f63e70ad8daa5b96250。本交接所屬提交是其後docs-only/[skip ci]；目前HEAD以main讀回為準。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
+目前遊戲H／0.9.81 source fb57de8eb15fc3e46e078a946766ed42e59611e4，tree3a8641d56cf3add8c5ffb3d29b779eaedcb3f966，source parent891dbf710ee149a931515bb6a2e2bf41b7587a4b。本文件是該H之後的docs-only／[skip ci]接續，實際最新文件SHA讀main一次。上次思考中斷不代表H未推送。
 
-唯一 **CI104／36454035999／push／attempt1／exact G**，最後in_progress，updated2026-09-28T16:51:31Z；沒有rerun/dispatch或平行candidate。先讀此run，pending保存checkpoint不長poll；完成後保存原ZIP/logs/manifest到指定Drive並回下載驗證，做來源／NPC朝向招呼真實畫面／Pages限定review。不可從全測綠燈推定native/部署成功。
+Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。最少讀STATUS、evidence/T05_ANIMATION_CHECKPOINT.json、TODO（v42）。
 
-已完成G七角色四方向ambient/greet224runtime-eligible slots（比28前向ambient多196），沿原E作者及clock；112walk和NPC導航未啟用、256combat仍false。真實owned upload/source/name/root/material/size/private/fail-closed、原this/args/return/exception、held還原與dispose；0GPU新增／12binding／294912CPUbytes。完整Node3501/Python625/assets/TS/qualityschema/build、7PNG224cell同源、703source前後一致、G→F及前代SOURCE-only保護全過；不要重跑整套離線測試再說未完成。新增offline fixture早期三失敗logs已保留，不是native造數。
+唯一CI105／36463822283，push／attempt1／exact H，created2026-09-28T18:14:44Z；最後in_progress、updated18:14:49Z。pending留checkpoint不長poll、不rerun／dispatch／重送source。完成後保存原ZIP／logs／manifest到folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並下載回驗；failure先接原native terminal，success才限定審查H場景比例遮擋與Pages exact H artifact。不要在它仍pending時另開candidate。
 
-G最終包 **Chrono-VQ04G-production-batch.zip／1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F**，**1499878bytes／SHA256403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134**，68manifest/703snapshot/27delta/7PNG/full logs，2026-09-28T16:32:37.188337Z真正回下載核對。program-vq04g.tar.gz不含docs/node_modules，不覆main最新docs。唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**，臨時container不可靠。
+H完整包11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t，1876159bytes／SHA256 e6eac00744fdac80f3096d52074e9def1049ac9101cf5c87d0b3e615176defd4，93manifest／717source／25delta，program-vq04h.tar.gz不蓋最新docs。本輪完整下載核對且Gitroot等於已發布H；原3553Node／629Python及所有離線checks成功logs已恢復，無須重跑。包內715files early回驗不是final pre-push收據。
 
-CI103 **36441789439 success**，Pages97 **36446907519 failure**，不要再等CI103或rerunPages97。五原ZIP／690Fsource／三lane29rawentry／兩WebGL靜態圖已限定review；兩原始包ID **1XFeTpL5dPCd0jN1sivxHcxCzwmdmfA1K**、**1oUq6chsubZNavGfNYrRE9Pr0Ts7duzlz**，已回下載核對。Pages97prepare選CI失敗、無staging/deployment，原success-list回應未記錄；G改workflow_run exactGET/id/SHA/attempt及原artifact門檻、不fallback舊CI、取消獨立Pagespush。新Pages成功尚待CI104，不必手動dispatch。最後已審查部署仍E/CI102/Pages96。
+H已實作城鎮100件高度.82、法庭10件講台／飾線比例.50/.72，owned Geometry保留原XZ／State／camera／UV／actor pixels，110geometry／100320buffer bytes，0新增mesh/texture/material；15非target／heldframe一致。既存離線ray51條G6遮擋H0不是Hnative批准。H是否修復CI104預算失敗未證明。
 
-下一美術主線：112NPCwalk/導航與完整party/enemy/NPC方向attack/cast/hurt/down/death真實接入、前段構圖/建築尺度/接地/遮擋/山道法庭樹列家具、原作縮尺大地圖及城鎮切換。F still仍有屋頂遮人/大建築壓場/法庭講台下身遮擋，需實際畫面改善；不能以展示圖或animation-only维护取代。完整合法音訊實際聆聽/原速/真機/長時段及T03–T08不縮，2300抵達非完整未來。
+CI104／36454035999 failure：CPU rescue reunited／truce往z7.6双人路線311ticks>309，雖位置<.12仍失敗。Pages98／36458343628 skipped，無Gplayable／部署；Pages97 failure保留。四原ZIP及既存review在Part1 1gjHp7a57RG5Q4qsq64HwJrZ8BxCzoYSa、Part2 1DM_1UdITmxNvAZrH6YzvYShugll5gAK9，已下載回驗，不再次整包歷史審查。最後已審查部署仍E／CI102／Pages96。
 
-保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8，不改ARPG/P3；heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a/母親家具不提升。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅node_modules/esbuildhardlink，不覆source或bootstrapCI。No localbrowser/native State-time-save-collision注入；原route/tick/key/wait/capture/assertion/golden/<.12/單一30秒/250ms-256/CPU品質記憶體门檻保持，SOURCE-only inverse不處理native/image/State。ROM/media/fonts/credentials私有。
+後續完整party/enemy/NPC方向attack/cast/hurt/down/death、112NPCwalk與導航、256stagedcombat真實像素接入、山道法庭樹列建築家具構圖尺度遮擋、縮尺大地圖與城鎮切換、合法完整音訊／聆聽／原速／真機／長時段及全T03–T08不縮。不要以展示圖或整輪animation-only維護取代美術。
 
-Tank/Yakrafull death、Hench outgoing、Pdown、Qselectorhurt原樣本缺口保留；W/Y/B/C基礎不重做，CI93/95/98及Pages97保持failure。整體>=90/各面向>=80%、requiredassets/fivegates/zero critical須真實證據；art/fullAnimation/originalSpeed/listening/device/longSession/wholeGame仍false，newScore=null、releaseBLOCKED。全成果GitHub或上述Drive並回讀，文件[skip ci]。
+保留TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8、held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具。No localbrowser/native State-time-save-collision注入，不改原route/waits/captures/assertions/goldens／<.12／單一30秒／250ms-256／CPU品質記憶體門檻；ROM/media/fonts/credentials私有。Tank/Yakradeath、Hench outgoing、Pdown、Qselectorhurt樣本缺口保留；CI93/95/98/104與Pages97保持failure。所有完整品質批准false、newScore=null、releaseBLOCKED。成果先入main或指定Drive並回讀，臨時容器非權威。

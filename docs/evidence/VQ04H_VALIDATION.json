@@ -1,0 +1,60 @@
+{
+  "schema": "chrono-vq04h-validation-v1",
+  "recordedAt": "2026-09-28T17:50:10.595038+00:00",
+  "phase": "fully-offline-tested-unpublished",
+  "version": "0.9.81",
+  "batch": "VQ04H",
+  "sourceParent": "891dbf710ee149a931515bb6a2e2bf41b7587a4b",
+  "baseSource": "1512fcaf3601c31834d2047042b7fbb3a61aee66",
+  "expectedSourceTree": "3a8641d56cf3add8c5ffb3d29b779eaedcb3f966",
+  "sourceFiles": 717,
+  "changed": 11,
+  "added": 14,
+  "deltaFiles": 25,
+  "unchangedGProgramFiles": 692,
+  "unchangedScannedGInputs": 687,
+  "node": {
+    "passed": 3553,
+    "failed": 0,
+    "skipped": 0
+  },
+  "python": {
+    "passed": 629,
+    "failed": 0
+  },
+  "dedicatedNode": 52,
+  "assets": "passed",
+  "typecheck": "passed",
+  "build": "passed",
+  "qualitySchema": "passed-release-blocked-stale-review",
+  "beforeAfterAllSourceBytesSame": true,
+  "sourcePublished": false,
+  "models": {
+    "townParts": 100,
+    "courtParts": 10,
+    "maxOwnedGeometries": 110,
+    "maxAdditionalGeometryBytes": 100320,
+    "additionalTextures": 0,
+    "additionalMaterials": 0,
+    "additionalMeshes": 0,
+    "heldNonTargetFullFrameEqualityCases": 15,
+    "unchangedActorTextureUVStateCameraAndXZ": true,
+    "courtOfflineRaySamples": 51,
+    "gBlocked": 6,
+    "hBlocked": 0,
+    "raySampleSource": "CI103 immutable courtroom beforeState fixture; offline not injected into browser"
+  },
+  "originalFailedAndInterruptedLogsRetained": true,
+  "geometryUvAdmissionRepairedNotWeakened": true,
+  "nativeRoutesCapturesAssertionsGoldensChanged": false,
+  "nativeTimeOrStateInjection": false,
+  "localBrowserUsed": false,
+  "CI104FailureFixedProven": false,
+  "quality": {
+    "artApproved": false,
+    "wholeGameAccepted": false,
+    "fullAnimationComplete": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  }
+}

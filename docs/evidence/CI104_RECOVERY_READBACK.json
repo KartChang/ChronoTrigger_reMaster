@@ -1,0 +1,64 @@
+{
+  "schema": "chrono-ci104-evidence-recovery-readback-v1",
+  "checkedAt": "2026-09-28T18:26:43.620047+00:00",
+  "parts": [
+    {
+      "name": "Chrono-CI104-Pages98-evidence-part1.zip",
+      "bytes": 60372811,
+      "sha256": "983dba34aca90f373e66a21f44cde94c0bcbcbc4fb876b082baa4c49829b63fc",
+      "manifestEntries": 2,
+      "fileId": "1gjHp7a57RG5Q4qsq64HwJrZ8BxCzoYSa",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllManifestBytesVerified": true,
+      "checkedAt": "2026-09-28T18:26:43.233952+00:00"
+    },
+    {
+      "name": "Chrono-CI104-Pages98-evidence-part2.zip",
+      "bytes": 36404160,
+      "sha256": "1a206d30e82b5eb606ec42d045fc6cc95921ac5b3765784ba09ed891db8503a2",
+      "manifestEntries": 8,
+      "fileId": "1DM_1UdITmxNvAZrH6YzvYShugll5gAK9",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllManifestBytesVerified": true,
+      "checkedAt": "2026-09-28T18:26:43.514885+00:00"
+    }
+  ],
+  "originalZips": 4,
+  "rawReportDigestVerified": true,
+  "sourceLedgersBytesVerified": [
+    {
+      "path": "cpu-renderer/source-ledger.json",
+      "sha256": "c020fb1a89db0a848715c60aef7b10403d1c052e0d1d0565e599107468a4a239",
+      "bytes": 2570
+    },
+    {
+      "path": "cpu-renderer/era600/source-ledger.json",
+      "sha256": "5d8c21e65d5141be65ee1abe791eead4309848d2d65c86e13e01ef9b20d43516",
+      "bytes": 6611
+    },
+    {
+      "path": "render-compatibility/source-ledger.json",
+      "sha256": "82f44275e2917eb707bb85d63fa97b63c8d573b658d08630b88209700b2a2ea5",
+      "bytes": 1278
+    }
+  ],
+  "priorBoundedReviewPreservedUnchanged": true,
+  "ciLiveConfirmed": {
+    "id": 36454035999,
+    "status": "completed",
+    "conclusion": "failure",
+    "providerUpdatedAt": "2026-09-28T17:28:14Z"
+  },
+  "pagesLiveConfirmed": {
+    "id": 36458343628,
+    "conclusion": "skipped",
+    "providerUpdatedAt": "2026-09-28T17:28:17Z"
+  },
+  "fullMotionReviewedThisTurn": false,
+  "nativeReportsModified": false,
+  "newNativeEvidenceCreated": false,
+  "localBrowserUsed": false,
+  "repairProven": false
+}

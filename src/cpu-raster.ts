@@ -98,19 +98,23 @@ export class CpuRaster {
   // Conservative half-plane spans skip only pixels the original three edge
   // predicates would reject. Re-evaluate every retained pixel with the exact
   // original expression (not accumulated edge/UV increments).
-  const spans=[[b,c],[c,a],[a,b]] as const;
+  const slope0=-dy0,slope1=-dy1,slope2=-dy2,start0=x0+.5-bx,start1=x0+.5-cx,start2=x0+.5-ax;
   this.boundingPixels+=Math.max(0,x1-x0+1)*Math.max(0,y1-y0+1);
   for(let y=y0;y<=y1;y++){
-   let left=x0,right=x1;
-   for(const [p,q] of spans){
-    const slope=-(q.sy-p.sy),value=edge(p,q,x0+.5,y+.5);
-    if(slope===0){if(value < -1e-8){right=left-1;break;}continue;}
-    const crossing=x0+(-1e-8-value)/slope;
-    if(slope>0)left=Math.max(left,Math.ceil(crossing)-1);
-    else right=Math.min(right,Math.floor(crossing)+1);
-   }
-   this.candidatePixels+=Math.max(0,right-left+1);
    const row0=dx0*(y+.5-by),row1=dx1*(y+.5-cy),row2=dx2*(y+.5-ay);
+   // Same three conservative half-plane bounds, in the same order. Unrolling
+   // removes per-row iterators; it does not change edge coverage or accumulation.
+   let left=x0,right=x1,rejected=false;
+   const value0=row0-dy0*start0;
+   if(slope0===0){if(value0 < -1e-8){right=left-1;rejected=true;}}
+   else {const crossing=x0+(-1e-8-value0)/slope0;if(slope0>0)left=Math.max(left,Math.ceil(crossing)-1);else right=Math.min(right,Math.floor(crossing)+1);}
+   if(!rejected){const value1=row1-dy1*start1;
+    if(slope1===0){if(value1 < -1e-8){right=left-1;rejected=true;}}
+    else {const crossing=x0+(-1e-8-value1)/slope1;if(slope1>0)left=Math.max(left,Math.ceil(crossing)-1);else right=Math.min(right,Math.floor(crossing)+1);}}
+   if(!rejected){const value2=row2-dy2*start2;
+    if(slope2===0){if(value2 < -1e-8)right=left-1;}
+    else {const crossing=x0+(-1e-8-value2)/slope2;if(slope2>0)left=Math.max(left,Math.ceil(crossing)-1);else right=Math.min(right,Math.floor(crossing)+1);}}
+   this.candidatePixels+=Math.max(0,right-left+1);
    for(let x=left;x<=right;x++){
    const e0=row0-dy0*(x+.5-bx),e1=row1-dy1*(x+.5-cx),e2=row2-dy2*(x+.5-ax);
    if(!accepted(e0,tl0)||!accepted(e1,tl1)||!accepted(e2,tl2))continue;
@@ -119,17 +123,21 @@ export class CpuRaster {
    const iw=f0*aiw+f1*biw+f2*ciw;if(iw<=0)continue;
    const k0=f0*aiw/iw,k1=f1*biw/iw,k2=f2*ciw/iw;
    const u=k0*au+k1*bu+k2*cu,v=k0*avv+k1*bvv+k2*cvv;
-   let r=k0*ar+k1*br+k2*cr,g=k0*ag+k1*bg+k2*cg,blue=k0*ab+k1*bb+k2*cb,alpha=clamp(alphaScale*(k0*aa+k1*ba+k2*ca));
-   if(diffuse){const t=diffuse,i=textureIndex(t,u,v);
+   // Resolve alpha first. Rejected cutout/transparent pixels need no RGB
+   // interpolation, but all accepted samples keep the original operation order.
+   let alpha=clamp(alphaScale*(k0*aa+k1*ba+k2*ca));
+   const diffuseIndex=diffuse?textureIndex(diffuse,u,v):0;
+   if(diffuse&&textureAlpha)alpha*=diffuse.rgba[diffuseIndex+3]!/255;
+   if(opacity){const t=opacity,i=textureIndex(t,u,v);alpha*=opacityFromRGB?(t.rgba[i]!*.3+t.rgba[i+1]!*.59+t.rgba[i+2]!*.11)/255:t.rgba[i+3]!/255;}
+   if(alpha<=0||alpha<cutoff)continue;
+   let r=k0*ar+k1*br+k2*cr,g=k0*ag+k1*bg+k2*cg,blue=k0*ab+k1*bb+k2*cb;
+   if(diffuse){const t=diffuse,i=diffuseIndex;
     if(upper){const j=textureIndex(upper,u,v),baseMix=1-mipMix;
      r*=(t.rgba[i]!*baseMix+upper.rgba[j]!*mipMix)/255;
      g*=(t.rgba[i+1]!*baseMix+upper.rgba[j+1]!*mipMix)/255;
      blue*=(t.rgba[i+2]!*baseMix+upper.rgba[j+2]!*mipMix)/255;
     }else{r*=t.rgba[i]!/255;g*=t.rgba[i+1]!/255;blue*=t.rgba[i+2]!/255;}
-    if(textureAlpha)alpha*=t.rgba[i+3]!/255;
    }
-   if(opacity){const t=opacity,i=textureIndex(t,u,v);alpha*=opacityFromRGB?(t.rgba[i]!*.3+t.rgba[i+1]!*.59+t.rgba[i+2]!*.11)/255:t.rgba[i+3]!/255;}
-   if(alpha<=0||alpha<cutoff)continue;
    r=clamp(r+er);g=clamp(g+eg);blue=clamp(blue+eb);
    if(!blend)alpha=1;
    const j=index*4,inv=1-alpha;pixels[j]=r*255*alpha+pixels[j]!*inv;pixels[j+1]=g*255*alpha+pixels[j+1]!*inv;pixels[j+2]=blue*255*alpha+pixels[j+2]!*inv;

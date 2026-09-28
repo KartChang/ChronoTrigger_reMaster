@@ -53,6 +53,9 @@ export class CpuScene {
   // material mutation, gameplay tick, collision, save or input processing occurs here.
   scene.incrementRenderId();camera.update();scene.updateTransformMatrix(true);scene.onBeforeRenderObservable.notifyObservers(scene);
   const vp=scene.getTransformMatrix(),eye=camera.globalPosition,opaque:Packet[]=[],blended:Packet[]=[];
+  // Frame-local scratch vectors: no shaded vertex stores these mutable objects.
+  // Babylon's ToRef methods preserve the original arithmetic without per-vertex allocation.
+  const p=new Vector3(),n=new Vector3(),lightDelta=new Vector3();
   // Normalize each live directional light once per frame, after render observers.
   const directions=new Map(scene.lights.filter(l=>l instanceof HemisphericLight||l instanceof DirectionalLight).map(l=>[l,(l as DirectionalLight|HemisphericLight).direction.clone().normalize()]));
   for(const mesh of scene.meshes){
@@ -68,16 +71,16 @@ export class CpuScene {
     const vertices:ClipVertex[]=new Array(positions.length/3);this.shadedVertices+=sub.verticesCount;
     let depth=0;
     for(let i=sub.verticesStart;i<sub.verticesStart+sub.verticesCount;i++){
-     const x=positions[i*3]!,y=positions[i*3+1]!,z=positions[i*3+2]!,p=Vector3.TransformCoordinates(new Vector3(x,y,z),world);
+     const x=positions[i*3]!,y=positions[i*3+1]!,z=positions[i*3+2]!;Vector3.TransformCoordinatesFromFloatsToRef(x,y,z,world,p);
      let r=mat.disableLighting?1:scene.ambientColor.r,g=mat.disableLighting?1:scene.ambientColor.g,b=mat.disableLighting?1:scene.ambientColor.b;
      if(!mat.disableLighting){
-      const n=normals?Vector3.TransformNormal(new Vector3(normals[i*3]!,normals[i*3+1]!,normals[i*3+2]!),normalMatrix).normalize():Vector3.Up();
+      if(normals)Vector3.TransformNormalFromFloatsToRef(normals[i*3]!,normals[i*3+1]!,normals[i*3+2]!,normalMatrix,n).normalize();else n.set(0,1,0);
       for(const light of lights){
        let intensity=0;
        if(light instanceof HemisphericLight){const weight=(Vector3.Dot(n,directions.get(light)!)+1)/2;
         r+=(light.diffuse.r*weight+light.groundColor.r*(1-weight))*light.intensity;g+=(light.diffuse.g*weight+light.groundColor.g*(1-weight))*light.intensity;b+=(light.diffuse.b*weight+light.groundColor.b*(1-weight))*light.intensity;continue;}
        if(light instanceof DirectionalLight)intensity=Math.max(0,-Vector3.Dot(n,directions.get(light)!))*light.intensity;
-       else if(light instanceof PointLight){const d=light.getAbsolutePosition().subtract(p),distance=d.length();intensity=Math.max(0,Vector3.Dot(n,d.normalize()))*light.intensity*Math.max(0,1-distance/Math.max(.001,light.range));}
+       else if(light instanceof PointLight){const d=light.getAbsolutePosition().subtractToRef(p,lightDelta),distance=d.length();intensity=Math.max(0,Vector3.Dot(n,d.normalize()))*light.intensity*Math.max(0,1-distance/Math.max(.001,light.range));}
        r+=light.diffuse.r*intensity;g+=light.diffuse.g*intensity;b+=light.diffuse.b*intensity;
       }
      }

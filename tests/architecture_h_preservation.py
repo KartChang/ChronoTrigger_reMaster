@@ -1,3 +1,4 @@
+from cpu_hot_loop_i_preservation import SPEC as I_SPEC,restore_cpu_i_if_declared,cpu_i_frozen_bytes
 """H -> G SOURCE-only inverse. Never transforms native evidence, pixels or State."""
 import hashlib,json,zlib,base64
 from pathlib import Path
@@ -7,7 +8,9 @@ if ENVELOPE.get('schema')!='chrono-vq04h-source-only-envelope-v1' or not isinsta
 RAW=zlib.decompress(base64.b64decode(''.join(ENVELOPE['zlibBase64'])))
 if hashlib.sha256(RAW).hexdigest()!=ENVELOPE['decodedSha256']:raise ValueError('H source digest mismatch')
 SPEC=json.loads(RAW)
+SPEC['newPaths']+=I_SPEC['newPaths']
 def restore_art_h_source(name,source,verify=True):
+    source=restore_cpu_i_if_declared(name,source)
     e=SPEC['files'].get(name)
     if not e or not isinstance(source,str):raise ValueError('Undeclared H source')
     for h in reversed(e['hunks']):
@@ -17,8 +20,10 @@ def restore_art_h_source(name,source,verify=True):
     return source
 
 def restore_art_h_if_declared(name,source):
+    source=restore_cpu_i_if_declared(name,source)
     e=SPEC['files'].get(name)
     return restore_art_h_source(name,source,False) if e and any(h['after'] in source for h in e['hunks']) else source
 
 def art_h_frozen_bytes(name,data):
+    data=cpu_i_frozen_bytes(name,data)
     return restore_art_h_source(name,data.decode()).encode() if name in SPEC['files'] else data

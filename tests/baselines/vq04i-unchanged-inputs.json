@@ -1,0 +1,41 @@
+{
+  "schema": "chrono-vq04i-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "scripts/build.mjs",
+    "scripts/test-cpu-hot-loop.mjs",
+    "scripts/test.mjs",
+    "src/cpu-raster.ts",
+    "src/cpu-scene.ts",
+    "tests/architecture_h_preservation.py",
+    "tests/architecture_h_test.py",
+    "tests/baselines/vq04i-declared-cpu-edits.json",
+    "tests/baselines/vq04i-unchanged-inputs.json",
+    "tests/cpu-hot-loop-i-entry.ts",
+    "tests/cpu-hot-loop-i.test.mjs",
+    "tests/cpu-hot-loop-source.test.mjs",
+    "tests/cpu_hot_loop_i_preservation.py",
+    "tests/cpu_hot_loop_i_test.py",
+    "tests/current_build_test.py",
+    "tests/fixtures/ci105-cpu-hot-loop.json",
+    "tests/helpers/architecture-h-baseline.mjs",
+    "tests/helpers/cpu-hot-loop-i-baseline.mjs",
+    "tests/production-architecture-source.test.mjs"
+  ],
+  "expectedCount": 703,
+  "sha256": "3a754489c74d4b0a098de12118eedbe9e9e629ee0d6078a80138c65cee967324"
+}

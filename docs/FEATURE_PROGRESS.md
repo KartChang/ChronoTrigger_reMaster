@@ -1,17 +1,15 @@
-# 功能進度 — v42，H場景比例已發布，CI105待驗
+# 功能進度 — v43，VQ04I CPU熱迴圈優化
 
-Authority STATUS／TODO／checkpointv42；H source fb57de8eb15fc3e46e078a946766ed42e59611e4／0.9.81。這輪恢復上次中斷的已發布成果與原測試紀錄，沒有另寫遊戲source或重開CI。
+權威STATUS／TODO／checkpoint v43。I0.9.82 source e6512e40a48d68df1dab351a8151d1e40b637a36已發布，唯一CI106／36472872816最後in_progress。沒有新NPC導航、戰鬥素材啟用或新的美術批准。
 
-## 已發布工程
+## 本批工程完成
 
-H四棟托魯斯建築100結構件高度.82，法庭被告席.50／法官台.72及八飾線，共110既有件以私有Geometry塑形。原XZ、camera、State、碰撞、UV、材質和actor pixels保持；exact layout／owner／dispose／資源上限均有專屬測試。不是完整美術接受。
+cpu-raster三個保守逐列邊界展開、alpha/cutoff先於RGB處理、cpu-scene frame-local座標／法線／點光源向量重用。原運算結果、像素／深度與計數、解析度／取樣／資源門檻保持；不寫State／時鐘／input／碰撞。H100建築件與10法庭件模型、G224方向ambient/greet、全部原圖與held母親家具未改。
 
-原Node3553／Python629、assets／TS／quality schema／build通過；52H專屬Node、15非target／held CPUframe一致。717source／25delta與最終Drive包及Git tree已在本輪核對。原失敗／中斷logs保留；離線ray改善不是native／真機證據。
+完整Node3590／Python633及assets／TS／quality schema／build，在新SOURCE-only宣告縮小後再次通過；37新增Node涵蓋隨機三角形、材質／光線與17場景／原CI105兩位置完整CPU畫面。最終全測前後727檔一致，708H程式原byte。四組543×362離線draw中位減少9.4%–20.6%，不能換算成原生FPS或真機批准。
 
-F路緣木作、G224 NPC四方向ambient/greet及D探索256格保留。112NPCwalk／導航與256party combat仍未啟用，沒有把來源格數當完整動畫。
+## 原生與產品仍未完成
 
-## 未完成與接續
+CI105 exact H在CPU rescue雙人路線313ticks>309失敗，兩人位置進<.12不等於時間合格。四原ZIP與限定來源／兩靜態圖已入庫；Pages99 skipped，無H部署。I是否解決此terminal須CI106真實結果，不從離線推定。
 
-CI104 failure、Pages98 skipped，沒有G playable或部署；H唯一CI105／36463822283最後in_progress，H是否通過相同雙人route預算尚待原生結果。Pages exact trigger selector尚無成功部署證據，最後已審查部署E／CI102／Pages96。先接CI105，不重跑CI104或另開candidate。
-
-仍需完整party/enemy/NPC方向動作death、建築招牌居民可視性、山道法庭樹列家具構圖、縮尺大地圖城鎮切換、合法完整音訊與實際聆聽、原速／真機／長時段和全部T03–T08。Tank/Yakradeath、Hench outgoing、Pdown、Qselectorhurt樣本缺口不造數。全部完整品質批准false，newScore=null、releaseBLOCKED。
+112NPCwalk仍staged，256party combat仍runtimeApplied=false。完整party/enemy/NPC方向動作death、場景尺度遮擋構圖、縮尺地圖／城鎮切換、完整合法音訊及聆聽、原速／真機／長時段與全T03–T08不縮。原生缺口與失敗歷史保留；全部完整品質批准false，newScore=null，releaseBLOCKED。持久包、原始logs及回驗見DELIVERY_INDEX。

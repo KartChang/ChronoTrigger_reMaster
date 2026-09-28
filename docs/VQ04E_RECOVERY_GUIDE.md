@@ -1,7 +1,7 @@
-# 恢復入口 — v42，直接使用已發布H
+# 當前恢復入口 — v43／VQ04I已發布
 
-舊E恢復流程已完成，不再從669檔恢復包續作。唯一目前遊戲source為H／0.9.81／fb57de8eb15fc3e46e078a946766ed42e59611e4；tree3a8641d56cf3add8c5ffb3d29b779eaedcb3f966。上次中斷前已推source，本輪只補最新文件與收據，不重做H。
+舊E恢復指南只作來源鏈。不要用E／F／G／H舊快照覆蓋最新main。
 
-需要恢復程式時使用指定folder內11JsLBJkTyPUy8VOKh6Xd0JyRhSMwec0t的program-vq04h.tar.gz，717files，不含docs／node_modules。最新包1876159bytes／SHA e6eac00744fdac80f3096d52074e9def1049ac9101cf5c87d0b3e615176defd4，93manifest／25delta已本輪回下載核對。不得以包內舊STATUS／early715file收據覆蓋目前權威。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink。
+目前I0.9.82 source e6512e40a48d68df1dab351a8151d1e40b637a36；treec9da8d56a6cdece842d82b9a993524061269ac06。最新完整包1rQFMxpJqWT26Z8lKM2hiHYNcOwSmK68D，1689278bytes／SHA24655f9a0f7afc929569e0cf3a7075c7e42fa54cf5f2a8efcfa785a9165132a0。取program-vq04i.tar.gz的727檔，保留最新GitHub docs；不取EARLY包或覆蓋config，工具鏈只恢復已授權node_modules／esbuildhardlink。
 
-讀main一次及STATUS／checkpoint／TODO，直接接唯一CI10536463822283；最後in_progress。CI104是failure、Pages98 skipped，不能等待CI104 done或重跑。H完整原logs3553Node／629Python已恢復，不重複全測；先處理matchingCI原生／部署結果。全部held、native門檻及T03–T08限制保持，No localbrowser／native造數。
+I完整Node3590／Python633及build已過並source發布；不必重跑原全測或重送I。直接接唯一CI106／36472872816，pending不長poll，completed保存原產物並核CPU route及Pages；原生修復尚未證明。CPU優化保留真實像素、原309ticks／<.12／30秒／250ms-256，沒有新美術啟用。權威STATUS／TODO／checkpointv43及DELIVERY_INDEX；全成果main或唯一指定Drive，容器非權威。

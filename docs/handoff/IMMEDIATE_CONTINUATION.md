@@ -1,43 +1,19 @@
-# 立即執行型交接 — v38／VQ04E已恢復，先完成美術程式
+# 立即接續 — v40，F已單次發布，接CI103
 
-請立即用GitHub connector及必要的Google Drive connector接手KartChang/ChronoTrigger_reMaster。唯一main；single AI／non-force，無其他使用者，不建新branch／PR／平行candidate或多人防撞。不要重新盤點repo、審計歷史、重做已接受章節、索取ROM／token／截圖或手動造證據。
+立即用GitHub connector，必要時Google Drive connector接手KartChang/ChronoTrigger_reMaster／main。singleAI/nonforce，無其他使用者；不建branch/PR/平行candidate，不審計全部歷史或重做已完成項目，不索取ROM/token/截圖或手動造證據。
 
-## 目前位置
+最新遊戲source **da615f1e4a803fa8fdaddf4723ab782038e14266**／VQ04F0.9.79；tree **0331c65c1dc689bcba66e11158d71b91b7d876ca**；parent9d28e1d09818b6e1f28453e7d46cf4735edf4827。其後文件提交使用[skip ci]，以當前main／STATUS／checkpointv40為準。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
 
-已發布遊戲 **VQ04D／0.9.77**：source **4620737f6434043dcea3cb8dcc63ea85e9dbf9c2**；source tree **6259343245e0cba54242e0c042cc52e986e1b8ed**。本文件所屬main是docs-only／[skip ci]交接提交，父提交f0068b4915f852acf128c66b6106c92225a205a4。以當前main／STATUS／checkpoint **v38**為權威，舊pending不算目前狀態。
+唯一 **CI10336441789439**／push／attempt1／exactF；created2026-09-28T15:12:15Z，updated15:12:20Z，最後觀察in_progress。只讀一次matchingrun；若pending保存接續點，不長poll、不rerun、不dispatch、不重送F/E/D。完成後保存原ZIP/logs/manifest到指定Drive並回下載驗證、做限定來源/native畫面/部署審查。F部署未確認，不能由離線通過回填。
 
-CI101 **36401626967**，push／attempt1／exactD，completed/success，updated2026-09-28T09:47:56Z。Pages95 **36405777143**，completed/success，updated2026-09-28T09:48:33Z，選CI101／Dsource／playable10961967519。**沒有active validation，不等待使用者回CI101 done、不重跑／dispatch／重送D。**
+F已完成托魯斯土草路緣／齊平門檻接地、法庭木紋座板／七薄座墊／八木飾線；四作者材質實際接ArtDirectedWorld，非展示图或假舊像素。Node3425／Python621／assets/typecheck/qualityschema/build完整通過；41F專屬Node、14非target/held一致性、current-app framebuffer、PNG同源／切場／owner/dispose／資源上限。667個E原程式檔byteexact；662原受掃描inputs、所有native routes/waits/captures/assertions/goldens及heldprologue保持。首輪SIGKILL失敗log保留，未改source，降低離線CPU affinity後全測通過。
 
-Root T05-early-visual-cohesion；execution T05-early-production-art；原work item T05-early-production-art-canyon-court。最少讀STATUS、evidence/T05_ANIMATION_CHECKPOINT.json、TODO，再直接續恢復E，不重讀所有歷史。
+最新F完整包 **1_319F-eMQ3rLU04pT4QxcbyDkFsSFymY／Chrono-VQ04F-production-batch.zip**，folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**，1492149bytes／SHA256 **e9f78bc3b973119031d9c069c02f5225fb150ef02fce614b333be2b6950b42cc**；57manifest／690snapshot／23changes／4PNG／完整logs，2026-09-28T15:11:57.236126Z回下載核驗。program-vq04f.tar.gz無docs/node_modules，不能覆最新文件。早期工作版已由同ID最終版替換，非平行candidate。
 
-## 唯一未發布E，直接恢復不要重画
+CI10236429066870／Pages9636433628575已success，不再等CI102。原七ZIP与限定review存兩包 **1emI5d9mHy1UrHwM_Tba6nnzPGJlAAT6w**、**1XLO3g0CSE2EiGbQ49nZTfZ5WQP1B8Qtx**，已真正回下载外內CRC、size/SHA/manifest；三lane／29原entry、678Esource、九Pagespayload同源，空.nojekyll未入tar明示。E selectedsource870c2fb64afd42dcb7bd618f84928643c995fa94／playable10974771022；三張WebGL靜態review不擴為全motion/影片/聆聽/真機。不要重審整包，詳DELIVERY_INDEX。
 
-完整工作包 **Chrono-VQ04E-recovered-handoff.zip**
-Drive file **1YMrtU5O5nATW6aFeuKZELc_fH-op6ltr**
-唯一folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**
-Bytes **1353612**
-SHA256 **8cb93672b85f1ed56b0037187f92705c93556535c2df78176c6c0b97ef74404b**
+後續仍做完整party/enemy/NPC方向attack/cast/hurt/down/death及實際前段構圖尺度遮擋、樹列山道建築家具、縮尺大地圖／城鎮切換、合法完整音訊／聆聽／原速／真機／長時段。E308NPC方向walk/greet僅匯出、256combat runtimeApplied=false，不冒稱啟用。Tank/Yakra完整native death、Hench outgoing、Pdown、Q受擊selector-change缺口保留。D/W/Y/B/C既有基礎不重做；CI93/95/98保持failure。
 
-已真正回下載驗parent／size／SHA／外內CRC／40manifest／669snapshot逐byte。從 **program-vq04e-recovered.tar.gz** 恢復完整E程式，不覆蓋最新main docs；此包不含工具鏈。changes/九檔與早期checkpoint逐byte相同；其餘660個D檔案未變。詳細檔案在VQ04E_RECOVERY_GUIDE.md。
+TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8不改；heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不替換。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只node_modules/esbuildhardlink。No localbrowser/native State-time-save-collision注入，不改原<.12／單一30秒／250ms-256／CPU品質記憶體門檻。ROM/media/fonts/credentials私有。全T03–T08分母不縮；整體>=90／各面向>=80%、requiredassets/fivegates/zero critical仍須完整實證，2300抵達非完整未來。
 
-已找回七類NPC作者與原來源比對owned-upload接線、四主角combat作者API、export與asset登錄。NPC336slots中28ambient映射於草稿adapter，308方向／walk／greet仍僅匯出；四主角256attack/cast/hurt/down **runtimeApplied=false**，原native source-cell goldens保持。不是完整動畫完成。
-
-本次typecheck／check:assets／character export皆過，11PNG／592cell hashes逐格同源。**較晚完整E測試紀錄／更晚source沒有恢復；本次完整Node／Python／build／current-app未跑。** 不從聊天成功說法回填，不直接推未全測E。
-
-## 立即操作
-
-補齊E-specific painter／owned upload／未知來源／heldhome／資源釋放／current-app／PNG parity tests，以及明示E→D source-only predecessor preservation；保留全部原hash、native routes／waits／captures／assertions／goldens，不刪測試或造source像素取綠燈。九個作者／接線檔已存在，不重畫。
-
-完整Node/Python/assets/typecheck/build後合批一次source，先將logs／snapshot／manifests／素材存指定Drive並回讀，再non-force推main及接matchingCI。只有一份E工作，不建parallel candidate。pending留checkpoint，不長poll到中斷。
-
-D已完成3292Node／613Python及四角色探索256slots、山道後岸、A/B/C環境不用重做。CI101原始七ZIP及限定review已在Drive兩包並回下載核驗，ID **1VOM_mhZmmLMLghmiONpSoWvERwx4sKMz**、**1t-6QvmDUFs1O3-AvZ9AF3Y-6yUiPuxmg**；不要再次整包審查。九Pages payload一致，空.nojekyll缺失已明示；不是全motion/video/audio/device批准。
-
-再續完整party／enemy／NPC戰鬥／受擊／倒下／death及其餘前段構圖、尺度、樹列／山道／法庭、合法完整音訊／聆聽／原速／真機舒適性；概念图等級尚未達成。不得用生成展示圖或一整輪animation-only維護取代實際美術。
-
-## 固定界線
-
-TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8不變，不改ARPG或P3。Heldprologue **2711a74185aacf3c6bddf9db85ba99a2afbc507a**及母親家具不提升／間接替換。工具鏈 **1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE** 只恢復node_modules/esbuildhardlink，不覆source/config或bootstrapCI。No localbrowser／native state-time-save-collision注入；原<.12／單一30秒／250ms-256／CPU品質記憶體門檻不放寬。ROM/media/fonts/credentials私有。
-
-Tank/Yakra完整native death、Hench outgoing、Pdown、Qselector仍open，不造樣本。W/Y/B/C已接受基礎沿用；CI93/95/98保持failure，不rerun／回填。T03–T08完整目標不縮，2300抵達非完整未來；整體>=90／各面向>=80%、requiredassets/fivegates/zero critical仍需實證。art/fullAnimation/wholeGame與聆聽／真機批准false，newScore=null／releaseBLOCKED。
-
-全成果寫GitHub或上述指定Drive／readback，docs[skip ci]。臨時環境隨時會清除；直接用這份已回驗工作包，不依賴舊/mnt/data，也不要求使用者重貼資料。
+全部品質批准false、newScore=null、releaseBLOCKED。所有source/tests/logs/manifests/白皮書/進度写main或指定Drive並回讀，docs[skip ci]。臨時container隨時清除；直接從最新雲端source續作，不要求使用者重貼資料。

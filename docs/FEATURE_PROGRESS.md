@@ -1,19 +1,21 @@
-# 功能進度 — v39，VQ04E生產美術與完整離線回歸
+# 功能進度 — v40，VQ04F托魯斯與法庭實際美術
 
-權威STATUS／TODO／checkpointv39。版本0.9.78的source、唯一matchingCI與實際Pages狀態以權威checkpoint為準；不得把source push或離線通過當成已部署與原生驗收。完整測試與雲端回驗記錄見DELIVERY_INDEX。
+Authority：STATUS／TODO／checkpointv40。F0.9.79 source da615f1e4a803fa8fdaddf4723ab782038e14266已發布；唯一CI10336441789439觀察in_progress。這不是F部署或原生批准；最後完成的限定部署審查是E／CI102／Pages96。
 
-## 本批完成範圍
+## 新增F實作
 
-七類NPC336作者欄位保留並接入28ambient欄位；308direction／walk／greet僅匯出，不增加NPC導航。八個既有NPC物件使用真實owned DynamicTexture update、exact-source逐byte辨識、名稱／root／章節／尺寸／獨占綁定；未知來源拒絕，原update參數與語義保留。
+托魯斯新增一個透明土草路緣／原建築門檻及接地色地表，保留真正原底圖與道路；法庭兩講台、七座席改木作材質指派，新增七薄座墊與八條木飾線，原角色支撐／位置／幾何不改。四張作者材質與PNG同源，ArtDirectedWorld的CPU/WebGL共同使用，沒有旁路或假舊像素。新pass最多四texture、655360bytes RGBA、五material、16mesh；靜態不重上傳，root/dispose回收及owner保護已測。
 
-補強換owner／material／texture／尺寸、切場held還原、dispose清理、靜態格不重上傳、12binding與294912bytes上限、0新增GPUtexture。作者／592格PNG同源、正式ArtDirectedWorld、12非target／held章節一致性與前代SOURCE-only保護納入完整回歸。兩筆新增asset register的evidence欄位修正，品質門檻不變。
+41F專屬Node與4Python新增；全Node3425／Python621／assets／typecheck／qualityschema／build通過。實際CPU framebuffer改變、14非target／held畫面相同、原State／camera／幾何／actor/baseRGBA不變及切場資源已驗證。F→E source-only inverse及前代保護保留原hash、native路線和goldens。667E原程式檔不變，662受掃描輸入保持。
 
-D四角色探索／ready／victory四方向256格、另256原combat格、A/B/C環境与山岸、heldhome／母親家具、core／geometry／camera／clock均保持。E四主角attack／cast／hurt／down另256作者格仍runtimeApplied=false；沒有透過假像素或改native golden啟用。
+## 已完成基礎不重做
+
+E七類NPC336作者欄位／28ambient真實owned upload沿用，308方向walk/greet仍未playback；256combat作者欄位runtimeApplied=false。D四角色探索ready/victory256欄位、另256原combat格、A/B/C環境與山岸沿用。heldhome／母親家具、core／clock／camera及original native門檻不改。
+
+CI102與Pages96已success，七ZIP／三lane29原entry／source及Pages九payload限定同源，空.nojekyll未入tar明示。三張WebGL靜態審查不等於影片、完整motion、聆聽或真機。
 
 ## 仍待完成
 
-唯一matchingCI原生瀏覽器與部署限定review依checkpoint接續；離線測試不是原速／真機批准。完整party／enemy／NPC方向動作與death、概念級前段場景尺度／遮擋／構圖、原作縮尺地圖與城鎮切換、合法完整音訊與聆聽、原速／真機／長時段仍open。
+先接CI103的原始產物与F場景native／部署限定審查；不要重送F/E/D。完整party/enemy/NPC方向與全动作death、概念級前段構圖尺度遮擋、原作縮尺地圖與城鎮切換、合法完整音訊聆聽、原速／真機／長時段及完整T03–T08仍open。2300抵達非完整未來。Tank/Yakra完整native death、Hench outgoing、Pdown、Qselector-change缺口保留。
 
-Tank／Yakra完整native death、Hench outgoing、P down、Q受擊selector-change樣本缺口保留。CI93／95／98仍failure；CI101／Pages95的D有界接受沿用不重跑。
-
-art／fullAnimation／wholeGame等完整批准false；newScore=null，releaseBLOCKED。完整T03–T08分母不縮，2300抵達不是完整未來。No localbrowser、native State／時間／save／collision注入；所有成果只在main或指定Drive持久交付。
+全成果在main或指定Drive並回讀，詳DELIVERY_INDEX及PRODUCTION_ART_VQ04F。art/fullAnimation/originalSpeed/listening/device/longSession/wholeGame=false，newScore=null、releaseBLOCKED；測試數量與CI綠勾不是美術評分。

@@ -1,0 +1,136 @@
+{
+  "schema": "chrono-t05-animation-checkpoint-v39",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "authorityRef": "main",
+  "root": "T05-early-visual-cohesion",
+  "developmentTerminal": "T05-early-production-art",
+  "executionTerminal": "T05-early-production-art",
+  "nextWorkId": "T05-early-production-art-canyon-court",
+  "phase": "E-source-published-CI102-in-progress",
+  "immediateAction": "Read exact CI102 once; pending saves checkpoint without long polling. Completed run: preserve original artifacts and bounded review, then continue full production art. Do not rerun or resend E/D.",
+  "publishedBatch": "VQ04E",
+  "publishedVersion": "0.9.78",
+  "publishedSourceSha": "870c2fb64afd42dcb7bd618f84928643c995fa94",
+  "publishedSourceTree": "7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+  "documentParentSha": "870c2fb64afd42dcb7bd618f84928643c995fa94",
+  "previousDocumentSha": "cf41aa9fddca030837b8a29fe438eb1fd83635bc",
+  "sourceChangesThisBatch": 24,
+  "newSourcePushes": 1,
+  "manualDispatches": 0,
+  "newCIRuns": 1,
+  "activeValidation": {
+    "id": 36429066870,
+    "number": 102,
+    "event": "push",
+    "attempt": 1,
+    "headBranch": "main",
+    "headSha": "870c2fb64afd42dcb7bd618f84928643c995fa94",
+    "sourceTree": "7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+    "workflowPath": ".github/workflows/ci.yml",
+    "status": "in_progress",
+    "conclusion": null,
+    "createdAt": "2026-09-28T13:30:13Z",
+    "providerUpdatedAt": "2026-09-28T13:30:18Z",
+    "matchingPushCount": 1
+  },
+  "unpublishedCandidate": null,
+  "cloudWorkPackage": {
+    "name": "Chrono-VQ04E-production-batch.zip",
+    "bytes": 1719284,
+    "sha256": "d10e34da05be87ab9776ca062c837019d2141200a086584c98eceb8777c772b7",
+    "manifestEntries": 71,
+    "snapshotMembers": 678,
+    "fileId": "1K_C2XsNeKvlnIb4k2c8pQ0CGzGbu-Pu9",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "checkedAt": "2026-09-28T13:29:31.510208+00:00",
+    "downloadVerified": true,
+    "parentSizeShaOuterCrcManifestAndSnapshotBytesVerified": true,
+    "sourcePublishedAtReadback": false
+  },
+  "preflightThisBatch": {
+    "node": {
+      "passed": 3384,
+      "failed": 0
+    },
+    "python": {
+      "passed": 617,
+      "failed": 0
+    },
+    "assets": "passed",
+    "typecheck": "passed",
+    "build": "passed",
+    "qualitySchema": "passed-release-blocked-stale-review",
+    "currentAppIntegration": "passed-offline-not-native",
+    "pngCount": 11,
+    "cellHashesVerified": 592,
+    "originalFailureLogsRetained": true,
+    "fullTestsAfterLosslessEnvelopeChange": "passed"
+  },
+  "productionArt": {
+    "npcRoles": 7,
+    "npcMeshBindingsAllowlisted": 8,
+    "npcAuthoredCellSlots": 336,
+    "npcAmbientSlotsApplied": 28,
+    "npcStagedSlots": 308,
+    "combatAuthoredCellSlots": 256,
+    "combatRuntimeApplied": false,
+    "directionalNpcMovementEnabled": false,
+    "additionalGpuTextures": 0,
+    "bindingLimit": 12,
+    "retainedCpuRgbaLimitBytes": 294912
+  },
+  "lastReviewedDeployment": {
+    "batch": "VQ04D",
+    "version": "0.9.77",
+    "sourceSha": "4620737f6434043dcea3cb8dcc63ea85e9dbf9c2",
+    "ci": 36401626967,
+    "pages": 36405777143,
+    "playableArtifact": 10961967519
+  },
+  "eDeploymentConfirmed": false,
+  "retainedNativeAnimationGaps": [
+    "Tank full native death",
+    "Yakra full native death",
+    "Hench outgoing",
+    "P down",
+    "Q selector-change during hurt"
+  ],
+  "closedBasis": "D/A/B/C code and bounded W/Y/B/C review remain. CI101/Pages95 success, CI93/95/98 failure unchanged. No historical rerun.",
+  "nextActions": [
+    "Preserve exact E CI102 originals and verify its status/attempt/source; pending checkpoint without long poll, no rerun or dispatch.",
+    "After bounded matching CI and deployment review, continue actual party/enemy/NPC full direction/action/reaction/death, staged asset activation with truthful real pixels and unchanged original native goldens.",
+    "Continue early canyon/court/trees/buildings/furniture scale, occlusion, original overworld/town transitions, lawful full audio/listening and real-device/full-speed/long-session evidence."
+  ],
+  "receipts": [
+    "docs/evidence/VQ04E_PUBLICATION.json",
+    "docs/evidence/VQ04E_VALIDATION.json",
+    "docs/evidence/VQ04E_CLOUD_READBACK.json"
+  ],
+  "constraints": {
+    "singleAI": true,
+    "nonForce": true,
+    "newBranchOrPR": false,
+    "parallelCandidate": false,
+    "localBrowserUsed": false,
+    "nativeStateTimeSaveCollisionInjected": false,
+    "nativeRoutesWaitsCapturesAssertionsGoldensChanged": false,
+    "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "heldMotherFurnitureChanged": false,
+    "fullT03T08ScopeRetained": true,
+    "romMediaFontsCredentialsPrivate": true,
+    "docsCommitSkipCI": true
+  },
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "originalSpeedApproved": false,
+    "listeningApproved": false,
+    "deviceApproved": false,
+    "longSessionApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "continuation": "E is now source-published and fully offline-tested. Use main or the latest readback production package; the old 669-file recovery package is historical provenance, not the next work source. No local container is authority. CI102 native/Pages review is not yet accepted."
+}

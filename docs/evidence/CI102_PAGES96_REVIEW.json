@@ -1,0 +1,37 @@
+{
+ "schema":"chrono-ci102-pages96-bounded-review-cloud-v1",
+ "checkedAt":"2026-09-28T14:41:55.494664+00:00",
+ "sourceSha":"870c2fb64afd42dcb7bd618f84928643c995fa94",
+ "sourceTree":"7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+ "ci":{"id":36429066870,"number":102,"event":"push","attempt":1,"status":"completed","conclusion":"success","providerUpdatedAt":"2026-09-28T14:07:41Z"},
+ "pages":{"id":36433628575,"number":96,"event":"workflow_run","attempt":1,"status":"completed","conclusion":"success","providerUpdatedAt":"2026-09-28T14:08:21Z","workflowHead":"9d28e1d09818b6e1f28453e7d46cf4735edf4827","selectedSource":"870c2fb64afd42dcb7bd618f84928643c995fa94","selectedCI":36429066870,"selectedArtifact":10974771022},
+ "originalArchives":[
+  {"name":"CI102-browser-evidence.zip","artifactId":10975076007,"bytes":66528450,"sha256":"d7b458e747c98f01e51ad9b8a052574b113c779587d534bf63afd81fdff6b002","crcVerified":true,"entries":382},
+  {"name":"CI102-playable.zip","artifactId":10974771022,"bytes":1379161,"sha256":"c0b3bef2d2f79052534923cfff00ab99313b3425f657a82d09247f8f7ad69b81","crcVerified":true,"entries":5},
+  {"name":"CI102-art-review-kit.zip","artifactId":10974304283,"bytes":1916731,"sha256":"d6d5a053c21a18384d5336f82d9514f7d28ccd67c3f735bc63dd586735eb32d2","crcVerified":true,"entries":199},
+  {"name":"CI102-witness-bad-evidence.zip","artifactId":10973885417,"bytes":6138436,"sha256":"15a3cc7c5c36e96dfbc262185d6e298d882fcc55dd649131edd58fadf47591ad","crcVerified":true,"entries":41},
+  {"name":"CI102-witness-good-evidence.zip","artifactId":10973108678,"bytes":28330236,"sha256":"ffe9c6a8330896ba0ce4acd668ef11f7b015285178f2fc0289760be7ffc98c46","crcVerified":true,"entries":158},
+  {"name":"Pages96-staged-preview.zip","artifactId":10974880927,"bytes":1384579,"sha256":"53657826bdb2de026b82eb7c2eb3606e87ef01b1be53190f09117d88a373833f","crcVerified":true,"entries":10},
+  {"name":"Pages96-github-pages.zip","artifactId":10974404730,"bytes":1382594,"sha256":"7ab427d6f12f5dc29c49e24b6aee5ce66eb67cf3ba14304edb4bcc4b34196e48","crcVerified":true,"entries":1}
+ ],
+ "programFilesVerified":678,
+ "lanes":[{"lane":"validate","rawEntriesVerified":17,"status":"passed"},{"lane":"good","rawEntriesVerified":8,"status":"passed"},{"lane":"bad","rawEntriesVerified":4,"status":"passed"}],
+ "rawLaneEntriesVerified":29,
+ "htmlBytes":5872642,
+ "htmlSha256":"9526baa86756bfc190d4a910211c0d0b0785d10dbce3b41c61f9a9e3832138e7",
+ "playableFilesMatchStaged":5,
+ "stagedPayloadFilesMatchPagesTar":9,
+ "omittedEmptyMarker":".nojekyll",
+ "eArtPayloadsMatchAuthorPackage":12,
+ "visualReview":{"basis":"Unmodified CI102 WebGL screenshots, static bounded review only.","files":["opening/06-canyon-path.png","kingdom/01-truce.png","trial/02-courtroom.png"],"findings":["Truce path verge is geometric; ground contact and flush thresholds informed F work.","Court furniture reads as boxlike cabinets; F changes wood seating and lectern details without moving actor support pivots.","Existing D canyon artwork retained, not re-authored in F."]},
+ "cloudReadback":{"checkedAt":"2026-09-28T14:50:06.159490+00:00","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","originalZipCount":7,"parts":[
+  {"fileId":"1emI5d9mHy1UrHwM_Tba6nnzPGJlAAT6w","name":"Chrono-CI102-Pages96-evidence-part1.zip","bytes":66528967,"sha256":"ce8b055e08a172028e45064ed68ac39b92e01272917f1d2cfb4e5516e1f7f1c7","manifestEntries":1,"downloadVerified":true,"parentSizeShaOuterInnerCrcAndEveryManifestEntryVerified":true},
+  {"fileId":"1XLO3g0CSE2EiGbQ49nZTfZ5WQP1B8Qtx","name":"Chrono-CI102-Pages96-evidence-part2.zip","bytes":40715632,"sha256":"8e1004bbb01492e41370207585fe773b727b4adc822723d6a42968acc3b483d3","manifestEntries":10,"downloadVerified":true,"parentSizeShaOuterInnerCrcAndEveryManifestEntryVerified":true}
+ ]},
+ "limits":{"wholeMotionLedgerReviewed":false,"videoWatched":false,"audioListened":false,"physicalDeviceApproved":false,"artApproved":false,"fullAnimationComplete":false,"wholeGameAccepted":false,"newScore":null,"release":"BLOCKED"},
+ "nativeStateTimeSaveCollisionInjected":false,
+ "nativeReportsModified":false,
+ "localBrowserUsed":false,
+ "currentHttpFetchPerformed":false,
+ "sourceReviewDriver":"review/review_ci102.py in part2; original raw entry hashes retained in that package."
+}

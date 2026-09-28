@@ -1,3 +1,4 @@
+from npc_attention_g_preservation import SPEC as G_SPEC,restore_art_g_if_declared,art_g_frozen_bytes
 """F -> E SOURCE-only inverse. Never transforms native evidence, pixels or State."""
 import hashlib,json,zlib,base64
 from pathlib import Path
@@ -7,7 +8,9 @@ if ENVELOPE.get('schema')!='chrono-vq04f-source-only-envelope-v1' or not isinsta
 RAW=zlib.decompress(base64.b64decode(''.join(ENVELOPE['zlibBase64'])))
 if hashlib.sha256(RAW).hexdigest()!=ENVELOPE['decodedSha256']:raise ValueError('F source digest mismatch')
 SPEC=json.loads(RAW)
+SPEC['newPaths']+=G_SPEC['newPaths']
 def restore_art_f_source(name,source,verify=True):
+    source=restore_art_g_if_declared(name,source)
     e=SPEC['files'].get(name)
     if not e or not isinstance(source,str):raise ValueError('Undeclared F source')
     for h in reversed(e['hunks']):
@@ -17,8 +20,10 @@ def restore_art_f_source(name,source,verify=True):
     return source
 
 def restore_art_f_if_declared(name,source):
+    source=restore_art_g_if_declared(name,source)
     e=SPEC['files'].get(name)
     return restore_art_f_source(name,source,False) if e and any(h['after'] in source for h in e['hunks']) else source
 
 def art_f_frozen_bytes(name,data):
+    data=art_g_frozen_bytes(name,data)
     return restore_art_f_source(name,data.decode()).encode() if name in SPEC['files'] else data

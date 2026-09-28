@@ -1,8 +1,9 @@
+/** Frozen F component; G has separate actual-current pixel tests. */
 /** Current F application tests use the real CPU renderer with an OFFLINE canvas port.
  * No browser/native State, save, time or collision is created or injected. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';
 import {TransformNode,MeshBuilder,StandardMaterial,DynamicTexture} from '@babylonjs/core';
-import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-e.mjs';
+import {ArtDirectedWorld as Current} from '../.test/art-directed-world-f.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-e.mjs';
 import {World,createState} from '../.test/cpu-entry.mjs';import {productionWorldRig} from './helpers/production-world-rig.mjs';
 import {installProductionPlaces} from '../.test/production-place-finish.mjs';import {paintPlaceSurface} from '../.test/production-place-art.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),canyon=JSON.parse(readFileSync('tests/fixtures/ci82-canyon-state.json')).state;

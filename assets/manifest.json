@@ -348,6 +348,19 @@
         "tests/production-place-integration.test.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "story-npc-attention-vq04g",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-npc-attention.ts; src/production-story-npc-finish.ts",
+      "gap": "Four-direction ambient/greet E artwork now selected by real nearby living party positions; 224 authored slots eligible, not native coverage of every slot. All 112 NPC walk slots, navigation, combat activation and native/device/style approval remain open.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04G.md",
+        "tests/production-npc-attention.test.mjs",
+        "tests/production-npc-attention-integration.test.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

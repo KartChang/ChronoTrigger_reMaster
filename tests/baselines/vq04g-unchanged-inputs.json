@@ -1,0 +1,49 @@
+{
+  "schema": "chrono-vq04g-unchanged-aggregate-v1",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    ".github/workflows/pages.yml",
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/npc-attention-export.mjs",
+    "scripts/pages-select.mjs",
+    "scripts/test-npc-attention.mjs",
+    "scripts/test-production-places.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-npc-attention.ts",
+    "src/production-story-npc-finish.ts",
+    "tests/baselines/vq04g-declared-art-edits.json",
+    "tests/baselines/vq04g-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/helpers/npc-attention-g-baseline.mjs",
+    "tests/helpers/production-place-f-baseline.mjs",
+    "tests/npc-attention-source.test.mjs",
+    "tests/npc_attention_g_preservation.py",
+    "tests/npc_attention_g_test.py",
+    "tests/pages-select.test.mjs",
+    "tests/production-character-source.test.mjs",
+    "tests/production-npc-attention-integration.test.mjs",
+    "tests/production-npc-attention.test.mjs",
+    "tests/production-place-integration.test.mjs",
+    "tests/production-place-source.test.mjs",
+    "tests/production_place_f_preservation.py",
+    "tests/production_place_f_test.py"
+  ],
+  "expectedCount": 671,
+  "sha256": "67aad344d1f289f465700fd383da48c45439b2a9fcdf8be4391eea1c41379b28"
+}

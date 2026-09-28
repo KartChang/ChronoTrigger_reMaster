@@ -4,9 +4,6 @@ on:
     workflows: [Playable prototype CI]
     types: [completed]
     branches: [main]
-  push:
-    branches: [main]
-    paths: ['.github/workflows/pages.yml', 'scripts/pages-package.mjs', 'tests/pages-package.test.mjs', 'site/**']
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,7 +31,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/pages-package.test.mjs
+      - run: node --test tests/pages-package.test.mjs tests/pages-select.test.mjs
       - name: Select a successful same-repository main CI; inspect Pages enablement
         id: select
         uses: actions/github-script@v7
@@ -42,18 +39,10 @@ jobs:
           script: |
             const fs = require('node:fs');
             const {pathToFileURL} = require('node:url');
-            const {checkRun} = await import(pathToFileURL(process.cwd()+'/scripts/pages-package.mjs'));
+            const {selectPagesRun} = await import(pathToFileURL(process.cwd()+'/scripts/pages-select.mjs'));
             const {owner, repo} = context.repo;
             const repository = (await github.rest.repos.get({owner,repo})).data;
-            let selected = null;
-            for (let page=1; page<=5 && !selected; page++) {
-              const response = await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'ci.yml',branch:'main',status:'success',per_page:20,page});
-              for (const r of response.data.workflow_runs) {
-                try { checkRun(r,repository.id); selected=r; break; } catch {}
-              }
-              if (response.data.workflow_runs.length<20) break;
-            }
-            if (!selected) throw new Error('No successful same-repository main CI is available. Nothing will be deployed.');
+            const selected = await selectPagesRun({actions:github.rest.actions,owner,repo,repositoryId:repository.id,eventName:context.eventName,trigger:context.payload.workflow_run});
             const arts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts,{owner,repo,run_id:selected.id,per_page:100});
             const matches = arts.filter(a=>a.name==='chrono-hd2d-playable' && !a.expired);
             if(matches.length!==1) throw new Error('Successful run has no unique unexpired playable artifact; do not fall back silently.');

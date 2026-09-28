@@ -1,6 +1,6 @@
-/** Current production application/CPU integration. Offline unit fixtures, never native evidence. */
+/** Frozen C production component/CPU integration. Current D has separate whole-app tests. Offline only. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';
-import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';
+import {ArtDirectedWorld as Current} from '../.test/art-directed-world-c.mjs';
 import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-b.mjs';
 import {createState} from '../.test/cpu-entry.mjs';import {productionWorldRig} from './helpers/production-world-rig.mjs';
 import {EARLY_SCENE_ROOTS} from '../.test/early-scene-finish.mjs';import {paintEarlySceneSurface} from '../.test/early-scene-art.mjs';

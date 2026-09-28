@@ -1,0 +1,46 @@
+{
+  "schema": "chrono-vq04d-unchanged-aggregate-v1",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-party-export.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/canyon-horizon-finish.ts",
+    "src/production-party-art.ts",
+    "src/production-party-cell.ts",
+    "src/production-party-finish.ts",
+    "src/production-party-index.ts",
+    "tests/baselines/vq04d-declared-art-edits.json",
+    "tests/baselines/vq04d-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/early-scene-integration.test.mjs",
+    "tests/early-scene-source.test.mjs",
+    "tests/early_scene_c_preservation.py",
+    "tests/early_scene_c_test.py",
+    "tests/helpers/early-scene-c-baseline.mjs",
+    "tests/helpers/production-party-d-baseline.mjs",
+    "tests/production-party-art.test.mjs",
+    "tests/production-party-integration.test.mjs",
+    "tests/production-party-source.test.mjs",
+    "tests/production_party_d_preservation.py",
+    "tests/production_party_d_test.py"
+  ],
+  "expectedCount": 635,
+  "sha256": "cfbd3d2e1a84ad92fd9472f357a0bcc00bf5c00c940f49c9ef9b300a97ed791c"
+}

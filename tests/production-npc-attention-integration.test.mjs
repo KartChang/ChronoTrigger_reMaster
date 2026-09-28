@@ -1,7 +1,8 @@
+/** Frozen G component; H has separate actual-current geometry/framebuffer tests. */
 /** Real owned uploads and whole-application OFFLINE framebuffer tests. No browser hooks. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';import {inflateSync} from 'node:zlib';
 import {DynamicTexture,MeshBuilder,StandardMaterial,TransformNode,Texture} from '@babylonjs/core';
-import {World,createState} from '../.test/cpu-entry.mjs';import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-f.mjs';
+import {World,createState} from '../.test/cpu-entry.mjs';import {ArtDirectedWorld as Current} from '../.test/art-directed-world-g.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-f.mjs';
 import {installProductionStoryNpcs} from '../.test/production-story-npc-finish.mjs';import {legacyStoryNpcCell,storyNpcProductionCell} from '../.test/production-story-npc-art.mjs';import {productionWorldRig} from './helpers/production-world-rig.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');const roles=[['townsperson','kingdom-truce','truce','resident'],['innkeeper','kingdom-truce','truce','innkeeper'],['king','kingdom-castle','castle','king'],['guard','kingdom-castle','castle','guard'],['disguised-nun','cathedral-set','cathedral','nun'],['false-chancellor','sanctum-set','sanctum','chancellor'],['true-chancellor','sanctum-set','sanctum','chancellor'],['queen-leene','sanctum-set','sanctum','queen']];
 function bytes(t){return new Uint8ClampedArray(t.getContext().getImageData(0,0,48,64).data);}

@@ -361,6 +361,19 @@
         "tests/production-npc-attention-integration.test.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "early-architectural-proportions-vq04h",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-architecture-art.ts; src/production-architecture-finish.ts",
+      "gap": "Private sculpted geometry compresses house heights and the two court fronts without changing footprints, sign or actor sources. Exact native readability, remaining NPC occlusion, concept fidelity and device approval remain unverified.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04H.md",
+        "tests/production-architecture-integration.test.mjs",
+        "scripts/architecture-model-export.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

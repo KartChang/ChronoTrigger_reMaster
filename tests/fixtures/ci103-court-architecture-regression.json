@@ -1,0 +1,149 @@
+{
+  "schema": "chrono-ci103-court-offline-model-regression-v1",
+  "purpose": "Unmodified prior observed state reused only with the offline CPU canvas port; never imported into a browser or used as new native evidence.",
+  "runId": 36441789439,
+  "artifactId": 10980244085,
+  "sourceSha": "da615f1e4a803fa8fdaddf4723ab782038e14266",
+  "reportPath": "cpu-renderer/trial/fair-trial-comfort/courtroom/report.json",
+  "reportSha256": "e07c8241f0b7dc2d198c075cf880d53316194b8e742800369029208b59734785",
+  "state": {
+    "equipment": null,
+    "trial": {
+      "hearing": null,
+      "stage": "court",
+      "history": "{\"version\":5,\"chapter\":\"fair\",\"era\":\"present\",\"joined\":true,\"flags\":{\"won\":false,\"repaired\":false,\"visitedFuture\":false},\"fair\":{\"bellHeard\":false,\"gatoWon\":true,\"luccaMet\":true,\"telepodTested\":true},\"opening\":{\"phase\":\"vista\",\"canyonWon\":true},\"kingdom\":{\"phase\":\"rescue\",\"heardYear\":true,\"forestWon\":true},\"players\":[{\"x\":0,\"z\":-7.199999999999992,\"hp\":120,\"mp\":18},{\"x\":-0.033333333333333034,\"z\":-7.199999999999992,\"hp\":120,\"mp\":18}],\"rescue\":{\"stage\":\"returned\",\"organOpen\":true,\"guardsWon\":true,\"yakraWon\":true,\"chancellorFreed\":true,\"chestOpened\":true,\"tonics\":2,\"guest\":{\"x\":-0.00008092191817338345,\"z\":-5.545234085390369,\"hp\":140,\"mp\":16}}}",
+      "fade": 0,
+      "choice": "collision",
+      "question": 0,
+      "blamedMarle": null,
+      "wealthMotive": null,
+      "verdict": "pending",
+      "knocks": 0,
+      "days": 0,
+      "route": "unknown",
+      "cellOpen": false,
+      "guardsWon": false,
+      "fritzFreed": false,
+      "luccaJoined": false,
+      "marleJoined": false,
+      "manualRead": false,
+      "suppliesTaken": false,
+      "tankWon": false,
+      "encounter": "none",
+      "ethers": 0,
+      "experience": 0,
+      "headRepairs": 0
+    },
+    "prologue": {
+      "conduct": null,
+      "stage": "legacy",
+      "elapsed": 0,
+      "first": "unknown",
+      "checkedMarle": false,
+      "pendantPicked": false,
+      "pendantReturned": false,
+      "motherTalked": false,
+      "choice": null,
+      "transition": null
+    },
+    "followPlan": {
+      "chapter": "",
+      "goal": {
+        "x": 0,
+        "z": 0
+      },
+      "points": [],
+      "repathAt": 0
+    },
+    "mode": "explore",
+    "era": "present",
+    "joined": true,
+    "players": [
+      {
+        "x": 0,
+        "z": -2,
+        "hp": 120,
+        "mp": 18,
+        "atb": 0,
+        "facing": 2,
+        "walking": false
+      },
+      {
+        "x": 0.8,
+        "z": -2,
+        "hp": 120,
+        "mp": 18,
+        "atb": 0,
+        "facing": 2,
+        "walking": false
+      }
+    ],
+    "enemies": [],
+    "flags": {
+      "won": false,
+      "repaired": false,
+      "visitedFuture": false
+    },
+    "targets": [
+      null,
+      null
+    ],
+    "combo": [
+      false,
+      false
+    ],
+    "log": [
+      "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+    ],
+    "effects": [],
+    "ticks": 1014,
+    "enemyTurn": 0,
+    "chapter": "courtroom",
+    "fair": {
+      "bellHeard": false,
+      "gatoWon": true,
+      "luccaMet": true,
+      "telepodTested": true
+    },
+    "opening": {
+      "phase": "vista",
+      "elapsed": 0,
+      "canyonWon": true
+    },
+    "kingdom": {
+      "phase": "rescue",
+      "heardYear": true,
+      "forestWon": true,
+      "elapsed": 0
+    },
+    "rescue": {
+      "stage": "returned",
+      "organOpen": true,
+      "guardsWon": true,
+      "yakraWon": true,
+      "chancellorFreed": true,
+      "chestOpened": true,
+      "tonics": 2,
+      "guest": {
+        "x": -0.8,
+        "z": -2,
+        "hp": 140,
+        "mp": 16,
+        "atb": 0,
+        "facing": 2,
+        "walking": false
+      },
+      "guestPlan": {
+        "chapter": "",
+        "goal": {
+          "x": 0,
+          "z": 0
+        },
+        "points": [],
+        "repathAt": 0
+      },
+      "encounter": "none",
+      "enemyActions": 0
+    }
+  }
+}

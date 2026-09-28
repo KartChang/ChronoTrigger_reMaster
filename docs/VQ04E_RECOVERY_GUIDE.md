@@ -1,9 +1,9 @@
-# E恢復已完成 — 現在接F／CI103，v40
+# 舊E恢復入口已完成 — 請直接接v41的G／CI104
 
-原E恢復、專屬測試、source發布及CI102／Pages96限定審查均完成，不能再從669檔早期恢復包重新作者E。E已部署來源為870c2fb64afd42dcb7bd618f84928643c995fa94，原production包1K_C2XsNeKvlnIb4k2c8pQ0CGzGbu-Pu9只保留前代來源。
+不要再用669檔早期E工作包重畫、覆蓋或重驗已完成G/F/E。STATUS／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v41為權威；唯一main／singleAI／nonforce。
 
-目前唯一新source為F0.9.79／da615f1e4a803fa8fdaddf4723ab782038e14266，tree0331c65c1dc689bcba66e11158d71b91b7d876ca。已測690檔程式在Drive **1_319F-eMQ3rLU04pT4QxcbyDkFsSFymY**，program-vq04f.tar.gz；最終包1492149bytes／SHA256e9f78bc3b973119031d9c069c02f5225fb150ef02fce614b333be2b6950b42cc，已回下載驗證。不可用任何archive的docs覆蓋最新main。
+最新source1512fcaf3601c31834d2047042b7fbb3a61aee66／VQ04G0.9.80，tree2c8416cf127f2224425a6012ad0dd17585828b87；27變更、703程式、完整Node3501／Python625及assets/TS/build已過，單次source推送已接CI10436454035999。先讀這個exactrun；pending留checkpoint不長poll，不rerun／dispatch／重送。
 
-最少讀STATUS／T05_ANIMATION_CHECKPOINT／TODO，接唯一CI10336441789439；目前觀察in_progress。只接exact run，pending留checkpoint不長poll、不rerun／dispatch或重送source。完成後保存原ZIP與限定native／部署review，再續實際美術。F已完成路緣門檻／法庭木作，不重畫；完整NPC／combat／enemy方向動作與death仍在TODO，不回填完成。
+最新完整包Drive **1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F**，1499878bytes／SHA403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134，68manifest／703snapshot／27delta／7PNG，已真實下載回驗。program-vq04g.tar.gz排除docs/node_modules，用main最新docs。唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。
 
-source-only inverse不得處理native/images/State；heldhome／母親家具與原hash/native/golden/門檻不改。完整T03–T08、音訊聆聽、原速／真機／長時段未縮。唯一main及folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb才是持久權威。
+NPC224四方向ambient/greet欄位可由真實runtime選用；112walk與導航仍staged，256combat仍runtimeApplied=false。CI103已success有界review，Pages97選取失敗保持failure；最後已審查部署E/CI102/Pages96。完整批准仍false。原E九檔已恢復完成，舊文件及包僅來源鏈，不是另一candidate。

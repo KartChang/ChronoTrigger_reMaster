@@ -1,0 +1,15 @@
+{
+  "name": "Chrono-VQ04G-production-batch.zip",
+  "bytes": 1499878,
+  "sha256": "403bbc3895a4e85a43a8c5318f25d6ab1ff1d2f30701563de6d82d27730b2134",
+  "manifestEntries": 68,
+  "snapshotFiles": 703,
+  "deltaFiles": 27,
+  "phase": "fully-offline-tested-unpublished",
+  "fileId": "1oe-CpAhb2AMAbD5GddhbOsukB-jqcy8F",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "checkedAt": "2026-09-28T16:32:37.188337+00:00",
+  "downloadVerified": true,
+  "outerSizeShaCrcManifestSnapshotAndDeltaBytesVerified": true,
+  "sourcePublishedAtReadback": false
+}

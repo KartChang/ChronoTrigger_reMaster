@@ -1,0 +1,53 @@
+{
+  "schema": "chrono-vq04g-validation-v1",
+  "recordedAt": "2026-09-28T16:30:55.555311+00:00",
+  "phase": "fully-offline-tested-unpublished",
+  "batch": "VQ04G",
+  "version": "0.9.80",
+  "sourceParent": "919243172c4e00713a4f2f63e70ad8daa5b96250",
+  "baseSource": "da615f1e4a803fa8fdaddf4723ab782038e14266",
+  "sourceFiles": 703,
+  "changed": 14,
+  "added": 13,
+  "unchangedProgramFiles": 676,
+  "unchangedScannedInputs": 671,
+  "sourceBytesMatchPreFullTest": true,
+  "dedicatedNodePassed": 76,
+  "fullCheckExit": 0,
+  "pythonExit": 0,
+  "sourcePublished": false,
+  "nativeEvidenceReviewedForG": false,
+  "localBrowserUsed": false,
+  "originalFailedOfflineFixtureAttemptRetained": true,
+  "npcEligibleSlots": 224,
+  "npcWalkStagedSlots": 112,
+  "combatRuntimeApplied": false,
+  "originalArtistSourceChanged": false,
+  "pages97Conclusion": "failure",
+  "pagesSelectorFix": "exact workflow_run GET; no list or stale artifact fallback",
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "deviceApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "node": {
+    "tests": 3501,
+    "pass": 3501,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "python": {
+    "passed": 625,
+    "failed": 0
+  },
+  "assets": "passed",
+  "typecheck": "passed",
+  "qualitySchema": "passed-release-blocked-stale-review",
+  "build": "passed",
+  "independentAndBuildExportParity": true,
+  "expectedSourceRoot": "2c8416cf127f2224425a6012ad0dd17585828b87"
+}

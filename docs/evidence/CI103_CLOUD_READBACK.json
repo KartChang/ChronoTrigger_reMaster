@@ -1,0 +1,28 @@
+{
+  "schema": "chrono-ci103-pages97-cloud-readback-v1",
+  "checkedAt": "2026-09-28T16:28:34.386180+00:00",
+  "parts": [
+    {
+      "name": "Chrono-CI103-Pages97-evidence-part1.zip",
+      "bytes": 66792383,
+      "sha256": "f1a077376bb2ac8a1e6734b901582aeb64b7a8ad63d2b3de99ec1f36cec324eb",
+      "manifestEntries": 1,
+      "fileId": "1XFeTpL5dPCd0jN1sivxHcxCzwmdmfA1K",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllEntryBytesVerified": true
+    },
+    {
+      "name": "Chrono-CI103-Pages97-evidence-part2.zip",
+      "bytes": 37869450,
+      "sha256": "3ff761e051a6d0480f368d3eed161bc1e8409ef0faca5352b85767125b9937a2",
+      "manifestEntries": 8,
+      "fileId": "1oUq6chsubZNavGfNYrRE9Pr0Ts7duzlz",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "outerAndInnerCrcAndAllEntryBytesVerified": true
+    }
+  ],
+  "originalZipCount": 5,
+  "pages97Failed": true
+}

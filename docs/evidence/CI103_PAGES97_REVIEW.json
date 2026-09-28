@@ -1,0 +1,139 @@
+{
+  "schema": "chrono-ci103-pages97-bounded-review-v1",
+  "checkedAt": "2026-09-28T16:25:32.061124+00:00",
+  "sourceSha": "da615f1e4a803fa8fdaddf4723ab782038e14266",
+  "sourceTree": "0331c65c1dc689bcba66e11158d71b91b7d876ca",
+  "ci": {
+    "id": 36441789439,
+    "number": 103,
+    "event": "push",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "providerUpdatedAt": "2026-09-28T15:52:41Z"
+  },
+  "pages": {
+    "id": 36446907519,
+    "number": 97,
+    "event": "workflow_run",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "providerUpdatedAt": "2026-09-28T15:52:56Z",
+    "prepareJobId": 109011460793,
+    "failedStep": "Select a successful same-repository main CI; inspect Pages enablement",
+    "failure": "No successful same-repository main CI is available. Nothing will be deployed.",
+    "stagingAndDeploy": "skipped",
+    "selectedSource": null,
+    "selectedArtifact": null,
+    "deploymentConfirmed": false,
+    "causeLimit": "Global success-list selector returned no accepted candidate; original full response of that list was not logged. Provider consistency is not asserted."
+  },
+  "archives": [
+    {
+      "name": "CI103-browser-evidence.zip",
+      "artifactId": 10980244085,
+      "bytes": 66791866,
+      "sha256": "a1568c1a754918d49528edf637c7dd9a4882958a7566a511589a952c7e509f25",
+      "crcVerified": true,
+      "entries": 382
+    },
+    {
+      "name": "CI103-playable.zip",
+      "artifactId": 10980778732,
+      "bytes": 1381862,
+      "sha256": "54747f9595ee1ea5eb6dce10f2a62de3ffa8b0b250c729af6a73de01fb28ef46",
+      "crcVerified": true,
+      "entries": 5
+    },
+    {
+      "name": "CI103-art-review-kit.zip",
+      "artifactId": 10980618828,
+      "bytes": 1930308,
+      "sha256": "1803ee25eb92e3a72b74f5551fe1055279118b380f01b6365410e7274c176cb6",
+      "crcVerified": true,
+      "entries": 204
+    },
+    {
+      "name": "CI103-witness-good-evidence.zip",
+      "artifactId": 10979204717,
+      "bytes": 28244680,
+      "sha256": "f175a13791d874eba42a324cac89c52ec92f7525a1b56f184425b84e94e55ae1",
+      "crcVerified": true,
+      "entries": 158
+    },
+    {
+      "name": "CI103-witness-bad-evidence.zip",
+      "artifactId": 10979137822,
+      "bytes": 6131872,
+      "sha256": "adeb35e554908381b954f2507ca22a69adbaf6b63072f855e27e695fe89472ad",
+      "crcVerified": true,
+      "entries": 41
+    }
+  ],
+  "programFilesVerified": 690,
+  "lanes": [
+    {
+      "lane": "validate",
+      "entries": 17,
+      "rawManifestSha256": "10b6fd2501ca4d7c8eaf4e74e529e45ec19d7bf590c32a24e51b3974f4e07c6c",
+      "status": "passed"
+    },
+    {
+      "lane": "good",
+      "entries": 8,
+      "rawManifestSha256": "ccec2fd63ec8bf360e689fbff447d8482da220882485aa22a965b038c5328d23",
+      "status": "passed"
+    },
+    {
+      "lane": "bad",
+      "entries": 4,
+      "rawManifestSha256": "f446bbe3f558080b02b3424812374ab32b9d6f10cace0687d913208580581f9f",
+      "status": "passed"
+    }
+  ],
+  "rawLaneEntriesVerified": 29,
+  "htmlBytes": 5878706,
+  "htmlSha256": "75ea08d26d355a00ee432fe590b33a75b68bff8a69fe60dfca26e1beda601fb2",
+  "fArtPayloadsMatchAuthorPackage": 5,
+  "visualReview": {
+    "basis": "Two unmodified CI103 WebGL stills, no offline author rendering substituted.",
+    "files": [
+      {
+        "path": "kingdom/01-truce.png",
+        "bytes": 272876,
+        "sha256": "aa6b0e6835945bb4569db81f0fed3a8c60f5442f5a28596763fc0571e08ecda3"
+      },
+      {
+        "path": "trial/02-courtroom.png",
+        "bytes": 386470,
+        "sha256": "bcfefd159641be570d4fefe9ee7727bd643015b3e7cc2200d1b64d2687524b96"
+      }
+    ],
+    "findings": [
+      "Truce broken road verges and flush contact strips are visible. Buildings still dominate the frame; the townsperson is roof-occluded in this particular still. Whole-scene concept fidelity remains open.",
+      "Court furniture wood and thin cushion details are visible; the central stand still occludes the character lower body. This still alone does not certify complete occlusion/motion comfort."
+    ]
+  },
+  "lastReviewedDeployment": {
+    "batch": "VQ04E",
+    "ci": 36429066870,
+    "pages": 36433628575,
+    "source": "870c2fb64afd42dcb7bd618f84928643c995fa94"
+  },
+  "limits": {
+    "wholeMotionLedgerReviewed": false,
+    "videoWatched": false,
+    "audioListened": false,
+    "physicalDeviceApproved": false,
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "nativeStateTimeSaveCollisionInjected": false,
+  "nativeReportsModified": false,
+  "currentHttpFetchPerformed": false,
+  "localBrowserUsed": false
+}

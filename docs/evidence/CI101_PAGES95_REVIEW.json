@@ -1,0 +1,11 @@
+{
+ "schema":"chrono-ci101-pages95-recovered-bounded-review-v2",
+ "sourceSha":"4620737f6434043dcea3cb8dcc63ea85e9dbf9c2","sourceTree":"6259343245e0cba54242e0c042cc52e986e1b8ed",
+ "ci":{"id":36401626967,"number":101,"event":"push","attempt":1,"status":"completed","conclusion":"success","providerUpdatedAt":"2026-09-28T09:47:56Z"},
+ "pages":{"id":36405777143,"number":95,"status":"completed","conclusion":"success","providerUpdatedAt":"2026-09-28T09:48:33Z","selectedSource":"4620737f6434043dcea3cb8dcc63ea85e9dbf9c2","selectedCI":36401626967,"selectedPlayableArtifact":10961967519},
+ "recoveredReview":{"path":"part2/review/review.json","originalCheckedAt":"2026-09-28T10:24:01.016305+00:00","sourceArchiveMembers":1057,"sourceTreeMatchedInOriginalReview":true,"sourceBoundLanes":3,"rawEntryHashesCheckedInOriginalReview":29,"scope":"Existing bounded source/deployment/static image review recovered unchanged. No expanded full-motion, listening or device acceptance."},
+ "readbackThisHandoff":{"originalZipCount":7,"allOriginalSizeAndShaMatchRecoveredReview":true,"freshProviderDownloadedCIOriginalsByteMatched":5,"outerInnerCrcPassed":true,"exactPackageManifestsPassed":true,"rawReportsModified":false,"newFullMotionReview":false},
+ "deployment":{"htmlBytes":5860400,"htmlSha256":"e7dece231d949c153f5c27fdc940ba488ed6aa133cee0f251a235259651804f2","playableStagedAndUploadedPayloadMatch":true,"matchingPayloadFiles":9,"missingEmptyStagedMarker":".nojekyll"},
+ "parts":[{"fileId":"1VOM_mhZmmLMLghmiONpSoWvERwx4sKMz","name":"Chrono-CI101-Pages95-reviewed-evidence-part1.zip","bytes":65993746,"sha256":"ac1a6a02562f391b0bd858763fbdb55764b63720de84e66db42e7fddd9b52852","manifestEntries":1,"parentVerified":true,"downloadVerified":true},{"fileId":"1t-6QvmDUFs1O3-AvZ9AF3Y-6yUiPuxmg","name":"Chrono-CI101-Pages95-reviewed-evidence-part2.zip","bytes":40009061,"sha256":"a826622c6f8958a1b43d3e17579a10b75cd460177b9818f7fe7211df2481fd2d","manifestEntries":8,"parentVerified":true,"downloadVerified":true}],
+ "scopeClosed":true,"scope":"D provider/source/deployment continuity and recovered limited review only; not E publication or full art acceptance.","videoPlayedThisHandoff":false,"listeningApproved":false,"physicalDeviceApproved":false,"artApproved":false,"fullAnimationComplete":false,"wholeGameAccepted":false,"newScore":null,"release":"BLOCKED"
+}

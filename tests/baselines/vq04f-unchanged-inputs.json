@@ -1,0 +1,45 @@
+{
+  "schema": "chrono-vq04f-unchanged-aggregate-v1",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-place-export.mjs",
+    "scripts/test-production-characters.mjs",
+    "scripts/test-production-places.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-place-art.ts",
+    "src/production-place-finish.ts",
+    "tests/baselines/vq04f-declared-art-edits.json",
+    "tests/baselines/vq04f-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/helpers/production-character-e-baseline.mjs",
+    "tests/helpers/production-place-f-baseline.mjs",
+    "tests/production-character-source.test.mjs",
+    "tests/production-place-art.test.mjs",
+    "tests/production-place-integration.test.mjs",
+    "tests/production-place-source.test.mjs",
+    "tests/production-story-npc-integration.test.mjs",
+    "tests/production_character_e_preservation.py",
+    "tests/production_character_e_test.py",
+    "tests/production_place_f_preservation.py",
+    "tests/production_place_f_test.py"
+  ],
+  "expectedCount": 662,
+  "sha256": "07b1aecebf1f318135fe78734c065da9a5730b51c29de0b342651fdefa56910c"
+}

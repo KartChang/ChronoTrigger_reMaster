@@ -1,7 +1,7 @@
-/** E owned texture and actual application tests. OFFLINE, not native/device evidence. */
+/** Frozen E component regression; F has separate actual-current whole-app tests.  E owned texture and actual application tests. OFFLINE, not native/device evidence. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';
 import {DynamicTexture,MeshBuilder,StandardMaterial,TransformNode,Texture} from '@babylonjs/core';
-import {World,createState} from '../.test/cpu-entry.mjs';import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-d.mjs';
+import {World,createState} from '../.test/cpu-entry.mjs';import {ArtDirectedWorld as Current} from '../.test/art-directed-world-e.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-d.mjs';
 import {installProductionStoryNpcs,STORY_NPC_BINDING_LIMIT} from '../.test/production-story-npc-finish.mjs';import {legacyStoryNpcCell,storyNpcProductionCell} from '../.test/production-story-npc-art.mjs';import {productionWorldRig} from './helpers/production-world-rig.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const roles=[['townsperson','kingdom-truce','truce','resident'],['innkeeper','kingdom-truce','truce','innkeeper'],['king','kingdom-castle','castle','king'],['guard','kingdom-castle','castle','guard'],['disguised-nun','cathedral-set','cathedral','nun'],['false-chancellor','sanctum-set','sanctum','chancellor'],['true-chancellor','sanctum-set','sanctum','chancellor'],['queen-leene','sanctum-set','sanctum','queen']];

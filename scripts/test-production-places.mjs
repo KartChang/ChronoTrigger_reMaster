@@ -1,0 +1,6 @@
+/** Dedicated current F preflight; the ordinary full CI still uses scripts/test.mjs. */
+import {build} from 'esbuild';import {readFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {artFIfDeclared} from '../tests/helpers/production-place-f-baseline.mjs';
+for(const n of ['production-place-art','production-place-finish','art-directed-world'])await build({entryPoints:['src/'+n+'.ts'],bundle:true,outfile:'.test/'+n+'.mjs',format:'esm',platform:'node',packages:'external'});
+await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});
+await build({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-e.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'F-to-E-source-only',setup(b){b.onLoad({filter:/[\\/]src[\\/]art-directed-world\.ts$/},a=>({contents:artFIfDeclared('src/art-directed-world.ts',readFileSync(a.path,'utf8')),loader:'ts'}));}}]});
+const r=spawnSync(process.execPath,['--test','tests/production-place-art.test.mjs','tests/production-place-integration.test.mjs','tests/production-place-source.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);

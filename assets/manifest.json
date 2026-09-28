@@ -335,6 +335,19 @@
         "tests/production-character-art.test.mjs",
         "scripts/production-character-export.mjs"
       ]
+    },
+    {
+      "id": "town-court-craft-vq04f",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-place-art.ts; src/production-place-finish.ts; scripts/production-place-export.mjs",
+      "gap": "Additional real town verge/flush thresholds and court furniture surfaces/cushions/mouldings. Base town textures, actors and gameplay unchanged. Matching native screenshots, full concept fidelity and physical-device approval remain pending.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04F.md",
+        "tests/production-place-art.test.mjs",
+        "tests/production-place-integration.test.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

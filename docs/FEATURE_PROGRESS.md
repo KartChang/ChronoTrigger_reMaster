@@ -1,17 +1,19 @@
-# 功能進度 — v38，D已部署，E作者程式已恢復待全測
+# 功能進度 — v39，VQ04E生產美術與完整離線回歸
 
-權威STATUS／TODO／checkpointv38。已發布source **4620737f6434043dcea3cb8dcc63ea85e9dbf9c2**／D0.9.77；CI101及Pages95 completed/success，限定review恢復入庫；沒有active validation。本輪只更新文件與Drive工作包，沒有新遊戲source或CI。
+權威STATUS／TODO／checkpointv39。版本0.9.78的source、唯一matchingCI與實際Pages狀態以權威checkpoint為準；不得把source push或離線通過當成已部署與原生驗收。完整測試與雲端回驗記錄見DELIVERY_INDEX。
 
-## 已發布基礎
+## 本批完成範圍
 
-D四名角色48×64的idle/walk/ready/victory四方向256欄位、山道後岸與A/B/C環境保留，已測3292Node/613Python不用重跑。受保護attack/cast/hurt/down另256欄位仍原圖；heldhome、原時計／geometry／core／camera不改。詳PRODUCTION_ART_VQ04D及既有收據。
+七類NPC336作者欄位保留並接入28ambient欄位；308direction／walk／greet僅匯出，不增加NPC導航。八個既有NPC物件使用真實owned DynamicTexture update、exact-source逐byte辨識、名稱／root／章節／尺寸／獨占綁定；未知來源拒絕，原update參數與語義保留。
 
-## E恢復進度
+補強換owner／material／texture／尺寸、切場held還原、dispose清理、靜態格不重上傳、12binding與294912bytes上限、0新增GPUtexture。作者／592格PNG同源、正式ArtDirectedWorld、12非target／held章節一致性與前代SOURCE-only保護納入完整回歸。兩筆新增asset register的evidence欄位修正，品質門檻不變。
 
-九個原程式／建置變更已找回並保存完整669檔工作snapshot，D其餘660檔原byte。七類NPC336作者欄位與exact-source borrowed-upload adapter草稿接線已存在；28ambient格有runtime映射，308direction/walk/greet只匯出，尚無E原生／部署證據。四主角256combat欄位作者API已恢復且匯出，runtimeApplied=false，不列為啟用完成。
+D四角色探索／ready／victory四方向256格、另256原combat格、A/B/C環境与山岸、heldhome／母親家具、core／geometry／camera／clock均保持。E四主角attack／cast／hurt／down另256作者格仍runtimeApplied=false；沒有透過假像素或改native golden啟用。
 
-本次typecheck／check:assets／character export通過，11PNG／592cell hashes與作者來源一致。完整E Node／Python／build／current-app整合與較晚完整測試logs未取得；不得從聊天成功說法回填。下一步補E tests與source-only preservation，完整回歸後一次發布。
+## 仍待完成
 
-完整包1YMrtU5O5nATW6aFeuKZELc_fH-op6ltr已在指定folder並下載回驗40manifest／669snapshot。兩張原有OFFLINE作者圖與11實際匯出素材都存包內，不是在對話交圖，也不是CI原生畫面。
+唯一matchingCI原生瀏覽器與部署限定review依checkpoint接續；離線測試不是原速／真機批准。完整party／enemy／NPC方向動作與death、概念級前段場景尺度／遮擋／構圖、原作縮尺地圖與城鎮切換、合法完整音訊與聆聽、原速／真機／長時段仍open。
 
-全party/enemy/NPC方向動作與死亡、概念級場景尺度構圖、原作地圖、合法完整音訊聆聽、原速／真機／長時段仍open。art/fullAnimation/wholeGame=false，newScore=null／releaseBLOCKED；完整T03–T08不縮。
+Tank／Yakra完整native death、Hench outgoing、P down、Q受擊selector-change樣本缺口保留。CI93／95／98仍failure；CI101／Pages95的D有界接受沿用不重跑。
+
+art／fullAnimation／wholeGame等完整批准false；newScore=null，releaseBLOCKED。完整T03–T08分母不縮，2300抵達不是完整未來。No localbrowser、native State／時間／save／collision注入；所有成果只在main或指定Drive持久交付。

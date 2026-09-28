@@ -1,0 +1,84 @@
+{
+  "schema": "chrono-vq04e-offline-full-validation-v1",
+  "completedAt": "2026-09-28T13:26:46.469193+00:00",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "baseDocumentSha": "cf41aa9fddca030837b8a29fe438eb1fd83635bc",
+  "baseDocumentTree": "c800e448104cf7be3957227834cc1c1ed25b4d40",
+  "baseGameSource": "4620737f6434043dcea3cb8dcc63ea85e9dbf9c2",
+  "batch": "VQ04E",
+  "version": "0.9.78",
+  "sourcePublished": false,
+  "fullCheckExit": 0,
+  "node": {
+    "tests": 3384,
+    "passed": 3384,
+    "failed": 0
+  },
+  "python": {
+    "tests": 617,
+    "passed": 617,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "assets": "passed",
+  "qualitySchema": "passed-release-blocked-stale-review",
+  "build": "passed",
+  "currentAppIntegration": "passed-offline-not-native",
+  "programMembers": 678,
+  "changedExisting": 10,
+  "newProgramFiles": 14,
+  "unchangedOriginalDProgramMembers": 654,
+  "unchangedAggregatePinned": 649,
+  "png": 11,
+  "cellHashes": 592,
+  "runtimeNpcSlots": 28,
+  "stagedNpcSlots": 308,
+  "stagedCombatSlots": 256,
+  "runtimeCombatApplied": false,
+  "priorFailuresRetained": [
+    "typecheck-initial.log: observer handle typing; fixed to Babylon observable return type",
+    "dedicated-initial.log: new-test palette bounds and OFFLINE cathedral fixture; corrected test assumptions, not existing thresholds",
+    "full-check.log: 3383 Node passed, then two recovered E asset entries lacked evidence; fixed actual register, no quality checker weakening"
+  ],
+  "constraints": {
+    "localBrowserUsed": false,
+    "nativeStateTimeSaveCollisionInjected": false,
+    "nativeRoutesWaitsCapturesAssertionsGoldensChanged": false,
+    "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "heldMotherFurnitureChanged": false,
+    "additionalGpuTextures": 0,
+    "bindingLimit": 12,
+    "retainedCpuRgbaLimit": 294912,
+    "newBranchOrPR": false,
+    "newCIRunsAtPackaging": 0
+  },
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "originalSpeedApproved": false,
+    "listeningApproved": false,
+    "deviceApproved": false,
+    "longSessionApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "snapshotExcludes": [
+    "docs",
+    "node_modules",
+    ".test",
+    "dist",
+    "test-results"
+  ],
+  "restore": "Restore program-vq04e.tar.gz only, use latest main docs. No source push until Drive ZIP readback matches. Complete logs include earlier failed attempts; final-check and final-python are the final immutable tested bytes.",
+  "testedSourceRootWithBaseDocs": "7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+  "sourceEnvelope": {
+    "format": "whole-spec-zlib-base64-chunks",
+    "decodedSha256": "c11f9102e14b593925311fd1d6ee92961589abee7766dc35213ba1aa3c60f955",
+    "exactPriorDecodedSpecEqual": true,
+    "fullCheckRerunAfterStorageChange": true,
+    "sameDrivePackageIdUpdatedInPlace": true,
+    "unpublishedTransportObjectMismatchRejected": true
+  }
+}

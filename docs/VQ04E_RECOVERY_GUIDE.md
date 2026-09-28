@@ -1,37 +1,23 @@
-# VQ04E 立即續作指南 — 不重畫已恢復九檔
+# VQ04E 接續入口 — v39，已全測並發布source
 
-2026-09-28交接v38。遊戲main仍D0.9.77；E0.9.78是同一未發布工作，非分支、非已測發布。完整恢復包1YMrtU5O5nATW6aFeuKZELc_fH-op6ltr，hash及復原方法見DELIVERY_INDEX。
+本指南取代v38「只恢復、未全測」的目前操作狀態；歷史evidence/VQ04E_RECOVERY.json不改写。唯一main，singleAI／nonforce，不開新branch／PR／candidate。先看STATUS／TODO／T05_ANIMATION_CHECKPOINT v39，不重讀全部歷史。
 
-## 精確已恢復程式
+## 最短接續
 
-src/native-actor-pixels.ts
-src/production-story-npc-art.ts
-src/production-story-npc-finish.ts
-src/art-directed-world.ts
-src/production-combat-art.ts
-scripts/production-character-export.mjs
-scripts/build.mjs
-assets/manifest.json
-tests/current_build_test.py
+E／0.9.78 source870c2fb64afd42dcb7bd618f84928643c995fa94，source tree7ed4d2a0be97c8e8b48f063c0d18866981039d02已發布。唯一CI102／36429066870／push／attempt1觀察為in_progress（provider updated2026-09-28T13:30:18Z）。不要重推、rerun或dispatch。完成後保存其原始ZIP、確認exact source／部署payload並做限定review；pending保存checkpoint不長poll。D／CI101／Pages95已成功，不能等待CI101通知。
 
-以上九檔與早期Drive checkpoint逐byte相同，非依圖片臆造重建。program-vq04e-recovered.tar.gz提供完整669檔，保留最新GitHub docs。兩張作者圖是前輪OFFLINE圖；11PNG則是本次由恢復程式實際匯出並核592cell hashes，不混充CI圖片。
+已完成E3384Node／617Python／assets／typecheck／quality schema／build與正式入口離線整合，不重做這批工程。下一步是matching CI review及完整實際美術主線，不能把尚未確認的native／Pages標成成功。
 
-## 可直接沿用的設計
+## 容器遺失時
 
-七類NPC：resident、innkeeper、king、guard、nun、chancellor、queen。原root/name allowlist綁定truce/castle/cathedral/sanctum既有物件；先比對未改legacyStoryNpcCell的原RGBA，才在owned DynamicTexture.update畫新ambient格。未辨識來源不替換；草稿已有換owner／resize／dispose處理，但還需要完整current-app回歸，不能把存在的分支當測試已過。
+唯一最新工作包Chrono-VQ04E-production-batch.zip，Drive ID1K_C2XsNeKvlnIb4k2c8pQ0CGzGbu-Pu9，folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb，1719284bytes，SHA256 d10e34da05be87ab9776ca062c837019d2141200a086584c98eceb8777c772b7。已真正回下載驗證71manifest／678program snapshot。
 
-NPC336slots中僅28ambient slots由草稿adapter映射；308方向／walk／greet只匯出，不改原靜態NPC導航。四主角combat作者API256slots，manifest始終runtimeApplied=false；不改D production-party-finish的protected 256格與native goldens。這些數字是畫格欄位，不是獨立動作數或測試數。
+從program-vq04e.tar.gz恢復完整程式；program-files.json有每檔SHA256／Git blob；changes/有24差異；logs/含失敗及最後整批成功、無損封裝等價紀錄。快照不含docs或node_modules，最新GitHub文件不可被舊包覆蓋。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules／esbuildhardlink，不覆蓋source/config，不開bootstrap CI。
 
-## 本次完成的有限檢查
+舊1YMrtU5O5nATW6aFeuKZELc_fH-op6ltr含669檔，只保留歷史來源，不再是續作主快照。Drive search回空不表示已確認ID不存在；直接fetch已知ID。
 
-npm run typecheck、npm run check:assets、node scripts/production-character-export.mjs各exit0。11PNG的PNG SHA／整張RGBA SHA／592cell SHA都與runtime作者API匯出manifest一致；669snapshot及40package entries回下載一致。
+## 不變界線
 
-沒有恢復較晚完整Node/Python成功logs或較晚E source；本次未跑完整Node/Python/build，也未驗證新E current-app。因此不要重建「全測已過」收據、不直接推未測source。
+NPC336作者欄位中28ambient套入，308direction/walk/greet僅匯出；combat256作者格仍runtimeApplied=false。原golden／native route/timing/capture/assertion、held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不變。No localbrowser／native State／time／save／collision注入，不放寬品質門檻。E→D inverse只處理明示SOURCE，不能改native／image／game State。
 
-## 下一步只補未完部分
-
-先補E專屬作者／exact upload／unknown來源／held場景／資源／切場／current-app tests。D保護測試的明示source-only E→D層與新增E檔排除傳遞尚待接入；原hash不變，原native routes/assertions/goldens不動，不能用inverse處理native/image/State。
-
-完成後全Node/Python/assets/typecheck/build合批一次；保存測試logs、source snapshot及素材到指定Drive並回讀，才一次non-force source push main。接唯一matchingCI；pending留checkpoint不長poll。不要重送D、重跑CI101或重畫本頁九檔。
-
-完整戰鬥／敵人／NPC／death、前段構圖與概念級品質、合法完整音訊聆聽、原速／真機／長時段仍待完成；保持完整T03–T08與heldprologue限制。所有進度先落雲端，再提供對話摘要。
+完整T03–T08、party/enemy/NPC方向動作death、山道／法庭／城鎮／縮尺地圖、合法音訊聆聽、原速／真機／長時段與所有樣本缺口保留。品質批准false、newScore=null、releaseBLOCKED。成果存main或指定Drive並回讀，docs[skip ci]。

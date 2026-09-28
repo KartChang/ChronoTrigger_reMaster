@@ -1,0 +1,100 @@
+{
+  "schema": "chrono-ci102-continuation-readback-v1",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "checkpoint": "v39",
+  "observedDocumentHead": "05f2b1114f85298529173d6c909fd7099b47e92c",
+  "observedDocumentRootTree": "61567aa950fdd1631cf9944114e65b78a81f600a",
+  "publishedSource": "870c2fb64afd42dcb7bd618f84928643c995fa94",
+  "publishedSourceTree": "7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+  "batch": "VQ04E",
+  "version": "0.9.78",
+  "ciLastObservation": {
+    "id": 36429066870,
+    "number": 102,
+    "headSha": "870c2fb64afd42dcb7bd618f84928643c995fa94",
+    "event": "push",
+    "attempt": 1,
+    "status": "in_progress",
+    "conclusion": null,
+    "providerUpdatedAt": "2026-09-28T13:30:18Z"
+  },
+  "authoritativePackageReadback": {
+    "fileId": "1K_C2XsNeKvlnIb4k2c8pQ0CGzGbu-Pu9",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "name": "Chrono-VQ04E-production-batch.zip",
+    "bytes": 1719284,
+    "sha256": "d10e34da05be87ab9776ca062c837019d2141200a086584c98eceb8777c772b7",
+    "checkedAt": "2026-09-28T13:52:41.657375+00:00",
+    "zipCrcPassed": true,
+    "exactManifestEntries": 71,
+    "programFiles": 678,
+    "allProgramSizesSha256AndGitBlobsVerified": true,
+    "deltaFiles": 24,
+    "computedGitRootWithExactSourceParentDocs": "7ed4d2a0be97c8e8b48f063c0d18866981039d02",
+    "matchesObservedCI102HeadCommitTree": true,
+    "heldPrologueGitBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "finalRecordedNodePassed": 3384,
+    "finalRecordedPythonPassed": 617,
+    "finalLogsExitZero": true,
+    "originalValidationCompletedAt": "2026-09-28T13:26:46.469193+00:00",
+    "fullTestsRerunThisTurn": false,
+    "nativeOrBrowserEvidenceReviewedThisCheck": false
+  },
+  "continuationReceiptBundle": {
+    "fileId": "1vjfNuOpClvI4WlaB-YCdg0ygO-6uSuv2",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "name": "Chrono-CI102-continuation-readback.zip",
+    "bytes": 6511,
+    "sha256": "13e5f78787a06b84e8bc3997c5e46d5300f650108122e3ec6514f873b5777aec",
+    "manifestEntries": 4,
+    "downloadVerified": true,
+    "checkedAt": "2026-09-28T13:54:07.313752+00:00",
+    "contains": "Read-only package verifier, verification result, operation reconciliation and README. No game source or native reports."
+  },
+  "earlierAttemptHistory": {
+    "individualSourceWriteBlocked": true,
+    "blockedTool": "GitHub.create_blob",
+    "blockedPath": "src/production-story-npc-art.ts",
+    "blockedWriteRetriedOrBypassed": false,
+    "staleDocumentationCommit": "0b06cbcfb56251e437bd594398730a1b6bdfcee1",
+    "staleDocumentationRefUpdate": {
+      "force": false,
+      "status": 422,
+      "message": "Update is not a fast forward"
+    },
+    "staleDocumentationCommitAppliedToMain": false,
+    "reconciliation": "Live main already contains a later E source and CI102 checkpoint. Preserve that authority. The earlier failed attempt does not establish the present publication state."
+  },
+  "earlierUploadedPackagesNowHistorical": [
+    {
+      "id": "1UX723yTletw2R8ZWwdbt_lKWdrBuJBEz",
+      "role": "Earlier validated E bytes; not the source for CI102."
+    },
+    {
+      "id": "1F8nh05kmAZa2JJ_Zd0IysYTXsAnOfWnD",
+      "role": "Historical readback and blocked-attempt receipt; not current publication status."
+    }
+  ],
+  "operationsThisContinuation": {
+    "additionalSourcePushes": 0,
+    "reruns": 0,
+    "manualDispatches": 0,
+    "forceUpdates": 0,
+    "newBranchesOrPRs": 0,
+    "localBrowserUsed": false,
+    "nativeStateTimeSaveCollisionInjected": false,
+    "fullTestsRerun": false
+  },
+  "nextAction": "Read exact CI102 after completion; preserve original artifacts and bounded source/native/deployment review. Do not rerun or resend E or D. Keep the complete production-art goals and staged activation gaps unchanged.",
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "listeningApproved": false,
+    "deviceApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "scope": "Read-only source/package/log binding and continuation receipt. No native, visual, listening or device acceptance. Latest main STATUS/TODO/checkpoint remain authoritative."
+}

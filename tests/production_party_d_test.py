@@ -1,3 +1,4 @@
+from production_character_e_preservation import SPEC as E_SPEC,restore_art_e_if_declared,art_e_frozen_bytes
 """D engineering preservation; no browser or manufactured native evidence."""
 import hashlib,json,unittest
 from production_party_d_preservation import ROOT,SPEC,restore_art_d_source
@@ -8,7 +9,8 @@ class ProductionPartyD(unittest.TestCase):
             for bad in [raw[1:],raw+raw,raw+'\n# extra\n']:
                 with self.subTest(name=n),self.assertRaises(AssertionError):restore_art_d_source(n,bad)
     def test_current_build_and_prior_identity(self):
-        from current_build import EXPECTED_BUILD,expected_build_from_source
+        from current_build import expected_build_from_source
+        EXPECTED_BUILD=expected_build_from_source(restore_art_e_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text()))
         self.assertEqual(EXPECTED_BUILD,('0.9.77','VQ04D'))
         self.assertEqual(expected_build_from_source(restore_art_d_source('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.76','VQ04C'))
     def test_all_unchanged_program_inputs(self):
@@ -18,7 +20,7 @@ class ProductionPartyD(unittest.TestCase):
                 if '__pycache__' in p.parts or p.suffix=='.pyc':continue
                 self.assertFalse(p.is_symlink())
                 if p.is_file():names.append(p.relative_to(ROOT).as_posix())
-        rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in sorted(names) if n not in pin['exclude']]
+        rows=[[n,hashlib.sha256(art_e_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in sorted(names) if n not in pin['exclude'] and n not in E_SPEC['newPaths']]
         self.assertEqual(len(rows),pin['expectedCount']);self.assertEqual(hashlib.sha256(json.dumps(rows,separators=(',',':')).encode()).hexdigest(),pin['sha256'])
     def test_evidence_and_gameplay_cannot_enter_source_inverse(self):
         for n in ['native.json','image.png','src/core.ts','src/render.ts','tests/party_combat.py','tests/fixtures/party-combat-frames.json']:

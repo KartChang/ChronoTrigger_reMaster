@@ -1,7 +1,7 @@
-/** Actual production application and isolated real upload boundary, OFFLINE only. */
+/** Frozen D application and isolated real upload boundary; current E has separate whole-app tests, OFFLINE only. */
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFileSync} from 'node:fs';
 import {DynamicTexture,MeshBuilder,StandardMaterial,Texture} from '@babylonjs/core';
-import {ArtDirectedWorld as Current} from '../.test/art-directed-world.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-c.mjs';
+import {ArtDirectedWorld as Current} from '../.test/art-directed-world-d.mjs';import {ArtDirectedWorld as Prior} from '../.test/art-directed-world-c.mjs';
 import {World,createState} from '../.test/cpu-entry.mjs';import {productionWorldRig} from './helpers/production-world-rig.mjs';
 import {installProductionPartyArt} from '../.test/production-party-finish.mjs';import {partyCell,decodePartyCell,PARTY_POSES} from '../.test/production-party-cell.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');

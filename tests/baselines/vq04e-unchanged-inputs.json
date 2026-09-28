@@ -1,0 +1,46 @@
+{
+  "schema": "chrono-vq04e-unchanged-aggregate-v1",
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-character-export.mjs",
+    "scripts/test-production-characters.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/native-actor-pixels.ts",
+    "src/production-combat-art.ts",
+    "src/production-story-npc-art.ts",
+    "src/production-story-npc-finish.ts",
+    "tests/baselines/vq04e-declared-art-edits.json",
+    "tests/baselines/vq04e-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/helpers/production-character-e-baseline.mjs",
+    "tests/helpers/production-party-d-baseline.mjs",
+    "tests/production-character-art.test.mjs",
+    "tests/production-character-source.test.mjs",
+    "tests/production-party-integration.test.mjs",
+    "tests/production-party-source.test.mjs",
+    "tests/production-story-npc-integration.test.mjs",
+    "tests/production_character_e_preservation.py",
+    "tests/production_character_e_test.py",
+    "tests/production_party_d_preservation.py",
+    "tests/production_party_d_test.py"
+  ],
+  "expectedCount": 649,
+  "sha256": "93dec26157048bdc5ce4d993d2f855e8f23b581fc1d97afad717378f99045cea"
+}

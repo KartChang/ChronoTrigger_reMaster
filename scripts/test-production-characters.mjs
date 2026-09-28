@@ -1,0 +1,6 @@
+/** Dedicated E preflight; full CI continues to run scripts/test.mjs. No browser. */
+import {build as esbuild} from 'esbuild';import {readFileSync} from 'node:fs';import {artEIfDeclared} from '../tests/helpers/production-character-e-baseline.mjs';const build=esbuild;import {spawnSync} from 'node:child_process';
+for(const name of ['native-actor-pixels','production-story-npc-art','production-story-npc-finish','production-combat-art','story-npc-art','hd-hero-art','art-directed-world'])await build({entryPoints:['src/'+name+'.ts'],bundle:true,outfile:'.test/'+name+'.mjs',format:'esm',platform:'node',packages:'external'});
+await build({entryPoints:['tests/cpu-entry.ts'],bundle:true,outfile:'.test/cpu-entry.mjs',format:'esm',platform:'node',packages:'external'});
+await esbuild({entryPoints:['src/art-directed-world.ts'],bundle:true,outfile:'.test/art-directed-world-d.mjs',format:'esm',platform:'node',packages:'external',plugins:[{name:'declared-E-to-D-component',setup(b){b.onLoad({filter:/[\\/]src[\\/]art-directed-world\.ts$/},args=>({contents:artEIfDeclared('src/art-directed-world.ts',readFileSync(args.path,'utf8')),loader:'ts'}));}}]});
+const r=spawnSync(process.execPath,['--test','tests/production-character-art.test.mjs','tests/production-story-npc-integration.test.mjs'],{stdio:'inherit'});process.exit(r.status??1);

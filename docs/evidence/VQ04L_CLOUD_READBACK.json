@@ -1,0 +1,16 @@
+{
+  "schema": "chrono-vq04l-cloud-readback-v1",
+  "fileId": "1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "bytes": 1615040,
+  "sha256": "a5fe1cf499402578375adf43a7c046042c5dc59642fd7792508f7843ff5ef28d",
+  "manifestEntries": 69,
+  "sourceFiles": 759,
+  "deltaFiles": 23,
+  "checkedAt": "2026-09-29T03:06:20.445755+00:00",
+  "parentMetadataVerified": true,
+  "downloadVerified": true,
+  "outerCrcExactManifestSnapshotDeltaBytesVerified": true,
+  "fullTestsPassed": true,
+  "sourcePublishedAtReadback": false
+}

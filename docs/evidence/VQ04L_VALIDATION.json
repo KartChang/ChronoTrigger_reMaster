@@ -1,0 +1,67 @@
+{
+  "schema": "chrono-vq04l-package-v1",
+  "recordedAt": "2026-09-29T03:02:38.226677+00:00",
+  "phase": "fully-offline-tested-unpublished",
+  "batch": "VQ04L",
+  "version": "0.9.85",
+  "sourcePublished": false,
+  "sourceParent": "59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c",
+  "expectedSourceTree": "7ad7b7b672697622bc25b13d6ca9636bc84b679c",
+  "sourceFiles": 759,
+  "deltaFiles": 23,
+  "dedicatedNode": 50,
+  "python": 645,
+  "node": {
+    "passed": 3752,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nativeEvidenceCreated": false,
+  "localBrowserUsed": false,
+  "quality": {
+    "artApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "assets": "passed",
+  "typecheck": "passed",
+  "qualitySchema": "passed-release-blocked-stale-review",
+  "build": "passed",
+  "allSourceBeforeAfterEqual": true,
+  "fullCheck": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "start": "2026-09-29T02:54:29.170908+00:00",
+    "end": "2026-09-29T03:01:14.967563+00:00",
+    "exitCode": 0,
+    "offlineCpuAffinity": [
+      0,
+      1,
+      2
+    ]
+  },
+  "fullPython": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "*_test.py"
+    ],
+    "start": "2026-09-29T02:54:29.151397+00:00",
+    "end": "2026-09-29T02:54:33.293604+00:00",
+    "exitCode": 0,
+    "offlineCpuAffinity": [
+      0,
+      1,
+      2
+    ]
+  }
+}

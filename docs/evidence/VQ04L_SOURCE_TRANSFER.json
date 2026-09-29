@@ -1,0 +1,65 @@
+{
+  "groups": [
+    {
+      "paths": [
+        "src/production-grove-art.ts",
+        "src/production-grove-finish.ts",
+        "src/art-directed-world.ts",
+        "scripts/production-grove-export.mjs",
+        "scripts/test-production-grove.mjs"
+      ],
+      "tree": "28717c99838f0070f077a69db8bf584c874e4ce5",
+      "verified": true
+    },
+    {
+      "paths": [
+        "tests/helpers/inn-mount-k-baseline.mjs",
+        "tests/inn_mount_k_preservation.py",
+        "tests/helpers/grove-l-baseline.mjs",
+        "tests/grove_l_preservation.py",
+        "tests/production-grove-source.test.mjs",
+        "tests/grove_l_test.py",
+        "tests/inn-mount-source.test.mjs",
+        "tests/inn_mount_k_test.py",
+        "scripts/test-inn-mount.mjs",
+        "scripts/test-production-sightlines.mjs"
+      ],
+      "tree": "7c8f0e17f8cff062e1e2c913364442b53365b703",
+      "verified": true
+    },
+    {
+      "paths": [
+        "tests/fixtures/ci108-grove-stops.json",
+        "tests/baselines/vq04l-unchanged-inputs.json",
+        "scripts/build.mjs",
+        "tests/current_build_test.py",
+        "tests/production-grove.test.mjs"
+      ],
+      "tree": "79ddd87b0f67e92da02a25d42cc772bdb467cf3d",
+      "verified": true
+    }
+  ],
+  "individuals": [
+    {
+      "path": "assets/manifest.json",
+      "gitBlob": "e425d94265b94e92b58b292a7fd47827c5acd266",
+      "verified": true
+    },
+    {
+      "path": "scripts/test.mjs",
+      "gitBlob": "c6bb5e847a877f3f71f6c097c0de4532738c3205",
+      "verified": true
+    },
+    {
+      "path": "tests/baselines/vq04l-declared-art-edits.json",
+      "gitBlob": "bf2feec2eca3d6131e899c7c4d2806d797230914",
+      "verified": true
+    }
+  ],
+  "schema": "chrono-vq04l-source-transfer-v1",
+  "checkedAt": "2026-09-29T03:18:16.287307+00:00",
+  "allChangedFilesVerified": 23,
+  "beforeFullHashesStillMatch": 759,
+  "expectedSourceTree": "7ad7b7b672697622bc25b13d6ca9636bc84b679c",
+  "sourcePublished": false
+}

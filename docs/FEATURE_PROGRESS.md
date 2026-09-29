@@ -1,19 +1,19 @@
-# 功能進度 — v44，J招牌與法庭平台比例已發布
+# 功能進度 — v45，L樹根／蕨葉正式接入，K中斷交付已恢復
 
-Authority STATUS／TODO／checkpointv44。J0.9.83 source2b5fbc384188eb18ed2d76d9da14e01d90aec08b，唯一CI10736502989585／push／attempt1執行中。離線通過與source push不是原生或部署批准。
+Authority STATUS／TODO／checkpointv45；L0.9.85 sourceb8cc1b603c419ac11724cec9a7292d38c984b066，唯一CI10936516603995最後in_progress。source發布、離線測試通過不等於native／部署／美術批准。
 
-## 本批完成
+## 本批新增
 
-旅館招牌原world anchor不動，局部XY.66保留2:1比例；三個法庭圓弧平台Z.70、X/Y不變，UV/indices保持並重算法線。四privateGeometry15512bytes／上限16384、兩root，無新增mesh/material/texture。正式ArtDirectedWorld共用CPU/WebGL入口，人物位置、來源貼圖、遊戲State/clock/collision及held母親家具不變。
+托魯斯4與森林12原樹點，新增苔根接地平面與低矮蕨葉；兩張256×64原創像素圖集各四變體，共8cell。正式CPU/WebGL共享ArtDirectedWorld入口、nearest／alpha-test。32mesh、2texture、2material上限；131072bytes為RGBA payload，非全engine記憶體。原樹冠與材質／人物texture／camera／State／碰撞保持，不以移動角色湊畫面。
 
-66新Node/4Python涵蓋完整來源admission、unknown fail-closed、owner/geometry/material/transform drift與釋放、16非target/heldframe、4actual-current target案例。4模型JSON与4offline比較圖存包；I原離線射線已有0阻擋，J只證明前緣後退及不增加阻擋，尚待native確認。
+原樹點數量、parent、layout、plane buffers與原texture尺寸契約白名單，未知／duplicate／drift拒絕或釋放；root／pass／scene dispose清理自有資源，不改外部owner。切home為cached root disabled，資源保持到dispose；不重複上傳靜態素材。
 
-完整Node3656／Python637／assets/TS/qualityschema/build成功。738source前後同byte，716I程式/711pins保持；原driver75ignored產物集合差異另列且原false摘要未改。J→I及前代SOURCE-only保留原native/goldens。
+完整Node3752／Python645／assets／typecheck／quality schema／build過；50新專屬Node／4Python、15非target／held全frame一致、4原CI108只讀停點的inn gate保持。759source全測前後相同，736K程式原byte、731受掃描原輸入保護。2PNG及manifest与build同源，2模型JSON與6張圖為offline，不充作原生證據。
 
-## 已觀察與待辦
+## 接回K與當前部署
 
-CI106原CPUrescue291<=309與後續trial/gates通過；Pages100選exactI/CI106，九payload一致，七原ZIP上雲回驗。兩靜態圖與來源限定審查，不是全motion/影片/聆聽/真機。CI104/105failure、Pages97failure/98/99skipped不回填。
+K在前次中斷前已發布，恢復747source及原3702Node／641Python logs但不重做K。CI108與Pages102 success，exact K／playable11009780958，七原ZIP／八ledger179entry／九payload核對並上雲回下載。三張静態圖見原inn停點按真實遮擋淡化；不是全motion或真機批准。原CI107 failure／Pages101 skipped保留，最后已限定部署K0.9.84，不是L。
 
-先接CI107原始畫面與原CPU/Pages門檻。J未重設整個屋頂或城鎮；仍需山道、法庭、樹列、建築家具尺度接縫遮擋與原作縮尺地圖切換。112NPCwalk/導航及256partycombat尚未啟用，完整party/enemy/NPC方向動作death和音訊/裝置驗收未完；Tank/Yakradeath、Henchoutgoing、Pdown、Qselectorhurt缺口保持。
+## 未完成
 
-全T03–T08不縮，2300抵達不是完整未來；全部完整品質批准false／newScore=null／releaseBLOCKED。無localbrowser或native造數；全部成果存main或指定Drive。
+CI109原生植被接地、比例遮擋、原CPU門檻及Pages exact L待審。屋頂樹冠、完整前段构圖／家具尺度、縮尺大地圖／城鎮切換、全party/enemy/NPC attack/cast/hurt/down/death、112NPCwalk、256combat、合法完整音訊與聆聽／原速／真機／長時段仍open。Tank/Yakradeath、Hench outgoing、Pdown、Qselector-hurt原生樣本缺口不造數。T03–T08不縮；全部完整批准false、newScore=null、releaseBLOCKED。

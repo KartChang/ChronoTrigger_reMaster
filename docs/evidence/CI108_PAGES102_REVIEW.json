@@ -1,0 +1,169 @@
+{
+  "schema": "chrono-ci108-pages102-bounded-review-v1",
+  "checkedAt": "2026-09-29T02:46:53.670254+00:00",
+  "ci": {
+    "id": 36509304093,
+    "number": 108,
+    "event": "push",
+    "attempt": 1,
+    "source": "59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c",
+    "conclusion": "success",
+    "providerUpdatedAt": "2026-09-29T02:24:26Z"
+  },
+  "pages": {
+    "id": 36512444855,
+    "number": 102,
+    "conclusion": "success",
+    "providerUpdatedAt": "2026-09-29T02:24:52Z",
+    "deployment": {
+      "schemaVersion": 1,
+      "kind": "development-preview",
+      "version": "0.9.84",
+      "sourceSha": "59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c",
+      "ciRunId": 36509304093,
+      "ciRunNumber": 108,
+      "ciConclusion": "success",
+      "artifactId": 11009780958,
+      "artifactDigest": "sha256:a0462566e51746f6bd20cda08d1c0cde98583bb624fad420c5dc9e8aaf9022a3",
+      "htmlSha256": "e5a06869485ed3a7b72a1c2f511f61f9c7756239fec7884c1f913670a419f36a",
+      "htmlBytes": 5901884,
+      "wholeGameAccepted": false,
+      "qualityAssessment": {
+        "scope": "whole-remake",
+        "reviewedSourceSha": "4e9a3c8750c192e731ac7b9421c37f66f0bb9b93",
+        "score": 30,
+        "maximum": 100,
+        "threshold": 90,
+        "stale": true,
+        "releaseApproved": false,
+        "blockers": [
+          "dimension:visual:below-80-percent",
+          "dimension:battle:below-80-percent",
+          "dimension:story:below-80-percent",
+          "dimension:audio:below-80-percent",
+          "dimension:controls:below-80-percent",
+          "dimension:reliability:below-80-percent",
+          "dimension:performance:below-80-percent",
+          "Q01 initial input is cleared after the first frame",
+          "Q02 0.4 complete browser journey missing",
+          "Q03 placeholder character/scene/animation assets below target",
+          "Q04 full storyline and gameplay content not implemented",
+          "Q05 authored music and sound pipeline missing",
+          "Q06 target-device performance unverified",
+          "Q07 original reference/version and asset-use clearance unresolved",
+          "gate:browser",
+          "gate:visual",
+          "gate:hardware",
+          "gate:content",
+          "gate:rights",
+          "asset:crono",
+          "asset:marle",
+          "asset:lucca",
+          "asset:other-party",
+          "asset:npcs",
+          "asset:enemies",
+          "asset:fair-kit",
+          "asset:terrain-kit",
+          "asset:kingdom-kit",
+          "asset:remaining-worlds",
+          "asset:combat-fx",
+          "asset:ui-portraits-icons",
+          "asset:music",
+          "asset:sound-effects",
+          "asset:map-events",
+          "asset:cathedral-kit",
+          "asset:home-and-room",
+          "asset:regional-1000-overworld",
+          "asset:trial-prison-kit",
+          "asset:dragon-tank-parts",
+          "asset:future-arrival-kit",
+          "asset:production-material-and-scale-kit",
+          "asset:hd-party-native-redraw",
+          "asset:fair-witnesses-and-court-kit",
+          "asset:early-environment-vq04a",
+          "asset:party-exploration-vq04d",
+          "asset:story-npcs-vq04e",
+          "asset:party-combat-authored-vq04e",
+          "asset:town-court-craft-vq04f",
+          "asset:story-npc-attention-vq04g",
+          "asset:early-architectural-proportions-vq04h",
+          "asset:inn-sign-court-dais-sightlines-vq04j",
+          "asset:inn-facade-mount-vq04k",
+          "review:runtime-changed",
+          "score:below-90"
+        ],
+        "notice": "Developer evidence-based assessment, not a player rating. A passing CI does not approve art or the complete remake."
+      },
+      "notice": "本頁為開發試玩；CI 通過不代表完整重製或 90 分驗收。存檔保存在這個瀏覽器，舊檔請手動匯入。"
+    },
+    "matchingPayloads": 9,
+    "omittedEmptyMarker": ".nojekyll",
+    "liveSiteFetched": false
+  },
+  "sourceFilesVerified": 747,
+  "sourceTreeVerified": "9d0550d1ecab950ce2687fd3a6d605451983fdcb",
+  "sourceLedgers": 8,
+  "rawEntriesVerified": 179,
+  "artifacts": [
+    {
+      "name": "CI108-browser-evidence.zip",
+      "id": 11009356206,
+      "sha256": "8f2432c2c1e47d71ba73d58ccde1ea057272b166b193bab2906d07d7850dc8ac",
+      "bytes": 66706305
+    },
+    {
+      "name": "CI108-playable.zip",
+      "id": 11009780958,
+      "sha256": "a0462566e51746f6bd20cda08d1c0cde98583bb624fad420c5dc9e8aaf9022a3",
+      "bytes": 1387255
+    },
+    {
+      "name": "CI108-art-review-kit.zip",
+      "id": 11009691006,
+      "sha256": "28b8bc2afe7b8587080dd6067119493ab5f7da9aa194b45502d55e295edb3fff",
+      "bytes": 1980299
+    },
+    {
+      "name": "CI108-witness-good-evidence.zip",
+      "id": 11008263995,
+      "sha256": "88fe12d6ca8bfea2cb34bd49319df0c680cb60f19b8cc6236529dff073d23b67",
+      "bytes": 28397022
+    },
+    {
+      "name": "CI108-witness-bad-evidence.zip",
+      "id": 11008817934,
+      "sha256": "2ef1921d1c6610639a0a81c464f5a7acd90f8bfca64bb8b42cfffb98ac6fa1f1",
+      "bytes": 6165033
+    },
+    {
+      "name": "Pages102-staged-preview.zip",
+      "id": 11010330484,
+      "sha256": "b7d48fe54d9a1632b8787834a7caeaf49d3bc60bd48956025eabc1fca2ec30ce",
+      "bytes": 1392742
+    },
+    {
+      "name": "Pages102-github-pages.zip",
+      "id": 11009786837,
+      "sha256": "471eb9931891fe66ecd66762dc6b90442aed111faf13144ef522117dad956164",
+      "bytes": 1390755
+    }
+  ],
+  "staticReview": [
+    {
+      "path": "kingdom/01-truce.png",
+      "sha256": "f3f25a8519b7f98f431ddf86777de632395af838f0037286ce80deeb154300e3"
+    },
+    {
+      "path": "trial/02-courtroom.png",
+      "sha256": "c0b00bf2a7f5aae9f27bdcf88642e11a4c0f398f42e51fd4c6ac22d94d3ae449"
+    },
+    {
+      "path": "cpu-renderer/era600/town-route-inn-canvas.png",
+      "sha256": "8c5bd775bcc83c435f3f2bb4627def982b1a09f8a8e889aa589f4d6daa94057f"
+    }
+  ],
+  "visualReview": "K inn panel is inset beneath the roof and the original CPU inn stop observes genuine occlusion/fading. The town still has repetitive tall roof planes and sparse identical perimeter canopies. Court dais retreats behind the defendant, but podium rails still cross the torso. Three static images only; no motion/video/audio/device approval.",
+  "fullQualityApproved": false,
+  "nativeReportsAltered": false,
+  "newNativeImagesCreated": false
+}

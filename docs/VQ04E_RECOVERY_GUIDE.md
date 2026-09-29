@@ -1,7 +1,5 @@
-# 當前恢复入口 — v44／J已發布
+# 舊E恢復入口已退役 — v45直接續L
 
-舊E恢復只保留來源鏈。現在用main／STATUS／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v44；source2b5fbc384188eb18ed2d76d9da14e01d90aec08b、tree31f37080ef4b5c0531e964910cd2a087fcb8aed1。J已全測並發布，不再從E/I恢復或重送J。
+現在唯一main source為L／0.9.85 b8cc1b603c419ac11724cec9a7292d38c984b066，唯一CI109／36516603995；只讀STATUS／checkpoint／TODO。K已恢復且CI108／Pages102限定審查完成，不重送K/L或再還原早期E。
 
-必要時下載Drive **13wktlxljWmQLlXpo5Aw8CM7OKmAXsy_7**，folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；2124403bytes／SHA256265983e672f416817c760fa26b1cdb3733d6ff39f6893e104b88017aee955b58。驗165manifest，從program-vq04j.tar.gz還原738程式；不含docs/node_modules，保留最新main文件。75offline生成產物獨立放offline-test-results，不是source或native。
-
-工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules/esbuildhardlink，不覆source/config或bootstrapCI。唯一CI10736502989585/push/attempt1最後in_progress；完成接原證據，pending存checkpoint不長poll。CI106/Pages100已success並有界review，不重審歷史。完整品質未批准；禁止native造數和localbrowser。所有成果存main／指定Drive並回讀。
+L完整包1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz，folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；program-vq04l.tar.gz只還原source，不蓋最新docs。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只還原node_modules／esbuild。容器不具權威，失敗與pending以matching run／checkpoint為準，不猜測成功、造native或重跑歷史。

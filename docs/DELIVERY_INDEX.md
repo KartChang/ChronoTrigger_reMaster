@@ -1,27 +1,27 @@
-# Delivery Index — v44，J完整測試與單次發布
+# Delivery Index — v45，L完整交付與K恢復
 
-唯一repository KartChang/ChronoTrigger_reMaster／main；Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。前代原索引保留於evidence/VQ04J_PREVIOUS_DELIVERY_INDEX.md；本頁只列當前接續必需資料。
+唯一repository KartChang/ChronoTrigger_reMaster／main；唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。前代索引原blob9b589bbb7b393125396941bd9701a7853f42b8b9保留於evidence/VQ04L_PREVIOUS_DELIVERY_INDEX.md，不重審歷史。
 
-## J最終工作包
+## L最終完整工作包
 
-**Chrono-VQ04J-production-batch.zip**／**13wktlxljWmQLlXpo5Aw8CM7OKmAXsy_7**。
-**2124403bytes**／SHA256 **265983e672f416817c760fa26b1cdb3733d6ff39f6893e104b88017aee955b58**。
-165manifest／738program／22delta／完整成功與失敗logs／4模型JSON／4offlinePNG／75ignored測試產物及來源verifier。program-vq04j.tar.gz不含docs/node_modules/.test/dist/test-results；新offline產物另放offline-test-results，不是新native報告。
+Chrono-VQ04L-production-batch.zip／**1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz**，**1615040bytes**，SHA256 **a5fe1cf499402578375adf43a7c046042c5dc59642fd7792508f7843ff5ef28d**。69manifest、759程式、23delta（11修改／12新增）、2PNG、2模型JSON、6offline比較圖與完整成功失敗logs。program-vq04l.tar.gz排除docs/node_modules，不能覆蓋main最新文件。
 
-同ID早期1812109bytes包為working-checkpoint，全測未完成狀態照存EARLY_WORKING_READBACK；最終provider modified2026-09-29T00:22:08.822Z，**00:24:35.571632Z**回下載核parent/size/SHA/CRC/165manifest/738snapshot/22delta後才推送。不可用早期包或舊I包覆蓋當前J。
+provider modified2026-09-29T03:02:56.251Z；**03:06:20.445755Z真正下載**核parent/size/SHA/CRC/manifest精確集合/759snapshot與23delta bytes後才推送。source **b8cc1b603c419ac11724cec9a7292d38c984b066**、tree **7ad7b7b672697622bc25b13d6ca9636bc84b679c**、parent **59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c**。Git tree精確等於已測與已回驗source；唯一CI109／36516603995最後in_progress，updated03:19:25Z。
 
-source **2b5fbc384188eb18ed2d76d9da14e01d90aec08b**／tree **31f37080ef4b5c0531e964910cd2a087fcb8aed1**／parent **c3c177a5e314ed3fa3251e3dc0c9841a1ff52f7e**。唯一CI107／36502989585，push/attempt1/in_progress，updated2026-09-29T00:25:14Z。prepush包sourcePublished=false與VQ04J_PUBLICATION後續true分別保留，不倒填。
+原pre-push VQ04L_VALIDATION及CLOUD_READBACK的sourcePublished=false保留當時事實；VQ04L_PUBLICATION記後續真實發布。VQ04L_SOURCE_TRANSFER記23項blob／subset-tree hash一致，不倒填原始log。Node3752／Python645／assets／TS／quality schema／build皆exit0，source全測前後不變。最終發布文件與readback另存publication-receipts包，不更改此已回驗pre-push包。
 
-## CI106／Pages100原始證據，已入庫回驗
+## K中斷恢復
 
-Part1 **1oqrY1OxljAtwX7_OjPQ2VmD5Obi8zcwq**／Chrono-CI106-Pages100-evidence-part1.zip：67387640bytes／SHA **fdc8255f5a1d0f380efc1937f9b26f98bdef665888082f5414155da4ff805060**，1manifest（browser原ZIP）。
+Chrono-VQ04K-production-batch.zip／**1wkwEWuvMrSAypeJyxWihy5S36DPtSi22**，1646672bytes／SHA256 **95d5ed7713faf12d2dd8586f40d58e81a865fc8f99e6c5b7db441384fbf303b8**，69manifest／747source／19delta。原3702Node／641Python紀錄恢復，非本輪重跑。最終pre-push回下載收據沒有找回，**本輪是發布後下載回驗**，不使用early收據代替。K source/tree與snapshot一致，見VQ04K_RECOVERY_READBACK。
 
-Part2 **1dT8qW30LvNSnQeOb0Zxe3XuViRCBuzKc**／Chrono-CI106-Pages100-evidence-part2.zip：40540494bytes／SHA **c468eba79385f68577bb7be7ebf7b028cf934e8710b3f7dc83a4d54428d34de8**，8manifest（其餘6原ZIP與review/verifier）。2026-09-29T00:08:29.509395Z實際回下載核外內CRC、manifest和原byte。
+原CI107／Pages101 failure/skipped限定review及原cloud收據保留在K包和本L包recovered/；CI107_PAGES101_REVIEW是原紀錄，不聲稱本輪重審或改寫。原兩包IDs為13krKZk-OabRlz6Hkjac2Ccn6HC96iSNv與1uMXP_kpGjpVvcdnTrxYQinlPvgck7JBa。
 
-CI10636472872816/Pages10036477353924success；727I來源、五ledger150entry、原CPUrescue291<=309、trial/gates與九Pagespayload同源。實際選I sourcee6512e40a48d68df1dab351a8151d1e40b637a36/playable10994152919；空.nojekyll未進tar，未另抓live site。兩靜態WebGL圖不是完整motion/影片/聆聽/真機批准。
+## CI108／Pages102原始證據
 
-## 收據與固定界線
+Part1 **1dQG729PwAmSKwoiJXNxWdhCrvU2Q7onV**，Chrono-CI108-Pages102-evidence-part1.zip，66706742bytes／SHA256 **e1717950f121f70299fda7a55c3a48673a6296b4b6182836a89cb46841843ad4**，1manifest（browser原ZIP）。
 
-evidence/VQ04J_VALIDATION、CLOUD_READBACK、PUBLICATION、SOURCE_VERIFICATION、TRANSFER_CORRECTIONS和CI106_PAGES100_REVIEW/CI106_CLOUD_READBACK記完整來源。原driver把75ignored產物計入after而false，原紀錄未改，738source逐byte不變的說明獨立保存。原始failed fixtures和兩個未引用錯誤Gitblob照存，錯誤物件未進main。
+Part2 **1Yxu1euPV6db-s8ZdjTTxcMXTXya5YIMS**，Chrono-CI108-Pages102-evidence-part2.zip，40772859bytes／SHA256 **e82f9a26ef698bfccd0d8c5b01d63786d9a639338f684a593403d7383dc3753c**，9manifest（其餘六原ZIP及限定review／raw ledger／K恢復收據）。兩包2026-09-29T02:58:29.452368Z真正回下載核parent、size、hash、outer/innerCRC及全部原bytes。
 
-上一I包1rQFMxpJqWT26Z8lKM2hiHYNcOwSmK68D僅前代來源。最後有界審查部署已為I/Pages100；J部署未確認。全T03–T08及所有品質分母不縮，批准false／newScore=null／releaseBLOCKED。ROM/media/fonts/credentials私有；docs[skip ci]、容器非權威。
+CI10836509304093 success updated02:24:26Z；Pages10236512444855 success updated02:24:52Z。實選K／playable11009780958；747source、八ledger179entry、九Pages payload與playable五檔一致；空.nojekyll不在uploaded tar明示，未抓live site。三張靜態圖不等於全motion/audio/device。最後限定部署K／0.9.84，L待CI109。
+
+完整批准false，newScore=null／releaseBLOCKED；舊失敗不回填；ROM/media/fonts/credentials私有，所有文件[skip ci]。

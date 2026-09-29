@@ -398,6 +398,18 @@
         "tests/inn-mount-k.test.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "grove-understory-vq04l",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-grove-art.ts; src/production-grove-finish.ts",
+      "gap": "Authored moss roots and fern fronds at sixteen original Truce/forest tree sites. Original trees/actor textures remain; no full tree-crown redesign, native/device or final-art approval.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04L.md",
+        "tests/production-grove.test.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

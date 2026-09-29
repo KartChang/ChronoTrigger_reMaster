@@ -1,0 +1,581 @@
+{
+  "schema": "chrono-ci108-grove-offline-fixture-v1",
+  "offlineOnly": true,
+  "sourceSha": "59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c",
+  "runId": "36509304093",
+  "reportSha256": "130adbff85774a506e09dffecaf6385e167e902bc5f9233313feb24eb8fbf3a9",
+  "stops": [
+    {
+      "name": "entry",
+      "state": {
+        "equipment": null,
+        "trial": {
+          "hearing": null,
+          "stage": "none",
+          "history": null,
+          "fade": 0,
+          "choice": null,
+          "question": 0,
+          "blamedMarle": null,
+          "wealthMotive": null,
+          "verdict": "pending",
+          "knocks": 0,
+          "days": 0,
+          "route": "unknown",
+          "cellOpen": false,
+          "guardsWon": false,
+          "fritzFreed": false,
+          "luccaJoined": false,
+          "marleJoined": false,
+          "manualRead": false,
+          "suppliesTaken": false,
+          "tankWon": false,
+          "encounter": "none",
+          "ethers": 0,
+          "experience": 0,
+          "headRepairs": 0
+        },
+        "prologue": {
+          "conduct": null,
+          "stage": "legacy",
+          "elapsed": 0,
+          "first": "unknown",
+          "checkedMarle": false,
+          "pendantPicked": false,
+          "pendantReturned": false,
+          "motherTalked": false,
+          "choice": null,
+          "transition": null
+        },
+        "followPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "mode": "explore",
+        "era": "middle",
+        "joined": true,
+        "players": [
+          {
+            "x": 0,
+            "z": 6.4,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          },
+          {
+            "x": 0,
+            "z": 6.4,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          }
+        ],
+        "enemies": [],
+        "flags": {
+          "won": false,
+          "repaired": false,
+          "visitedFuture": false
+        },
+        "targets": [
+          null,
+          null
+        ],
+        "combo": [
+          false,
+          false
+        ],
+        "log": [
+          "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+        ],
+        "effects": [],
+        "ticks": 73,
+        "enemyTurn": 0,
+        "chapter": "truce",
+        "fair": {
+          "bellHeard": false,
+          "gatoWon": true,
+          "luccaMet": true,
+          "telepodTested": true
+        },
+        "opening": {
+          "phase": "vista",
+          "elapsed": 0,
+          "canyonWon": true
+        },
+        "kingdom": {
+          "phase": "arrival",
+          "heardYear": false,
+          "forestWon": false,
+          "elapsed": 0
+        },
+        "rescue": {
+          "stage": "none",
+          "organOpen": false,
+          "guardsWon": false,
+          "yakraWon": false,
+          "chancellorFreed": false,
+          "chestOpened": false,
+          "tonics": 0,
+          "guest": {
+            "x": -0.9,
+            "z": 5.7,
+            "hp": 140,
+            "mp": 16,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          },
+          "guestPlan": {
+            "chapter": "",
+            "goal": {
+              "x": 0,
+              "z": 0
+            },
+            "points": [],
+            "repathAt": 0
+          },
+          "encounter": "none",
+          "enemyActions": 0
+        }
+      }
+    },
+    {
+      "name": "resident",
+      "state": {
+        "equipment": null,
+        "trial": {
+          "hearing": null,
+          "stage": "none",
+          "history": null,
+          "fade": 0,
+          "choice": null,
+          "question": 0,
+          "blamedMarle": null,
+          "wealthMotive": null,
+          "verdict": "pending",
+          "knocks": 0,
+          "days": 0,
+          "route": "unknown",
+          "cellOpen": false,
+          "guardsWon": false,
+          "fritzFreed": false,
+          "luccaJoined": false,
+          "marleJoined": false,
+          "manualRead": false,
+          "suppliesTaken": false,
+          "tankWon": false,
+          "encounter": "none",
+          "ethers": 0,
+          "experience": 0,
+          "headRepairs": 0
+        },
+        "prologue": {
+          "conduct": null,
+          "stage": "legacy",
+          "elapsed": 0,
+          "first": "unknown",
+          "checkedMarle": false,
+          "pendantPicked": false,
+          "pendantReturned": false,
+          "motherTalked": false,
+          "choice": null,
+          "transition": null
+        },
+        "followPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "mode": "explore",
+        "era": "middle",
+        "joined": true,
+        "players": [
+          {
+            "x": -4.600000000000003,
+            "z": 1.0666666666666695,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 3,
+            "walking": false
+          },
+          {
+            "x": 0,
+            "z": 6.4,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          }
+        ],
+        "enemies": [],
+        "flags": {
+          "won": false,
+          "repaired": false,
+          "visitedFuture": false
+        },
+        "targets": [
+          null,
+          null
+        ],
+        "combo": [
+          false,
+          false
+        ],
+        "log": [
+          "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+        ],
+        "effects": [],
+        "ticks": 266,
+        "enemyTurn": 0,
+        "chapter": "truce",
+        "fair": {
+          "bellHeard": false,
+          "gatoWon": true,
+          "luccaMet": true,
+          "telepodTested": true
+        },
+        "opening": {
+          "phase": "vista",
+          "elapsed": 0,
+          "canyonWon": true
+        },
+        "kingdom": {
+          "phase": "arrival",
+          "heardYear": false,
+          "forestWon": false,
+          "elapsed": 0
+        },
+        "rescue": {
+          "stage": "none",
+          "organOpen": false,
+          "guardsWon": false,
+          "yakraWon": false,
+          "chancellorFreed": false,
+          "chestOpened": false,
+          "tonics": 0,
+          "guest": {
+            "x": -0.9,
+            "z": 5.7,
+            "hp": 140,
+            "mp": 16,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          },
+          "guestPlan": {
+            "chapter": "",
+            "goal": {
+              "x": 0,
+              "z": 0
+            },
+            "points": [],
+            "repathAt": 0
+          },
+          "encounter": "none",
+          "enemyActions": 0
+        }
+      }
+    },
+    {
+      "name": "inn",
+      "state": {
+        "equipment": null,
+        "trial": {
+          "hearing": null,
+          "stage": "none",
+          "history": null,
+          "fade": 0,
+          "choice": null,
+          "question": 0,
+          "blamedMarle": null,
+          "wealthMotive": null,
+          "verdict": "pending",
+          "knocks": 0,
+          "days": 0,
+          "route": "unknown",
+          "cellOpen": false,
+          "guardsWon": false,
+          "fritzFreed": false,
+          "luccaJoined": false,
+          "marleJoined": false,
+          "manualRead": false,
+          "suppliesTaken": false,
+          "tankWon": false,
+          "encounter": "none",
+          "ethers": 0,
+          "experience": 0,
+          "headRepairs": 0
+        },
+        "prologue": {
+          "conduct": null,
+          "stage": "legacy",
+          "elapsed": 0,
+          "first": "unknown",
+          "checkedMarle": false,
+          "pendantPicked": false,
+          "pendantReturned": false,
+          "motherTalked": false,
+          "choice": null,
+          "transition": null
+        },
+        "followPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "mode": "explore",
+        "era": "middle",
+        "joined": true,
+        "players": [
+          {
+            "x": -6.53333333333333,
+            "z": -4.266666666666668,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 3,
+            "walking": false
+          },
+          {
+            "x": 0,
+            "z": 6.4,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          }
+        ],
+        "enemies": [],
+        "flags": {
+          "won": false,
+          "repaired": false,
+          "visitedFuture": false
+        },
+        "targets": [
+          null,
+          null
+        ],
+        "combo": [
+          false,
+          false
+        ],
+        "log": [
+          "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+        ],
+        "effects": [],
+        "ticks": 583,
+        "enemyTurn": 0,
+        "chapter": "truce",
+        "fair": {
+          "bellHeard": false,
+          "gatoWon": true,
+          "luccaMet": true,
+          "telepodTested": true
+        },
+        "opening": {
+          "phase": "vista",
+          "elapsed": 0,
+          "canyonWon": true
+        },
+        "kingdom": {
+          "phase": "arrival",
+          "heardYear": true,
+          "forestWon": false,
+          "elapsed": 0
+        },
+        "rescue": {
+          "stage": "none",
+          "organOpen": false,
+          "guardsWon": false,
+          "yakraWon": false,
+          "chancellorFreed": false,
+          "chestOpened": false,
+          "tonics": 0,
+          "guest": {
+            "x": -0.9,
+            "z": 5.7,
+            "hp": 140,
+            "mp": 16,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          },
+          "guestPlan": {
+            "chapter": "",
+            "goal": {
+              "x": 0,
+              "z": 0
+            },
+            "points": [],
+            "repathAt": 0
+          },
+          "encounter": "none",
+          "enemyActions": 0
+        }
+      }
+    },
+    {
+      "name": "exit",
+      "state": {
+        "equipment": null,
+        "trial": {
+          "hearing": null,
+          "stage": "none",
+          "history": null,
+          "fade": 0,
+          "choice": null,
+          "question": 0,
+          "blamedMarle": null,
+          "wealthMotive": null,
+          "verdict": "pending",
+          "knocks": 0,
+          "days": 0,
+          "route": "unknown",
+          "cellOpen": false,
+          "guardsWon": false,
+          "fritzFreed": false,
+          "luccaJoined": false,
+          "marleJoined": false,
+          "manualRead": false,
+          "suppliesTaken": false,
+          "tankWon": false,
+          "encounter": "none",
+          "ethers": 0,
+          "experience": 0,
+          "headRepairs": 0
+        },
+        "prologue": {
+          "conduct": null,
+          "stage": "legacy",
+          "elapsed": 0,
+          "first": "unknown",
+          "checkedMarle": false,
+          "pendantPicked": false,
+          "pendantReturned": false,
+          "motherTalked": false,
+          "choice": null,
+          "transition": null
+        },
+        "followPlan": {
+          "chapter": "",
+          "goal": {
+            "x": 0,
+            "z": 0
+          },
+          "points": [],
+          "repathAt": 0
+        },
+        "mode": "explore",
+        "era": "middle",
+        "joined": true,
+        "players": [
+          {
+            "x": 7.266666666666661,
+            "z": -4.266666666666668,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 1,
+            "walking": false
+          },
+          {
+            "x": 0,
+            "z": 6.4,
+            "hp": 120,
+            "mp": 18,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          }
+        ],
+        "enemies": [],
+        "flags": {
+          "won": false,
+          "repaired": false,
+          "visitedFuture": false
+        },
+        "targets": [
+          null,
+          null
+        ],
+        "combo": [
+          false,
+          false
+        ],
+        "log": [
+          "\u5df2\u8b80\u53d6\u5b58\u6a94\u3002"
+        ],
+        "effects": [],
+        "ticks": 852,
+        "enemyTurn": 0,
+        "chapter": "truce",
+        "fair": {
+          "bellHeard": false,
+          "gatoWon": true,
+          "luccaMet": true,
+          "telepodTested": true
+        },
+        "opening": {
+          "phase": "vista",
+          "elapsed": 0,
+          "canyonWon": true
+        },
+        "kingdom": {
+          "phase": "arrival",
+          "heardYear": true,
+          "forestWon": false,
+          "elapsed": 0
+        },
+        "rescue": {
+          "stage": "none",
+          "organOpen": false,
+          "guardsWon": false,
+          "yakraWon": false,
+          "chancellorFreed": false,
+          "chestOpened": false,
+          "tonics": 0,
+          "guest": {
+            "x": -0.9,
+            "z": 5.7,
+            "hp": 140,
+            "mp": 16,
+            "atb": 0,
+            "facing": 2,
+            "walking": false
+          },
+          "guestPlan": {
+            "chapter": "",
+            "goal": {
+              "x": 0,
+              "z": 0
+            },
+            "points": [],
+            "repathAt": 0
+          },
+          "encounter": "none",
+          "enemyActions": 0
+        }
+      }
+    }
+  ]
+}

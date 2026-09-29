@@ -1,3 +1,4 @@
+import {installProductionGrove} from './production-grove-finish';
 import {installProductionSightlines} from './production-sightline-finish';
 import {installProductionArchitecture} from './production-architecture-finish';
 import {NpcAttention} from './production-npc-attention';
@@ -15,6 +16,7 @@ import {installProductionEnvironment} from './production-environment';
  * Every browser launch, including CPU fallback, uses this class (no test/device/quality bypass).
  */
 export class ArtDirectedWorld extends World {
+ private readonly grove:ReturnType<typeof installProductionGrove>;
  private readonly architecture:ReturnType<typeof installProductionArchitecture>;
  private readonly npcAttention=new NpcAttention();
  private readonly places:ReturnType<typeof installProductionPlaces>;
@@ -38,8 +40,9 @@ export class ArtDirectedWorld extends World {
   this.places=installProductionPlaces(scene);
   this.architecture=installProductionArchitecture(scene);
   this.sightlines=installProductionSightlines(scene);
+  this.grove=installProductionGrove(scene);
  }
  override draw(state:State,dt:number,animate:boolean,frameEffects:readonly Effect[]=[]):void{this.npcAttention.begin(state);this.storyNpcs.begin(state.chapter);this.actorFinish.begin(state.chapter);this.partyArt.begin(state.chapter);super.draw(state,dt,animate,frameEffects);}
- inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect(),earlyScenes:this.earlySceneFinish.inspect(),party:this.partyArt.inspect(),storyNpcs:this.storyNpcs.inspect(),npcAttention:this.npcAttention.inspect(),places:this.places.inspect(),architecture:this.architecture.inspect(),sightlines:this.sightlines.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}
+ inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect(),earlyScenes:this.earlySceneFinish.inspect(),party:this.partyArt.inspect(),storyNpcs:this.storyNpcs.inspect(),npcAttention:this.npcAttention.inspect(),places:this.places.inspect(),architecture:this.architecture.inspect(),sightlines:this.sightlines.inspect(),grove:this.grove.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}
  override inspect(){return {...super.inspect(),productionArt:this.inspectProductionArt()};}
 }

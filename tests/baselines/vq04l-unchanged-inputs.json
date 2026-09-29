@@ -1,0 +1,45 @@
+{
+  "schema": "chrono-vq04l-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-grove-export.mjs",
+    "scripts/test-inn-mount.mjs",
+    "scripts/test-production-grove.mjs",
+    "scripts/test-production-sightlines.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-grove-art.ts",
+    "src/production-grove-finish.ts",
+    "tests/baselines/vq04l-declared-art-edits.json",
+    "tests/baselines/vq04l-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/fixtures/ci108-grove-stops.json",
+    "tests/grove_l_preservation.py",
+    "tests/grove_l_test.py",
+    "tests/helpers/grove-l-baseline.mjs",
+    "tests/helpers/inn-mount-k-baseline.mjs",
+    "tests/inn-mount-source.test.mjs",
+    "tests/inn_mount_k_preservation.py",
+    "tests/inn_mount_k_test.py",
+    "tests/production-grove-source.test.mjs",
+    "tests/production-grove.test.mjs"
+  ],
+  "expectedCount": 731,
+  "sha256": "c9e39e2ef74755127589cdbfa90b453de4d5a1220358068b0cb22c1eaa72d176"
+}

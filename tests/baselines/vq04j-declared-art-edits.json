@@ -1,0 +1,207 @@
+{
+  "schema": "chrono-vq04j-source-only-v1",
+  "baseSource": "e6512e40a48d68df1dab351a8151d1e40b637a36",
+  "scope": "SOURCE only. Never native reports, images, State, original route/capture/golden.",
+  "files": {
+    "scripts/test-cpu-hot-loop.mjs": {
+      "sha256": "37eb8cba80acbd61cce7aea4905c3e2e6ab8ec8d91e7e2129da61d62e295a9de",
+      "hunks": [
+        {
+          "before": "import {build} from 'esbuild';import {readFileSync} fro",
+          "after": "import {sightJEntryPlugin} from '../tests/helpers/sightline-j-baseline.mjs';\nimport {build} from 'esbuild';import {readFileSync} fro"
+        },
+        {
+          "before": "rmat:'esm',platform:'node',packages:'external',plugins:previous?[prior]:[]});\n}\nif(process.argv[1]&&import.meta.url===pathToFile",
+          "after": "rmat:'esm',platform:'node',packages:'external',plugins:[sightJEntryPlugin,...(previous?[prior]:[])]});\n}\nif(process.argv[1]&&import.meta.url===pathToFile"
+        }
+      ]
+    },
+    "scripts/test.mjs": {
+      "sha256": "fde85e51c05e52cc172148cc84045045aa95988baff46acae9bb9b02ec037e43",
+      "hunks": [
+        {
+          "before": "import {buildCpuHotLoopTests} from './test-cpu-hot-loop",
+          "after": "import {buildSightlineTests} from './test-production-sightlines.mjs';\nimport {buildCpuHotLoopTests} from './test-cpu-hot-loop"
+        },
+        {
+          "before": "uildArchitectureTests();\nawait buildCpuHotLoopTests();\nconst r=spawnSync(process.execPath,['--test','tests/cpu-hot-loop-i.test.mjs','tests/cpu-hot-loop-s",
+          "after": "uildArchitectureTests();\nawait buildCpuHotLoopTests();\nawait buildSightlineTests();\nconst r=spawnSync(process.execPath,['--test','tests/production-sightline.test.mjs','tests/sightline-source.test.mjs','tests/cpu-hot-loop-i.test.mjs','tests/cpu-hot-loop-s"
+        }
+      ]
+    },
+    "scripts/build.mjs": {
+      "sha256": "e940ec61c5b29fae70257dcc02b8953b77794fc7b442f72529b07f55079dc266",
+      "hunks": [
+        {
+          "before": "rom 'node:fs/promises';\nconst buildInfo={version:'0.9.82',batch:'VQ04I',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo",
+          "after": "rom 'node:fs/promises';\nconst buildInfo={version:'0.9.83',batch:'VQ04J',sourceSha:process.env.GITHUB_SHA??null};\nif(buildInfo"
+        }
+      ]
+    },
+    "scripts/test-production-architecture.mjs": {
+      "sha256": "e808aa86022bad0955f0d1cc012bad8b012c5dca032e7adceeac99a271baf2be",
+      "hunks": [
+        {
+          "before": "import {build} from 'esbuild';import {readFileSync} fro",
+          "after": "import {sightJEntryPlugin} from '../tests/helpers/sightline-j-baseline.mjs';\nimport {build} from 'esbuild';import {readFileSync} fro"
+        },
+        {
+          "before": "'.mjs',format:'esm',platform:'node',packages:'external'});\n await build({entryPoints:['tests/cpu-entry.ts'],bu",
+          "after": "'.mjs',format:'esm',platform:'node',packages:'external',plugins:[sightJEntryPlugin]});\n await build({entryPoints:['tests/cpu-entry.ts'],bu"
+        }
+      ]
+    },
+    "src/art-directed-world.ts": {
+      "sha256": "1451f1bdd339de4dc00e34b16f6e33286a7758110d9b11fe0df8ccc9a3c2e9cb",
+      "hunks": [
+        {
+          "before": "import {installProductionArchitecture} from './producti",
+          "after": "import {installProductionSightlines} from './production-sightline-finish';\nimport {installProductionArchitecture} from './producti"
+        },
+        {
+          "before": "ment:ReturnType<typeof installProductionEnvironment>;\n constructor(canvas:HTMLCanvasElement){\n  super(canvas);",
+          "after": "ment:ReturnType<typeof installProductionEnvironment>;\n private readonly sightlines:ReturnType<typeof installProductionSightlines>;\n constructor(canvas:HTMLCanvasElement){\n  super(canvas);"
+        },
+        {
+          "before": "is.architecture=installProductionArchitecture(scene);\n }\n override draw(state:State,dt:number,animate:boolean,",
+          "after": "is.architecture=installProductionArchitecture(scene);\n  this.sightlines=installProductionSightlines(scene);\n }\n override draw(state:State,dt:number,animate:boolean,"
+        },
+        {
+          "before": "ces.inspect(),architecture:this.architecture.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}\n override",
+          "after": "ces.inspect(),architecture:this.architecture.inspect(),sightlines:this.sightlines.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}\n override"
+        }
+      ]
+    },
+    "tests/current_build_test.py": {
+      "sha256": "47f665ebfba283dd330753c25b45932319806696cfc2c20caac8d569557c6687",
+      "hunks": [
+        {
+          "before": "al_browser.py':2}\nDECL=\"const buildInfo={version:'0.9.82',batch:'VQ04I',sourceSha:process.env.GITHUB_SHA??null};\"\nclass Curre",
+          "after": "al_browser.py':2}\nDECL=\"const buildInfo={version:'0.9.83',batch:'VQ04J',sourceSha:process.env.GITHUB_SHA??null};\"\nclass Curre"
+        },
+        {
+          "before": "(self):\n        self.assertEqual(EXPECTED_BUILD,('0.9.82','VQ04I'))\n        self.assertEqual(expected_build_from_source",
+          "after": "(self):\n        self.assertEqual(EXPECTED_BUILD,('0.9.83','VQ04J'))\n        self.assertEqual(expected_build_from_source"
+        },
+        {
+          "before": "      for raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.82','NaN'),DECL.replace('VQ04I','report.batch'),DECL.replace('process.env.GITHUB_SHA?",
+          "after": "      for raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.83','NaN'),DECL.replace('VQ04J','report.batch'),DECL.replace('process.env.GITHUB_SHA?"
+        },
+        {
+          "before": "onst buildInfo=untrusted;',DECL.replace(\"version:'0.9.82'\",'version:report.version')]:\n            with self.su",
+          "after": "onst buildInfo=untrusted;',DECL.replace(\"version:'0.9.83'\",'version:report.version')]:\n            with self.su"
+        }
+      ]
+    },
+    "tests/cpu_hot_loop_i_test.py": {
+      "sha256": "2c50c22604eb42cc4e86d18ae831c8a82e223c4fb3fba7e6256b79745fd27be9",
+      "hunks": [
+        {
+          "before": "\"\"\"Offline source-only contracts. Not native timing or ",
+          "after": "from sightline_j_preservation import SPEC as J_SPEC,restore_sight_j_if_declared,sight_j_frozen_bytes\n\"\"\"Offline source-only contracts. Not native timing or "
+        },
+        {
+          "before": "     for n,e in SPEC['files'].items():\n            raw=(ROOT/n).read_text();old=restore_cpu_i_source(n,raw)\n            self.asse",
+          "after": "     for n,e in SPEC['files'].items():\n            raw=restore_sight_j_if_declared(n,(ROOT/n).read_text());old=restore_cpu_i_source(n,raw)\n            self.asse"
+        },
+        {
+          "before": "LD,expected_build_from_source\n        self.assertEqual(EXPECTED_BUILD,('0.9.82','VQ04I'))\n        self.assertEqual(expected_",
+          "after": "LD,expected_build_from_source\n        self.assertEqual(expected_build_from_source(restore_sight_j_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.82','VQ04I'))\n        self.assertEqual(expected_"
+        },
+        {
+          "before": "e_to(ROOT).as_posix())\n        rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in sorted(names) if n not in pin['exclude']]\n        self.assertEqual(len(rows),pin['expectedCou",
+          "after": "e_to(ROOT).as_posix())\n        rows=[[n,hashlib.sha256(sight_j_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in sorted(names) if n not in pin['exclude'] and n not in J_SPEC['newPaths']]\n        self.assertEqual(len(rows),pin['expectedCou"
+        }
+      ]
+    },
+    "tests/cpu_hot_loop_i_preservation.py": {
+      "sha256": "1847ff7ebf4a3a790abdf3fc280aee1f2df82a08c98bc255834286ee2ec06328",
+      "hunks": [
+        {
+          "before": "\"\"\"I -> H SOURCE-only inverse. Not usable on native rep",
+          "after": "from sightline_j_preservation import SPEC as J_SPEC,restore_sight_j_if_declared,sight_j_frozen_bytes\n\"\"\"I -> H SOURCE-only inverse. Not usable on native rep"
+        },
+        {
+          "before": "Error('I source digest mismatch')\nSPEC=json.loads(RAW)\ndef restore_cpu_i_source(name,source,verify=True):\n    e=SPEC['files'].get(name)\n    if not e or not isin",
+          "after": "Error('I source digest mismatch')\nSPEC=json.loads(RAW)\nSPEC['newPaths'].extend(J_SPEC['newPaths'])\ndef restore_cpu_i_source(name,source,verify=True):\n    source=restore_sight_j_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    if not e or not isin"
+        },
+        {
+          "before": "ource\n\ndef restore_cpu_i_if_declared(name,source):\n    e=SPEC['files'].get(name)\n    return restore_cpu_i_sour",
+          "after": "ource\n\ndef restore_cpu_i_if_declared(name,source):\n    source=restore_sight_j_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    return restore_cpu_i_sour"
+        },
+        {
+          "before": "]) else source\n\ndef cpu_i_frozen_bytes(name,data):\n    return restore_cpu_i_source(name,data.decode()).encode(",
+          "after": "]) else source\n\ndef cpu_i_frozen_bytes(name,data):\n    data=sight_j_frozen_bytes(name,data)\n    return restore_cpu_i_source(name,data.decode()).encode("
+        }
+      ]
+    },
+    "tests/cpu-hot-loop-source.test.mjs": {
+      "sha256": "3368534225ca0b83c00f07b6c1fd21769f4f3104ed15ed8fbcb2f7b8945e8671",
+      "hunks": [
+        {
+          "before": "/** SOURCE-only predecessor checks; never a native/imag",
+          "after": "import {sightJIfDeclared,sightJFrozenBytes,sightJIsNew} from './helpers/sightline-j-baseline.mjs';\n/** SOURCE-only predecessor checks; never a native/imag"
+        },
+        {
+          "before": "ource and strict drift rejection '+name,()=>{const raw=readFileSync(name,'utf8'),old=cpuIBaseline(name,raw);assert.equal(sha(old),e.sh",
+          "after": "ource and strict drift rejection '+name,()=>{const raw=sightJIfDeclared(name,readFileSync(name,'utf8')),old=cpuIBaseline(name,raw);assert.equal(sha(old),e.sh"
+        },
+        {
+          "before": "st rows=names.sort().filter(n=>!pin.exclude.includes(n)).map(n=>[n,sha(readFileSync(n))]);assert.equal(rows.length,pin.expectedCount);assert",
+          "after": "st rows=names.sort().filter(n=>!pin.exclude.includes(n)&&!sightJIsNew(n)).map(n=>[n,sha(sightJFrozenBytes(n,readFileSync(n)))]);assert.equal(rows.length,pin.expectedCount);assert"
+        },
+        {
+          "before": " and CPU renderer has no native bypass',()=>{const raw=readFileSync('scripts/build.mjs','utf8');assert(raw.includes(\"version:'0.9.82',batch:'VQ04I'\")",
+          "after": " and CPU renderer has no native bypass',()=>{const raw=sightJIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8'));assert(raw.includes(\"version:'0.9.82',batch:'VQ04I'\")"
+        }
+      ]
+    },
+    "assets/manifest.json": {
+      "sha256": "d3313374bb56c06338508add5d742d064149bf2f3ad5349ce6ed58750ff2a9cc",
+      "hunks": [
+        {
+          "before": "-export.mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n",
+          "after": "-export.mjs\"\n      ],\n      \"romExtracted\": false\n    },\n    {\n      \"id\": \"inn-sign-court-dais-sightlines-vq04j\",\n      \"required\": true,\n      \"stage\": \"review\",\n      \"source\": \"src/production-sightline-art.ts; src/production-sightline-finish.ts\",\n      \"gap\": \"Actual private geometry reduces inn sign size and court dais depth. No new character animation, native/device/style approval or complete town/roof redesign.\",\n      \"evidence\": [\n        \"docs/PRODUCTION_ART_VQ04J.md\",\n        \"tests/production-sightline.test.mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n"
+        }
+      ]
+    },
+    "tests/helpers/cpu-hot-loop-i-baseline.mjs": {
+      "sha256": "e193ab26f9f4af5e201dc3171aef1774ffa39877e0514b92f5f3daa584b2b1bb",
+      "hunks": [
+        {
+          "before": "/** I -> H SOURCE-only inverse. Never accepts game Stat",
+          "after": "import {sightJSpec,sightJIfDeclared,sightJFrozenBytes,sightJIsNew} from './sightline-j-baseline.mjs';\n/** I -> H SOURCE-only inverse. Never accepts game Stat"
+        },
+        {
+          "before": "ort const cpuISpec=JSON.parse(bytes.toString('utf8'));\nexport function cpuIBaseline(name,source,verify=true){\n const e=Object.hasOwn(cpuISpec.files,name)?cpuISpec.f",
+          "after": "ort const cpuISpec=JSON.parse(bytes.toString('utf8'));\ncpuISpec.newPaths.push(...sightJSpec.newPaths);\nexport function cpuIBaseline(name,source,verify=true){\n source=sightJIfDeclared(name,source);\n const e=Object.hasOwn(cpuISpec.files,name)?cpuISpec.f"
+        },
+        {
+          "before": " source;\n}\nexport function cpuIIfDeclared(name,source){const e=Object.hasOwn(cpuISpec.files,name)?cpuISpec.fil",
+          "after": " source;\n}\nexport function cpuIIfDeclared(name,source){source=sightJIfDeclared(name,source);const e=Object.hasOwn(cpuISpec.files,name)?cpuISpec.fil"
+        },
+        {
+          "before": "e):source;}\nexport function cpuIFrozenBytes(name,data){return Object.hasOwn(cpuISpec.files,name)?Buffer.from(c",
+          "after": "e):source;}\nexport function cpuIFrozenBytes(name,data){data=sightJFrozenBytes(name,data);return Object.hasOwn(cpuISpec.files,name)?Buffer.from(c"
+        },
+        {
+          "before": "cpuIIsNew(name){return cpuISpec.newPaths.includes(name);}\n",
+          "after": "cpuIIsNew(name){return cpuISpec.newPaths.includes(name)||sightJIsNew(name);}\n"
+        }
+      ]
+    }
+  },
+  "newPaths": [
+    "scripts/test-production-sightlines.mjs",
+    "src/production-sightline-art.ts",
+    "src/production-sightline-finish.ts",
+    "tests/baselines/vq04j-declared-art-edits.json",
+    "tests/baselines/vq04j-unchanged-inputs.json",
+    "tests/fixtures/ci106-sightline-observations.json",
+    "tests/helpers/sightline-j-baseline.mjs",
+    "tests/production-sightline.test.mjs",
+    "tests/sightline-source.test.mjs",
+    "tests/sightline_j_preservation.py",
+    "tests/sightline_j_test.py"
+  ]
+}

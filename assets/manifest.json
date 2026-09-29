@@ -374,6 +374,18 @@
         "scripts/architecture-model-export.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "inn-sign-court-dais-sightlines-vq04j",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-sightline-art.ts; src/production-sightline-finish.ts",
+      "gap": "Actual private geometry reduces inn sign size and court dais depth. No new character animation, native/device/style approval or complete town/roof redesign.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04J.md",
+        "tests/production-sightline.test.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "schema": "chrono-vq04j-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/test-cpu-hot-loop.mjs",
+    "scripts/test-production-architecture.mjs",
+    "scripts/test-production-sightlines.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-sightline-art.ts",
+    "src/production-sightline-finish.ts",
+    "tests/baselines/vq04j-declared-art-edits.json",
+    "tests/baselines/vq04j-unchanged-inputs.json",
+    "tests/cpu-hot-loop-source.test.mjs",
+    "tests/cpu_hot_loop_i_preservation.py",
+    "tests/cpu_hot_loop_i_test.py",
+    "tests/current_build_test.py",
+    "tests/fixtures/ci106-sightline-observations.json",
+    "tests/helpers/cpu-hot-loop-i-baseline.mjs",
+    "tests/helpers/sightline-j-baseline.mjs",
+    "tests/production-sightline.test.mjs",
+    "tests/sightline-source.test.mjs",
+    "tests/sightline_j_preservation.py",
+    "tests/sightline_j_test.py"
+  ],
+  "expectedCount": 711,
+  "sha256": "c20c6ec60c307be52d797eb65be005b2809ed66f97b79fe45a1912de21e7e6bd"
+}

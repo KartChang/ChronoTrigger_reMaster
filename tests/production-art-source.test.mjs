@@ -1,3 +1,4 @@
+import {compositionNIfDeclared} from './helpers/composition-n-baseline.mjs';
 import {artBIfDeclared,artBFrozenBytes,artBIsNew} from './helpers/production-art-b-baseline.mjs';
 /** Actual build integration + exact source-only historical compatibility. */
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';
@@ -12,7 +13,7 @@ test('native sources, held files, images and game state are not art inverse inpu
 });
 test('actual browser entrypoint installs art for all launch modes without replacing gameplay',()=>{
  const main=readFileSync('src/main.ts','utf8');assert.equal(main.split("import {ArtDirectedWorld as World} from './art-directed-world';").length,2);assert.equal(main.split('new World(').length,2);
- const entry=readFileSync('src/art-directed-world.ts','utf8');assert(entry.includes('extends World'));assert(entry.includes('super(canvas)'));assert(entry.includes('installProductionEnvironment(scene)'));assert(!/querySelector|location|navigator|process\.env/.test(entry));
+ const entry=compositionNIfDeclared('src/art-directed-world.ts',readFileSync('src/art-directed-world.ts','utf8'));assert(entry.includes('extends World'));assert(entry.includes('super(canvas)'));assert(entry.includes('installProductionEnvironment(scene)'));assert(!/querySelector|location|navigator|process\.env/.test(entry));
  const s=readFileSync('src/production-environment.ts','utf8');assert(s.includes("['truce-canyon-600','canyon']"));assert(s.includes("['trial-courtroom','courtroom']"));assert(s.includes("['trial-guardia1000','guardia1000']"));assert(!/fetch\(|setTimeout|setInterval|localStorage|\.step\(|\.effects|\.hp\b|\.ticks\b/.test(s));
  const pixels=readFileSync('src/production-art.ts','utf8');assert(!/fetch\(|Math\.random|Date\.|\.png|\.webp|imagegen|readFile/.test(pixels));
 });

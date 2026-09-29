@@ -1,21 +1,24 @@
-import {Color3,DynamicTexture,Material,Mesh,MeshBuilder,Scene,StandardMaterial,Texture,TransformNode,VertexBuffer} from '@babylonjs/core';
+import {Color3,DynamicTexture,Material,Mesh,MeshBuilder,Scene,StandardMaterial,Texture,TransformNode,VertexBuffer,VertexData} from '@babylonjs/core';
 import {paintProductionSurface,paintProductionForestFloor,PRODUCTION_ART} from './production-art';
-import type {ProductionSurface} from './production-art';
+import type {PixelSurface,ProductionSurface} from './production-art';
+export type EnvironmentComposition={surface?:(kind:ProductionSurface,base:PixelSurface)=>PixelSurface|null;courtFascia?:(name:string,positions:readonly number[],origin:readonly number[],rotation:readonly number[])=>number[]|null};
 import {preservePixelPalette} from './pixel-presentation';
 /** A scene-owned, lazy art finish at the application composition root.
  * Existing World still owns geometry, gameplay, animation, cameras and rendering.
  * This adds only authored static surfaces/architecture to explicit non-held roots.
  * It never reads State, consumes events, starts timers or writes collision/navigation.
  */
-export function installProductionEnvironment(scene:Scene){
+export function installProductionEnvironment(scene:Scene,composition?:EnvironmentComposition){
  if(scene.isDisposed)throw new Error('A live scene is required');
  const textures=new Map<ProductionSurface,DynamicTexture>(),materials=new Map<string,StandardMaterial>();
  const applied=new Map<TransformNode,{chapter:string;surfaces:string[];addedMeshes:number}>();
- let uploads=0,disposed=false;
+ let uploads=0,disposed=false,courtFasciaAuthored=0,canopyAuthored=0;
  const refinishedExistingTextures:string[]=[];
  const texture=(kind:ProductionSurface):DynamicTexture=>{
   let t=textures.get(kind);if(t)return t;
-  const pixels=paintProductionSurface(kind);t=new DynamicTexture('production-'+kind,{width:pixels.width,height:pixels.height},scene,false,Texture.NEAREST_SAMPLINGMODE);
+  const base=paintProductionSurface(kind),revised=composition?.surface?.(kind,base)??null,pixels=revised??base;
+  if(pixels.width!==base.width||pixels.height!==base.height||!(pixels.rgba instanceof Uint8ClampedArray)||pixels.rgba.length!==base.rgba.length)throw new Error('Invalid authored surface output');
+  if(revised&&kind==='canopy-atlas')canopyAuthored++;t=new DynamicTexture('production-'+kind,{width:pixels.width,height:pixels.height},scene,false,Texture.NEAREST_SAMPLINGMODE);
   const c=t.getContext() as CanvasRenderingContext2D,image=c.createImageData(pixels.width,pixels.height);image.data.set(pixels.rgba);c.putImageData(image,0,0);
   t.hasAlpha=['canopy-atlas','court-window','court-banner'].includes(kind);t.wrapU=t.wrapV=Texture.CLAMP_ADDRESSMODE;t.update();uploads++;textures.set(kind,t);return t;
  };
@@ -54,6 +57,20 @@ export function installProductionEnvironment(scene:Scene){
    // Behind the original north boundary: actual actors, path, rocks and foreground trees remain 3D.
    plane(root,'canyon-distance',0,4.5,12.9,38,18,'mountain-distance');
   }else if(chapter==='courtroom'){
+   if(composition?.courtFascia){
+    const targets=root.getChildMeshes(false).filter((m):m is Mesh=>m instanceof Mesh&&/^courtroom-scenery-(judge|stand)-(panel|lip|stile-[-]?1|inlay)$/.test(m.name));
+    if(targets.length!==10||new Set(targets.map(m=>m.name)).size!==10)throw new Error('Incomplete court fascia cohort');
+    const prepared=targets.map(mesh=>{
+     if(mesh.parent!==root||mesh.rotationQuaternion||!mesh.scaling.equalsToFloats(1,1,1)||mesh.geometry?.meshes.length!==1||mesh.getTotalVertices()!==24||mesh.getTotalIndices()!==36)throw new Error('Exclusive original court fascia required');
+     const source=mesh.getVerticesData(VertexBuffer.PositionKind);if(!source)throw new Error('Missing court fascia vertices');
+     const positions=composition.courtFascia!(mesh.name,Array.from(source),mesh.position.asArray(),mesh.rotation.asArray());
+     if(!positions||positions.length!==72||!positions.every(Number.isFinite))throw new Error('Invalid court fascia author output');
+     const normals:number[]=[];VertexData.ComputeNormals(positions,mesh.getIndices()!,normals);return {mesh,positions,normals};
+    });
+    // This is the initial authoring of the root's own exclusive geometry, just
+    // like its surface assignment below. No extra retained Geometry/buffer layer.
+    for(const {mesh,positions,normals}of prepared){mesh.setVerticesData(VertexBuffer.PositionKind,positions,false);mesh.setVerticesData(VertexBuffer.NormalKind,normals,false);mesh.computeWorldMatrix(true);courtFasciaAuthored++;}
+   }
    for(const m of root.getChildMeshes())if(m instanceof Mesh){
     if(m.name==='courtroom-ground'){assign(m,'court-ground',true);surfaces.push(m.name);}
     else if(m.name==='court-curved-dais'){assign(m,'court-dais');surfaces.push(m.name);}
@@ -114,7 +131,7 @@ export function installProductionEnvironment(scene:Scene){
  }
  const observer=scene.onBeforeRenderObservable.add(beforeRender);
  scene.onDisposeObservable.addOnce(()=>{disposed=true;scene.onBeforeRenderObservable.remove(observer);applied.clear();textures.clear();materials.clear();});
- return {inspect(){return {profile:PRODUCTION_ART.id,approved:false,disposed,uploads,textureBytes:[...textures.values()].reduce((n,t)=>{const s=t.getSize();return n+s.width*s.height*4;},0),
+ return {inspect(){return {profile:PRODUCTION_ART.id,approved:false,disposed,uploads,...(composition?{composition:{courtFasciaAuthored,canopyAuthored,addedResources:0}}:{}),textureBytes:[...textures.values()].reduce((n,t)=>{const s=t.getSize();return n+s.width*s.height*4;},0),
   textures:[...textures.entries()].map(([kind,t])=>({kind,...t.getSize(),alpha:t.hasAlpha,sampling:t.samplingMode})),
   maps:[...applied.entries()].map(([root,record])=>({chapter:record.chapter,visible:root.isEnabled(),surfaces:[...record.surfaces],addedMeshes:record.addedMeshes})),
   refinishedExistingTextures:[...refinishedExistingTextures],source:'authored-static-pixel-surfaces-and-wall-facings',conceptImagesEmbedded:false};}};

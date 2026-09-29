@@ -423,6 +423,19 @@
         "scripts/production-roof-export.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "roof-court-canopy-composition-vq04n",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-composition-art.ts; src/production-environment.ts; src/production-architecture-finish.ts",
+      "gap": "48 roof/chimney envelope parts and 10 previously uncompressed court facings; four real canopy atlas silhouettes, original root rows retained. Offline model output is not native/device/final-art acceptance. Complete roof/canopy/map/interior composition remains open.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04N.md",
+        "tests/production-composition.test.mjs",
+        "scripts/production-composition-export.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

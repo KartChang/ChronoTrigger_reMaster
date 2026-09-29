@@ -1,3 +1,4 @@
+import {paintCompositionSurface,reshapeCourtFascia,reshapeProductionRoof} from './production-composition-art';
 import {dressProductionRoof} from './production-roof-art';
 import {installProductionGrove} from './production-grove-finish';
 import {installProductionSightlines} from './production-sightline-finish';
@@ -31,7 +32,7 @@ export class ArtDirectedWorld extends World {
  constructor(canvas:HTMLCanvasElement){
   super(canvas);
   const scene=this.engine.scenes[0];if(!scene){this.engine.dispose();throw new Error('World scene was not constructed');}
-  this.productionEnvironment=installProductionEnvironment(scene);
+  this.productionEnvironment=installProductionEnvironment(scene,{surface:paintCompositionSurface,courtFascia:reshapeCourtFascia});
   this.actorFinish=installProductionActorFinish(scene);
   this.earlySceneFinish=installEarlySceneFinish(scene);
   this.partyArt=installProductionPartyArt(scene,slot=>super.inspect().partyCombat.current[slot]);
@@ -39,7 +40,7 @@ export class ArtDirectedWorld extends World {
   this.storyNpcs=installProductionStoryNpcs(scene,(name,x,z)=>this.npcAttention.select(name,x,z));
   scene.onDisposeObservable.addOnce(()=>this.npcAttention.clear());
   this.places=installProductionPlaces(scene);
-  this.architecture=installProductionArchitecture(scene,dressProductionRoof);
+  this.architecture=installProductionArchitecture(scene,dressProductionRoof,reshapeProductionRoof);
   this.sightlines=installProductionSightlines(scene);
   this.grove=installProductionGrove(scene);
  }

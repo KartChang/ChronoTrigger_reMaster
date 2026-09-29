@@ -9,9 +9,9 @@ const same=(a:readonly number[],b:readonly number[])=>a.length===b.length&&a.eve
 /** Scene-owned model pass. Only complete known Truce/court structures are accepted.
  * Clone geometry before authoring; never mutate original buffers, actors or textures.
  * Native observations continue to read the real meshes; no diagnostic substitution. */
-export function installProductionArchitecture(scene:Scene,dressRoof?:(name:string,positions:readonly number[],uvs:readonly number[])=>{positions:number[];uvs:number[]}|null){
+export function installProductionArchitecture(scene:Scene,dressRoof?:(name:string,positions:readonly number[],uvs:readonly number[])=>{positions:number[];uvs:number[]}|null,composeRoof?:(name:string,positions:readonly number[],originY:number,rotationZ:number)=>number[]|null){
  if(scene.isDisposed)throw new Error('A live scene is required');
- const owners=new Map<TransformNode,Owner>(),rejected=new WeakSet<TransformNode>();let disposed=false,authored=0,rejections=0,roofParts=0;
+ const owners=new Map<TransformNode,Owner>(),rejected=new WeakSet<TransformNode>();let disposed=false,authored=0,rejections=0,roofParts=0,roofEnvelopes=0;
  const plainRoot=(r:TransformNode)=>!r.parent&&!r.rotationQuaternion&&r.position.equalsToFloats(0,0,0)&&r.rotation.equalsToFloats(0,0,0)&&r.scaling.equalsToFloats(1,1,1);
  const box=(m:Mesh)=>!m.isDisposed()&&!m.rotationQuaternion&&!m.skeleton&&m.instances.length===0&&m.geometry?.meshes.length===1&&m.getTotalVertices()===24&&m.getTotalIndices()===36&&m.scaling.equalsToFloats(1,1,1)&&m.rotation.x===0&&m.rotation.y===0&&[0,.48,-.48].includes(m.rotation.z)&&m.getVerticesDataKinds().sort().join(',')==='normal,position,uv'&&m.material instanceof StandardMaterial&&m.position.asArray().every(Number.isFinite)&&Array.from(m.getVerticesData(VertexBuffer.PositionKind)??[]).every(Number.isFinite);
  function exactLayout(root:TransformNode,meshes:Mesh[]){
@@ -55,10 +55,12 @@ export function installProductionArchitecture(scene:Scene,dressRoof?:(name:strin
    const source=mesh.geometry!,basePositions=reshapeArchitecture(Array.from(source.getVerticesData(VertexBuffer.PositionKind)!),mesh.position.y,mesh.rotation.z,anchorY,heightScale);
    const dressed=dressRoof?.(mesh.name,basePositions,Array.from(source.getVerticesData(VertexBuffer.UVKind)!))??null;
    if(dressed&&(dressed.positions.length!==72||dressed.uvs.length!==48||!dressed.positions.every(Number.isFinite)||!dressed.uvs.every(v=>Number.isFinite(v)&&v>=0&&v<=1)))throw new Error('Invalid roof author output');
-   const positions=dressed?.positions??basePositions,normals:number[]=[];VertexData.ComputeNormals(positions,source.getIndices()!,normals);return {mesh,source,positions,normals,uvs:dressed?.uvs};
+   const envelope=composeRoof?.(mesh.name,dressed?.positions??basePositions,mesh.position.y,mesh.rotation.z)??null;
+   if(envelope&&(envelope.length!==72||!envelope.every(Number.isFinite)))throw new Error('Invalid roof envelope output');
+   const positions=envelope??dressed?.positions??basePositions,normals:number[]=[];VertexData.ComputeNormals(positions,source.getIndices()!,normals);return {mesh,source,positions,normals,uvs:dressed?.uvs,envelope:envelope!==null};
   });
   const o:Owner={root,name:root.name,parts:[],observer:null};owners.set(root,o);
-  try{for(const {mesh,source,positions,normals,uvs}of prepared){const owned=source.copy('architecture-art-'+mesh.uniqueId);o.parts.push({mesh,source,owned,name:mesh.name,material:mesh.material,position:mesh.position.asArray(),rotation:mesh.rotation.asArray(),scale:mesh.scaling.asArray(),bytes:912});owned.setVerticesData(VertexBuffer.PositionKind,positions,false);owned.setVerticesData(VertexBuffer.NormalKind,normals,false);if(uvs){owned.setVerticesData(VertexBuffer.UVKind,uvs,false);roofParts++;}owned.applyToMesh(mesh);mesh.computeWorldMatrix(true);authored++;}o.observer=root.onDisposeObservable.addOnce(()=>release(root));}catch(error){release(root);throw error;}
+  try{for(const {mesh,source,positions,normals,uvs,envelope}of prepared){const owned=source.copy('architecture-art-'+mesh.uniqueId);o.parts.push({mesh,source,owned,name:mesh.name,material:mesh.material,position:mesh.position.asArray(),rotation:mesh.rotation.asArray(),scale:mesh.scaling.asArray(),bytes:912});owned.setVerticesData(VertexBuffer.PositionKind,positions,false);owned.setVerticesData(VertexBuffer.NormalKind,normals,false);if(uvs){owned.setVerticesData(VertexBuffer.UVKind,uvs,false);roofParts++;}owned.applyToMesh(mesh);mesh.computeWorldMatrix(true);authored++;if(envelope)roofEnvelopes++;}o.observer=root.onDisposeObservable.addOnce(()=>release(root));}catch(error){release(root);throw error;}
  }
  const before=scene.onBeforeRenderObservable.add(()=>{if(disposed)return;
   for(const [root,o]of owners){if(root.isDisposed()||root.name!==o.name||!plainRoot(root)||scene.transformNodes.filter(r=>r.name===o.name&&!r.isDisposed()).length!==1||o.parts.some(p=>p.mesh.isDisposed()||p.mesh.parent!==root||p.mesh.name!==p.name||p.mesh.geometry!==p.owned||p.mesh.material!==p.material||!same(p.mesh.position.asArray(),p.position)||!same(p.mesh.rotation.asArray(),p.rotation)||!same(p.mesh.scaling.asArray(),p.scale)))release(root,true);}
@@ -66,5 +68,5 @@ export function installProductionArchitecture(scene:Scene,dressRoof?:(name:strin
  });
  function dispose(){if(disposed)return;disposed=true;scene.onBeforeRenderObservable.remove(before);scene.onDisposeObservable.remove(onDispose);for(const root of [...owners.keys()])release(root);}
  const onDispose=scene.onDisposeObservable.addOnce(dispose);
- return {dispose,inspect(){return {profile:ARCHITECTURE_ART.id,approved:false,disposed,authored,rejections,...(dressRoof?{roofPartsAuthored:roofParts}:{}),roots:owners.size,bindings:[...owners.values()].reduce((n,o)=>n+o.parts.length,0),geometryBytes:[...owners.values()].reduce((n,o)=>n+o.parts.reduce((s,p)=>s+p.bytes,0),0),additionalTextures:0,additionalMaterials:0,additionalMeshes:0,actorTextureWrites:0,gameplayWrites:0,maps:[...owners.values()].map(o=>({owner:o.name,visible:o.root.isEnabled(),parts:o.parts.length}))};}};
+ return {dispose,inspect(){return {profile:ARCHITECTURE_ART.id,approved:false,disposed,authored,rejections,...(dressRoof?{roofPartsAuthored:roofParts}:{}),...(composeRoof?{roofEnvelopesAuthored:roofEnvelopes}:{}),roots:owners.size,bindings:[...owners.values()].reduce((n,o)=>n+o.parts.length,0),geometryBytes:[...owners.values()].reduce((n,o)=>n+o.parts.reduce((s,p)=>s+p.bytes,0),0),additionalTextures:0,additionalMaterials:0,additionalMeshes:0,actorTextureWrites:0,gameplayWrites:0,maps:[...owners.values()].map(o=>({owner:o.name,visible:o.root.isEnabled(),parts:o.parts.length}))};}};
 }

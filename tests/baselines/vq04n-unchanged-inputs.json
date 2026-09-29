@@ -1,0 +1,45 @@
+{
+  "schema": "chrono-vq04n-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-composition-export.mjs",
+    "scripts/test-production-composition.mjs",
+    "scripts/test-production-roof.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-architecture-finish.ts",
+    "src/production-composition-art.ts",
+    "src/production-environment.ts",
+    "tests/baselines/vq04n-declared-art-edits.json",
+    "tests/baselines/vq04n-unchanged-inputs.json",
+    "tests/composition_n_preservation.py",
+    "tests/composition_n_test.py",
+    "tests/current_build_test.py",
+    "tests/helpers/composition-n-baseline.mjs",
+    "tests/helpers/roof-m-baseline.mjs",
+    "tests/production-art-source.test.mjs",
+    "tests/production-composition-source.test.mjs",
+    "tests/production-composition.test.mjs",
+    "tests/production-roof-source.test.mjs",
+    "tests/roof_m_preservation.py",
+    "tests/roof_m_test.py"
+  ],
+  "expectedCount": 752,
+  "sha256": "ffb813a0a92efadbea01de9d4cfdae7eeebc8875cb82cc1f0b545dd359386932"
+}

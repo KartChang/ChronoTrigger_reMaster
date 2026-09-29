@@ -1,0 +1,285 @@
+{
+  "schema": "chrono-vq04n-source-only-v1",
+  "scope": "SOURCE ONLY. Never apply to native evidence, images, State, routes or browser captures.",
+  "predecessorSha": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+  "predecessorVersion": "0.9.86",
+  "newPaths": [
+    "scripts/production-composition-export.mjs",
+    "scripts/test-production-composition.mjs",
+    "src/production-composition-art.ts",
+    "tests/baselines/vq04n-declared-art-edits.json",
+    "tests/baselines/vq04n-unchanged-inputs.json",
+    "tests/composition_n_preservation.py",
+    "tests/composition_n_test.py",
+    "tests/helpers/composition-n-baseline.mjs",
+    "tests/production-composition-source.test.mjs",
+    "tests/production-composition.test.mjs"
+  ],
+  "files": {
+    "assets/manifest.json": {
+      "sha256": "ff13567217daca7367628b02f34b3254b281ff26add1476f554a2d8cd2560f80",
+      "hunks": [
+        {
+          "before": "        \"scripts/production-roof-export.mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n",
+          "after": "        \"scripts/production-roof-export.mjs\"\n      ],\n      \"romExtracted\": false\n    },\n    {\n      \"id\": \"roof-court-canopy-composition-vq04n\",\n      \"required\": true,\n      \"stage\": \"review\",\n      \"source\": \"src/production-composition-art.ts; src/production-environment.ts; src/production-architecture-finish.ts\",\n      \"gap\": \"48 roof/chimney envelope parts and 10 previously uncompressed court facings; four real canopy atlas silhouettes, original root rows retained. Offline model output is not native/device/final-art acceptance. Complete roof/canopy/map/interior composition remains open.\",\n      \"evidence\": [\n        \"docs/PRODUCTION_ART_VQ04N.md\",\n        \"tests/production-composition.test.mjs\",\n        \"scripts/production-composition-export.mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n"
+        }
+      ]
+    },
+    "scripts/build.mjs": {
+      "sha256": "f86ef4424f7cd0877711ff7cc2e26b9912a39e85233184fef0f8287dbdcba971",
+      "hunks": [
+        {
+          "before": "import {exportProduction",
+          "after": "import {exportProductionComposition} from './production-composition-export.mjs';\nimport {exportProduction"
+        },
+        {
+          "before": "uildInfo={version:'0.9.86',batch:'VQ04M',sourceSha:process.env.",
+          "after": "uildInfo={version:'0.9.87',batch:'VQ04N',sourceSha:process.env."
+        },
+        {
+          "before": "art/production-vq04m');\nconst quality=await runQ",
+          "after": "art/production-vq04m');\nawait exportProductionComposition('dist/art/production-vq04n');\nconst quality=await runQ"
+        }
+      ]
+    },
+    "scripts/test-production-roof.mjs": {
+      "sha256": "1d94f0063bf84b05154358e59889ed561819b428a1970b53f89a31ab39823270",
+      "hunks": [
+        {
+          "before": "import {build} from 'esb",
+          "after": "import {compositionNEntryPlugin} from '../tests/helpers/composition-n-baseline.mjs';\nimport {build} from 'esb"
+        },
+        {
+          "before": "ior?[roofMEntryPlugin]:[]});\n}\nif(process.argv[1",
+          "after": "ior?[roofMEntryPlugin]:[compositionNEntryPlugin]});\n}\nif(process.argv[1"
+        }
+      ]
+    },
+    "scripts/test.mjs": {
+      "sha256": "73b9d802aad9aee9958fd096f0a410e4b3ed798a7b63ee5c7ce54f6aa06810aa",
+      "hunks": [
+        {
+          "before": "import {buildRoofTests} ",
+          "after": "import {buildCompositionTests} from './test-production-composition.mjs';\nimport {buildRoofTests} "
+        },
+        {
+          "before": "await buildRoofTests();\nconst r=spawnSync(process.execPath,['--test','tests/production-roof",
+          "after": "await buildRoofTests();\nawait buildCompositionTests();\nconst r=spawnSync(process.execPath,['--test','tests/production-composition.test.mjs','tests/production-composition-source.test.mjs','tests/production-roof"
+        }
+      ]
+    },
+    "src/art-directed-world.ts": {
+      "sha256": "fee8604c42658b216ad434a99cffa9456942d5847e7adfcd7d96a057ccd1a03f",
+      "hunks": [
+        {
+          "before": "import {dressProductionRoof} from './production-roof-art';\nimport {installProductionGrove} from './production-grove-finish';\nimport {installProductionSightlines} from './production-sightline-finish';\n",
+          "after": "import {paintCompositionSurface,reshapeCourtFascia,reshapeProductionRoof} from './production-composition-art';\nimport {dressProductionRoof} from './production-roof-art';\nimport {installProductionGrove} from './production-grove-finish';\nimport {installProductionSightlines} from './production-sightline-finish';\n"
+        },
+        {
+          "before": " constructor(canvas:HTMLCanvasElement){\n  super(canvas);\n  const scene=this.engine.scenes[0];if(!scene){this.engine.dispose();throw new Error('World scene was not constructed');}\n  this.productionEnvironment=installProductionEnvironment(scene);\n  this.actorFinish=installProductionActorFinish(scene);\n  this.earlySceneFinish=installEarlySceneFinish(scene);\n  this.partyArt=installProductionPartyArt(scene,slot=>super.inspect().partyCombat.current[slot]);\n",
+          "after": " constructor(canvas:HTMLCanvasElement){\n  super(canvas);\n  const scene=this.engine.scenes[0];if(!scene){this.engine.dispose();throw new Error('World scene was not constructed');}\n  this.productionEnvironment=installProductionEnvironment(scene,{surface:paintCompositionSurface,courtFascia:reshapeCourtFascia});\n  this.actorFinish=installProductionActorFinish(scene);\n  this.earlySceneFinish=installEarlySceneFinish(scene);\n  this.partyArt=installProductionPartyArt(scene,slot=>super.inspect().partyCombat.current[slot]);\n"
+        },
+        {
+          "before": "  this.storyNpcs=installProductionStoryNpcs(scene,(name,x,z)=>this.npcAttention.select(name,x,z));\n  scene.onDisposeObservable.addOnce(()=>this.npcAttention.clear());\n  this.places=installProductionPlaces(scene);\n  this.architecture=installProductionArchitecture(scene,dressProductionRoof);\n  this.sightlines=installProductionSightlines(scene);\n  this.grove=installProductionGrove(scene);\n }\n",
+          "after": "  this.storyNpcs=installProductionStoryNpcs(scene,(name,x,z)=>this.npcAttention.select(name,x,z));\n  scene.onDisposeObservable.addOnce(()=>this.npcAttention.clear());\n  this.places=installProductionPlaces(scene);\n  this.architecture=installProductionArchitecture(scene,dressProductionRoof,reshapeProductionRoof);\n  this.sightlines=installProductionSightlines(scene);\n  this.grove=installProductionGrove(scene);\n }\n"
+        }
+      ]
+    },
+    "src/production-architecture-finish.ts": {
+      "sha256": "464e909f5ddb63afe73f41103e36a6914e9e5868de16fea0f015de6cec385bd3",
+      "hunks": [
+        {
+          "before": "ber[];uvs:number[]}|null){\n if(scene.isDisposed)",
+          "after": "ber[];uvs:number[]}|null,composeRoof?:(name:string,positions:readonly number[],originY:number,rotationZ:number)=>number[]|null){\n if(scene.isDisposed)"
+        },
+        {
+          "before": "=0,rejections=0,roofParts=0;\n const plainRoot=(r",
+          "after": "=0,rejections=0,roofParts=0,roofEnvelopes=0;\n const plainRoot=(r"
+        },
+        {
+          "before": "thor output');\n   const positions=dressed?.positions??base",
+          "after": "thor output');\n   const envelope=composeRoof?.(mesh.name,dressed?.positions??basePositions,mesh.position.y,mesh.rotation.z)??null;\n   if(envelope&&(envelope.length!==72||!envelope.every(Number.isFinite)))throw new Error('Invalid roof envelope output');\n   const positions=envelope??dressed?.positions??base"
+        },
+        {
+          "before": "normals,uvs:dressed?.uvs};\n  });\n  const o:Owner",
+          "after": "normals,uvs:dressed?.uvs,envelope:envelope!==null};\n  });\n  const o:Owner"
+        },
+        {
+          "before": "ce,positions,normals,uvs}of prepared){const owne",
+          "after": "ce,positions,normals,uvs,envelope}of prepared){const owne"
+        },
+        {
+          "before": "rldMatrix(true);authored++;}o.observer=root.onDi",
+          "after": "rldMatrix(true);authored++;if(envelope)roofEnvelopes++;}o.observer=root.onDi"
+        },
+        {
+          "before": "Authored:roofParts}:{}),roots:owners.size,bindin",
+          "after": "Authored:roofParts}:{}),...(composeRoof?{roofEnvelopesAuthored:roofEnvelopes}:{}),roots:owners.size,bindin"
+        }
+      ]
+    },
+    "src/production-environment.ts": {
+      "sha256": "5efab74d6ff72b20ce653e0dae62eb68b4b45419eef84e54d0ca9d0597d9d147",
+      "hunks": [
+        {
+          "before": "ansformNode,VertexBuffer} from '@babylonjs/core'",
+          "after": "ansformNode,VertexBuffer,VertexData} from '@babylonjs/core'"
+        },
+        {
+          "before": "ion-art';\nimport type {ProductionSurface} from './production-art';\nimport {preservePixelP",
+          "after": "ion-art';\nimport type {PixelSurface,ProductionSurface} from './production-art';\nexport type EnvironmentComposition={surface?:(kind:ProductionSurface,base:PixelSurface)=>PixelSurface|null;courtFascia?:(name:string,positions:readonly number[],origin:readonly number[],rotation:readonly number[])=>number[]|null};\nimport {preservePixelP"
+        },
+        {
+          "before": "nEnvironment(scene:Scene){\n if(scene.isDisposed)",
+          "after": "nEnvironment(scene:Scene,composition?:EnvironmentComposition){\n if(scene.isDisposed)"
+        },
+        {
+          "before": "uploads=0,disposed=false;\n const refinishedExist",
+          "after": "uploads=0,disposed=false,courtFasciaAuthored=0,canopyAuthored=0;\n const refinishedExist"
+        },
+        {
+          "before": ";if(t)return t;\n  const pixels=paintProductionSurface(kind);t=new DynamicTexture('p",
+          "after": ";if(t)return t;\n  const base=paintProductionSurface(kind),revised=composition?.surface?.(kind,base)??null,pixels=revised??base;\n  if(pixels.width!==base.width||pixels.height!==base.height||!(pixels.rgba instanceof Uint8ClampedArray)||pixels.rgba.length!==base.rgba.length)throw new Error('Invalid authored surface output');\n  if(revised&&kind==='canopy-atlas')canopyAuthored++;t=new DynamicTexture('p"
+        },
+        {
+          "before": "(chapter==='courtroom'){\n   for(const m of root.",
+          "after": "(chapter==='courtroom'){\n   if(composition?.courtFascia){\n    const targets=root.getChildMeshes(false).filter((m):m is Mesh=>m instanceof Mesh&&/^courtroom-scenery-(judge|stand)-(panel|lip|stile-[-]?1|inlay)$/.test(m.name));\n    if(targets.length!==10||new Set(targets.map(m=>m.name)).size!==10)throw new Error('Incomplete court fascia cohort');\n    const prepared=targets.map(mesh=>{\n     if(mesh.parent!==root||mesh.rotationQuaternion||!mesh.scaling.equalsToFloats(1,1,1)||mesh.geometry?.meshes.length!==1||mesh.getTotalVertices()!==24||mesh.getTotalIndices()!==36)throw new Error('Exclusive original court fascia required');\n     const source=mesh.getVerticesData(VertexBuffer.PositionKind);if(!source)throw new Error('Missing court fascia vertices');\n     const positions=composition.courtFascia!(mesh.name,Array.from(source),mesh.position.asArray(),mesh.rotation.asArray());\n     if(!positions||positions.length!==72||!positions.every(Number.isFinite))throw new Error('Invalid court fascia author output');\n     const normals:number[]=[];VertexData.ComputeNormals(positions,mesh.getIndices()!,normals);return {mesh,positions,normals};\n    });\n    // This is the initial authoring of the root's own exclusive geometry, just\n    // like its surface assignment below. No extra retained Geometry/buffer layer.\n    for(const {mesh,positions,normals}of prepared){mesh.setVerticesData(VertexBuffer.PositionKind,positions,false);mesh.setVerticesData(VertexBuffer.NormalKind,normals,false);mesh.computeWorldMatrix(true);courtFasciaAuthored++;}\n   }\n   for(const m of root."
+        },
+        {
+          "before": ":false,disposed,uploads,textureBytes:[...texture",
+          "after": ":false,disposed,uploads,...(composition?{composition:{courtFasciaAuthored,canopyAuthored,addedResources:0}}:{}),textureBytes:[...texture"
+        }
+      ]
+    },
+    "tests/current_build_test.py": {
+      "sha256": "9ace351a7a895d6a893ffac00d7e62f60945d937dc8808707a591869f138263c",
+      "hunks": [
+        {
+          "before": "uildInfo={version:'0.9.86',batch:'VQ04M',sourceSha:process.env.",
+          "after": "uildInfo={version:'0.9.87',batch:'VQ04N',sourceSha:process.env."
+        },
+        {
+          "before": "l(EXPECTED_BUILD,('0.9.86','VQ04M'))\n        self.assertE",
+          "after": "l(EXPECTED_BUILD,('0.9.87','VQ04N'))\n        self.assertE"
+        },
+        {
+          "before": "DECL,DECL.replace('0.9.86','NaN'),DECL.replace('VQ04M','report.batch'),DECL.r",
+          "after": "DECL,DECL.replace('0.9.87','NaN'),DECL.replace('VQ04N','report.batch'),DECL.r"
+        },
+        {
+          "before": ".replace(\"version:'0.9.86'\",'version:report.versi",
+          "after": ".replace(\"version:'0.9.87'\",'version:report.versi"
+        }
+      ]
+    },
+    "tests/helpers/roof-m-baseline.mjs": {
+      "sha256": "5d0e9bf564dd8110f4c034dcbd7bf49f4eb35193e947701a0b34e2c484439476",
+      "hunks": [
+        {
+          "before": "/** M -> L SOURCE-only p",
+          "after": "import {compositionNSpec,compositionNIfDeclared,compositionNFrozenBytes} from './composition-n-baseline.mjs';\n/** M -> L SOURCE-only p"
+        },
+        {
+          "before": "M source declaration');\nexport function roofMBas",
+          "after": "M source declaration');\nroofMSpec.newPaths.push(...compositionNSpec.newPaths);\nexport function roofMBas"
+        },
+        {
+          "before": "ame,source,verify=true){\n const e=Object.hasOwn(",
+          "after": "ame,source,verify=true){\n source=compositionNIfDeclared(name,source);\n const e=Object.hasOwn("
+        },
+        {
+          "before": "IfDeclared(name,source){const e=Object.hasOwn(ro",
+          "after": "IfDeclared(name,source){source=compositionNIfDeclared(name,source);const e=Object.hasOwn(ro"
+        },
+        {
+          "before": "MFrozenBytes(name,data){return Object.hasOwn(roo",
+          "after": "MFrozenBytes(name,data){data=compositionNFrozenBytes(name,data);return Object.hasOwn(roo"
+        }
+      ]
+    },
+    "tests/production-art-source.test.mjs": {
+      "sha256": "7f6a548a25004986ddf16fcd84c31f78e97b7ff1bf2aa6a1f7f9dc9dc5c4c1c4",
+      "hunks": [
+        {
+          "before": "import {artBIfDeclared,a",
+          "after": "import {compositionNIfDeclared} from './helpers/composition-n-baseline.mjs';\nimport {artBIfDeclared,a"
+        },
+        {
+          "before": "length,2);\n const entry=readFileSync('src/art-directed-world.ts','utf8');assert(entry.includes(",
+          "after": "length,2);\n const entry=compositionNIfDeclared('src/art-directed-world.ts',readFileSync('src/art-directed-world.ts','utf8'));assert(entry.includes("
+        }
+      ]
+    },
+    "tests/production-roof-source.test.mjs": {
+      "sha256": "1ca3ef0aac3b531c8fb79c940000343e799397a5c20c8b2c0f117e306c4a73ec",
+      "hunks": [
+        {
+          "before": "import test from 'node:t",
+          "after": "import {compositionNIfDeclared,compositionNFrozenBytes,compositionNIsNew} from './helpers/composition-n-baseline.mjs';\nimport test from 'node:t"
+        },
+        {
+          "before": "rift '+n,()=>{const raw=readFileSync(n,'utf8'),old=roofMBaseline(n,ra",
+          "after": "rift '+n,()=>{const raw=compositionNIfDeclared(n,readFileSync(n,'utf8')),old=roofMBaseline(n,ra"
+        },
+        {
+          "before": "=>!p.exclude.includes(n)).map(n=>[n,sha(readFileSync(n))]);assert.equal(rows.l",
+          "after": "=>!p.exclude.includes(n)&&!compositionNIsNew(n)).map(n=>[n,sha(compositionNFrozenBytes(n,readFileSync(n)))]);assert.equal(rows.l"
+        },
+        {
+          "before": "seline(n,'{}'));const b=readFileSync('scripts/build.mjs','utf8');assert(b.includes(\"ver",
+          "after": "seline(n,'{}'));const b=compositionNIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8'));assert(b.includes(\"ver"
+        }
+      ]
+    },
+    "tests/roof_m_preservation.py": {
+      "sha256": "5430b6606f8f77440175227d0f7f1b11b801f9a4e76c53e2d82ea54d30e103cf",
+      "hunks": [
+        {
+          "before": "ive/image/State data.\"\"\"\nimport hashlib,json\nfro",
+          "after": "ive/image/State data.\"\"\"\nfrom composition_n_preservation import SPEC as N_SPEC,restore_composition_n_if_declared,composition_n_frozen_bytes\nimport hashlib,json\nfro"
+        },
+        {
+          "before": "Invalid M declaration')\ndef restore_roof_m_sourc",
+          "after": "Invalid M declaration')\nSPEC['newPaths'].extend(N_SPEC['newPaths'])\ndef restore_roof_m_sourc"
+        },
+        {
+          "before": "ame,source,verify=True):\n    e=SPEC['files'].get",
+          "after": "ame,source,verify=True):\n    source=restore_composition_n_if_declared(name,source)\n    e=SPEC['files'].get"
+        },
+        {
+          "before": "lared(name,source):\n    e=SPEC['files'].get(name",
+          "after": "lared(name,source):\n    source=restore_composition_n_if_declared(name,source)\n    e=SPEC['files'].get(name"
+        },
+        {
+          "before": "n_bytes(name,data):\n    return restore_roof_m_so",
+          "after": "n_bytes(name,data):\n    data=composition_n_frozen_bytes(name,data)\n    return restore_roof_m_so"
+        }
+      ]
+    },
+    "tests/roof_m_test.py": {
+      "sha256": "431d5ba9ab206ee03fefc5422b029114bacd79fd7b107f4703d2cddb89218548",
+      "hunks": [
+        {
+          "before": " data transformation.\"\"\"\nimport hashlib,json,uni",
+          "after": " data transformation.\"\"\"\nfrom composition_n_preservation import SPEC as N_SPEC,restore_composition_n_if_declared,composition_n_frozen_bytes\nimport hashlib,json,uni"
+        },
+        {
+          "before": "tems():\n            raw=(ROOT/n).read_text();old=restore_roof_m_sou",
+          "after": "tems():\n            raw=restore_composition_n_if_declared(n,(ROOT/n).read_text());old=restore_roof_m_sou"
+        },
+        {
+          "before": "       self.assertEqual(EXPECTED_BUILD,('0.9.86','VQ04M'))\n   ",
+          "after": "       self.assertEqual(expected_build_from_source(restore_composition_n_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.86','VQ04M'))\n   "
+        },
+        {
+          "before": "rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in",
+          "after": "rows=[[n,hashlib.sha256(composition_n_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in"
+        },
+        {
+          "before": ") if n not in p['exclude']]\n        self.assertE",
+          "after": ") if n not in p['exclude'] and n not in N_SPEC['newPaths']]\n        self.assertE"
+        }
+      ]
+    }
+  }
+}

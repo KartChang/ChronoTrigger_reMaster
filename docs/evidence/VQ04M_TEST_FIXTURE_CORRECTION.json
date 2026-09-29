@@ -1,0 +1,8 @@
+{
+  "schema": "chrono-vq04m-predecessor-wiring-correction-v1",
+  "initialFullNodeFailure": "H original constructor substring inspected actual M function-call signature",
+  "correction": "Keep original H assertion exact; explicitly normalize only current ArtDirectedWorld source through M-to-L declaration for predecessor source check. New M integration continues using actual untransformed constructor.",
+  "nativeRoutesAssertionsGoldensChanged": false,
+  "oldPinsChanged": false,
+  "initialLogsRetained": true
+}

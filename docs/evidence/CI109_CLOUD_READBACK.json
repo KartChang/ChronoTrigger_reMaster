@@ -1,0 +1,30 @@
+{
+  "schema": "chrono-ci109-pages103-cloud-readback-v1",
+  "checkedAt": "2026-09-29T07:27:00.167720+00:00",
+  "parts": [
+    {
+      "name": "Chrono-CI109-Pages103-evidence-part1.zip",
+      "bytes": 67267262,
+      "sha256": "135e6582170eb43a7aed6c0dbb7b0a79064da2e75631d57e22381961b6dcce00",
+      "manifestEntries": 1,
+      "fileId": "1ydChp1lt4SBG9KEPckwWmOfawF85fcHe",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "parentMetadataVerified": true,
+      "outerInnerCrcExactManifestAndOriginalBytesVerified": true
+    },
+    {
+      "name": "Chrono-CI109-Pages103-evidence-part2.zip",
+      "bytes": 40775486,
+      "sha256": "7be88ced3784887837c80f96243f7c11b4c9605361cbd8b635a1bc77a530630a",
+      "manifestEntries": 9,
+      "fileId": "1NoqPbsdyGq44ZBzT9QLWPPMtmYWNeVV8",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "parentMetadataVerified": true,
+      "outerInnerCrcExactManifestAndOriginalBytesVerified": true
+    }
+  ],
+  "originalZipCount": 7,
+  "nativeReportsModified": false
+}

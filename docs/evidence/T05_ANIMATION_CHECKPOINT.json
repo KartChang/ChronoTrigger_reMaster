@@ -1,1 +1,270 @@
-{"schema":"chrono-t05-animation-checkpoint-v45","repository":"KartChang/ChronoTrigger_reMaster","branch":"main","authorityRef":"main","root":"T05-early-visual-cohesion","developmentTerminal":"T05-early-production-art","executionTerminal":"T05-early-production-art","nextWorkId":"T05-early-production-art-canyon-court","phase":"L-source-published-CI109-pending-K-interruption-reconciled","immediateAction":"Read exact CI109 once. Preserve completed originals and bounded grove/native CPU/Pages review. Pending: save checkpoint, no long polling, rerun, dispatch or source resend. Do not redo K/L.","publishedBatch":"VQ04L","publishedVersion":"0.9.85","publishedSourceSha":"b8cc1b603c419ac11724cec9a7292d38c984b066","publishedSourceTree":"7ad7b7b672697622bc25b13d6ca9636bc84b679c","sourceParentSha":"59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c","documentParentSha":"b8cc1b603c419ac11724cec9a7292d38c984b066","sourceChangesThisBatch":23,"newSourcePushes":1,"newCIRuns":1,"manualDispatches":0,"reruns":0,"activeValidation":{"id":36516603995,"number":109,"event":"push","attempt":1,"headBranch":"main","headSha":"b8cc1b603c419ac11724cec9a7292d38c984b066","sourceTree":"7ad7b7b672697622bc25b13d6ca9636bc84b679c","workflowPath":".github/workflows/ci.yml","status":"in_progress","conclusion":null,"createdAt":"2026-09-29T03:19:14Z","providerUpdatedAt":"2026-09-29T03:19:25Z","matchingPushCount":1},"unpublishedCandidate":null,"cloudWorkPackage":{"name":"Chrono-VQ04L-production-batch.zip","snapshotPath":"program-vq04l.tar.gz","snapshotExcludesDocs":true,"schema":"chrono-vq04l-cloud-readback-v1","fileId":"1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":1615040,"sha256":"a5fe1cf499402578375adf43a7c046042c5dc59642fd7792508f7843ff5ef28d","manifestEntries":69,"sourceFiles":759,"deltaFiles":23,"checkedAt":"2026-09-29T03:06:20.445755+00:00","parentMetadataVerified":true,"downloadVerified":true,"outerCrcExactManifestSnapshotDeltaBytesVerified":true,"fullTestsPassed":true,"sourcePublishedAtReadback":false},"preflight":{"node":{"passed":3752,"failed":0,"skipped":0},"python":{"passed":645,"failed":0},"dedicatedNode":50,"dedicatedPython":4,"assets":"passed","typecheck":"passed","qualitySchema":"passed-release-blocked-stale-review","build":"passed","programFiles":759,"allSourceBeforeAfterEqual":true,"unchangedKProgramFiles":736,"unchangedScannedKInputs":731,"receipt":"docs/evidence/VQ04L_VALIDATION.json"},"grove":{"originalTreeSites":16,"truceSites":4,"forestSites":12,"atlasCount":2,"cellsPerAtlas":4,"atlasDimensions":[256,64],"cellDimensions":[64,64],"maxCachedRoots":2,"maxAddedMeshes":32,"maxAddedTextures":2,"maxAddedMaterials":2,"maxTextureRgbaPayloadBytes":131072,"memoryLimitScope":"texture payload only, not whole-engine memory","originalTextureWrites":0,"gameplayWrites":0,"nonTargetHeldFramesExact":15,"originalCI108InnStopCases":4,"offlineModels":2,"offlineViews":6,"nativeEffectVerified":false,"fullTreeCrownRedesign":false,"fullRoofTownRedesign":false},"interruptedKRecovery":{"schema":"chrono-vq04k-recovery-v1","checkedAt":"2026-09-29T02:46:53.662350+00:00","sourceSha":"59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c","sourceTree":"9d0550d1ecab950ce2687fd3a6d605451983fdcb","fileId":"1wkwEWuvMrSAypeJyxWihy5S36DPtSi22","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":1646672,"sha256":"95d5ed7713faf12d2dd8586f40d58e81a865fc8f99e6c5b7db441384fbf303b8","manifestEntries":69,"sourceFiles":747,"allSourceAndManifestBytesVerified":true,"testsRerunForRecovery":false,"finalPrePushReceiptRecovered":false,"downloadReadbackAfterPublication":true,"originalValidationReceipt":"docs/evidence/VQ04K_VALIDATION.json"},"latestBoundedReview":{"ci":{"id":36509304093,"number":108,"event":"push","attempt":1,"source":"59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c","conclusion":"success","providerUpdatedAt":"2026-09-29T02:24:26Z"},"pages":{"id":36512444855,"number":102,"conclusion":"success","providerUpdatedAt":"2026-09-29T02:24:52Z","selectedCI":36509304093,"selectedSource":"59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c","artifactId":11009780958,"payloadsExact":9,"omittedEmptyMarker":".nojekyll","liveSiteFetched":false},"sourceFilesVerified":747,"sourceLedgers":8,"rawEntriesVerified":179,"originalZips":7,"staticImagesReviewed":3,"fullMotionAudioDeviceApproved":false,"receipt":"docs/evidence/CI108_PAGES102_REVIEW.json"},"nativeEvidencePackages":[{"name":"Chrono-CI108-Pages102-evidence-part1.zip","fileId":"1dQG729PwAmSKwoiJXNxWdhCrvU2Q7onV","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":66706742,"sha256":"e1717950f121f70299fda7a55c3a48673a6296b4b6182836a89cb46841843ad4","manifestEntries":1,"parentMetadataVerified":true,"downloadVerified":true,"outerInnerCrcExactManifestAndOriginalBytesVerified":true},{"name":"Chrono-CI108-Pages102-evidence-part2.zip","fileId":"1Yxu1euPV6db-s8ZdjTTxcMXTXya5YIMS","folderId":"1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb","bytes":40772859,"sha256":"e82f9a26ef698bfccd0d8c5b01d63786d9a639338f684a593403d7383dc3753c","manifestEntries":9,"parentMetadataVerified":true,"downloadVerified":true,"outerInnerCrcExactManifestAndOriginalBytesVerified":true}],"lastReviewedDeployment":{"batch":"VQ04K","version":"0.9.84","sourceSha":"59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c","sourceTree":"9d0550d1ecab950ce2687fd3a6d605451983fdcb","ci":36509304093,"ciNumber":108,"pages":36512444855,"pagesNumber":102,"playableArtifact":11009780958,"pagesPayloadsExact":9,"omittedEmptyMarker":".nojekyll","liveSiteFetched":false},"lDeploymentConfirmed":false,"retainedCharacterArt":{"npcAmbientGreetEligibleSlots":224,"npcWalkStagedSlots":112,"npcMovementEnabled":false,"partyCombatStagedSlots":256,"combatRuntimeApplied":false},"retainedNativeAnimationGaps":["Tank full native death","Yakra full native death","Hench outgoing","P down","Q selector-change during hurt"],"historicalFailures":{"ci":[93,95,98,104,105,107],"pagesFailed":[97],"pagesSkipped":[98,99,101],"rewrittenOrRerun":false},"constraints":{"singleAI":true,"nonForce":true,"newBranchOrPR":false,"parallelCandidate":false,"localBrowserUsed":false,"nativeStateTimeSaveCollisionInjected":false,"nativeRoutesWaitsCapturesAssertionsGoldensChanged":false,"sourceOnlyInverseAppliedToNativeOrImages":false,"heldPrologueBlob":"2711a74185aacf3c6bddf9db85ba99a2afbc507a","heldMotherFurnitureChanged":false,"fullT03T08ScopeRetained":true,"romMediaFontsCredentialsPrivate":true,"docsCommitSkipCI":true},"quality":{"artApproved":false,"fullAnimationComplete":false,"originalSpeedApproved":false,"listeningApproved":false,"deviceApproved":false,"longSessionApproved":false,"wholeGameAccepted":false,"newScore":null,"release":"BLOCKED"},"priorCheckpointArchive":"docs/evidence/VQ04L_CHECKPOINT_V44.json","nextActions":["Read exact CI109; preserve original artifacts and review actual grove grounding/occlusion, original CPU/native gates and exact Pages source.","Continue remaining roof/tree-crown/building/furniture composition and original overworld/town transitions, not a repeat of K inn or L understory.","Continue full party/enemy/NPC directions and attack/cast/hurt/down/death;112 walk and256 combat remain staged with genuine pixels and unchanged native goldens.","Complete lawful audio/listening, physical-device/original-speed/long-session and full T03-T08 scope."],"continuation":"K already published before this turn and CI108/Pages102 bounded review completed. L is fully offline-tested and source-published. Old J/v44 CI107-pending text is historical, not current. Final L cloud package was downloaded before source push; missing final pre-push K receipt is not invented. GitHub/Drive outrank the container."}
+{
+  "schema": "chrono-t05-animation-checkpoint-v46",
+  "repository": "KartChang/ChronoTrigger_reMaster",
+  "branch": "main",
+  "authorityRef": "main",
+  "root": "T05-early-visual-cohesion",
+  "developmentTerminal": "T05-early-production-art",
+  "executionTerminal": "T05-early-production-art",
+  "nextWorkId": "T05-early-production-art-canyon-court",
+  "phase": "M-source-published-CI110-pending",
+  "immediateAction": "Read only exact CI110; pending checkpoint, no long polling/rerun/dispatch/resend. Completed: preserve original artifacts and bounded actual roof/CPU/native/Pages review, then continue production art.",
+  "publishedBatch": "VQ04M",
+  "publishedVersion": "0.9.86",
+  "publishedSourceSha": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+  "publishedSourceTree": "bd628663e5a487eb5cac6b0ad696245ec3cfb0a7",
+  "sourceParentSha": "8faad113e00daab186d6ad314ea302c8cf8755c6",
+  "documentParentSha": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+  "sourceChangesThisBatch": 23,
+  "newSourcePushes": 1,
+  "newCIRuns": 1,
+  "manualDispatches": 0,
+  "reruns": 0,
+  "activeValidation": {
+    "id": 36538709652,
+    "number": 110,
+    "event": "push",
+    "attempt": 1,
+    "headBranch": "main",
+    "headSha": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+    "sourceTree": "bd628663e5a487eb5cac6b0ad696245ec3cfb0a7",
+    "workflowPath": ".github/workflows/ci.yml",
+    "status": "in_progress",
+    "conclusion": null,
+    "createdAt": "2026-09-29T07:47:12Z",
+    "providerUpdatedAt": "2026-09-29T07:47:16Z",
+    "matchingPushCount": 1
+  },
+  "unpublishedCandidate": null,
+  "cloudWorkPackage": {
+    "name": "Chrono-VQ04M-production-batch.zip",
+    "bytes": 1983463,
+    "sha256": "e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389",
+    "manifestEntries": 143,
+    "sourceFiles": 770,
+    "deltaFiles": 23,
+    "expectedSourceTree": "bd628663e5a487eb5cac6b0ad696245ec3cfb0a7",
+    "phase": "fully-offline-tested-unpublished",
+    "schema": "chrono-vq04m-cloud-readback-v1",
+    "fileId": "1O4U8moauYaLlwajGFtzCV0-YpydBsNnX",
+    "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+    "providerModifiedAt": "2026-09-29T07:34:05.332Z",
+    "checkedAt": "2026-09-29T07:35:03.748896+00:00",
+    "parentMetadataVerified": true,
+    "downloadVerified": true,
+    "outerCrcExactManifestSnapshotDeltaBytesVerified": true,
+    "sourcePublishedAtReadback": false,
+    "snapshotPath": "program-vq04m.tar.gz",
+    "snapshotExcludesDocs": true
+  },
+  "preflight": {
+    "node": {
+      "tests": 3809,
+      "pass": 3809,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "python": {
+      "passed": 649,
+      "failed": 0
+    },
+    "dedicatedNode": 57,
+    "dedicatedPython": 4,
+    "assets": "passed",
+    "typecheck": "passed",
+    "qualitySchema": "passed-release-blocked-stale-review",
+    "build": "passed",
+    "programFiles": 770,
+    "allSourceBeforeAfterEqual": true,
+    "unchangedLProgramFiles": 747,
+    "unchangedScannedLInputs": 742,
+    "receipt": "docs/evidence/VQ04M_VALIDATION.json"
+  },
+  "roof": {
+    "buildings": 4,
+    "sheetsWithUVRotation": 8,
+    "narrowerCourses": 32,
+    "taperedRidges": 4,
+    "courseCrossSection": 0.42,
+    "ridgeTopWidth": 0.6,
+    "originalTextureBytesUnchanged": true,
+    "existingGeometryOwnershipReused": true,
+    "additionalMeshes": 0,
+    "additionalTextures": 0,
+    "additionalMaterials": 0,
+    "additionalRetainedGeometryBuffers": 0,
+    "existingTownGeometryPayloadBytes": 91200,
+    "existingTownCourtGeometryPayloadLimitBytes": 100320,
+    "nativeMaterialTextureChecksUnmodified": true,
+    "nonTargetHeldCompleteFrames": 16,
+    "rawCI109InnStopFixtures": 4,
+    "exportedModels": 44,
+    "independentAndBuildModelBytesExact": true,
+    "offlineViews": 4,
+    "nativeEffectVerified": false,
+    "completeRoofOrCanopyRemake": false
+  },
+  "latestBoundedReview": {
+    "ci": {
+      "id": 36516603995,
+      "number": 109,
+      "event": "push",
+      "attempt": 1,
+      "sourceSha": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+      "sourceTree": "7ad7b7b672697622bc25b13d6ca9636bc84b679c",
+      "conclusion": "success",
+      "providerUpdatedAt": "2026-09-29T03:58:06Z"
+    },
+    "pages": {
+      "id": 36519488900,
+      "number": 103,
+      "conclusion": "success",
+      "providerUpdatedAt": "2026-09-29T03:58:43Z",
+      "selectedCI": 36516603995,
+      "selectedSource": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+      "artifactId": 11012118532,
+      "matchingPayloads": 9,
+      "playableFilesExact": 5,
+      "omittedEmptyMarker": ".nojekyll",
+      "liveSiteFetched": false
+    },
+    "sourceFilesVerified": 759,
+    "sourceLedgers": 8,
+    "rawEntriesVerified": 179,
+    "originalZips": 7,
+    "staticImagesReviewed": 3,
+    "cpuRescueStatus": "passed",
+    "cpuTrialStatus": "passed",
+    "pairedTruceRoutes": [
+      {
+        "chapter": "truce",
+        "stage": "reunited",
+        "axis": "z",
+        "target": 7.6,
+        "status": "arrived",
+        "startTick": 1200,
+        "lastTick": 1502,
+        "elapsedTicks": 302,
+        "budget": 309,
+        "epsilon": 0.12,
+        "timeoutMs": 30000,
+        "maxHoldMs": 250,
+        "lastZ": [
+          7.599999999999995,
+          7.533333333333329
+        ],
+        "originalAssertionsUnchanged": true,
+        "causalOrLongTermReliabilityProven": false
+      }
+    ],
+    "fullMotionAudioDeviceApproved": false,
+    "receipt": "docs/evidence/CI109_PAGES103_REVIEW.json"
+  },
+  "nativeEvidencePackages": [
+    {
+      "name": "Chrono-CI109-Pages103-evidence-part1.zip",
+      "bytes": 67267262,
+      "sha256": "135e6582170eb43a7aed6c0dbb7b0a79064da2e75631d57e22381961b6dcce00",
+      "manifestEntries": 1,
+      "fileId": "1ydChp1lt4SBG9KEPckwWmOfawF85fcHe",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "parentMetadataVerified": true,
+      "outerInnerCrcExactManifestAndOriginalBytesVerified": true
+    },
+    {
+      "name": "Chrono-CI109-Pages103-evidence-part2.zip",
+      "bytes": 40775486,
+      "sha256": "7be88ced3784887837c80f96243f7c11b4c9605361cbd8b635a1bc77a530630a",
+      "manifestEntries": 9,
+      "fileId": "1NoqPbsdyGq44ZBzT9QLWPPMtmYWNeVV8",
+      "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+      "downloadVerified": true,
+      "parentMetadataVerified": true,
+      "outerInnerCrcExactManifestAndOriginalBytesVerified": true
+    }
+  ],
+  "lastReviewedDeployment": {
+    "batch": "VQ04L",
+    "version": "0.9.85",
+    "sourceSha": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+    "sourceTree": "7ad7b7b672697622bc25b13d6ca9636bc84b679c",
+    "ci": 36516603995,
+    "ciNumber": 109,
+    "pages": 36519488900,
+    "pagesNumber": 103,
+    "playableArtifact": 11012118532,
+    "pagesPayloadsExact": 9,
+    "omittedEmptyMarker": ".nojekyll",
+    "liveSiteFetched": false
+  },
+  "mDeploymentConfirmed": false,
+  "retainedCharacterArt": {
+    "npcAmbientGreetEligibleSlots": 224,
+    "npcWalkStagedSlots": 112,
+    "npcMovementEnabled": false,
+    "partyCombatStagedSlots": 256,
+    "combatRuntimeApplied": false
+  },
+  "retainedNativeAnimationGaps": [
+    "Tank full native death",
+    "Yakra full native death",
+    "Hench outgoing",
+    "P down",
+    "Q selector-change during hurt"
+  ],
+  "historicalFailures": {
+    "ci": [
+      93,
+      95,
+      98,
+      104,
+      105,
+      107
+    ],
+    "pagesFailed": [
+      97
+    ],
+    "pagesSkipped": [
+      98,
+      99,
+      101
+    ],
+    "rewrittenOrRerun": false
+  },
+  "constraints": {
+    "singleAI": true,
+    "nonForce": true,
+    "newBranchOrPR": false,
+    "parallelCandidate": false,
+    "localBrowserUsed": false,
+    "nativeStateTimeSaveCollisionInjected": false,
+    "nativeRoutesWaitsCapturesAssertionsGoldensChanged": false,
+    "sourceOnlyInverseAppliedToNativeOrImages": false,
+    "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+    "heldMotherFurnitureChanged": false,
+    "fullT03T08ScopeRetained": true,
+    "romMediaFontsCredentialsPrivate": true,
+    "docsCommitSkipCI": true
+  },
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "originalSpeedApproved": false,
+    "listeningApproved": false,
+    "deviceApproved": false,
+    "longSessionApproved": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  },
+  "priorCheckpointArchive": "docs/evidence/VQ04M_CHECKPOINT_V45.json",
+  "nextActions": [
+    "Read exact CI110 and preserve original artifacts; inspect actual roof pitch/UV/joinery, existing inn fade/CPU gates and exact Pages selection.",
+    "Continue full early-scene roof silhouette/tree canopy/court furniture scale, original overworld/town transitions, not another pass over finished K/L/M.",
+    "Complete genuine party/enemy/NPC direction and attack/cast/hurt/down/death;112 NPC walk and256 combat remain staged, no false native pixels.",
+    "Complete lawful audio/listening, physical-device/original-speed/long-session and all T03-T08."
+  ],
+  "continuation": "M is fully offline-tested, cloud-downloaded and source-published. CI109/Pages103 bounded L review is complete, not pending and not M approval. Main/Drive are authoritative, not temporary container."
+}

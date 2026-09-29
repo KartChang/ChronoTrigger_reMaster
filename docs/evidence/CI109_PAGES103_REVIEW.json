@@ -1,0 +1,202 @@
+{
+  "schema": "chrono-ci109-pages103-bounded-review-v1",
+  "checkedAt": "2026-09-29T07:24:04.365740+00:00",
+  "ci": {
+    "id": 36516603995,
+    "number": 109,
+    "event": "push",
+    "attempt": 1,
+    "sourceSha": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+    "sourceTree": "7ad7b7b672697622bc25b13d6ca9636bc84b679c",
+    "conclusion": "success",
+    "providerUpdatedAt": "2026-09-29T03:58:06Z"
+  },
+  "pages": {
+    "id": 36519488900,
+    "number": 103,
+    "conclusion": "success",
+    "providerUpdatedAt": "2026-09-29T03:58:43Z",
+    "selectedCI": 36516603995,
+    "selectedSource": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+    "artifactId": 11012118532,
+    "matchingPayloads": 9,
+    "playableFilesExact": 5,
+    "omittedEmptyMarker": ".nojekyll",
+    "liveSiteFetched": false,
+    "deployment": {
+      "schemaVersion": 1,
+      "kind": "development-preview",
+      "version": "0.9.85",
+      "sourceSha": "b8cc1b603c419ac11724cec9a7292d38c984b066",
+      "ciRunId": 36516603995,
+      "ciRunNumber": 109,
+      "ciConclusion": "success",
+      "artifactId": 11012118532,
+      "artifactDigest": "sha256:115afb4e01859e72d5859fa2d5dd2df3009b47d07e63e6efe75cdb2958c5ad05",
+      "htmlSha256": "9830fecb63c2742ecc274ec359ae1394158f86e692f02c709e0dc5a3e471f108",
+      "htmlBytes": 5908284,
+      "wholeGameAccepted": false,
+      "qualityAssessment": {
+        "scope": "whole-remake",
+        "reviewedSourceSha": "4e9a3c8750c192e731ac7b9421c37f66f0bb9b93",
+        "score": 30,
+        "maximum": 100,
+        "threshold": 90,
+        "stale": true,
+        "releaseApproved": false,
+        "blockers": [
+          "dimension:visual:below-80-percent",
+          "dimension:battle:below-80-percent",
+          "dimension:story:below-80-percent",
+          "dimension:audio:below-80-percent",
+          "dimension:controls:below-80-percent",
+          "dimension:reliability:below-80-percent",
+          "dimension:performance:below-80-percent",
+          "Q01 initial input is cleared after the first frame",
+          "Q02 0.4 complete browser journey missing",
+          "Q03 placeholder character/scene/animation assets below target",
+          "Q04 full storyline and gameplay content not implemented",
+          "Q05 authored music and sound pipeline missing",
+          "Q06 target-device performance unverified",
+          "Q07 original reference/version and asset-use clearance unresolved",
+          "gate:browser",
+          "gate:visual",
+          "gate:hardware",
+          "gate:content",
+          "gate:rights",
+          "asset:crono",
+          "asset:marle",
+          "asset:lucca",
+          "asset:other-party",
+          "asset:npcs",
+          "asset:enemies",
+          "asset:fair-kit",
+          "asset:terrain-kit",
+          "asset:kingdom-kit",
+          "asset:remaining-worlds",
+          "asset:combat-fx",
+          "asset:ui-portraits-icons",
+          "asset:music",
+          "asset:sound-effects",
+          "asset:map-events",
+          "asset:cathedral-kit",
+          "asset:home-and-room",
+          "asset:regional-1000-overworld",
+          "asset:trial-prison-kit",
+          "asset:dragon-tank-parts",
+          "asset:future-arrival-kit",
+          "asset:production-material-and-scale-kit",
+          "asset:hd-party-native-redraw",
+          "asset:fair-witnesses-and-court-kit",
+          "asset:early-environment-vq04a",
+          "asset:party-exploration-vq04d",
+          "asset:story-npcs-vq04e",
+          "asset:party-combat-authored-vq04e",
+          "asset:town-court-craft-vq04f",
+          "asset:story-npc-attention-vq04g",
+          "asset:early-architectural-proportions-vq04h",
+          "asset:inn-sign-court-dais-sightlines-vq04j",
+          "asset:inn-facade-mount-vq04k",
+          "asset:grove-understory-vq04l",
+          "review:runtime-changed",
+          "score:below-90"
+        ],
+        "notice": "Developer evidence-based assessment, not a player rating. A passing CI does not approve art or the complete remake."
+      },
+      "notice": "本頁為開發試玩；CI 通過不代表完整重製或 90 分驗收。存檔保存在這個瀏覽器，舊檔請手動匯入。"
+    }
+  },
+  "sourceFilesVerified": 759,
+  "sourceLedgers": 8,
+  "rawEntriesVerified": 179,
+  "originalZips": 7,
+  "artifacts": [
+    {
+      "name": "CI109-browser-evidence.zip",
+      "id": 11012098425,
+      "bytes": 67266825,
+      "sha256": "c78311dae98cf61b014fcc239c195ceedbb0249c16e676d335596fe41d3d23eb"
+    },
+    {
+      "name": "CI109-playable.zip",
+      "id": 11012118532,
+      "bytes": 1389531,
+      "sha256": "115afb4e01859e72d5859fa2d5dd2df3009b47d07e63e6efe75cdb2958c5ad05"
+    },
+    {
+      "name": "CI109-art-review-kit.zip",
+      "id": 11012173216,
+      "bytes": 1985492,
+      "sha256": "9efa297c9e51232e3da62f096ee09463730773dc16293fdbcd4ee32da865bc6e"
+    },
+    {
+      "name": "CI109-witness-good-evidence.zip",
+      "id": 11011891605,
+      "bytes": 28364735,
+      "sha256": "93cceeb7b4e1f8bd4a0b97d9273b8b8e8f2742d3a97ccba55457e1ed8288fe56"
+    },
+    {
+      "name": "CI109-witness-bad-evidence.zip",
+      "id": 11010984922,
+      "bytes": 6177786,
+      "sha256": "79920ed739de2934542d67a29a96921b380f124cfb9b27450c828f5757fde261"
+    },
+    {
+      "name": "Pages103-staged-preview.zip",
+      "id": 11012555068,
+      "bytes": 1395032,
+      "sha256": "fc212bfbf6834b6efe33476de5504f90c6984e985eb35e21fe5accd8e6986dad"
+    },
+    {
+      "name": "Pages103-github-pages.zip",
+      "id": 11012575066,
+      "bytes": 1393046,
+      "sha256": "d9116c72a6df1e05103dff61645a249019272ebba0db1aa423f32b1d018f49c3"
+    }
+  ],
+  "cpuRescueStatus": "passed",
+  "cpuTrialStatus": "passed",
+  "pairedTruceRoutes": [
+    {
+      "chapter": "truce",
+      "stage": "reunited",
+      "axis": "z",
+      "target": 7.6,
+      "status": "arrived",
+      "startTick": 1200,
+      "lastTick": 1502,
+      "elapsedTicks": 302,
+      "budget": 309,
+      "epsilon": 0.12,
+      "timeoutMs": 30000,
+      "maxHoldMs": 250,
+      "lastZ": [
+        7.599999999999995,
+        7.533333333333329
+      ],
+      "originalAssertionsUnchanged": true,
+      "causalOrLongTermReliabilityProven": false
+    }
+  ],
+  "staticImages": [
+    {
+      "path": "kingdom/01-truce.png",
+      "sha256": "1240e22fc7e303ec493c6b43bba55ab5d02f545c94fbce953c4f53fe1fa0271c"
+    },
+    {
+      "path": "trial/02-courtroom.png",
+      "sha256": "42535c295da52cae5b10705f518b9807278e555371ef818aced41e3013f787cd"
+    },
+    {
+      "path": "cpu-renderer/era600/field-forest-canvas.png",
+      "sha256": "f6bc9f02a39400d5ba07196f49c20df9dfa1a768aeff7412bbeece7d45f2aaf0"
+    }
+  ],
+  "visualReview": "Three original still images reviewed. L roots and small ferns sit near the existing forest tree bases; the central path and actor silhouette remain legible in the recorded CPU forest view. Truce roofs still resemble vertical sheet strips with oversized joinery; this is the next M roof-local art target. The court podium remains across part of the torso. No full-motion, listening, physical-device or whole-game approval.",
+  "nativeReportsModified": false,
+  "newNativeImagesCreated": false,
+  "localBrowserUsed": false,
+  "fullQualityApproved": false,
+  "newScore": null,
+  "release": "BLOCKED"
+}

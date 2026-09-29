@@ -1,0 +1,21 @@
+{
+  "name": "Chrono-VQ04M-production-batch.zip",
+  "bytes": 1983463,
+  "sha256": "e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389",
+  "manifestEntries": 143,
+  "sourceFiles": 770,
+  "deltaFiles": 23,
+  "expectedSourceTree": "bd628663e5a487eb5cac6b0ad696245ec3cfb0a7",
+  "phase": "fully-offline-tested-unpublished",
+  "schema": "chrono-vq04m-cloud-readback-v1",
+  "fileId": "1O4U8moauYaLlwajGFtzCV0-YpydBsNnX",
+  "folderId": "1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb",
+  "providerModifiedAt": "2026-09-29T07:34:05.332Z",
+  "checkedAt": "2026-09-29T07:35:03.748896+00:00",
+  "parentMetadataVerified": true,
+  "downloadVerified": true,
+  "outerCrcExactManifestSnapshotDeltaBytesVerified": true,
+  "sourcePublishedAtReadback": false,
+  "snapshotPath": "program-vq04m.tar.gz",
+  "snapshotExcludesDocs": true
+}

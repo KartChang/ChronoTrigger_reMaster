@@ -1,0 +1,84 @@
+{
+  "groups": [
+    {
+      "files": [
+        "src/production-roof-art.ts",
+        "src/production-architecture-finish.ts",
+        "src/art-directed-world.ts"
+      ],
+      "tree": "a367e879318bed17c866cad85371a4258f5f2827",
+      "matched": true
+    },
+    {
+      "files": [
+        "scripts/build.mjs",
+        "scripts/test-production-grove.mjs",
+        "scripts/test-production-roof.mjs",
+        "scripts/production-roof-export.mjs"
+      ],
+      "tree": "d6109f8e9734adfa36ca5f3c62b700769e9763d5",
+      "matched": true
+    },
+    {
+      "files": [
+        "tests/helpers/roof-m-baseline.mjs",
+        "tests/helpers/grove-l-baseline.mjs",
+        "tests/roof_m_preservation.py",
+        "tests/grove_l_preservation.py",
+        "tests/production-architecture-source.test.mjs",
+        "tests/production-grove-source.test.mjs",
+        "tests/grove_l_test.py",
+        "tests/roof_m_test.py"
+      ],
+      "tree": "42d9f5383626827a7c27d2c295ffc576a69b12fc",
+      "matched": true
+    },
+    {
+      "files": [
+        "tests/production-roof.test.mjs",
+        "tests/production-roof-source.test.mjs",
+        "tests/current_build_test.py",
+        "tests/baselines/vq04m-unchanged-inputs.json"
+      ],
+      "tree": "f2c1cba2df0418613329ecfe6014310bc6e1b981",
+      "matched": true
+    }
+  ],
+  "blobs": {
+    "src/production-roof-art.ts": "bd64b7fdc4e0ca67b93d429aec0adf3b540bedcb",
+    "src/production-architecture-finish.ts": "67b0299c66294deb5cc012b891a9aa962fc887e8",
+    "src/art-directed-world.ts": "fa455b83667d9d0220e2e650cd07700de1941c12",
+    "scripts/build.mjs": "74327ff7ccf11b8ee3b537bb5a9f4af7faad57aa",
+    "scripts/test-production-grove.mjs": "314d053eab8bf717d4853035e46ba810dd04f4b0",
+    "scripts/test-production-roof.mjs": "df542abedfe6302a62b9adca1ebb3110609b3e5d",
+    "scripts/production-roof-export.mjs": "71b1e4d696bc2fb4d48e66c496dafde1cdaef351",
+    "tests/helpers/roof-m-baseline.mjs": "5bdfe995bd87e66a62720e83e69238df4d8839a6",
+    "tests/helpers/grove-l-baseline.mjs": "364c906666fbae9c6b3e8c810343814aa34674e5",
+    "tests/roof_m_preservation.py": "214e2136f8c3f7a8e8f04ffca650501e608b714a",
+    "tests/grove_l_preservation.py": "aece5dce77e71d69740244e952e02db4bbf83f25",
+    "tests/production-architecture-source.test.mjs": "4f6a06f1199ef715eeeb4ec26c7536a6077c159f",
+    "tests/production-grove-source.test.mjs": "86bf2d89fa02ef74e33a8db26d924be3eea7a7ad",
+    "tests/grove_l_test.py": "fb51395ae0820bf8db16dbf650cc6f880d209ff8",
+    "tests/roof_m_test.py": "37ac278900b5ea908f3e9d27b708171263aaa194",
+    "tests/production-roof.test.mjs": "3555f2fd6a97f965d6f39434aea8910d1d4a06b3",
+    "tests/production-roof-source.test.mjs": "57f2dd4ffc0fe88028f698a279b7bac26d85dc6d",
+    "tests/current_build_test.py": "8acea8431593738e4820f1a070d91fd6141af2be",
+    "tests/baselines/vq04m-unchanged-inputs.json": "8179daea1c3386903aa07d47a8ad038f349a8bdf",
+    "assets/manifest.json": "47207b4afd4cba370d212615363544c6b60e05ae",
+    "tests/fixtures/ci109-roof-stops.json": "09942b26d207161611ca66297ad91a7d02a69bd0",
+    "scripts/test.mjs": "775f8f96eef1294585375b1daafc61f9858af370",
+    "tests/baselines/vq04m-declared-art-edits.json": "14934d650bd5e2bc6fa25c9f0fc220a959d773b1"
+  },
+  "unreferencedOnly": false,
+  "all23Matched": true,
+  "testedSourceChangedDuringTransfer": false,
+  "schema": "chrono-vq04m-source-transfer-v1",
+  "sourceCommit": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+  "sourceTree": "bd628663e5a487eb5cac6b0ad696245ec3cfb0a7",
+  "sourceParent": "8faad113e00daab186d6ad314ea302c8cf8755c6",
+  "allProgramFilesMatchTestedSnapshot": 770,
+  "sourceRootMatchesLocal": true,
+  "nonForceRefUpdated": true,
+  "mainCommitParentTreeReadBack": true,
+  "recordedAt": "2026-09-29T07:49:57.971288+00:00"
+}

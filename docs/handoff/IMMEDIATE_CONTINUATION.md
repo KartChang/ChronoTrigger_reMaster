@@ -1,13 +1,13 @@
-# 立即續作 — v45／VQ04L／唯一CI109
+# 立即接續 — v46／M已發布，CI110唯一驗證
 
-請使用GitHub connector接手KartChang/ChronoTrigger_reMaster，main only／singleAI／nonforce，不建branch、PR或平行candidate。先確認main一次，再讀STATUS／evidence/T05_ANIMATION_CHECKPOINT.json／TODO，不重讀歷史或重做已完成章節。
+使用GitHub connector接KartChang/ChronoTrigger_reMaster／main；singleAI/nonforce，不建branch／PR／平行candidate。先main一次，再STATUS／T05_ANIMATION_CHECKPOINT v46／TODO；不是歷史審計或重做已完成批次。
 
-遊戲source b8cc1b603c419ac11724cec9a7292d38c984b066，tree7ad7b7b672697622bc25b13d6ca9636bc84b679c，parent59d21b4abc3e4e39b9a93b53d8960ce51e6e5c1c。唯一CI109／36516603995／push／attempt1／exact L，最後in_progress，provider updated2026-09-29T03:19:25Z。只接此run，pending存checkpoint不長poll；完成保存原ZIP／logs／manifest到指定Drive且回下載，審查L原生樹根葉叢、原CPU／inn遮擋gates與Pages實選L。不得rerun／dispatch／重送source。
+遊戲M0.9.86 source **e2018f2a3752f14dc52a55517839797cac67e0c7**／tree **bd628663e5a487eb5cac6b0ad696245ec3cfb0a7**；parent8faad113e00daab186d6ad314ea302c8cf8755c6。唯一 **CI11036538709652**／push／attempt1／exact M，最後in_progress，updated2026-09-29T07:47:16Z。只接此run：pending保存checkpoint不長poll；completed保全原ZIP並作roof/nativeCPU/Pages限定review。不得重送、rerun或dispatch。
 
-L759source／23delta、Node3752／Python645／assets／typecheck／quality schema／build完成且前後bytes相同。兩256×64圖集各四變體，16原樹點、32mesh／2texture／2material／RGBA payload131072bytes，15非target／heldframe与4原CI108停點驗證。原樹冠道路角色／State／camera／collision／native routes/assertions/goldens及held母親家具保持；SOURCE-only inverse不作用native/image/State。
+本批8屋面UV轉向、32橫條.42、4屋脊.60已接正式Geometry，共44件；原texture/人物/State/碰撞/held不改。完整Node3809/Python649/assets/TS/quality schema/build通過，770source前後一致；57新增Node、4Python、16非targetframe、4原CI109 inn停點、44模型同源。首輪H source字串失敗已明示M→L源還原修正，原斷言/pins/native/goldens保持；不需要重新全測M。
 
-L唯一最終包1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz，1615040bytes，SHA256a5fe1cf499402578375adf43a7c046042c5dc59642fd7792508f7843ff5ef28d，69manifest；03:06:20Z回下載後才push。folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；program-vq04l.tar.gz不含docs/node_modules。工具鏈只恢復node_modules。不可相信舊容器或舊J/v44 CI107pending文字。
+唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；M包1O4U8moauYaLlwajGFtzCV0-YpydBsNnX，1983463bytes/SHAe04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389，143manifest/770snapshot/23delta，發布前下載回驗。program-vq04m.tar.gz無docs/node_modules，不蓋最新main文件；容器非權威。
 
-K已在上次中斷前發布，本輪恢復747source與原logs；CI10836509304093／Pages10236512444855皆success，exactK／playable11009780958，七ZIP／八ledger179entry／九payload已回驗。原始證據Part1 1dQG729PwAmSKwoiJXNxWdhCrvU2Q7onV、Part2 1Yxu1euPV6db-s8ZdjTTxcMXTXya5YIMS。只做三靜態圖與來源部署限定review，Kfinalpre-push下載收據未恢復不倒填。CI107failure／Pages101skipped不回填。
+CI10936516603995／Pages10336519488900已success且限定review完成，七ZIP在1ydChp1lt4SBG9KEPckwWmOfawF85fcHe、1NoqPbsdyGq44ZBzT9QLWPPMtmYWNeVV8；原CPU302<=309及trial過。最後限定部署L，不是M；不重驗L或等待CI109 done。
 
-L完成後續原作屋頂／樹冠／山道法庭家具尺度构圖、縮尺大地圖與城鎮切換、全party/enemy/NPC動作death。112NPCwalk、256partycombat仍staged；合法音訊聆聽／原速／真機／長時段及T03–T08不縮。所有完整批准false、newScore=null、releaseBLOCKED。所有成果main或上述folder且回讀，docs[skip ci]；No localbrowser／native State-time-save-collision注入或門檻放寬。
+CI110之後續完整屋頂輪廓／樹冠／法庭家具／縮尺地圖、全party/enemy/NPC動作death；112walk及256combat仍staged。原native routes/timing/capture/assertion/golden／heldprologue2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。No localbrowser/native注入，所有成果main或指定Drive且回讀，docs[skip ci]。T03–T08/音訊聆聽/原速/真機/長時段不縮，完整批准false,newScore=null,releaseBLOCKED。

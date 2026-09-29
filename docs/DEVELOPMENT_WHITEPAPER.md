@@ -1,29 +1,29 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本product-vq04l-production-v45；authority STATUS／TODO／T05_ANIMATION_CHECKPOINT v45。唯一main／singleAI／nonforce。前代完整白皮書原blob b48b01a295435aa6c38dab52f16bba9c75777928保留於evidence/VQ04L_PREVIOUS_WHITEPAPER.md，未修改的架構、數值、音訊與完整分母沿用，不重新審计歷史。
+版本product-vq04m-production-v46；authority STATUS／TODO／T05_ANIMATION_CHECKPOINT v46。唯一main／singleAI／nonforce。前代完整白皮書原blob **4c15a01d919151dcd492bcac6035244e5af1a21c** 原byte存evidence/VQ04M_PREVIOUS_WHITEPAPER.md；未改架構、數值、音訊與全部分母直接沿用，不重審歷史。
 
-## 產品與不可變架構
+## 產品與固定架構
 
-完整《超時空之鑰》瀏覽器HD-2D：像素角色＋立體場景、原作背景／辨識度／構圖、縮尺大地圖與城鎮／室內切換、fixed ATB、P1/P2及自主第三、所有時代主支線結局。2300抵達不算完整未來；前段實際遊戲美術与舒適性优先，不能縮為展示或反覆邊界維護。
+完整《超時空之鑰》瀏覽器HD-2D：像素角色＋立體場景、原作背景辨識度與構圖、縮尺大地圖／城鎮／室內切換、fixed ATB、P1/P2與自主第三、全時代主支線結局。2300抵達非完整未來。優先前段實際遊戲美術及舒適性，不能縮為展示圖或反覆邊界維護。
 
-TS/Babylon/esbuild、原World／fixed simulation／A*／InputBoundary／v1-v8不改。ArtDirectedWorld組合同一scene美術pass，CPU/WebGL同入口；不造P3／ARPG／裝置旁路。原State、時鐘、save、碰撞、camera算法、native routes/waits/captures/assertions/goldens及CPU品質／記憶體门檻不變；held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不提升。
+TS/Babylon/esbuild、原World／fixed simulation／A*／InputBoundary／v1-v8不變。ArtDirectedWorld組合同一scene，CPU/WebGL共用正式入口，不加P3／ARPG／裝置測試旁路。State、時鐘、input、save、碰撞、camera算法、native routes/waits/captures/assertions/goldens及CPU品質／記憶體門檻保持；held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a和母親家具不提升。
 
-## 沿用與本批新增
+## 沿用與M實作
 
-A–J美術與I像素不變CPU優化沿用；K招牌立面內縮／下移已在main且CI108／Pages102成功。本輪找回中斷K文件、完整source與原logs，沒有再作者或重送K。原CI107 failure／Pages101 skipped保留；K最終pre-push下載收據未恢復，明示發布後回驗。
+A–L基礎沿用，K旅館立面、L苔根蕨葉與I CPU優化不重做。M以純作者dressProductionRoof作為既有H Geometry建立時的依賴；正式入口固定傳入作者，無版本／裝置／CI環境分支。完整白名單、來源layout與unit UV等檢查在變更前執行，漂移時既有owner還原原Geometry，外部替代物件不被覆寫。
 
-L兩個原創256×64像素圖集各四64×64變體，於托魯斯4及森林12原樹點補破碎苔根地表與扇狀蕨葉。正式installProductionGrove使用原scene之onBeforeRender；白名單結構與原plane／material／texture尺寸契約不符即拒絕。接入後drift釋放自有物件，不寫回外部樹。max2cached roots／32mesh／2texture／2material，131072bytes只指RGBA payload；root/pass/scene dispose回收，不冒稱cached root切home立即消失。
+四棟屋頂44件：8屋面UV (u,v)→(v,1-u)，使原瓦片横列順斜坡；32橫條截面.42、4屋脊上緣.60。保持原貼圖／材質、原mesh transform、坡面主體位置、屋脊底座與橫條長度，法線重算。實際畫面會變；診斷仍讀真實source texture及mesh，不偽裝L畫面。M沒有額外mesh/texture/material/retained geometry buffer，沿用town91200及town+court100320bytes幾何payload，不宣稱引擎總記憶體。
 
-原樹冠、屋頂、道路、人物RGBA、geometry與遊戲State不改。新葉叢不可pick／無collision，主路外布置；這是局部接地層，不是完整樹列、屋頂或原作構圖批准。G224NPC ambient/greet保留，112NPCwalk及256party combat仍未啟用。
+M不處理完整樹冠、屋頂外形與區域重設。G224NPC ambient/greet保留；112walk與256party combat仍staged。所有完整動作和劇情目標不縮。
 
-## 驗證與可驗證發布
+## 驗證與發布分開
 
-L完整Node3752／Python645／assets／TS／quality schema／build通過；759source前後一致，50專屬Node／4Python、15非target／held整張frame及4原CI108停點保持。2PNG／manifest獨立與build同源，2模型／6圖明示offline。L→K及前代SOURCE-only inverse僅用舊component／source回歸，不處理native/image/State，正式L應用無inverse。
+完整Node3809／Python649／assets／TS／quality schema／build通過，770source前後相同。57專屬Node／4Python、16非target/held完整frame、4CI109原inn停點gate、44模型與獨立/build匯出同源；4圖只算offline。M→L及前代SOURCE-only還原限舊source/component，不作用native/image/State；首輪H字串检查失敗以明示source還原修正，原斷言與pins保留，M實際整合仍不還原。
 
-CI108七原ZIP、747Ksource、八ledger／179entry、九Pages payload實際核對；僅三張靜態圖review，不擴為motion／聆聽／真機。最後限定部署K0.9.84／CI10836509304093／Pages10236512444855；L0.9.85 sourceb8cc1b603c419ac11724cec9a7292d38c984b066已發布，唯一CI10936516603995最後in_progress。L品質與部署不能由K或離線綠勾推定。
+CI109／Pages103成功，七原ZIP、759Lsource、八ledger179entry及九Pages payload回驗；原CPU rescue302<=309且trial過。三張原生靜態圖非全motion/聆聽/真機；空.nojekyll不在tar，未抓live site。最後限定部署L0.9.85。M0.9.86 sourcee2018f2a3752f14dc52a55517839797cac67e0c7已單次nonforce發布；唯一CI11036538709652最後in_progress，尚無M原生或部署批准。
 
-## 持久交付與完整範圍
+## 持久交付與完整分母
 
-唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。L完整包1Yzcp3ZOSCCHb_lE9-ax5626D1aHBI2oz保存source/tests/logs/assets/manifest/models/offline views，759snapshot／23delta／69manifest；先真實下載回驗再單次non-force sourcepush。GitHub文件[skip ci]；snapshot排除docs/node_modules，不覆蓋最新main文件；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢复node_modules/esbuild。容器非權威。
+全部source/tests/logs/manifests/models/offline views存main或唯一Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。M包1O4U8moauYaLlwajGFtzCV0-YpydBsNnX，143manifest／770snapshot／23delta，已真正下載回驗後才push；snapshot排除docs/node_modules，不能覆蓋main最新文件。文件[skip ci]；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢复node_modules/esbuild hardlink；臨時容器非權威。
 
-T03全規則版本拓樸數值、T04完整成長經濟裝備學習與雙三人技、T05全部美術動畫合法音訊、T06所有時代主支線結局、T07真實畫面／遊玩／裝置整體>=90及各面向>=80%／requiredassets／fivegates／zero critical、T08完整測試與來源／CI／cloud回驗不縮。完整動作death、屋頂樹冠／家具構圖、縮尺地圖、音訊聆聽／原速／真機／長時段仍open。art/fullAnimation/originalSpeed/listening/device/longSession/wholeGame皆false，newScore=null、releaseBLOCKED。ROM/media/fonts/credentials私有；不以舊30/100或素材數冒稱新評分。
+T03全規則版本拓樸數值、T04全成長經濟道具裝備飾品學習換人雙三人技、T05全美術建模動畫合法音訊、T06全時代主支線結局、T07真實畫面遊玩裝置整體>=90及各面向>=80%／requiredassets／fivegates／zero critical、T08fulltests/onesource/matchingCI/cloud回驗不縮。完整方向動作death、屋頂樹冠與家具構圖、縮尺地圖、音訊聆聽／原速／真機／長時段仍open。全部完整批准false、newScore=null、releaseBLOCKED；舊30/100非新評分，ROM/media/fonts/credentials私有。

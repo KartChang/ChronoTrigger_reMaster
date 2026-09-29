@@ -386,6 +386,18 @@
         "tests/production-sightline.test.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "inn-facade-mount-vq04k",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-sightline-art.ts",
+      "gap": "Smaller sign face is inset under the eave. Actual native opacity is still determined by unchanged triangle rays; CI107 retained as failure. No full scene, animation or physical-device approval.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04K.md",
+        "tests/inn-mount-k.test.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

@@ -1,0 +1,192 @@
+{
+  "schema": "chrono-vq04k-source-only-v1",
+  "predecessorSource": "2b5fbc384188eb18ed2d76d9da14e01d90aec08b",
+  "scope": "SOURCE-only inverse. Not native reports/images/game State. Runtime change: authored inn face placement only.",
+  "files": {
+    "assets/manifest.json": {
+      "sha256": "f5874fa7ee1fe951ed04dfab245263eb8b632eecd2681cb4ba4e2e7a0cb8fb05",
+      "hunks": [
+        {
+          "before": ".mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n",
+          "after": ".mjs\"\n      ],\n      \"romExtracted\": false\n    },\n    {\n      \"id\": \"inn-facade-mount-vq04k\",\n      \"required\": true,\n      \"stage\": \"review\",\n      \"source\": \"src/production-sightline-art.ts\",\n      \"gap\": \"Smaller sign face is inset under the eave. Actual native opacity is still determined by unchanged triangle rays; CI107 retained as failure. No full scene, animation or physical-device approval.\",\n      \"evidence\": [\n        \"docs/PRODUCTION_ART_VQ04K.md\",\n        \"tests/inn-mount-k.test.mjs\"\n      ],\n      \"romExtracted\": false\n    }\n  ]\n}\n"
+        }
+      ]
+    },
+    "scripts/build.mjs": {
+      "sha256": "4d9daaad8f9003e3a4853f125b7ea01f49b96bbcdd8d1e3f2a33770b15c44ce7",
+      "hunks": [
+        {
+          "before": "de:fs/promises';\nconst buildInfo={version:'0.9.83',batch:'VQ04J',sourceSha:process.env.GITHUB_SHA??null};\nif(bu",
+          "after": "de:fs/promises';\nconst buildInfo={version:'0.9.84',batch:'VQ04K',sourceSha:process.env.GITHUB_SHA??null};\nif(bu"
+        }
+      ]
+    },
+    "scripts/test-production-sightlines.mjs": {
+      "sha256": "da8b6348bd8f88ed52948982217fe5dc38a14db2f37d6ccf550c5d62c2409fa0",
+      "hunks": [
+        {
+          "before": "import {build} from 'esbuild';import {spawnSync}",
+          "after": "import {innKEntryPlugin} from '../tests/helpers/inn-mount-k-baseline.mjs';\n// Frozen J components only. test-inn-mount.mjs builds the actual K entry without inverse plugins.\nimport {build} from 'esbuild';import {spawnSync}"
+        },
+        {
+          "before": "format:'esm',platform:'node',packages:'external'});\n for(const previous of [false,true])await bu",
+          "after": "format:'esm',platform:'node',packages:'external',plugins:[innKEntryPlugin]});\n for(const previous of [false,true])await bu"
+        },
+        {
+          "before": "external',plugins:previous?[sightJEntryPlugin]:[]});\n await build({entryPoints:['tests/cpu-entry",
+          "after": "external',plugins:previous?[sightJEntryPlugin]:[innKEntryPlugin]});\n await build({entryPoints:['tests/cpu-entry"
+        }
+      ]
+    },
+    "scripts/test.mjs": {
+      "sha256": "4f395af2400784b63b4d352844e8f9fb3336c7d5604444ac63bb5184f75db21f",
+      "hunks": [
+        {
+          "before": "import {buildSightlineTests} from './test-produc",
+          "after": "import {buildInnMountTests} from './test-inn-mount.mjs';\nimport {buildSightlineTests} from './test-produc"
+        },
+        {
+          "before": "CpuHotLoopTests();\nawait buildSightlineTests();\nconst r=spawnSync(process.execPath,['--test','tests/production-sightline.test.mjs','tests/s",
+          "after": "CpuHotLoopTests();\nawait buildSightlineTests();\nawait buildInnMountTests();\nconst r=spawnSync(process.execPath,['--test','tests/inn-mount-k.test.mjs','tests/inn-mount-source.test.mjs','tests/production-sightline.test.mjs','tests/s"
+        }
+      ]
+    },
+    "src/production-sightline-art.ts": {
+      "sha256": "064ea3e45b668f5e8d7017f4e182dd68ec112b771fd76b8a97cbc083478c8ba9",
+      "hunks": [
+        {
+          "before": "-and-court-dais',approved:false,\n signScale:.66,daisDepthScale:.70,maxRoots:2,maxBindings:4,maxG",
+          "after": "-and-court-dais',approved:false,\n signScale:.66,signInsetX:-.32,signDropY:-.10,daisDepthScale:.70,maxRoots:2,maxBindings:4,maxG"
+        },
+        {
+          "before": "hes:0,addedTextures:0,addedMaterials:0,\n});\n/** Preserve the centered sign's 2:1 proportions and its existing world anchor. */\nexport function sculptInnSign(positions:rea",
+          "after": "hes:0,addedTextures:0,addedMaterials:0,\n});\n/** Keep J's smaller 2:1 face, inset beneath the inn eave beside the door.\n * Local vertex translation preserves the original world transform and UVs. */\nexport function sculptInnSign(positions:rea"
+        },
+        {
+          "before": "s.map((v,i)=>i%3===2?v:v*SIGHTLINE_ART.signScale);\n}\n/** An elliptical court dais keeps its orig",
+          "after": "s.map((v,i)=>i%3===2?v:v*SIGHTLINE_ART.signScale+(i%3===0?SIGHTLINE_ART.signInsetX:SIGHTLINE_ART.signDropY));\n}\n/** An elliptical court dais keeps its orig"
+        }
+      ]
+    },
+    "tests/current_build_test.py": {
+      "sha256": "7df423036a732b399f845d6500386fc26a8409300efe6b8e6e688f771a2d5128",
+      "hunks": [
+        {
+          "before": "ser.py':2}\nDECL=\"const buildInfo={version:'0.9.83',batch:'VQ04J',sourceSha:process.env.GITHUB_SHA??null};\"\nclas",
+          "after": "ser.py':2}\nDECL=\"const buildInfo={version:'0.9.84',batch:'VQ04K',sourceSha:process.env.GITHUB_SHA??null};\"\nclas"
+        },
+        {
+          "before": "\n        self.assertEqual(EXPECTED_BUILD,('0.9.83','VQ04J'))\n        self.assertEqual(expected_build_from",
+          "after": "\n        self.assertEqual(EXPECTED_BUILD,('0.9.84','VQ04K'))\n        self.assertEqual(expected_build_from"
+        },
+        {
+          "before": "or raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.83','NaN'),DECL.replace('VQ04J','report.batch'),DECL.replace('process.env.GITH",
+          "after": "or raw in ['',DECL+'\\n'+DECL,DECL.replace('0.9.84','NaN'),DECL.replace('VQ04K','report.batch'),DECL.replace('process.env.GITH"
+        },
+        {
+          "before": "ildInfo=untrusted;',DECL.replace(\"version:'0.9.83'\",'version:report.version')]:\n            with ",
+          "after": "ildInfo=untrusted;',DECL.replace(\"version:'0.9.84'\",'version:report.version')]:\n            with "
+        }
+      ]
+    },
+    "tests/helpers/sightline-j-baseline.mjs": {
+      "sha256": "bfd692270b7175ebeb029ebb096dce11469259c05f28fbaa36519954c72cd345",
+      "hunks": [
+        {
+          "before": "/** J -> I SOURCE-only inverse. No native, pixel",
+          "after": "import {innKSpec,innKIfDeclared,innKFrozenBytes,innKEntryPlugin} from './inn-mount-k-baseline.mjs';\n/** J -> I SOURCE-only inverse. No native, pixel"
+        },
+        {
+          "before": "1')throw Error('Invalid J source declaration');\nexport function sightJBaseline(name,source,verify=true){\n const e=Object.hasOwn(sightJSpec.files,name)?s",
+          "after": "1')throw Error('Invalid J source declaration');\nsightJSpec.newPaths.push(...innKSpec.newPaths);\nexport function sightJBaseline(name,source,verify=true){\n source=innKIfDeclared(name,source);\n const e=Object.hasOwn(sightJSpec.files,name)?s"
+        },
+        {
+          "before": "}\nexport function sightJIfDeclared(name,source){const e=Object.hasOwn(sightJSpec.files,name)?sig",
+          "after": "}\nexport function sightJIfDeclared(name,source){source=innKIfDeclared(name,source);const e=Object.hasOwn(sightJSpec.files,name)?sig"
+        },
+        {
+          "before": ";}\nexport function sightJFrozenBytes(name,data){return Object.hasOwn(sightJSpec.files,name)?Buff",
+          "after": ";}\nexport function sightJFrozenBytes(name,data){data=innKFrozenBytes(name,data);return Object.hasOwn(sightJSpec.files,name)?Buff"
+        },
+        {
+          "before": "{name:'J-to-I-source-only-predecessor',setup(b){b.onLoad({filter:/[\\\\/]src[\\\\/]art-directed-worl",
+          "after": "{name:'J-to-I-source-only-predecessor',setup(b){innKEntryPlugin.setup(b);b.onLoad({filter:/[\\\\/]src[\\\\/]art-directed-worl"
+        }
+      ]
+    },
+    "tests/sightline-source.test.mjs": {
+      "sha256": "cdb25e1ff0ac42b7dbfe757521988a8fc1196a5210e608c110053ef79930585d",
+      "hunks": [
+        {
+          "before": "/** J -> I SOURCE-only tests; original native re",
+          "after": "import {innKIfDeclared,innKFrozenBytes,innKIsNew} from './helpers/inn-mount-k-baseline.mjs';\n/** J -> I SOURCE-only tests; original native re"
+        },
+        {
+          "before": "nd strict drift rejection '+name,()=>{const raw=readFileSync(name,'utf8'),old=sightJBaseline(name,raw);assert.equal(sha(",
+          "after": "nd strict drift rejection '+name,()=>{const raw=innKIfDeclared(name,readFileSync(name,'utf8')),old=sightJBaseline(name,raw);assert.equal(sha("
+        },
+        {
+          "before": "=names.sort().filter(n=>!pin.exclude.includes(n)).map(n=>[n,sha(readFileSync(n))]);assert.equal(rows.length,pin.expectedCount)",
+          "after": "=names.sort().filter(n=>!pin.exclude.includes(n)&&!innKIsNew(n)).map(n=>[n,sha(innKFrozenBytes(n,readFileSync(n)))]);assert.equal(rows.length,pin.expectedCount)"
+        },
+        {
+          "before": "s=installProductionSightlines(scene)'));const b=readFileSync('scripts/build.mjs','utf8');assert(b.includes(\"version:'0.9.83',batch:'VQ0",
+          "after": "s=installProductionSightlines(scene)'));const b=innKIfDeclared('scripts/build.mjs',readFileSync('scripts/build.mjs','utf8'));assert(b.includes(\"version:'0.9.83',batch:'VQ0"
+        }
+      ]
+    },
+    "tests/sightline_j_preservation.py": {
+      "sha256": "d1eccf15bbd6af0e3d9c1bcfeb19efcdda40323b66b49c6ae68e6b2033b16080",
+      "hunks": [
+        {
+          "before": "\"\"\"J -> I SOURCE-only preservation. Never an ima",
+          "after": "from inn_mount_k_preservation import SPEC as K_SPEC,restore_inn_k_if_declared,inn_k_frozen_bytes\n\"\"\"J -> I SOURCE-only preservation. Never an ima"
+        },
+        {
+          "before": "aise ValueError('Invalid J source declaration')\ndef restore_sight_j_source(name,source,verify=True):\n    e=SPEC['files'].get(name)\n    if not e or n",
+          "after": "aise ValueError('Invalid J source declaration')\nSPEC['newPaths'].extend(K_SPEC['newPaths'])\ndef restore_sight_j_source(name,source,verify=True):\n    source=restore_inn_k_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    if not e or n"
+        },
+        {
+          "before": "f restore_sight_j_if_declared(name,source):\n    e=SPEC['files'].get(name)\n    return restore_sig",
+          "after": "f restore_sight_j_if_declared(name,source):\n    source=restore_inn_k_if_declared(name,source)\n    e=SPEC['files'].get(name)\n    return restore_sig"
+        },
+        {
+          "before": "source\ndef sight_j_frozen_bytes(name,data):\n    return restore_sight_j_source(name,data.decode()",
+          "after": "source\ndef sight_j_frozen_bytes(name,data):\n    data=inn_k_frozen_bytes(name,data)\n    return restore_sight_j_source(name,data.decode()"
+        }
+      ]
+    },
+    "tests/sightline_j_test.py": {
+      "sha256": "b83cd31cf9e5c3deb4caa20bb39154a1b476f8588ddedc7fd1f64ec281768023",
+      "hunks": [
+        {
+          "before": "\"\"\"Offline source-only preservation; not a nativ",
+          "after": "from inn_mount_k_preservation import SPEC as K_SPEC,restore_inn_k_if_declared,inn_k_frozen_bytes\n\"\"\"Offline source-only preservation; not a nativ"
+        },
+        {
+          "before": "r n,e in SPEC['files'].items():\n            raw=(ROOT/n).read_text();old=restore_sight_j_source(n,raw)\n            ",
+          "after": "r n,e in SPEC['files'].items():\n            raw=restore_inn_k_if_declared(n,(ROOT/n).read_text());old=restore_sight_j_source(n,raw)\n            "
+        },
+        {
+          "before": "cted_build_from_source\n        self.assertEqual(EXPECTED_BUILD,('0.9.83','VQ04J'))\n        self.assertEqual(ex",
+          "after": "cted_build_from_source\n        self.assertEqual(expected_build_from_source(restore_inn_k_if_declared('scripts/build.mjs',(ROOT/'scripts/build.mjs').read_text())),('0.9.83','VQ04J'))\n        self.assertEqual(ex"
+        },
+        {
+          "before": "OT).as_posix())\n        rows=[[n,hashlib.sha256((ROOT/n).read_bytes()).hexdigest()] for n in sorted(names) if n not in p['exclude']]\n        self.assertEqual(len(rows),p['expect",
+          "after": "OT).as_posix())\n        rows=[[n,hashlib.sha256(inn_k_frozen_bytes(n,(ROOT/n).read_bytes())).hexdigest()] for n in sorted(names) if n not in p['exclude'] and n not in K_SPEC['newPaths']]\n        self.assertEqual(len(rows),p['expect"
+        }
+      ]
+    }
+  },
+  "newPaths": [
+    "scripts/test-inn-mount.mjs",
+    "tests/helpers/inn-mount-k-baseline.mjs",
+    "tests/inn_mount_k_preservation.py",
+    "tests/fixtures/ci107-inn-stops.json",
+    "tests/inn-mount-k.test.mjs",
+    "tests/inn-mount-source.test.mjs",
+    "tests/inn_mount_k_test.py",
+    "tests/baselines/vq04k-declared-art-edits.json",
+    "tests/baselines/vq04k-unchanged-inputs.json"
+  ]
+}

@@ -1,25 +1,27 @@
-# Delivery Index — v43，I最終全測、同ID回驗與單次發布
+# Delivery Index — v44，J完整測試與單次發布
 
-唯一KartChang/ChronoTrigger_reMaster／main；Drive folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。v42原索引blob31e0a54b4c69e0968bb99f3f9c3cb20d1f8844fc保留於evidence/VQ04I_PREVIOUS_DELIVERY_INDEX.md；不重驗前代。
+唯一repository KartChang/ChronoTrigger_reMaster／main；Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。前代原索引保留於evidence/VQ04J_PREVIOUS_DELIVERY_INDEX.md；本頁只列當前接續必需資料。
 
-## 最新I完整工作包
+## J最終工作包
 
-Chrono-VQ04I-production-batch.zip；fileId **1rQFMxpJqWT26Z8lKM2hiHYNcOwSmK68D**。
-**1689278bytes**；SHA256 **24655f9a0f7afc929569e0cf3a7075c7e42fa54cf5f2a8efcfa785a9165132a0**。
-60manifest／727program／19delta／完整兩輪全測logs、37dedicated與633Python、offlinebenchmark原samples、SOURCE-only宣告縮小／傳輸核對與早期包紀錄。program-vq04i.tar.gz不含docs/node_modules/dist；保留最新GitHub docs。I無新美術素材，原A–H作者圖不改。
+**Chrono-VQ04J-production-batch.zip**／**13wktlxljWmQLlXpo5Aw8CM7OKmAXsy_7**。
+**2124403bytes**／SHA256 **265983e672f416817c760fa26b1cdb3733d6ff39f6893e104b88017aee955b58**。
+165manifest／738program／22delta／完整成功與失敗logs／4模型JSON／4offlinePNG／75ignored測試產物及來源verifier。program-vq04j.tar.gz不含docs/node_modules/.test/dist/test-results；新offline產物另放offline-test-results，不是新native報告。
 
-同ID早期45manifest包已取代，最終provider modified2026-09-28T19:30:52.127Z。**2026-09-28T19:31:20.092344Z**真正回下載核parent／size／SHA／CRC／60entry精確集合／727snapshot sizes SHA Git blobs／19delta，並與全測前hash吻合。最終rootc9da8d56a6cdece842d82b9a993524061269ac06。先回驗再source push。EARLY_*收據只記舊包，不能當目前hash；兩個未引用錯誤Git blob均未入commit。
+同ID早期1812109bytes包為working-checkpoint，全測未完成狀態照存EARLY_WORKING_READBACK；最終provider modified2026-09-29T00:22:08.822Z，**00:24:35.571632Z**回下載核parent/size/SHA/CRC/165manifest/738snapshot/22delta後才推送。不可用早期包或舊I包覆蓋當前J。
 
-## Source與CI
+source **2b5fbc384188eb18ed2d76d9da14e01d90aec08b**／tree **31f37080ef4b5c0531e964910cd2a087fcb8aed1**／parent **c3c177a5e314ed3fa3251e3dc0c9841a1ff52f7e**。唯一CI107／36502989585，push/attempt1/in_progress，updated2026-09-29T00:25:14Z。prepush包sourcePublished=false與VQ04J_PUBLICATION後續true分別保留，不倒填。
 
-I／0.9.82 source **e6512e40a48d68df1dab351a8151d1e40b637a36**，tree **c9da8d56a6cdece842d82b9a993524061269ac06**，parent89e7f811541a803b7639c89cae5fdee72da4f9c4。一次non-force並回讀；唯一CI106／36472872816／push／attempt1，最後in_progress updated2026-09-28T19:31:56Z。原生修復／部署未接受，不rerun或dispatch。
+## CI106／Pages100原始證據，已入庫回驗
 
-VQ04I_VALIDATION及VQ04I_CLOUD_READBACK的sourcePublished=false是pre-push時間；VQ04I_PUBLICATION記後續true及matchingCI。兩輪全測通過，最後Node3590／Python633／assets／TS／quality schema／build成功；來源宣告縮小後重新全套，before-final／after727檔一致。
+Part1 **1oqrY1OxljAtwX7_OjPQ2VmD5Obi8zcwq**／Chrono-CI106-Pages100-evidence-part1.zip：67387640bytes／SHA **fdc8255f5a1d0f380efc1937f9b26f98bdef665888082f5414155da4ff805060**，1manifest（browser原ZIP）。
 
-## CI105／Pages99原始證據
+Part2 **1dT8qW30LvNSnQeOb0Zxe3XuViRCBuzKc**／Chrono-CI106-Pages100-evidence-part2.zip：40540494bytes／SHA **c468eba79385f68577bb7be7ebf7b028cf934e8710b3f7dc83a4d54428d34de8**，8manifest（其餘6原ZIP與review/verifier）。2026-09-29T00:08:29.509395Z實際回下載核外內CRC、manifest和原byte。
 
-Part1 **1AyM5eyiW2LKrzHdn48Flp19GVHmo_-QI**／Chrono-CI105-Pages99-evidence-part1.zip：60872438bytes，SHA256 **31dbb3c25b60692674fa7be04e3b8a13a4f4ca5957d41ffcd8f5ef537a67a802**，1manifest（完整browser ZIP）。
-Part2 **1dZPf2PafbWlT3-06K3vZpMhOIMe7eGwl**／Chrono-CI105-Pages99-evidence-part2.zip：36235959bytes，SHA256 **5862e5cb92ab7ef91c967645f1f8fd163c7398b1ea216d2b2903ddc4f333a604**，5manifest（其餘3原ZIP／完整review／readonly verifier）。
-兩包2026-09-28T19:13:44.504780Z下載核outer/innerCRC、manifest及原ZIPbytes。共四原ZIP、H717source、四ledger63entry及兩張WebGL靜態圖有界核對；無playable。CPU rescue report SHAe48b13e518a04b9f98c65e9570597ea0829fcfb734426f4043b649cf0017d69f，313ticks>309；位置達標不能忽略預算。完整pulses／source綁定及靜態限制存CI105_PAGES99_REVIEW與原包，不重寫native報告。
+CI10636472872816/Pages10036477353924success；727I來源、五ledger150entry、原CPUrescue291<=309、trial/gates與九Pagespayload同源。實際選I sourcee6512e40a48d68df1dab351a8151d1e40b637a36/playable10994152919；空.nojekyll未進tar，未另抓live site。兩靜態WebGL圖不是完整motion/影片/聆聽/真機批准。
 
-CI10536463822283 failure updated2026-09-28T18:52:04Z；Pages9936468216778 skipped updated18:52:14Z。最後已審查部署仍E／CI102／Pages96。所有完整品質批准false，newScore=null／releaseBLOCKED；ROM/media/fonts/credentials私有。文件[skip ci]。
+## 收據與固定界線
+
+evidence/VQ04J_VALIDATION、CLOUD_READBACK、PUBLICATION、SOURCE_VERIFICATION、TRANSFER_CORRECTIONS和CI106_PAGES100_REVIEW/CI106_CLOUD_READBACK記完整來源。原driver把75ignored產物計入after而false，原紀錄未改，738source逐byte不變的說明獨立保存。原始failed fixtures和兩個未引用錯誤Gitblob照存，錯誤物件未進main。
+
+上一I包1rQFMxpJqWT26Z8lKM2hiHYNcOwSmK68D僅前代來源。最後有界審查部署已為I/Pages100；J部署未確認。全T03–T08及所有品質分母不縮，批准false／newScore=null／releaseBLOCKED。ROM/media/fonts/credentials私有；docs[skip ci]、容器非權威。

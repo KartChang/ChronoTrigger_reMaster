@@ -1,15 +1,19 @@
-# 功能進度 — v43，VQ04I CPU熱迴圈優化
+# 功能進度 — v44，J招牌與法庭平台比例已發布
 
-權威STATUS／TODO／checkpoint v43。I0.9.82 source e6512e40a48d68df1dab351a8151d1e40b637a36已發布，唯一CI106／36472872816最後in_progress。沒有新NPC導航、戰鬥素材啟用或新的美術批准。
+Authority STATUS／TODO／checkpointv44。J0.9.83 source2b5fbc384188eb18ed2d76d9da14e01d90aec08b，唯一CI10736502989585／push／attempt1執行中。離線通過與source push不是原生或部署批准。
 
-## 本批工程完成
+## 本批完成
 
-cpu-raster三個保守逐列邊界展開、alpha/cutoff先於RGB處理、cpu-scene frame-local座標／法線／點光源向量重用。原運算結果、像素／深度與計數、解析度／取樣／資源門檻保持；不寫State／時鐘／input／碰撞。H100建築件與10法庭件模型、G224方向ambient/greet、全部原圖與held母親家具未改。
+旅館招牌原world anchor不動，局部XY.66保留2:1比例；三個法庭圓弧平台Z.70、X/Y不變，UV/indices保持並重算法線。四privateGeometry15512bytes／上限16384、兩root，無新增mesh/material/texture。正式ArtDirectedWorld共用CPU/WebGL入口，人物位置、來源貼圖、遊戲State/clock/collision及held母親家具不變。
 
-完整Node3590／Python633及assets／TS／quality schema／build，在新SOURCE-only宣告縮小後再次通過；37新增Node涵蓋隨機三角形、材質／光線與17場景／原CI105兩位置完整CPU畫面。最終全測前後727檔一致，708H程式原byte。四組543×362離線draw中位減少9.4%–20.6%，不能換算成原生FPS或真機批准。
+66新Node/4Python涵蓋完整來源admission、unknown fail-closed、owner/geometry/material/transform drift與釋放、16非target/heldframe、4actual-current target案例。4模型JSON与4offline比較圖存包；I原離線射線已有0阻擋，J只證明前緣後退及不增加阻擋，尚待native確認。
 
-## 原生與產品仍未完成
+完整Node3656／Python637／assets/TS/qualityschema/build成功。738source前後同byte，716I程式/711pins保持；原driver75ignored產物集合差異另列且原false摘要未改。J→I及前代SOURCE-only保留原native/goldens。
 
-CI105 exact H在CPU rescue雙人路線313ticks>309失敗，兩人位置進<.12不等於時間合格。四原ZIP與限定來源／兩靜態圖已入庫；Pages99 skipped，無H部署。I是否解決此terminal須CI106真實結果，不從離線推定。
+## 已觀察與待辦
 
-112NPCwalk仍staged，256party combat仍runtimeApplied=false。完整party/enemy/NPC方向動作death、場景尺度遮擋構圖、縮尺地圖／城鎮切換、完整合法音訊及聆聽、原速／真機／長時段與全T03–T08不縮。原生缺口與失敗歷史保留；全部完整品質批准false，newScore=null，releaseBLOCKED。持久包、原始logs及回驗見DELIVERY_INDEX。
+CI106原CPUrescue291<=309與後續trial/gates通過；Pages100選exactI/CI106，九payload一致，七原ZIP上雲回驗。兩靜態圖與來源限定審查，不是全motion/影片/聆聽/真機。CI104/105failure、Pages97failure/98/99skipped不回填。
+
+先接CI107原始畫面與原CPU/Pages門檻。J未重設整個屋頂或城鎮；仍需山道、法庭、樹列、建築家具尺度接縫遮擋與原作縮尺地圖切換。112NPCwalk/導航及256partycombat尚未啟用，完整party/enemy/NPC方向動作death和音訊/裝置驗收未完；Tank/Yakradeath、Henchoutgoing、Pdown、Qselectorhurt缺口保持。
+
+全T03–T08不縮，2300抵達不是完整未來；全部完整品質批准false／newScore=null／releaseBLOCKED。無localbrowser或native造數；全部成果存main或指定Drive。

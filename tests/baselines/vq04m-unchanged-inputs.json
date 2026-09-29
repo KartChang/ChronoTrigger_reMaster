@@ -1,0 +1,45 @@
+{
+  "schema": "chrono-vq04m-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-roof-export.mjs",
+    "scripts/test-production-grove.mjs",
+    "scripts/test-production-roof.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-architecture-finish.ts",
+    "src/production-roof-art.ts",
+    "tests/baselines/vq04m-declared-art-edits.json",
+    "tests/baselines/vq04m-unchanged-inputs.json",
+    "tests/current_build_test.py",
+    "tests/fixtures/ci109-roof-stops.json",
+    "tests/grove_l_preservation.py",
+    "tests/grove_l_test.py",
+    "tests/helpers/grove-l-baseline.mjs",
+    "tests/helpers/roof-m-baseline.mjs",
+    "tests/production-architecture-source.test.mjs",
+    "tests/production-grove-source.test.mjs",
+    "tests/production-roof-source.test.mjs",
+    "tests/production-roof.test.mjs",
+    "tests/roof_m_preservation.py",
+    "tests/roof_m_test.py"
+  ],
+  "expectedCount": 742,
+  "sha256": "63f322d02048e9f199818363888600b761c70714e529aa27eec28f83d53d49bb"
+}

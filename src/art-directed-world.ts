@@ -1,3 +1,4 @@
+import {dressProductionRoof} from './production-roof-art';
 import {installProductionGrove} from './production-grove-finish';
 import {installProductionSightlines} from './production-sightline-finish';
 import {installProductionArchitecture} from './production-architecture-finish';
@@ -38,7 +39,7 @@ export class ArtDirectedWorld extends World {
   this.storyNpcs=installProductionStoryNpcs(scene,(name,x,z)=>this.npcAttention.select(name,x,z));
   scene.onDisposeObservable.addOnce(()=>this.npcAttention.clear());
   this.places=installProductionPlaces(scene);
-  this.architecture=installProductionArchitecture(scene);
+  this.architecture=installProductionArchitecture(scene,dressProductionRoof);
   this.sightlines=installProductionSightlines(scene);
   this.grove=installProductionGrove(scene);
  }

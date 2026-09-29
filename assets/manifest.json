@@ -410,6 +410,19 @@
         "tests/production-grove.test.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "roof-slope-joinery-vq04m",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-roof-art.ts; src/production-architecture-finish.ts",
+      "gap": "Eave-aligned mesh UVs, narrower roof courses and tapered ridge caps on four existing Truce houses. Original texture pixels, building-ray fade and collision remain. Full roof silhouettes, canopy art, native-device and final-style acceptance remain open.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04M.md",
+        "tests/production-roof.test.mjs",
+        "scripts/production-roof-export.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

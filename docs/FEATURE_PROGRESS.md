@@ -1,15 +1,17 @@
-# 功能進度 — v46，M屋顶構造已發布，唯一CI110
+# 功能進度 — v47，M已完成CI110／Pages104限定審查
 
-Authority STATUS／TODO／checkpointv46。M0.9.86 sourcee2018f2a3752f14dc52a55517839797cac67e0c7、CI11036538709652／push／attempt1最後in_progress；離線通過與source發布不等於native／部署／完整藝術批准。
+Authority STATUS／TODO／checkpointv47。M0.9.86 sourcee2018f2a3752f14dc52a55517839797cac67e0c7；CI11036538709652／push／attempt1 success，Pages10436542208681 success、實際選playable11020128885。目前沒有active validation；本輪只續完證據保存與交接文件，沒有新source或全測重跑。
 
-## 本批新增
+## 已完成，沿用不重做
 
-四棟Truce建築8屋面unit UV轉向、32橫條截面.42、4屋脊上緣.60，共44件；重用原H自有Geometry及生命週期，0額外mesh/texture/material/retained geometry buffer。原texture bytes、角色transform、State、camera、collision、held資產不變；實際屋頂投影與瓦列渲染改變，不輸出偽造前代pixels。
+四棟Truce建築8屋面UV轉向、32橫條截面.42、4屋脊上緣.60，共44件；沿用H自有Geometry，0額外mesh/texture/material/retained geometry buffer。原texture bytes、人物、State、camera、collision及held資產不變。
 
-完整Node3809／Python649／assets／typecheck／quality schema／build過；57新增Node、4Python、16非target/held完整frame、4CI109停點原inn gate。44模型與獨立/build輸出一致，770source前後同byte。首輪H字串檢查失敗與修正保留；只加明示M→L source還原輸入，原H斷言、native與golden不改。詳見PRODUCTION_ART_VQ04M。
+原完整Node3809／Python649／assets／typecheck／quality schema／build、57專屬Node／4Python、16非target/held完整frame及44模型同源紀錄不改。M→L source-only保護及原pins/native/goldens保持，詳細實作見PRODUCTION_ART_VQ04M。
 
-## 已保存原生結果與未完成範圍
+本輪七原ZIP、770source與已測M快照一致，10ledger198引用逐項hash相符（191不同archive/path）。五playable與staged、九Pages uploaded payload與staged相同；空.nojekyll不在tar明示。CPU rescue272<=309及CPU trial通過。三張靜態原生圖限定review已上雲回下載，未抓live site、未作全motion或真機批准。
 
-CI10936516603995／Pages10336519488900成功，CPU rescue302<=309、trial通過；七ZIP／八ledger179entry／九Pages payload存指定Drive且回驗。最後限定部署L0.9.85，三張原生静態圖不等於全motion／聆聽／真機。M需CI110結果，不能借用L批准。
+## 下一工作與缺口
 
-接續完整屋頂外形、樹冠／樹列、山道／法庭家具比例遮擋、縮尺地圖與城鎮切換。G224 ambient/greet保留，112NPCwalk／導航與256party combat仍未啟用；全party/enemy/NPC方向attack/cast/hurt/down/death、合法完整音訊／聆聽／原速／真機／長時段未完成。Tank/Yakra death、Hench outgoing、P down、Q selectorhurt缺樣本保留。T03–T08不縮，全部完整品質批准false、newScore=null、releaseBLOCKED。
+屋頂大輪廓、樹冠／樹列、山道／法庭家具尺度與遮擋、縮尺地圖和城鎮切換仍未完成；本輪法庭畫面仍見被告席橫條穿過上身。不重做K招牌／L苔根／M瓦列，也不以展示圖或動畫維護替代美術。
+
+G224 ambient/greet已接入；112NPCwalk／導航、256party combat仍未啟用。完整party/enemy/NPC方向attack/cast/hurt/down/death、合法音訊／聆聽／原速／真機／長時段繼續。Tank/Yakra death、Hench outgoing、P down、Q selectorhurt樣本缺口保留。全T03–T08不縮；全部完整品質批准false、newScore=null、releaseBLOCKED。

@@ -1,6 +1,6 @@
 # ChronoTrigger reMaster 開發白皮書
 
-版本product-vq04m-production-v46；authority STATUS／TODO／T05_ANIMATION_CHECKPOINT v46。唯一main／singleAI／nonforce。前代完整白皮書原blob **4c15a01d919151dcd492bcac6035244e5af1a21c** 原byte存evidence/VQ04M_PREVIOUS_WHITEPAPER.md；未改架構、數值、音訊與全部分母直接沿用，不重審歷史。
+版本product-vq04m-production-v47；authority STATUS／TODO／T05_ANIMATION_CHECKPOINT v47。唯一main／singleAI／nonforce。前代完整白皮書原blob **4c15a01d919151dcd492bcac6035244e5af1a21c** 原byte存evidence/VQ04M_PREVIOUS_WHITEPAPER.md；未改架構、數值、音訊與全部分母直接沿用，不重審歷史。
 
 ## 產品與固定架構
 
@@ -20,7 +20,7 @@ M不處理完整樹冠、屋頂外形與區域重設。G224NPC ambient/greet保�
 
 完整Node3809／Python649／assets／TS／quality schema／build通過，770source前後相同。57專屬Node／4Python、16非target/held完整frame、4CI109原inn停點gate、44模型與獨立/build匯出同源；4圖只算offline。M→L及前代SOURCE-only還原限舊source/component，不作用native/image/State；首輪H字串检查失敗以明示source還原修正，原斷言與pins保留，M實際整合仍不還原。
 
-CI109／Pages103成功，七原ZIP、759Lsource、八ledger179entry及九Pages payload回驗；原CPU rescue302<=309且trial過。三張原生靜態圖非全motion/聆聽/真機；空.nojekyll不在tar，未抓live site。最後限定部署L0.9.85。M0.9.86 sourcee2018f2a3752f14dc52a55517839797cac67e0c7已單次nonforce發布；唯一CI11036538709652最後in_progress，尚無M原生或部署批准。
+CI110／36538709652及Pages104／36542208681已success；實際選exact M／playable11020128885，最後限定部署更新為M0.9.86。七原ZIP、770Msource、10ledger198引用（191不同archive/path）及九Pages payload已保存並下載回驗；原CPU rescue272<=309且trial通過。空.nojekyll不在tar，未抓live site。三張原生靜態圖限定審查完成，但大屋頂輪廓與法庭被告席橫條遮擋仍open；不是全motion／影片／聆聽／真機或完整美術批准。activeValidation=null，本輪沒有新source或CI，不重跑M；先前CI109/L限定結果沿用。
 
 ## 持久交付與完整分母
 

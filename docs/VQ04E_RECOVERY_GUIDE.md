@@ -1,7 +1,9 @@
-# Recovery entry — current M/v46, not old E work
+# Recovery entry — v47，直接用已發布M
 
-Use current main STATUS/TODO/T05_ANIMATION_CHECKPOINT v46. VQ04M0.9.86 sourcee2018f2a3752f14dc52a55517839797cac67e0c7,treebd628663e5a487eb5cac6b0ad696245ec3cfb0a7,uniqueCI11036538709652. The old E recovery package is provenance only, not an active candidate.
+本檔只提供最少恢復步驟，不是重做E。Authority為main上的STATUS／TODO／T05_ANIMATION_CHECKPOINT v47。
 
-Authoritative current program backup: Drive file1O4U8moauYaLlwajGFtzCV0-YpydBsNnX,folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb,Chrono-VQ04M-production-batch.zip,1983463bytes,sha256 e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389.143manifest/770snapshot/23delta; actual pre-push download verified. Restore program-vq04m.tar.gz only; it excludes docs/node_modules. Keep newest GitHub documents. Toolchain1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE restores node_modules/esbuild only,never source/config.
+確認main一次，讀上述三檔即續美術。M sourcee2018f2a3752f14dc52a55517839797cac67e0c7／treebd628663e5a487eb5cac6b0ad696245ec3cfb0a7／0.9.86已發布；CI11036538709652與Pages10436542208681完成success且限定review已保存，沒有active validation或未發布candidate，不再等待、重送或rerun。
 
-M is already published and fully offline-tested. Read exactCI110 once; no duplicate source/CI,rerun or dispatch. CI109/Pages103 bounded review complete; last reviewed deploymentL. If pending,checkpoint without long poll. All quality approvalsfalse,newScore=null,releaseBLOCKED. No native injection/local browser;fullscope unchanged.
+程式用Drive **1O4U8moauYaLlwajGFtzCV0-YpydBsNnX** 的Chrono-VQ04M-production-batch.zip；1983463bytes，SHA256 e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389。解program-vq04m.tar.gz恢復770程式檔；不含docs/node_modules，最新docs必須沿用GitHub，不以舊archive覆蓋。只有需要執行測試時，工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules／esbuild hardlink，不覆蓋source/config、不開bootstrap CI。
+
+唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；直接用確認過的ID，search回空不能當不存在。CI110原始證據part1 1zYoYrRsFKwr1ChFxL7Hc0d0gzgFRMItO、part2 1u6RiSPAEQPB9p9N9fG7Gz9GOOfS_MIhx已真正回下載，不必重做整包review。新工作按TODO剩餘屋頂／樹冠／法庭家具及完整範圍；不重做E–M。容器非權威，No localbrowser／native造數，完整批准false／newScore=null／releaseBLOCKED。

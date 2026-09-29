@@ -1,27 +1,24 @@
-# Execution TODO — v47，M限定審查完成，立即續美術
+# Execution TODO — v48，接續唯一N驗證與剩餘實際美術
 
-Authority STATUS／T05_ANIMATION_CHECKPOINT v47。唯一main／single AI／non-force，無新branch、PR、平行candidate或多人防撞。Root T05-early-visual-cohesion；execution T05-early-production-art；work item T05-early-production-art-canyon-court。
+Authority STATUS／T05_ANIMATION_CHECKPOINT v48。main／single AI／non-force；不建branch、PR、平行candidate或多人防撞。Root T05-early-visual-cohesion；execution T05-early-production-art；item T05-early-production-art-canyon-court。
 
-## 已完成，直接沿用
+## 本批已完成，不重做
 
-- [x] M source e2018f2a3752f14dc52a55517839797cac67e0c7／0.9.86 已發布；44屋頂件、原Node3809／Python649／770source與全部既有保護沿用，不重新作者或重跑歷史全測。
-- [x] CI110／36538709652／push／attempt1 exact M success；Pages104／36542208681 success，實際選playable11020128885。沒有active validation，不能再等CI110 done。
-- [x] 七原ZIP、770source、10ledger198引用（191不同archive/path）、五playable及九Pages payload已核對；空.nojekyll不在tar明示，未抓live site。
-- [x] CPU rescue原Truce/reunited/z7.6路段272<=309，CPU trial通過；原位置／時間／品質門檻不改，並非真機或長期可靠性批准。
-- [x] 三張原生靜態圖限定review與原ZIP入唯一Drive並下載回驗；本輪沒有新增source、candidate或CI。v46 checkpoint封存於evidence/VQ04M_CHECKPOINT_V46.json，不再讀作目前狀態。
+- [x] 原M、CI110／Pages104限定審查沿用，不重跑M或再次整包審計。
+- [x] N48屋頂／煙囪外輪廓、10法庭飾面座接、4真實樹冠變體接入正式CPU/WebGL共用入口。沒有K/L/M重做或新增資源層。
+- [x] 最後完整Node 3887、Python653、assets、typecheck、quality schema、build通過；780檔before/after相同。13 predecessor source-only、752原掃描輸入及原A–M pins保留；native/image/State不適用inverse。
+- [x] N23delta及全部logs/models/snapshot已存指定Drive 1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy並下載回驗，單次source 9f6b6c66a51fb0856618d36318470fefa58e74a3 已non-force發布。
 
-## 唯一立即接續：實際美術，不再等待驗證
+## 唯一接續
 
-- [ ] 依既定順序續剩餘屋頂輪廓、樹冠／樹列、山道／法庭／建築家具的原作構圖與尺度、門口接縫及遮擋。CI110靜態圖仍見大屋頂壓場與被告席橫條穿过人物上身；這些是未完成部分，不要把已完成K招牌／L苔根／M瓦列重做一遍。
-- [ ] 接續原作縮尺大地圖、城鎮／室內切換；保持原背景辨識度，不以展示圖或整輪animation-only維護取代實際遊戲美術。
-- [ ] 完整party/enemy/NPC方向attack/cast/hurt/down/death、112NPCwalk／導航；256party combat作者欄位仍runtimeApplied=false。保持真實來源，不改native goldens或回傳假舊像素。
-- [ ] 完整合法音訊／實際聆聽、原速／真機／長時段及全部遊戲T03–T08。
-- [ ] 下一批可合併的實作與專屬測試完成後，完整Node／Python／assets／typecheck／build；完整logs／snapshot／manifest／素材先存指定Drive並回下載，再一次non-force source push接唯一matching CI。pending存checkpoint，不長poll。不要為本次文件交接啟動CI。
+- [ ] CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。 pending不長poll；完成後僅核matching source及原始產物，限定審查N屋頂、法庭被告席實際人物遮擋、canopy與原CPU/native gates。不dispatch、不rerun、不重送source；失敗只接實際terminal，成功也不等同完整美術批准。
+- [ ] 續剩餘屋頂大輪廓、樹列重複感、山道／法庭／建築家具原作構圖尺度、門口接縫與遮擋。N已做的是局部geometry/atlas改善，未完成整場景；不要再做K招牌、L苔根蕨葉、M瓦列及本N已測部分。
+- [ ] 接續原作縮尺大地圖與城鎮／室內切換；不得用生成展示圖或整輪animation-only維護取代實際遊戲美術。
+- [ ] 完整party/enemy/NPC方向與attack/cast/hurt/down/death；112NPCwalk／導航與256party combat尚未啟用。Tank/Yakra完整native death、Hench outgoing、P down、Q受擊中selector-change缺口不得注入造數。
+- [ ] 完整合法音訊／實際聆聽、原速／真機／長時段及全部遊戲範圍。下一實作批合併專屬測試，完整驗證、雲端download回驗後只push一次。
 
 ## 固定分母與限制
 
-T03全規則版本拓樸數值；T04成長獎勵掉落經濟道具裝備飾品學習換人雙三人技；T05全部美術建模動畫合法音訊；T06全時代主支線結局，2300抵達非完整未來；T07整體>=90、各面向>=80%、requiredassets/fivegates/zero critical及真機；T08fulltests/onesource/matchingCI/cloud回驗，不縮。
+T03全規則版本拓樸數值；T04成長獎勵掉落經濟道具裝備飾品學習換人雙三人技；T05全部美術建模動畫合法音訊；T06全時代主支線結局，2300抵達非完整未來；T07真實畫面遊玩裝置、整體>=90／各面向>=80%／requiredassets／fivegates／zero critical；T08fulltests／onesource／matchingCI／cloud回驗。不縮。
 
-Tank/Yakra完整native death、Hench outgoing、P down、Q受擊selector-change仍缺樣本，不注入造數。CI93/95/98/104/105/107 failure、Pages97 failure／98/99/101 skipped原狀保留。M限定審查不是完整美術／全motion／影片／聆聽／真機批准。
-
-TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8不變，不改ARPG或加P3。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不直接或間接提升。No localbrowser/native State-time-save-collision注入；原<.12／適用309tick／單一30秒／250ms-256／CPU品質記憶體門檻不放寬。source-only inverse不得作用native/image/State。ROM/media/fonts/credentials私有。成果main或folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並回讀，docs[skip ci]；容器非權威。全部完整批准false、newScore=null、releaseBLOCKED。
+TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8不變，不改ARPG或加P3。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a及母親家具不直接／間接提升。No localbrowser；native State/time/save/collision不注入；原routes/waits/captures/assertions/goldens及<.12／適用309ticks／單一30秒／250ms-256／CPU品質記憶體門檻不放寬。舊CI93/95/98/104/105/107 failure、Pages97 failure及98/99/101 skipped保留。所有成果main或唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb並回讀，docs[skip ci]；容器非權威。全部完整批准false、newScore=null、releaseBLOCKED。

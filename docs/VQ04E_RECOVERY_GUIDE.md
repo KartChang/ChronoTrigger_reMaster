@@ -1,9 +1,7 @@
-# Recovery entry — v47，直接用已發布M
+# Recovery entry — v48，直接用唯一N
 
-本檔只提供最少恢復步驟，不是重做E。Authority為main上的STATUS／TODO／T05_ANIMATION_CHECKPOINT v47。
+本檔名稱沿用，不是重做E。確認main一次，读STATUS／TODO／T05_ANIMATION_CHECKPOINT v48。N source 9f6b6c66a51fb0856618d36318470fefa58e74a3／tree7d4e43fb4ce50cfe5e7458171ac2662033bac2a0／0.9.87。CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。 只接exact N，不重送source、不rerun、不dispatch；pending存checkpoint。CI110／M已完成限定審查，不再等待。
 
-確認main一次，讀上述三檔即續美術。M sourcee2018f2a3752f14dc52a55517839797cac67e0c7／treebd628663e5a487eb5cac6b0ad696245ec3cfb0a7／0.9.86已發布；CI11036538709652與Pages10436542208681完成success且限定review已保存，沒有active validation或未發布candidate，不再等待、重送或rerun。
+程式恢復Drive 1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy的Chrono-VQ04N-production-batch.zip：5365405bytes，SHA256 7a1598a6ce12315e8c1cb94a15df9e733f4b3f2dca98ad0e3e01958a8789c8e6。此ID的早期WIP已由最後全測包替換，舊收據的unpublished是push前時間點，不是另一candidate。恢復program-vq04n.tar.gz的780檔，不含docs/node_modules；最新docs取GitHub main。N完整失敗／成功logs、23delta、manifest、模型／offline圖都在同包。
 
-程式用Drive **1O4U8moauYaLlwajGFtzCV0-YpydBsNnX** 的Chrono-VQ04M-production-batch.zip；1983463bytes，SHA256 e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389。解program-vq04m.tar.gz恢復770程式檔；不含docs/node_modules，最新docs必須沿用GitHub，不以舊archive覆蓋。只有需要執行測試時，工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules／esbuild hardlink，不覆蓋source/config、不開bootstrap CI。
-
-唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；直接用確認過的ID，search回空不能當不存在。CI110原始證據part1 1zYoYrRsFKwr1ChFxL7Hc0d0gzgFRMItO、part2 1u6RiSPAEQPB9p9N9fG7Gz9GOOfS_MIhx已真正回下載，不必重做整包review。新工作按TODO剩餘屋頂／樹冠／法庭家具及完整範圍；不重做E–M。容器非權威，No localbrowser／native造數，完整批准false／newScore=null／releaseBLOCKED。
+工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink，不覆盖source/config、不開bootstrap CI。唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。需要M舊證據時直接用已確認ID，search空不能認定不存在；不再整包審計CI110。No localbrowser/native造數；原門檻及held保持；所有完整批准false／newScore=null／releaseBLOCKED。

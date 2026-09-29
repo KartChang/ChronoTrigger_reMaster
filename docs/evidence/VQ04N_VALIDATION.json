@@ -1,0 +1,154 @@
+{
+  "schema": "chrono-vq04n-validation-v1",
+  "checkedAt": "2026-09-29T18:01:12.421508+00:00",
+  "predecessorSource": "e2018f2a3752f14dc52a55517839797cac67e0c7",
+  "sourceParent": "32cf722e73d8a4b9589e41b749547f43462f08cf",
+  "expectedSourceTree": "7d4e43fb4ce50cfe5e7458171ac2662033bac2a0",
+  "phase": "fully-offline-tested-unpublished",
+  "fullNode": {
+    "tests": 3887,
+    "pass": 3887,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "fullPython": {
+    "tests": 653,
+    "passed": 653,
+    "failed": 0
+  },
+  "assets": "passed",
+  "typecheck": "passed",
+  "qualitySchema": "passed",
+  "build": "passed",
+  "localBuildSourceSha": null,
+  "qualityGate": {
+    "historicalScore": 30,
+    "stale": true,
+    "releaseApproved": false,
+    "newScore": null
+  },
+  "programFiles": 780,
+  "deltaFiles": 23,
+  "predecessorFilesModified": 13,
+  "newFiles": 10,
+  "unchangedMProgramFiles": 757,
+  "unchangedScannedMInputs": 752,
+  "allSourceBeforeAfterEqual": true,
+  "beforeManifest": "before-full-02.json",
+  "afterManifest": "after-full-02.json",
+  "fullRuns": {
+    "01": {
+      "results": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "check"
+          ],
+          "startedAt": "2026-09-29T17:35:05.097286+00:00",
+          "finishedAt": "2026-09-29T17:46:27.576634+00:00",
+          "exitCode": 1,
+          "log": "logs/full-check-01.log"
+        },
+        {
+          "command": [
+            "python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "*_test.py"
+          ],
+          "startedAt": "2026-09-29T17:46:27.580471+00:00",
+          "finishedAt": "2026-09-29T17:46:36.025096+00:00",
+          "exitCode": 0,
+          "log": "logs/full-python-01.log"
+        }
+      ],
+      "programFiles": 780,
+      "allSourceBeforeAfterEqual": true,
+      "finishedAt": "2026-09-29T17:46:36.562544+00:00"
+    },
+    "02": {
+      "results": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "check"
+          ],
+          "startedAt": "2026-09-29T17:49:56.311591+00:00",
+          "finishedAt": "2026-09-29T18:00:59.174362+00:00",
+          "exitCode": 0,
+          "log": "logs/full-check-02.log"
+        },
+        {
+          "command": [
+            "python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "*_test.py"
+          ],
+          "startedAt": "2026-09-29T18:00:59.179173+00:00",
+          "finishedAt": "2026-09-29T18:01:07.075066+00:00",
+          "exitCode": 0,
+          "log": "logs/full-python-02.log"
+        }
+      ],
+      "programFiles": 780,
+      "allSourceBeforeAfterEqual": true,
+      "finishedAt": "2026-09-29T18:01:07.727015+00:00"
+    }
+  },
+  "dedicatedNode": {
+    "finalTestsInFullSuite": 78,
+    "originalStandalonePass": 77,
+    "addedFinalSourceRoundTripChecks": 1
+  },
+  "dedicatedPython": 4,
+  "fullRun01Failure": "One old A constructor literal expected installProductionEnvironment(scene). Original assertion retained; explicitly declared N source-only input used for predecessor constructor assertion. Actual N runtime entrypoint remains uninverted. Complete run02 passed.",
+  "dedicatedInitialFailure": "Four new tests used a nonexistent nested inspector path; fixed only new test paths. Failed/partial logs retained.",
+  "originalNativeRoutesWaitsCapturesAssertionsGoldensChanged": false,
+  "originalBaselinePinsChanged": false,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "heldMotherFurnitureChanged": false,
+  "actualNModels": 58,
+  "independentAndBuildExportsEqual": true,
+  "exports": {
+    "canopy-atlas.png": {
+      "bytes": 40299,
+      "sha256": "d46b5c10d51310af38ccfe892a1fb9ba355a88c7cbd0069fea7cdbafed66c48e"
+    },
+    "composition-models.json": {
+      "bytes": 239374,
+      "sha256": "46f9a9a4ec8740bd394062f325acd20e138d9307f06de45390624516ee9797fd"
+    },
+    "manifest.json": {
+      "bytes": 924,
+      "sha256": "65c4234a1234b34b56a0d4ccf62468df9f7ac62a1948443d7695f885e7308a79"
+    }
+  },
+  "offlineReview": "OFFLINE_MODEL_REVIEW.json",
+  "offlineOnly": true,
+  "nativeEvidencePresent": false,
+  "localBrowserUsed": false,
+  "nativeStateTimeSaveCollisionInjected": false,
+  "sourceOnlyInverseAppliedToNativeOrImages": false,
+  "sourceRuntimeChangedBetweenFullAttempts": false,
+  "nonTargetHeldFrameChapters": 14,
+  "originalInnFixtureStops": 4,
+  "originalInnFixtureStopsAreNewNativeSamples": false,
+  "artApproved": false,
+  "fullAnimationComplete": false,
+  "wholeGameAccepted": false,
+  "newScore": null,
+  "release": "BLOCKED"
+}

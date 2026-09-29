@@ -1,26 +1,23 @@
-# Delivery Index — v47，CI110／Pages104已保存，立即交接
+# Delivery index — v48 / N
 
-唯一repository KartChang/ChronoTrigger_reMaster／main；唯一Drive folder **1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb**。前代索引和既存交付沿用，歷史見Git提交及evidence/VQ04M_PREVIOUS_DELIVERY_INDEX.md，不重新審查。
+唯一folder：1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。GitHub main與已回下載Drive權威；不得只依賴容器、檔名或search結果。
 
-## M程式恢復包：已發布，不是candidate
+## N當前完整程式與證據包
 
-Chrono-VQ04M-production-batch.zip；ID **1O4U8moauYaLlwajGFtzCV0-YpydBsNnX**；1983463bytes；SHA256 **e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389**。
-143manifest／770snapshot／23delta、完整成功失敗logs／44模型／offline圖。原發布前已回下載；本輪以CI110 archive再次核對770程式bytes與source tree bd628663e5a487eb5cac6b0ad696245ec3cfb0a7。program-vq04m.tar.gz排除docs/node_modules；不得蓋main最新docs。原Node3809／Python649等全測紀錄直接沿用，本輪沒有重跑。
+Chrono-VQ04N-production-batch.zip，Drive ID 1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy；5365405bytes，SHA256 7a1598a6ce12315e8c1cb94a15df9e733f4b3f2dca98ad0e3e01958a8789c8e6；118manifest／780source snapshot／23delta。最後全測版原ID原地替換WIP，再真正download逐byte核對：parent、size、SHA、ZIP CRC、manifest全部項目、內層tar及全部780檔／23delta。
 
-## CI110／Pages104原始證據與限定review
+包含完整成功／失敗logs、兩轮before/after來源索引、program-vq04n.tar.gz、git-plan、source-only聲明、58實際模型及canopy PNG、獨立/build匯出、四組offline比較與原始RGBA／JSON、迭代及恢復工具。No localbrowser或新的native evidence；所有圖片均offline模型，不做完整品質批准。
 
-Part1：Chrono-CI110-Pages104-evidence-part1.zip；ID **1zYoYrRsFKwr1ChFxL7Hc0d0gzgFRMItO**；66898545bytes；SHA256 **46c9ff2423d24092427fce9baea52bf0d5048b38bf8c43aa99d330422c09a1f2**；1manifestentry，完整browser原ZIP。
+Push前收據phase=fully-offline-tested-unpublished及sourcePublishedAtReadback=false是當時事實；現在source 9f6b6c66a51fb0856618d36318470fefa58e74a3已發布，tree7d4e43fb4ce50cfe5e7458171ac2662033bac2a0。CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。 舊WIP hash32b425dab3d0fac4ef8dab64dac127713f1a548d78491da5f83bc9bea43dc704已被最後全測包替換；不是第二個candidate，不拿WIP作恢復。詳見evidence/VQ04N_CLOUD_READBACK.json、VQ04N_VALIDATION.json及VQ04N_PUBLICATION.json。
 
-Part2：Chrono-CI110-Pages104-evidence-part2.zip；ID **1u6RiSPAEQPB9p9N9fG7Gz9GOOfS_MIhx**；40968864bytes；SHA256 **74cd2ed567c76bdc9e1609071b91de04c6fac9d7401422772d7f784b06d00840**；14manifestentries，另六原ZIP與review/hashledger/verifier及成功失敗logs。
+## 保留的M恢復／已審原始證據
 
-兩包於2026-09-29T11:32:41.575149Z真正下載核parent／size／SHA／外內CRC／exact manifest及全部entry bytes。七原ZIP的provider digests匹配；10ledger198引用逐筆核對（原八份179項＋fair/trial兩份19項，191個不同archive/path）。原始資料沒改寫。兩次review-helper相對路徑解析失敗及修正照存，非遊戲CI失敗。
+M完整包1O4U8moauYaLlwajGFtzCV0-YpydBsNnX／1983463bytes／SHA256 e04768b67ba2bac8b5a5fedaeccb7d6079b7eb94e48c987a686fd9fee28d8389（143manifest／770snapshot／23delta）。M source e2018f2a3752f14dc52a55517839797cac67e0c7及CI110/Pages104完成，不重跑／重送。
 
-CI11036538709652／attempt1 exact sourcee2018f2a3752f14dc52a55517839797cac67e0c7 success，updated08:21:29Z；Pages10436542208681 success，updated08:22:06Z，實際選playable11020128885。五playable與staged、九uploaded payload與staged同源。空.nojekyll不在tar明示，未抓live site。CPU rescue272<=309／trial通過；三張原生靜態圖限定review，非全motion／影片／聆聽／真機批准。
+CI110／Pages104 evidence part1：1zYoYrRsFKwr1ChFxL7Hc0d0gzgFRMItO，66898545bytes，SHA25646c9ff2423d24092427fce9baea52bf0d5048b38bf8c43aa99d330422c09a1f2；part2：1u6RiSPAEQPB9p9N9fG7Gz9GOOfS_MIhx，40968864bytes，SHA25674cd2ed567c76bdc9e1609071b91de04c6fac9d7401422772d7f784b06d00840。兩包原回驗直接沿用；7ZIP／10ledger198引用=191不同archive/path、3靜態圖，非198獨立玩法樣本。CI110_CLOUD_READBACK與CI110_PAGES104_REVIEW原檔保留，不再次整包審計。
 
-## 最新權威與交接
+v47文件包1llTx4KYtKBa0VUCQeOLb9N_MYVJ1DdRe／50688bytes／SHA25695b5a09fdca54d8295e6709cc1deb9e5f53b0669de7d0c4c5b36080023f6fdd6；最終回驗收據1bBDWN710XRal8b1rYEXXOtpHPxWECziw。只是歷史文件，不可覆蓋main的v48。
 
-最新checkpoint v47；本次只更新文件／證據，無新source、新CI或candidate。STATUS／TODO／T05_ANIMATION_CHECKPOINT／handoff/IMMEDIATE_CONTINUATION為入口。CI110_CLOUD_READBACK存下載收據；CI110_PAGES104_REVIEW存摘要，完整review在上述part2的review/CI110_PAGES104_REVIEW.json。v46 checkpoint原byte封存為VQ04M_CHECKPOINT_V46.json。
+## 恢復规则
 
-v46發布收據包1NawkyxhFuM4Dbb-tZHA7BwasVFmEDcF_與最終回驗17Rxz-8CvWtYBF_SxGXaXVXCqeGU7ty2g保留為歷史，pending不是現況。v47最終文件發布收據另外存同一Drive folder並下載回驗，含exact文件HEAD／tree／全部文件bytes；本索引不自指未生成的commit SHA。
-
-最後限定審查部署為M／0.9.86／CI110／Pages104。完整品質批准仍false、newScore=null、releaseBLOCKED；全T03–T08不縮。ROM/media/fonts/credentials私有，文件[skip ci]，main／Drive才是權威。
+Snapshot不含docs/node_modules，最新docs一律GitHub main。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE僅node_modules及esbuild hardlink，禁止覆蓋source/config或另開bootstrap CI。新handoff收據包只含已提交docs及發布回讀，不是第二source candidate。ROM/media/fonts/credentials私有；全部完整批准false、newScore=null、releaseBLOCKED。

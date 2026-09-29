@@ -1,0 +1,194 @@
+{
+  "schema": "chrono-vq04n-offline-model-review-v1",
+  "reviewedAt": "2026-09-29T17:55:01.433993+00:00",
+  "method": "Existing productionWorldRig CPU canvas; createState unit fixture, three draw calls at dt=0. No browser, native input route or device evidence. N actual application vs M source-only predecessor component. PNG RGBA matches renderer bytes exactly. Pair headers are labels, not replacement pixels.",
+  "rows": [
+    {
+      "chapter": "truce",
+      "countsOrder": [
+        "meshes",
+        "materials",
+        "textures",
+        "geometries"
+      ],
+      "M": [
+        630,
+        210,
+        60,
+        731
+      ],
+      "N": [
+        630,
+        210,
+        60,
+        731
+      ],
+      "addedResources": 0,
+      "comparison": "offline/truce-compare.png",
+      "comparisonSha256": "7df40d995685dcaf4276702dc5243b92a6ad8fcedcc8eb191a32b9e91caa9de0",
+      "images": [
+        {
+          "path": "offline/truce-m.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "9aed00614b526642b7fd999f63914a231f524d056b63a7d59abb0184700ebca1",
+          "rgbaSha256": "e8ec654c7d19789e11f06cd55e089d10ad8d34b0c877f30a1433bf1b734f4f9c",
+          "notNativeEvidence": true
+        },
+        {
+          "path": "offline/truce-n.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "2bdec0839d29bcd0b2a97204f23f34eef5c38df784bf1fabc8e9f37fc4e01267",
+          "rgbaSha256": "bb29302dbb87ed66f3b71c78ea8db295a5e3854b11980d12ce18698aa5bd7f3c",
+          "notNativeEvidence": true
+        }
+      ],
+      "review": "N roof envelope is vertically lower; M tile courses and sign are retained. Four building footprints are not miniaturized. Large apparent roof area and original-fidelity composition are still open."
+    },
+    {
+      "chapter": "courtroom",
+      "countsOrder": [
+        "meshes",
+        "materials",
+        "textures",
+        "geometries"
+      ],
+      "M": [
+        667,
+        231,
+        78,
+        680
+      ],
+      "N": [
+        667,
+        231,
+        78,
+        680
+      ],
+      "addedResources": 0,
+      "comparison": "offline/courtroom-compare.png",
+      "comparisonSha256": "51b94098928e0d199c290331ef99d357f469a213a7ebc4e613fcc5d1421a7449",
+      "images": [
+        {
+          "path": "offline/courtroom-m.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "783efda362d2460030d84a60762f4a190cfc928aee4ac333cedcf44ea6bd9990",
+          "rgbaSha256": "d1236de3b8a7103553f314ad8086fbd2b89bd701eb96a69aed90b39d2f0de08a",
+          "notNativeEvidence": true
+        },
+        {
+          "path": "offline/courtroom-n.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "9a2f67edd8eb2e2de2f80497b521179e262bceef7a2396bce5fc081b83d09c03",
+          "rgbaSha256": "e8759b3fde2c6afbab3c1194fc3a0288a8c6dd006056121391392b6df9d56fbf",
+          "notNativeEvidence": true
+        }
+      ],
+      "review": "N rostrum/stand decorative lip is seated at its already-compressed body. Default offline actors stand outside the defendant position: this view does not prove native torso clearance at the hearing stop."
+    },
+    {
+      "chapter": "canyon",
+      "countsOrder": [
+        "meshes",
+        "materials",
+        "textures",
+        "geometries"
+      ],
+      "M": [
+        513,
+        185,
+        47,
+        513
+      ],
+      "N": [
+        513,
+        185,
+        47,
+        513
+      ],
+      "addedResources": 0,
+      "comparison": "offline/canyon-compare.png",
+      "comparisonSha256": "1b987ba8b24cab0b8899b4d63fb0d839b9e748d4c2f4436d53848ae3b10c86f1",
+      "images": [
+        {
+          "path": "offline/canyon-m.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "de21a92b14c9ceae694742bcf266349c3033cfad8b371f949f2220c738e4cc82",
+          "rgbaSha256": "b3e04c624a88aa74216fc891f947a43bb0fb483d8261bc0d50df58c8ec218196",
+          "notNativeEvidence": true
+        },
+        {
+          "path": "offline/canyon-n.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "31c27dfd961d660fab34ea51febf8c3f97ef89da95fba6455111caad3a5ce327",
+          "rgbaSha256": "842ac0894a44dff3f457516919730c436cb66552a47cf7557a6548dc2386718f",
+          "notNativeEvidence": true
+        }
+      ],
+      "review": "N real canopy texture narrows and interrupts the outer edge while retaining original leaf detail; no path/actor/cliff positions changed. Full row composition is not accepted."
+    },
+    {
+      "chapter": "guardia1000",
+      "countsOrder": [
+        "meshes",
+        "materials",
+        "textures",
+        "geometries"
+      ],
+      "M": [
+        526,
+        201,
+        61,
+        526
+      ],
+      "N": [
+        526,
+        201,
+        61,
+        526
+      ],
+      "addedResources": 0,
+      "comparison": "offline/guardia1000-compare.png",
+      "comparisonSha256": "699bf0d9197cf6fe3691398fa13213f58c1ac9a15b574fa03321f2033994a452",
+      "images": [
+        {
+          "path": "offline/guardia1000-m.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "d6ca4322715be9a1132c02a64cd018f303aab89aebb747978df03cf52e2295c2",
+          "rgbaSha256": "6c0b17a52737b787adf305268bd4d63222767add552cded9767afa21b1f04664",
+          "notNativeEvidence": true
+        },
+        {
+          "path": "offline/guardia1000-n.png",
+          "width": 460,
+          "height": 307,
+          "sha256": "c40e797965b9570abe5be5d40ea5d088d21770f2508cb5c7da86de66d3e3975b",
+          "rgbaSha256": "28182f67e55bd8bfa45c131fd87aaea7653e500e05c20da5c71c07afc90e06eb",
+          "notNativeEvidence": true
+        }
+      ],
+      "review": "Four narrower irregular crown variants retain the lower fork/root. Repeated tree rows remain visually repetitive; full forest redesign and original fidelity are still open."
+    }
+  ],
+  "newArtRuntimeChangedSinceTheseCaptures": false,
+  "rejectedIteration": {
+    "source": "iterations/canopy-01-rejected-author.ts",
+    "reason": "Flat polygon-like crown looked less detailed; rejected before final tests. Retained only as iteration history, not a candidate."
+  },
+  "captureDimensionCorrection": "576x384 requested canvas yielded actual CPU buffer460x307. Early conversion with assumed requested size failed; PNG conversion uses actual buffer dimensions. No rescale substituted for native evidence.",
+  "limitations": [
+    "No native defendant-position overlap approval",
+    "No motion/animation route, video or audio/listening evidence",
+    "No browser/WebGL/physical-device or long-session approval",
+    "Truce/court/canyon/forest composition remains unfinished"
+  ],
+  "artApproved": false,
+  "newScore": null,
+  "release": "BLOCKED"
+}

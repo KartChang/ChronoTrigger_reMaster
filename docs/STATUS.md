@@ -1,25 +1,23 @@
-# STATUS — v48，VQ04N 已發布，matching CI 待續
+# STATUS — v49，VQ04O 已發布，CI112 待原生驗證
 
-Authority：本檔／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v48。只用 main，single AI／non-force。Root T05-early-visual-cohesion；execution T05-early-production-art；item T05-early-production-art-canyon-court。
+Authority：本檔／TODO／evidence/T05_ANIMATION_CHECKPOINT.json v49。唯一 main，single AI／non-force。Root T05-early-visual-cohesion；execution T05-early-production-art；item T05-early-production-art-canyon-court。
 
 ## 唯一目前位置
 
-N／0.9.87 source 9f6b6c66a51fb0856618d36318470fefa58e74a3；source tree 7d4e43fb4ce50cfe5e7458171ac2662033bac2a0；parent 32cf722e73d8a4b9589e41b749547f43462f08cf。23 source/test/config 變更合併一次發布，沒有新分支、PR、rerun或dispatch。CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。
+O／0.9.88 source 9a433ecf4a1009e1ec80cf6ddc68abc4cb6ce070；source tree df5a30d996937d4d4cc9bc399a136e5a24a7f3d7；parent f38657e9788111a517b9dec67721568e088b6a66。24 source/test/config 檔合併一次發布。CI112／36649789710／push／attempt1／exact O：in_progress，conclusion=null；provider updated 2026-09-30T00:19:55Z。沒有第二 candidate、rerun、dispatch 或 source 重送。Pending 保存 checkpoint，不長輪詢。
 
-最後完成限定審查的部署仍為 M0.9.86／e2018f2a3752f14dc52a55517839797cac67e0c7／CI11036538709652／Pages10436542208681；不是 N 已驗收。M／CI110不再重跑、重送或等待通知。N pending 時保存本 checkpoint，不長poll。
+CI111／36609405380／exact N 已 completed／failure，updated 2026-09-29T18:46:48Z；validate 與 good 成功，bad 在 Truce 鎮民接近路段失敗。不能再沿用 v48 的 N pending。原失敗資料顯示軟體 WebGL 約2.695 FPS、一般 RenderBudget level0；持續 >250ms 被原估算器排除是可修正缺口，並非已證實唯一根因。N good 一張原生法庭圖中，被告上身與臉可見，橫條已不穿上身；只限此靜態觀察，不把 CI111 或完整美術改成通過。最後完成部署限定審查仍 M／CI110／Pages104。
 
-## 本批實作與測試
+## 本批已完成
 
-N屋顶外輪廓48件（含煙囪）在原H高度及M瓦列／UV之後，以parent-space y=2.18為錨、.72比例壓低；XZ footprint不變。法庭10件舊面板／頂緣／直條／鑲板對齊H已壓低的法官桌及被告席，修掉懸空飾面。山道／1000年森林四種真實canopy atlas樹冠縮窄且不規則化，原葉片細節、108列以下樹根／分叉及gutter不變。K招牌、L苔根、M作者配方不重做。
+4 棵 Truce 與12棵600年森林 oak 使用不同上緣冠幅、高度及傾斜；植根下緣、位置、原texture／UV不動，L苔根蕨葉保留。零新增mesh/material/texture，最多16份額外geometry，payload2432bytes並非引擎總記憶體。正式 ArtDirectedWorld 共用CPU/WebGL入口，held與N樹冠atlas不重做。
 
-完整 Node 3887／Python653／assets／typecheck／quality schema／build 通過，780程式檔在最後完整測試前後逐byte相同。78專屬Node（含13項source roundtrip）／4 Python；58模型與實際application arrays一致，獨立匯出與build匯出相同。四組offline比較及14個非目標／held完整frame保護；不是新native、motion、WebGL或真機證據。首輪完整Node的舊A constructor字串斷言失敗；原斷言保留，僅明示N source-only還原其前代輸入，已完整重跑；所有失敗logs留存。
+另加持續重度卡頓 watchdog，只在已辨識 software driver、auto、active取樣。4暖機＋24樣本，至少12筆>250ms且mean>250／p90>300，最多使用既有3階密度。原RenderBudget 250ms filter、FrameWindow原始數據、manual quality／compatibility、CPU／unverified及遊戲時間輸入碰撞皆保留。這是原生修復候選實作，尚未證實CI112路線恢復。
 
-## 持久恢復
+最後完整 Node3961／Python657、assets／typecheck／quality schema／build通過；792程式檔測前後逐byte相同。74專屬Node／4Python，16模型與actual application一致，獨立/build匯出相同；16非目標／held離線完整frame不變。12前代source roundtrip與763未宣告掃描inputs保護保留。局部失敗與取消的本地測試迭代全保留，修正後完整重跑；未改native routes/waits/captures/assertions/goldens。
 
-指定folder 1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。N完整包 1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy／Chrono-VQ04N-production-batch.zip，5365405bytes，SHA256 7a1598a6ce12315e8c1cb94a15df9e733f4b3f2dca98ad0e3e01958a8789c8e6；118manifest／780snapshot／23delta。最後完整logs及素材已上雲並真正下載核parent／size／SHA／CRC／manifest／snapshot／delta後才push。早期同ID WIP已替換；WIP收據及pre-push unpublished僅歷史，不是第二candidate。恢復program-vq04n.tar.gz，不覆蓋main最新docs；node_modules只取既有工具鏈包。
+## 持久恢復與下一步
 
-## 接续與品質界線
+完整包 Drive 1IDOkAIndp-GrrOSxfF5vE5rjl3QyJ1sE／Chrono-VQ04O-production-batch.zip，33275598bytes，SHA256 c6111b13401ab9c04730a7fdad3ac4013aa81a77def50707de0c945edfaa40d3；96manifest／792snapshot／24delta。已在push前真正下載核parent／size／SHA／外內CRC／manifest全部bytes／snapshot／delta。含成功失敗logs、模型、offline原始RGBA與比較、CI111兩個原ZIP。舊同ID WIP已替換；pre-push unpublished只是歷史收據。恢復program-vq04o.tar.gz，不覆蓋main最新docs；工具鏈只取node_modules。
 
-CI完成後只處理 exact N 的原始產物與必要場景審查；若failure只修真實terminal，不回填failure。N法庭default offline人物不在被告位置，尚不能宣布native上身遮擋修正驗收。屋頂仍大、樹列仍重複，完整原作構圖／門口接縫／遮擋／縮尺大地圖與城鎮室內切換續作。G224 ambient/greet沿用；112NPCwalk、256combat仍staged且combatRuntimeApplied=false。
-
-全T03–T08、合法完整音訊與聆聽、全方向動作death／原速／真機／長時段仍open。全部完整批准false、newScore=null、releaseBLOCKED。No local browser/native State-time-save-collision注入；所有原native/golden/門檻與held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a不變；ROM/media/fonts/credentials私有。
+接 exact O matching CI結果及必要場景審查；failure只修真實terminal。剩餘屋頂大輪廓／樹列整體配置／山道法庭家具尺度／門口接縫遮擋／縮尺大地圖及城鎮室內切換續作。112NPCwalk／256partycombat仍staged，combatRuntimeApplied=false；完整動作death、合法音訊聆聽、原速真機長時段及全T03–T08不縮。全部完整批准false、newScore=null、releaseBLOCKED。No localbrowser/native注入；held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a不變。成果唯一folder 1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb或main並回讀，docs[skip ci]；容器非權威。

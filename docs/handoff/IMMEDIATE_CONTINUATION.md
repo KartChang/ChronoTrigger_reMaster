@@ -1,21 +1,23 @@
-# 立即接續 — authoritative TODO v48
+# 立即接續 — authoritative TODO v49
 
-請直接使用GitHub connector接手KartChang/ChronoTrigger_reMaster，必要時使用Drive。唯一main／single AI／non-force，不建新branch、PR、平行candidate或多人防撞；不要盤點全部history、重做已完成項、要求ROM/token/手動截圖或造證據。
+請直接使用GitHub connector，必要時Drive，接手KartChang/ChronoTrigger_reMaster。唯一main／single AI／non-force，不新branch/PR/平行candidate/多人防撞；不盤點全部歷史、不重做已完成項、不要求ROM/token/手動截圖或造數。
 
-N／0.9.87 source 9f6b6c66a51fb0856618d36318470fefa58e74a3，source tree7d4e43fb4ce50cfe5e7458171ac2662033bac2a0，source parent32cf722e73d8a4b9589e41b749547f43462f08cf。最新文件HEAD由main ref／本輪handoff發布收據讀取（不可在自身blob嵌入自己的commit SHA）。先確認main一次，讀STATUS／T05_ANIMATION_CHECKPOINT／TODO v48，直接續作。
+O／0.9.88 source 9a433ecf4a1009e1ec80cf6ddc68abc4cb6ce070；tree df5a30d996937d4d4cc9bc399a136e5a24a7f3d7；source parent f38657e9788111a517b9dec67721568e088b6a66。最新文件HEAD由main ref及v49發布收據讀取，避免在自身blob嵌入自己的commit SHA。main確認一次後讀STATUS／T05_ANIMATION_CHECKPOINT／TODO v49即動工。
 
-CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。 唯一active validation為此exact N。pending保存checkpoint，不長poll；完成後只接原始matching產物、CPU/native gates及屋頂／法院被告席／樹冠限定審查。failure只修該真實terminal；禁止rerun、dispatch或重送N。M／CI11036538709652／Pages10436542208681已完成限定審查，不再等待M done或重審舊整包。
+唯一active validation：CI11236649789710，push／attempt1／exact O，最後in_progress，provider updated2026-09-30T00:19:55Z。只讀一次新terminal；pending留checkpoint，不長poll、不rerun/dispatch/重送O。完成後檢查exact O原始產物與真實失敗點。CI11136609405380 exact N已completed/failure；validate/good成功，bad Truce鎮民接近卡住，原始softWebGL約2.695FPS／一般budget level0。不能把舊v48 N pending當現況，也不回填failure。
 
-本批實作完成：48屋頂／煙囪外輪廓在H→M後壓低；10法院飾面對齊H已壓低桌體；四真實canopy atlas冠幅/邊緣，root rows108+保留。K招牌／L苔根／M瓦列及N已完成部分不重做。原native State/time/save/collision沒有注入。N四组offline圖不是native證據，法院default人物不在被告位置，仍需matching原生圖确认上身遮擋。
+O批次已實作：4Truce＋12森林oak上緣冠幅/高度/傾斜，植根下緣、位置、原texture/UV與L苔根蕨葉保留；最多16新增geometry、payload2432bytes，零新mesh/material/texture。獨立重度卡頓watchdog只在software/auto/active請求既有三階密度；原250msfilter／真實FrameWindow／manual modes／CPU unverified／State時間輸入碰撞不改。不是已證實native恢復。
 
-完整Node 3887／Python653／assets／typecheck／quality schema／build通過；780source最後完整測試前後逐byte相同。78專屬Node／4Python、58模型與實際application一致、獨立/build輸出相同、14非target/heldframe、4原inn單元fixture保護。首輪完整A constructor字串失敗保留原斷言，僅明示source-only還原前代輸入後完整重跑；source-only不得作用native/image/State。全部失敗／成功logs保留。
+最後完整Node3961／Python657／assets/typecheck/quality schema/build通過，792source前後同bytes；74專屬Node／4Python，16模型actual與獨立/build相同，16非target/held offlineframe保留。所有失敗成功及取消本地迭代logs保留，source-only inverse只處理前代source，不可作用native/image/State。沒有CI取消/rerun。
 
-N完整包：唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb，Drive1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy，Chrono-VQ04N-production-batch.zip，5365405bytes，SHA256 7a1598a6ce12315e8c1cb94a15df9e733f4b3f2dca98ad0e3e01958a8789c8e6；118manifest／780snapshot／23delta。最後全測版已原ID替換早期WIP，並真正download驗parent/size/SHA/CRC/manifest/tar/全部bytes，才單次non-force push。pre-push unpublished只記當時狀態。恢復program-vq04n.tar.gz，不含docs/node_modules；最新docs以main為準。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink。
+唯一folder 1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。當前O完整包 1IDOkAIndp-GrrOSxfF5vE5rjl3QyJ1sE／Chrono-VQ04O-production-batch.zip／33275598bytes／SHA256 c6111b13401ab9c04730a7fdad3ac4013aa81a77def50707de0c945edfaa40d3，96manifest／792snapshot／24delta，已在單次non-force push前真正下載核parent/size/SHA/外內CRC/全部manifest和snapshot/delta/Gitblobs。同ID早期WIP已替換，pre-push unpublished只是當時收據。恢復program-vq04o.tar.gz，docs以main為準；工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules/esbuild hardlink。
 
-Root T05-early-visual-cohesion；execution T05-early-production-art；item T05-early-production-art-canyon-court。續剩餘屋頂大輪廓／重複樹列／山道法庭建築家具構圖尺度／門口接縫遮擋，再縮尺大地圖及城鎮室內切換；不可用生成展示圖或整轮animation-only維護取代真實美術。
+包內CI111 bad/good兩原ZIP及terminal保留。一張原生N good法院圖被告上身/臉可見、原懸空橫條已降低，只限單張靜態，不是N完整批准或O證據。最後完成部署限定review仍M／CI110／Pages104；不用再審歷史整包。N v48 checkpoint已封存。
 
-G224 ambient/greet保持，112NPCwalk導航及256partycombat仍staged／combatRuntimeApplied=false。完整party/enemy/NPC方向attack/cast/hurt/down/death；Tank/Yakra death、Hench outgoing、P down、Q受擊selector-change缺口不造數。全T03規則／T04成長經濟裝備技能／T05美術音訊／T06全時代主支線結局／T07真實畫面遊玩裝置>=90及各面向>=80%、requiredassets/fivegates/zero critical／T08完整測試持久交付不縮，2300抵達非完整未來。
+Root T05-early-visual-cohesion；execution T05-early-production-art；item T05-early-production-art-canyon-court。接續剩餘屋頂占畫面輪廓／樹列配置／山道法庭建築家具尺度／門口接縫遮擋，再原作縮尺大地圖及城鎮室內切換。K招牌/L苔根/M瓦列/N48屋頂10法院4canopy/O16樹已完成部分不重做；不可用展示圖或整轮animation-only替代實際美術。
 
-TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8保持，noP3/noARPG。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／母親家具不提升；原routes/waits/captures/assertions/goldens/<.12/適用309ticks/單一30秒/250ms-256/CPU品質記憶體不放寬。CI93/95/98/104/105/107 failure與Pages97 failure、98/99/101 skipped保留。No localbrowser；ROM/media/fonts/credentials私有。合法完整音訊與聆聽／原速／真機／長時段仍open；所有完整批准false/newScore=null/releaseBLOCKED。
+G224 ambient/greet沿用，112NPCwalk導航及256partycombat仍staged／combatRuntimeApplied=false。完整party/enemy/NPC方向attack/cast/hurt/down/death，Tank/Yakra death、Hench outgoing、P down、Q受擊selector-change缺口不造數。全T03規則／T04成長經濟装備技能／T05美術合法音訊／T06全時代主支線結局／T07真實畫面遊玩裝置>=90、各面向>=80%、requiredassets/fivegates/zero critical／T08完整測試持久交付不縮；2300抵達不是完整未來。
 
-所有新source/tests/logs/models/manifest/素材及白皮書/進度/功能/交接文件寫main或上述folder並回讀，docs[skip ci]。合併可完成實作與專屬測試，完整檢查及cloud download後只push一次。臨時容器不是權威。
+TS/Babylon/esbuild/fixedATB/A*/InputBoundary/P1P2自主第三/v1-v8保持，noP3/noARPG。Held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a／母親家具不提升。No localbrowser/native State-time-save-collision注入；原routes/waits/captures/assertions/goldens/<.12/適用309ticks/單一30秒/250ms-256/CPU品質記憶體不放寬。CI93/95/98/104/105/107/111 failure、Pages97failure／98/99/101skipped保留。ROM/media/fonts/credentials私有。
+
+完整音訊/聆聽/原速/真機/長時段未完成；全部完整批准false、新分數null、releaseBLOCKED。成果source/tests/logs/素材/manifest/白皮書/進度/功能/交接必須main或指定Drive並回讀，docs[skip ci]。合併可完成實作與專屬測試，完整檢查及cloud download後一次push；臨時環境非權威。

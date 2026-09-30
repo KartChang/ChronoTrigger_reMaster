@@ -1,0 +1,69 @@
+{
+  "schema": "chrono-vq04o-offline-review-v1",
+  "checkedAt": "2026-09-30T00:17:40.612082+00:00",
+  "nativeEvidence": false,
+  "localBrowserUsed": false,
+  "views": [
+    {
+      "chapter": "truce",
+      "width": 460,
+      "height": 307,
+      "priorCounts": [
+        630,
+        210,
+        60,
+        731
+      ],
+      "currentCounts": [
+        630,
+        210,
+        60,
+        735
+      ],
+      "priorRgbaSha256": "bb29302dbb87ed66f3b71c78ea8db295a5e3854b11980d12ce18698aa5bd7f3c",
+      "currentRgbaSha256": "a56d68848fe0f87a54854b5827794174e39f4c41b93913c5a6b401dd4fbdb6ab",
+      "pngExactRgba": true,
+      "authoredTrees": 4,
+      "payloadBytes": 608,
+      "comparison": "offline/truce-compare.png"
+    },
+    {
+      "chapter": "forest",
+      "width": 460,
+      "height": 307,
+      "priorCounts": [
+        586,
+        203,
+        59,
+        586
+      ],
+      "currentCounts": [
+        586,
+        203,
+        59,
+        598
+      ],
+      "priorRgbaSha256": "e52e65f2e06319c20aa22fd147327549b46855adb57f28fdf9ce17d640930836",
+      "currentRgbaSha256": "c615d1268d3f8ddadaa424bfd064b4b3b77a2b4c3c7d668aca77ae2b3daf6a97",
+      "pngExactRgba": true,
+      "authoredTrees": 12,
+      "payloadBytes": 1824,
+      "comparison": "offline/forest-compare.png"
+    }
+  ],
+  "modelCount": 16,
+  "modelBuildIndependentExact": [
+    {
+      "path": "manifest.json",
+      "bytes": 337,
+      "sha256": "3658261797e01b8906cfdc37ec7a441f7678b9c5f2b403e6f5db0edaba4e506e"
+    },
+    {
+      "path": "tree-row-models.json",
+      "bytes": 11626,
+      "sha256": "e0f063286af3c8dd129daa6f5047980288e81f25153f467168e331220cc68c25"
+    }
+  ],
+  "review": "The sixteen existing oak crowns use distinct compressed/leaning upper outlines; planted lower edge, old textures and moss/fern furnishings remain. Variation is local and modest, not a completed forest or town remake. These CPU rig frames use explicit offline fixtures, not native gameplay samples.",
+  "fullArtApproved": false
+}

@@ -1,0 +1,129 @@
+{
+  "schema": "chrono-vq04o-offline-validation-v1",
+  "completedAt": "2026-09-30T00:17:40.615733+00:00",
+  "phase": "fully-offline-tested-unpublished",
+  "sourceParent": "f38657e9788111a517b9dec67721568e088b6a66",
+  "expectedSourceTree": "df5a30d996937d4d4cc9bc399a136e5a24a7f3d7",
+  "node": {
+    "tests": 3961,
+    "pass": 3961,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "python": {
+    "passed": 657,
+    "failed": 0
+  },
+  "dedicatedNode": 74,
+  "dedicatedPython": 4,
+  "assets": "passed",
+  "typecheck": "passed",
+  "qualitySchema": "passed-release-blocked-stale-historical-review",
+  "build": "passed",
+  "localBuildSourceSha": null,
+  "programFiles": 792,
+  "deltaFiles": 24,
+  "newPaths": 12,
+  "modifiedPaths": 12,
+  "allSourceBeforeAfterEqual": true,
+  "beforeManifestSha256": "8145296d3a52b0fa58d2625723063c5ad2f2b1e709a6a474b47aa2470ea1986b",
+  "afterManifestSha256": "8145296d3a52b0fa58d2625723063c5ad2f2b1e709a6a474b47aa2470ea1986b",
+  "unchangedNProgramFiles": 768,
+  "unchangedScannedInputs": 763,
+  "exactNSourceRoundtrips": 12,
+  "modelCount": 16,
+  "modelRuntimeArraysVerified": true,
+  "modelIndependentAndBuildBytesEqual": true,
+  "nonTargetHeldOfflineWholeFrames": 16,
+  "maxExtraGeometryPayloadBytes": 2432,
+  "heldPrologueBlob": "2711a74185aacf3c6bddf9db85ba99a2afbc507a",
+  "nativeInputsGoldensThresholdsChanged": false,
+  "sourceOnlyInverseAppliedToNativeImageState": false,
+  "localBrowserUsed": false,
+  "nativeRecoveryProven": false,
+  "fullT03T08Retained": true,
+  "results": {
+    "results": [
+      {
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-09-30T00:02:06.288961+00:00",
+        "finishedAt": "2026-09-30T00:07:01.787617+00:00",
+        "exitCode": 0,
+        "log": "logs/full-check-final.log"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "*_test.py"
+        ],
+        "startedAt": "2026-09-30T00:07:01.787902+00:00",
+        "finishedAt": "2026-09-30T00:07:05.178670+00:00",
+        "exitCode": 0,
+        "log": "logs/full-python-final.log"
+      }
+    ],
+    "programFiles": 792,
+    "allSourceBeforeAfterEqual": true,
+    "finishedAt": "2026-09-30T00:07:05.454727+00:00"
+  },
+  "logs": [
+    {
+      "path": "logs/full-check-final.log",
+      "bytes": 910113,
+      "sha256": "42f98081739f754fd45cdaafef4eda8305a7abf272d2f56d9dee66e5a61b85a0"
+    },
+    {
+      "path": "logs/full-check-final.result.json",
+      "bytes": 215,
+      "sha256": "a7e2dd53c55b78d01683a6a884ec3a0e586f074208910c60501e81c5e532fcde"
+    },
+    {
+      "path": "logs/full-python-final.log",
+      "bytes": 757,
+      "sha256": "d42b13de2927e93b3670eb9e16403adde5cbc9bedceff1aea3e492f343f4052d"
+    },
+    {
+      "path": "logs/full-python-final.result.json",
+      "bytes": 287,
+      "sha256": "3d04884845db38a6d766831fc8f39314a8987db85e31dfda87d92c074101137a"
+    },
+    {
+      "path": "logs/full-result-final.json",
+      "bytes": 746,
+      "sha256": "151b1e64e508032c186d4a78327f23876ad7a96d26d86b7edc72c8b696b75882"
+    },
+    {
+      "path": "logs/independent-export.log",
+      "bytes": 296,
+      "sha256": "84dc5f2ac5aeed8cf784299e178c98eeef810a76fd5392e4f92f0e41ed6c2912"
+    }
+  ],
+  "iterations": {
+    "firstTypecheckFailed": true,
+    "firstDedicatedFailed": 4,
+    "dedicatedLaterPassed": true,
+    "initialFullNodePassed": 3961,
+    "initialPythonPassed": 657,
+    "localFullRunCancelledForSourceDeclarationCorrection": true,
+    "correction": "Unique-context source inverse replaces whole-file hunks while retaining original SHA pins. An initial generator incorrectly considered test-results; only source-scan enumeration was corrected, final source then fully tested. Cancelled local logs retained; no native/CI run cancelled or rerun.",
+    "allAvailableIterationLogsRetained": true
+  },
+  "quality": {
+    "artApproved": false,
+    "fullAnimationComplete": false,
+    "wholeGameAccepted": false,
+    "newScore": null,
+    "release": "BLOCKED"
+  }
+}

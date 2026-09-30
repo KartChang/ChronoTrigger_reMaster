@@ -1,7 +1,9 @@
-# Recovery entry — v48，直接用唯一N
+# Recovery entry — v49，使用O／CI112
 
-本檔名稱沿用，不是重做E。確認main一次，读STATUS／TODO／T05_ANIMATION_CHECKPOINT v48。N source 9f6b6c66a51fb0856618d36318470fefa58e74a3／tree7d4e43fb4ce50cfe5e7458171ac2662033bac2a0／0.9.87。CI111／36609405380／push／attempt1／exact N：in_progress，conclusion=null；provider updated 2026-09-29T18:04:15Z。 只接exact N，不重送source、不rerun、不dispatch；pending存checkpoint。CI110／M已完成限定審查，不再等待。
+這是現行恢復入口，不是重做E。Authority main STATUS／TODO／T05_ANIMATION_CHECKPOINT v49。main確認一次、讀三檔直接接續。O0.9.88 source 9a433ecf4a1009e1ec80cf6ddc68abc4cb6ce070／tree df5a30d996937d4d4cc9bc399a136e5a24a7f3d7已一次發布。
 
-程式恢復Drive 1OlTMP27yhci9bgPVUn4tU0szRlU2dnzy的Chrono-VQ04N-production-batch.zip：5365405bytes，SHA256 7a1598a6ce12315e8c1cb94a15df9e733f4b3f2dca98ad0e3e01958a8789c8e6。此ID的早期WIP已由最後全測包替換，舊收據的unpublished是push前時間點，不是另一candidate。恢復program-vq04n.tar.gz的780檔，不含docs/node_modules；最新docs取GitHub main。N完整失敗／成功logs、23delta、manifest、模型／offline圖都在同包。
+唯一CI11236649789710 exact O／push／attempt1，最後in_progress，updated2026-09-30T00:19:55Z。Pending留checkpoint不長poll；完成只讀matching原始產物和真實terminal。CI111 exact N已failure，不等待N、不rerun/dispatch/重送O。M／CI110／Pages104限定review已完成，歷史整包不重審。
 
-工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只恢復node_modules/esbuild hardlink，不覆盖source/config、不開bootstrap CI。唯一folder1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb。需要M舊證據時直接用已確認ID，search空不能認定不存在；不再整包審計CI110。No localbrowser/native造數；原門檻及held保持；所有完整批准false／newScore=null／releaseBLOCKED。
+程式包Drive 1IDOkAIndp-GrrOSxfF5vE5rjl3QyJ1sE，33275598bytes，SHA256 c6111b13401ab9c04730a7fdad3ac4013aa81a77def50707de0c945edfaa40d3；96manifest／792snapshot／24delta，已真正回下載核對。從program-vq04o.tar.gz恢復，不含docs/node_modules，不能蓋最新main文件。同ID早期WIP與pre-push unpublished只是歷史。工具鏈1JItxu6LhYFyTwMysm7mlY4lQsClUrvjE只取node_modules/esbuild hardlink，不覆蓋source/config。
+
+唯一folder 1UhnvGAlVgAySLaV2Oka0LjNidTaxMeEb；直接用已確認ID，search空不等於不存在。實際美術剩餘屋頂／場景樹列／山道法庭家具／門口遮擋及地圖城鎮室內切換按TODO；O16樹與K/L/M/N已完成部分不重做。No localbrowser/native造數，held prologue2711a74185aacf3c6bddf9db85ba99a2afbc507a不變；完整批准false/newScore=null/releaseBLOCKED。容器非權威。

@@ -8,7 +8,7 @@ const SITES:Readonly<Record<string,readonly(readonly[number,number,number])[]>>=
 });
 type Owner={root:TransformNode;trees:Mesh[];added:Mesh[];observer:ReturnType<TransformNode['onDisposeObservable']['addOnce']>};
 /** The same static scene pass runs on CPU and WebGL. Original trees, textures, colliders and State are never written. */
-export function installProductionGrove(scene:Scene){
+export function installProductionGrove(scene:Scene,treeShape?:(owner:string,x:number,z:number,positions:readonly number[])=>number[]|null){
  if(scene.isDisposed)throw new Error('A live scene is required');
  const owners=new Map<TransformNode,Owner>(),textures=new Map<GroveSurface,DynamicTexture>(),materials=new Map<GroveSurface,StandardMaterial>();
  const rejected=new WeakSet<TransformNode>();let disposed=false,uploads=0,rejections=0;
@@ -22,7 +22,10 @@ export function installProductionGrove(scene:Scene){
    const mat=m.material,t=mat instanceof StandardMaterial?mat.diffuseTexture:null;
    if(!(mat instanceof StandardMaterial)||mat.name!==root.name.slice(8)+'-oak'||!(t instanceof DynamicTexture)||mat.emissiveTexture!==t||!t.hasAlpha||t.samplingMode!==Texture.NEAREST_SAMPLINGMODE||t.getSize().width!==64||t.getSize().height!==80)return null;
    const shape=VertexData.CreatePlane({width:w,height:w*1.25});
-   for(const [key,expected]of [[VertexBuffer.PositionKind,shape.positions!],[VertexBuffer.NormalKind,shape.normals!],[VertexBuffer.UVKind,shape.uvs!]] as const){const actual=m.getVerticesData(key);if(!actual||actual.length!==expected.length||Array.from(actual).some((v,i)=>!Number.isFinite(v)||Math.abs(v-expected[i]!)>1e-5))return null;}
+   const authored=treeShape?.(root.name,x,z,Array.from(shape.positions!))??null;
+   // Admit either the unchanged base plane or the exact active row author's actual
+   // positions. UV, normals, textures, roots and all other drift gates stay exact.
+   for(const [key,expected]of [[VertexBuffer.PositionKind,shape.positions!],[VertexBuffer.NormalKind,shape.normals!],[VertexBuffer.UVKind,shape.uvs!]] as const){const actual=m.getVerticesData(key);if(!actual||actual.length!==expected.length||Array.from(actual).some((v,i)=>!Number.isFinite(v)||Math.abs(v-expected[i]!)>1e-5)){if(key!==VertexBuffer.PositionKind||!actual||!authored||actual.length!==authored.length||Array.from(actual).some((v,i)=>!Number.isFinite(v)||!Number.isFinite(authored[i])||Math.abs(v-authored[i]!)>1e-5))return null;}}
    const indices=m.getIndices();if(!indices||indices.length!==shape.indices!.length||Array.from(indices).some((v,i)=>v!==shape.indices![i]))return null;
    selected.push(m);
   }

@@ -1,0 +1,46 @@
+{
+  "schema": "chrono-vq04o-unchanged-inputs-v1",
+  "rootFiles": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "roots": [
+    ".github",
+    "assets",
+    "quality",
+    "scripts",
+    "site",
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "assets/manifest.json",
+    "scripts/build.mjs",
+    "scripts/production-tree-row-export.mjs",
+    "scripts/test-production-composition.mjs",
+    "scripts/test-production-row-recovery.mjs",
+    "scripts/test.mjs",
+    "src/art-directed-world.ts",
+    "src/production-grove-finish.ts",
+    "src/production-tree-row-art.ts",
+    "src/production-tree-row-finish.ts",
+    "src/render-capability.ts",
+    "src/software-overload-budget.ts",
+    "tests/baselines/vq04o-declared-edits.json",
+    "tests/baselines/vq04o-unchanged-inputs.json",
+    "tests/composition_n_preservation.py",
+    "tests/composition_n_test.py",
+    "tests/current_build_test.py",
+    "tests/helpers/composition-n-baseline.mjs",
+    "tests/helpers/row-o-baseline.mjs",
+    "tests/production-composition-source.test.mjs",
+    "tests/production-row-recovery.test.mjs",
+    "tests/production-row-source.test.mjs",
+    "tests/row_o_preservation.py",
+    "tests/row_o_test.py"
+  ],
+  "expectedCount": 763,
+  "sha256": "dda15899d98e0500e4c7353e4254632314560e3780dbd4c2e7d6e4deb3461d1b"
+}

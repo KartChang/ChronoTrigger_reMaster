@@ -1,3 +1,4 @@
+import {SoftwareOverloadBudget} from './software-overload-budget';
 import {FrameWindow} from './frame-window';
 export type RenderMode='auto'|'quality'|'compatibility';
 export type BackendHint='software'|'unverified'|'cpu';
@@ -48,12 +49,13 @@ export class RenderBudget {
  inspect(){return {level:this.level,samples:this.samples.length,warmup:this.warmup};}
 }
 export class RenderPolicy {
- private mode:RenderMode='auto';private budget=new RenderBudget();private frames=new FrameWindow();
+ private mode:RenderMode='auto';private budget=new RenderBudget();private frames=new FrameWindow();private softwareOverload=new SoftwareOverloadBudget();
  constructor(readonly hint:BackendHint){}
- setMode(value:unknown){this.mode=renderMode(value);this.budget.reset();this.frames.reset();}
- sample(ms:number,active:boolean){this.frames.sample(ms,active);return this.budget.sample(ms,active&&this.mode==='auto');}
- scale(width:number,height:number,dpr:number){return this.hint==='cpu'?cpuRenderScale(this.mode,this.budget.inspect().level,width,height,dpr):renderScale(this.mode,this.hint,this.budget.inspect().level,width,height,dpr);}
- inspect(){const b=this.budget.inspect();return {profile:RENDER_PROFILE,mode:this.mode,backendHint:this.hint==='cpu'?'software':this.hint,densityPolicy:this.hint==='cpu'?'cpu-pixel-budget':'webgl-density',frames:this.frames.inspect(),
-  reason:this.mode==='quality'?'user-quality':this.mode==='compatibility'?'user-compatibility':b.level?'sustained-frame-budget':this.hint==='cpu'?'cpu-pixel-budget':this.hint==='software'?'software-driver-hint':'browser-default',
-  ...b,browserChoosesBackend:true,forcedSoftware:false,canvas2dFallback:false,physicalDeviceApproved:false};}
+ setMode(value:unknown){this.mode=renderMode(value);this.budget.reset();this.frames.reset();this.softwareOverload.reset();}
+ sample(ms:number,active:boolean){this.frames.sample(ms,active);const before=this.effectiveLevel(),ordinary=this.budget.sample(ms,active&&this.mode==='auto');this.softwareOverload.sample(ms,active&&this.mode==='auto'&&this.hint==='software');return ordinary||this.effectiveLevel()>before;}
+ private effectiveLevel(){return Math.max(this.budget.inspect().level,this.softwareOverload.inspect().level);}
+ scale(width:number,height:number,dpr:number){return this.hint==='cpu'?cpuRenderScale(this.mode,this.budget.inspect().level,width,height,dpr):renderScale(this.mode,this.hint,this.effectiveLevel(),width,height,dpr);}
+ inspect(){const b=this.budget.inspect(),overload=this.softwareOverload.inspect(),level=this.effectiveLevel();return {profile:RENDER_PROFILE,mode:this.mode,backendHint:this.hint==='cpu'?'software':this.hint,densityPolicy:this.hint==='cpu'?'cpu-pixel-budget':'webgl-density',frames:this.frames.inspect(),
+  reason:this.mode==='quality'?'user-quality':this.mode==='compatibility'?'user-compatibility':overload.level>b.level?'software-sustained-overload':b.level?'sustained-frame-budget':this.hint==='cpu'?'cpu-pixel-budget':this.hint==='software'?'software-driver-hint':'browser-default',
+  ...b,level,...(this.hint==='software'?{softwareOverload:overload}:{}),browserChoosesBackend:true,forcedSoftware:false,canvas2dFallback:false,physicalDeviceApproved:false};}
 }

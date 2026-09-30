@@ -436,6 +436,19 @@
         "scripts/production-composition-export.mjs"
       ],
       "romExtracted": false
+    },
+    {
+      "id": "600-tree-row-silhouettes-vq04o",
+      "required": true,
+      "stage": "review",
+      "source": "src/production-tree-row-art.ts; src/production-tree-row-finish.ts",
+      "gap": "Sixteen Truce/600 AD oak crowns have authored distinct upper outlines, unchanged planted lower edge and real original texture/UV. Existing root/moss/fern art retained. Offline geometry and export checks are not native-device, whole-scene or final-art approval.",
+      "evidence": [
+        "docs/PRODUCTION_ART_VQ04O.md",
+        "tests/production-row-recovery.test.mjs",
+        "scripts/production-tree-row-export.mjs"
+      ],
+      "romExtracted": false
     }
   ]
 }

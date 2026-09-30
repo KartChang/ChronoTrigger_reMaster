@@ -1,3 +1,5 @@
+import {reshapeTreeRow} from './production-tree-row-art';
+import {installProductionTreeRows} from './production-tree-row-finish';
 import {paintCompositionSurface,reshapeCourtFascia,reshapeProductionRoof} from './production-composition-art';
 import {dressProductionRoof} from './production-roof-art';
 import {installProductionGrove} from './production-grove-finish';
@@ -18,6 +20,7 @@ import {installProductionEnvironment} from './production-environment';
  * Every browser launch, including CPU fallback, uses this class (no test/device/quality bypass).
  */
 export class ArtDirectedWorld extends World {
+ private readonly treeRows:ReturnType<typeof installProductionTreeRows>;
  private readonly grove:ReturnType<typeof installProductionGrove>;
  private readonly architecture:ReturnType<typeof installProductionArchitecture>;
  private readonly npcAttention=new NpcAttention();
@@ -42,9 +45,10 @@ export class ArtDirectedWorld extends World {
   this.places=installProductionPlaces(scene);
   this.architecture=installProductionArchitecture(scene,dressProductionRoof,reshapeProductionRoof);
   this.sightlines=installProductionSightlines(scene);
-  this.grove=installProductionGrove(scene);
+  this.grove=installProductionGrove(scene,reshapeTreeRow);
+  this.treeRows=installProductionTreeRows(scene);
  }
  override draw(state:State,dt:number,animate:boolean,frameEffects:readonly Effect[]=[]):void{this.npcAttention.begin(state);this.storyNpcs.begin(state.chapter);this.actorFinish.begin(state.chapter);this.partyArt.begin(state.chapter);super.draw(state,dt,animate,frameEffects);}
- inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect(),earlyScenes:this.earlySceneFinish.inspect(),party:this.partyArt.inspect(),storyNpcs:this.storyNpcs.inspect(),npcAttention:this.npcAttention.inspect(),places:this.places.inspect(),architecture:this.architecture.inspect(),sightlines:this.sightlines.inspect(),grove:this.grove.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}
+ inspectProductionArt(){return {...this.productionEnvironment.inspect(),actors:this.actorFinish.inspect(),earlyScenes:this.earlySceneFinish.inspect(),party:this.partyArt.inspect(),storyNpcs:this.storyNpcs.inspect(),npcAttention:this.npcAttention.inspect(),places:this.places.inspect(),architecture:this.architecture.inspect(),sightlines:this.sightlines.inspect(),grove:this.grove.inspect(),treeRows:this.treeRows.inspect(),canyonHorizon:this.canyonHorizon.inspect()};}
  override inspect(){return {...super.inspect(),productionArt:this.inspectProductionArt()};}
 }

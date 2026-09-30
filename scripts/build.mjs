@@ -1,3 +1,4 @@
+import {exportProductionTreeRows} from './production-tree-row-export.mjs';
 import {exportProductionComposition} from './production-composition-export.mjs';
 import {exportProductionRoof} from './production-roof-export.mjs';
 import {exportProductionGrove} from './production-grove-export.mjs';
@@ -13,7 +14,7 @@ import {exportAssets} from './asset-export.mjs';
 import {runQuality} from './quality.mjs';
 import {build} from 'esbuild';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
-const buildInfo={version:'0.9.87',batch:'VQ04N',sourceSha:process.env.GITHUB_SHA??null};
+const buildInfo={version:'0.9.88',batch:'VQ04O',sourceSha:process.env.GITHUB_SHA??null};
 if(buildInfo.sourceSha!==null&&!/^[a-f0-9]{40}$/.test(buildInfo.sourceSha))throw Error('Invalid source SHA');
 const out=await build({entryPoints:['src/main.ts'],bundle:true,write:false,format:'iife',platform:'browser',target:['es2022'],minify:true,legalComments:'inline',metafile:true,define:{__CHRONO_BUILD__:JSON.stringify(buildInfo)}});
 let template=await readFile('index.html','utf8');
@@ -44,3 +45,5 @@ await exportProductionRoof('dist/art/production-vq04m');
 await exportProductionComposition('dist/art/production-vq04n');
 const quality=await runQuality();
 await writeFile('dist/QUALITY_STATUS.json',JSON.stringify(quality,null,2));
+
+await exportProductionTreeRows('dist/art/production-vq04o');
